@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<LanguageData>
+
+  <ROMV_Drain.Label>Истощение</ROMV_Drain.Label>
+  <ROMV_Drain.deathMessage>{0} умер от истощения.</ROMV_Drain.deathMessage>
+
+</LanguageData>

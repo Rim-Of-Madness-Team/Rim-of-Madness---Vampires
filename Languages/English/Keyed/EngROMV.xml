@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+
+<!-- 11-19-17 -->
+<ROMV_CannotPurgeMechanoids>{0} has no blood to purge.</ROMV_CannotPurgeMechanoids>
+
+<!-- 11-4-17 x2-->
+<ROMV_HI_UnusedCapacities>NAME is one with the dead. HISCAP corpse has no need for most bodily functions. HECAP CAN still force them to function, to pass for being one of the living or when absolutely necessary.</ROMV_HI_UnusedCapacities>
+<ROMV_HI_Unused>Unused</ROMV_HI_Unused>
+<ROMV_HI_Immunities>Prevents: disease, infections, temperature effects.</ROMV_HI_Immunities>
+<ROMV_HI_Vampirism>Vampirism</ROMV_HI_Vampirism>
+
+<!-- 11-4-17 -->
+<ROMV_HI_VampGeneration>Vampire ({0} Generation)</ROMV_HI_VampGeneration>
+<ROMV_HI_Generation>{0} Generation</ROMV_HI_Generation>
+<ROMV_HI_VitaeAvailable>{0} Starting Blood Points</ROMV_HI_VitaeAvailable>
+
+<!-- Used Ability Effects -->
+<!-- Animalism -->
+<ROMV_AnimalHerd>Herd</ROMV_AnimalHerd>
+<ROMV_AnimalHerdDesc>Feeling the will of unseen forces, a plethora of animals have flooded the area.</ROMV_AnimalHerdDesc>
+<!-- Auspex -->
+<ROMV_MindBeingRead>Mind being read: {0}</ROMV_MindBeingRead>
+<ROMV_HediffRemoved>{0} Removed</ROMV_HediffRemoved>
+
+<!-- Vampire Ability Buttons -->
+<ROMV_BloodPoints>Blood Points: {0}</ROMV_BloodPoints>
+<ROMV_NotEnoughBloodPoints>Not enough blood points.</ROMV_NotEnoughBloodPoints>
+
+<!-- Vampire Character Screen -->
+<ROMV_VampireSheet>Vampire Skill Sheet</ROMV_VampireSheet>
+<ROMV_CharacterSheet>Character Sheet</ROMV_CharacterSheet>
+<ROMV_VampireDesc>{0} generation vampire of the {1} bloodline.</ROMV_VampireDesc>
+<ROMV_Disciplines>Disciplines</ROMV_Disciplines>
+<ROMV_Level>Level</ROMV_Level>
+<ROMV_PointsAvailable>points available</ROMV_PointsAvailable>
+<ROMV_NotEnoughAbilityPoints>Requires {1} ability points. We have {0}.</ROMV_NotEnoughAbilityPoints>
+<ROMV_XPDesc>Vampires gain experience points from performing all manner of jobs around the colony.</ROMV_XPDesc>
+
+<!-- Float Menus -->
+<ROMV_Feed>Feed on {0}</ROMV_Feed>
+<ROMV_LethalWarning>(Lethal)</ROMV_LethalWarning>
+<ROMV_Sip>Sip {0}'s blood</ROMV_Sip>
+<ROMV_FeedVampire>Feed on {0} (Create blood bond)</ROMV_FeedVampire>
+<ROMV_Diablerie>Diablerie on {0} (Consume soul)</ROMV_Diablerie>
+<ROMV_DiablerieNoBenefit>(No benefit: Higher generation)</ROMV_DiablerieNoBenefit>
+<ROMV_Embrace>Embrace {0} (Give vampirism)</ROMV_Embrace>
+<ROMV_CannotEmbrace>Cannot embrace {0}</ROMV_CannotEmbrace>
+<ROMV_EnterTorpor>Enter torpor state (Sleep indefinitely)</ROMV_EnterTorpor>
+
+
+<ROMV_VampireBirthday>{0} has reached the biological age of {1}.\n\n{0} reaps the benefits of immortality and suffers no side effects or penalties for aging.</ROMV_VampireBirthday>
+
+<!-- Alerts -->
+<ROMV_Alert_StarvingVampire>Starving vampire</ROMV_Alert_StarvingVampire>
+<ROMV_Alert_StarvingVampireDesc>There are starving. If they do not feed quickly, they may awaken their inner beast.\n\nThese are the starving vampires:\n {0}\n\nTip! Right click coffins to make a vamprie enter a torpor state, preventing them from turning into the beast.</ROMV_Alert_StarvingVampireDesc>
+<ROMV_Alert_VampireInTheSun>Vampire in sunlight</ROMV_Alert_VampireInTheSun>
+<ROMV_Alert_VampireInTheSunDesc>There are vampires in direct sunlight. Be sure to move them quickly under a roof before the sun burns them into ashes.\n\nThese are the vampires out in sunlight:\n {0}</ROMV_Alert_VampireInTheSunDesc>
+
+<!-- Messages -->
+<ROMV_Caravan_WarningMixedWithVampires>Load vampires in caskets first or send an all-vampire caravan.</ROMV_Caravan_WarningMixedWithVampires>
+<ROMV_EmbracedSuccessfully>{0} has become a vampire, childe of {1} of {2} blood.</ROMV_EmbracedSuccessfully>
+<ROMV_DiablerieSuccessfully>{0} has consumed {1}'s soul.</ROMV_DiablerieSuccessfully>
+<ROMV_BloodDepletedVamp>{0}'s vitae has nearly run dry. Feed soon or the beast will surface.</ROMV_BloodDepletedVamp>
+<ROMV_BloodDepleted>{0}/'s blood has run dry.</ROMV_BloodDepleted>
+<ROMV_DeadlyOperation>This operation will kill {0}</ROMV_DeadlyOperation>
+
+<!-- Hediff Info -->
+<ROMV_DamageSoaked>{0} absorbed</ROMV_DamageSoaked>
+<ROMV_HI_BodySize>Body Size: {0}</ROMV_HI_BodySize>
+<ROMV_HI_HealthScale>Health Scale: {0}</ROMV_HI_HealthScale>
+<ROMV_HI_DamageSoaked>Soak Amount: {0}</ROMV_HI_DamageSoaked>
+<ROMV_HI_Bloodline>Bloodline: {0}</ROMV_HI_Bloodline>
+<ROMV_HI_Sire>Sire: {0}</ROMV_HI_Sire>
+<ROMV_HI_Childer>Childer: {0}</ROMV_HI_Childer>
+<ROMV_HI_Souls>Souls: {0}</ROMV_HI_Souls>
+<ROMV_HI_Thralls>Thralls: {0}</ROMV_HI_Thralls>
+<ROMV_HI_None>None</ROMV_HI_None>
+<ROMV_HI_Thinblooded>Thinblooded\n\nNote: Thinbloods cannot make new vampires, and their powers take twice as much vitae.</ROMV_HI_Thinblooded>
+<ROMV_Thinblooded>Thinblooded</ROMV_Thinblooded>
+
+<!-- Needs Blood Bar -->
+<ROMV_Vitae>Vitae</ROMV_Vitae>
+<ROMV_VitaeDesc>Once blood enters a vampire's system, it becomes vitae, the source of a vampire's power. This blood infected with the curse of Caine can be gained after feeding on the blood of others. Vampires use one blood point to animate their undead bodies from sleeping each day. Low blood can make a vampire unleash its inner beast.</ROMV_VitaeDesc>
+<ROMV_BloodTypeAnimal>animal</ROMV_BloodTypeAnimal>
+<ROMV_BloodTypeAverage>average</ROMV_BloodTypeAverage>
+<ROMV_BloodTypeLow>lowblood</ROMV_BloodTypeLow>
+<ROMV_BloodTypeHigh>highblood</ROMV_BloodTypeHigh>
+<ROMV_BloodType_Unavailable>unknown</ROMV_BloodType_Unavailable>
+<ROMV_FeedMode_Tip>Blood Feed Mode\n\nThis determines what and how this vampire acquires its vitae by itself. Non-lethal mode will drain targets, but never drain them dry. Lethal mode will drain the target for as much vitae as possible disregarding the safety of the victim.</ROMV_FeedMode_Tip>
+<ROMV_FeedMode_CurrentMode>Current Mode</ROMV_FeedMode_CurrentMode>
+<ROMV_FeedMode_None>No AI feeding</ROMV_FeedMode_None>
+<ROMV_FeedMode_AnimalNonLethal>Animal (Non-Lethal)</ROMV_FeedMode_AnimalNonLethal>
+<ROMV_FeedMode_AnimalLethal>Animal (Lethal)</ROMV_FeedMode_AnimalLethal>
+<ROMV_FeedMode_HumanoidNonLethal>Humanoid (Non-Lethal)</ROMV_FeedMode_HumanoidNonLethal>
+<ROMV_FeedMode_HumanoidLethal>Humanoid (Lethal)</ROMV_FeedMode_HumanoidLethal>
+
+<!-- Scenario Editer -->
+<ROMV_StartingVampires>Vampires</ROMV_StartingVampires>
+<ROMV_MaxVampires>max starting vampires</ROMV_MaxVampires>
+<ROMV_VampireGeneration>Generation Range {0}</ROMV_VampireGeneration>
+<ROMV_StartInCoffins>in (a) coffin(s)</ROMV_StartInCoffins>
+<ROMV_Chance>chance</ROMV_Chance>
+<ROMV_ChanceOf>{0} chance of</ROMV_ChanceOf>
+<ROMV_UnknownBloodline>unknown bloodline</ROMV_UnknownBloodline>
+<ROMV_StartingVampiresSummary>{0} will be (a) {1} generation {2} vampire(s){3}.</ROMV_StartingVampiresSummary>
+<!-- Start with 3 10th-13th generation Tremere vampires in coffins -->
+
+</LanguageData>

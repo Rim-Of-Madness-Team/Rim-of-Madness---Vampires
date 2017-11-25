@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_WarFormRace.label>Боевая форма</ROMV_WarFormRace.label>
+  <ROMV_WarFormRace.description>.</ROMV_WarFormRace.description>
+  <!-- Use Leather From: GrizzlyBear -->
+  <!-- Use Meat From: GrizzlyBear -->
+  <ROMV_WarFormRace_Corpse.label>труп боевой формы</ROMV_WarFormRace_Corpse.label>
+  <ROMV_WarFormRace_Corpse.description>Мёртвое тело боевой формы.</ROMV_WarFormRace_Corpse.description>
+
+
+</LanguageData>

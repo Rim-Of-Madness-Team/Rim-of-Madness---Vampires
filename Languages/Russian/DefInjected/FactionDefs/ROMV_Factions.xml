@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LanguageData>
+
+  <ROMV_LegendaryVampires.Label>Спящие</ROMV_LegendaryVampires.Label>
+  <ROMV_LegendaryVampires.Description>Легендарный род, вампиры, несущие власть формируют или уничтожают мир.</ROMV_LegendaryVampires.Description>
+  <ROMV_LegendaryVampires.fixedName>Спящие</ROMV_LegendaryVampires.fixedName>
+
+  <ROMV_Camarilla.Label>Камарилла</ROMV_Camarilla.Label>
+  <ROMV_Camarilla.Description>Камарилла - самая большая из вампирских сект, свободная организация, которая якобы представляет и защищает всех вампиров. Их цель - сохранить статус-кво родственного общества; как такового, большую часть его структуры и традиций
+  что в обществе каинитов в феодальной Европе в темные века и ставит его в противоречие с повесткой дня Шабаша и Анархов, обе из которых стремятся свергнуть родственное общество.</ROMV_Camarilla.Description>
+  <ROMV_Camarilla.fixedName>Камарилла</ROMV_Camarilla.fixedName>
+  <ROMV_Camarilla.leaderTitle>Принц</ROMV_Camarilla.leaderTitle>
+
+  <ROMV_Anarch.Label>Анарх</ROMV_Anarch.Label>
+  <ROMV_Anarch.Description>Анархи - вампиры, которые отвергают статус-кво общества Каинита. В результате организация анархов называется Движением Анархов.</ROMV_Anarch.Description>
+  <ROMV_Anarch.fixedName>Анархи</ROMV_Anarch.fixedName>
+  <ROMV_Anarch.leaderTitle>Барон</ROMV_Anarch.leaderTitle>
+
+  <ROMV_Sabbat.Label>Шабаш</ROMV_Sabbat.Label>
+  <ROMV_Sabbat.Description>Шабаш - свободная организация Каинитов, которые отвергают Традиции. В отличие от Камарильи, Шабаш верит в допотопных и каина. Также известный как Меч Каина, поскольку они считают, что они будут армией, которую Каин будет использовать для
+ уничтожения допотопных после прибытия Геенны.</ROMV_Sabbat.Description>
+  <ROMV_Sabbat.leaderTitle>Босс</ROMV_Sabbat.leaderTitle>
+
+</LanguageData>

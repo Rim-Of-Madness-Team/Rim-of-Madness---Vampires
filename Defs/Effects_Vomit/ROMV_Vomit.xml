@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <EffecterDef>
+    <defName>ROMV_BloodVomit</defName>
+    <children>
+      <li>
+        <subEffecterClass>SubEffecter_SprayerContinuous</subEffecterClass>
+        <scale>
+          <min>0.5</min>
+          <max>0.7</max>
+        </scale>
+        <ticksBetweenMotes>20</ticksBetweenMotes>
+        <positionLerpFactor>0.35</positionLerpFactor>
+        <positionRadius>0.2</positionRadius>
+        <moteDef>ROMV_Mote_BloodVomitBit</moteDef>
+      </li>
+    </children>
+  </EffecterDef>
+
+
+  <ThingDef ParentName="FoodBitBase">
+    <defName>ROMV_Mote_BloodVomitBit</defName>
+    <graphicData>
+      <texPath>Things/Mote/BloodVomitBit</texPath>
+      <shaderType>Mote</shaderType>
+    </graphicData>
+  </ThingDef>
+
+  <!--=============== Bases ==============-->
+
+  <ThingDef Name="MoteBase" Abstract="True">
+    <thingClass>MoteThrown</thingClass>
+    <label>Mote</label>
+    <category>Mote</category>
+    <graphicData>
+      <graphicClass>Graphic_Mote</graphicClass>
+      <shaderType>Mote</shaderType>
+    </graphicData>
+    <altitudeLayer>MoteLow</altitudeLayer>
+    <tickerType>Normal</tickerType>
+    <useHitPoints>false</useHitPoints>
+    <isSaveable>false</isSaveable>
+    <rotatable>false</rotatable>
+  </ThingDef>
+
+  <ThingDef ParentName="MoteBase" Name="FoodBitBase" Abstract="True">
+    <graphicData>
+      <shaderType>Cutout</shaderType>
+    </graphicData>
+    <altitudeLayer>Projectile</altitudeLayer>
+    <mote>
+      <fadeInTime>0.08</fadeInTime>
+      <solidTime>0.4</solidTime>
+      <fadeOutTime>0.25</fadeOutTime>
+    </mote>
+  </ThingDef>
+
+
+</Defs>

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_Protean_BatForm.label>Форма летучей мыши</ROMV_Protean_BatForm.label>
+  <ROMV_Protean_BatForm.description>Станьте одним из детей ночи и получите возможность летать с большой скоростью.</ROMV_Protean_BatForm.description>
+
+  <ROMV_Protean_FeralClaws.label>Когти зверя</ROMV_Protean_FeralClaws.label>
+  <ROMV_Protean_FeralClaws.description>Ногти вампира вырастают в длинные, страшные когти, способные раздирать кости и плоть.</ROMV_Protean_FeralClaws.description>
+
+  <ROMV_Protean_MistForm.label>Форма тумана</ROMV_Protean_MistForm.label>
+  <ROMV_Protean_MistForm.description>Эта сила позволяет сородичу превратить все свое тело в прекрасный, пугающий туман, который невосприимчив к повреждению и не может атаковать.</ROMV_Protean_MistForm.description>
+
+  <ROMV_Protean_WarForm.label>Боевая форма</ROMV_Protean_WarForm.label>
+  <ROMV_Protean_WarForm.description>Вы принимаете колоссальный вид, подходящий для борьбы с вражеской ордой.</ROMV_Protean_WarForm.description>
+
+
+</LanguageData>

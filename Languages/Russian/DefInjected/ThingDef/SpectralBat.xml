@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_BatSpectralRace.label>Спектральная летучая мышь</ROMV_BatSpectralRace.label>
+  <ROMV_BatSpectralRace.description>Призрачное летающее существо, напоминающее летучую мышь вампира.</ROMV_BatSpectralRace.description>
+  <!-- Leather Amount: 0 -->
+  <ROMV_BatSpectralRace_Meat.label>Мясо спектральной летучей мыши</ROMV_BatSpectralRace_Meat.label>
+  <ROMV_BatSpectralRace_Meat.description>мясо спектральной летучей мыши.</ROMV_BatSpectralRace_Meat.description>
+  <ROMV_BatSpectralRace_Corpse.label>труп спектральной летучей мыши</ROMV_BatSpectralRace_Corpse.label>
+  <ROMV_BatSpectralRace_Corpse.description>Мёртвая спектральная летучая мышь.</ROMV_BatSpectralRace_Corpse.description>
+
+
+</LanguageData>

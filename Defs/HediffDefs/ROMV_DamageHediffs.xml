@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <!-- Injuries -->
+
+	<HediffDef ParentName="InjuryBase">
+		<defName>ROMV_DrainHediff</defName>
+		<label>drain</label>
+    <comps>
+      <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>
+          <min>15000</min>
+          <max>15000</max>
+        </disappearsAfterTicks>
+      </li>
+    </comps>
+    <tendable>true</tendable>
+    <injuryProps>
+      <painPerSeverity>1.0125</painPerSeverity>
+      <averagePainPerSeverityOld>0.00625</averagePainPerSeverityOld>
+			<bleedRate>0.0</bleedRate>
+			<canMerge>true</canMerge>
+			<useRemovedLabel>true</useRemovedLabel>
+		</injuryProps>
+	</HediffDef>
+
+</Defs>

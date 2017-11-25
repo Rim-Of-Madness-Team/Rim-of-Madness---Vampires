@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LanguageData>
+
+  <ROMV_FortitudeIHediff.Label>Стойкость I (поглощение урона)</ROMV_FortitudeIHediff.Label>
+
+  <ROMV_FortitudeIIHediff.Label>Стойкость II (поглощение урона)</ROMV_FortitudeIIHediff.Label>
+
+  <ROMV_FortitudeIIIHediff.Label>Стойкость III (поглощение урона)</ROMV_FortitudeIIIHediff.Label>
+
+  <ROMV_FortitudeIVHediff.Label>Стойкость IV (поглощение урона)</ROMV_FortitudeIVHediff.Label>
+
+</LanguageData>

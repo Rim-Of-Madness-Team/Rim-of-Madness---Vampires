@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_LegendaryVampires.label>Спящие</ROMV_LegendaryVampires.label>
+  <ROMV_LegendaryVampires.description>Легендарный род, вампиры, несущие власть формируют или уничтожают мир.</ROMV_LegendaryVampires.description>
+  <ROMV_LegendaryVampires.fixedName>Спящие</ROMV_LegendaryVampires.fixedName>
+  <ROMV_LegendaryVampires.pawnsPlural>Спящие</ROMV_LegendaryVampires.pawnsPlural>
+
+  <ROMV_Camarilla.label>Камарилла</ROMV_Camarilla.label>
+  <ROMV_Camarilla.description>Камарилла - самая большая из вампирских сект, свободная организация, которая якобы представляет и защищает всех вампиров. Их цель - сохранить статус-кво родственного общества; как такового, большую часть его структуры и традиций
+  что в обществе каинитов в феодальной Европе в темные века и ставит его в противоречие с повесткой дня Шабаша и Анархов, обе из которых стремятся свергнуть родственное общество.</ROMV_Camarilla.description>
+  <ROMV_Camarilla.fixedName>Камарилла</ROMV_Camarilla.fixedName>
+  <ROMV_Camarilla.pawnsPlural>чужеземцы</ROMV_Camarilla.pawnsPlural>
+  <ROMV_Camarilla.leaderTitle>Принц</ROMV_Camarilla.leaderTitle>
+
+  <ROMV_Anarch.label>Анарх</ROMV_Anarch.label>
+  <ROMV_Anarch.description>Анархи - вампиры, которые отвергают статус-кво общества Каинита. В результате организация анархов называется Движением Анархов.</ROMV_Anarch.description>
+  <ROMV_Anarch.fixedName>Анархи</ROMV_Anarch.fixedName>
+  <ROMV_Anarch.pawnsPlural>Анархи</ROMV_Anarch.pawnsPlural>
+  <ROMV_Anarch.leaderTitle>Барон</ROMV_Anarch.leaderTitle>
+
+  <ROMV_Sabbat.label>Шабаш</ROMV_Sabbat.label>
+  <ROMV_Sabbat.description>Шабаш - свободная организация Каинитов, которые отвергают Традиции. В отличие от Камарильи, Шабаш верит в допотопных и каина. Также известный как Меч Каина, поскольку они считают, что они будут армией, которую Каин будет использовать для
+ уничтожения допотопных после прибытия Геенны.</ROMV_Sabbat.description>
+  <ROMV_Sabbat.pawnsPlural>Шабаш</ROMV_Sabbat.pawnsPlural>
+  <ROMV_Sabbat.leaderTitle>Босс</ROMV_Sabbat.leaderTitle>
+
+
+</LanguageData>

@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<LanguageData>
+
+<!-- Blood drain-related deaths -->
+
+  <ROMV_IConsumedASoul.stages.0.Label>Поглотил душу</ROMV_IConsumedASoul.stages.0.Label>
+  <ROMV_IConsumedASoul.stages.0.Description>Я никогда не чувствовал себя более живым!</ROMV_IConsumedASoul.stages.0.Description>
+
+  <ROMV_IGaveTheKiss.stages.0.Label>Выпил свежую кровь</ROMV_IGaveTheKiss.stages.0.Label>
+  <ROMV_IGaveTheKiss.stages.0.Description>Как удовлетворен.</ROMV_IGaveTheKiss.stages.0.Description>
+
+  <ROMV_IWasBittenByAVampire.stages.0.Label>Укушен вампиром</ROMV_IWasBittenByAVampire.stages.0.Label>
+  <ROMV_IWasBittenByAVampire.stages.0.Description>Вампир сосал мою кровь. Почему я?</ROMV_IWasBittenByAVampire.stages.0.Description>
+   <ROMV_IWasBittenByAVampire.stages.1.Label>Укушен вампиром</ROMV_IWasBittenByAVampire.stages.1.Label>
+   <ROMV_IWasBittenByAVampire.stages.1.Description>Вампир сосал мою кровь и мне понравилось?</ROMV_IWasBittenByAVampire.stages.1.Description>
+    <ROMV_IWasBittenByAVampire.stages.2.Label>Укушен хозяином</ROMV_IWasBittenByAVampire.stages.2.Label>
+    <ROMV_IWasBittenByAVampire.stages.2.Description>Я отдал свою кровь хозяину.</ROMV_IWasBittenByAVampire.stages.2.Description>
+  
+  
+  <ROMV_KnowGuestDiedOfBloodLoss.stages.0.Label>Оправданное обескровливание</ROMV_KnowGuestDiedOfBloodLoss.stages.0.Label>
+  <ROMV_KnowGuestDiedOfBloodLoss.stages.0.Description>Виновный заключенный или гость был обескровлен. Это кажется оправданным, но все же жестоким путем.</ROMV_KnowGuestDiedOfBloodLoss.stages.0.Description>
+   <ROMV_KnowGuestDiedOfBloodLoss.stages.1.Label>Кто-то обескровлен до смерти</ROMV_KnowGuestDiedOfBloodLoss.stages.1.Label>
+   <ROMV_KnowGuestDiedOfBloodLoss.stages.1.Description>Заключенный или гость умер, потому что колония опустошила всю кровь из их тел. Это ужасно.</ROMV_KnowGuestDiedOfBloodLoss.stages.1.Description>
+  
+  <ROMV_KnowColonistDiedOfBloodLoss.stages.0.Label>Оправданное обескровливание</ROMV_KnowColonistDiedOfBloodLoss.stages.0.Label>
+  <ROMV_KnowColonistDiedOfBloodLoss.stages.0.Description>Колонист был обескровлен. Это кажется оправданным, но все же жестоким путем.</ROMV_KnowColonistDiedOfBloodLoss.stages.0.Description>
+   <ROMV_KnowColonistDiedOfBloodLoss.stages.1.Label>Колонист обескровлен до смерти</ROMV_KnowColonistDiedOfBloodLoss.stages.1.Label>
+   <ROMV_KnowColonistDiedOfBloodLoss.stages.1.Description>Колонист умер, потому что колония опустошила всю кровь из его тела. Это ужасно.</ROMV_KnowColonistDiedOfBloodLoss.stages.1.Description>
+  
+<!-- Blood Harvesting -->
+
+  <ROMV_KnowGuestBloodHarvested.stages.0.Label>Чья-то кровь собрана</ROMV_KnowGuestBloodHarvested.stages.0.Label>
+  <ROMV_KnowGuestBloodHarvested.stages.0.Description>Колония взяла кровь у гостя или заключенного. Это неэтично, брать чью-то кровь, когда у них нет выбора.</ROMV_KnowGuestBloodHarvested.stages.0.Description>
+
+  <ROMV_MyBloodHarvested.stages.0.Label>Моя кровь собрана</ROMV_MyBloodHarvested.stages.0.Label>
+  <ROMV_MyBloodHarvested.stages.0.Description>Колония собрала у меня кровь. Боже! Что они думают, что я? Какой-то банк крови?</ROMV_MyBloodHarvested.stages.0.Description>
+
+</LanguageData>

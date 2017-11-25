@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+
+  <!--============================== Beds ==============================-->
+
+
+  <ThingDef ParentName="BuildingBase">
+    <defName>ROMV_RoyalCoffin</defName>
+    <label>Royal Coffin</label>
+    <thingClass>Vampire.Building_Coffin</thingClass>
+    <graphicData>
+      <texPath>Things/Building/Furniture/Coffin/RoyalCoffin/spoonshortageRoyalCoffin</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(3,3.5)</drawSize>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
+    </graphicData>
+    <description>An ornamented burial receptacle for the honored dead.</description>
+    <size>(1,2)</size>
+    <pathCost>70</pathCost>
+    <castEdgeShadows>true</castEdgeShadows>
+    <fillPercent>0.5</fillPercent>
+    <tickerType>Rare</tickerType>
+    <canOverlapZones>false</canOverlapZones>
+    <minifiedDef>MinifiedFurniture</minifiedDef>
+    <building>
+			<ai_chillDestination>false</ai_chillDestination>
+      <fullGraveGraphicData>
+				<texPath>Things/Building/Furniture/Coffin/RoyalCoffinFull/spoonshortageRoyalCoffinFull</texPath>
+				<graphicClass>Graphic_Multi</graphicClass>
+				<drawSize>(3,3.5)</drawSize>
+			</fullGraveGraphicData>
+      <fixedStorageSettings>
+        <filter>
+          <categories>
+            <li>Corpses</li>
+          </categories>
+        </filter>
+      </fixedStorageSettings>
+      <defaultStorageSettings>
+        <filter>
+          <categories>
+            <li>CorpsesHumanlike</li>
+          </categories>
+          <specialFiltersToDisallow>
+            <li>AllowCorpsesStranger</li>
+          </specialFiltersToDisallow>
+        </filter>
+      </defaultStorageSettings>
+    </building>
+    <statBases>
+      <MaxHitPoints>200</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+      <WorkToBuild>4000</WorkToBuild>
+      <Mass>60</Mass>
+    </statBases>
+    <stuffCategories>
+      <li>Woody</li>
+      <li>Metallic</li>
+      <li>Stony</li>
+    </stuffCategories>
+    <inspectorTabs>
+      <li>ITab_Storage</li>
+      <li>ITab_Art</li>
+    </inspectorTabs>
+    <comps>
+      <li Class="Vampire.CompProperties_VampBed">
+        <bedDef>ROMV_RoyalCoffinBed</bedDef>
+      </li>
+      <li>
+        <compClass>CompQuality</compClass>
+      </li>
+      <li Class="CompProperties_Art">
+        <nameMaker>ArtName_SarcophagusPlate</nameMaker>
+        <descriptionMaker>ArtDescription_SarcophagusPlate</descriptionMaker>
+        <mustBeFullGrave>true</mustBeFullGrave>
+      </li>
+    </comps>
+    <costStuffCount>60</costStuffCount>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>Standable</passability>
+    <blockWind>true</blockWind>
+    <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+    <staticSunShadowHeight>0.3</staticSunShadowHeight>
+    <designationCategory>Misc</designationCategory>
+    <designationHotKey>Misc9</designationHotKey>
+  </ThingDef>
+
+  <ThingDef ParentName="BuildingBase">
+    <defName>ROMV_RoyalCoffinBed</defName>
+    <label>sleeping spot</label>
+    <description>Designates a spot on the ground where people should sleep. Not comfortable.</description>
+    <thingClass>Building_Bed</thingClass>
+    <graphicData>
+      <texPath>Things/Building/Furniture/Coffin/RoyalCoffin/spoonshortageRoyalCoffin</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <drawSize>(3,3.5)</drawSize>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <costStuffCount>0</costStuffCount>
+    <stuffCategories>
+      <li>Woody</li>
+      <li>Metallic</li>
+      <li>Stony</li>
+    </stuffCategories>
+    <statBases>
+      <WorkToBuild>0</WorkToBuild>
+      <Beauty>25</Beauty>
+      <BedRestEffectiveness>1.05</BedRestEffectiveness>
+      <Comfort>0.90</Comfort>
+      <ImmunityGainSpeedFactor>1.1</ImmunityGainSpeedFactor>
+    </statBases>
+		<scatterableOnMapGen>false</scatterableOnMapGen>
+    <useHitPoints>False</useHitPoints>
+    <size>(1,2)</size>
+    <passability>Standable</passability>
+    <drawGUIOverlay>True</drawGUIOverlay>
+    <selectable>False</selectable>
+    <building>
+      <isEdifice>False</isEdifice>
+      <bed_showSleeperBody>True</bed_showSleeperBody>
+      <sowTag>SupportPlantsOnly</sowTag>
+      <canPlaceOverImpassablePlant>false</canPlaceOverImpassablePlant>
+      <ai_chillDestination>false</ai_chillDestination>
+    </building>
+		<comps>
+			<li Class="CompProperties_RoomIdentifier">
+				<roomStat>Impressiveness</roomStat>
+			</li>
+		</comps>
+  </ThingDef>
+
+
+  <ThingDef ParentName="BuildingBase">
+    <defName>ROMV_SarcophagusBed</defName>
+    <label>sleeping spot</label>
+    <description>Designates a spot on the ground where people should sleep. Not comfortable.</description>
+    <thingClass>Building_Bed</thingClass>
+    <graphicData>
+      <texPath>NullTex</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,1)</drawSize>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <costStuffCount>0</costStuffCount>
+    <stuffCategories>
+      <li>Woody</li>
+      <li>Metallic</li>
+      <li>Stony</li>
+    </stuffCategories>
+    <statBases>
+      <WorkToBuild>0</WorkToBuild>
+      <Comfort>0.4</Comfort>
+    </statBases>
+		<scatterableOnMapGen>false</scatterableOnMapGen>
+    <useHitPoints>False</useHitPoints>
+    <size>(1,2)</size>
+    <passability>Standable</passability>
+    <drawGUIOverlay>True</drawGUIOverlay>
+    <selectable>False</selectable>
+    <building>
+      <isEdifice>False</isEdifice>
+      <bed_showSleeperBody>True</bed_showSleeperBody>
+      <sowTag>SupportPlantsOnly</sowTag>
+      <canPlaceOverImpassablePlant>false</canPlaceOverImpassablePlant>
+      <ai_chillDestination>false</ai_chillDestination>
+    </building>
+		<comps>
+			<li Class="CompProperties_RoomIdentifier">
+				<roomStat>Impressiveness</roomStat>
+			</li>
+		</comps>
+  </ThingDef>
+
+
+
+    <ThingDef ParentName="BuildingBase">
+      <defName>ROMV_HideyHole</defName>
+      <label>odd dirt patch</label>
+      <thingClass>Vampire.Building_HideyHole</thingClass>
+      <graphicData>
+        <texPath>Things/Building/Misc/DirtPile</texPath>
+        <graphicClass>Graphic_Single</graphicClass>
+        <drawSize>(3,4)</drawSize>
+      </graphicData>
+      <constructEffect>ConstructDirt</constructEffect>
+      <altitudeLayer>FloorEmplacement</altitudeLayer>
+      <useHitPoints>false</useHitPoints>
+      <description>This patch seems out of place.</description>
+      <size>(1,2)</size>
+      <tickerType>Rare</tickerType>
+      <canOverlapZones>false</canOverlapZones>
+      <statBases>
+        <WorkToBuild>650</WorkToBuild>
+      </statBases>
+      <passability>PassThroughOnly</passability>
+      <building>
+  			<ai_chillDestination>false</ai_chillDestination>
+        <isInert>true</isInert>
+        <fullGraveGraphicData>
+  				<texPath>Things/Building/Misc/DirtPile</texPath>
+  				<graphicClass>Graphic_Single</graphicClass>
+  				<drawSize>(3,4)</drawSize>
+  			</fullGraveGraphicData>
+        <fixedStorageSettings>
+          <filter>
+            <categories>
+              <li>Corpses</li>
+            </categories>
+          </filter>
+        </fixedStorageSettings>
+        <defaultStorageSettings>
+          <filter>
+            <categories>
+              <li>CorpsesHumanlike</li>
+            </categories>
+          </filter>
+        </defaultStorageSettings>
+      </building>
+      <inspectorTabs>
+        <li>ITab_Storage</li>
+      </inspectorTabs>
+      <terrainAffordanceNeeded>Diggable</terrainAffordanceNeeded>
+      <designationCategory>Misc</designationCategory>
+      <designationHotKey>Misc8</designationHotKey>
+    </ThingDef>
+
+  <!--
+  ██████   █████  ███████ ███████
+  ██   ██ ██   ██ ██      ██
+  ██████  ███████ ███████ █████
+  ██   ██ ██   ██      ██ ██
+  ██████  ██   ██ ███████ ███████
+-->
+
+
+
+  <ThingDef Name="BuildingBase" Abstract="True">
+    <category>Building</category>
+    <thingClass>Building</thingClass>
+    <soundImpactDefault>BulletImpactMetal</soundImpactDefault>
+    <selectable>true</selectable>
+    <drawerType>MapMeshAndRealTime</drawerType>
+    <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+    <repairEffect>Repair</repairEffect>
+    <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+    <filthLeaving>BuildingRubble</filthLeaving>
+    <statBases>
+      <SellPriceFactor>0.70</SellPriceFactor>
+    </statBases>
+  </ThingDef>
+
+  <ThingDef Name="FurnitureBase" ParentName="BuildingBase" Abstract="True">
+    <comps>
+      <li>
+        <compClass>CompQuality</compClass>
+      </li>
+    </comps>
+    <DesignationCategory>Furniture</DesignationCategory>
+    <minifiedDef>MinifiedFurniture</minifiedDef>
+    <tradeTags>
+      <li>Furniture</li>
+    </tradeTags>
+  </ThingDef>
+
+  <ThingDef Name="ArtableFurnitureBase" ParentName="FurnitureBase" Abstract="True">
+    <comps>
+      <li Class="CompProperties_Art">
+        <nameMaker>ArtName_Furniture</nameMaker>
+        <descriptionMaker>ArtDescription_Furniture</descriptionMaker>
+        <minQualityForArtistic>Excellent</minQualityForArtistic>
+			</li>
+    </comps>
+    <inspectorTabs>
+      <li>ITab_Art</li>
+    </inspectorTabs>
+  </ThingDef>
+
+
+
+</Defs>

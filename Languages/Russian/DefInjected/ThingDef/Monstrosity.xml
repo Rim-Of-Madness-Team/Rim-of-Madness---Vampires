@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_MonstrosityRace.label>Чудовище</ROMV_MonstrosityRace.label>
+  <ROMV_MonstrosityRace.description>Чудовище с искаженной плотью и костями.</ROMV_MonstrosityRace.description>
+  <!-- Use Leather From: GrizzlyBear -->
+  <!-- Use Meat From: GrizzlyBear -->
+  <ROMV_MonstrosityRace_Corpse.label>мёртвое чудовище</ROMV_MonstrosityRace_Corpse.label>
+  <ROMV_MonstrosityRace_Corpse.description>Мёртвое чудовище.</ROMV_MonstrosityRace_Corpse.description>
+
+
+</LanguageData>

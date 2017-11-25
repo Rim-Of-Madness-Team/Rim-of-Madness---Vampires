@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- removing body parts -->
+
+  <ROMV_ExtractBloodVial.label>Извлечь флакон крови</ROMV_ExtractBloodVial.label>
+  <ROMV_ExtractBloodVial.description>Сделать флакон с кровью.</ROMV_ExtractBloodVial.description>
+  <ROMV_ExtractBloodVial.jobString>Извлекает кровь.</ROMV_ExtractBloodVial.jobString>
+
+  <ROMV_ExtractBloodPack.label>Извлечь пакет крови</ROMV_ExtractBloodPack.label>
+  <ROMV_ExtractBloodPack.description>Сделать пакет с кровью.</ROMV_ExtractBloodPack.description>
+  <ROMV_ExtractBloodPack.jobString>Извлекает кровь.</ROMV_ExtractBloodPack.jobString>
+
+
+</LanguageData>

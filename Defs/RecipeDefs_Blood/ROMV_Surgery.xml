@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <RecipeDef Abstract="True" Name="SurgeryFlesh">
+    <effectWorking>Surgery</effectWorking>
+    <soundWorking>Recipe_Surgery</soundWorking>
+    <workSpeedStat>MedicalOperationSpeed</workSpeedStat>
+    <workSkill>Medicine</workSkill>
+    <workSkillLearnFactor>16</workSkillLearnFactor>
+  </RecipeDef>
+
+	<!-- removing body parts -->
+
+  <RecipeDef ParentName="SurgeryFlesh">
+		<defName>ROMV_ExtractBloodVial</defName>
+		<label>extract blood vial</label>
+		<description>Makes a vial of blood.</description>
+		<workerClass>Vampire.Recipe_ExtractBloodVial</workerClass>
+		<jobString>Extracting blood.</jobString>
+		<workAmount>700</workAmount>
+    <hideBodyPartNames>true</hideBodyPartNames>
+	</RecipeDef>
+
+
+  <RecipeDef ParentName="SurgeryFlesh">
+		<defName>ROMV_ExtractBloodPack</defName>
+		<label>extract blood pack</label>
+		<description>Makes a pack of blood.</description>
+		<workerClass>Vampire.Recipe_ExtractBloodPack</workerClass>
+		<jobString>Extracting blood.</jobString>
+		<workAmount>1300</workAmount>
+    <hideBodyPartNames>true</hideBodyPartNames>
+	</RecipeDef>
+
+
+</Defs>

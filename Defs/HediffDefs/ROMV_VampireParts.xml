@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <!-- Added body parts -->
+
+    <HediffDef Name="ROMV_AddedBodyPartBase" Abstract="True">
+      <hediffClass>Hediff_AddedPart</hediffClass>
+      <defaultLabelColor>(0.6, 0.5, 0.9)</defaultLabelColor>
+    </HediffDef>
+
+
+  <HediffDef ParentName="ROMV_AddedBodyPartBase">
+    <defName>ROMV_Fangs</defName>
+    <label>fangs</label>
+	<hediffClass>Vampire.Hediff_AddedPart_Fangs</hediffClass>
+    <addedPartProps>
+      <isSolid>true</isSolid>
+      <partEfficiency>1.2</partEfficiency>
+    </addedPartProps>
+	<scenarioCanAdd>false</scenarioCanAdd>
+    <comps>
+      <li Class="HediffCompProperties_VerbGiver">
+        <tools>
+          <li>
+            <label>fangs</label>
+            <capacities>
+              <li>Bite</li>
+            </capacities>
+            <power>9</power>
+            <cooldownTime>1.65</cooldownTime>
+          </li>
+        </tools>
+      </li>
+    </comps>
+  </HediffDef>
+
+</Defs>

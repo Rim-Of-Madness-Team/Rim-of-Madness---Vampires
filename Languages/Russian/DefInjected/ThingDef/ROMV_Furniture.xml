@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Beds -->
+
+  <ROMV_RoyalCoffin.label>Роскошный гроб</ROMV_RoyalCoffin.label>
+  <ROMV_RoyalCoffin.description>Украшенное погребальное вместилище для почитаемых мертвецов.</ROMV_RoyalCoffin.description>
+  <ROMV_RoyalCoffin_Blueprint.label>Роскошный гроб (проект)</ROMV_RoyalCoffin_Blueprint.label>
+  <ROMV_RoyalCoffin_Blueprint_Install.label>Роскошный гроб (проект)</ROMV_RoyalCoffin_Blueprint_Install.label>
+  <ROMV_RoyalCoffin_Frame.label>Роскошный гроб (постройка)</ROMV_RoyalCoffin_Frame.label>
+  <ROMV_RoyalCoffin_Frame.description>Украшенное погребальное вместилище для почитаемых мертвецов.</ROMV_RoyalCoffin_Frame.description>
+
+  <ROMV_RoyalCoffinBed.label>спальное место</ROMV_RoyalCoffinBed.label>
+  <ROMV_RoyalCoffinBed.description>Определяет место на земле, где люди должны спать. Не удобно.</ROMV_RoyalCoffinBed.description>
+
+  <ROMV_SarcophagusBed.label>спальное место</ROMV_SarcophagusBed.label>
+  <ROMV_SarcophagusBed.description>Определяет место на земле, где люди должны спать. Не удобно.</ROMV_SarcophagusBed.description>
+
+  <ROMV_HideyHole.label>Странный участок грязи</ROMV_HideyHole.label>
+  <ROMV_HideyHole.description>Это пятно кажется неуместным.</ROMV_HideyHole.description>
+  <ROMV_HideyHole_Blueprint.label>Странный участок грязи (проект)</ROMV_HideyHole_Blueprint.label>
+  <ROMV_HideyHole_Frame.label>Странный участок грязи (постройка)</ROMV_HideyHole_Frame.label>
+  <ROMV_HideyHole_Frame.description>Это пятно кажется неуместным.</ROMV_HideyHole_Frame.description>
+
+
+
+</LanguageData>

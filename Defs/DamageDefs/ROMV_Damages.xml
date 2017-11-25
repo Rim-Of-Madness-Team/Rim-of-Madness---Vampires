@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <DamageDef Name="LocalInjuryBase" Abstract="True">
+    <workerClass>DamageWorker_AddInjury</workerClass>
+  </DamageDef>
+
+	<!-- Surgical cut: Makes it possible to remove inner organs without harming outer body parts -->
+	<DamageDef ParentName="LocalInjuryBase">
+		<defName>ROMV_Drain</defName>
+		<label>drain</label>
+    <externalViolence>true</externalViolence>
+		<deathMessage>{0} has been drained.</deathMessage>
+		<hediff>ROMV_DrainHediff</hediff>
+		<harmAllLayersUntilOutside>false</harmAllLayersUntilOutside>
+		<hasForcefulImpact>false</hasForcefulImpact>
+		<canInterruptJobs>false</canInterruptJobs>
+		<impactSoundType />
+		<armorCategory />
+	</DamageDef>
+</Defs>

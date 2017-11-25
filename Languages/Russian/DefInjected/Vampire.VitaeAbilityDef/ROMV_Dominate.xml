@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_Dominate_Mesmerise.label>Гипноз</ROMV_Dominate_Mesmerise.label>
+  <ROMV_Dominate_Mesmerise.description>Временно оглушает и очищает психическое состояние цели.</ROMV_Dominate_Mesmerise.description>
+
+  <ROMV_Dominate_Sleep.label>Сон</ROMV_Dominate_Sleep.label>
+  <ROMV_Dominate_Sleep.description>Цель засыпает примерно на 20 секунд или дольше, становясь полностью недееспособной.</ROMV_Dominate_Sleep.description>
+
+  <ROMV_Dominate_Suicide.label>Самоубийство</ROMV_Dominate_Suicide.label>
+  <ROMV_Dominate_Suicide.description>Вы навязываете свою волю жертве, чтобы страдала от смертельного приступа.</ROMV_Dominate_Suicide.description>
+
+  <ROMV_Dominate_Possession.label>Одержимость</ROMV_Dominate_Possession.label>
+  <ROMV_Dominate_Possession.description>Жертва временно присоединится к вашей стороне, пока она в конце концов не умрет от остановки сердца.</ROMV_Dominate_Possession.description>
+
+
+</LanguageData>

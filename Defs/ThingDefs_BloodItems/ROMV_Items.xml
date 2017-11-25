@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!--================== Bases ==================-->
+
+  <ThingDef Name="ResourceBase" Abstract="True">
+    <thingClass>ThingWithComps</thingClass>
+    <category>Item</category>
+    <resourceReadoutPriority>Middle</resourceReadoutPriority>
+    <useHitPoints>true</useHitPoints>
+    <selectable>true</selectable>
+    <altitudeLayer>Item</altitudeLayer>
+    <stackLimit>75</stackLimit>
+    <statBases>
+      <Beauty>-4</Beauty>
+    </statBases>
+    <comps>
+      <li Class="CompProperties_Forbiddable"/>
+    </comps>
+    <alwaysHaulable>true</alwaysHaulable>
+    <drawGUIOverlay>true</drawGUIOverlay>
+    <rotatable>false</rotatable>
+    <pathCost>15</pathCost>
+  </ThingDef>
+
+  <ThingDef ParentName="ResourceBase" Name="ROMV_BloodVial" Abstract="true">
+    <graphicData>
+      <texPath>Things/Item/Resource/BloodVial</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <soundInteract>Standard_Drop</soundInteract>
+    <soundDrop>Standard_Drop</soundDrop>
+    <socialPropernessMatters>true</socialPropernessMatters>
+    <statBases>
+      <MaxHitPoints>60</MaxHitPoints>
+      <MarketValue>30</MarketValue>
+      <Mass>0.075</Mass>
+      <Flammability>1.0</Flammability>
+      <DeteriorationRate>8</DeteriorationRate>
+    </statBases>
+    <thingCategories>
+      <li>Foods</li>
+    </thingCategories>
+    <ingestible>
+      <preferability>DesperateOnly</preferability>
+      <foodType>Processed</foodType>
+      <nutrition>0.10</nutrition>
+      <joy>0.10</joy>
+      <joyKind>Gluttonous</joyKind>
+      <maxNumToIngestAtOnce>1</maxNumToIngestAtOnce>
+      <ingestSound>Ingest_Beer</ingestSound>
+      <ingestCommandString>Drink {0}</ingestCommandString>
+      <ingestReportString>Drinking {0}.</ingestReportString>
+    </ingestible>
+    <stackLimit>10</stackLimit>
+  </ThingDef>
+
+  <ThingDef ParentName="ResourceBase" Name="ROMV_BloodPack" Abstract="true">
+    <graphicData>
+      <texPath>Things/Item/Resource/BloodPack</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <soundInteract>Standard_Drop</soundInteract>
+    <soundDrop>Standard_Drop</soundDrop>
+    <socialPropernessMatters>true</socialPropernessMatters>
+    <statBases>
+      <MaxHitPoints>60</MaxHitPoints>
+      <MarketValue>60</MarketValue>
+      <Mass>0.145</Mass>
+      <Flammability>1.0</Flammability>
+      <DeteriorationRate>8</DeteriorationRate>
+    </statBases>
+    <thingCategories>
+      <li>Foods</li>
+    </thingCategories>
+    <ingestible>
+      <preferability>DesperateOnly</preferability>
+      <foodType>Processed</foodType>
+      <nutrition>0.20</nutrition>
+      <joy>0.10</joy>
+      <joyKind>Gluttonous</joyKind>
+      <maxNumToIngestAtOnce>1</maxNumToIngestAtOnce>
+      <ingestSound>Ingest_Beer</ingestSound>
+      <ingestCommandString>Drink {0}</ingestCommandString>
+      <ingestReportString>Drinking {0}.</ingestReportString>
+    </ingestible>
+    <stackLimit>5</stackLimit>
+  </ThingDef>
+
+  <!--
+  ██████   █████   ██████ ██   ██ ███████
+  ██   ██ ██   ██ ██      ██  ██  ██
+  ██████  ███████ ██      █████   ███████
+  ██      ██   ██ ██      ██  ██       ██
+  ██      ██   ██  ██████ ██   ██ ███████
+-->
+
+
+
+  <ThingDef ParentName="ROMV_BloodPack">
+    <defName>BloodPack_Animal</defName>
+    <label>blood pack (animal)</label>
+    <description>Animal blood collected for consumption. (1 blood point)</description>
+	<statBases>
+      <MaxHitPoints>60</MaxHitPoints>
+      <MarketValue>10</MarketValue>
+      <Mass>0.145</Mass>
+      <Flammability>1.0</Flammability>
+      <DeteriorationRate>8</DeteriorationRate>
+    </statBases>
+    <comps>
+      <li Class="Vampire.CompProperties_BloodItem">
+        <bloodType>Animal</bloodType>
+        <bloodPoints>1</bloodPoints>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="ROMV_BloodPack">
+    <defName>BloodPack_LowBlood</defName>
+    <label>blood pack (lowblood)</label>
+    <description>Lowblood, or blood that doesn't meet higher regal standards (prostitutes, slaves, homeless, or the sickly), collected in a small vial. (3 blood points)</description>
+    <comps>
+      <li Class="Vampire.CompProperties_BloodItem">
+        <bloodType>LowBlood</bloodType>
+        <bloodPoints>3</bloodPoints>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="ROMV_BloodPack">
+    <defName>BloodPack_AverageBlood</defName>
+    <label>blood pack (average)</label>
+    <description>Blood that is neither too outstanding for the rugged vamp nor too low-class for consumption by higher members of vampire society. (3 blood points)</description>
+    <comps>
+      <li Class="Vampire.CompProperties_BloodItem">
+        <bloodType>AverageBlood</bloodType>
+        <bloodPoints>3</bloodPoints>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="ROMV_BloodPack">
+    <defName>BloodPack_HighBlood</defName>
+    <label>blood pack (highblood)</label>
+    <description>Highblood, or blood suitable for regal vampires (the blood of aristocrats, wealthy individuals, or gliterworlders), stored in a pack. (3 blood points)</description>
+    <comps>
+      <li Class="Vampire.CompProperties_BloodItem">
+        <bloodType>HighBlood</bloodType>
+        <bloodPoints>3</bloodPoints>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <!--
+  ██    ██ ██  █████  ██      ███████
+  ██    ██ ██ ██   ██ ██      ██
+  ██    ██ ██ ███████ ██      ███████
+   ██  ██  ██ ██   ██ ██           ██
+    ████   ██ ██   ██ ███████ ███████
+  -->
+
+  <ThingDef ParentName="ROMV_BloodVial">
+    <defName>BloodVial_LowBlood</defName>
+    <label>blood vial (low)</label>
+    <description>Lowblood, or blood that doesn't meet higher regal standards, collected in a small vial. (1 blood point)</description>
+    <comps>
+      <li Class="Vampire.CompProperties_BloodItem">
+        <bloodType>LowBlood</bloodType>
+        <bloodPoints>1</bloodPoints>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="ROMV_BloodVial">
+    <defName>BloodVial_AverageBlood</defName>
+    <label>blood vial (average)</label>
+    <description>Blood that is neither too outstanding for the rugged vamp nor too low-class for consumption by higher members of vampire society. (1 blood point)</description>
+    <comps>
+      <li Class="Vampire.CompProperties_BloodItem">
+        <bloodType>AverageBlood</bloodType>
+        <bloodPoints>1</bloodPoints>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="ROMV_BloodVial">
+    <defName>BloodVial_HighBlood</defName>
+    <label>blood vial (highblood)</label>
+    <description>Highblood, or blood suitable for regal vampires (the blood of aristocrats, wealthy individuals, or gliterworlders), stored in a vial.</description>
+    <comps>
+      <li Class="Vampire.CompProperties_BloodItem">
+        <bloodType>HighBlood</bloodType>
+        <bloodPoints>1</bloodPoints>
+      </li>
+    </comps>
+  </ThingDef>
+
+    <ThingDef ParentName="ROMV_BloodVial">
+      <defName>BloodVial_Special</defName>
+      <label>blood vial (special)</label>
+      <description>Special blood, possibly procured from mythical creatures, stored in a vial.</description>
+      <comps>
+        <li Class="Vampire.CompProperties_BloodItem">
+          <bloodType>Special</bloodType>
+          <bloodPoints>1</bloodPoints>
+        </li>
+      </comps>
+    </ThingDef>
+
+</Defs>
