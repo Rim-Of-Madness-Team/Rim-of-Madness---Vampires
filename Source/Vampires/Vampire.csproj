@@ -34,6 +34,10 @@
     <Reference Include="0Harmony">
       <HintPath>..\..\..\..\Harmony1091\0Harmony.dll</HintPath>
     </Reference>
+    <Reference Include="0JecsTools">
+      <HintPath>..\..\..\JecsTools\Assemblies\0JecsTools.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="AbilityUser">
       <HintPath>..\..\..\JecsTools\Assemblies\AbilityUser.dll</HintPath>
       <Private>False</Private>
@@ -44,10 +48,6 @@
     </Reference>
     <Reference Include="BadHygiene">
       <HintPath>C:\Users\mattw\Downloads\Dubs Bad Hygiene v1.2.2\Dubs Bad Hygiene\Assemblies\BadHygiene.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="JecsTools">
-      <HintPath>..\..\..\JecsTools\Assemblies\JecsTools.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -137,6 +137,7 @@
     <Compile Include="Hediffs\HediffVampirism_Tremere.cs" />
     <Compile Include="Hediffs\HediffVampirism_Tzimisce.cs" />
     <Compile Include="Hediffs\Hediff_AddedPart_Fangs.cs" />
+    <Compile Include="ScenPart_LongerNights.cs" />
     <Compile Include="UI\Alert_VampireInSunlight.cs" />
     <Compile Include="UI\Alert_VampireStarving.cs" />
     <Compile Include="Utilities\BloodFeedModeUtility.cs" />

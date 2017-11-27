@@ -233,6 +233,10 @@ namespace Vampire
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_SleepyDuringDaylight)), null);
 
 
+            //
+            harmony.Patch(AccessTools.Method(typeof(GenCelestial), "CelestialSunGlowPercent"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_CelestialSunGlowPercent)), null);
+
 
             #region DubsBadHygiene
             {
@@ -252,6 +256,17 @@ namespace Vampire
             #endregion
         }
 
+        // RimWorld.GenCelestial
+        public static void Vamp_CelestialSunGlowPercent(float latitude, int dayOfYear, float dayPercent, ref float __result)
+        {
+            if (Find.Scenario?.AllParts?.FirstOrDefault(x => x.def.scenPartClass == typeof(ScenPart_LongerNights)) is ScenPart_LongerNights p)
+            {
+                //Log.Message("Sun glow adjusted");
+                __result = Mathf.Clamp01(__result - p.nightsLength);
+            }
+        }
+
+
         // RimWorld.Need_Rest
         public static void Vamp_SleepyDuringDaylight(Need_Rest __instance)
         {
@@ -260,7 +275,7 @@ namespace Vampire
             {
                 if (VampireUtility.IsDaylight(pawn))
                 {
-                    __instance.CurLevel = Mathf.Max(0.1f, __instance.CurLevel);
+                    __instance.CurLevel = Mathf.Min(0.1f, __instance.CurLevel);
                 }
                 else
                 {
@@ -1052,6 +1067,7 @@ namespace Vampire
             return true;
         }
 
+
         //WorkGiver_BuryCorpses
         public static void FindBestGrave_VampBed(Pawn p, Corpse corpse, ref Building_Grave __result)
         {
@@ -1194,7 +1210,7 @@ namespace Vampire
             if (selVampComp != null && pawnIsVampire)
             {
                 //Hide food consumption from menus.
-                Thing food = c.GetThingList(pawn.Map).FirstOrDefault(t => t.def.ingestible != null);
+                Thing food = c.GetThingList(pawn.Map).FirstOrDefault(t => t.GetType() != typeof(Pawn) && t.def.ingestible != null);
                 if (food != null)
                 {
                     string text;

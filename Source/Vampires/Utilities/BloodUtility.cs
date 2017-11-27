@@ -233,7 +233,7 @@ namespace Vampire
                                     if (!tutorialMode || pawn2.Faction != Faction.OfPlayer)
                                     {
                                     //Log.Message("Potential Prey: " + pawn2.Label);
-                                        float preyScoreFor = FoodUtility.GetPreyScoreFor(predator, pawn2) + ((pawn2.RaceProps.Humanlike) ? 200 : 0);
+                                        float preyScoreFor = BloodUtility.GetPreyScoreFor(predator, pawn2);
                                     //Log.Message("Potential Prey Score: " + preyScoreFor);
 
                                     if (preyScoreFor > num || pawn == null)
@@ -263,11 +263,56 @@ namespace Vampire
                 num2 = Mathf.Min(num2, 0.2f);
             }
             float num3 = -lengthHorizontal - 56f * num2 * num2 * num * bodySizeFactor;
-            if (prey.RaceProps.Humanlike)
+            if (predator?.BloodNeed() is Need_Blood vampBlood &&
+                prey?.BloodNeed() is Need_Blood victimBlood)
             {
-                num3 -= 35f;
+                switch (vampBlood.preferredFeedMode)
+                {
+                    case PreferredFeedMode.HumanoidLethal:
+                        if (prey.RaceProps.Humanlike) num3 += GetHumanHuntScore(predator, prey);
+                        break;
+                    case PreferredFeedMode.HumanoidNonLethal:
+                        if (victimBlood.CurBloodPoints > 3 && prey.RaceProps.Humanlike)
+                            num3 += GetHumanHuntScore(predator, prey);
+                        break;
+                    case PreferredFeedMode.AnimalLethal:
+                        if (prey.RaceProps.Animal) num3 += GetAnimalHuntScore(predator, prey);
+                            break;
+                    case PreferredFeedMode.AnimalNonLethal:
+                        if (victimBlood.CurBloodPoints > 1 && prey.RaceProps.Animal) num3 += GetAnimalHuntScore(predator, prey);
+                        break;
+                }
             }
             return num3;
+        }
+
+        public static float GetAnimalHuntScore(Pawn predator, Pawn prey)
+        {
+            if (prey?.Faction != null)
+            {
+                if (prey?.Faction == predator.Faction)
+                {
+                    if (prey?.playerSettings?.master != null)
+                        return -750f;
+                    if (prey?.RaceProps?.petness >= 5)
+                        return -500f;
+                    return 100f;
+                }
+                else
+                {
+                    return -750f;
+                }
+            }
+            return 200f;
+        }
+
+        public static float GetHumanHuntScore(Pawn predator, Pawn prey)
+        {
+            if (prey.IsPrisoner)
+                return 200f;
+            if (prey.Faction == predator.Faction)
+                return 100f;
+            return 10f;
         }
 
 
@@ -292,17 +337,25 @@ namespace Vampire
                     if (vampire.MentalStateDef == HediffWithComps_BeastHunger.MentalState_VampireBeast)
                         return true;
 
+                    if (eaterBlood.preferredFeedMode == PreferredFeedMode.None)
+                        return false;
+
                     if (victim.RaceProps.Animal)
                     {
                         if (eaterBlood.preferredFeedMode > PreferredFeedMode.AnimalLethal)
                             return false;
-                        if (eaterBlood.preferredFeedMode == PreferredFeedMode.AnimalNonLethal &&
-                            targetBlood.CurBloodPoints == 1)
-                            return false;
+                        if (eaterBlood.preferredFeedMode == PreferredFeedMode.AnimalNonLethal)
+                        {
+                            if (targetBlood.CurBloodPoints == 1)
+                            {
+                                return false;
+                            }
+                        }
                     }
 
                     if (victim.RaceProps.Humanlike)
                     {
+                        
                         if (eaterBlood.preferredFeedMode < PreferredFeedMode.HumanoidNonLethal)
                             return false;
                         if (eaterBlood.preferredFeedMode == PreferredFeedMode.HumanoidNonLethal &&
@@ -310,12 +363,12 @@ namespace Vampire
                         {
                             return false;
                         }
+
+                        if (!desperate && (int)BloodTypeUtility.BloodType(victim) < (int)vampire.VampComp().Bloodline.minBloodPref)
+                            return false;
+                        else if ((int)BloodTypeUtility.BloodType(victim) < (int)vampire.VampComp().Bloodline.desperateBloodPref)
+                            return false;
                     }
-                    
-                    if (!desperate && (int)BloodTypeUtility.BloodType(victim) < (int)vampire.VampComp().Bloodline.minBloodPref)
-                        return false;
-                    else if ((int)BloodTypeUtility.BloodType(victim) < (int)vampire.VampComp().Bloodline.desperateBloodPref)
-                        return false;
                     return true;
                 }
             }

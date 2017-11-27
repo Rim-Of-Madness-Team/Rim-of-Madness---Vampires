@@ -11,6 +11,14 @@
   </ScenPartDef>
 
   <ScenPartDef>
+    <defName>ROMV_LongerNights</defName>
+    <label>longer nights</label>
+    <category>StartingImportant</category>
+    <scenPartClass>Vampire.ScenPart_LongerNights</scenPartClass>
+    <maxUses>1</maxUses>
+  </ScenPartDef>
+  
+  <ScenPartDef>
     <defName>ROMV_VampirismChanceStarting</defName>
     <label>starting vampirism</label>
     <scenPartClass>Vampire.ScenPart_StartingVampires</scenPartClass>

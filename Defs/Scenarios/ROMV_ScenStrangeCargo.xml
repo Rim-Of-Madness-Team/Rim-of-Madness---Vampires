@@ -123,12 +123,17 @@
         <li Class="Vampire.ScenPart_GameStartNight">
           <def>ROMV_StartAtNight</def>
         </li>
+				
+        <li Class="Vampire.ScenPart_LongerNights">
+          <def>ROMV_LongerNights</def>
+		  <nightsLength>0.10</nightsLength>
+        </li>
 
 
 		<!-- Game start dialog -->
 		<li Class="ScenPart_GameStartDialog">
 			<def>GameStartDialog</def>
-			<text>Caught off-guard during a makeshift tabletop roleplaying game with your fellow shipmate, you are sucked into an emergency escape pod. After the crash </text>
+			<text>Caught off-guard during a makeshift tabletop roleplaying game with your fellow shipmate, you are sucked into an emergency escape pod. After the crash, a strange coffin lays undamaged not far from other debris. It radiates an aura of mystery.</text>
 			<closeSound>GameStartSting</closeSound>
 		</li>
       </parts>

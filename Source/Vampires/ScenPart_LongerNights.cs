@@ -1,0 +1,59 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using Verse;
+using RimWorld;
+using System.Collections;
+using Harmony;
+
+namespace Vampire
+{
+    public class ScenPart_LongerNights : ScenPart
+    {
+        public float nightsLength = 0.1f;
+
+        public override void DoEditInterface(Listing_ScenEdit listing)
+        {
+            Rect scenPartRect = listing.GetScenPartRect(this, ScenPart.RowHeight * 2 + 31f);
+            DoVampModifierEditInterface(new Rect(scenPartRect.x, scenPartRect.y, scenPartRect.width, 31f));
+        }
+
+        // RimWorld.ScenPart_PawnModifier
+        protected void DoVampModifierEditInterface(Rect rect)
+        {
+            Rect rect2 = new Rect(rect.x, rect.y, rect.width, 31 * 3);
+            Rect rect3 = rect2.LeftPart(0.4f).Rounded();
+            Rect rect4 = rect2.RightPart(0.6f).Rounded();
+
+            Text.Anchor = TextAnchor.UpperCenter;
+            Widgets.Label(rect3, "ROMV_NightLength".Translate().CapitalizeFirst());
+
+            Text.Anchor = TextAnchor.UpperLeft;
+            this.nightsLength = Widgets.HorizontalSlider(rect4, this.nightsLength, 0f, 1f, false, nightsLength.ToStringPercent(), "", "", 0.1f);
+        }
+
+        
+        public override void ExposeData()
+        {
+            base.ExposeData();
+            Scribe_Values.Look<float>(ref this.nightsLength, "nightsLength", 0.1f);
+        }
+
+        public override string Summary(Scenario scen)
+        {
+            return GetLongerNightsSummary().CapitalizeFirst();
+        }
+
+        public string GetLongerNightsSummary()
+        {
+            return (this?.nightsLength == 1.0f) ? "ROMV_EternalDarkness".Translate() : "ROMV_NightLengthBy".Translate(nightsLength.ToStringPercent());
+        }
+
+        public override void Randomize()
+        {
+            base.Randomize();
+            this.nightsLength = Rand.Range(0.1f, 1.0f);
+        }
+    }
+}

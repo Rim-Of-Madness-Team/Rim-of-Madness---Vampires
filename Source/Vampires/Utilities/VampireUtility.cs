@@ -28,8 +28,27 @@ namespace Vampire
             .RandomElement();
         public static BloodlineDef RandBloodline => DefDatabase<BloodlineDef>.AllDefs
             .Where(x => x != VampDefOf.ROMV_Caine && x != VampDefOf.ROMV_TheThree).RandomElement();
-        public static bool IsDaylight(Pawn p) => (GenLocalDate.HourInteger(p) >= 6 && GenLocalDate.HourInteger(p) <= 17) && !Find.World.GameConditionManager.ConditionIsActive(GameConditionDefOf.Eclipse);
-        public static bool IsDaylight(Map m) => (GenLocalDate.HourInteger(m) >= 6 && GenLocalDate.HourInteger(m) <= 17) && !Find.World.GameConditionManager.ConditionIsActive(GameConditionDefOf.Eclipse);
+        public static bool IsDaylight(Pawn p)
+        {
+            if (p != null && p.Spawned && p.MapHeld != null)
+            {
+                return IsDaylight(p.MapHeld);
+            }
+            return false;
+        }
+            
+            //=> (GenLocalDate.HourInteger(p) >= 6 && GenLocalDate.HourInteger(p) <= 17) && !Find.World.GameConditionManager.ConditionIsActive(GameConditionDefOf.Eclipse);
+        public static bool IsDaylight(Map m)
+        {
+            float num = GenCelestial.CurCelestialSunGlow(m);
+            if (GenCelestial.IsDaytime(num))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        //=> (GenLocalDate.HourInteger(m) >= 6 && GenLocalDate.HourInteger(m) <= 17) && !Find.World.GameConditionManager.ConditionIsActive(GameConditionDefOf.Eclipse);
 
         // Verse.Pawn
         public static string MainDesc(Pawn pawn)
@@ -47,7 +66,14 @@ namespace Vampire
             return loc.x == 0 && loc.y == 0 && loc.z == 0;
         }
 
-
+        public static void GiveVampXP(this Pawn vampire, int amount=15)
+        {
+            if (vampire?.VampComp() is CompVampire v && v.IsVampire && vampire.Faction == Faction.OfPlayer)
+            {
+                MoteMaker.ThrowText(vampire.DrawPos + new Vector3(0, 0, 0.1f), vampire.Map, "XP +" + amount, -1f);
+                v.XP += amount;
+            }
+        }
 
         public static void Heal(Pawn target, int maxInjuries = 4, int maxInjuriesPerBodyPartInit = 2)
         {

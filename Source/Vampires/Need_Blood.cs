@@ -207,11 +207,20 @@ namespace Vampire
                 this.nextBloodChangeTick = -1;
             }
             
-            if (pawn.RaceProps != null && pawn.RaceProps.Humanlike && pawn.Faction != null && pawn.Faction == Faction.OfPlayer &&
-                !pawn.Drafted && (pawn?.IsVampire() ?? false) && (CurLevelPercentage < ShouldFeedPerc) &&
+            if ((pawn?.IsVampire() ?? false) && pawn.RaceProps != null && pawn.RaceProps.Humanlike && pawn.Faction != null && pawn.Faction == Faction.OfPlayer &&
+                !pawn.Downed && !pawn.Dead &&
+                !pawn.Drafted && (CurLevelPercentage < ShouldFeedPerc) &&
+                !pawn.CurJob.playerForced &&
                 (pawn.CurJob.def != VampDefOf.ROMV_ConsumeBlood && 
                 pawn.CurJob.def != VampDefOf.ROMV_Feed && 
-                pawn.CurJob.def != VampDefOf.ROMV_Sip))
+                pawn.CurJob.def != VampDefOf.ROMV_Sip &&
+                pawn.CurJob.def != JobDefOf.AttackMelee &&
+                pawn.CurJob.def != JobDefOf.Arrest &&
+                pawn.CurJob.def != JobDefOf.BeatFire &&
+                pawn.CurJob.def != JobDefOf.Rescue &&
+                pawn.CurJob.def != JobDefOf.TendPatient &&
+                pawn.CurJob.def != JobDefOf.Flee &&
+                pawn.CurJob.def != JobDefOf.FleeAndCower))
             {
                 if (JobGiver_GetBlood.FeedJob(pawn) is Job j)
                 {

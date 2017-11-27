@@ -102,7 +102,7 @@
       <shaderType>CutoutComplex</shaderType>
       <drawSize>(3,3.5)</drawSize>
     </graphicData>
-    <altitudeLayer>Building</altitudeLayer>
+    <altitudeLayer>BuildingOnTop</altitudeLayer>
     <costStuffCount>0</costStuffCount>
     <stuffCategories>
       <li>Woody</li>
@@ -262,7 +262,7 @@
         <compClass>CompQuality</compClass>
       </li>
     </comps>
-    <DesignationCategory>Furniture</DesignationCategory>
+    <designationCategory>Furniture</designationCategory>
     <minifiedDef>MinifiedFurniture</minifiedDef>
     <tradeTags>
       <li>Furniture</li>

@@ -16,6 +16,7 @@ namespace Vampire
     {
         None,
         MoodColonist,
+        MoodVisitor,
         MoodVisitorFlee,
         MoodVisitorAggro
     }
@@ -64,7 +65,7 @@ namespace Vampire
         /// </summary>
         /// <param name="pawn"></param>
         /// <returns></returns>
-        public static List<Pawn> WitnessesOf(Pawn criminal, Pawn victim)
+        public static List<Pawn> WitnessesOf(Pawn criminal, Pawn victim, JobDef crime)
         {
             List<Pawn> result = null;
             Map map = criminal.Map;
@@ -80,7 +81,7 @@ namespace Vampire
                         for (int i = 0; i < thingList.Count; i++)
                         {
                             //
-                            if (thingList[i] is Pawn p && p.ShouldCareAboutCrime(criminal, victim))
+                            if (thingList[i] is Pawn p && p.ShouldCareAboutCrime(criminal, victim, crime))
                             {
                                 if (result == null) result = new List<Pawn>();
                                 result.Add(p);
@@ -93,23 +94,31 @@ namespace Vampire
             return result;
         }
         
-        public static CrimeReaction GetReactionTo(this Pawn witness, Pawn criminal, JobDef crime)
+        public static CrimeReaction GetReactionTo(this Pawn witness, Pawn criminal, Pawn victim)
         {
             if (witness.Faction != null && witness.Faction != criminal.Faction)
             {
-                if (!witness.story.WorkTagIsDisabled(WorkTags.Violent))
-                    return CrimeReaction.MoodVisitorFlee;
-                return CrimeReaction.MoodVisitorAggro;
+                if (victim.Faction == witness.Faction)
+                {
+                    if (!witness.story.WorkTagIsDisabled(WorkTags.Violent))
+                        return CrimeReaction.MoodVisitorFlee;
+                    return CrimeReaction.MoodVisitorAggro;
+                }
+                return CrimeReaction.MoodVisitor;
             }
             return CrimeReaction.MoodColonist;
         }
 
-        public static bool ShouldCareAboutCrime(this Pawn witness, Pawn criminal, Pawn victim)
+        public static bool ShouldCareAboutCrime(this Pawn witness, Pawn criminal, Pawn victim, JobDef crime)
         {
             //Main criminals and victims will not "observe" the crime, as they are in the crime in progress.
             if (witness == criminal)
                 return false;
             if (witness == victim)
+                return false;
+            
+            //Vampires are only upset by diablerie
+            if (witness.IsVampire() && crime != VampDefOf.ROMV_Diablerie)
                 return false;
 
             //Don't test animals
@@ -135,7 +144,7 @@ namespace Vampire
         public static void HandleWitnessesOf(JobDef crime, Pawn criminal, Pawn victim)
         {
             //Log.Message("1");
-            List<Pawn> witnesses = VampireWitnessUtility.WitnessesOf(criminal, victim);
+            List<Pawn> witnesses = VampireWitnessUtility.WitnessesOf(criminal, victim, crime);
             //Log.Message("2");
 
             if (!witnesses.NullOrEmpty())
@@ -152,16 +161,17 @@ namespace Vampire
                     Thought_MemoryObservation thought_MemoryObservation = null;
                     //Log.Message("Loop 1 Step 3");
 
-                    switch (witness.GetReactionTo(criminal, crime))
+                    switch (witness.GetReactionTo(criminal, victim))
                     {
                         case CrimeReaction.MoodColonist:
-                            //Log.Message("Loop 1 Step 4");
-
                             thought_MemoryObservation = 
                                 (Thought_MemoryObservation)ThoughtMaker
                                 .MakeThought(curCrime.ColonistThought);
-                           //Log.Message("Loop 1 Step 5");
-
+                            break;
+                        case CrimeReaction.MoodVisitor:
+                            thought_MemoryObservation =
+                                (Thought_MemoryObservation)ThoughtMaker
+                                .MakeThought(curCrime.VisitorThought);
                             break;
                         case CrimeReaction.MoodVisitorFlee:
                             thought_MemoryObservation =
@@ -170,7 +180,7 @@ namespace Vampire
                             if (witness.CurJob is Job j && j.def != JobDefOf.FleeAndCower)
                             {
                                 IntVec3 fleeLoc = CellFinderLoose.GetFleeDest(witness, new List<Thing>() { criminal }, 23f);
-                                witness.jobs.TryTakeOrderedJob(new Verse.AI.Job(JobDefOf.FleeAndCower, fleeLoc));
+                                witness.jobs.StartJob(new Verse.AI.Job(JobDefOf.FleeAndCower, fleeLoc));
                                 if (witness.Faction != null && !witness.Faction.HostileTo(criminal.Faction))
                                 {
                                     witness.Faction.SetHostileTo(criminal.Faction, true);
@@ -183,7 +193,7 @@ namespace Vampire
                                 .MakeThought(curCrime.VisitorThought);
                             if (witness.CurJob is Job k && k.def != JobDefOf.AttackMelee)
                             {
-                                witness.jobs.TryTakeOrderedJob(new Job(JobDefOf.AttackMelee, criminal));
+                                witness.jobs.StartJob(new Job(JobDefOf.AttackMelee, criminal));
                                 if (witness.Faction != null && !witness.Faction.HostileTo(criminal.Faction))
                                 {
                                     witness.Faction.SetHostileTo(criminal.Faction, true);

@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
 
+<!-- 11-26-17 -->
+<ROMV_NightLength>permanently dims sunlight by a percentage, which lengthens night hours.</ROMV_NightLength>
+<ROMV_NightLengthBy>the sun's power is weakened and the night is lengthened by {0}</ROMV_NightLengthBy>
+<ROMV_EternalDarkness>night lengthened (eternal darkness)</ROMV_EternalDarkness>
+
 <!-- 11-19-17 -->
 <ROMV_CannotPurgeMechanoids>{0} has no blood to purge.</ROMV_CannotPurgeMechanoids>
 
