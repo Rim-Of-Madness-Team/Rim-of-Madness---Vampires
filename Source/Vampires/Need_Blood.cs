@@ -201,6 +201,9 @@ namespace Vampire
         
         public override void NeedInterval()
         {
+            if (pawn == null || !pawn.Spawned)
+                return;
+
             if (!bloodFixer)
             {
                 bloodFixer = true;
