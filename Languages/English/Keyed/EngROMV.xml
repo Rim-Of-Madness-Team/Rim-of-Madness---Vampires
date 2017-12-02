@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
 
+<!-- 12-2-17 -->
+<ROMV_AshesOf>Ashes of {0}</ROMV_AshesOf>
+<ROMV_NoBloodRemaining>No blood points remaining.</ROMV_NoBloodRemaining>
+
 <!-- 11-26-17 -->
 <ROMV_NightLength>permanently dims sunlight by a percentage, which lengthens night hours.</ROMV_NightLength>
 <ROMV_NightLengthBy>the sun's power is weakened and the night is lengthened by {0}</ROMV_NightLengthBy>

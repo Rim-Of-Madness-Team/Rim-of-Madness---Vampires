@@ -45,18 +45,18 @@
 
 	<ThoughtDef>
 		<defName>ROMV_IWasBittenByAVampire</defName>
-		<durationDays>3</durationDays>
-		<stackLimit>5</stackLimit>
+		<durationDays>0.2</durationDays>
+		<stackLimit>1</stackLimit>
 		<stages>
 			<li>
 				<label>bitten by vampire</label>
 				<description>Wow! What a rush!</description>
-				<baseMoodEffect>8</baseMoodEffect>
+				<baseMoodEffect>12</baseMoodEffect>
 			</li>
 			<li>
 				<label>bitten by the master</label>
 				<description>I gave my blood to the master.</description>
-				<baseMoodEffect>12</baseMoodEffect>
+				<baseMoodEffect>16</baseMoodEffect>
 			</li>
 		</stages>
 	</ThoughtDef>
@@ -148,7 +148,7 @@
 
 
 
-	  <ThoughtDef Name="DeathMemory" Abstract="True">
+	  <ThoughtDef Name="ROMV_DeathMemory" Abstract="True">
 	    <stackedEffectMultiplier>0.25</stackedEffectMultiplier>
 	    <stackLimit>5</stackLimit>
 	  </ThoughtDef>

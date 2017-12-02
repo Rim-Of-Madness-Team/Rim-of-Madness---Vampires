@@ -137,6 +137,7 @@
     <Compile Include="Hediffs\HediffVampirism_Tremere.cs" />
     <Compile Include="Hediffs\HediffVampirism_Tzimisce.cs" />
     <Compile Include="Hediffs\Hediff_AddedPart_Fangs.cs" />
+    <Compile Include="ITab_Pawn_NeedsCorpse.cs" />
     <Compile Include="ScenPart_LongerNights.cs" />
     <Compile Include="UI\Alert_VampireInSunlight.cs" />
     <Compile Include="UI\Alert_VampireStarving.cs" />
@@ -159,7 +160,9 @@
     <Compile Include="Utilities\VampireBiteUtility.cs" />
     <Compile Include="Utilities\VampireGraphicUtility.cs" />
     <Compile Include="Utilities\VampireWitnessUtility.cs" />
+    <Compile Include="Utilities\VampSunlightPathUtility.cs" />
     <Compile Include="VampAbility.cs" />
+    <Compile Include="VampireCorpse.cs" />
     <Compile Include="Workers\EmbraceWorker.cs" />
     <Compile Include="HarmonyPatches\HarmonyPatches.cs" />
     <Compile Include="HarmonyPatches\HarmonyPatches_Caravan.cs" />
@@ -187,7 +190,7 @@
     <Compile Include="Workers\Recipe_ExtractBloodVial.cs" />
     <Compile Include="Utilities\ResurrectedPawnUtility.cs" />
     <Compile Include="ScenPart_StartingVampires.cs" />
-    <Compile Include="Utilities\VampDefOf.cs" />
+    <Compile Include="Defs\VampDefOf.cs" />
     <Compile Include="Utilities\VampireRelationUtility.cs" />
     <Compile Include="Discipline.cs" />
     <Compile Include="SkillSheet.cs" />

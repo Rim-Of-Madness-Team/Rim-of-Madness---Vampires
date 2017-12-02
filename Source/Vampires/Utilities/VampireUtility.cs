@@ -61,10 +61,6 @@ namespace Vampire
             return text.CapitalizeFirst();
         }
 
-        public static bool IsZero(IntVec3 loc)
-        {
-            return loc.x == 0 && loc.y == 0 && loc.z == 0;
-        }
 
         public static void GiveVampXP(this Pawn vampire, int amount=15)
         {
@@ -97,12 +93,6 @@ namespace Vampire
                     }
                 }
             }
-        }
-
-        public static IntVec3 FindCellSafeFromSunlight(Pawn pawn)
-        {
-            return CellFinderLoose.RandomCellWith(x => !IsZero(x) && x.IsValid && x.InBounds(pawn.MapHeld) && x.Roofed(pawn.MapHeld) && x.Walkable(pawn.MapHeld)
-                    && pawn.Map.reachability.CanReach(pawn.PositionHeld, x, PathEndMode.OnCell, TraverseMode.ByPawn, Danger.Deadly), pawn.MapHeld, 1000);
         }
 
  
@@ -157,71 +147,6 @@ namespace Vampire
                 result += 5;
             }
             return result;
-        }
-
-        //public static bool CanGrapple(this Pawn grappler, Pawn victim)
-        //{
-        //    if (victim == null || victim.Dead)
-        //    {
-        //        return true;
-        //    }
-
-        //    //Check downed
-        //    if (victim.Downed)
-        //    {
-        //        MoteMaker.ThrowText(grappler.DrawPos, grappler.Map, "ROMV_DownedGrapple".Translate(), -1f);
-        //        return true;
-        //    }
-
-        //    if (victim.IsPrisonerOfColony && RestraintsUtility.InRestraints(victim))
-        //    {
-        //        MoteMaker.ThrowText(grappler.DrawPos, grappler.Map, "ROMV_PrisonerGrapple".Translate(), -1f);
-        //        return true;
-        //    }
-
-        //    //Check line of sight.
-        //    //if (!victim.CanSee(grappler))
-        //    //{
-        //    //    MoteMaker.ThrowText(grappler.DrawPos, grappler.Map, "ROMV_SneakGrapple".Translate(), -1f);
-        //    //    return true;
-        //    //}
-
-        //    //Grapple check.
-            
-        //    int roll = Rand.Range(1, 20);
-        //    int modifier = (int)grappler.RaceProps.baseBodySize;
-        //    modifier += (grappler.RaceProps.Humanlike) ? grappler.skills.GetSkill(SkillDefOf.Melee).Level : 0;
-        //    modifier += VampireUtility.GrapplerModifier(grappler);
-        //    int difficulty = (int)victim.RaceProps.baseBodySize;
-        //    difficulty += (victim.RaceProps.Humanlike) ? victim?.skills?.GetSkill(SkillDefOf.Melee)?.Level ?? 1 : 1;
-
-        //    if (roll + modifier > difficulty)
-        //    {
-        //        MoteMaker.ThrowText(grappler.DrawPos, grappler.Map, roll + " + " + modifier + " = " + (roll + modifier) + " vs " + difficulty + " : " + StringsToTranslate.AU_CastSuccess, -1f);
-        //        return true;
-        //    }
-        //    MoteMaker.ThrowText(grappler.DrawPos, grappler.Map, roll + " + " + modifier + " = " + (roll + modifier) + " vs " + difficulty + " : " + StringsToTranslate.AU_CastFailure, -1f);
-        //    return false;
-        //}
-
-        // RimWorld.SiegeBlueprintPlacer
-        public static IntVec3 FindHideyHoleSpot(ThingDef holeDef, Rot4 rot, IntVec3 center, Map map)
-        {
-            if (GenConstruct.CanPlaceBlueprintAt(holeDef, center, rot, map, false, null).Accepted)
-            {
-                return center;
-            }
-            CellRect cellRect = CellRect.CenteredOn(center, 8);
-            cellRect.ClipInsideMap(map);
-            IntVec3 randomCell = cellRect.RandomCell;
-            if (!CellFinder.TryFindRandomCellNear(center, map, 5, (IntVec3 c) => c.Standable(map) &&
-                (GenConstruct.CanPlaceBlueprintAt(holeDef, c, rot, map, false, null).Accepted) &&
-                (map?.reachability?.CanReach(c, randomCell, PathEndMode.Touch, TraverseParms.For(TraverseMode.PassDoors, Danger.Deadly, false)) ?? false), out randomCell))
-            {
-                Log.Error("Found no place to build hideyhole for burning vampire.");
-                randomCell = IntVec3.Invalid;
-            }
-            return randomCell;
         }
 
 

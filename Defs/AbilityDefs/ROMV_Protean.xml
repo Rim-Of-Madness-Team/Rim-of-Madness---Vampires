@@ -100,14 +100,22 @@
     <label>feral claws (Protean)</label>
     <comps>
       <li Class="HediffCompProperties_VerbGiver">
-        <verbs>
+         <tools>
           <li>
-            <verbClass>Verb_MeleeAttack</verbClass>
-            <defaultCooldownTime>1.65</defaultCooldownTime>
-            <meleeDamageBaseAmount>14</meleeDamageBaseAmount>
-            <meleeDamageDef>Scratch</meleeDamageDef>
+            <label>feral claw</label>
+            <capacities>
+              <li>Blunt</li>
+            </capacities>
+            <power>14</power>
+            <cooldownTime>1.65</cooldownTime>
           </li>
-        </verbs>
+        </tools>
+      </li>
+	  <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>
+          <min>7500</min>
+          <max>7500</max>
+        </disappearsAfterTicks>
       </li>
     </comps>
     <addedPartProps>

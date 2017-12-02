@@ -55,6 +55,7 @@ namespace Vampire
 
         public static ThingDef ROMV_HideyHole;
         public static ThingDef ROMV_RoyalCoffin;
+        public static ThingDef ROMV_SimpleCoffin;
 
         public static ThingDef BloodVial_LowBlood;
         public static ThingDef BloodVial_AverageBlood;

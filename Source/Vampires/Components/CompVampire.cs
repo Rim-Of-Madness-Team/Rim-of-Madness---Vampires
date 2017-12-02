@@ -34,11 +34,25 @@ namespace Vampire
         private PawnKindDef currentForm = null;
 
         public int ticksToLearnXP = -1;
-
-
+        private int vampLastHomeCheck = -1; 
+        private IntVec3? vampLastHomePoint = null;
         #endregion Variables
 
         #region Access Properties
+        public int VampLastHomeCheck { get => vampLastHomeCheck; set => vampLastHomeCheck = value; }
+        public IntVec3 VampLastHomePoint
+        {
+            get
+            {
+                if (vampLastHomePoint == null || vampLastHomeCheck < Find.TickManager.TicksGame)
+                {
+                    vampLastHomeCheck = Find.TickManager.TicksGame + 500;
+                    vampLastHomePoint = VampSunlightPathUtility.DetermineHomePoint(this.Pawn);
+                }
+                return vampLastHomePoint.Value;
+            }
+        }
+
         public int Level { get => level;
             set
             {
@@ -328,14 +342,16 @@ namespace Vampire
                     IntVec3 i = p.PositionHeld;
                     if (p.ParentHolder.IsEnclosingContainer())
                         return;
+                    if (p.IsAlreadyDoingSunlightPathJob())
+                        return;
                     if (p.Spawned && VampireUtility.IsDaylight(m) && !i.Roofed(m))
                     {
                         ThinkNode_JobGiver thinkNode_JobGiver = (ThinkNode_JobGiver)Activator.CreateInstance(typeof(JobGiver_SeekShelterFromSunlight));
                         thinkNode_JobGiver.ResolveReferences();
                         ThinkResult thinkResult = thinkNode_JobGiver.TryIssueJobPackage(p, default(JobIssueParams));
-                        if (thinkResult.Job != null)
+                        if (thinkResult.Job is Job j && j.IsSunlightSafeFor(p))
                         {
-                            p.jobs.StartJob(thinkResult.Job, JobCondition.Incompletable, null, false, true, null, null, false);
+                            p.jobs.StartJob(j, JobCondition.Incompletable, null, false, true, null, null, false);
                         }
                         else
                         {

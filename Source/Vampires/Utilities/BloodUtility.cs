@@ -364,6 +364,10 @@ namespace Vampire
                             return false;
                         }
 
+                        //Don't bite guests!
+                        if (!desperate && victim.Faction != vampire.Faction && !victim.HostileTo(vampire))
+                            return false;
+
                         if (!desperate && (int)BloodTypeUtility.BloodType(victim) < (int)vampire.VampComp().Bloodline.minBloodPref)
                             return false;
                         else if ((int)BloodTypeUtility.BloodType(victim) < (int)vampire.VampComp().Bloodline.desperateBloodPref)

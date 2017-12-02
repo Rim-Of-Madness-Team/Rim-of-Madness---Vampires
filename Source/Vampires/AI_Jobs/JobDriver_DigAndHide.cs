@@ -9,7 +9,7 @@ namespace Vampire
 {
     public class JobDriver_DigAndHide : JobDriver
     {
-        protected const int BaseWorkAmount = 12000;
+        protected const int BaseWorkAmount = 10000;
 
         private float workLeft = -1000f;
 

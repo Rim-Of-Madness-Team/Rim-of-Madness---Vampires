@@ -30,10 +30,6 @@ namespace Vampire
             //The wander handler now makes vampires wander indoors (for their safety).
             harmony.Patch(AccessTools.Method(typeof(PawnUtility), "KnownDangerAt"), null,
                 new HarmonyMethod(typeof(HarmonyPatches), (nameof(KnownDangerAt_Vamp))), null);
-            //harmony.Patch(AccessTools.Method(typeof(JobGiver_Wander), "GetExactWanderDest"),
-            //new HarmonyMethod(typeof(HarmonyPatches), (nameof(GetExactWanderDest_Vamp))), null);
-            //harmony.Patch(AccessTools.Method(typeof(JobGiver_WanderColony), "GetWanderRoot"),
-            //new HarmonyMethod(typeof(HarmonyPatches), (nameof(GetWanderRoot_Vamp))), null);
             harmony.Patch(AccessTools.Method(typeof(JoyUtility), "EnjoyableOutsideNow", new Type[] { typeof(Pawn), typeof(StringBuilder) }), null,
                 new HarmonyMethod(typeof(HarmonyPatches), (nameof(EnjoyableOutsideNow_Vampire))), null);
             harmony.Patch(AccessTools.Method(typeof(JobGiver_GetRest), "FindGroundSleepSpotFor"), null,
@@ -215,8 +211,9 @@ namespace Vampire
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_FineSleepingAlone)), null);
 
             //Vampire corpses can resurrect themselves.
-            harmony.Patch(AccessTools.Method(typeof(ThingWithComps), "GetGizmos"), null,
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_TheyNeverDie)), null);
+            // MOVED TO VAMPIRECORPSE CLASS
+            //harmony.Patch(AccessTools.Method(typeof(ThingWithComps), "GetGizmos"), null,
+            //    new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_TheyNeverDie)), null);
 
             //Vampires should not dislike the darkness.
             harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_Dark), "CurrentStateInternal"), null,
@@ -237,6 +234,24 @@ namespace Vampire
             harmony.Patch(AccessTools.Method(typeof(GenCelestial), "CelestialSunGlowPercent"), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_CelestialSunGlowPercent)), null);
 
+            //Patches out binging behavior
+            harmony.Patch(AccessTools.Method(typeof(JobGiver_Binge), "TryGiveJob"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_DontBinge)), null);
+
+            //Patches corpse generation for vampires.
+            harmony.Patch(AccessTools.Method(typeof(Pawn), "MakeCorpse"),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_MakeCorpse)), null);
+
+            //Vampire corpses can resurrect safely inside graves, sarcophogi, and caskets.
+            harmony.Patch(AccessTools.Method(typeof(Building_Grave), "GetGizmos"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_TheyNeverDie)), null);
+
+            //Caskets and coffins do not autoassign to colonists.
+            harmony.Patch(AccessTools.Method(typeof(Pawn_Ownership), "ClaimBedIfNonMedical"),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_BedsForTheUndead)), null);
+            harmony.Patch(AccessTools.Method(typeof(RestUtility), "IsValidBedFor"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_IsValidBedFor)), null);
+
 
             #region DubsBadHygiene
             {
@@ -255,6 +270,148 @@ namespace Vampire
             }
             #endregion
         }
+
+        //RestUtility
+        public static void Vamp_IsValidBedFor(Thing bedThing, Pawn sleeper, Pawn traveler, 
+            bool sleeperWillBePrisoner, bool checkSocialProperness, bool allowMedBedEvenIfSetToNoCare,
+            bool ignoreOtherReservations, ref bool __result)
+        {
+            if (sleeper != null && !sleeper.IsVampire() &&
+            (
+            bedThing.def == ThingDef.Named("ROMV_SimpleCoffinBed") ||
+            bedThing.def == ThingDef.Named("ROMV_RoyalCoffinBed") ||
+            bedThing.def == ThingDef.Named("ROMV_SarcophagusBed")
+            ))
+            {
+                __result = false;
+            }
+        }
+
+        public static bool Vamp_BedsForTheUndead(Pawn_Ownership __instance, Building_Bed newBed)
+        {
+            Pawn pawn = (Pawn)AccessTools.Field(typeof(Pawn_Ownership), "pawn").GetValue(__instance);
+            if (pawn != null && !pawn.IsVampire() && 
+                (
+                newBed.def == ThingDef.Named("ROMV_SimpleCoffinBed") ||
+                newBed.def == ThingDef.Named("ROMV_RoyalCoffinBed") ||
+                newBed.def == ThingDef.Named("ROMV_SarcophagusBed")
+                ))
+            {
+                return false;
+            }
+            return true;
+        }
+
+        //Building_Grave
+        public static void Vamp_TheyNeverDie(Building_Grave __instance, ref IEnumerable<Gizmo> __result)
+        {
+            
+            if (__instance?.Corpse is Corpse c && c.InnerPawn is Pawn p)
+            {
+                if (p.Faction == Faction.OfPlayer && p.IsVampire())
+                    __result = __result.Concat(GraveGizmoGetter(p, __instance));
+            }
+            if (__instance.ContainedThing is Pawn q)
+            {
+                if (q.Faction == Faction.OfPlayer && q.IsVampire())
+                    __result = __result.Concat(GraveGizmoGetter(q, __instance));
+            }
+
+        }
+
+        public static IEnumerable<Gizmo> GraveGizmoGetter(Pawn AbilityUser, Building_Grave grave)
+        {
+            bool dFlag = false;
+            string dReason = "";
+            if ((AbilityUser?.BloodNeed()?.CurBloodPoints ?? 0) <= 0)
+            {
+                dFlag = true;
+                dReason = "ROMV_NoBloodRemaining".Translate();
+            }
+
+            Vampire.VitaeAbilityDef bloodAwaken = DefDatabase<Vampire.VitaeAbilityDef>.GetNamedSilentFail("ROMV_VampiricAwaken");
+            if (!AbilityUser?.Dead ?? false)
+            {
+
+                yield return new Command_Action()
+                {
+                    defaultLabel = bloodAwaken.label,
+                    defaultDesc = bloodAwaken.GetDescription(),
+                    icon = bloodAwaken.uiIcon,
+                    action = delegate
+                    {
+                        AbilityUser.BloodNeed().AdjustBlood(-1);
+                        grave.EjectContents();
+                    },
+                    disabled = dFlag,
+                    disabledReason = dReason
+                };
+            }
+
+            Vampire.VitaeAbilityDef bloodResurrection = DefDatabase<Vampire.VitaeAbilityDef>.GetNamedSilentFail("ROMV_VampiricResurrection");
+            if (AbilityUser?.Corpse?.GetRotStage() < RotStage.Dessicated)
+            {
+                yield return new Command_Action()
+                {
+                    defaultLabel = bloodResurrection.label,
+                    defaultDesc = bloodResurrection.GetDescription(),
+                    icon = bloodResurrection.uiIcon,
+                    action = delegate
+                    {
+                        AbilityUser.Drawer.Notify_DebugAffected();
+                        ResurrectionUtility.Resurrect(AbilityUser);
+                        MoteMaker.ThrowText(AbilityUser.PositionHeld.ToVector3(), AbilityUser.MapHeld, StringsToTranslate.AU_CastSuccess, -1f);
+                        AbilityUser.BloodNeed().AdjustBlood(-99999999);
+                        HealthUtility.AdjustSeverity(AbilityUser, VampDefOf.ROMV_TheBeast, 1.0f);
+                        MentalStateDef MentalState_VampireBeast = DefDatabase<MentalStateDef>.GetNamed("ROMV_VampireBeast");
+                        AbilityUser.mindState.mentalStateHandler.TryStartMentalState(MentalState_VampireBeast, null, true, false, null);
+                    },
+                    disabled = (AbilityUser?.BloodNeed()?.CurBloodPoints ?? 0) < 0
+                };
+            }
+        }
+
+        // Verse.Pawn
+        public static bool Vamp_MakeCorpse(Pawn __instance, Building_Grave assignedGrave, bool inBed, float bedRotation, ref Corpse __result)
+        {
+            if (__instance.IsVampire())
+            {
+                if (__instance.holdingOwner != null)
+                {
+                    Log.Warning("We can't make corpse because the pawn is in a ThingOwner. Remove him from the container first. This should have been already handled before calling this method. holder=" + __instance.ParentHolder);
+                    __result = null;
+                    return false;
+                }
+                VampireCorpse corpse = (VampireCorpse)ThingMaker.MakeThing(ThingDef.Named("ROMV_VampCorpse"), null);
+                corpse.InnerPawn = __instance;
+                corpse.BloodPoints = __instance.BloodNeed().CurBloodPoints;
+                if (__instance.health.hediffSet.GetHediffs<Hediff_Injury>()?.Where(x => x.def == HediffDefOf.Burn && !x.IsTended())?.Count() > 3)
+                    corpse.BurnedToAshes = true;
+
+                if (assignedGrave != null)
+                {
+                    corpse.InnerPawn.ownership.ClaimGrave(assignedGrave);
+                }
+                if (inBed)
+                {
+                    corpse.InnerPawn.Drawer.renderer.wiggler.SetToCustomRotation(bedRotation + 180f);
+                }
+                __result = corpse as Corpse;
+                return false;
+            }
+            return true;
+        }
+
+
+        // RimWorld.JobGiver_Binge
+        public static void Vamp_DontBinge(Pawn pawn, ref Job __result)
+        {
+            if (pawn.IsVampire())
+            {
+                __result = null;
+            }
+        }
+
 
         // RimWorld.GenCelestial
         public static void Vamp_CelestialSunGlowPercent(float latitude, int dayOfYear, float dayPercent, ref float __result)
@@ -304,45 +461,45 @@ namespace Vampire
         }
 
 
-        //ThingWithComps
-        public static void Vamp_TheyNeverDie(ThingWithComps __instance, ref IEnumerable<Gizmo> __result)
-        {
+        ////ThingWithComps
+        //public static void Vamp_TheyNeverDie(ThingWithComps __instance, ref IEnumerable<Gizmo> __result)
+        //{
 
-            //Log.Message("4");
-            if (__instance is Corpse c && c.InnerPawn is Pawn p)
-            {
-                if (p.Faction == Faction.OfPlayer && p.IsVampire())
-                {
-                    __result = __result.Concat(GizmoGetter(p));
-                }
-            }
+        //    //Log.Message("4");
+        //    if (__instance is Corpse c && c.InnerPawn is Pawn p)
+        //    {
+        //        if (p.Faction == Faction.OfPlayer && p.IsVampire())
+        //        {
+        //            __result = __result.Concat(GizmoGetter(p));
+        //        }
+        //    }
 
-        }
+        //}
 
-        public static IEnumerable<Gizmo> GizmoGetter(Pawn AbilityUser)
-        {
-            Vampire.VitaeAbilityDef bloodResurrection = DefDatabase<Vampire.VitaeAbilityDef>.GetNamedSilentFail("ROMV_VampiricResurrection");
-            if (AbilityUser?.Corpse?.GetRotStage() < RotStage.Dessicated)
-            {
-                yield return new Command_Action()
-                {
-                    defaultLabel = bloodResurrection.label,
-                    defaultDesc = bloodResurrection.GetDescription(),
-                    icon = bloodResurrection.uiIcon,
-                    action = delegate
-                    {
-                        AbilityUser.Drawer.Notify_DebugAffected();
-                        ResurrectionUtility.Resurrect(AbilityUser);
-                        MoteMaker.ThrowText(AbilityUser.PositionHeld.ToVector3(), AbilityUser.MapHeld, StringsToTranslate.AU_CastSuccess, -1f);
-                        AbilityUser.BloodNeed().AdjustBlood(-99999999);
-                        HealthUtility.AdjustSeverity(AbilityUser, VampDefOf.ROMV_TheBeast, 1.0f);
-                        MentalStateDef MentalState_VampireBeast = DefDatabase<MentalStateDef>.GetNamed("ROMV_VampireBeast");
-                        AbilityUser.mindState.mentalStateHandler.TryStartMentalState(MentalState_VampireBeast, null, true, false, null);
-                    },
-                    disabled = false
-                };
-            }
-        }
+        //public static IEnumerable<Gizmo> GizmoGetter(Pawn AbilityUser)
+        //{
+        //    Vampire.VitaeAbilityDef bloodResurrection = DefDatabase<Vampire.VitaeAbilityDef>.GetNamedSilentFail("ROMV_VampiricResurrection");
+        //    if (AbilityUser?.Corpse?.GetRotStage() < RotStage.Dessicated)
+        //    {
+        //        yield return new Command_Action()
+        //        {
+        //            defaultLabel = bloodResurrection.label,
+        //            defaultDesc = bloodResurrection.GetDescription(),
+        //            icon = bloodResurrection.uiIcon,
+        //            action = delegate
+        //            {
+        //                AbilityUser.Drawer.Notify_DebugAffected();
+        //                ResurrectionUtility.Resurrect(AbilityUser);
+        //                MoteMaker.ThrowText(AbilityUser.PositionHeld.ToVector3(), AbilityUser.MapHeld, StringsToTranslate.AU_CastSuccess, -1f);
+        //                AbilityUser.BloodNeed().AdjustBlood(-99999999);
+        //                HealthUtility.AdjustSeverity(AbilityUser, VampDefOf.ROMV_TheBeast, 1.0f);
+        //                MentalStateDef MentalState_VampireBeast = DefDatabase<MentalStateDef>.GetNamed("ROMV_VampireBeast");
+        //                AbilityUser.mindState.mentalStateHandler.TryStartMentalState(MentalState_VampireBeast, null, true, false, null);
+        //            },
+        //            disabled = false
+        //        };
+        //    }
+        //}
 
         // RimWorld.ThoughtWorker_WantToSleepWithSpouseOrLover
         public static void Vamp_FineSleepingAlone(Pawn p, ref ThoughtState __result)
@@ -1273,94 +1430,6 @@ namespace Vampire
                     opts.Add(item5);
                 }
                 
-                /////////////////////////////////////////////////////////////////////////////////////////////
-                ////Pawn VICTIM
-                ////////////////
-                //Pawn victim = c.GetThingList(pawn.Map).FirstOrDefault(t => t != pawn && t is Pawn) as Pawn;
-                //if (victim != null && victim.BloodNeed() is Need_Blood n)
-                //{
-                //    bool victimIsVampire = victim.IsVampire();
-                //    // FEED //////////////////////////
-                //    if (!victimIsVampire || (selVampComp?.Bloodline?.canFeedOnVampires ?? false))
-                //    {
-                //        Action action = delegate
-                //        {
-                //            Job job = new Job(VampDefOf.ROMV_Feed, victim);
-                //            job.count = 1;
-                //            pawn.jobs.TryTakeOrderedJob(job);
-                //        };
-                //        opts.Add(new FloatMenuOption("ROMV_Feed".Translate(new object[]
-                //        {
-                //                victim.LabelCap
-                //        }) + ((n.CurBloodPoints == 1) ? " " + "ROMV_LethalWarning".Translate() : ""), action, MenuOptionPriority.High, null, victim, 0f, null, null));
-                //    }
-                //    // SIP //////////////////////////
-                //    if (victim?.BloodNeed()?.CurBloodPoints > 1)
-                //    {
-                //        Action action2 = delegate
-                //        {
-                //            Job job = new Job(VampDefOf.ROMV_Sip, victim);
-                //            job.count = 1;
-                //            pawn.jobs.TryTakeOrderedJob(job);
-                //        };
-                //        opts.Add(new FloatMenuOption("ROMV_Sip".Translate(new object[]
-                //        {
-                //            victim.LabelCap
-                //        }), action2, MenuOptionPriority.High, null, victim, 0f, null, null));
-                //    }
-                //    // EMBRACE /////////////////////
-                //    if (victim?.RaceProps?.Humanlike ?? false)
-                //    {
-                //        if (selVampComp.Thinblooded)
-                //        {
-                //            opts.Add(new FloatMenuOption("ROMV_CannotEmbrace".Translate(new object[]
-                //            {
-                //            victim.LabelCap
-                //            } + " (" + "ROMV_Thinblooded".Translate() + ")"), null, MenuOptionPriority.High, null, victim, 0f, null, null));
-                //        }
-                //        else
-                //        {
-                //            Action actionTwo = delegate
-                //            {
-                //                Job job = new Job(VampDefOf.ROMV_Embrace, victim);
-                //                job.count = 1;
-                //                pawn.jobs.TryTakeOrderedJob(job);
-                //            };
-                //            opts.Add(new FloatMenuOption("ROMV_Embrace".Translate(new object[]
-                //            {
-                //            victim.LabelCap
-                //            }), actionTwo, MenuOptionPriority.High, null, victim, 0f, null, null));
-                //        }
-                //    }
-
-                //    // Diablerie /////////////////////
-                //    if (pawnIsVampire && victimIsVampire)
-                //    {
-                //        //Action action = delegate
-                //        //{
-                //        //    Job job = new Job(VampDefOf.ROMV_FeedVampire, victim);
-                //        //    job.count = 1;
-                //        //    job.playerForced = true;
-                //        //    pawn.jobs.TryTakeOrderedJob(job);
-                //        //};
-                //        //opts.Add(new FloatMenuOption("ROMV_FeedVampire".Translate(new object[]
-                //        //{
-                //        //        victim.LabelCap
-                //        //}), action, MenuOptionPriority.High, null, victim, 0f, null, null));
-                //        Action action2 = delegate
-                //        {
-                //            Job job = new Job(VampDefOf.ROMV_Diablerie, victim);
-                //            job.count = 1;
-                //            job.playerForced = true;
-                //            pawn.jobs.TryTakeOrderedJob(job);
-                //        };
-                //        string benefitWarning = (selVampComp.Generation < victim.VampComp().Generation) ? " " + "ROMV_DiablerieNoBenefit".Translate() : "";
-                //        opts.Add(new FloatMenuOption("ROMV_Diablerie".Translate(new object[]
-                //        {
-                //                victim.LabelCap
-                //        }) + benefitWarning, action2, MenuOptionPriority.High, null, victim, 0f, null, null));
-                //    }
-                //}
             }
         }
 
@@ -1438,7 +1507,7 @@ namespace Vampire
         }
 
         //public class Alert_NeedDoctor : Alert
-        public static bool get_Patients_Vamp(IEnumerable<Pawn> __result)
+        public static bool get_Patients_Vamp(ref IEnumerable<Pawn> __result)
         {
             List<Map> maps = Find.Maps;
             for (int i = 0; i < maps.Count; i++)
@@ -1449,22 +1518,21 @@ namespace Vampire
                     List<Pawn> Patients = new List<Pawn>();
                     if (pawns != null && pawns.Count > 0 && pawns.FirstOrDefault(x => x.IsVampire()) != null)
                     {
-                        bool healthyDoc = false;
-                        foreach (Pawn p in pawns)
-                        {
-                            if (!p.Downed && p.workSettings != null && p.workSettings.WorkIsActive(WorkTypeDefOf.Doctor))
-                            {
-                                healthyDoc = true;
-                                break;
-                            }
-                        }
-                        if (!healthyDoc)
+                        if (pawns.FirstOrDefault(x => !x.Downed && x.workSettings != null && x.workSettings.WorkIsActive(WorkTypeDefOf.Doctor)) != null)
                         {
                             foreach (Pawn p2 in pawns)
                             {
-                                if ((p2.Downed && (p2?.needs?.food?.CurCategory ?? HungerCategory.Fed) < HungerCategory.Fed && p2.InBed()) || HealthAIUtility.ShouldBeTendedNow(p2))
+                                if (p2.IsVampire())
                                 {
-                                    Patients.Add(p2);
+                                    if (HealthAIUtility.ShouldBeTendedNow(p2))
+                                        Patients.Add(p2);
+                                }
+                                else
+                                {
+                                    if ((p2.Downed && (p2?.needs?.food?.CurCategory ?? HungerCategory.Fed) < HungerCategory.Fed && p2.InBed()) || HealthAIUtility.ShouldBeTendedNow(p2))
+                                    {
+                                        Patients.Add(p2);
+                                    }
                                 }
                             }
                         }

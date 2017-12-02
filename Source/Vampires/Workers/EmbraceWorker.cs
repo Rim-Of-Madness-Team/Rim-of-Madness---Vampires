@@ -25,21 +25,20 @@ namespace Vampire
 
         public void RemoveColonistDiedThoughts(Pawn vampToBe, bool wasColonist)
         {
-            if (vampToBe.MapHeld.mapPawns.FreeColonistsAndPrisonersSpawned is List<Pawn> thoughtHavers && !thoughtHavers.NullOrEmpty())
+            //Log.Message("RemoveColonistDiedThoughts Called");
+            if (vampToBe.MapHeld.mapPawns.FreeColonistsAndPrisonersSpawned.ToList() is List<Pawn> thoughtHavers && !thoughtHavers.NullOrEmpty())
             {
                 foreach (Pawn thoughtHaver in thoughtHavers)
                 {
-                    if (wasColonist)
+                    MemoryThoughtHandler memories = thoughtHaver.needs.mood.thoughts.memories;
+                    //Log.Message("Memory Cleaner");
+                    if (memories.Memories.FindAll(x => x.otherPawn == vampToBe && (x.def.defName.Contains("Died")) || x.def.defName.Contains("Death")) is List<Thought_Memory> mems && mems.NullOrEmpty())
                     {
-                        MemoryThoughtHandler memories = thoughtHaver.needs.mood.thoughts.memories;
-                        if (memories.Memories.FirstOrDefault(x => x.def == ThoughtDefOf.KnowColonistDied) is Thought_Memory mem)
+                        foreach (Thought_Memory mem in mems)
+                        {
                             memories.RemoveMemory(mem);
-                    }
-                    else
-                    {
-                        MemoryThoughtHandler memories = thoughtHaver.needs.mood.thoughts.memories;
-                        if (memories.Memories.FirstOrDefault(x => x.def == ThoughtDefOf.KnowPrisonerDiedInnocent) is Thought_Memory mem)
-                            memories.RemoveMemory(mem);
+                            //Log.Message("Memory removed");
+                        }
                     }
                 }
             }

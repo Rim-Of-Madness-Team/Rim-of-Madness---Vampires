@@ -40,21 +40,21 @@ namespace Vampire
                         {
                                 victim.LabelCap
                         }) + ((curBloodVictim == 1) ? " " + "ROMV_LethalWarning".Translate() : ""), action, MenuOptionPriority.High, null, victim, 0f, null, null));
-                    };
-                    // SIP //////////////////////////
-                    if (curBloodVictim > 1)
-                    {
-                        Action action2 = delegate
+                        // SIP //////////////////////////
+                        if (curBloodVictim > 1)
                         {
-                            Job job = new Job(VampDefOf.ROMV_Sip, victim);
-                            job.count = 1;
-                            pawn.jobs.TryTakeOrderedJob(job);
-                        };
-                        opts.Add(new FloatMenuOption("ROMV_Sip".Translate(new object[]
-                        {
+                            Action action2 = delegate
+                            {
+                                Job job = new Job(VampDefOf.ROMV_Sip, victim);
+                                job.count = 1;
+                                pawn.jobs.TryTakeOrderedJob(job);
+                            };
+                            opts.Add(new FloatMenuOption("ROMV_Sip".Translate(new object[]
+                            {
                             victim.LabelCap
-                        }), action2, MenuOptionPriority.High, null, victim, 0f, null, null));
-                    }
+                            }), action2, MenuOptionPriority.High, null, victim, 0f, null, null));
+                        }
+                    };
                     //EMBRACE /////////////////////
                     if (victim?.RaceProps?.Humanlike ?? false)
                     {

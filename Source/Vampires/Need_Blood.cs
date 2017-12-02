@@ -5,6 +5,7 @@ using Verse;
 using RimWorld;
 using Verse.Sound;
 using Verse.AI;
+using System.Linq;
 
 namespace Vampire
 {

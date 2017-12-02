@@ -82,14 +82,21 @@ namespace Vampire
 
             if (fangs != null && TryGetFangsDmgInfo(fangs, out dmgLabel, out dmgAmount, out dmgDef, out dmgRules))
             {
-                if (victim.health.hediffSet.hediffs.FirstOrDefault(x => x is Hediff_Injury y && !y.IsOld()) is Hediff_Injury inj)
+
+                Hediff_Injury neckInjury = (Hediff_Injury)victim.health.hediffSet.hediffs.FirstOrDefault(x => x is Hediff_Injury y && !y.IsOld() && y?.Part?.def == BodyPartDefOf.Neck);
+                if (neckInjury == null)
                 {
-                    inj.Heal((int)inj.Severity + 1);
+                    neckInjury = (Hediff_Injury)victim.health.hediffSet.hediffs.FirstOrDefault(x => x is Hediff_Injury y && !y.IsOld());
                 }
-                Find.BattleLog.Add(
-                    new BattleLogEntry_StateTransition(victim,
-                    RulePackDef.Named("ROMV_BiteCleaned"), actor, null, null)
-                );
+                if (neckInjury != null)
+                {
+                    neckInjury.Heal((int)neckInjury.Severity + 1);
+                    Find.BattleLog.Add(
+                        new BattleLogEntry_StateTransition(victim,
+                        RulePackDef.Named("ROMV_BiteCleaned"), actor, null, null)
+                    );
+                }
+
             }
         }
     }

@@ -21,7 +21,24 @@ namespace Vampire
 
         // RimWorld.Building_Grave
         //public override Graphic Graphic
-        
+
+        public override IEnumerable<Gizmo> GetGizmos()
+        {
+            foreach (Gizmo g in base.GetGizmos())
+                yield return g;
+
+            Pawn p = (Pawn)this.ContainedThing;
+            if (p == null)
+            {
+                p = this?.Corpse?.InnerPawn ?? null;
+            }
+            if (p != null)
+            {
+                foreach (Gizmo y in HarmonyPatches.GraveGizmoGetter(p, this))
+                    yield return y;
+            }
+        }
+
 
         //public override IEnumerable<FloatMenuOption> GetFloatMenuOptions(Pawn selPawn)
 

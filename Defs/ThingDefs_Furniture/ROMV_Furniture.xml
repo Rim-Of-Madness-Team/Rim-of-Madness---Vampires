@@ -4,6 +4,140 @@
 
   <!--============================== Beds ==============================-->
 
+  
+  <ThingDef ParentName="BuildingBase">
+    <defName>ROMV_SimpleCoffin</defName>
+    <label>Coffin</label>
+    <thingClass>Vampire.Building_Coffin</thingClass>
+    <graphicData>
+      <texPath>Things/Building/Furniture/Coffin/SimpleCoffin/simpleCoffin</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(3,3.5)</drawSize>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
+    </graphicData>
+    <description>A burial receptacle for the dead.</description>
+    <size>(1,2)</size>
+    <pathCost>70</pathCost>
+    <castEdgeShadows>true</castEdgeShadows>
+    <fillPercent>0.5</fillPercent>
+    <tickerType>Rare</tickerType>
+    <canOverlapZones>false</canOverlapZones>
+    <minifiedDef>MinifiedFurniture</minifiedDef>
+    <building>
+			<ai_chillDestination>false</ai_chillDestination>
+      <fullGraveGraphicData>
+				<texPath>Things/Building/Furniture/Coffin/RoyalCoffinFull/spoonshortageRoyalCoffinFull</texPath>
+				<graphicClass>Graphic_Multi</graphicClass>
+				<drawSize>(3,3.5)</drawSize>
+			</fullGraveGraphicData>
+      <fixedStorageSettings>
+        <filter>
+          <categories>
+            <li>Corpses</li>
+          </categories>
+        </filter>
+      </fixedStorageSettings>
+      <defaultStorageSettings>
+        <filter>
+          <categories>
+            <li>CorpsesHumanlike</li>
+          </categories>
+          <specialFiltersToDisallow>
+            <li>AllowCorpsesStranger</li>
+          </specialFiltersToDisallow>
+        </filter>
+      </defaultStorageSettings>
+    </building>
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+      <WorkToBuild>1600</WorkToBuild>
+      <Mass>45</Mass>
+    </statBases>
+    <stuffCategories>
+      <li>Woody</li>
+      <li>Metallic</li>
+      <li>Stony</li>
+    </stuffCategories>
+    <inspectorTabs>
+      <li>ITab_Storage</li>
+      <li>ITab_Art</li>
+    </inspectorTabs>
+    <comps>
+      <li Class="Vampire.CompProperties_VampBed">
+        <bedDef>ROMV_SimpleCoffinBed</bedDef>
+      </li>
+      <li>
+        <compClass>CompQuality</compClass>
+      </li>
+      <li Class="CompProperties_Art">
+        <nameMaker>ArtName_SarcophagusPlate</nameMaker>
+        <descriptionMaker>ArtDescription_SarcophagusPlate</descriptionMaker>
+        <mustBeFullGrave>true</mustBeFullGrave>
+      </li>
+    </comps>
+    <costStuffCount>40</costStuffCount>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>Standable</passability>
+    <blockWind>true</blockWind>
+    <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+    <staticSunShadowHeight>0.3</staticSunShadowHeight>
+    <designationCategory>Misc</designationCategory>
+    <designationHotKey>Misc9</designationHotKey>
+  </ThingDef>
+
+  <ThingDef ParentName="BuildingBase">
+    <defName>ROMV_SimpleCoffinBed</defName>
+    <label>sleeping spot</label>
+    <description>Designates a spot on the ground where people should sleep. Not comfortable.</description>
+    <thingClass>Building_Bed</thingClass>
+    <graphicData>
+      <texPath>Things/Building/Furniture/Coffin/SimpleCoffin/simpleCoffin</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <drawSize>(3,3.5)</drawSize>
+    </graphicData>
+    <altitudeLayer>BuildingOnTop</altitudeLayer>
+    <costStuffCount>0</costStuffCount>
+    <stuffCategories>
+      <li>Woody</li>
+      <li>Metallic</li>
+      <li>Stony</li>
+    </stuffCategories>
+    <statBases>
+      <WorkToBuild>0</WorkToBuild>
+      <Beauty>0</Beauty>
+      <BedRestEffectiveness>0.85</BedRestEffectiveness>
+      <Comfort>0.70</Comfort>
+      <ImmunityGainSpeedFactor>1.0</ImmunityGainSpeedFactor>
+	  <SurgerySuccessChanceFactor>1</SurgerySuccessChanceFactor>	  
+    </statBases>
+		<scatterableOnMapGen>false</scatterableOnMapGen>
+    <useHitPoints>False</useHitPoints>
+    <size>(1,2)</size>
+    <passability>Standable</passability>
+    <drawGUIOverlay>True</drawGUIOverlay>
+    <selectable>False</selectable>
+    <building>
+      <isEdifice>False</isEdifice>
+      <bed_showSleeperBody>True</bed_showSleeperBody>
+      <bed_healPerDay>2</bed_healPerDay>	  
+      <sowTag>SupportPlantsOnly</sowTag>
+      <canPlaceOverImpassablePlant>false</canPlaceOverImpassablePlant>
+      <ai_chillDestination>false</ai_chillDestination>
+    </building>
+		<comps>
+			<li Class="CompProperties_RoomIdentifier">
+				<roomStat>Impressiveness</roomStat>
+			</li>
+		</comps>
+  </ThingDef>
+
 
   <ThingDef ParentName="BuildingBase">
     <defName>ROMV_RoyalCoffin</defName>
@@ -20,7 +154,7 @@
         <cornerBR>Damage/Corner</cornerBR>
       </damageData>
     </graphicData>
-    <description>An ornamented burial receptacle for the honored dead.</description>
+    <description>A luxurious ornamented burial receptacle for the greatly honored dead.</description>
     <size>(1,2)</size>
     <pathCost>70</pathCost>
     <castEdgeShadows>true</castEdgeShadows>
@@ -56,7 +190,7 @@
     <statBases>
       <MaxHitPoints>200</MaxHitPoints>
       <Flammability>1.0</Flammability>
-      <WorkToBuild>4000</WorkToBuild>
+      <WorkToBuild>5000</WorkToBuild>
       <Mass>60</Mass>
     </statBases>
     <stuffCategories>
@@ -81,7 +215,9 @@
         <mustBeFullGrave>true</mustBeFullGrave>
       </li>
     </comps>
-    <costStuffCount>60</costStuffCount>
+    <techLevel>Medieval</techLevel>
+    <researchPrerequisites><li>Beds</li></researchPrerequisites>	
+    <costStuffCount>110</costStuffCount>
     <altitudeLayer>Building</altitudeLayer>
     <passability>Standable</passability>
     <blockWind>true</blockWind>
@@ -115,6 +251,7 @@
       <BedRestEffectiveness>1.05</BedRestEffectiveness>
       <Comfort>0.90</Comfort>
       <ImmunityGainSpeedFactor>1.1</ImmunityGainSpeedFactor>
+      <SurgerySuccessChanceFactor>1</SurgerySuccessChanceFactor>
     </statBases>
 		<scatterableOnMapGen>false</scatterableOnMapGen>
     <useHitPoints>False</useHitPoints>
@@ -124,7 +261,7 @@
     <selectable>False</selectable>
     <building>
       <isEdifice>False</isEdifice>
-      <bed_showSleeperBody>True</bed_showSleeperBody>
+      <bed_showSleeperBody>False</bed_showSleeperBody>
       <sowTag>SupportPlantsOnly</sowTag>
       <canPlaceOverImpassablePlant>false</canPlaceOverImpassablePlant>
       <ai_chillDestination>false</ai_chillDestination>
@@ -168,6 +305,7 @@
       <isEdifice>False</isEdifice>
       <bed_showSleeperBody>True</bed_showSleeperBody>
       <sowTag>SupportPlantsOnly</sowTag>
+      <bed_healPerDay>2</bed_healPerDay>
       <canPlaceOverImpassablePlant>false</canPlaceOverImpassablePlant>
       <ai_chillDestination>false</ai_chillDestination>
     </building>
