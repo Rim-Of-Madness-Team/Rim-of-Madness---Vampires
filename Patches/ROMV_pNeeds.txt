@@ -3,6 +3,7 @@
 Help: XPath Syntax: https://www.w3schools.com/xml/xpath_syntax.asp
 -->
 <Patch>
+
 	<!-- Patch in our need. -->
 	<Operation Class="PatchOperationSequence">
 		<success>Always</success>
@@ -15,11 +16,13 @@ Help: XPath Syntax: https://www.w3schools.com/xml/xpath_syntax.asp
 				<order>Prepend</order>
 				<value>
 					<li Class="Vampire.JobGiver_SeekShelterFromSunlight"/>
+					<li Class="Vampire.JobGiver_GetBlood"/>
 				</value>
 			</li>
 		</operations>
 	</Operation>
 
+		<!-- Patch in our need. -->
 	<Operation Class="PatchOperationSequence">
 		<success>Always</success>
 		<operations>
@@ -30,10 +33,11 @@ Help: XPath Syntax: https://www.w3schools.com/xml/xpath_syntax.asp
 				<xpath>/ThinkTrees/ThinkTreeDef[defName='MainColonistBehaviorCore']/thinkRoot[@Class='ThinkNode_Tagger']/subNodes/li[@Class='ThinkNode_PrioritySorter']/subNodes</xpath>
 				<order>Prepend</order>
 				<value>
+					<li Class="Vampire.JobGiver_SeekShelterFromSunlight"/>
 					<li Class="Vampire.JobGiver_GetBlood"/>
 				</value>
 			</li>
 		</operations>
 	</Operation>
-
+	
 </Patch>

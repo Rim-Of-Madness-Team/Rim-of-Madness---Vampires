@@ -39,7 +39,7 @@
       <DeteriorationRate>8</DeteriorationRate>
     </statBases>
     <thingCategories>
-      <li>Foods</li>
+      <li>ROMV_Blood</li>
     </thingCategories>
     <ingestible>
       <preferability>DesperateOnly</preferability>
@@ -71,7 +71,7 @@
       <DeteriorationRate>8</DeteriorationRate>
     </statBases>
     <thingCategories>
-      <li>Foods</li>
+      <li>ROMV_Blood</li>
     </thingCategories>
     <ingestible>
       <preferability>DesperateOnly</preferability>
@@ -87,6 +87,15 @@
     <stackLimit>5</stackLimit>
   </ThingDef>
 
+  
+  <ThingCategoryDef>
+    <defName>ROMV_Blood</defName>
+    <label>blood packs</label>
+    <parent>Items</parent>
+    <resourceReadoutRoot>true</resourceReadoutRoot>
+    <iconPath>UI/Icons/ThingCategories/ROM_Blood</iconPath>
+  </ThingCategoryDef>
+  
   <!--
   ██████   █████   ██████ ██   ██ ███████
   ██   ██ ██   ██ ██      ██  ██  ██

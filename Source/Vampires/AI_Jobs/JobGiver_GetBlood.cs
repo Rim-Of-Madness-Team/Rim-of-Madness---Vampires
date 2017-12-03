@@ -28,10 +28,14 @@ namespace Vampire
             }
             if (!pawn.VampComp().IsVampire)
             {
-                //Log.Message("0b");
                 return 0f;
-
             }
+
+            if (pawn.Drafted)
+            {
+                return 0f;
+            }
+
             Need_Blood blood = pawn.needs.TryGetNeed<Need_Blood>();
             if (blood == null)
             {
@@ -39,7 +43,7 @@ namespace Vampire
                 return 0f;
 
             }
-            if (blood.preferredFeedMode == PreferredFeedMode.None)
+            if (pawn.Faction == Faction.OfPlayer && blood.preferredFeedMode == PreferredFeedMode.None)
             {
                 //Log.Message("0d");
                 return 0f;

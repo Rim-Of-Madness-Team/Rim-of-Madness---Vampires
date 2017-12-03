@@ -4,6 +4,18 @@
   <!--============= Mental states (critical) ============-->
 
   <ThinkTreeDef>
+    <defName>ROMV_VampireNeeds</defName>
+    <insertTag>Humanlike_PostMentalState</insertTag>
+	<insertPriority>55</insertPriority>
+    <thinkRoot Class="ThinkNode_PrioritySorter">
+	  <subNodes>
+	    <li Class="Vampire.JobGiver_GetBlood"/>
+	    <li Class="Vampire.JobGiver_SeekShelterFromSunlight"/>
+	  </subNodes>
+    </thinkRoot>
+  </ThinkTreeDef>
+  
+  <ThinkTreeDef>
     <defName>ROM_VampireBeastThinkTree</defName>
     <insertTag>Humanlike_PostMentalState</insertTag>
     <insertPriority>50</insertPriority>
