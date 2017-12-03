@@ -1036,9 +1036,12 @@ namespace Vampire
                 if (v?.Bloodline?.headGraphicsPath != "")
                 {
                     string headPath = VampireGraphicUtility.GetHeadGraphicPath(__instance.pawn);
-                    Graphic newHeadGraphic = VampireGraphicUtility.GetVampireHead(__instance.pawn, headPath, __instance.pawn.story.SkinColor);
-                    if (newHeadGraphic != null)
-                        __instance.headGraphic = newHeadGraphic;
+                    if (headPath != "")
+                    {
+                        Graphic newHeadGraphic = VampireGraphicUtility.GetVampireHead(__instance.pawn, headPath, __instance.pawn.story.SkinColor);
+                        if (newHeadGraphic != null)
+                            __instance.headGraphic = newHeadGraphic;
+                    }
                 }
                 __instance.ResolveApparelGraphics();
             }

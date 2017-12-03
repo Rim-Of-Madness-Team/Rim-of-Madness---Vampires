@@ -23,28 +23,53 @@ namespace Vampire
             // RimWorld.Pawn_StoryTracker
         public static string GetHeadGraphicPath(Pawn pawn)
         {
-            if (pawn.VampComp() is CompVampire v && v.IsVampire && v.Bloodline.headGraphicsPath != "")
+            try
             {
-                Graphic giggity = GraphicDatabaseHeadRecords.GetHeadNamed(pawn.story.HeadGraphicPath, pawn.story.SkinColor);
-                string headGraphicPath = giggity.path; //pawn.story.HeadGraphicPath; //Traverse.Create(pawn.story).Field("headGraphicPath").GetValue<string>();
-                string pathToReplace = "Things/Pawn/Humanlike/Heads/";
-                headGraphicPath = headGraphicPath.Replace(pathToReplace, v.Bloodline.headGraphicsPath);
-                return headGraphicPath;
+                if (pawn.VampComp() is CompVampire v && v.IsVampire && v.Bloodline.headGraphicsPath != "")
+                {
+                    if (GraphicDatabaseHeadRecords.GetHeadNamed(pawn.story.HeadGraphicPath, pawn.story.SkinColor) is Graphic giggity)
+                    {
+                        string headGraphicPath = giggity.path; //pawn.story.HeadGraphicPath; //Traverse.Create(pawn.story).Field("headGraphicPath").GetValue<string>();
+                        string pathToReplace = "Things/Pawn/Humanlike/Heads/";
+                        headGraphicPath = headGraphicPath.Replace(pathToReplace, v.Bloodline.headGraphicsPath);
+                        return headGraphicPath;
+                    }
+                }
             }
+            catch { }
             return "";
         }
 
         // Verse.GraphicGetter_NakedHumanlike
         public static Graphic GetNakedBodyGraphic(Pawn pawn, BodyType bodyType, Shader shader, Color skinColor)
         {
-            if (pawn?.VampComp() is CompVampire v && v.IsVampire &&
+            //Log.Message(pawn.ToString());
+            //Log.Message(bodyType.ToString());
+            //Log.Message(shader.ToString());
+            //Log.Message(skinColor.ToString());
+            //Log.Message("1");
+
+
+
+            if (pawn?.VampComp() is CompVampire v && v.IsVampire && v.Bloodline != null &&
                 v?.Bloodline?.nakedBodyGraphicsPath != "")
             {
+                //Log.Message("2");
+
+
                 if (v.Transformed)
                     return null;
+                //Log.Message("3");
+
                 string str = "Naked_" + bodyType.ToString();
+                //Log.Message("4");
+
                 string path = v.Bloodline.nakedBodyGraphicsPath + str;
-                return GraphicDatabase.Get<Graphic_Multi>(path, shader, Vector2.one, skinColor);
+                //Log.Message("5");
+
+                Graphic result = GraphicDatabase.Get<Graphic_Multi>(path, shader, Vector2.one, skinColor);
+                //Log.Message("6");
+                return result;
             }
             return null;
         }

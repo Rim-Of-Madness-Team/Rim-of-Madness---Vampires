@@ -174,7 +174,11 @@ namespace Vampire
                 return souls;
             }
         }
-        public BloodlineDef Bloodline { get => bloodline; set => bloodline = value; }
+        public BloodlineDef Bloodline {
+            get
+            {
+                return bloodline;
+            } set => bloodline = value; }
         public int Generation { get => generation; set => generation = value; }
         public bool Thinblooded => this.generation > 13;
         public Need_Blood BloodPool => this.AbilityUser?.needs?.TryGetNeed<Need_Blood>() ?? null;

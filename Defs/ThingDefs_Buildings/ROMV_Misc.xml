@@ -25,7 +25,6 @@
       <building>
   			<ai_chillDestination>false</ai_chillDestination>
         <isInert>true</isInert>
-        <preventDeterioration>true</preventDeterioration>
         <fullGraveGraphicData>
   				<texPath>Things/Building/Misc/DirtPile</texPath>
   				<graphicClass>Graphic_Single</graphicClass>
