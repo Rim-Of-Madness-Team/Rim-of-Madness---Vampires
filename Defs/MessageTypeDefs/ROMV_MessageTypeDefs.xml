@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!-- Immediate action needed from player due to existential threat -->
+  <MessageTypeDef>
+    <defName>ROMV_VampireNotifaction</defName>
+    <sound>ROMV_LevelUp</sound>
+  </MessageTypeDef>
+  
+  
+  <SoundDef>
+    <defName>ROMV_LevelUp</defName>  
+    <eventNames />  
+    <maxSimultaneous>1</maxSimultaneous>  
+    <subSounds>
+      <li>
+        <onCamera>True</onCamera>      
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>UI/VampLevelUp</clipPath>
+          </li>
+        </grains>      
+        <volumeRange>
+          <min>50</min>        
+          <max>50</max>
+        </volumeRange>
+      </li>
+    </subSounds>
+  </SoundDef>
+
+</Defs>

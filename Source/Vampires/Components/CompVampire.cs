@@ -230,6 +230,8 @@ namespace Vampire
         {
             if (XP <= 0) XP = 1;
             Level++;
+            if (sendNotification && this.AbilityUser != null && this.AbilityUser.Spawned && this.AbilityUser.Faction == Faction.OfPlayerSilentFail)
+                Messages.Message("ROMV_LevelUp".Translate(this.AbilityUser), new RimWorld.Planet.GlobalTargetInfo(this.AbilityUser), DefDatabase<MessageTypeDef>.GetNamed("ROMV_VampireNotifaction"));
         }
         public void Notify_ResetAbilities()
         {

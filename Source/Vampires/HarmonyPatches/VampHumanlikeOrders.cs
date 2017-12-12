@@ -21,9 +21,9 @@ namespace Vampire
                 List<FloatMenuOption> opts = new List<FloatMenuOption>();
 
                 bool pawnIsVampire = pawn.IsVampire();
-                if (pawnIsVampire && curThing is Pawn victim && victim != pawn)
+                if (pawnIsVampire && curThing is Pawn victim && victim != pawn && !victim.RaceProps.IsMechanoid)
                 {
-                    
+
                     CompVampire selVampComp = pawn.GetComp<CompVampire>();
                     int curBloodVictim = victim?.BloodNeed()?.CurBloodPoints ?? 0;
                     bool victimIsVampire = victim.IsVampire();

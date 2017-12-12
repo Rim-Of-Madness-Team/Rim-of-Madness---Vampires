@@ -11,7 +11,7 @@ namespace Vampire
     {
         public override void Effect(Pawn target)
         {
-            if (!JecsTools.GrappleUtility.CanGrapple(this.CasterPawn, target))
+            if (JecsTools.GrappleUtility.TryGrapple(this.CasterPawn, target))
             {
                 base.Effect(target);
                 int boolSel = Rand.Range(0, 2);

@@ -11,15 +11,13 @@ namespace Vampire
 {
     public class VampireCorpse : Corpse
     {
-        // Token: 0x0600478B RID: 18315 RVA: 0x002073C1 File Offset: 0x002057C1
+
         public VampireCorpse() : base()
         {
             this.operationsBillStack = new BillStack(this);
             this.innerContainer = new ThingOwner<Pawn>(this, true, LookMode.Reference);
         }
 
-        // Token: 0x17000B76 RID: 2934
-        // (get) Token: 0x06004793 RID: 18323 RVA: 0x0020754C File Offset: 0x0020594C
         private bool ShouldVanish
         {
             get
@@ -28,7 +26,6 @@ namespace Vampire
             }
         }
 
-        // Token: 0x060047A9 RID: 18345 RVA: 0x00207C00 File Offset: 0x00206000
         private BodyPartRecord GetBestBodyPartToEat(Pawn ingester, float nutritionWanted)
         {
             IEnumerable<BodyPartRecord> source = from x in this.InnerPawn.health.hediffSet.GetNotMissingParts(BodyPartHeight.Undefined, BodyPartDepth.Undefined)
@@ -41,7 +38,6 @@ namespace Vampire
             return source.MinBy((BodyPartRecord x) => Mathf.Abs(FoodUtility.GetBodyPartNutrition(this.InnerPawn, x) - nutritionWanted));
         }
 
-        // Token: 0x060047AA RID: 18346 RVA: 0x00207C69 File Offset: 0x00206069
         private void NotifyColonistBar()
         {
             if (this.InnerPawn.Faction == Faction.OfPlayer && Current.ProgramState == ProgramState.Playing)
@@ -50,19 +46,14 @@ namespace Vampire
             }
         }
 
-        // Token: 0x04003084 RID: 12420
         private ThingOwner<Pawn> innerContainer;
 
-        // Token: 0x04003085 RID: 12421
         private int timeOfDeath = -1000;
 
-        // Token: 0x04003086 RID: 12422
         private int vanishAfterTimestamp = -1000;
 
-        // Token: 0x04003087 RID: 12423
         private BillStack operationsBillStack;
         
-        // Token: 0x04003089 RID: 12425
         private const int VanishAfterTicksSinceDessicated = 6000000;
 
         
@@ -100,6 +91,9 @@ namespace Vampire
                 burnedToAshes = value;
             }
         }
+
+        private bool diableried = false;
+        public bool Diableried { get => diableried; set => diableried = value; }
         
 
         private Graphic ashesCache = null;
@@ -122,6 +116,8 @@ namespace Vampire
         {
             get
             {
+                if (Diableried)
+                    return "ROMV_SoullessHuskOf".Translate(base.Label);
                 return (burnedToAshes) ? "ROMV_AshesOf".Translate(base.Label) : base.Label;
             }
         }
@@ -134,7 +130,6 @@ namespace Vampire
             {
                 if (base.GetInspectString() is string baseString && baseString != "")
                     s.AppendLine(baseString);
-
                 s.AppendLine("Blood points remaining: " + bloodPoints);
             }
             else
@@ -166,13 +161,15 @@ namespace Vampire
 
         }
 
+        public bool CanResurrect => this.InnerPawn != null && !BurnedToAshes && this.InnerPawn.Faction == Faction.OfPlayerSilentFail && !Diableried && this.GetRotStage() < RotStage.Dessicated;
+
         public override IEnumerable<Gizmo> GetGizmos()
         {
             foreach (Gizmo g in base.GetGizmos())
                 yield return g;
 
             Vampire.VitaeAbilityDef bloodResurrection = DefDatabase<Vampire.VitaeAbilityDef>.GetNamedSilentFail("ROMV_VampiricResurrection");
-            if (this.InnerPawn != null && !BurnedToAshes && this.InnerPawn.Faction == Faction.OfPlayerSilentFail && this.GetRotStage() < RotStage.Dessicated)
+            if (CanResurrect)
             {
                 yield return new Command_Action()
                 {
@@ -202,6 +199,7 @@ namespace Vampire
 
             Scribe_Values.Look<int>(ref this.bloodPoints, "bloodPoints", -1);
             Scribe_Values.Look<bool>(ref this.burnedToAshes, "burnedToAshes", false);
+            Scribe_Values.Look<bool>(ref this.diableried, "diableried", false);
 
             Scribe_Values.Look<int>(ref this.timeOfDeath, "timeOfDeath", 0, false);
             Scribe_Values.Look<int>(ref this.vanishAfterTimestamp, "vanishAfterTimestamp", 0, false);

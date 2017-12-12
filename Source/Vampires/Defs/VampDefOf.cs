@@ -10,6 +10,8 @@ namespace Vampire
     [DefOf]
     public static class VampDefOf
     {
+        public static NeedDef ROMV_Blood;
+
         public static HediffDef ROM_Vampirism; //Vampires have no inner organs.
         public static HediffDef ROMV_SunExposure;
         public static HediffDef ROMV_Fangs;

@@ -15,7 +15,8 @@ namespace Vampire
     {
         private float workLeft = -1f;
         public static float BaseFeedTime = 320f;
-        
+        public static float BaseCoolantThrowupChance = 0.25f;
+
         protected Pawn Victim => base.job.targetA.Thing as Pawn;
         protected CompVampire CompVictim => Victim.GetComp<CompVampire>();
         protected CompVampire CompFeeder => this.GetActor().GetComp<CompVampire>();
@@ -30,6 +31,15 @@ namespace Vampire
         public virtual void DoEffect()
         {
             this.BloodVictim.TransferBloodTo(1, BloodFeeder);
+            if (Victim.IsAndroid() && !this.pawn.IsAndroid())
+            {
+                if (Rand.Value <= BaseCoolantThrowupChance)
+                {
+                    this.EndJobWith(JobCondition.Incompletable);
+                    this.pawn.jobs.StartJob(new Job(JobDefOf.Vomit, this.pawn.PositionHeld));
+                }
+            }
+
         }
         [DebuggerHidden]
         protected override IEnumerable<Toil> MakeNewToils()
@@ -54,7 +64,7 @@ namespace Vampire
         }
 
 
-        public static IEnumerable<Toil> MakeFeedToils(JobDef job, JobDriver thisDriver, Pawn actor, LocalTargetInfo TargetA, ThoughtDef victimThoughtDef, ThoughtDef actorThoughtDef, float workLeft, Action effect, Func<Pawn, Pawn, bool> stopCondition, bool needsGrapple = true, bool cleansWound = true)
+        public static IEnumerable<Toil> MakeFeedToils(JobDef job, JobDriver thisDriver, Pawn actor, LocalTargetInfo TargetA, ThoughtDef victimThoughtDef, ThoughtDef actorThoughtDef, float workLeft, Action effect, Func<Pawn, Pawn, bool> stopCondition, bool needsGrapple = true, bool cleansWound = true, bool neverGiveUp = false)
         {
             yield return Toils_Reserve.Reserve(TargetIndex.A, 1, -1, null);
             Toil gotoToil = (actor?.Faction == TargetA.Thing?.Faction) ? Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.ClosestTouch) : Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.Touch);

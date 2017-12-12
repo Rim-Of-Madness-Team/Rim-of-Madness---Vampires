@@ -134,6 +134,16 @@ namespace Vampire
             return false;
         }
 
+        public static Color ColorAndroidCoolant = new Color(153, 217, 234);
+        public static Color ColorAndroidCoolantVitae = new Color(183, 217, 234);
+        public static Color ColorBlood = new Color(0.73f, 0.02f, 0.02f);
+        public static Color ColorVitae = new Color(0.65f, 0.008f, 0.008f);
+        public static bool IsAndroid(this Pawn pawn)
+        {
+            if (pawn != null && pawn?.def?.race?.hediffGiverSets?.FirstOrDefault(x => x.defName == "ChjAndroidStandard") != null)
+                return true;
+            return false;
+        }
 
         public static int GrapplerModifier(Pawn grappler)
         {

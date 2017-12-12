@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
 
+<!-- 12-13-17 -->
+<ROMV_LevelUp>{0} has gained a level in vampirism.</ROMV_LevelUp>
+
+<!-- 12-9-17 -->
+<ROMV_SoullessHuskOf>Husk of {0}</ROMV_SoullessHuskOf>
+<ROMV_AndroidCoolant>Android Coolant</ROMV_AndroidCoolant>
+<ROMV_AndroidCoolantVitae>Simulacrae</ROMV_AndroidCoolantVitae>
+<ROMV_AndroidCoolantVitaeDesc>After attempting to process newly input coolant and strangely receiving drops of vampire blood, this android's systems have synthesized a variant of vitae to allow for continued processing and system functionality.</ROMV_AndroidCoolantVitaeDesc>
+<ROMV_AndroidCoolantDesc>Without coolant, androids will cease to function. Curiously, this behaves very similarly to blood. Organic Vampires that attempt to feed on coolant, however, may have a hard time keeping it down.</ROMV_AndroidCoolantDesc>
+
 <!-- 12-2-17 -->
 <ROMV_AshesOf>Ashes of {0}</ROMV_AshesOf>
 <ROMV_NoBloodRemaining>No blood points remaining.</ROMV_NoBloodRemaining>

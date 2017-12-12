@@ -12,7 +12,8 @@ namespace Vampire
         public override void Effect(Pawn target)
         {
             base.Effect(target);
-            target.ClearMind();
+            if (target.Faction == this.CasterPawn.Faction) //To avoid throwing red errors
+                target.ClearMind();
         }
     }
 }

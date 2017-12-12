@@ -12,7 +12,7 @@ namespace Vampire
         public override void Effect(Pawn target)
         {
             base.Effect(target);
-            if (!JecsTools.GrappleUtility.CanGrapple(this.CasterPawn, target))
+            if (JecsTools.GrappleUtility.TryGrapple(this.CasterPawn, target))
             {
                 IntVec3 curLoc = target.PositionHeld;
                 Map curMap = target.MapHeld;

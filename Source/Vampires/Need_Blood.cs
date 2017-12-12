@@ -158,7 +158,7 @@ namespace Vampire
             Scribe_Values.Look<PreferredFeedMode>(ref this.preferredFeedMode, "preferredFeedMode", PreferredFeedMode.HumanoidNonLethal);
         }
         
-        public int AdjustBlood(int amt)
+        public int AdjustBlood(int amt, bool alert = true)
         {
             int prevBloodPoints = CurBloodPoints;
 
@@ -172,19 +172,23 @@ namespace Vampire
             }
 
             if (CurBloodPoints == 0)
-                Notify_NoBloodLeft();
+                Notify_NoBloodLeft(alert);
 
             return prevBloodPoints - CurBloodPoints;
         }
 
-        public void Notify_NoBloodLeft()
+        public void Notify_NoBloodLeft(bool alert = true)
         {
             if (this.pawn.Faction == Faction.OfPlayer)
             {
-                if (this.pawn.IsVampire())
-                    Messages.Message("ROMV_BloodDepletedVamp".Translate(this.pawn.LabelCap), MessageTypeDefOf.NeutralEvent);
-                else
-                    Messages.Message("ROMV_BloodDepleted".Translate(this.pawn.LabelCap), MessageTypeDefOf.NegativeEvent);
+                if (alert)
+                {
+                    if (this.pawn.IsVampire())
+                        Messages.Message("ROMV_BloodDepletedVamp".Translate(this.pawn.LabelCap), MessageTypeDefOf.NeutralEvent);
+                    else
+                        Messages.Message("ROMV_BloodDepleted".Translate(this.pawn.LabelCap), MessageTypeDefOf.NegativeEvent);
+                }
+
             }
 
             if (!this.pawn.IsVampire())
@@ -194,7 +198,7 @@ namespace Vampire
             }
         }
 
-        public void TransferBloodTo(int amt, Need_Blood otherPool)
+        public void TransferBloodTo(int amt, Need_Blood otherPool, bool alert = true)
         {
             int removedAmt = AdjustBlood(-amt);
             if (removedAmt > 0) otherPool.AdjustBlood(removedAmt);
@@ -296,22 +300,52 @@ namespace Vampire
 
         public string GetLabel()
         {
-            if (this.pawn.IsVampire())
+            bool isVampire = this.pawn.IsVampire();
+            /// CHJEES ANDROIDS ///////////////////////////////////////////////////////
+            if (this.pawn.IsAndroid())
             {
-                return "ROMV_Vitae".Translate();
+                if (isVampire)
+                    return "ROMV_AndroidCoolantVitae".Translate();
+                return "ROMV_AndroidCoolant".Translate();
             }
+            ///////////////////////////////////////////////////////////////////////////
+            if (isVampire)
+                return "ROMV_Vitae".Translate();
             return this.LabelCap;
         }
 
         public string GetDescription()
         {
-            if (this.pawn.IsVampire())
+            bool isVampire = this.pawn.IsVampire();
+            /// CHJEES ANDROIDS ///////////////////////////////////////////////////////
+            if (this.pawn.IsAndroid())
             {
-                return "ROMV_VitaeDesc".Translate();
+                if (isVampire)
+                    return "ROMV_AndroidCoolantVitaeDesc".Translate();
+                return "ROMV_AndroidCoolantDesc".Translate();
             }
+            ///////////////////////////////////////////////////////////////////////////
+            if (isVampire)
+                return "ROMV_VitaeDesc".Translate();
             return this.def.description;
         }
         
+        public Color GetColorToUse()
+        {
+            bool isVampire = this.pawn.IsVampire();
+            if (this.pawn.IsAndroid())
+            {
+                if (isVampire)
+                    return VampireUtility.ColorAndroidCoolantVitae;
+                return VampireUtility.ColorAndroidCoolant;
+            }
+            if (isVampire)
+                return VampireUtility.ColorVitae; //new Color(0.65f, 0.008f, 0.008f);
+            return VampireUtility.ColorBlood; //new Color(0.73f, 0.02f, 0.02f);
+
+
+        }
+
         public override void DrawOnGUI(Rect rect, int maxThresholdMarkers = 2147483647, float customMargin = -1f, bool drawArrows = true, bool doTooltip = true)
         {
             if (this.threshPercents == null)
@@ -357,7 +391,7 @@ namespace Vampire
             Text.Anchor = TextAnchor.UpperLeft;
             Rect rect3 = new Rect(rect.x, rect.y + rect.height / 2f, rect.width, rect.height / 2f);
             rect3 = new Rect(rect3.x + num3, rect3.y, rect3.width - num3 * 2f, rect3.height - num2);
-            Color colorToUse = (this.pawn?.IsVampire() ?? false) ? new Color(0.65f, 0.008f, 0.008f) : new Color(0.73f, 0.02f, 0.02f);
+            Color colorToUse = GetColorToUse(); //(this.pawn?.IsVampire() ?? false) ? new Color(0.65f, 0.008f, 0.008f) : new Color(0.73f, 0.02f, 0.02f);
             Widgets.FillableBar(rect3, this.CurLevelPercentage, SolidColorMaterials.NewSolidColorTexture(colorToUse));
             //Widgets.FillableBar(rect3, this.CurLevelPercentage);
             if (drawArrows)

@@ -58,8 +58,10 @@
     <defName>ROMV_FortitudeIHediff</defName>
     <label>fortitude I (damage soak)</label>
     <comps>
-      <li Class="Vampire.HediffCompProperties_DamageSoak">
+      <li Class="JecsTools.HediffCompProperties_DamageSoak">
         <damageToSoak>1</damageToSoak>
+      </li>
+	  <li Class="HediffCompProperties_Disappears">
         <disappearsAfterTicks>
           <min>3000</min>
           <max>3000</max>
@@ -111,8 +113,10 @@
     <defName>ROMV_FortitudeIIHediff</defName>
     <label>fortitude II (damage soak)</label>
     <comps>
-      <li Class="Vampire.HediffCompProperties_DamageSoak">
+      <li Class="JecsTools.HediffCompProperties_DamageSoak">
         <damageToSoak>1</damageToSoak>
+      </li>
+	  <li Class="HediffCompProperties_Disappears">
         <disappearsAfterTicks>
           <min>3000</min>
           <max>3000</max>
@@ -163,8 +167,11 @@
     <defName>ROMV_FortitudeIIIHediff</defName>
     <label>fortitude III (damage soak)</label>
     <comps>
-      <li Class="Vampire.HediffCompProperties_DamageSoak">
+      <li Class="JecsTools.HediffCompProperties_DamageSoak">
         <damageToSoak>1</damageToSoak>
+      </li>
+	  
+	  <li Class="HediffCompProperties_Disappears">
         <disappearsAfterTicks>
           <min>3000</min>
           <max>3000</max>
@@ -215,8 +222,11 @@
     <defName>ROMV_FortitudeIVHediff</defName>
     <label>fortitude IV (damage soak)</label>
     <comps>
-      <li Class="Vampire.HediffCompProperties_DamageSoak">
+      <li Class="JecsTools.HediffCompProperties_DamageSoak">
         <damageToSoak>1</damageToSoak>
+      </li>
+	  
+	  <li Class="HediffCompProperties_Disappears">
         <disappearsAfterTicks>
           <min>3000</min>
           <max>3000</max>

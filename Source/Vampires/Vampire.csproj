@@ -104,8 +104,6 @@
     <Compile Include="Disciplines\Flight\DisciplineEffect_ShortFlight.cs" />
     <Compile Include="Disciplines\Flight\DisciplineEffect_SkyFall.cs" />
     <Compile Include="Disciplines\Flight\DisciplineEffect_WingBuffet.cs" />
-    <Compile Include="Disciplines\Fortitude\HediffCompProperties_DamageSoak.cs" />
-    <Compile Include="Disciplines\Fortitude\HediffComp_DamageSoak.cs" />
     <Compile Include="Disciplines\Fortitude\PassiveEffect_DamageSoak.cs" />
     <Compile Include="Disciplines\Obtenebration\DisciplineEffect_ArmOfTheAbyss.cs" />
     <Compile Include="Disciplines\Obtenebration\DisciplineEffect_BlackMetamorphosis.cs" />

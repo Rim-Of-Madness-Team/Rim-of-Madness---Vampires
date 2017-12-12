@@ -131,7 +131,7 @@ namespace Vampire
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_TryCastShot)), null);
 
             // Add XP every time a pawn learns a skill.
-            harmony.Patch(AccessTools.Method(typeof(SkillRecord), "Learn"), null, new HarmonyMethod(typeof(HarmonyPatches).GetMethod("Learn_PostFix")));
+            harmony.Patch(AccessTools.Method(typeof(SkillRecord), "Learn"), null, new HarmonyMethod(typeof(HarmonyPatches), nameof(Learn_PostFix)));
 
             // RimWorld.SickPawnVisitUtility
             harmony.Patch(AccessTools.Method(typeof(SickPawnVisitUtility), "CanVisit"), new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_CanVisit)), null);
@@ -1154,16 +1154,16 @@ namespace Vampire
                 }
                 if (pawn.health.hediffSet.hediffs != null && pawn.health.hediffSet.hediffs.Count > 0)
                 {
-                    Hediff fortitudeHediff = pawn.health.hediffSet.hediffs.FirstOrDefault((Hediff x) => x.TryGetComp<HediffComp_DamageSoak>() != null);
-                    if (fortitudeHediff != null)
-                    {
-                        HediffComp_DamageSoak soaker = fortitudeHediff.TryGetComp<HediffComp_DamageSoak>();
-                        if (soaker != null)
-                        {
-                            MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, "ROMV_DamageSoaked".Translate(soaker.Props.damageToSoak), -1f);
-                            dinfo.SetAmount(Mathf.Max(dinfo.Amount - soaker.Props.damageToSoak, 0));
-                        }
-                    }
+                    //Hediff fortitudeHediff = pawn.health.hediffSet.hediffs.FirstOrDefault((Hediff x) => x.TryGetComp<HediffComp_DamageSoak>() != null);
+                    //if (fortitudeHediff != null)
+                    //{
+                    //    HediffComp_DamageSoak soaker = fortitudeHediff.TryGetComp<HediffComp_DamageSoak>();
+                    //    if (soaker != null)
+                    //    {
+                    //        MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, "ROMV_DamageSoaked".Translate(soaker.Props.damageToSoak), -1f);
+                    //        dinfo.SetAmount(Mathf.Max(dinfo.Amount - soaker.Props.damageToSoak, 0));
+                    //    }
+                    //}
                     if (pawn.health.hediffSet.hediffs.FirstOrDefault(x => x.TryGetComp<HediffComp_ReadMind>() != null) is HediffWithComps h && h.TryGetComp<HediffComp_ReadMind>() is HediffComp_ReadMind rm)
                     {
                         if (rm.MindBeingRead == dinfo.Instigator)
@@ -1592,6 +1592,22 @@ namespace Vampire
             if (p.VampComp() != null && p.VampComp().IsVampire)
             {
                 if (nd == NeedDefOf.Food)
+                {
+                    __result = false;
+                    return;
+                }
+            }
+            if (nd == VampDefOf.ROMV_Blood)
+            {
+
+                if (p?.RaceProps?.IsMechanoid ?? false)
+                {
+                    __result = false;
+                    return;
+                }
+                string typeString = p.GetType().ToString();
+                Log.Message(typeString);
+                if (p.GetType().ToString() == "ProjectJedi.PawnGhost")
                 {
                     __result = false;
                     return;

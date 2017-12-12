@@ -77,34 +77,34 @@ namespace Vampire
         }
 
 
-        //public static Pawn GetRegnant(this Pawn pawn)
-        //{
-        //    if (!pawn.RaceProps.IsFlesh)
-        //    {
-        //        return null;
-        //    }
-        //    return pawn.relations.GetFirstDirectRelationPawn(VampDefOf.ROMV_Sire, (Pawn x) => x != null);
-        //}
+        public static Pawn GetRegnant(this Pawn pawn)
+        {
+            if (!pawn.RaceProps.IsFlesh)
+            {
+                return null;
+            }
+            return pawn.relations.GetFirstDirectRelationPawn(VampDefOf.ROMV_Sire, (Pawn x) => x != null);
+        }
 
 
-        //// RimWorld.ParentRelationUtility
-        //public static List<Pawn> GetGhouls(this Pawn pawn)
-        //{
-        //    if (!pawn.RaceProps.IsFlesh)
-        //    {
-        //        return null;
-        //    }
-        //    List<Pawn> result = new List<Pawn>();
-        //    for (int i = 0; i < pawn.relations.DirectRelations.Count; i++)
-        //    {
-        //        DirectPawnRelation directPawnRelation = pawn.relations.DirectRelations[i];
-        //        if (directPawnRelation.def == VampDefOf.ROMV_Childe)
-        //        {
-        //            result.Add(directPawnRelation.otherPawn);
-        //        }
-        //    }
-        //    return result;
-        //}
+        // RimWorld.ParentRelationUtility
+        public static List<Pawn> GetGhouls(this Pawn pawn)
+        {
+            if (!pawn.RaceProps.IsFlesh)
+            {
+                return null;
+            }
+            List<Pawn> result = new List<Pawn>();
+            for (int i = 0; i < pawn.relations.DirectRelations.Count; i++)
+            {
+                DirectPawnRelation directPawnRelation = pawn.relations.DirectRelations[i];
+                if (directPawnRelation.def == VampDefOf.ROMV_Childe)
+                {
+                    result.Add(directPawnRelation.otherPawn);
+                }
+            }
+            return result;
+        }
 
 
         // RimWorld.ParentRelationUtility

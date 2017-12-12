@@ -35,7 +35,7 @@ namespace Vampire
 
         private void DoEffect()
         {
-            this.BloodVictim.TransferBloodTo(1, BloodFeeder);
+            this.BloodVictim.TransferBloodTo(1, BloodFeeder, false);
         }
 
         public override string GetReport()
@@ -72,7 +72,9 @@ namespace Vampire
             {
                 initAction = delegate ()
                 {
-                    Pawn p = ((Corpse)TargetA.Thing).InnerPawn;
+                    VampireCorpse vampCorpse = ((VampireCorpse)TargetA.Thing);
+                    vampCorpse.Diableried = true;
+                    Pawn p = vampCorpse.InnerPawn;
                     this.pawn.VampComp().Notify_Diablerie(p.VampComp());
                 }
             };
