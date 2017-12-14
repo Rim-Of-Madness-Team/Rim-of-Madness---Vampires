@@ -173,6 +173,10 @@ namespace Vampire
             {
                 return false;
             }
+            if (victim?.BloodNeed()?.DrainingIsDeadly ?? false)
+            {
+                return false;
+            }
             if (victim?.BloodNeed()?.CurBloodPoints <= 5)
             {
                 return false;

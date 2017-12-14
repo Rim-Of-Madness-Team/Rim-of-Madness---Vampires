@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
 
+  <ROMV_VampiricAwaken.label>пробуждение</ROMV_VampiricAwaken.label>
+  <ROMV_VampiricAwaken.description>Использует один пункт крови, чтобы вывести вампира из состояния оцепенения, где он может снова присоединиться к миру нежити.</ROMV_VampiricAwaken.description>
+
   <ROMV_VampiricResurrection.label>воскрешение</ROMV_VampiricResurrection.label>
   <ROMV_VampiricResurrection.description>Отдаёт все оставшиеся витэ, чтобы реанимировать мертвую ткань, восстанавливая вампира до нежити. Осторожно! Это выпустит их внутреннее животное, пока они не насытятся кровью.</ROMV_VampiricResurrection.description>
 

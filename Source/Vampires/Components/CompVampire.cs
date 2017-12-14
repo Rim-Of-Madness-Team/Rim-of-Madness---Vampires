@@ -230,7 +230,7 @@ namespace Vampire
         {
             if (XP <= 0) XP = 1;
             Level++;
-            if (sendNotification && this.AbilityUser != null && this.AbilityUser.Spawned && this.AbilityUser.Faction == Faction.OfPlayerSilentFail)
+            if (sendNotification && this.IsVampire && this.AbilityUser != null && this.AbilityUser.Spawned && this.AbilityUser.Faction == Faction.OfPlayerSilentFail)
                 Messages.Message("ROMV_LevelUp".Translate(this.AbilityUser), new RimWorld.Planet.GlobalTargetInfo(this.AbilityUser), DefDatabase<MessageTypeDef>.GetNamed("ROMV_VampireNotifaction"));
         }
         public void Notify_ResetAbilities()
@@ -327,6 +327,8 @@ namespace Vampire
             this.AbilityUser.needs.AddOrRemoveNeedsAsAppropriate(); //This removes "food" and adds "blood"
             if (!bloodline.allowsHair)
                 AbilityUser.story.hairDef = DefDatabase<HairDef>.GetNamed("Shaved");
+            if (this?.AbilityUser?.playerSettings != null)
+                this.AbilityUser.playerSettings.hostilityResponse = HostilityResponseMode.Attack;
         }
 
         public override void CompTick()

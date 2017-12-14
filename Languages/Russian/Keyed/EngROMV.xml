@@ -1,6 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
 
+  <!-- 12-9-17 -->
+  <ROMV_SoullessHuskOf>Шелуха {0}</ROMV_SoullessHuskOf>
+  <ROMV_AndroidCoolant>Хладагент андроида</ROMV_AndroidCoolant>
+  <ROMV_AndroidCoolantVitae>Подобие</ROMV_AndroidCoolantVitae>
+  <ROMV_AndroidCoolantVitaeDesc>После попытки обработать новый поглощаемый хладагент и странное получение капель крови вампиров, эти системы андроидов синтезировали вариант витэ, чтобы обеспечить непрерывную обработку и функциональность системы.</ROMV_AndroidCoolantVitaeDesc>
+  <ROMV_AndroidCoolantDesc>Без хладагента андроиды перестанут функционировать. Любопытно, что он очень похож на кровь. Органические вампиры, которые пытаются питаться хладагентом, тем не менее, могут с трудом удерживать его.</ROMV_AndroidCoolantDesc>
+
+  <!-- 12-2-17 -->
+  <ROMV_AshesOf>Пепел {0}</ROMV_AshesOf>
+  <ROMV_NoBloodRemaining>Не осталось очков крови.</ROMV_NoBloodRemaining>
+
+  <!-- 11-26-17 -->
+  <ROMV_NightLength>навсегда уменьшает солнечный свет на процент, который удлиняет ночные часы.</ROMV_NightLength>
+  <ROMV_NightLengthBy>сила солнца ослабевает, а ночь удлиняется на {0}</ROMV_NightLengthBy>
+  <ROMV_EternalDarkness>ночь удлинилась (вечная тьма)</ROMV_EternalDarkness>
+
   <!-- 11-19-17 -->
   <ROMV_CannotPurgeMechanoids>{0} не очищает кровь.</ROMV_CannotPurgeMechanoids>
 
@@ -47,9 +63,7 @@
   <ROMV_Embrace>Обращает {0} (Дает вампиризм)</ROMV_Embrace>
   <ROMV_CannotEmbrace>Нельзя обратить {0}</ROMV_CannotEmbrace>
   <ROMV_EnterTorpor>Войти в состояние оцепенения (Сон на неопределенный срок)</ROMV_EnterTorpor>
-  <ROMV_DownedGrapple>Отбил атаку: Успех в схватке</ROMV_DownedGrapple>
-  <ROMV_SneakGrapple>Увернулся от атаки: Успех в схватке</ROMV_SneakGrapple>
-  <ROMV_PrisonerGrapple>Удержал жертву: Успех в схватке</ROMV_PrisonerGrapple>
+
 
   <ROMV_VampireBirthday>{0} достиг биологического возраста {1}.\n\n{0} пользуется преимуществами бессмертия и не имеет побочных эффектов или штрафов за старение.</ROMV_VampireBirthday>
 
@@ -106,6 +120,5 @@
   <ROMV_ChanceOf>{0} вероятность</ROMV_ChanceOf>
   <ROMV_UnknownBloodline>неизвестную родословную</ROMV_UnknownBloodline>
   <ROMV_StartingVampiresSummary>{0} будет {1} генерировать {2} вампира(ов) {3}.</ROMV_StartingVampiresSummary>
-  <!-- Start with 3 10th-13th generation Tremere vampires in coffins -->
 
 </LanguageData>

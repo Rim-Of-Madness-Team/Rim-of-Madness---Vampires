@@ -1,13 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
 
-  <!--
-  ██████   █████   ██████ ██   ██ ███████
+  <!-- ██████   █████   ██████ ██   ██ ███████
   ██   ██ ██   ██ ██      ██  ██  ██
   ██████  ███████ ██      █████   ███████
   ██      ██   ██ ██      ██  ██       ██
-  ██      ██   ██  ██████ ██   ██ ███████
--->
+  ██      ██   ██  ██████ ██   ██ ███████ -->
+
   <BloodPack_Animal.label>Пакет крови (животного)</BloodPack_Animal.label>
   <BloodPack_Animal.description>Собранная для потребления кровь животного. (1 пункт крови)</BloodPack_Animal.description>
   <BloodPack_Animal.ingestible.ingestCommandString>Выпить {0}</BloodPack_Animal.ingestible.ingestCommandString>
@@ -29,13 +28,11 @@
   <BloodPack_HighBlood.ingestible.ingestReportString>Пьет {0}</BloodPack_HighBlood.ingestible.ingestReportString>
 
 
-  <!--
-  ██    ██ ██  █████  ██      ███████
+  <!-- ██    ██ ██  █████  ██      ███████
   ██    ██ ██ ██   ██ ██      ██
   ██    ██ ██ ███████ ██      ███████
    ██  ██  ██ ██   ██ ██           ██
-    ████   ██ ██   ██ ███████ ███████
-  -->
+    ████   ██ ██   ██ ███████ ███████ -->
 
   <BloodVial_LowBlood.label>Флакон крови (низшая)</BloodVial_LowBlood.label>
   <BloodVial_LowBlood.description>Низкая кровь или кровь, которая не соответствует более высоким королевским стандартам (проститутки, рабы, бездомные или больные), собранная в небольшой флакон. (1 пункт крови)</BloodVial_LowBlood.description>

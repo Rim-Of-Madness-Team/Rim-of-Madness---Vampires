@@ -220,13 +220,13 @@ namespace Vampire
             for (int i = 0; i < allPawnsSpawned.Count; i++)
             {
                 Pawn pawn2 = allPawnsSpawned[i];
-                if (predator.GetRoom(RegionType.Set_Passable) == pawn2.GetRoom(RegionType.Set_Passable))
-                {
+                //if (predator.GetRoom(RegionType.Set_Passable) == pawn2.GetRoom(RegionType.Set_Passable))
+                //{
                     if (predator != pawn2)
                     {
                         if (BloodUtility.IsAcceptableVictimFor(predator, pawn2, desperate))
                         {
-                            if (predator.CanReach(pawn2, PathEndMode.ClosestTouch, Danger.Deadly, false, TraverseMode.ByPawn))
+                            if (predator.CanReach(pawn2, PathEndMode.Touch, Danger.Deadly, false, TraverseMode.ByPawn))
                             {
                                 //if (!pawn2.IsForbidden(predator))
                                 //{
@@ -246,7 +246,7 @@ namespace Vampire
                             }
                         }
                     }
-                }
+                //}
             }
             return pawn;
         }
@@ -272,14 +272,14 @@ namespace Vampire
                         if (prey.RaceProps.Humanlike) num3 += GetHumanHuntScore(predator, prey);
                         break;
                     case PreferredFeedMode.HumanoidNonLethal:
-                        if (victimBlood.CurBloodPoints > 3 && prey.RaceProps.Humanlike)
+                        if (!victimBlood.DrainingIsDeadly && victimBlood.CurBloodPoints > 3 && prey.RaceProps.Humanlike)
                             num3 += GetHumanHuntScore(predator, prey);
                         break;
                     case PreferredFeedMode.AnimalLethal:
                         if (prey.RaceProps.Animal) num3 += GetAnimalHuntScore(predator, prey);
                             break;
                     case PreferredFeedMode.AnimalNonLethal:
-                        if (victimBlood.CurBloodPoints > 1 && prey.RaceProps.Animal) num3 += GetAnimalHuntScore(predator, prey);
+                        if (!victimBlood.DrainingIsDeadly && victimBlood.CurBloodPoints > 1 && prey.RaceProps.Animal) num3 += GetAnimalHuntScore(predator, prey);
                         break;
                 }
             }
@@ -308,7 +308,14 @@ namespace Vampire
 
         public static float GetHumanHuntScore(Pawn predator, Pawn prey)
         {
-            if (prey.IsPrisoner)
+            //In the predator state, they will attempt to bite everyone
+            if (predator.MentalStateDef == HediffWithComps_BeastHunger.MentalState_VampireBeast)
+            {
+                if (prey.Faction.HostileTo(predator.Faction))
+                    return 500f;
+                return 200f;
+            }
+            if (prey.IsPrisoner || prey.IsPrisonerOfColony)
                 return 200f;
             if (prey.Faction == predator.Faction)
                 return 100f;
@@ -321,6 +328,7 @@ namespace Vampire
             if (victim == null || vampire == null) return false;
             if (victim.Dead || vampire.Dead) return false;
             if (!victim.Spawned || !vampire.Spawned) return false;
+            if (victim.RaceProps.IsMechanoid) return false;
             if (victim?.BloodNeed() is Need_Blood targetBlood)
             {
                 if (vampire?.BloodNeed() is Need_Blood eaterBlood)
@@ -331,8 +339,11 @@ namespace Vampire
                     if (victim.IsVampire())
                         return false;
 
+
                     if (!vampire.CanReserve(victim))
                         return false;
+
+
 
                     if (vampire.MentalStateDef == HediffWithComps_BeastHunger.MentalState_VampireBeast)
                         return true;
@@ -351,6 +362,11 @@ namespace Vampire
                                 return false;
                             }
                         }
+                        Pawn firstDirectRelationPawn = victim.relations.GetFirstDirectRelationPawn(PawnRelationDefOf.Bond, (Pawn x) => !x.Dead);
+                        if (firstDirectRelationPawn != null)
+                        {
+                            return false;
+                        }
                     }
 
                     if (victim.RaceProps.Humanlike)
@@ -363,15 +379,26 @@ namespace Vampire
                         {
                             return false;
                         }
+                        
+                        if ((victim.IsPrisoner || victim.IsPrisonerOfColony) &&
+                           (eaterBlood.preferredHumanoidFeedType == PreferredHumanoidFeedType.PrisonersOnly))
+                                return true;
 
-                        //Don't bite guests!
-                        if (!desperate && victim.Faction != vampire.Faction && !victim.HostileTo(vampire))
-                            return false;
 
-                        if (!desperate && (int)BloodTypeUtility.BloodType(victim) < (int)vampire.VampComp().Bloodline.minBloodPref)
-                            return false;
-                        else if ((int)BloodTypeUtility.BloodType(victim) < (int)vampire.VampComp().Bloodline.desperateBloodPref)
-                            return false;
+                        if (!victim.IsPrisoner && !victim.IsPrisonerOfColony)
+                        {
+                            if (eaterBlood.preferredHumanoidFeedType == PreferredHumanoidFeedType.PrisonersOnly)
+                                return false;
+
+                            //Don't bite guests!
+                            if (!desperate && victim.Faction != vampire.Faction && !victim.HostileTo(vampire))
+                                return false;
+
+                        }
+                        //if (!desperate && (int)BloodTypeUtility.BloodType(victim) < (int)vampire.VampComp().Bloodline.minBloodPref)
+                        //    return false;
+                        //else if ((int)BloodTypeUtility.BloodType(victim) < (int)vampire.VampComp().Bloodline.desperateBloodPref)
+                        //    return false;
                     }
                     return true;
                 }
@@ -389,6 +416,8 @@ namespace Vampire
         {
             return pawn?.needs?.TryGetNeed<Need_Blood>() ?? null;
         }
+        
+        
 
 
         // RimWorld.FoodUtility

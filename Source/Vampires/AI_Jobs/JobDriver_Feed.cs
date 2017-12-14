@@ -214,7 +214,7 @@ namespace Vampire
             }
             if (feeder?.health?.hediffSet?.GetFirstHediffOfDef(VampDefOf.ROMV_TheBeast)?.CurStageIndex != 3)
             {
-                if (victim?.BloodNeed()?.CurBloodPoints <= 2)
+                if (victim.BloodNeed().DrainingIsDeadly)
                 {
 
                     if (victim?.RaceProps?.Humanlike ?? false)

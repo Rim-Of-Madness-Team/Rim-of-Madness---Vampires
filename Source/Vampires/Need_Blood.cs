@@ -19,7 +19,13 @@ namespace Vampire
         HumanoidLethal
     }
 
+    public enum PreferredHumanoidFeedType
+    {
+        All,
+        PrisonersOnly
+    }
 
+    
     /// <summary>
     /// Duplicate of Need_Food
     /// </summary>
@@ -31,6 +37,7 @@ namespace Vampire
         private int lastNonStarvingTick = -1;
         private bool bloodFixer = false;
         public PreferredFeedMode preferredFeedMode = PreferredFeedMode.HumanoidNonLethal;
+        public PreferredHumanoidFeedType preferredHumanoidFeedType = PreferredHumanoidFeedType.All;
         #endregion Variables
 
         #region Properties
@@ -40,10 +47,11 @@ namespace Vampire
         public bool Starving => CompVampire != null && CompVampire.IsVampire && this.CurCategory == HungerCategory.Starving;
         public bool ShouldDie => CurBloodPoints == 0;
         public float PercPerPoint => 1f / MaxBloodPoints;
+        public bool DrainingIsDeadly => this.CurBloodPoints <= 2 || (this.pawn?.health?.hediffSet?.hediffs?.FirstOrDefault(x => x.def == HediffDefOf.BloodLoss) is Hediff bloodLoss && bloodLoss.CurStageIndex > 2);
         //public PreferredFeedMode PreferredFeedMode { get => preferredFeedMode; set => preferredFeedMode = value; }
 
 
-        
+
 
         public int NextBloodChangeTick
         {
@@ -156,6 +164,7 @@ namespace Vampire
             Scribe_Values.Look<int>(ref this.curBloodPoints, "curBloodPoints", -1, false);
             Scribe_Values.Look<bool>(ref this.bloodFixer, "bloodFixer", false);
             Scribe_Values.Look<PreferredFeedMode>(ref this.preferredFeedMode, "preferredFeedMode", PreferredFeedMode.HumanoidNonLethal);
+            Scribe_Values.Look<PreferredHumanoidFeedType>(ref this.preferredHumanoidFeedType, "preferredHumanoidFeedType", PreferredHumanoidFeedType.PrisonersOnly);
         }
         
         public int AdjustBlood(int amt, bool alert = true)

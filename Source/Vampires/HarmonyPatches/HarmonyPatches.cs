@@ -36,8 +36,8 @@ namespace Vampire
                 new HarmonyMethod(typeof(HarmonyPatches), (nameof(FindGroundSleepSpotFor_Vampire))), null);
             harmony.Patch(AccessTools.Method(typeof(JobGiver_TakeCombatEnhancingDrug), "TryGiveJob"),
                 new HarmonyMethod(typeof(HarmonyPatches), (nameof(TryGiveJob_DrugGiver_Vampire))), null);
-            harmony.Patch(AccessTools.Method(typeof(ReachabilityUtility), "CanReach", new Type[] { typeof(Pawn), typeof(LocalTargetInfo), typeof(PathEndMode), typeof(Danger), typeof(bool), typeof(TraverseMode) }), null,
-                new HarmonyMethod(typeof(HarmonyPatches), (nameof(CanReach_Vampire))), null);
+            //harmony.Patch(AccessTools.Method(typeof(ReachabilityUtility), "CanReach", new Type[] { typeof(Pawn), typeof(LocalTargetInfo), typeof(PathEndMode), typeof(Danger), typeof(bool), typeof(TraverseMode) }), null,
+                //new HarmonyMethod(typeof(HarmonyPatches), (nameof(CanReach_Vampire))), null);
 
             //The Doctor alert will no longer check a vampire to see if it's fed.
             harmony.Patch(AccessTools.Method(typeof(Alert_NeedDoctor), "get_Patients"),
@@ -252,6 +252,14 @@ namespace Vampire
             harmony.Patch(AccessTools.Method(typeof(RestUtility), "IsValidBedFor"), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_IsValidBedFor)), null);
 
+            //Vampires should never skygaze during sunrise...
+            harmony.Patch(AccessTools.Method(typeof(JobDriver_Skygaze), "GetReport"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_QuitWatchingSunrisesAlreadyJeez)), null);
+
+            //Vampire player should know about the rest curse.
+            harmony.Patch(AccessTools.Method(typeof(Need), "GetTipString"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_RestTextToolTip)), null);
+
 
             #region DubsBadHygiene
             {
@@ -271,10 +279,38 @@ namespace Vampire
             #endregion
         }
 
+        //Need
+        public static void Vamp_RestTextToolTip(Need __instance, ref string __result)
+        {
+            if (__instance is Need_Rest)
+            {
+                Pawn pawn = (Pawn)AccessTools.Field(typeof(Need), "pawn").GetValue(__instance);
+                if (pawn != null && pawn.IsVampire())
+                {
+                    StringBuilder s = new StringBuilder();
+                    s.Append(__result);
+                    s.AppendLine("\n\n" + "ROMV_RestAddedTip".Translate());
+                    __result = s.ToString();
+                }
+            }
+        }
+
+        // RimWorld.JobDriver_Skygaze
+        public static void Vamp_QuitWatchingSunrisesAlreadyJeez(JobDriver_Skygaze __instance, ref string __result)
+        {
+            if (__instance.pawn is Pawn p && p.IsVampire())
+            {
+                if (GenLocalDate.DayPercent(p) < 0.5f)
+                {
+                    __instance.EndJobWith(JobCondition.InterruptForced);
+                }
+            }
+        }
+
         //RestUtility
         public static void Vamp_IsValidBedFor(Thing bedThing, Pawn sleeper, Pawn traveler, 
-            bool sleeperWillBePrisoner, bool checkSocialProperness, bool allowMedBedEvenIfSetToNoCare,
-            bool ignoreOtherReservations, ref bool __result)
+        bool sleeperWillBePrisoner, bool checkSocialProperness, bool allowMedBedEvenIfSetToNoCare,
+        bool ignoreOtherReservations, ref bool __result)
         {
             if (sleeper != null && !sleeper.IsVampire() &&
             (
@@ -991,7 +1027,7 @@ namespace Vampire
         {
             Pawn pawn = (Pawn)AccessTools.Field(typeof(SkillRecord), "pawn").GetValue(__instance);
             if (xp > 0 && pawn.TryGetComp<CompVampire>() is CompVampire compVamp &&
-                Find.TickManager.TicksGame > compVamp.ticksToLearnXP)
+                compVamp.IsVampire && Find.TickManager.TicksGame > compVamp.ticksToLearnXP)
             {
                 int delay = 132;
                 if (__instance.def == SkillDefOf.Intellectual || __instance.def == SkillDefOf.Growing) delay += 52;

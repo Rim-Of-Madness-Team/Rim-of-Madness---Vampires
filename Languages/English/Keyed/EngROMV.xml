@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
 
+<!-- 12-14-17 -->
+<ROMV_RestAddedTip>Vampires cannot gain rest during the day, and will be fully rested when night falls.</ROMV_RestAddedTip>
+<ROMV_FeedMode_CurrentType>Current Type</ROMV_FeedMode_CurrentType>
+<ROMV_FeedMode_TypeAll>All Humanoids</ROMV_FeedMode_TypeAll>
+<ROMV_FeedMode_TypePrisonersOnly>Prisoners Only</ROMV_FeedMode_TypePrisonersOnly>
+
 <!-- 12-13-17 -->
 <ROMV_LevelUp>{0} has gained a level in vampirism.</ROMV_LevelUp>
 

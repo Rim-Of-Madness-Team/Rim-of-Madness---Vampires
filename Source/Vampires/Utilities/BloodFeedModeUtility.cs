@@ -18,14 +18,18 @@ namespace Vampire
         private static readonly Texture2D HumanoidNonLethalIcon = ContentFinder<Texture2D>.Get("UI/Icons/BloodFeedMode/HumanoidNonLethal");
         private static readonly Texture2D HumanoidLethalIcon = ContentFinder<Texture2D>.Get("UI/Icons/BloodFeedMode/HumanoidLethal");
 
+        private static readonly Texture2D HumanoidTypeAll = ContentFinder<Texture2D>.Get("UI/Icons/BloodFeedMode/HumanoidAll");
+        private static readonly Texture2D HumanoidTypePrisonersOnly = ContentFinder<Texture2D>.Get("UI/Icons/BloodFeedMode/HumanoidPrisoners");
+
         public static void DrawFeedModeButton(Vector2 pos, Pawn pawn)
         {
-            Texture2D icon = pawn.needs.TryGetNeed<Need_Blood>().preferredFeedMode.GetIcon();
+            Need_Blood vampBlood = pawn.needs.TryGetNeed<Need_Blood>();
+            Texture2D icon = vampBlood.preferredFeedMode.GetIcon();
             Rect rect = new Rect(pos.x, pos.y, 24f, 24f);
                          
                 if (Widgets.ButtonImage(rect, icon))
                 {
-                pawn.needs.TryGetNeed<Need_Blood>().preferredFeedMode = BloodFeedModeUtility.GetNextResponse(pawn);
+                vampBlood.preferredFeedMode = BloodFeedModeUtility.GetNextResponse(pawn);
                     SoundDefOf.TickHigh.PlayOneShotOnCamera(null);
                     PlayerKnowledgeDatabase.KnowledgeDemonstrated(ConceptDefOf.HostilityResponse, KnowledgeAmount.SpecificInteraction);
                 }
@@ -36,8 +40,29 @@ namespace Vampire
         "\n\n",
         "ROMV_FeedMode_CurrentMode".Translate(),
         ": ",
-        pawn.needs.TryGetNeed<Need_Blood>().preferredFeedMode.GetLabel()
+        vampBlood.preferredFeedMode.GetLabel()
                 }));
+            if (vampBlood.preferredFeedMode > PreferredFeedMode.AnimalLethal)
+            {
+                Texture2D iconSub = (vampBlood.preferredHumanoidFeedType == PreferredHumanoidFeedType.All) ? HumanoidTypeAll : HumanoidTypePrisonersOnly;
+                Rect rectSub = new Rect(pos.x, rect.yMax + 5f, 24f, 24f);
+
+                if (Widgets.ButtonImage(rectSub, iconSub))
+                {
+                    if (vampBlood.preferredHumanoidFeedType == PreferredHumanoidFeedType.All)
+                        vampBlood.preferredHumanoidFeedType = PreferredHumanoidFeedType.PrisonersOnly;
+                    else if (vampBlood.preferredHumanoidFeedType == PreferredHumanoidFeedType.PrisonersOnly)
+                        vampBlood.preferredHumanoidFeedType = PreferredHumanoidFeedType.All;
+                    SoundDefOf.TickHigh.PlayOneShotOnCamera(null);
+                }
+                UIHighlighter.HighlightOpportunity(rectSub, "ROMV_FeedModeHumanoidType");
+                TooltipHandler.TipRegion(rectSub, string.Concat(new string[]
+                {
+        "ROMV_FeedMode_CurrentType".Translate(),
+        ": ",
+        (vampBlood.preferredHumanoidFeedType == PreferredHumanoidFeedType.All) ? "ROMV_FeedMode_TypeAll".Translate() : "ROMV_FeedMode_TypePrisonersOnly".Translate()
+                }));
+            }
         }
 
         // RimWorld.HostilityResponseModeUtility
@@ -108,5 +133,7 @@ namespace Vampire
                     return BaseContent.BadTex;
             }
         }
+
+
     }
 }
