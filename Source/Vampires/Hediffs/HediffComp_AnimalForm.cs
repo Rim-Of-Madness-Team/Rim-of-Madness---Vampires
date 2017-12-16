@@ -12,7 +12,9 @@ namespace Vampire
         public bool Activated => activated;
 
         private Graphic bodyGraphic = null;
-        public Graphic BodyGraphic { get => bodyGraphic; set => bodyGraphic = value; }
+        public Graphic BodyGraphic {
+            get => bodyGraphic;
+            set => bodyGraphic = value; }
 
         public new HediffCompProperties_AnimalForm Props
         {
@@ -32,7 +34,7 @@ namespace Vampire
                 return s.ToString();
             }
         }
-
+        
         public override void CompPostTick(ref float severityAdjustment)
         {
             base.CompPostTick(ref severityAdjustment);

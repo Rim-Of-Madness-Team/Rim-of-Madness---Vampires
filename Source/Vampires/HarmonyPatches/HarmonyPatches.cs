@@ -36,8 +36,8 @@ namespace Vampire
                 new HarmonyMethod(typeof(HarmonyPatches), (nameof(FindGroundSleepSpotFor_Vampire))), null);
             harmony.Patch(AccessTools.Method(typeof(JobGiver_TakeCombatEnhancingDrug), "TryGiveJob"),
                 new HarmonyMethod(typeof(HarmonyPatches), (nameof(TryGiveJob_DrugGiver_Vampire))), null);
-            //harmony.Patch(AccessTools.Method(typeof(ReachabilityUtility), "CanReach", new Type[] { typeof(Pawn), typeof(LocalTargetInfo), typeof(PathEndMode), typeof(Danger), typeof(bool), typeof(TraverseMode) }), null,
-                //new HarmonyMethod(typeof(HarmonyPatches), (nameof(CanReach_Vampire))), null);
+            harmony.Patch(AccessTools.Method(typeof(ReachabilityUtility), "CanReach", new Type[] { typeof(Pawn), typeof(LocalTargetInfo), typeof(PathEndMode), typeof(Danger), typeof(bool), typeof(TraverseMode) }), null,
+                new HarmonyMethod(typeof(HarmonyPatches), (nameof(CanReach_Vampire))), null);
 
             //The Doctor alert will no longer check a vampire to see if it's fed.
             harmony.Patch(AccessTools.Method(typeof(Alert_NeedDoctor), "get_Patients"),
@@ -260,6 +260,17 @@ namespace Vampire
             harmony.Patch(AccessTools.Method(typeof(Need), "GetTipString"), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_RestTextToolTip)), null);
 
+            //Vampires should not try to do drugs when idle.
+            harmony.Patch(AccessTools.Method(typeof(JobGiver_IdleJoy), "TryGiveJob"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamps_DontDoIdleDrugs)), null);
+
+            //Vampires should not be given food by wardens.
+            harmony.Patch(AccessTools.Method(typeof(Pawn_GuestTracker), "get_CanBeBroughtFood"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamps_DontWantGuestFood)), null);
+
+            //Vampires should not be given food by wardens.
+            harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_CabinFever), "CurrentStateInternal"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_NoCabinFever)), null);
 
             #region DubsBadHygiene
             {
@@ -277,6 +288,31 @@ namespace Vampire
                 catch (TypeLoadException ex) { /*Log.Message(ex.ToString());*/ }
             }
             #endregion
+        }
+
+        // RimWorld.ThoughtWorker_CabinFever
+        public static void Vamp_NoCabinFever(Pawn p, ref ThoughtState __result)
+        {
+            if (p.IsVampire())
+                __result = ThoughtState.Inactive;
+        }
+
+        // RimWorld.Pawn_GuestTracker
+        public static void Vamps_DontWantGuestFood(Pawn_GuestTracker __instance, ref bool __result)
+        {
+            Pawn pawn = (Pawn)AccessTools.Field(typeof(Pawn_GuestTracker), "pawn").GetValue(__instance);
+            if (pawn != null && pawn.IsVampire())
+            {
+                __result = false;
+            }
+
+        }
+
+
+                public static void Vamps_DontDoIdleDrugs(JobGiver_IdleJoy __instance, Pawn pawn, ref Job __result) //JobGiver_IdleJoy
+        {
+            if (pawn.IsVampire() && __result is Job j && j.def == JobDefOf.Ingest && j.targetA.Thing is ThingWithComps t && t.def.IsDrug)
+                __result = null;
         }
 
         //Need
@@ -817,7 +853,8 @@ namespace Vampire
             Pawn pawn = (Pawn)AccessTools.Field(typeof(Pawn_JobTracker), "pawn").GetValue(__instance);
             if (pawn.IsVampire())
             {
-                if (__instance.curJob != null && __instance.curDriver.layingDown != LayingDownState.NotLaying && !pawn.Downed)
+                if (__instance.curJob != null && __instance.curDriver.layingDown != LayingDownState.NotLaying && !pawn.Downed &&
+                    __instance.curJob.def != JobDefOf.Lovin)
                 {
                     if (pawn.BloodNeed() is Need_Blood bN)
                     {
@@ -1642,7 +1679,7 @@ namespace Vampire
                     return;
                 }
                 string typeString = p.GetType().ToString();
-                Log.Message(typeString);
+                //Log.Message(typeString);
                 if (p.GetType().ToString() == "ProjectJedi.PawnGhost")
                 {
                     __result = false;

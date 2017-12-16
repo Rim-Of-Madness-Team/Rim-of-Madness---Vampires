@@ -84,7 +84,8 @@ namespace Vampire
                         {
                             if (needsGrapple)
                             {
-                                if (!JecsTools.GrappleUtility.TryGrapple(actor, victim))
+                                int grappleBonus = (actor is PawnTemporary) ? 100 : 0 ;
+                                if (!JecsTools.GrappleUtility.TryGrapple(actor, victim, grappleBonus))
                                 {
                                     thisDriver.EndJobWith(JobCondition.Incompletable);
                                     PawnUtility.ForceWait(actor, (int)(BaseFeedTime * 0.15f));
@@ -96,7 +97,8 @@ namespace Vampire
                         {
                             actor.jobs.EndCurrentJob(JobCondition.Incompletable, true);
                         }
-                        VampireBiteUtility.MakeNew(actor, victim);
+                        if (actor.IsVampire())
+                            VampireBiteUtility.MakeNew(actor, victim);
                         victim.stances.stunner.StunFor((int)BaseFeedTime);
                     }
                 }
@@ -153,7 +155,7 @@ namespace Vampire
                                 if (!stopCondition(actor, victim))
                                 {
                                     thisDriver.ReadyForNextToil();
-                                    if (cleansWound) VampireBiteUtility.CleanBite(actor, victim);
+                                    if (actor.IsVampire() && cleansWound) VampireBiteUtility.CleanBite(actor, victim);
                                 }
                                 else
                                 {

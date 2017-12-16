@@ -164,6 +164,7 @@ namespace Vampire
         public override void DeSpawn()
         {
             if (effecter != null) effecter.Cleanup();
+            VampireUtility.SummonEffect(this.PositionHeld, this.MapHeld, this, 2f);
             base.DeSpawn();
         }
 
@@ -171,6 +172,7 @@ namespace Vampire
         {
             base.ExposeData();
             Scribe_Values.Look<int>(ref this.ticksLeft, "ticksLeft", 0);
+            Scribe_References.Look<Pawn>(ref this.master, "master");
         }
     }
 }

@@ -81,9 +81,17 @@ namespace Vampire
             {
                 if (v.Transformed)
                 {
-                    if (__instance.graphics.nakedGraphic == null || v.CurFormGraphic == null)
+                    if (__instance.graphics.nakedGraphic == null || v.CurFormGraphic == null || v.atDirty)
                     {
-                        v.CurFormGraphic = v.CurrentForm.lifeStages[0].bodyGraphicData.Graphic;
+                        if (v.CurrentForm.race.GetCompProperties<CompAnimated.CompProperties_Animated>() is CompAnimated.CompProperties_Animated Props)
+                        {
+                            Graphic curGraphic = v.CurFormGraphic;
+                            v.CurFormGraphic = CompAnimated.CompAnimated.ResolveCurGraphic(p, Props, ref curGraphic, ref v.atCurIndex, ref v.atCurTicks, ref v.atDirty, false);
+                        }
+                        else
+                        {
+                            v.CurFormGraphic = v.CurrentForm.lifeStages[0].bodyGraphicData.Graphic;
+                        }
                         __instance.graphics.nakedGraphic = v.CurFormGraphic;
                         __instance.graphics.ResolveApparelGraphics();
                     }

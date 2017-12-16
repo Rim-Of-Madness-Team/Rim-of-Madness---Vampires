@@ -11,6 +11,28 @@
       <MarketValue>75</MarketValue>
       <LeatherAmount>0</LeatherAmount>
     </statBases>
+	<comps>
+	  <li Class="CompAnimated.CompProperties_Animated">
+	    <movingFrames>
+		  <li>
+            <texPath>Things/Pawn/Animal/BatVampire/Draegon1993BatVampireA</texPath>
+            <color>(110,95,82)</color>
+            <drawSize>2.2</drawSize>
+            <shaderType>CutoutComplex</shaderType>
+		    <graphicClass>Graphic_Multi</graphicClass>
+		  </li>
+		  <li>
+            <texPath>Things/Pawn/Animal/BatVampire/Draegon1993BatVampireB</texPath>
+            <color>(110,95,82)</color>
+            <drawSize>2.2</drawSize>
+            <shaderType>CutoutComplex</shaderType>
+		    <graphicClass>Graphic_Multi</graphicClass>
+		  </li>
+		</movingFrames>
+		<sound/>
+		<secondsBetweenFrames>0.15</secondsBetweenFrames>
+	  </li>
+	</comps>
     <verbs>
       <li>
         <verbClass>Verb_MeleeAttack</verbClass>
@@ -88,38 +110,38 @@
     <lifeStages>
       <li>
         <bodyGraphicData>
-          <texPath>Things/Pawn/Animal/BatVampire/BatVampire</texPath>
+          <texPath>Things/Pawn/Animal/BatVampire/Draegon1993BatVampireA</texPath>
           <color>(110,95,82)</color>
-          <drawSize>1.0</drawSize>
+          <drawSize>2.2</drawSize>
           <shaderType>CutoutComplex</shaderType>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
           <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
-          <drawSize>1.0</drawSize>
+          <drawSize>2.2</drawSize>
         </dessicatedBodyGraphicData>
       </li>
       <li>
         <bodyGraphicData>
-          <texPath>Things/Pawn/Animal/BatVampire/BatVampire</texPath>
+          <texPath>Things/Pawn/Animal/BatVampire/Draegon1993BatVampireA</texPath>
           <color>(110,95,82)</color>
-          <drawSize>1.1</drawSize>
+          <drawSize>2.2</drawSize>
           <shaderType>CutoutComplex</shaderType>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
           <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
-          <drawSize>1.1</drawSize>
+          <drawSize>2.2</drawSize>
         </dessicatedBodyGraphicData>
       </li>
       <li>
         <bodyGraphicData>
-          <texPath>Things/Pawn/Animal/BatVampire/BatVampire</texPath>
+          <texPath>Things/Pawn/Animal/BatVampire/Draegon1993BatVampireA</texPath>
           <color>(110,95,82)</color>
-          <drawSize>1.25</drawSize>
+          <drawSize>2.2</drawSize>
           <shaderType>CutoutComplex</shaderType>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
           <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
-          <drawSize>0.95</drawSize>
+          <drawSize>2.2</drawSize>
         </dessicatedBodyGraphicData>
       </li>
     </lifeStages>

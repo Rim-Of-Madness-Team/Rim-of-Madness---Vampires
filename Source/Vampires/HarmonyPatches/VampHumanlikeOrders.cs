@@ -14,12 +14,11 @@ namespace Vampire
         public override IEnumerable<KeyValuePair<_Condition, Func<Vector3, Pawn, Thing, List<FloatMenuOption>>>> GetFloatMenus()
         {
             List<KeyValuePair<_Condition, Func<Vector3, Pawn, Thing, List<FloatMenuOption>>>> FloatMenus = new List<KeyValuePair<_Condition, Func<Vector3, Pawn, Thing, List<FloatMenuOption>>>>();
-
+            
             _Condition feedCondition = new _Condition(_ConditionType.IsType, typeof(Pawn));
             Func <Vector3, Pawn, Thing, List<FloatMenuOption>> feedFunc = delegate (Vector3 clickPos, Pawn pawn, Thing curThing)
             {
                 List<FloatMenuOption> opts = new List<FloatMenuOption>();
-
                 bool pawnIsVampire = pawn.IsVampire();
                 if (pawnIsVampire && curThing is Pawn victim && victim != pawn && !victim.RaceProps.IsMechanoid)
                 {

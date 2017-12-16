@@ -37,7 +37,13 @@ namespace Vampire
             return false;
         }
             
-            //=> (GenLocalDate.HourInteger(p) >= 6 && GenLocalDate.HourInteger(p) <= 17) && !Find.World.GameConditionManager.ConditionIsActive(GameConditionDefOf.Eclipse);
+        public static void SummonEffect(IntVec3 loc, Map map, Thing summoner, float size)
+        {
+            GenExplosion.DoExplosion(loc, map, size, DamageDefOf.EMP, summoner, -1, DamageDefOf.Stun.soundExplosion);
+
+        }
+
+        //=> (GenLocalDate.HourInteger(p) >= 6 && GenLocalDate.HourInteger(p) <= 17) && !Find.World.GameConditionManager.ConditionIsActive(GameConditionDefOf.Eclipse);
         public static bool IsDaylight(Map m)
         {
             float num = GenCelestial.CurCelestialSunGlow(m);

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
 
+<!-- 12-16-17-->
+<ROMV_SP_Restricted>Sunlight Policy: Restricted\n\nThis vampire will not go outdoors during daylight hours unless drafted and forced to do so.</ROMV_SP_Restricted>
+<ROMV_SP_Relaxed>Sunlight Policy: Relaxed\n\nThis vampire may go outdoors during daylight hours when necessary. This option may help if you have a vampire trapped in sunlight.</ROMV_SP_Relaxed>
+
 <!-- 12-14-17 -->
 <ROMV_RestAddedTip>Vampires cannot gain rest during the day, and will be fully rested when night falls.</ROMV_RestAddedTip>
 <ROMV_FeedMode_CurrentType>Current Type</ROMV_FeedMode_CurrentType>

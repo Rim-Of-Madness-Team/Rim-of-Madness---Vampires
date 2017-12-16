@@ -12,6 +12,8 @@ namespace Vampire
         public static readonly Texture2D ROMV_HumanIcon = ContentFinder<Texture2D>.Get("UI/HumanIcon", true);
         public static readonly Texture2D ROMV_PointEmpty = ContentFinder<Texture2D>.Get("UI/PointEmpty", true);
         public static readonly Texture2D ROMV_PointFull = ContentFinder<Texture2D>.Get("UI/PointFull", true);
+        public static readonly Texture2D ROMV_SunlightPolicyRestricted = ContentFinder<Texture2D>.Get("UI/Icons/SunlightPolicy/SunlightPolicyRestricted", true);
+        public static readonly Texture2D ROMV_SunlightPolicyRelaxed = ContentFinder<Texture2D>.Get("UI/Icons/SunlightPolicy/SunlightPolicyRelaxed", true);
         //public static readonly Texture2D ROMV_Ashes = ContentFinder<Texture2D>.Get("Things/Item/Resource/VampireAshes", true);
     }
 }

@@ -14,7 +14,9 @@ namespace Vampire
         // Verse.ReachabilityUtility
         public static void CanReach_Vampire(ref bool __result, Pawn pawn, LocalTargetInfo dest, PathEndMode peMode, Danger maxDanger, bool canBash = false, TraverseMode mode = TraverseMode.ByPawn)
         {
-            if (__result && pawn.IsVampire() && VampireUtility.IsDaylight(pawn) && (pawn.Faction == Faction.OfPlayerSilentFail && !pawn.Drafted))
+            if (__result && pawn.IsVampire() && 
+                (pawn.VampComp().CurrentSunlightPolicy > SunlightPolicy.Relaxed || pawn.MentalStateDef == DefDatabase<MentalStateDef>.GetNamed("ROMV_VampireBeast")) &&
+                VampireUtility.IsDaylight(pawn) && (pawn.Faction == Faction.OfPlayerSilentFail && !pawn.Drafted))
             {
                 if (!dest.Cell.Roofed(pawn.MapHeld)) __result = false;
             }

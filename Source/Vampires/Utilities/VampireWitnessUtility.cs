@@ -141,12 +141,25 @@ namespace Vampire
             return true;
         }
 
+        //This prevents issues with downed characters trying to take jobs, etc.
+        public static bool CanTakeWitnessJob(Pawn witness)
+        {
+            return !witness.Dead && !witness.Downed && !witness.IsFighting() && witness.CurJob is Job j && j.def != JobDefOf.FleeAndCower && j.def != JobDefOf.AttackMelee;
+        }
+
+
+
         public static void HandleWitnessesOf(JobDef crime, Pawn criminal, Pawn victim)
         {
-            //Log.Message("1");
-            List<Pawn> witnesses = VampireWitnessUtility.WitnessesOf(criminal, victim, crime);
-            //Log.Message("2");
+            if (!criminal.IsVampire())
+            {
+                return;
+            }
 
+                //Log.Message("1");
+                List<Pawn> witnesses = VampireWitnessUtility.WitnessesOf(criminal, victim, crime);
+            //Log.Message("2");
+            
             if (!witnesses.NullOrEmpty())
             {
                 //Log.Message("Loop 1 Enter");
@@ -177,7 +190,7 @@ namespace Vampire
                             thought_MemoryObservation =
                                 (Thought_MemoryObservation)ThoughtMaker
                                 .MakeThought(curCrime.VisitorThought);
-                            if (witness.CurJob is Job j && j.def != JobDefOf.FleeAndCower)
+                            if (CanTakeWitnessJob(witness))
                             {
                                 IntVec3 fleeLoc = CellFinderLoose.GetFleeDest(witness, new List<Thing>() { criminal }, 23f);
                                 witness.jobs.StartJob(new Verse.AI.Job(JobDefOf.FleeAndCower, fleeLoc));
@@ -191,7 +204,7 @@ namespace Vampire
                             thought_MemoryObservation =
                                 (Thought_MemoryObservation)ThoughtMaker
                                 .MakeThought(curCrime.VisitorThought);
-                            if (witness.CurJob is Job k && k.def != JobDefOf.AttackMelee)
+                            if (CanTakeWitnessJob(witness))
                             {
                                 witness.jobs.StartJob(new Job(JobDefOf.AttackMelee, criminal));
                                 if (witness.Faction != null && !witness.Faction.HostileTo(criminal.Faction))

@@ -17,8 +17,11 @@ namespace Vampire
             IntVec3 loc;
             if (RCellFinder.TryFindRandomPawnEntryCell(out loc, target.Map, CellFinder.EdgeRoadChance_Animal, null))
             {
+                VampireUtility.SummonEffect(loc, this.CasterPawn.Map, this.CasterPawn, 10f);
+
                 for (int i = 0; i < count; i++)
                     target.Map.wildSpawner.SpawnRandomWildAnimalAt(loc);
+
             }
             Find.LetterStack.ReceiveLetter("ROMV_AnimalHerd".Translate(), "ROMV_AnimalHerdDesc".Translate(), LetterDefOf.PositiveEvent, new RimWorld.Planet.GlobalTargetInfo(loc, target.Map), null);
         }

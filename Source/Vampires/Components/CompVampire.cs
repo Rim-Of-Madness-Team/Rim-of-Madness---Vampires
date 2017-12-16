@@ -18,6 +18,12 @@ namespace Vampire
         FinalDeath = 4
     }
 
+    public enum SunlightPolicy : int
+    {
+        Relaxed = 0,
+        Restricted = 1
+    }
+
     public class CompVampire : CompAbilityUser
     {
         #region Variables
@@ -32,13 +38,20 @@ namespace Vampire
         private int xp = 0;
         private int abilityPoints = 0;
         private PawnKindDef currentForm = null;
+        private SunlightPolicy curSunlightPolicy = SunlightPolicy.Restricted;
 
         public int ticksToLearnXP = -1;
         private int vampLastHomeCheck = -1; 
         private IntVec3? vampLastHomePoint = null;
+
+        /// Storing variables for Animal Transformations
+        public int atCurIndex = 0;
+        public int atCurTicks = -1;
+        public bool atDirty = false;
         #endregion Variables
 
         #region Access Properties
+        public SunlightPolicy CurrentSunlightPolicy { get => curSunlightPolicy; set => curSunlightPolicy = value; }
         public int VampLastHomeCheck { get => vampLastHomeCheck; set => vampLastHomeCheck = value; }
         public IntVec3 VampLastHomePoint
         {
@@ -335,7 +348,13 @@ namespace Vampire
         {
             base.CompTick();
             if (IsVampire)
+            {
                 SunlightWatcherTick();
+                if (Transformed && atCurTicks != -1 && Find.TickManager.TicksGame > atCurTicks)
+                {
+                    atDirty = true;
+                }
+            }
         }
 
         public void SunlightWatcherTick()
@@ -466,6 +485,7 @@ namespace Vampire
             Scribe_Values.Look<int>(ref this.level, "level", 0);
             Scribe_Values.Look<int>(ref this.xp, "xp", 0);
             Scribe_Values.Look<int>(ref this.abilityPoints, "abilityPoints", 0);
+            Scribe_Values.Look<SunlightPolicy>(ref this.curSunlightPolicy, "curSunlightPolicy", SunlightPolicy.Restricted);
             Scribe_References.Look<Pawn>(ref this.sire, "sire");
             Scribe_Collections.Look<Pawn>(ref this.souls, "souls", LookMode.Reference);
             Scribe_Deep.Look<SkillSheet>(ref this.sheet, "sheet", new object[] { this.AbilityUser });

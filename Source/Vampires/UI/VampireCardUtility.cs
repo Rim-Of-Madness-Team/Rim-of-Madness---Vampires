@@ -94,6 +94,24 @@ namespace Vampire
                     HarmonyPatches.isSwitched = false;
                 }
 
+                Rect rectVampOptions = new Rect(CharacterCardUtility.PawnCardSize.x - 105f, 150f, 30f, 30f);
+                if (compVampire.CurrentSunlightPolicy == SunlightPolicy.Relaxed)
+                {
+                    TooltipHandler.TipRegion(rectVampOptions, new TipSignal("ROMV_SP_Relaxed".Translate()));
+                    if (Widgets.ButtonImage(rectVampOptions, TexButton.ROMV_SunlightPolicyRelaxed))
+                    {
+                        compVampire.CurrentSunlightPolicy = SunlightPolicy.Restricted;
+                    }
+                }
+                else
+                {
+                    TooltipHandler.TipRegion(rectVampOptions, new TipSignal("ROMV_SP_Restricted".Translate()));
+                    if (Widgets.ButtonImage(rectVampOptions, TexButton.ROMV_SunlightPolicyRestricted))
+                    {
+                        compVampire.CurrentSunlightPolicy = SunlightPolicy.Relaxed;
+                    }
+                }
+
                 NameTriple nameTriple = pawn.Name as NameTriple;
                 Rect rectSkillsLabel = new Rect(rect.xMin, rect.yMin - 15, rect.width, HeaderSize);
                 

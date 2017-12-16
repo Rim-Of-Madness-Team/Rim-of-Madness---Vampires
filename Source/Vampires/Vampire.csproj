@@ -50,6 +50,10 @@
       <HintPath>C:\Users\mattw\Downloads\Dubs Bad Hygiene v1.2.2\Dubs Bad Hygiene\Assemblies\BadHygiene.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="CompAnimated">
+      <HintPath>..\..\..\JecsTools\Assemblies\CompAnimated.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />

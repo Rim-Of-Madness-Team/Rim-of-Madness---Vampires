@@ -19,6 +19,7 @@ namespace Vampire
                 {
                     PawnTemporary p = (PawnTemporary)PawnGenerator.GeneratePawn(VampDefOf.ROMV_BatSpectralKind, Faction.OfPlayer);
                     p.Master = this.CasterPawn;
+                    VampireUtility.SummonEffect(t.Cell, this.CasterPawn.Map, this.CasterPawn, 3f);
                     GenSpawn.Spawn(p, t.Cell, this.CasterPawn.Map);
                 }
             }

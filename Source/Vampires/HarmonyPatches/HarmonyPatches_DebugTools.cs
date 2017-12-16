@@ -54,6 +54,35 @@ namespace Vampire
                 }
             })});
 
+
+
+            AccessTools.Method(typeof(Dialog_DebugActionsMenu), "DebugToolMap").Invoke(__instance, new object[] {
+                "Remove Vampirism", new Action(()=>
+            {
+                Pawn pawn = Find.VisibleMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault<Pawn>();
+                if (pawn != null)
+                {
+                    if (pawn.IsVampire())
+                    {
+                        if (pawn.health.hediffSet.GetFirstHediffOfDef(VampDefOf.ROM_Vampirism) is HediffVampirism vampirism)
+                        {
+                            pawn.health.RemoveHediff(vampirism);
+                        }
+                        if (pawn?.health?.hediffSet?.GetHediffs<Hediff_AddedPart>()?.First() is Hediff_AddedPart_Fangs fangs)
+                        {
+                            BodyPartRecord rec = fangs.Part;
+                            pawn.health.RemoveHediff(fangs);
+                            pawn.health.RestorePart(rec);
+                        }
+                        pawn.Drawer.Notify_DebugAffected();
+                        MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, pawn.LabelShort + " is no longer a vampire", -1f);
+                    }
+                    else
+                        Messages.Message(pawn.LabelCap + " is already a vampire.", MessageTypeDefOf.RejectInput);
+                }
+            })});
+
+
             AccessTools.Method(typeof(Dialog_DebugActionsMenu), "DebugToolMap").Invoke(__instance, new object[] {
                 "Add Blood (1)", new Action(()=>
             {

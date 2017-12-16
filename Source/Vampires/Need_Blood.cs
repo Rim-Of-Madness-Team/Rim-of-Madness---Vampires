@@ -381,7 +381,7 @@ namespace Vampire
                 TooltipHandler.TipRegion(rect, new TipSignal(() => this.GetTipString(), rect.GetHashCode()));
             }
 
-            if (pawn != null && pawn.VampComp() is CompVampire v && v.IsVampire)
+            if (pawn != null && pawn.Faction == Faction.OfPlayerSilentFail && pawn.VampComp() is CompVampire v && v.IsVampire)
             {
                 //HostilityResponseModeUtility.DrawResponseButton(new Vector2(rect.width - 120f, 0f), pawn);
                 BloodFeedModeUtility.DrawFeedModeButton(new Vector2(rect.width - 20f, 5f), pawn);

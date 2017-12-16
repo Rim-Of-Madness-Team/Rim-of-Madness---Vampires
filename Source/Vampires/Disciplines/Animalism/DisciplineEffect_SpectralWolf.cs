@@ -16,6 +16,7 @@ namespace Vampire
             if (TargetsAoE[0] is LocalTargetInfo t && t.Cell != default(IntVec3))
             {
                 PawnTemporary p = (PawnTemporary)PawnGenerator.GeneratePawn(VampDefOf.ROMV_WolfSpectral, Faction.OfPlayer);
+                VampireUtility.SummonEffect(t.Cell, this.CasterPawn.Map, this.CasterPawn, 2f);
                 GenSpawn.Spawn(p, t.Cell, this.CasterPawn.Map);
             }
         }

@@ -43,21 +43,31 @@ namespace Vampire
             return false;
         }
 
+        public static void AddFangsHediff(Pawn pawn)
+        {
+            BodyPartRecord bpR = pawn.health?.hediffSet?.GetNotMissingParts().FirstOrDefault(x => x.def == BodyPartDefOf.Jaw);
+
+            if (bpR != null && pawn?.VampComp()?.Bloodline?.fangsHediff != null)
+            {
+                pawn.health.RestorePart(bpR, null, true);
+                pawn.health.AddHediff(pawn.VampComp().Bloodline.fangsHediff, bpR, null);
+            }
+        }
+
+        public static void AddBloodlineHediff(Pawn pawn)
+        {
+            if (pawn.VampComp()?.Bloodline?.bloodlineHediff != null)
+            {
+                pawn.health.AddHediff(pawn.VampComp().Bloodline.bloodlineHediff, null, null);
+            }
+        }
+
         public static bool TryGiveVampireAdditionalHediffs(Pawn pawn)
         {
             try
             {
-                BodyPartRecord bpR = pawn.health?.hediffSet?.GetNotMissingParts().FirstOrDefault(x => x.def == BodyPartDefOf.Jaw);
-
-                if (bpR != null && pawn?.VampComp()?.Bloodline?.fangsHediff != null)
-                {
-                    pawn.health.RestorePart(bpR, null, true);
-                    pawn.health.AddHediff(pawn.VampComp().Bloodline.fangsHediff, bpR, null);
-                }
-                if (pawn.VampComp()?.Bloodline?.bloodlineHediff != null)
-                {
-                    pawn.health.AddHediff(pawn.VampComp().Bloodline.bloodlineHediff, null, null);
-                }
+                AddFangsHediff(pawn);
+                AddBloodlineHediff(pawn);
             }
             catch (Exception e)
             {
