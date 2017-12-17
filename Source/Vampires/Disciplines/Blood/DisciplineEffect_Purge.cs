@@ -1,7 +1,8 @@
 ﻿using RimWorld;
+using Vampire.Defs;
 using Verse;
 
-namespace Vampire
+namespace Vampire.Disciplines.Blood
 {
     public class DisciplineEffect_Purge : Verb_UseAbilityPawnEffect
     {

@@ -1,6 +1,7 @@
-﻿using Verse;
+﻿using Vampire.Defs;
+using Verse;
 
-namespace Vampire
+namespace Vampire.Utilities
 {
     public static class BloodItemUtility
     {

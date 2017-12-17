@@ -1,4 +1,4 @@
-﻿namespace Vampire
+﻿namespace Vampire.Defs
 {
     public enum BloodType : int
     {

@@ -1,4 +1,6 @@
-﻿namespace Vampire
+﻿using Vampire.Defs;
+
+namespace Vampire.Hediffs
 {
     public class HediffVampirism_Tzimisce : HediffVampirism_VampGiver
     {

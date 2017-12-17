@@ -1,9 +1,10 @@
-﻿using RimWorld;
+﻿using System.Collections.Generic;
+using RimWorld;
 using RimWorld.Planet;
-using System.Collections.Generic;
+using Vampire.Utilities;
 using Verse;
 
-namespace Vampire
+namespace Vampire.HarmonyPatches
 {
     static partial class HarmonyPatches
     {

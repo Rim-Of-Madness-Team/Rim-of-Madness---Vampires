@@ -1,6 +1,8 @@
-﻿using Verse;
+﻿using Vampire.Defs;
+using Vampire.Hediffs;
+using Verse;
 
-namespace Vampire
+namespace Vampire.Disciplines.Thaumaturgy
 {
     public class DisciplineEffect_BloodShield : Verb_UseAbilityPawnEffect
     {

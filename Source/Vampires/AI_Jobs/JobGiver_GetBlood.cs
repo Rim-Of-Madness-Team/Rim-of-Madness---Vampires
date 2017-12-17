@@ -1,8 +1,10 @@
 ﻿using RimWorld;
+using Vampire.Defs;
+using Vampire.Utilities;
 using Verse;
 using Verse.AI;
 
-namespace Vampire
+namespace Vampire.AI_Jobs
 {
     public class JobGiver_GetBlood : ThinkNode_JobGiver
     {

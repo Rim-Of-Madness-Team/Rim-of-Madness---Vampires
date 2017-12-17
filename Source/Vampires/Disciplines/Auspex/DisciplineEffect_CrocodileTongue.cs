@@ -1,6 +1,7 @@
-﻿using Verse;
+﻿using Vampire.Defs;
+using Verse;
 
-namespace Vampire
+namespace Vampire.Disciplines.Auspex
 {
     public class DisciplineEffect_CrocodileTongue : Verb_UseAbilityPawnEffect
     {

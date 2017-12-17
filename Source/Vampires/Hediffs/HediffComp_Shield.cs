@@ -1,11 +1,11 @@
-﻿using RimWorld;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
+using RimWorld;
 using UnityEngine;
 using Verse;
 using Verse.Sound;
 
-namespace Vampire
+namespace Vampire.Hediffs
 {
     [StaticConstructorOnStartup]
     public class HediffComp_Shield : HediffComp
@@ -50,14 +50,14 @@ namespace Vampire
         {
             get
             {
-                return this.Def.LabelCap;
+                return Def.LabelCap;
             }
         }
         public string label
         {
             get
             {
-                return this.Def.label;
+                return Def.label;
             }
         }
 
@@ -73,7 +73,7 @@ namespace Vampire
         {
             get
             {
-                return this.energy;
+                return energy;
             }
         }
 
@@ -81,7 +81,7 @@ namespace Vampire
         {
             get
             {
-                if (this.ticksToReset > 0)
+                if (ticksToReset > 0)
                 {
                     return ShieldState.Resetting;
                 }
@@ -93,23 +93,23 @@ namespace Vampire
         {
             get
             {
-                return !this.Pawn.Dead && !this.Pawn.Downed && (!this.Pawn.IsPrisonerOfColony || (this.Pawn.MentalStateDef != null && this.Pawn.MentalStateDef.IsAggro)) || (this.Pawn.Faction.HostileTo(Faction.OfPlayer) || Find.TickManager.TicksGame < this.lastKeepDisplayTick + this.KeepDisplayingTicks);
+                return !Pawn.Dead && !Pawn.Downed && (!Pawn.IsPrisonerOfColony || (Pawn.MentalStateDef != null && Pawn.MentalStateDef.IsAggro)) || (Pawn.Faction.HostileTo(Faction.OfPlayer) || Find.TickManager.TicksGame < lastKeepDisplayTick + KeepDisplayingTicks);
             }
         }
 
         public override void CompExposeData()
         {
             base.CompExposeData();
-            Scribe_Values.Look<float>(ref this.energy, "energy", 0f, false);
-            Scribe_Values.Look<bool>(ref this.setup, "setup", false);
-            Scribe_Values.Look<int>(ref this.ticksToReset, "ticksToReset", -1, false);
-            Scribe_Values.Look<int>(ref this.lastKeepDisplayTick, "lastKeepDisplayTick", 0, false);
+            Scribe_Values.Look<float>(ref energy, "energy");
+            Scribe_Values.Look<bool>(ref setup, "setup");
+            Scribe_Values.Look<int>(ref ticksToReset, "ticksToReset", -1);
+            Scribe_Values.Look<int>(ref lastKeepDisplayTick, "lastKeepDisplayTick");
         }
 
         [DebuggerHidden]
         public IEnumerable<Gizmo> GetWornGizmos()
         {
-            if (Find.Selector.SingleSelectedThing == this.Pawn)
+            if (Find.Selector.SingleSelectedThing == Pawn)
             {
                 yield return new Gizmo_HediffShieldStatus
                 {
@@ -127,9 +127,9 @@ namespace Vampire
         public override void CompPostTick(ref float severityAdjustment)
         {
             base.CompPostTick(ref severityAdjustment);
-            if (this.Pawn == null)
+            if (Pawn == null)
             {
-                this.energy = 0f;
+                energy = 0f;
                 return;
             }
 
@@ -144,7 +144,7 @@ namespace Vampire
             if (!setup)
             {
                 setup = true;
-                this.energy = this.EnergyMax;
+                energy = EnergyMax;
                 KeepDisplaying();
             }
             //{
@@ -158,28 +158,28 @@ namespace Vampire
 
         public bool CheckPreAbsorbDamage(DamageInfo dinfo)
         {
-            if (this.ShieldState == ShieldState.Active && ((dinfo.Instigator != null && !dinfo.Instigator.Position.AdjacentTo8WayOrInside(this.Pawn.Position)) || dinfo.Def.isExplosive))
+            if (ShieldState == ShieldState.Active && ((dinfo.Instigator != null && !dinfo.Instigator.Position.AdjacentTo8WayOrInside(Pawn.Position)) || dinfo.Def.isExplosive))
             {
                 if (dinfo.Instigator != null)
                 {
                     AttachableThing attachableThing = dinfo.Instigator as AttachableThing;
-                    if (attachableThing != null && attachableThing.parent == this.Pawn)
+                    if (attachableThing != null && attachableThing.parent == Pawn)
                     {
                         return false;
                     }
                 }
-                this.energy -= (float)dinfo.Amount * this.EnergyLossPerDamage;
+                energy -= (float)dinfo.Amount * EnergyLossPerDamage;
                 //if (dinfo.Def == DamageDefOf.EMP)
                 //{
                 //    this.energy = -1f;
                 //}
-                if (this.energy < 0f)
+                if (energy < 0f)
                 {
-                    this.Break();
+                    Break();
                 }
                 else
                 {
-                    this.AbsorbedDamage(dinfo);
+                    AbsorbedDamage(dinfo);
                 }
                 return true;
             }
@@ -188,73 +188,73 @@ namespace Vampire
 
         public void KeepDisplaying()
         {
-            this.lastKeepDisplayTick = Find.TickManager.TicksGame;
+            lastKeepDisplayTick = Find.TickManager.TicksGame;
         }
 
         private void AbsorbedDamage(DamageInfo dinfo)
         {
-            SoundDefOf.EnergyShieldAbsorbDamage.PlayOneShot(new TargetInfo(this.Pawn.Position, this.Pawn.Map, false));
-            this.impactAngleVect = Vector3Utility.HorizontalVectorFromAngle(dinfo.Angle);
-            Vector3 loc = this.Pawn.TrueCenter() + this.impactAngleVect.RotatedBy(180f) * 0.5f;
+            SoundDefOf.EnergyShieldAbsorbDamage.PlayOneShot(new TargetInfo(Pawn.Position, Pawn.Map));
+            impactAngleVect = Vector3Utility.HorizontalVectorFromAngle(dinfo.Angle);
+            Vector3 loc = Pawn.TrueCenter() + impactAngleVect.RotatedBy(180f) * 0.5f;
             float num = Mathf.Min(10f, 2f + (float)dinfo.Amount / 10f);
-            MoteMaker.MakeStaticMote(loc, this.Pawn.Map, ThingDefOf.Mote_ExplosionFlash, num);
+            MoteMaker.MakeStaticMote(loc, Pawn.Map, ThingDefOf.Mote_ExplosionFlash, num);
             int num2 = (int)num;
             for (int i = 0; i < num2; i++)
             {
-                MoteMaker.ThrowDustPuff(loc, this.Pawn.Map, Rand.Range(0.8f, 1.2f));
+                MoteMaker.ThrowDustPuff(loc, Pawn.Map, Rand.Range(0.8f, 1.2f));
             }
-            this.lastAbsorbDamageTick = Find.TickManager.TicksGame;
-            this.KeepDisplaying();
+            lastAbsorbDamageTick = Find.TickManager.TicksGame;
+            KeepDisplaying();
         }
 
         public void NotifyRefilled()
         {
-            this.energy = this.EnergyMax;
+            energy = EnergyMax;
         }
 
         private void Break()
         {
-            SoundDefOf.EnergyShieldBroken.PlayOneShot(new TargetInfo(this.Pawn.Position, this.Pawn.Map, false));
-            MoteMaker.MakeStaticMote(this.Pawn.TrueCenter(), this.Pawn.Map, ThingDefOf.Mote_ExplosionFlash, 12f);
+            SoundDefOf.EnergyShieldBroken.PlayOneShot(new TargetInfo(Pawn.Position, Pawn.Map));
+            MoteMaker.MakeStaticMote(Pawn.TrueCenter(), Pawn.Map, ThingDefOf.Mote_ExplosionFlash, 12f);
             for (int i = 0; i < 6; i++)
             {
-                Vector3 loc = this.Pawn.TrueCenter() + Vector3Utility.HorizontalVectorFromAngle((float)Rand.Range(0, 360)) * Rand.Range(0.3f, 0.6f);
-                MoteMaker.ThrowDustPuff(loc, this.Pawn.Map, Rand.Range(0.8f, 1.2f));
+                Vector3 loc = Pawn.TrueCenter() + Vector3Utility.HorizontalVectorFromAngle((float)Rand.Range(0, 360)) * Rand.Range(0.3f, 0.6f);
+                MoteMaker.ThrowDustPuff(loc, Pawn.Map, Rand.Range(0.8f, 1.2f));
             }
-            this.energy = 0f;
-            this.ticksToReset = this.StartingTicksToReset;
+            energy = 0f;
+            ticksToReset = StartingTicksToReset;
         }
 
         private void Reset()
         {
-            if (this.Pawn.Spawned)
+            if (Pawn.Spawned)
             {
-                SoundDefOf.EnergyShieldReset.PlayOneShot(new TargetInfo(this.Pawn.Position, this.Pawn.Map, false));
-                MoteMaker.ThrowLightningGlow(this.Pawn.TrueCenter(), this.Pawn.Map, 3f);
+                SoundDefOf.EnergyShieldReset.PlayOneShot(new TargetInfo(Pawn.Position, Pawn.Map));
+                MoteMaker.ThrowLightningGlow(Pawn.TrueCenter(), Pawn.Map, 3f);
             }
-            this.ticksToReset = -1;
-            this.energy = this.EnergyOnReset;
+            ticksToReset = -1;
+            energy = EnergyOnReset;
         }
 
         public void DrawWornExtras()
         {
-            if (this.ShieldState == ShieldState.Active && this.ShouldDisplay)
+            if (ShieldState == ShieldState.Active && ShouldDisplay)
             {
-                float num = Mathf.Lerp(1.2f, 1.55f, this.energy);
-                Vector3 vector = this.Pawn.Drawer.DrawPos;
+                float num = Mathf.Lerp(1.2f, 1.55f, energy);
+                Vector3 vector = Pawn.Drawer.DrawPos;
                 vector.y = Altitudes.AltitudeFor(AltitudeLayer.MoteOverhead);
-                int num2 = Find.TickManager.TicksGame - this.lastAbsorbDamageTick;
+                int num2 = Find.TickManager.TicksGame - lastAbsorbDamageTick;
                 if (num2 < 8)
                 {
                     float num3 = (float)(8 - num2) / 8f * 0.05f;
-                    vector += this.impactAngleVect * num3;
+                    vector += impactAngleVect * num3;
                     num -= num3;
                 }
                 float angle = (float)Rand.Range(0, 360);
                 Vector3 s = new Vector3(num, 1f, num);
                 Matrix4x4 matrix = default(Matrix4x4);
                 matrix.SetTRS(vector, Quaternion.AngleAxis(angle, Vector3.up), s);
-                Graphics.DrawMesh(MeshPool.plane10, matrix, HediffComp_Shield.BubbleMat, 0);
+                Graphics.DrawMesh(MeshPool.plane10, matrix, BubbleMat, 0);
             }
         }
     }

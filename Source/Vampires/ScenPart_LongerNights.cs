@@ -10,7 +10,7 @@ namespace Vampire
 
         public override void DoEditInterface(Listing_ScenEdit listing)
         {
-            Rect scenPartRect = listing.GetScenPartRect(this, ScenPart.RowHeight * 2 + 31f);
+            Rect scenPartRect = listing.GetScenPartRect(this, RowHeight * 2 + 31f);
             DoVampModifierEditInterface(new Rect(scenPartRect.x, scenPartRect.y, scenPartRect.width, 31f));
         }
 
@@ -25,14 +25,14 @@ namespace Vampire
             Widgets.Label(rect3, "ROMV_NightLength".Translate().CapitalizeFirst());
 
             Text.Anchor = TextAnchor.UpperLeft;
-            this.nightsLength = Widgets.HorizontalSlider(rect4, this.nightsLength, 0f, 1f, false, nightsLength.ToStringPercent(), "", "", 0.1f);
+            nightsLength = Widgets.HorizontalSlider(rect4, nightsLength, 0f, 1f, false, nightsLength.ToStringPercent(), "", "", 0.1f);
         }
 
         
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look<float>(ref this.nightsLength, "nightsLength", 0.1f);
+            Scribe_Values.Look<float>(ref nightsLength, "nightsLength", 0.1f);
         }
 
         public override string Summary(Scenario scen)
@@ -48,7 +48,7 @@ namespace Vampire
         public override void Randomize()
         {
             base.Randomize();
-            this.nightsLength = Rand.Range(0.1f, 1.0f);
+            nightsLength = Rand.Range(0.1f, 1.0f);
         }
     }
 }

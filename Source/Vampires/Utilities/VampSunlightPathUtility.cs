@@ -1,8 +1,11 @@
 ﻿using RimWorld;
+using Vampire.Components;
+using Vampire.Defs;
+using Vampire.Hediffs;
 using Verse;
 using Verse.AI;
 
-namespace Vampire
+namespace Vampire.Utilities
 {
     public static class VampSunlightPathUtility
     {
@@ -41,7 +44,7 @@ namespace Vampire
                     return null;
                 if (pawn.pather != null && pawn.pather.Destination != null && pawn.pather.Destination.IsSunlightSafeFor(pawn))
                     return null;
-                if (pawn.GetRoom(RegionType.Set_Passable) is Room room && room.PsychologicallyOutdoors)
+                if (pawn.GetRoom() is Room room && room.PsychologicallyOutdoors)
                 {
                     Job surviveJob;
                     if (TryGoingToHomePoint(pawn, out surviveJob))
@@ -113,7 +116,7 @@ namespace Vampire
         {
             IntVec3 result = IntVec3.Invalid;
             Region region;
-            CellFinder.TryFindClosestRegionWith(pawn.GetRegion(RegionType.Set_Passable), TraverseParms.For(pawn, Danger.Deadly, TraverseMode.ByPawn), (x => !x.Room.PsychologicallyOutdoors), 9999, out region, RegionType.Set_All);   //.ClosestRegionIndoors(pawn.Position, pawn.Map, TraverseParms.For(pawn, Danger.Deadly, TraverseMode.ByPawn, false), RegionType.Set_Passable);
+            CellFinder.TryFindClosestRegionWith(pawn.GetRegion(), TraverseParms.For(pawn), (x => !x.Room.PsychologicallyOutdoors), 9999, out region, RegionType.Set_All);   //.ClosestRegionIndoors(pawn.Position, pawn.Map, TraverseParms.For(pawn, Danger.Deadly, TraverseMode.ByPawn, false), RegionType.Set_Passable);
             if (region != null)
             {
                 region.TryFindRandomCellInRegion(x => x.IsValid && x.x > 0 && x.z > 0 && x.InBounds(pawn.MapHeld) && x.GetDoor(pawn.MapHeld) == null, out result);
@@ -159,7 +162,7 @@ namespace Vampire
         /// <returns></returns>
         public static IntVec3 FindHideyHoleSpot(ThingDef holeDef, Rot4 rot, IntVec3 center, Map map)
         {
-            if (GenConstruct.CanPlaceBlueprintAt(holeDef, center, rot, map, false, null).Accepted)
+            if (GenConstruct.CanPlaceBlueprintAt(holeDef, center, rot, map).Accepted)
             {
                 return center;
             }
@@ -167,8 +170,8 @@ namespace Vampire
             cellRect.ClipInsideMap(map);
             IntVec3 randomCell = cellRect.RandomCell;
             if (!CellFinder.TryFindRandomCellNear(center, map, 8, (IntVec3 c) => c.Standable(map) &&
-                (GenConstruct.CanPlaceBlueprintAt(holeDef, c, rot, map, false, null).Accepted) &&
-                (map?.reachability?.CanReach(c, randomCell, PathEndMode.Touch, TraverseParms.For(TraverseMode.PassDoors, Danger.Deadly, false)) ?? false), out randomCell))
+                (GenConstruct.CanPlaceBlueprintAt(holeDef, c, rot, map).Accepted) &&
+                (map?.reachability?.CanReach(c, randomCell, PathEndMode.Touch, TraverseParms.For(TraverseMode.PassDoors)) ?? false), out randomCell))
             {
                 //Log.Error("Found no place to build hideyhole for burning vampire.");
                 randomCell = IntVec3.Invalid;
@@ -239,7 +242,7 @@ namespace Vampire
         /// <returns></returns>
         public static bool CanSurviveTimeInSunlight(IntVec3 dest, Pawn pawn)
         {
-            PawnPath path = pawn.MapHeld.pathFinder.FindPath(pawn.PositionHeld, dest, pawn, PathEndMode.OnCell);
+            PawnPath path = pawn.MapHeld.pathFinder.FindPath(pawn.PositionHeld, dest, pawn);
             IntVec3 curVec;
             int cellsInSunlight = 0;
             while (path.NodesLeftCount > 1)
@@ -319,7 +322,7 @@ namespace Vampire
         public static IntVec3 FindCellSafeFromSunlight(Pawn pawn)
         {
             return CellFinderLoose.RandomCellWith(x => !IsZero(x) && x.IsValid && x.InBounds(pawn.MapHeld) && x.Roofed(pawn.MapHeld) && x.Walkable(pawn.MapHeld)
-                    && pawn.CanReach(x, PathEndMode.OnCell, Danger.Deadly), pawn.MapHeld, 1000);
+                    && pawn.CanReach(x, PathEndMode.OnCell, Danger.Deadly), pawn.MapHeld);
         }
 
         /// <summary>

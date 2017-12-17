@@ -1,10 +1,11 @@
-﻿using RimWorld;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using RimWorld;
+using Vampire.Defs;
 using Verse;
 using Verse.AI;
 
-namespace Vampire
+namespace Vampire.Utilities
 {
     /// <summary>
     /// When crimes are committed, like feeding on visitors,
@@ -30,9 +31,9 @@ namespace Vampire
         
         public Crime(JobDef newCrimeDef, ThoughtDef newColonistThought, ThoughtDef newVisitorThought)
         {
-            this.CrimeDef = newCrimeDef;
-            this.ColonistThought = newColonistThought;
-            this.VisitorThought = newVisitorThought;
+            CrimeDef = newCrimeDef;
+            ColonistThought = newColonistThought;
+            VisitorThought = newVisitorThought;
         }
     }
 
@@ -73,7 +74,7 @@ namespace Vampire
                 IntVec3 intVec = criminal.Position + GenRadial.RadialPattern[num];
                 if (intVec.InBounds(map))
                 {
-                    if (GenSight.LineOfSight(intVec, criminal.Position, map, true, null, 0, 0))
+                    if (GenSight.LineOfSight(intVec, criminal.Position, map, true))
                     {
                         List<Thing> thingList = intVec.GetThingList(map);
                         for (int i = 0; i < thingList.Count; i++)
@@ -155,7 +156,7 @@ namespace Vampire
             }
 
                 //Log.Message("1");
-                List<Pawn> witnesses = VampireWitnessUtility.WitnessesOf(criminal, victim, crime);
+                List<Pawn> witnesses = WitnessesOf(criminal, victim, crime);
             //Log.Message("2");
             
             if (!witnesses.NullOrEmpty())
@@ -190,8 +191,8 @@ namespace Vampire
                                 .MakeThought(curCrime.VisitorThought);
                             if (CanTakeWitnessJob(witness))
                             {
-                                IntVec3 fleeLoc = CellFinderLoose.GetFleeDest(witness, new List<Thing>() { criminal }, 23f);
-                                witness.jobs.StartJob(new Verse.AI.Job(JobDefOf.FleeAndCower, fleeLoc));
+                                IntVec3 fleeLoc = CellFinderLoose.GetFleeDest(witness, new List<Thing>() { criminal });
+                                witness.jobs.StartJob(new Job(JobDefOf.FleeAndCower, fleeLoc));
                                 if (witness.Faction != null && !witness.Faction.HostileTo(criminal.Faction))
                                 {
                                     witness.Faction.SetHostileTo(criminal.Faction, true);
@@ -220,7 +221,7 @@ namespace Vampire
                         thought_MemoryObservation.Target = criminal;
                         //Log.Message("Loop 1 Step 8");
 
-                        witness.needs.mood.thoughts.memories.TryGainMemory(thought_MemoryObservation, null);
+                        witness.needs.mood.thoughts.memories.TryGainMemory(thought_MemoryObservation);
                         //Log.Message("Loop 1 Step 9");
 
                     }

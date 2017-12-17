@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Vampire.Defs;
 using Verse;
 
-namespace Vampire
+namespace Vampire.Disciplines.Vicissitude
 {
     public class DisciplineEffect_CorruptForm : Verb_UseAbilityPawnEffect
     {
         public override void Effect(Pawn target)
         {
-            if (JecsTools.GrappleUtility.TryGrapple(this.CasterPawn, target))
+            if (JecsTools.GrappleUtility.TryGrapple(CasterPawn, target))
             {
                 base.Effect(target);
                 int boolSel = Rand.Range(0, 2);

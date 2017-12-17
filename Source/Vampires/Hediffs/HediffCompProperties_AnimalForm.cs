@@ -1,6 +1,6 @@
 ﻿using Verse;
 
-namespace Vampire
+namespace Vampire.Hediffs
 {
     public class HediffCompProperties_AnimalForm : HediffCompProperties_Disappears
     {
@@ -9,7 +9,7 @@ namespace Vampire
         public bool canGiveDamage = true;
         public HediffCompProperties_AnimalForm()
         {
-            this.compClass = typeof(HediffComp_AnimalForm);
+            compClass = typeof(HediffComp_AnimalForm);
         }
     }
 }

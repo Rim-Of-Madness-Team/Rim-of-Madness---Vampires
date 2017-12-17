@@ -1,14 +1,14 @@
 ﻿using RimWorld;
 using Verse;
 
-namespace Vampire
+namespace Vampire.Disciplines.Flight
 {
     public class DisciplineEffect_WingBuffet : Verb_UseAbilityPawnEffect
     {
         public override void Effect(Pawn target)
         {
             base.Effect(target);
-            GenExplosion.DoExplosion(target.PositionHeld, target.MapHeld, 1.9f, DamageDefOf.Stun, this.CasterPawn);
+            GenExplosion.DoExplosion(target.PositionHeld, target.MapHeld, 1.9f, DamageDefOf.Stun, CasterPawn);
         }
     }
 }

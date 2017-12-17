@@ -1,10 +1,12 @@
-﻿using RimWorld;
-using System.Linq;
+﻿using System.Linq;
+using RimWorld;
 using UnityEngine;
+using Vampire.Defs;
+using Vampire.Utilities;
 using Verse;
 using Verse.AI;
 
-namespace Vampire
+namespace Vampire.Disciplines.Animalism
 {
     public class PawnTemporary : Pawn
     {
@@ -29,11 +31,11 @@ namespace Vampire
             {
                 setup = true;
                 
-                if (this.def == VampDefOf.ROMV_BatSpectralRace)
+                if (def == VampDefOf.ROMV_BatSpectralRace)
                 {
                     if (Master == null)
                     {
-                        Log.Warning("No master for " + this.def.LabelCap + ". Cancelling FeedAndReturn job.");
+                        Log.Warning("No master for " + def.LabelCap + ". Cancelling FeedAndReturn job.");
                     }
                     if (Master != null)
                     {
@@ -41,21 +43,21 @@ namespace Vampire
                         this.CanReserve(x)) is Pawn target)
                         {
                             Job newJob = new Job(VampDefOf.ROMV_FeedAndReturn, target, Master);
-                            this.jobs.TryTakeOrderedJob(newJob, JobTag.Misc);
+                            jobs.TryTakeOrderedJob(newJob);
                         }
                         else if (Master.Map.mapPawns.AllPawnsSpawned.FirstOrDefault(x => x.Faction != null && x != Master && !x.IsVampire() && x.RaceProps.Humanlike &&
                         this.CanReserve(x)) is Pawn tTwo)
                         {
                             Job newJob = new Job(VampDefOf.ROMV_FeedAndReturn, tTwo, Master);
-                            this.jobs.TryTakeOrderedJob(newJob, JobTag.Misc);
+                            jobs.TryTakeOrderedJob(newJob);
                         }
                     }
                 }
-                if (this.def == VampDefOf.ROMV_BloodMistRace)
+                if (def == VampDefOf.ROMV_BloodMistRace)
                 {
                     if (Master == null)
                     {
-                        Log.Warning("No master for " + this.def.LabelCap + ". Cancelling FeedAndReturn job.");
+                        Log.Warning("No master for " + def.LabelCap + ". Cancelling FeedAndReturn job.");
                     }
                     if (Master != null)
                     {
@@ -63,13 +65,13 @@ namespace Vampire
                         this.CanReserve(x)) is Pawn target)
                         {
                             Job newJob = new Job(VampDefOf.ROMV_FeedAndDestroy, target, Master);
-                            this.jobs.TryTakeOrderedJob(newJob, JobTag.Misc);
+                            jobs.TryTakeOrderedJob(newJob);
                         }
                         else if (Master.Map.mapPawns.AllPawnsSpawned.FirstOrDefault(x => x.Faction != null && x != Master && !x.IsVampire() && x.RaceProps.Humanlike && 
                         this.CanReserve(x)) is Pawn tTwo)
                         {
                             Job newJob = new Job(VampDefOf.ROMV_FeedAndDestroy, tTwo, Master);
-                            this.jobs.TryTakeOrderedJob(newJob, JobTag.Misc);
+                            jobs.TryTakeOrderedJob(newJob);
                         }
                     }
                 }
@@ -79,11 +81,11 @@ namespace Vampire
             if (ticksUntilNextTryGiveJob < 0)
             {
                 ticksUntilNextTryGiveJob = new IntRange(500, 700).RandomInRange;
-                if (this.def == VampDefOf.ROMV_BatSpectralRace && this.CurJob != null && this.CurJob.def != VampDefOf.ROMV_FeedAndReturn)
+                if (def == VampDefOf.ROMV_BatSpectralRace && CurJob != null && CurJob.def != VampDefOf.ROMV_FeedAndReturn)
                 {
                     if (Master == null)
                     {
-                        Log.Warning("No master for " + this.def.LabelCap + ". Cancelling FeedAndReturn job.");
+                        Log.Warning("No master for " + def.LabelCap + ". Cancelling FeedAndReturn job.");
                     }
                     if (Master != null)
                     {
@@ -91,22 +93,22 @@ namespace Vampire
                         this.CanReserve(x)) is Pawn target)
                         {
                             Job newJob = new Job(VampDefOf.ROMV_FeedAndReturn, target, Master);
-                            this.jobs.TryTakeOrderedJob(newJob, JobTag.Misc);
+                            jobs.TryTakeOrderedJob(newJob);
                         }
                         else if (Master.Map.mapPawns.AllPawnsSpawned.FirstOrDefault(x => x.Faction != null && x != Master && !x.IsVampire() && 
                         x.RaceProps.Humanlike && 
                         this.CanReserve(x)) is Pawn tTwo)
                         {
                             Job newJob = new Job(VampDefOf.ROMV_FeedAndReturn, tTwo, Master);
-                            this.jobs.TryTakeOrderedJob(newJob, JobTag.Misc);
+                            jobs.TryTakeOrderedJob(newJob);
                         }
                     }
                 }
-                if (this.def == VampDefOf.ROMV_BloodMistRace && this.CurJob != null && this.CurJob.def != VampDefOf.ROMV_FeedAndDestroy)
+                if (def == VampDefOf.ROMV_BloodMistRace && CurJob != null && CurJob.def != VampDefOf.ROMV_FeedAndDestroy)
                 {
                     if (Master == null)
                     {
-                        Log.Warning("No master for " + this.def.LabelCap + ". Cancelling FeedAndReturn job.");
+                        Log.Warning("No master for " + def.LabelCap + ". Cancelling FeedAndReturn job.");
                     }
                     if (Master != null)
                     {
@@ -114,20 +116,20 @@ namespace Vampire
                         this.CanReserve(x)) is Pawn target)
                         {
                             Job newJob = new Job(VampDefOf.ROMV_FeedAndDestroy, target, Master);
-                            this.jobs.TryTakeOrderedJob(newJob, JobTag.Misc);
+                            jobs.TryTakeOrderedJob(newJob);
                         }
                         else if (Master.Map.mapPawns.AllPawnsSpawned.FirstOrDefault(x => x.Faction != null && x != Master && !x.IsVampire() && x.RaceProps.Humanlike &&
                         this.CanReserve(x)) is Pawn tTwo)
                         {
                             Job newJob = new Job(VampDefOf.ROMV_FeedAndDestroy, tTwo, Master);
-                            this.jobs.TryTakeOrderedJob(newJob, JobTag.Misc);
+                            jobs.TryTakeOrderedJob(newJob);
                         }
                     }
                 }
             }
 
             ticksLeft--;
-            if (ticksLeft <= 0) this.Destroy();
+            if (ticksLeft <= 0) Destroy();
 
             if (Spawned)
             {
@@ -139,14 +141,14 @@ namespace Vampire
                 else
                 {
                     LocalTargetInfo target = this;
-                    if (this.Spawned)
+                    if (Spawned)
                     {
                         effecter.EffectTick(this, TargetInfo.Invalid);
                     }
                     MoteProgressBar mote = ((SubEffecter_ProgressBar)effecter.children[0]).mote;
                     if (mote != null)
                     {
-                        float result = 1f - (float)(PawnTemporary.ticksToDestroy - this.ticksLeft) / (float)PawnTemporary.ticksToDestroy;
+                        float result = 1f - (float)(ticksToDestroy - ticksLeft) / (float)ticksToDestroy;
 
                         mote.progress = Mathf.Clamp01(result);
                         mote.offsetZ = -0.5f;
@@ -160,15 +162,15 @@ namespace Vampire
         public override void DeSpawn()
         {
             if (effecter != null) effecter.Cleanup();
-            VampireUtility.SummonEffect(this.PositionHeld, this.MapHeld, this, 2f);
+            VampireUtility.SummonEffect(PositionHeld, MapHeld, this, 2f);
             base.DeSpawn();
         }
 
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look<int>(ref this.ticksLeft, "ticksLeft", 0);
-            Scribe_References.Look<Pawn>(ref this.master, "master");
+            Scribe_Values.Look<int>(ref ticksLeft, "ticksLeft");
+            Scribe_References.Look<Pawn>(ref master, "master");
         }
     }
 }

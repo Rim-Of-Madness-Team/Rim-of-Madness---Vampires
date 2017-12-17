@@ -1,6 +1,6 @@
 ﻿using Verse;
 
-namespace Vampire
+namespace Vampire.Disciplines.Flight
 {
 
     public class DisciplineEffect_ShortFlight : AbilityUser.Verb_UseAbility
@@ -12,8 +12,8 @@ namespace Vampire
                 Pawn caster = CasterPawn;
                 LongEventHandler.QueueLongEvent(delegate
                 {
-                    FlyingObject flyingObject = (FlyingObject)GenSpawn.Spawn(ThingDef.Named("ROMV_FlyingObject"), this.CasterPawn.Position, this.CasterPawn.Map);
-                    flyingObject.Launch(this.CasterPawn, t.Cell, this.CasterPawn);
+                    FlyingObject flyingObject = (FlyingObject)GenSpawn.Spawn(ThingDef.Named("ROMV_FlyingObject"), CasterPawn.Position, CasterPawn.Map);
+                    flyingObject.Launch(CasterPawn, t.Cell, CasterPawn);
                 }, "LaunchingFlyer", false, null);
             }
         }

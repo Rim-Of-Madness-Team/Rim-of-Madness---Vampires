@@ -1,13 +1,14 @@
 ﻿using RimWorld;
+using Vampire.Components;
 using Verse;
 using Verse.AI;
 
-namespace Vampire
+namespace Vampire.AI_Jobs
 {
     public class MentalState_VampireBeast : MentalState
     {
-        CompVampire vampComp => this.pawn.GetComp<CompVampire>();
-        Need_Blood vampBlood => this.pawn.needs.TryGetNeed<Need_Blood>();
+        CompVampire vampComp => pawn.GetComp<CompVampire>();
+        Need_Blood vampBlood => pawn.needs.TryGetNeed<Need_Blood>();
 
         public override bool ForceHostileTo(Thing t)
         {
@@ -20,9 +21,9 @@ namespace Vampire
             if (vampComp != null)
             {
                 if (!vampComp.IsVampire)
-                    this.RecoverFromState();
+                    RecoverFromState();
                 if (vampBlood.IsFull)
-                    this.RecoverFromState();
+                    RecoverFromState();
             }
         }
 

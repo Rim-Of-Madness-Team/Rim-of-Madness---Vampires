@@ -2,7 +2,7 @@
 using RimWorld;
 using Verse;
 
-namespace Vampire
+namespace Vampire.Buildings
 {
     public class Building_Coffin : Building_Sarcophagus
     {
@@ -23,14 +23,14 @@ namespace Vampire
             foreach (Gizmo g in base.GetGizmos())
                 yield return g;
 
-            Pawn p = (Pawn)this.ContainedThing;
+            Pawn p = (Pawn)ContainedThing;
             if (p == null)
             {
                 p = this?.Corpse?.InnerPawn ?? null;
             }
             if (p != null)
             {
-                foreach (Gizmo y in HarmonyPatches.GraveGizmoGetter(p, this))
+                foreach (Gizmo y in HarmonyPatches.HarmonyPatches.GraveGizmoGetter(p, this))
                     yield return y;
             }
         }

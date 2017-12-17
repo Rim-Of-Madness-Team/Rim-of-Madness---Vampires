@@ -1,6 +1,7 @@
-﻿using Verse;
+﻿using Vampire.Defs;
+using Verse;
 
-namespace Vampire
+namespace Vampire.Disciplines.Obtenebration
 {
     public class DisciplineEffect_TenebrousForm : Verb_UseAbilityPawnEffect
     {

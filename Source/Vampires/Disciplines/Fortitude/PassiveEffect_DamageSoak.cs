@@ -1,4 +1,4 @@
-﻿namespace Vampire
+﻿namespace Vampire.Disciplines.Fortitude
 {
     public class PassiveEffect_DamageSoak : AbilityUser.PassiveEffectWorker
     {

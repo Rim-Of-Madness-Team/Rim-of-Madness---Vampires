@@ -1,9 +1,11 @@
 ﻿using System.Text;
 using RimWorld;
+using Vampire.Components;
+using Vampire.Utilities;
 using Verse;
 using Verse.AI;
 
-namespace Vampire
+namespace Vampire.HarmonyPatches
 {
     public static partial class HarmonyPatches
     {

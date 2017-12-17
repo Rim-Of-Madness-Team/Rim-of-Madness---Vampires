@@ -1,6 +1,6 @@
 ﻿using Verse;
 
-namespace Vampire
+namespace Vampire.Disciplines.Dominate
 {
     public class DisciplineEffect_Suicide : Verb_UseAbilityPawnEffect
     {

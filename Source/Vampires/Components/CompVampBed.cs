@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Verse;
 using RimWorld;
+using Vampire.Defs;
+using Vampire.Utilities;
+using Verse;
 using Verse.AI;
 
-namespace Vampire
+namespace Vampire.Components
 {
     //Spawns invisible beds on things.
     //Perfect for vampires
@@ -12,22 +14,22 @@ namespace Vampire
     {
         private Building_Bed bed;
         public Building_Bed Bed { get => bed; set => bed = value; }
-        public CompProperties_VampBed Props => this.props as CompProperties_VampBed;
+        public CompProperties_VampBed Props => props as CompProperties_VampBed;
 
         public override void PostSpawnSetup(bool respawningAfterLoad)
         {
             base.PostSpawnSetup(respawningAfterLoad);
             
-            if (bed == null && this.parent.TryGetInnerInteractableThingOwner().Count == 0)
+            if (bed == null && parent.TryGetInnerInteractableThingOwner().Count == 0)
             {
                 ThingDef stuff = null;
-                if (this.parent is Building b)
+                if (parent is Building b)
                 {
                     stuff = b.Stuff;
                 }
                 bed = (Building_Bed)ThingMaker.MakeThing(Props.bedDef, stuff);
-                GenSpawn.Spawn(bed, this.parent.Position, this.parent.Map, parent.Rotation);
-                bed.SetFaction(this.parent.Faction);
+                GenSpawn.Spawn(bed, parent.Position, parent.Map, parent.Rotation);
+                bed.SetFaction(parent.Faction);
 
             }
         }
@@ -36,28 +38,28 @@ namespace Vampire
         {
             //return base.CompFloatMenuOptions(selPawn);
 
-            if ((selPawn?.IsVampire() ?? false) && this.parent is Building_Grave g && !g.HasCorpse)
+            if ((selPawn?.IsVampire() ?? false) && parent is Building_Grave g && !g.HasCorpse)
             {
                 yield return new FloatMenuOption("ROMV_EnterTorpor".Translate(new object[]
                 {
                     selPawn.Label
                 }), delegate
                 {
-                    selPawn.jobs.TryTakeOrderedJob(new Job(VampDefOf.ROMV_EnterTorpor, this.parent));
-                }, MenuOptionPriority.Default, null, null, 0f, null, null);
+                    selPawn.jobs.TryTakeOrderedJob(new Job(VampDefOf.ROMV_EnterTorpor, parent));
+                });
             }
         }
 
         public override void CompTickRare()
         {
             base.CompTickRare();
-            if (this.parent is Building_Grave g)
+            if (parent is Building_Grave g)
             {
                 if (g.HasAnyContents)
                 {
                     if (bed != null && bed.Spawned)
                     {
-                        bed.Destroy(DestroyMode.Vanish);
+                        bed.Destroy();
                         bed = null;
                     }
                     if (g.TryGetInnerInteractableThingOwner().FirstOrDefault(x => x is MinifiedThing) is MinifiedThing t)
@@ -68,16 +70,16 @@ namespace Vampire
                     return;
                 }
 
-                if (bed == null && this.parent.TryGetInnerInteractableThingOwner().Count == 0)
+                if (bed == null && parent.TryGetInnerInteractableThingOwner().Count == 0)
                 {
                     ThingDef stuff = null;
-                    if (this.parent is Building b)
+                    if (parent is Building b)
                     {
                         stuff = b.Stuff;
                     }
                     bed = (Building_Bed)ThingMaker.MakeThing(Props.bedDef, stuff);
-                    GenSpawn.Spawn(bed, this.parent.Position, this.parent.Map, parent.Rotation);
-                    bed.SetFaction(this.parent.Faction);
+                    GenSpawn.Spawn(bed, parent.Position, parent.Map, parent.Rotation);
+                    bed.SetFaction(parent.Faction);
                 }
                 if (bed != null && bed.Spawned && g.assignedPawn != null && ((bed?.AssignedPawns?.Contains(g.assignedPawn) ?? false) == false))
                 {
@@ -94,7 +96,7 @@ namespace Vampire
             base.PostDeSpawn(map);
             if (bed != null && bed.Spawned)
             {
-                bed.Destroy(DestroyMode.Vanish);
+                bed.Destroy();
                 bed = null;
             }
         }
@@ -102,7 +104,7 @@ namespace Vampire
         public override void PostExposeData()
         {
             base.PostExposeData();
-            Scribe_References.Look<Building_Bed>(ref this.bed, "bed");
+            Scribe_References.Look<Building_Bed>(ref bed, "bed");
         }
     }
 }

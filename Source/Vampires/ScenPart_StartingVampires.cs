@@ -4,6 +4,8 @@ using UnityEngine;
 using Verse;
 using RimWorld;
 using Harmony;
+using Vampire.Defs;
+using Vampire.Hediffs;
 
 namespace Vampire
 {
@@ -22,12 +24,12 @@ namespace Vampire
 
         public override void DoEditInterface(Listing_ScenEdit listing)
         {
-            Rect scenPartRect = listing.GetScenPartRect(this, ScenPart.RowHeight * 5f + 31f);
-            if (Widgets.ButtonText(scenPartRect.TopPartPixels(ScenPart.RowHeight), this?.bloodline?.LabelCap ?? "ROMV_UnknownBloodline".Translate(), true, false, true))
+            Rect scenPartRect = listing.GetScenPartRect(this, RowHeight * 5f + 31f);
+            if (Widgets.ButtonText(scenPartRect.TopPartPixels(RowHeight), this?.bloodline?.LabelCap ?? "ROMV_UnknownBloodline".Translate()))
             {
-                FloatMenuUtility.MakeMenu<BloodlineDef>(this.PossibleBloodlines(), (BloodlineDef bl) => bl.LabelCap, (BloodlineDef bl) => delegate
+                FloatMenuUtility.MakeMenu<BloodlineDef>(PossibleBloodlines(), (BloodlineDef bl) => bl.LabelCap, (BloodlineDef bl) => delegate
                 {
-                    this.bloodline = bl;
+                    bloodline = bl;
                 });
             }
             //Widgets.IntRange(new Rect(scenPartRect.x, scenPartRect.y + ScenPart.RowHeight, scenPartRect.width, 31f), listing.CurHeight.GetHashCode(), ref this.generationRange, 4, this.maxGeneration, "ROMV_VampireGeneration");
@@ -37,7 +39,7 @@ namespace Vampire
         // RimWorld.ScenPart_PawnModifier
         protected void DoVampModifierEditInterface(Rect rect)
         {
-            Rect rect2 = new Rect(rect.x, rect.y + ScenPart.RowHeight * 2, rect.width, 31);
+            Rect rect2 = new Rect(rect.x, rect.y + RowHeight * 2, rect.width, 31);
             Rect rect3 = rect2.LeftPart(0.333f).Rounded();
             Rect rect4 = rect2.RightPart(0.666f).Rounded();
 
@@ -45,9 +47,9 @@ namespace Vampire
             Widgets.Label(rect3, "ROMV_Chance".Translate());
 
             Text.Anchor = TextAnchor.UpperLeft;
-            this.vampChance = Widgets.HorizontalSlider(rect4, this.vampChance, 0f, 1f, false, "", "", "");
+            vampChance = Widgets.HorizontalSlider(rect4, vampChance, 0f, 1f, false, "", "", "");
             //Widgets.TextFieldNumeric<float>(rect4, ref this, ref this.numOfVampsBuffer, 1, 50);
-            Rect rect5 = new Rect(rect.x, rect.y + ScenPart.RowHeight * 3, rect.width, 31);
+            Rect rect5 = new Rect(rect.x, rect.y + RowHeight * 3, rect.width, 31);
             Rect rect6 = rect5.LeftPart(0.333f).Rounded();
             Rect rect7 = rect5.RightPart(0.666f).Rounded();
 
@@ -55,15 +57,15 @@ namespace Vampire
             Widgets.Label(rect6, "ROMV_StartInCoffins".Translate());
 
             Text.Anchor = TextAnchor.UpperLeft;
-            Widgets.CheckboxLabeled(rect7, "", ref this.spawnInCoffins, false);
-            Rect rect8 = new Rect(rect.x, rect.y + ScenPart.RowHeight * 4, rect.width, 31);
+            Widgets.CheckboxLabeled(rect7, "", ref spawnInCoffins);
+            Rect rect8 = new Rect(rect.x, rect.y + RowHeight * 4, rect.width, 31);
             Rect rect9 = rect8.LeftPart(0.666f).Rounded();
             Rect rect10 = rect8.RightPart(0.333f).Rounded();
             Text.Anchor = TextAnchor.MiddleRight;
 
             Widgets.Label(rect9, "ROMV_MaxVampires".Translate());
             Text.Anchor = TextAnchor.UpperLeft;
-            Widgets.TextFieldNumeric<int>(rect10, ref this.maxVampires, ref this.maxVampiresBuf, 1, 100);
+            Widgets.TextFieldNumeric<int>(rect10, ref maxVampires, ref maxVampiresBuf, 1, 100);
         }
 
 
@@ -83,11 +85,11 @@ namespace Vampire
             //private IntRange generationRange = new IntRange(10, 13);
             //private int maxGeneration = 15;
             //private bool spawnInCoffins = false;
-            Scribe_Defs.Look<BloodlineDef>(ref this.bloodline, "bloodline");
-            Scribe_Values.Look<IntRange>(ref this.generationRange, "generationRange", default(IntRange), false);
-            Scribe_Values.Look<float>(ref this.vampChance, "vampChance", 0.5f);
-            Scribe_Values.Look<int>(ref this.maxVampires, "maxVampires", 1);
-            Scribe_Values.Look<bool>(ref this.spawnInCoffins, "spawnInCoffins", false);
+            Scribe_Defs.Look<BloodlineDef>(ref bloodline, "bloodline");
+            Scribe_Values.Look<IntRange>(ref generationRange, "generationRange");
+            Scribe_Values.Look<float>(ref vampChance, "vampChance", 0.5f);
+            Scribe_Values.Look<int>(ref maxVampires, "maxVampires", 1);
+            Scribe_Values.Look<bool>(ref spawnInCoffins, "spawnInCoffins");
         }
 
         public override string Summary(Scenario scen)
@@ -119,11 +121,11 @@ namespace Vampire
         public override void Randomize()
         {
             base.Randomize();
-            this.vampChance = Rand.Range(0.2f, 0.8f);
-            this.bloodline = this.PossibleBloodlines().RandomElement<BloodlineDef>();
-            this.generationRange.max = Rand.Range(10, 15);
-            this.generationRange.min = Rand.Range(8, this.generationRange.max);
-            this.spawnInCoffins = (Rand.Value > 0.3) ? true : false;
+            vampChance = Rand.Range(0.2f, 0.8f);
+            bloodline = PossibleBloodlines().RandomElement<BloodlineDef>();
+            generationRange.max = Rand.Range(10, 15);
+            generationRange.min = Rand.Range(8, generationRange.max);
+            spawnInCoffins = (Rand.Value > 0.3) ? true : false;
         }
         
         public override void PostMapGenerate(Map map)
@@ -153,7 +155,7 @@ namespace Vampire
                 bool instaDrop = Find.GameInitData.QuickStarted;
                 if (usingDropPods)
                 {
-                    DropPodUtility.DropThingGroupsNear(MapGenerator.PlayerStartSpot, map, list, 110, instaDrop, true, true);
+                    DropPodUtility.DropThingGroupsNear(MapGenerator.PlayerStartSpot, map, list, 110, instaDrop, true);
                 }
             }
         }

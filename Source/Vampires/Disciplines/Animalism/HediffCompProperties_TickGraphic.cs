@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Verse;
 
-namespace Vampire
+namespace Vampire.Disciplines.Animalism
 {
     public class HediffCompProperties_TickGraphic : HediffCompProperties
     {
@@ -10,7 +10,7 @@ namespace Vampire
 
         public HediffCompProperties_TickGraphic()
         {
-            this.compClass = typeof(HediffComp_TickGraphic);
+            compClass = typeof(HediffComp_TickGraphic);
         }
     }
 }

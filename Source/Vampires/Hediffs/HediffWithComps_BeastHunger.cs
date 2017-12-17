@@ -1,7 +1,8 @@
 ﻿using RimWorld;
+using Vampire.Utilities;
 using Verse;
 
-namespace Vampire
+namespace Vampire.Hediffs
 {
     public class HediffWithComps_BeastHunger : HediffWithComps
     {
@@ -15,20 +16,20 @@ namespace Vampire
             
             if (Find.TickManager.TicksGame % checkRate == 0)
             {
-                if (this.pawn?.BloodNeed() is Need_Blood pB)
+                if (pawn?.BloodNeed() is Need_Blood pB)
                 {
-                    if (this.CurStageIndex == 3 && this.pawn.MentalStateDef != MentalState_VampireBeast)
+                    if (CurStageIndex == 3 && pawn.MentalStateDef != MentalState_VampireBeast)
                     {
-                        this.pawn.mindState.mentalStateHandler.TryStartMentalState(MentalState_VampireBeast, null, true, false, null);
+                        pawn.mindState.mentalStateHandler.TryStartMentalState(MentalState_VampireBeast, null, true);
                     }
 
                     if (pB.CurLevelPercentage < 0.3f)
                     {
-                        this.Severity += 0.005f;
+                        Severity += 0.005f;
                     }
                     else
                     {
-                        this.Severity -= 0.2f;
+                        Severity -= 0.2f;
                     }
                     
                 }

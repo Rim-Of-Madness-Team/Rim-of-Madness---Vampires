@@ -1,9 +1,12 @@
 ﻿using System.Linq;
 using System.Text;
 using RimWorld;
+using Vampire.Components;
+using Vampire.Defs;
+using Vampire.Utilities;
 using Verse;
 
-namespace Vampire
+namespace Vampire.Hediffs
 {
 
     public class HediffVampirism : HediffWithComps
@@ -21,7 +24,7 @@ namespace Vampire
         public override void PostTick()
         {
             base.PostTick();
-            if (this.pawn.VampComp() is CompVampire v)
+            if (pawn.VampComp() is CompVampire v)
             {
 
                 if (!initialized)
@@ -32,7 +35,7 @@ namespace Vampire
                     {
 
                         if (sire == null)
-                            sire = VampireRelationUtility.FindSireFor(this.pawn, this.bloodline, this.generation).VampComp();
+                            sire = VampireRelationUtility.FindSireFor(pawn, bloodline, generation).VampComp();
                         if (generation < 0)
                             generation = sire.Generation + 1;
                         if (bloodline == null)
@@ -44,7 +47,7 @@ namespace Vampire
                     {
                         v.InitializeVampirism(sire?.AbilityUser ?? null, bloodline, generation, firstVampire);
                     }
-                    this.pawn.Drawer.renderer.graphics.ResolveAllGraphics();
+                    pawn.Drawer.renderer.graphics.ResolveAllGraphics();
                 }
 
                 if (Find.TickManager.TicksGame % 60 == 0)
@@ -53,7 +56,7 @@ namespace Vampire
                         HealthUtility.AdjustSeverity(pawn, VampDefOf.ROMV_SunExposure, 0.001f);
                     if (v.BloodPool?.CurLevelPercentage < 0.3f)
                         HealthUtility.AdjustSeverity(pawn, VampDefOf.ROMV_TheBeast, 0.001f);
-                    if (this.pawn.health.hediffSet is HediffSet hdSet)
+                    if (pawn.health.hediffSet is HediffSet hdSet)
                     {
                         if (hdSet.GetFirstHediffOfDef(HediffDefOf.Hypothermia) is Hediff hypoThermia)
                             hdSet.hediffs.Remove(hypoThermia);
@@ -69,13 +72,13 @@ namespace Vampire
         {
             get
             {
-                if (this.pawn.VampComp().Generation != -1)
+                if (pawn.VampComp().Generation != -1)
                 {
-                    return "ROMV_HI_VampGeneration".Translate(AddOrdinal(this.pawn.VampComp().Generation));
+                    return "ROMV_HI_VampGeneration".Translate(AddOrdinal(pawn.VampComp().Generation));
                 }
-                if (this.generation != -1)
+                if (generation != -1)
                 {
-                    return "ROMV_HI_VampGeneration".Translate(AddOrdinal(this.generation));
+                    return "ROMV_HI_VampGeneration".Translate(AddOrdinal(generation));
                 }
                 return "Vampire";
             }
@@ -87,23 +90,23 @@ namespace Vampire
             {
                 StringBuilder s = new StringBuilder();
                 s.AppendLine("ROMV_HI_Bloodline".Translate(this?.pawn?.VampComp()?.Bloodline?.LabelCap ?? this?.bloodline?.label ?? "Unknown"));
-                s.AppendLine("ROMV_HI_Sire".Translate(this.pawn.VampComp()?.Sire?.LabelCap + " (" + AddOrdinal(this.pawn.VampComp()?.Sire?.VampComp()?.Generation ?? -1) + ")" ?? "Unknown"));
-                if (this.pawn?.VampComp()?.Childer?.NullOrEmpty() ?? false)
+                s.AppendLine("ROMV_HI_Sire".Translate(pawn.VampComp()?.Sire?.LabelCap + " (" + AddOrdinal(pawn.VampComp()?.Sire?.VampComp()?.Generation ?? -1) + ")" ?? "Unknown"));
+                if (pawn?.VampComp()?.Childer?.NullOrEmpty() ?? false)
                 {
                     s.AppendLine("ROMV_HI_Childer".Translate("ROMV_HI_None".Translate()));
                 }
                 else
                 {
-                    string[] childerNames = new string[this.pawn.VampComp().Childer.Count];
+                    string[] childerNames = new string[pawn.VampComp().Childer.Count];
                     for (int i = 0; i < childerNames.Length; i++)
-                        childerNames[i] = this.pawn.VampComp().Childer.ElementAt(i).LabelShort;
+                        childerNames[i] = pawn.VampComp().Childer.ElementAt(i).LabelShort;
                     s.AppendLine("ROMV_HI_Childer".Translate(string.Join(", ", childerNames)));
                 }
-                if (!this.pawn?.VampComp()?.Souls?.NullOrEmpty() ?? false)
+                if (!pawn?.VampComp()?.Souls?.NullOrEmpty() ?? false)
                 {
-                    string[] soulNames = new string[this.pawn.VampComp().Souls.Count];
+                    string[] soulNames = new string[pawn.VampComp().Souls.Count];
                     for (int i = 0; i < soulNames.Length; i++)
-                        soulNames[i] = this.pawn.VampComp().Souls.ElementAt(i).LabelShort;
+                        soulNames[i] = pawn.VampComp().Souls.ElementAt(i).LabelShort;
                     s.AppendLine("ROMV_HI_Souls".Translate(string.Join(", ", soulNames)));
                 }
                 if (this?.pawn?.VampComp()?.Thinblooded ?? false)
@@ -142,7 +145,7 @@ namespace Vampire
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look<bool>(ref this.initialized, "initialized", false);
+            Scribe_Values.Look<bool>(ref initialized, "initialized");
             //Scribe_Collections.Look<Hediff, int>(ref this.carriedBloodInfectors, "carriedBloodInfectors", LookMode.Deep, LookMode.Value);
             //Scribe_Collections.Look<Hediff, int>(ref this.carriedBloodDrugEffects, "carriedBloodDrugEffects", LookMode.Deep, LookMode.Value);
         }

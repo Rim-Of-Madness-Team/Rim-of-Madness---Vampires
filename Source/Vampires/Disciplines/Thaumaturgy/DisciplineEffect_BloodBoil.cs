@@ -1,6 +1,6 @@
 ﻿using Verse;
 
-namespace Vampire
+namespace Vampire.Disciplines.Thaumaturgy
 {
     public class DisciplineEffect_BloodBoil : Verb_UseAbilityPawnEffect
     {

@@ -1,8 +1,9 @@
-﻿using RimWorld;
-using System.Linq;
+﻿using System.Linq;
+using RimWorld;
+using Vampire.Defs;
 using Verse;
 
-namespace Vampire
+namespace Vampire.Utilities
 {
     public static class VampireThoughtUtility
     {
@@ -12,7 +13,7 @@ namespace Vampire
             {
                 return;
             }
-            drainer.needs.mood.thoughts.memories.TryGainMemory(ThoughtMaker.MakeThought(VampDefOf.ROMV_IConsumedASoul, 0), null);
+            drainer.needs.mood.thoughts.memories.TryGainMemory(ThoughtMaker.MakeThought(VampDefOf.ROMV_IConsumedASoul, 0));
         }
 
         public static void GiveThoughtsForDrinkingBlood(Pawn drainer)
@@ -21,7 +22,7 @@ namespace Vampire
             {
                 return;
             }
-            drainer.needs.mood.thoughts.memories.TryGainMemory(ThoughtMaker.MakeThought(VampDefOf.ROMV_IGaveTheKiss, 0), null);
+            drainer.needs.mood.thoughts.memories.TryGainMemory(ThoughtMaker.MakeThought(VampDefOf.ROMV_IGaveTheKiss, 0));
         }
 
 
@@ -50,7 +51,7 @@ namespace Vampire
                                      where x.IsColonist || x.IsPrisonerOfColony
                                      select x)
             {
-                current.needs.mood.thoughts.memories.TryGainMemory(ThoughtMaker.MakeThought(def, thoughtIndex), null);
+                current.needs.mood.thoughts.memories.TryGainMemory(ThoughtMaker.MakeThought(def, thoughtIndex));
             }
         }
 
@@ -71,11 +72,11 @@ namespace Vampire
             {
                 if (current == victim)
                 {
-                    current.needs.mood.thoughts.memories.TryGainMemory(VampDefOf.ROMV_MyBloodHarvested, null);
+                    current.needs.mood.thoughts.memories.TryGainMemory(VampDefOf.ROMV_MyBloodHarvested);
                 }
                 else if (thoughtDef != null)
                 {
-                    current.needs.mood.thoughts.memories.TryGainMemory(thoughtDef, null);
+                    current.needs.mood.thoughts.memories.TryGainMemory(thoughtDef);
                 }
             }
         }
