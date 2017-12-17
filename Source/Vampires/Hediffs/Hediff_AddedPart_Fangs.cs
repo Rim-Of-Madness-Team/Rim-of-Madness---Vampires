@@ -1,7 +1,6 @@
-﻿using Vampire.Utilities;
-using Verse;
+﻿using Verse;
 
-namespace Vampire.Hediffs
+namespace Vampire
 {
     public class Hediff_AddedPart_Fangs : Hediff_AddedPart
     {
@@ -14,7 +13,7 @@ namespace Vampire.Hediffs
         {
             get
             {
-                if (pawn.IsVampire())
+                if (this.pawn.IsVampire())
                     return false;
                 return true;
             }
@@ -26,8 +25,8 @@ namespace Vampire.Hediffs
         /// </summary>
         public override void PostRemoved()
         {
-            if (!pawn.IsVampire())
-                pawn.health.RestorePart(Part, this, false);
+            if (!this.pawn.IsVampire())
+                this.pawn.health.RestorePart(base.Part, this, false);
 
             base.PostRemoved();
         }

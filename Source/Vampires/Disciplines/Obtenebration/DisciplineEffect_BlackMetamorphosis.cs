@@ -1,7 +1,6 @@
-﻿using Vampire.Defs;
-using Verse;
+﻿using Verse;
 
-namespace Vampire.Disciplines.Obtenebration
+namespace Vampire
 {
     public class DisciplineEffect_BlackMetamorphosis : Verb_UseAbilityPawnEffect
     {

@@ -2,9 +2,6 @@
 using System.Linq;
 using Verse;
 using RimWorld.Planet;
-using Vampire.Components;
-using Vampire.Defs;
-using Vampire.Utilities;
 
 namespace Vampire
 {
@@ -53,7 +50,7 @@ namespace Vampire
             }
             for (int curGen = 4; curGen < 14; curGen++)
             {
-                Pawn newVamp = VampireGen.GenerateVampire(curGen, bloodline, curSire);
+                Pawn newVamp = VampireGen.GenerateVampire(curGen, bloodline, curSire, null, false);
                 futureGenerations.Add(newVamp);
                 curSire = newVamp;
             }
@@ -115,7 +112,7 @@ namespace Vampire
                     //Second Generation
                     for (int i = 0; i < 3; i++)
                     {
-                        Pawn secondGenVamp = VampireGen.GenerateVampire(2, VampDefOf.ROMV_TheThree, Caine);
+                        Pawn secondGenVamp = VampireGen.GenerateVampire(2, VampDefOf.ROMV_TheThree, Caine, null, false);
                         generationTwo.Add(secondGenVamp);
                         //Find.WorldPawns.PassToWorld(secondGenVamp, PawnDiscardDecideMode.KeepForever);
                     }
@@ -124,7 +121,7 @@ namespace Vampire
                     foreach (BloodlineDef clan in DefDatabase<BloodlineDef>.AllDefs.Where(x => x != VampDefOf.ROMV_Caine && x != VampDefOf.ROMV_TheThree))
                     {
                         Pawn randSecondGenVamp = generationTwo.RandomElement();
-                        Pawn clanFounderVamp = VampireGen.GenerateVampire(3, clan, randSecondGenVamp);
+                        Pawn clanFounderVamp = VampireGen.GenerateVampire(3, clan, randSecondGenVamp, null, false);
                         generationThree.Add(clanFounderVamp);
                         //Find.WorldPawns.PassToWorld(clanFounderVamp, PawnDiscardDecideMode.KeepForever);
                     }
@@ -205,9 +202,9 @@ namespace Vampire
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_References.Look<Pawn>(ref firstVampire, "firstVampire");
-            Scribe_Collections.Look<Pawn>(ref dormantVampires, "dormantVampires", LookMode.Deep);
-            Scribe_Collections.Look<Pawn>(ref activeVampires, "activeVampires", LookMode.Deep);
+            Scribe_References.Look<Pawn>(ref this.firstVampire, "firstVampire");
+            Scribe_Collections.Look<Pawn>(ref this.dormantVampires, "dormantVampires", LookMode.Deep);
+            Scribe_Collections.Look<Pawn>(ref this.activeVampires, "activeVampires", LookMode.Deep);
         }
     }
 }

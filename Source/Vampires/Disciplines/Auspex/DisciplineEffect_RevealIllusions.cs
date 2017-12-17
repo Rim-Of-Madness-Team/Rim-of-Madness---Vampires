@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using RimWorld;
-using Vampire.Defs;
 using Verse;
 
-namespace Vampire.Disciplines.Auspex
+namespace Vampire
 {
     public class DisciplineEffect_RevealIllusions : AbilityUser.Verb_UseAbility
     {
@@ -25,7 +24,7 @@ namespace Vampire.Disciplines.Auspex
                         {
                             if (defsToCheck.Contains(h.def))
                             {
-                                MoteMaker.ThrowText(CasterPawn.DrawPos, CasterPawn.Map, "ROMV_HediffRemoved".Translate(h.def.LabelCap));
+                                MoteMaker.ThrowText(this.CasterPawn.DrawPos, this.CasterPawn.Map, "ROMV_HediffRemoved".Translate(h.def.LabelCap), -1f);
                                 p.health.hediffSet.hediffs.Remove(h);
                             }
                         }
@@ -34,15 +33,15 @@ namespace Vampire.Disciplines.Auspex
                 if (t.Cell != default(IntVec3) && t.Cell is IntVec3 c)
                 {
                     // Verse.FogGrid
-                    if (CasterPawn.Map.fogGrid.IsFogged(c))
+                    if (this.CasterPawn.Map.fogGrid.IsFogged(c))
                     {
-                        MoteMaker.ThrowText(CasterPawn.DrawPos, CasterPawn.Map, AbilityUser.StringsToTranslate.AU_CastSuccess);
-                        CasterPawn.Map.fogGrid.Notify_FogBlockerRemoved(c);
+                        MoteMaker.ThrowText(this.CasterPawn.DrawPos, this.CasterPawn.Map, AbilityUser.StringsToTranslate.AU_CastSuccess, -1f);
+                        this.CasterPawn.Map.fogGrid.Notify_FogBlockerRemoved(c);
                         return;
                     }
                     else
                     {
-                        MoteMaker.ThrowText(CasterPawn.DrawPos, CasterPawn.Map, AbilityUser.StringsToTranslate.AU_CastFailure);
+                        MoteMaker.ThrowText(this.CasterPawn.DrawPos, this.CasterPawn.Map, AbilityUser.StringsToTranslate.AU_CastFailure, -1f);
                     }
                 }
             }

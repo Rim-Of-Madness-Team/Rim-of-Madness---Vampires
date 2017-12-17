@@ -5,8 +5,6 @@ using RimWorld;
 using Verse;
 using UnityEngine;
 using AbilityUser;
-using Vampire.Defs;
-using Vampire.Utilities;
 
 namespace Vampire
 {
@@ -15,33 +13,33 @@ namespace Vampire
 
         public VampireCorpse() : base()
         {
-            operationsBillStack = new BillStack(this);
-            innerContainer = new ThingOwner<Pawn>(this, true, LookMode.Reference);
+            this.operationsBillStack = new BillStack(this);
+            this.innerContainer = new ThingOwner<Pawn>(this, true, LookMode.Reference);
         }
 
         private bool ShouldVanish
         {
             get
             {
-                return InnerPawn.RaceProps.Animal && vanishAfterTimestamp > 0 && Age >= vanishAfterTimestamp && Spawned && this.GetRoom() != null && this.GetRoom().TouchesMapEdge && !Map.roofGrid.Roofed(Position);
+                return this.InnerPawn.RaceProps.Animal && this.vanishAfterTimestamp > 0 && this.Age >= this.vanishAfterTimestamp && base.Spawned && this.GetRoom(RegionType.Set_Passable) != null && this.GetRoom(RegionType.Set_Passable).TouchesMapEdge && !base.Map.roofGrid.Roofed(base.Position);
             }
         }
 
         private BodyPartRecord GetBestBodyPartToEat(Pawn ingester, float nutritionWanted)
         {
-            IEnumerable<BodyPartRecord> source = from x in InnerPawn.health.hediffSet.GetNotMissingParts()
-                                                 where x.depth == BodyPartDepth.Outside && FoodUtility.GetBodyPartNutrition(InnerPawn, x) > 0.001f
+            IEnumerable<BodyPartRecord> source = from x in this.InnerPawn.health.hediffSet.GetNotMissingParts(BodyPartHeight.Undefined, BodyPartDepth.Undefined)
+                                                 where x.depth == BodyPartDepth.Outside && FoodUtility.GetBodyPartNutrition(this.InnerPawn, x) > 0.001f
                                                  select x;
             if (!source.Any<BodyPartRecord>())
             {
                 return null;
             }
-            return source.MinBy((BodyPartRecord x) => Mathf.Abs(FoodUtility.GetBodyPartNutrition(InnerPawn, x) - nutritionWanted));
+            return source.MinBy((BodyPartRecord x) => Mathf.Abs(FoodUtility.GetBodyPartNutrition(this.InnerPawn, x) - nutritionWanted));
         }
 
         private void NotifyColonistBar()
         {
-            if (InnerPawn.Faction == Faction.OfPlayer && Current.ProgramState == ProgramState.Playing)
+            if (this.InnerPawn.Faction == Faction.OfPlayer && Current.ProgramState == ProgramState.Playing)
             {
                 Find.ColonistBar.MarkColonistsDirty();
             }
@@ -79,7 +77,7 @@ namespace Vampire
                                 continue;
                             }
                             HediffDef hediffDefFromDamage = HealthUtility.GetHediffDefFromDamage(DamageDefOf.Burn, p, rec);
-                            Hediff_Injury hediff_Injury = (Hediff_Injury)HediffMaker.MakeHediff(hediffDefFromDamage, p);
+                            Hediff_Injury hediff_Injury = (Hediff_Injury)HediffMaker.MakeHediff(hediffDefFromDamage, p, null);
                             hediff_Injury.Part = rec;
                             hediff_Injury.source = null;
                             hediff_Injury.sourceBodyPartGroup = null;
@@ -135,13 +133,13 @@ namespace Vampire
             }
             else
             {
-                if (InnerPawn.Faction != null)
+                if (this.InnerPawn.Faction != null)
                 {
-                    s.AppendLine("Faction".Translate() + ": " + InnerPawn.Faction.Name);
+                    s.AppendLine("Faction".Translate() + ": " + this.InnerPawn.Faction.Name);
                 }
                 s.AppendLine("DeadTime".Translate(new object[]
                 {
-                Age.ToStringTicksToPeriod(false)
+                this.Age.ToStringTicksToPeriod(false, false, true)
                 }));
             }
             return s.ToString().TrimEndNewlines();
@@ -156,20 +154,20 @@ namespace Vampire
                 return;
             }
             if (!burnedToAshes)
-                InnerPawn.Drawer.renderer.RenderPawnAt(drawLoc);
+                this.InnerPawn.Drawer.renderer.RenderPawnAt(drawLoc);
             else
-                Ashes.Draw(drawLoc, Rot4.North, this);
+                Ashes.Draw(drawLoc, Rot4.North, this, 0);
 
         }
 
-        public bool CanResurrect => InnerPawn != null && !BurnedToAshes && InnerPawn.Faction == Faction.OfPlayerSilentFail && !Diableried && this.GetRotStage() < RotStage.Dessicated;
+        public bool CanResurrect => this.InnerPawn != null && !BurnedToAshes && this.InnerPawn.Faction == Faction.OfPlayerSilentFail && !Diableried && this.GetRotStage() < RotStage.Dessicated;
 
         public override IEnumerable<Gizmo> GetGizmos()
         {
             foreach (Gizmo g in base.GetGizmos())
                 yield return g;
 
-            VitaeAbilityDef bloodResurrection = DefDatabase<VitaeAbilityDef>.GetNamedSilentFail("ROMV_VampiricResurrection");
+            Vampire.VitaeAbilityDef bloodResurrection = DefDatabase<Vampire.VitaeAbilityDef>.GetNamedSilentFail("ROMV_VampiricResurrection");
             if (CanResurrect)
             {
                 yield return new Command_Action()
@@ -179,14 +177,14 @@ namespace Vampire
                     icon = bloodResurrection.uiIcon,
                     action = delegate
                     {
-                        Pawn AbilityUser = InnerPawn;
+                        Pawn AbilityUser = this.InnerPawn;
                         AbilityUser.Drawer.Notify_DebugAffected();
                         ResurrectionUtility.Resurrect(AbilityUser);
-                        MoteMaker.ThrowText(AbilityUser.PositionHeld.ToVector3(), AbilityUser.MapHeld, StringsToTranslate.AU_CastSuccess);
+                        MoteMaker.ThrowText(AbilityUser.PositionHeld.ToVector3(), AbilityUser.MapHeld, StringsToTranslate.AU_CastSuccess, -1f);
                         AbilityUser.BloodNeed().AdjustBlood(-99999999);
                         HealthUtility.AdjustSeverity(AbilityUser, VampDefOf.ROMV_TheBeast, 1.0f);
                         MentalStateDef MentalState_VampireBeast = DefDatabase<MentalStateDef>.GetNamed("ROMV_VampireBeast");
-                        AbilityUser.mindState.mentalStateHandler.TryStartMentalState(MentalState_VampireBeast, null, true);
+                        AbilityUser.mindState.mentalStateHandler.TryStartMentalState(MentalState_VampireBeast, null, true, false, null);
                     },
                     disabled = false
                 };
@@ -198,18 +196,18 @@ namespace Vampire
         {
             base.ExposeData();
 
-            Scribe_Values.Look<int>(ref bloodPoints, "bloodPoints", -1);
-            Scribe_Values.Look<bool>(ref burnedToAshes, "burnedToAshes");
-            Scribe_Values.Look<bool>(ref diableried, "diableried");
+            Scribe_Values.Look<int>(ref this.bloodPoints, "bloodPoints", -1);
+            Scribe_Values.Look<bool>(ref this.burnedToAshes, "burnedToAshes", false);
+            Scribe_Values.Look<bool>(ref this.diableried, "diableried", false);
 
-            Scribe_Values.Look<int>(ref timeOfDeath, "timeOfDeath");
-            Scribe_Values.Look<int>(ref vanishAfterTimestamp, "vanishAfterTimestamp");
-            Scribe_Values.Look<bool>(ref everBuriedInSarcophagus, "everBuriedInSarcophagus");
-            Scribe_Deep.Look<BillStack>(ref operationsBillStack, "operationsBillStack", new object[]
+            Scribe_Values.Look<int>(ref this.timeOfDeath, "timeOfDeath", 0, false);
+            Scribe_Values.Look<int>(ref this.vanishAfterTimestamp, "vanishAfterTimestamp", 0, false);
+            Scribe_Values.Look<bool>(ref this.everBuriedInSarcophagus, "everBuriedInSarcophagus", false, false);
+            Scribe_Deep.Look<BillStack>(ref this.operationsBillStack, "operationsBillStack", new object[]
             {
                 this
             });
-            Scribe_Deep.Look<ThingOwner<Pawn>>(ref innerContainer, "innerContainer", new object[]
+            Scribe_Deep.Look<ThingOwner<Pawn>>(ref this.innerContainer, "innerContainer", new object[]
             {
                 this
             });

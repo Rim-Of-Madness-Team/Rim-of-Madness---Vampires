@@ -1,9 +1,7 @@
-﻿using RimWorld;
-using Vampire.Components;
-using Vampire.Utilities;
-using Verse;
+﻿using Verse;
+using RimWorld;
 
-namespace Vampire.Workers
+namespace Vampire
 {
     public class PawnRelationWorker_Childe : PawnRelationWorker
     {

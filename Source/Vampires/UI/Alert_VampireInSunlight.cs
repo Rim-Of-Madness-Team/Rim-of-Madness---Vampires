@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using RimWorld;
-using Vampire.Components;
-using Vampire.Utilities;
 using Verse;
+using RimWorld;
 
-namespace Vampire.UI
+namespace Vampire
 {
     public class Alert_VampireInSunlight : Alert
     {
@@ -34,14 +32,14 @@ namespace Vampire.UI
 
         public Alert_VampireInSunlight()
         {
-            defaultLabel = "ROMV_Alert_VampireInTheSun".Translate();
-            defaultPriority = AlertPriority.Critical;
+            this.defaultLabel = "ROMV_Alert_VampireInTheSun".Translate();
+            this.defaultPriority = AlertPriority.Critical;
         }
 
         public override string GetExplanation()
         {
             StringBuilder stringBuilder = new StringBuilder();
-            foreach (Pawn current in VampiresInTheSun)
+            foreach (Pawn current in this.VampiresInTheSun)
             {
                 stringBuilder.AppendLine("    " + current.NameStringShort);
             }
@@ -54,7 +52,7 @@ namespace Vampire.UI
             {
                 return false;
             }
-            Pawn pawn = VampiresInTheSun.FirstOrDefault<Pawn>();
+            Pawn pawn = this.VampiresInTheSun.FirstOrDefault<Pawn>();
             if (pawn == null)
             {
                 return false;

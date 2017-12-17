@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using RimWorld;
 using UnityEngine;
-using Vampire.Components;
-using Vampire.Utilities;
 using Verse;
 using Verse.AI;
+using RimWorld;
 
-namespace Vampire.AI_Jobs
+namespace Vampire
 {
     public class JobDriver_ConsumeBlood : JobDriver
     {
@@ -28,7 +26,7 @@ namespace Vampire.AI_Jobs
         {
             get
             {
-                return job.GetTarget(TargetIndex.A).Thing;
+                return base.job.GetTarget(TargetIndex.A).Thing;
             }
         }
 
@@ -36,32 +34,32 @@ namespace Vampire.AI_Jobs
         {
             get
             {
-                Thing ingestibleSource = IngestibleSource;
+                Thing ingestibleSource = this.IngestibleSource;
                 if (ingestibleSource.def.ingestible != null && !ingestibleSource.def.ingestible.useEatingSpeedStat)
                 {
                     return 1f;
                 }
-                return 1f / pawn.GetStatValue(StatDefOf.EatingSpeed);
+                return 1f / this.pawn.GetStatValue(StatDefOf.EatingSpeed, true);
             }
         }
 
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look<bool>(ref usingNutrientPasteDispenser, "usingNutrientPasteDispenser");
-            Scribe_Values.Look<bool>(ref eatingFromInventory, "eatingFromInventory");
+            Scribe_Values.Look<bool>(ref this.usingNutrientPasteDispenser, "usingNutrientPasteDispenser", false, false);
+            Scribe_Values.Look<bool>(ref this.eatingFromInventory, "eatingFromInventory", false, false);
         }
 
         public override string GetReport()
         {
-            if (usingNutrientPasteDispenser)
+            if (this.usingNutrientPasteDispenser)
             {
-                return job.def.reportString.Replace("TargetA", ThingDefOf.MealNutrientPaste.label);
+                return base.job.def.reportString.Replace("TargetA", ThingDefOf.MealNutrientPaste.label);
             }
-            Thing thing = pawn.CurJob.targetA.Thing;
+            Thing thing = this.pawn.CurJob.targetA.Thing;
             if (thing != null && thing.def.ingestible != null && !thing.def.ingestible.ingestReportString.NullOrEmpty())
             {
-                return string.Format(thing.def.ingestible.ingestReportString, pawn.CurJob.targetA.Thing.LabelShort);
+                return string.Format(thing.def.ingestible.ingestReportString, this.pawn.CurJob.targetA.Thing.LabelShort);
             }
             return base.GetReport();
         }
@@ -69,84 +67,84 @@ namespace Vampire.AI_Jobs
         public override void Notify_Starting()
         {
             base.Notify_Starting();
-            usingNutrientPasteDispenser = (IngestibleSource is Building_NutrientPasteDispenser);
-            eatingFromInventory = (pawn.inventory != null && pawn.inventory.Contains(IngestibleSource));
+            this.usingNutrientPasteDispenser = (this.IngestibleSource is Building_NutrientPasteDispenser);
+            this.eatingFromInventory = (this.pawn.inventory != null && this.pawn.inventory.Contains(this.IngestibleSource));
         }
 
         [DebuggerHidden]
         protected override IEnumerable<Toil> MakeNewToils()
         {
-            if (!usingNutrientPasteDispenser)
+            if (!this.usingNutrientPasteDispenser)
             {
-                this.FailOn(() => !IngestibleSource.Destroyed && !IngestibleSource.IngestibleNow);
+                this.FailOn(() => !this.IngestibleSource.Destroyed && !this.IngestibleSource.IngestibleNow);
             }
-            Toil chew = Toils_Ingest.ChewIngestible(pawn, ChewDurationMultiplier, TargetIndex.A, TargetIndex.B)
-                .FailOn((Toil x) => !IngestibleSource.Spawned 
-                && (pawn.carryTracker == null || pawn.carryTracker.CarriedThing != IngestibleSource))
+            Toil chew = Toils_Ingest.ChewIngestible(this.pawn, this.ChewDurationMultiplier, TargetIndex.A, TargetIndex.B)
+                .FailOn((Toil x) => !this.IngestibleSource.Spawned 
+                && (this.pawn.carryTracker == null || this.pawn.carryTracker.CarriedThing != this.IngestibleSource))
                 .FailOnCannotTouch(TargetIndex.A, PathEndMode.Touch);
-            foreach (Toil toil in PrepareToIngestToils(chew))
+            foreach (Toil toil in this.PrepareToIngestToils(chew))
             {
                 yield return toil;
             }
             yield return chew;
-            yield return FinalizeIngest(pawn, TargetIndex.A);
-            yield return Toils_Jump.JumpIf(chew, () => pawn?.BloodNeed()?.CurLevelPercentage < 1f);
+            yield return FinalizeIngest(this.pawn, TargetIndex.A);
+            yield return Toils_Jump.JumpIf(chew, () => this.pawn?.BloodNeed()?.CurLevelPercentage < 1f);
         }
 
         private IEnumerable<Toil> PrepareToIngestToils(Toil chewToil)
         {
-            if (usingNutrientPasteDispenser)
+            if (this.usingNutrientPasteDispenser)
             {
-                return PrepareToIngestToils_Dispenser();
+                return this.PrepareToIngestToils_Dispenser();
             }
-            if (pawn.RaceProps.ToolUser)
+            if (this.pawn.RaceProps.ToolUser)
             {
-                return PrepareToIngestToils_ToolUser(chewToil);
+                return this.PrepareToIngestToils_ToolUser(chewToil);
             }
-            return PrepareToIngestToils_NonToolUser();
+            return this.PrepareToIngestToils_NonToolUser();
         }
 
         [DebuggerHidden]
         private IEnumerable<Toil> PrepareToIngestToils_Dispenser()
         {
             yield return Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.InteractionCell).FailOnDespawnedNullOrForbidden(TargetIndex.A);
-            yield return Toils_Ingest.TakeMealFromDispenser(TargetIndex.A, pawn);
-            yield return Toils_Ingest.CarryIngestibleToChewSpot(pawn, TargetIndex.A).FailOnDestroyedNullOrForbidden(TargetIndex.A);
+            yield return Toils_Ingest.TakeMealFromDispenser(TargetIndex.A, this.pawn);
+            yield return Toils_Ingest.CarryIngestibleToChewSpot(this.pawn, TargetIndex.A).FailOnDestroyedNullOrForbidden(TargetIndex.A);
             yield return Toils_Ingest.FindAdjacentEatSurface(TargetIndex.B, TargetIndex.A);
         }
 
         [DebuggerHidden]
         private IEnumerable<Toil> PrepareToIngestToils_ToolUser(Toil chewToil)
         {
-            if (eatingFromInventory)
+            if (this.eatingFromInventory)
             {
-                yield return Toils_Misc.TakeItemFromInventoryToCarrier(pawn, TargetIndex.A);
+                yield return Toils_Misc.TakeItemFromInventoryToCarrier(this.pawn, TargetIndex.A);
             }
             else
             {
-                yield return ReserveFoodIfWillIngestWholeStack();
+                yield return this.ReserveFoodIfWillIngestWholeStack();
                 Toil gotoToPickup = Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.ClosestTouch).FailOnDespawnedNullOrForbidden(TargetIndex.A);
-                yield return Toils_Jump.JumpIf(gotoToPickup, () => pawn.health.capacities.CapableOf(PawnCapacityDefOf.Manipulation));
+                yield return Toils_Jump.JumpIf(gotoToPickup, () => this.pawn.health.capacities.CapableOf(PawnCapacityDefOf.Manipulation));
                 yield return Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.Touch).FailOnDespawnedNullOrForbidden(TargetIndex.A);
                 yield return Toils_Jump.Jump(chewToil);
                 yield return gotoToPickup;
-                yield return Toils_Ingest.PickupIngestible(TargetIndex.A, pawn);
-                Toil reserveExtraFoodToCollect = Toils_Reserve.Reserve(TargetIndex.C);
+                yield return Toils_Ingest.PickupIngestible(TargetIndex.A, this.pawn);
+                Toil reserveExtraFoodToCollect = Toils_Reserve.Reserve(TargetIndex.C, 1, -1, null);
                 Toil findExtraFoodToCollect = new Toil();
                 findExtraFoodToCollect.initAction = delegate
                 {
-                    if (pawn.inventory.innerContainer.TotalStackCountOfDef(IngestibleSource.def) < job.takeExtraIngestibles)
+                    if (this.pawn.inventory.innerContainer.TotalStackCountOfDef(this.IngestibleSource.def) < this.job.takeExtraIngestibles)
                     {
-                        Predicate<Thing> validator = (Thing x) => pawn.CanReserve(x) 
-                        && !x.IsForbidden(pawn) && x.IsSociallyProper(pawn);
-                        Thing thing = GenClosest.ClosestThingReachable(pawn.Position, pawn.Map,
-                            ThingRequest.ForDef(IngestibleSource.def), PathEndMode.Touch, 
-                            TraverseParms.For(pawn),
-                            12f, validator);
+                        Predicate<Thing> validator = (Thing x) => this.pawn.CanReserve(x, 1, -1, null, false) 
+                        && !x.IsForbidden(this.pawn) && x.IsSociallyProper(this.pawn);
+                        Thing thing = GenClosest.ClosestThingReachable(this.pawn.Position, this.pawn.Map,
+                            ThingRequest.ForDef(this.IngestibleSource.def), PathEndMode.Touch, 
+                            TraverseParms.For(this.pawn, Danger.Deadly, TraverseMode.ByPawn, false),
+                            12f, validator, null, 0, -1, false, RegionType.Set_Passable, false);
                         if (thing != null)
                         {
-                            pawn.CurJob.SetTarget(TargetIndex.C, thing);
-                            JumpToToil(reserveExtraFoodToCollect);
+                            this.pawn.CurJob.SetTarget(TargetIndex.C, thing);
+                            this.JumpToToil(reserveExtraFoodToCollect);
                         }
                     }
                 };
@@ -155,17 +153,17 @@ namespace Vampire.AI_Jobs
                 yield return reserveExtraFoodToCollect;
                 yield return Toils_Goto.GotoThing(TargetIndex.C, PathEndMode.Touch);
                 yield return Toils_Haul.TakeToInventory(TargetIndex.C, 
-                    () => job.takeExtraIngestibles - pawn.inventory.innerContainer.TotalStackCountOfDef(IngestibleSource.def));
+                    () => this.job.takeExtraIngestibles - this.pawn.inventory.innerContainer.TotalStackCountOfDef(this.IngestibleSource.def));
                 yield return findExtraFoodToCollect;
             }
-            yield return Toils_Ingest.CarryIngestibleToChewSpot(pawn, TargetIndex.A).FailOnDestroyedOrNull(TargetIndex.A);
+            yield return Toils_Ingest.CarryIngestibleToChewSpot(this.pawn, TargetIndex.A).FailOnDestroyedOrNull(TargetIndex.A);
             yield return Toils_Ingest.FindAdjacentEatSurface(TargetIndex.B, TargetIndex.A);
         }
 
         [DebuggerHidden]
         private IEnumerable<Toil> PrepareToIngestToils_NonToolUser()
         {
-            yield return ReserveFoodIfWillIngestWholeStack();
+            yield return this.ReserveFoodIfWillIngestWholeStack();
             yield return Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.Touch);
         }
 
@@ -175,12 +173,12 @@ namespace Vampire.AI_Jobs
             {
                 initAction = delegate
                 {
-                    if (pawn.Faction == null)
+                    if (this.pawn.Faction == null)
                     {
                         return;
                     }
-                    Thing thing = pawn.CurJob.GetTarget(TargetIndex.A).Thing;
-                    if (pawn.carryTracker.CarriedThing == thing)
+                    Thing thing = this.pawn.CurJob.GetTarget(TargetIndex.A).Thing;
+                    if (this.pawn.carryTracker.CarriedThing == thing)
                     {
                         return;
                     }
@@ -189,10 +187,10 @@ namespace Vampire.AI_Jobs
                     {
                         if (!thing.Spawned)
                         {
-                            pawn.jobs.EndCurrentJob(JobCondition.Incompletable);
+                            this.pawn.jobs.EndCurrentJob(JobCondition.Incompletable, true);
                             return;
                         }
-                        pawn.Reserve(thing, job);
+                        this.pawn.Reserve(thing, this.job, 1, -1, null);
                     }
                 },
                 defaultCompleteMode = ToilCompleteMode.Instant
@@ -204,8 +202,8 @@ namespace Vampire.AI_Jobs
 
         public override bool ModifyCarriedThingDrawPos(ref Vector3 drawPos, ref bool behind, ref bool flip)
         {
-            IntVec3 cell = job.GetTarget(TargetIndex.B).Cell;
-            return JobDriver_Ingest.ModifyCarriedThingDrawPosWorker(ref drawPos, ref behind, ref flip, cell, pawn);
+            IntVec3 cell = base.job.GetTarget(TargetIndex.B).Cell;
+            return JobDriver_Ingest.ModifyCarriedThingDrawPosWorker(ref drawPos, ref behind, ref flip, cell, this.pawn);
         }
 
         public static bool ModifyCarriedThingDrawPosWorker(ref Vector3 drawPos, ref bool behind, ref bool flip, IntVec3 placeCell, Pawn pawn)
@@ -251,15 +249,15 @@ namespace Vampire.AI_Jobs
                 {
                     if (!(ingester.Position + ingester.Rotation.FacingCell).HasEatSurface(actor.Map) && ingester.GetPosture() == PawnPosture.Standing)
                     {
-                        ingester.needs.mood.thoughts.memories.TryGainMemory(ThoughtDefOf.AteWithoutTable);
+                        ingester.needs.mood.thoughts.memories.TryGainMemory(ThoughtDefOf.AteWithoutTable, null);
                     }
-                    Room room = ingester.GetRoom();
+                    Room room = ingester.GetRoom(RegionType.Set_Passable);
                     if (room != null)
                     {
                         int scoreStageIndex = RoomStatDefOf.Impressiveness.GetScoreStageIndex(room.GetStat(RoomStatDefOf.Impressiveness));
                         if (ThoughtDefOf.AteInImpressiveDiningRoom.stages[scoreStageIndex] != null)
                         {
-                            ingester.needs.mood.thoughts.memories.TryGainMemory(ThoughtMaker.MakeThought(ThoughtDefOf.AteInImpressiveDiningRoom, scoreStageIndex));
+                            ingester.needs.mood.thoughts.memories.TryGainMemory(ThoughtMaker.MakeThought(ThoughtDefOf.AteInImpressiveDiningRoom, scoreStageIndex), null);
                         }
                     }
                 }
@@ -272,7 +270,7 @@ namespace Vampire.AI_Jobs
                 {
                     thing = thing.SplitOff(1);
                 }
-                if (!thing.Destroyed) thing.Destroy();
+                if (!thing.Destroyed) thing.Destroy(DestroyMode.Vanish);
             };
             toil.defaultCompleteMode = ToilCompleteMode.Instant;
             return toil;
@@ -280,7 +278,7 @@ namespace Vampire.AI_Jobs
 
         public override bool TryMakePreToilReservations()
         {
-            return pawn.Reserve(TargetA, job);
+            return this.pawn.Reserve(TargetA, this.job, 1, -1, null);
         }
     }
 }

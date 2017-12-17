@@ -3,7 +3,7 @@ using System.Linq;
 using RimWorld;
 using Verse;
 
-namespace Vampire.Disciplines.Vampirism
+namespace Vampire
 {
     public class DisciplineEffect_RegenerateLimb : Verb_UseAbilityPawnEffect
     {

@@ -1,8 +1,7 @@
 ﻿using RimWorld;
-using Vampire.Defs;
 using Verse;
 
-namespace Vampire.Disciplines.Dominate
+namespace Vampire
 {
     public class DisciplineEffect_Sleep : Verb_UseAbilityPawnEffect
     {

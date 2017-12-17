@@ -1,10 +1,8 @@
 ﻿using RimWorld;
-using Vampire.Defs;
-using Vampire.Utilities;
 using Verse;
 using Verse.AI;
 
-namespace Vampire.AI_Jobs
+namespace Vampire
 {
     public class JobGiver_VampireBeast : ThinkNode_JobGiver
     {
@@ -26,28 +24,28 @@ namespace Vampire.AI_Jobs
             {
                 return null;
             }
-            if (pawn?.TryGetAttackVerb() == null)
+            if (pawn?.TryGetAttackVerb(false) == null)
             {
                 return null;
             }
             
-            Pawn pawn2 = FindPawnTarget(pawn);
-            if (pawn2 != null && pawn.CanReach(pawn2, PathEndMode.Touch, Danger.Deadly))
+            Pawn pawn2 = this.FindPawnTarget(pawn);
+            if (pawn2 != null && pawn.CanReach(pawn2, PathEndMode.Touch, Danger.Deadly, false, TraverseMode.ByPawn))
             {
                 if (pawn2.InAggroMentalState)
-                    return MeleeAttackJob(pawn2);
+                    return this.MeleeAttackJob(pawn2);
                 else
-                    return FeedJob(pawn2);
+                    return this.FeedJob(pawn2);
             }
 
-            Building building = FindTurretTarget(pawn);
+            Building building = this.FindTurretTarget(pawn);
             if (building != null)
             {
-                return MeleeAttackJob(building);
+                return this.MeleeAttackJob(building);
             }
             if (pawn2 != null)
             {
-                using (PawnPath pawnPath = pawn.MapHeld.pathFinder.FindPath(pawn.Position, pawn2.Position, TraverseParms.For(pawn, Danger.Deadly, TraverseMode.PassAllDestroyableThings)))
+                using (PawnPath pawnPath = pawn.MapHeld.pathFinder.FindPath(pawn.Position, pawn2.Position, TraverseParms.For(pawn, Danger.Deadly, TraverseMode.PassAllDestroyableThings, false), PathEndMode.OnCell))
                 {
                     if (!pawnPath.Found)
                     {
@@ -60,22 +58,22 @@ namespace Vampire.AI_Jobs
                         //Job job = DigUtility.PassBlockerJob(pawn, thing, cellBeforeBlocker, true);
                         //if (job != null)
                         //{
-                        return MeleeAttackJob(thing);
+                        return this.MeleeAttackJob(thing);
                         //}
                     }
                     IntVec3 loc = pawnPath.LastCellBeforeBlockerOrFinalCell(pawn.MapHeld);
-                    IntVec3 randomCell = CellFinder.RandomRegionNear(loc.GetRegion(pawn.Map), 9, TraverseParms.For(pawn)).RandomCell;
+                    IntVec3 randomCell = CellFinder.RandomRegionNear(loc.GetRegion(pawn.Map, RegionType.Set_Passable), 9, TraverseParms.For(pawn, Danger.Deadly, TraverseMode.ByPawn, false), null, null, RegionType.Set_Passable).RandomCell;
                     if (randomCell == pawn.PositionHeld)
                     {
-                        return new Job(JobDefOf.Wait, 30);
+                        return new Job(JobDefOf.Wait, 30, false);
                     }
                     return new Job(JobDefOf.Goto, randomCell);
                 }
             }
-            Building buildingDoor = FindDoorTarget(pawn);
+            Building buildingDoor = this.FindDoorTarget(pawn);
             if (buildingDoor != null)
             {
-                return MeleeAttackJob(buildingDoor);
+                return this.MeleeAttackJob(buildingDoor);
             }
 
             return null;
@@ -105,13 +103,13 @@ namespace Vampire.AI_Jobs
 
         private Building FindTurretTarget(Pawn pawn)
         {
-            return (Building)AttackTargetFinder.BestAttackTarget(pawn, TargetScanFlags.NeedLOSToPawns | TargetScanFlags.NeedLOSToNonPawns | TargetScanFlags.NeedReachable | TargetScanFlags.NeedThreat, (Thing t) => t is Building && t.Spawned, 0f, 70f);
+            return (Building)AttackTargetFinder.BestAttackTarget(pawn, TargetScanFlags.NeedLOSToPawns | TargetScanFlags.NeedLOSToNonPawns | TargetScanFlags.NeedReachable | TargetScanFlags.NeedThreat, (Thing t) => t is Building && t.Spawned, 0f, 70f, default(IntVec3), 3.40282347E+38f, false);
         }
 
 
         private Building_Door FindDoorTarget(Pawn pawn)
         {
-            return (Building_Door)AttackTargetFinder.BestAttackTarget(pawn, TargetScanFlags.NeedReachable, (Thing t) => t is Building_Door && t.Spawned, 0f, 70f);
+            return (Building_Door)AttackTargetFinder.BestAttackTarget(pawn, TargetScanFlags.NeedReachable, (Thing t) => t is Building_Door && t.Spawned, 0f, 70f, default(IntVec3), 3.40282347E+38f, false);
         }
 
     }

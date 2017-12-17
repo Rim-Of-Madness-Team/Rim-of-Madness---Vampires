@@ -1,4 +1,4 @@
-﻿namespace Vampire.Defs
+﻿namespace Vampire
 {
     public class VitaeAbilityDef : AbilityUser.AbilityDef
     {

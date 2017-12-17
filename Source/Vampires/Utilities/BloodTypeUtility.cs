@@ -1,8 +1,7 @@
-﻿using RimWorld;
-using Vampire.Defs;
-using Verse;
+﻿using Verse;
+using RimWorld;
 
-namespace Vampire.Utilities
+namespace Vampire
 {
     public static class BloodTypeUtility
     {
@@ -12,37 +11,37 @@ namespace Vampire.Utilities
             {
                 if (pawn?.RaceProps?.Animal ?? false)
                 {
-                    return Defs.BloodType.Animal;
+                    return Vampire.BloodType.Animal;
                 }
                 if (pawn?.RaceProps?.Humanlike ?? false)
                 {
-                    bool lowBlood = (IsLowblood(pawn));
-                    bool highBlood = (IsHighblood(pawn));
+                    bool lowBlood = (BloodTypeUtility.IsLowblood(pawn));
+                    bool highBlood = (BloodTypeUtility.IsHighblood(pawn));
 
-                    if (IsHighblood(pawn) && IsLowblood(pawn))
-                        return Defs.BloodType.AverageBlood;
+                    if (BloodTypeUtility.IsHighblood(pawn) && BloodTypeUtility.IsLowblood(pawn))
+                        return Vampire.BloodType.AverageBlood;
                     if (highBlood)
-                        return Defs.BloodType.HighBlood;
+                        return Vampire.BloodType.HighBlood;
                     if (lowBlood)
-                        return Defs.BloodType.LowBlood;
+                        return Vampire.BloodType.LowBlood;
 
-                    return Defs.BloodType.AverageBlood;
+                    return Vampire.BloodType.AverageBlood;
                 }
             }
-            return Defs.BloodType.None;
+            return Vampire.BloodType.None;
         }
 
         public static string GetLabel(this BloodType bloodtype)
         {
             switch (bloodtype)
             {
-                case Defs.BloodType.Animal:
+                case Vampire.BloodType.Animal:
                     return "ROMV_BloodTypeAnimal".Translate();
-                case Defs.BloodType.AverageBlood:
+                case Vampire.BloodType.AverageBlood:
                     return "ROMV_BloodTypeAverage".Translate();
-                case Defs.BloodType.LowBlood:
+                case Vampire.BloodType.LowBlood:
                     return "ROMV_BloodTypeLow".Translate();
-                case Defs.BloodType.HighBlood:
+                case Vampire.BloodType.HighBlood:
                     return "ROMV_BloodTypeHigh".Translate();
             }
             return "ROMV_BloodType_Unavailable".Translate();

@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using JecsTools;
 using UnityEngine;
-using Vampire.Components;
-using Vampire.Defs;
-using Vampire.Utilities;
 using Verse;
 using Verse.AI;
 
-namespace Vampire.HarmonyPatches
+namespace Vampire
 {
     public class VampHumanlikeOrders : FloatMenuPatch
     {
@@ -39,7 +36,7 @@ namespace Vampire.HarmonyPatches
                         opts.Add(new FloatMenuOption("ROMV_Feed".Translate(new object[]
                         {
                                 victim.LabelCap
-                        }) + ((curBloodVictim == 1) ? " " + "ROMV_LethalWarning".Translate() : ""), action, MenuOptionPriority.High, null, victim));
+                        }) + ((curBloodVictim == 1) ? " " + "ROMV_LethalWarning".Translate() : ""), action, MenuOptionPriority.High, null, victim, 0f, null, null));
                         // SIP //////////////////////////
                         if (curBloodVictim > 1)
                         {
@@ -52,7 +49,7 @@ namespace Vampire.HarmonyPatches
                             opts.Add(new FloatMenuOption("ROMV_Sip".Translate(new object[]
                             {
                             victim.LabelCap
-                            }), action2, MenuOptionPriority.High, null, victim));
+                            }), action2, MenuOptionPriority.High, null, victim, 0f, null, null));
                         }
                     };
                     //EMBRACE /////////////////////
@@ -63,7 +60,7 @@ namespace Vampire.HarmonyPatches
                             opts.Add(new FloatMenuOption("ROMV_CannotEmbrace".Translate(new object[]
                             {
                             victim.LabelCap
-                            } + " (" + "ROMV_Thinblooded".Translate() + ")"), null, MenuOptionPriority.High, null, victim));
+                            } + " (" + "ROMV_Thinblooded".Translate() + ")"), null, MenuOptionPriority.High, null, victim, 0f, null, null));
                         }
                         else
                         {
@@ -76,7 +73,7 @@ namespace Vampire.HarmonyPatches
                             opts.Add(new FloatMenuOption("ROMV_Embrace".Translate(new object[]
                             {
                             victim.LabelCap
-                            }), actionTwo, MenuOptionPriority.High, null, victim));
+                            }), actionTwo, MenuOptionPriority.High, null, victim, 0f, null, null));
                         }
                     }
 
@@ -93,7 +90,7 @@ namespace Vampire.HarmonyPatches
                         opts.Add(new FloatMenuOption("ROMV_FeedVampire".Translate(new object[]
                         {
                                 victim.LabelCap
-                        }), action, MenuOptionPriority.High, null, victim));
+                        }), action, MenuOptionPriority.High, null, victim, 0f, null, null));
                         Action action2 = delegate
                         {
                             Job job = new Job(VampDefOf.ROMV_Diablerie, victim);
@@ -105,7 +102,7 @@ namespace Vampire.HarmonyPatches
                         opts.Add(new FloatMenuOption("ROMV_Diablerie".Translate(new object[]
                         {
                                 victim.LabelCap
-                        }) + benefitWarning, action2, MenuOptionPriority.High, null, victim));
+                        }) + benefitWarning, action2, MenuOptionPriority.High, null, victim, 0f, null, null));
                     }
 
                 }

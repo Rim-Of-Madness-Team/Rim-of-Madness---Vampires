@@ -1,14 +1,13 @@
-﻿using Vampire.Defs;
-using Verse;
+﻿using Verse;
 
-namespace Vampire.Disciplines.Protean
+namespace Vampire
 {
     public class DisciplineEffect_WarForm : Verb_UseAbilityPawnEffect
     {
         public override void Effect(Pawn target)
         {
             base.Effect(target);
-            HealthUtility.AdjustSeverity(CasterPawn, VampDefOf.ROMV_WarFormHediff, 1.0f);
+            HealthUtility.AdjustSeverity(this.CasterPawn, VampDefOf.ROMV_WarFormHediff, 1.0f);
         }
     }
 }

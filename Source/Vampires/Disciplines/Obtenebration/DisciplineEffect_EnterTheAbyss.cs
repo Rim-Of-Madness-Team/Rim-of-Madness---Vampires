@@ -2,22 +2,22 @@
 using RimWorld;
 using Verse;
 
-namespace Vampire.Disciplines.Obtenebration
+namespace Vampire
 {
     public class DisciplineEffect_EnterTheAbyss : AbilityUser.Verb_UseAbility
     {
         public void Effect()
         {
-            CasterPawn.Drawer.Notify_DebugAffected();
+            this.CasterPawn.Drawer.Notify_DebugAffected();
             if (TargetsAoE.FirstOrDefault(x => x is LocalTargetInfo y && y.Cell != default(IntVec3)) is LocalTargetInfo t)
             {
-                if (t.Cell.Standable(CasterPawn.MapHeld))
+                if (t.Cell.Standable(this.CasterPawn.MapHeld))
                 {
-                    MoteMaker.ThrowText(CasterPawn.DrawPos, CasterPawn.Map, AbilityUser.StringsToTranslate.AU_CastSuccess);
-                    CasterPawn.Position = t.Cell;
+                    MoteMaker.ThrowText(this.CasterPawn.DrawPos, this.CasterPawn.Map, AbilityUser.StringsToTranslate.AU_CastSuccess, -1f);
+                    this.CasterPawn.Position = t.Cell;
                     return;
                 }
-                MoteMaker.ThrowText(CasterPawn.DrawPos, CasterPawn.Map, AbilityUser.StringsToTranslate.AU_CastFailure);
+                MoteMaker.ThrowText(this.CasterPawn.DrawPos, this.CasterPawn.Map, AbilityUser.StringsToTranslate.AU_CastFailure, -1f);
             }
         }
         
@@ -29,14 +29,14 @@ namespace Vampire.Disciplines.Obtenebration
 
         protected override bool TryCastShot()
         {
-            CasterPawn.jobs.EndCurrentJob(Verse.AI.JobCondition.InterruptForced);
+            this.CasterPawn.jobs.EndCurrentJob(Verse.AI.JobCondition.InterruptForced);
             Effect();
             return base.TryCastShot();
         }
 
         public override void PostCastShot(bool inResult, out bool outResult)
         {
-            CasterPawn.jobs.EndCurrentJob(Verse.AI.JobCondition.InterruptForced);
+            this.CasterPawn.jobs.EndCurrentJob(Verse.AI.JobCondition.InterruptForced);
             Effect();
             outResult = true;
         }

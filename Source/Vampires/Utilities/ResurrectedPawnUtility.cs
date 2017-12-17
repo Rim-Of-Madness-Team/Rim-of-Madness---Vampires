@@ -1,29 +1,24 @@
 ﻿// ----------------------------------------------------------------------
 // These are basic usings. Always let them be here.
 // ----------------------------------------------------------------------
-
 using System;
 using System.Reflection;
-using RimWorld;
-using UnityEngine;
-using Verse;
-using Verse.AI;
+
 // ----------------------------------------------------------------------
 // These are RimWorld-specific usings. Activate/Deactivate what you need:
 // ----------------------------------------------------------------------
-// Always needed
+using UnityEngine;         // Always needed
 //using VerseBase;         // Material/Graphics handling functions are found here
-// RimWorld universal objects are here (like 'Building')
-// Needed when you do something with the AI
+using Verse;               // RimWorld universal objects are here (like 'Building')
+using Verse.AI;          // Needed when you do something with the AI
 // Needed when you do something with Sound
 // Needed when you do something with Noises
-
-// RimWorld specific functions are found here (like 'Building_Battery')
+using RimWorld;            // RimWorld specific functions are found here (like 'Building_Battery')
 
 // RimWorld specific functions for world creation
 //using RimWorld.SquadAI;  // RimWorld specific functions for squad brains 
 
-namespace Vampire.Utilities
+namespace Vampire
 {
     class ResurrectedPawnUtility
     {
@@ -32,7 +27,7 @@ namespace Vampire.Utilities
         {
             PawnKindDef pawnKindDef = sourcePawn.kindDef;
             Faction factionDirect = isBerserk ? Find.FactionManager.FirstFactionOfDef(FactionDefOf.SpacerHostile) : Faction.OfPlayer;
-            Pawn pawn = (Pawn)ThingMaker.MakeThing(pawnKindDef.race);
+            Pawn pawn = (Pawn)ThingMaker.MakeThing(pawnKindDef.race, null);
             try
             {
                 pawn.kindDef = pawnKindDef;
@@ -188,7 +183,7 @@ namespace Vampire.Utilities
         {
             PawnKindDef pawnKindDef = PawnKindDef.Named("ReanimatedCorpse");
             Faction factionDirect = Find.FactionManager.FirstFactionOfDef(FactionDefOf.SpacerHostile);
-            Pawn pawn = (Pawn)ThingMaker.MakeThing(pawnKindDef.race);
+            Pawn pawn = (Pawn)ThingMaker.MakeThing(pawnKindDef.race, null);
             pawn.kindDef = pawnKindDef;
             pawn.SetFactionDirect(factionDirect);
             pawn.pather = new Pawn_PathFollower(pawn);
@@ -343,10 +338,10 @@ namespace Vampire.Utilities
                 }
                 else
                 {
-                    apparel = (Apparel)ThingMaker.MakeThing(current.def);
+                    apparel = (Apparel)ThingMaker.MakeThing(current.def, null);
                 }
                 apparel.DrawColor = new Color(current.DrawColor.r, current.DrawColor.g, current.DrawColor.b, current.DrawColor.a);
-                newPawn.apparel.Wear(apparel);
+                newPawn.apparel.Wear(apparel, true);
             }
         }
 

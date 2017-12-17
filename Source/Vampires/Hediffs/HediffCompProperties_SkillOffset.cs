@@ -1,7 +1,7 @@
 ﻿using RimWorld;
 using Verse;
 
-namespace Vampire.Hediffs
+namespace Vampire
 {
     public class HediffCompProperties_SkillOffset : HediffCompProperties
     {
@@ -9,7 +9,7 @@ namespace Vampire.Hediffs
         public int offset;
         public HediffCompProperties_SkillOffset()
         {
-            compClass = typeof(HediffComp_SkillOffset);
+            this.compClass = typeof(HediffComp_SkillOffset);
         }
     }
 }

@@ -1,9 +1,8 @@
 ﻿using AbilityUser;
 using RimWorld;
-using Vampire.Utilities;
 using Verse;
 
-namespace Vampire.Disciplines.Thaumaturgy
+namespace Vampire
 {
     public class Projectile_BloodReturner : Projectile_AbilityBase
     {
@@ -12,7 +11,7 @@ namespace Vampire.Disciplines.Thaumaturgy
             base.Impact_Override(hitThing);
             if (hitThing is Pawn p && p.BloodNeed() is Need_Blood bn)
             {
-                MoteMaker.ThrowText(p.DrawPos, p.Map, "+2");
+                MoteMaker.ThrowText(p.DrawPos, p.Map, "+2", -1f);
                 bn.AdjustBlood(2);
             }
         }

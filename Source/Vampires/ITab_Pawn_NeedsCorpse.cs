@@ -12,11 +12,11 @@ namespace Vampire
         {
             get
             {
-                if (SelPawn != null)
+                if (base.SelPawn != null)
                 {
-                    return SelPawn;
+                    return base.SelPawn;
                 }
-                Corpse corpse = SelThing as Corpse;
+                Corpse corpse = base.SelThing as Corpse;
                 if (corpse != null)
                 {
                     return corpse.InnerPawn;
@@ -35,23 +35,23 @@ namespace Vampire
 
         public ITab_Pawn_NeedsCorpse()
         {
-            labelKey = "TabNeeds";
-            tutorTag = "Needs";
+            this.labelKey = "TabNeeds";
+            this.tutorTag = "Needs";
         }
 
         public override void OnOpen()
         {
-            thoughtScrollPosition = default(Vector2);
+            this.thoughtScrollPosition = default(Vector2);
         }
 
         protected override void FillTab()
         {
-            NeedsCardUtility.DoNeedsMoodAndThoughts(new Rect(0f, 0f, size.x, size.y), PawnForNeeds, ref thoughtScrollPosition);
+            NeedsCardUtility.DoNeedsMoodAndThoughts(new Rect(0f, 0f, this.size.x, this.size.y), PawnForNeeds, ref this.thoughtScrollPosition);
         }
 
         protected override void UpdateSize()
         {
-            size = NeedsCardUtility.GetSize(PawnForNeeds);
+            this.size = NeedsCardUtility.GetSize(PawnForNeeds);
         }
     }
 }

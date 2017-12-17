@@ -1,7 +1,7 @@
-﻿using System.Text;
-using Verse;
+﻿using Verse;
+using System.Text;
 
-namespace Vampire.Hediffs
+namespace Vampire
 {
     public class HediffComp_ReadMind : HediffComp
     {

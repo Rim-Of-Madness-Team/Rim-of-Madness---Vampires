@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using Verse;
+﻿using Verse;
+using UnityEngine;
 
-namespace Vampire.Disciplines.Animalism
+namespace Vampire
 {
     public class HediffComp_TickGraphic : HediffComp
     {
@@ -17,7 +17,7 @@ namespace Vampire.Disciplines.Animalism
         {
             get
             {
-                return (HediffCompProperties_TickGraphic)props;
+                return (HediffCompProperties_TickGraphic)this.props;
             }
         }
 
@@ -35,13 +35,13 @@ namespace Vampire.Disciplines.Animalism
                     curGraphicIndex = 0;
                 }
             }
-            CurGraphic = Props.cycleGraphics[curGraphicIndex].Graphic;
+            CurGraphic = this.Props.cycleGraphics[curGraphicIndex].Graphic;
             if (CurGraphic != null)
             {
-                Material material = CurGraphic.MatSingle;
+                Material material = this.CurGraphic.MatSingle;
                 Vector3 s = new Vector3(CurGraphic.drawSize.x, 1f, CurGraphic.drawSize.y);
                 Matrix4x4 matrix = default(Matrix4x4);
-                matrix.SetTRS(Pawn.DrawPos, Quaternion.identity, s);
+                matrix.SetTRS(this.Pawn.DrawPos, Quaternion.identity, s);
                 Graphics.DrawMesh(MeshPool.plane10, matrix, material, 0);
             }
         }
@@ -49,8 +49,8 @@ namespace Vampire.Disciplines.Animalism
         public override void CompExposeData()
         {
             base.CompExposeData();
-            Scribe_Values.Look<int>(ref curGraphicIndex, "curGraphicIndex");
-            Scribe_Values.Look<bool>(ref activated, "activated");
+            Scribe_Values.Look<int>(ref this.curGraphicIndex, "curGraphicIndex", 0);
+            Scribe_Values.Look<bool>(ref this.activated, "activated", false);
         }
     }
 }

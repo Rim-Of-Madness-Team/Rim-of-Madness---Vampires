@@ -4,8 +4,6 @@ using UnityEngine;
 using Verse;
 using RimWorld;
 using System.Linq;
-using Vampire.Components;
-using Vampire.Utilities;
 
 namespace Vampire
 {
@@ -41,13 +39,13 @@ namespace Vampire
         #endregion Variables
 
         #region Properties
-        public CompVampire CompVampire => pawn?.TryGetComp<CompVampire>();
-        public bool IsAnimal => pawn?.RaceProps?.Animal ?? false;
-        public bool IsFull => CurBloodPoints == MaxBloodPoints;
-        public bool Starving => CompVampire != null && CompVampire.IsVampire && CurCategory == HungerCategory.Starving;
+        public CompVampire CompVampire => this.pawn?.TryGetComp<CompVampire>();
+        public bool IsAnimal => this.pawn?.RaceProps?.Animal ?? false;
+        public bool IsFull => this.CurBloodPoints == this.MaxBloodPoints;
+        public bool Starving => CompVampire != null && CompVampire.IsVampire && this.CurCategory == HungerCategory.Starving;
         public bool ShouldDie => CurBloodPoints == 0;
         public float PercPerPoint => 1f / MaxBloodPoints;
-        public bool DrainingIsDeadly => CurBloodPoints <= 2 || (pawn?.health?.hediffSet?.hediffs?.FirstOrDefault(x => x.def == HediffDefOf.BloodLoss) is Hediff bloodLoss && bloodLoss.CurStageIndex > 2);
+        public bool DrainingIsDeadly => this.CurBloodPoints <= 2 || (this.pawn?.health?.hediffSet?.hediffs?.FirstOrDefault(x => x.def == HediffDefOf.BloodLoss) is Hediff bloodLoss && bloodLoss.CurStageIndex > 2);
         //public PreferredFeedMode PreferredFeedMode { get => preferredFeedMode; set => preferredFeedMode = value; }
 
 
@@ -89,7 +87,7 @@ namespace Vampire
                 int result = 7;
                 if (IsAnimal)
                 {
-                    result = MaxBloodPointsForAnimal(pawn);
+                    result = MaxBloodPointsForAnimal(this.pawn);
                 }
                 if (CompVampire != null && CompVampire.IsVampire)
                 {
@@ -120,13 +118,13 @@ namespace Vampire
             {
                 if (CompVampire != null && CompVampire.IsVampire)
                 {
-                    if (CurLevelPercentage <= 0f)
+                    if (base.CurLevelPercentage <= 0f)
                         return HungerCategory.Starving;
 
-                    if (CurLevelPercentage < PercPerPoint * 2)
+                    if (base.CurLevelPercentage < PercPerPoint * 2)
                         return HungerCategory.UrgentlyHungry;
 
-                    if (CurLevelPercentage < MaxLevel)
+                    if (base.CurLevelPercentage < MaxLevel)
                         return HungerCategory.Hungry;
                 }
                 return HungerCategory.Fed;
@@ -148,9 +146,9 @@ namespace Vampire
         public override float MaxLevel
             => MaxBloodPoints;
         public float BloodWanted 
-            => MaxBloodPoints - CurBloodPoints;
+            => this.MaxBloodPoints - this.CurBloodPoints;
         
-        public int TicksStarving => Mathf.Max(0, Find.TickManager.TicksGame - lastNonStarvingTick);
+        public int TicksStarving => Mathf.Max(0, Find.TickManager.TicksGame - this.lastNonStarvingTick);
 
         public Need_Blood(Pawn pawn) : base(pawn) { }
 
@@ -159,12 +157,12 @@ namespace Vampire
             //private int curBloodPoints = Int32.MinValue;
             //private int nextBloodChangeTick = Int32.MaxValue;
             base.ExposeData();
-            Scribe_Values.Look<int>(ref lastNonStarvingTick, "lastNonStarvingTick", -1);
-            Scribe_Values.Look<int>(ref nextBloodChangeTick, "nextBloodChangeTick", -1);
-            Scribe_Values.Look<int>(ref curBloodPoints, "curBloodPoints", -1);
-            Scribe_Values.Look<bool>(ref bloodFixer, "bloodFixer");
-            Scribe_Values.Look<PreferredFeedMode>(ref preferredFeedMode, "preferredFeedMode", PreferredFeedMode.HumanoidNonLethal);
-            Scribe_Values.Look<PreferredHumanoidFeedType>(ref preferredHumanoidFeedType, "preferredHumanoidFeedType", PreferredHumanoidFeedType.PrisonersOnly);
+            Scribe_Values.Look<int>(ref this.lastNonStarvingTick, "lastNonStarvingTick", -1, false);
+            Scribe_Values.Look<int>(ref this.nextBloodChangeTick, "nextBloodChangeTick", -1, false);
+            Scribe_Values.Look<int>(ref this.curBloodPoints, "curBloodPoints", -1, false);
+            Scribe_Values.Look<bool>(ref this.bloodFixer, "bloodFixer", false);
+            Scribe_Values.Look<PreferredFeedMode>(ref this.preferredFeedMode, "preferredFeedMode", PreferredFeedMode.HumanoidNonLethal);
+            Scribe_Values.Look<PreferredHumanoidFeedType>(ref this.preferredHumanoidFeedType, "preferredHumanoidFeedType", PreferredHumanoidFeedType.PrisonersOnly);
         }
         
         public int AdjustBlood(int amt, bool alert = true)
@@ -174,10 +172,10 @@ namespace Vampire
             CurBloodPoints = Mathf.Clamp(CurBloodPoints + amt, 0, MaxBloodPoints);
             CurLevelPercentage = CurBloodPoints * PercPerPoint;
 
-            if (!pawn.IsVampire() && CurBloodPoints < prevBloodPoints)
+            if (!this.pawn.IsVampire() && CurBloodPoints < prevBloodPoints)
             {
                 int diff = prevBloodPoints - CurBloodPoints;
-                HealthUtility.AdjustSeverity(pawn, HediffDefOf.BloodLoss, diff * PercPerPoint);
+                HealthUtility.AdjustSeverity(this.pawn, HediffDefOf.BloodLoss, diff * PercPerPoint);
             }
 
             if (CurBloodPoints == 0)
@@ -188,22 +186,22 @@ namespace Vampire
 
         public void Notify_NoBloodLeft(bool alert = true)
         {
-            if (pawn.Faction == Faction.OfPlayer)
+            if (this.pawn.Faction == Faction.OfPlayer)
             {
                 if (alert)
                 {
-                    if (pawn.IsVampire())
-                        Messages.Message("ROMV_BloodDepletedVamp".Translate(pawn.LabelCap), MessageTypeDefOf.NeutralEvent);
+                    if (this.pawn.IsVampire())
+                        Messages.Message("ROMV_BloodDepletedVamp".Translate(this.pawn.LabelCap), MessageTypeDefOf.NeutralEvent);
                     else
-                        Messages.Message("ROMV_BloodDepleted".Translate(pawn.LabelCap), MessageTypeDefOf.NegativeEvent);
+                        Messages.Message("ROMV_BloodDepleted".Translate(this.pawn.LabelCap), MessageTypeDefOf.NegativeEvent);
                 }
 
             }
 
-            if (!pawn.IsVampire())
+            if (!this.pawn.IsVampire())
             {
-                HealthUtility.AdjustSeverity(pawn, HediffDefOf.BloodLoss, 999f);
-                if (!pawn.Dead) pawn.Kill(null);
+                HealthUtility.AdjustSeverity(this.pawn, HediffDefOf.BloodLoss, 999f);
+                if (!this.pawn.Dead) this.pawn.Kill(null);
             }
         }
 
@@ -221,7 +219,7 @@ namespace Vampire
             if (!bloodFixer)
             {
                 bloodFixer = true;
-                nextBloodChangeTick = -1;
+                this.nextBloodChangeTick = -1;
             }
             
             //if ((pawn?.IsVampire() ?? false) && pawn.RaceProps != null && pawn.RaceProps.Humanlike && pawn.Faction != null && pawn.Faction == Faction.OfPlayer &&
@@ -247,23 +245,23 @@ namespace Vampire
 
             //if (Find.TickManager.TicksGame % 250 == 0)
                 //Log.Message("Ticks => " + Find.TickManager.TicksGame);
-            if (Find.TickManager.TicksGame > nextBloodChangeTick)
+            if (Find.TickManager.TicksGame > this.nextBloodChangeTick)
             {
                 int math = Find.TickManager.TicksGame + GenDate.TicksPerDay;
                 //Log.Message("BLOOD TICKS SET TO => " + math);
-                nextBloodChangeTick = math;
+                this.nextBloodChangeTick = math;
                 AdjustBlood(BloodChangePerDay);
             }
 
-            if (!Starving)
+            if (!this.Starving)
             {
-                lastNonStarvingTick = Find.TickManager.TicksGame;
+                this.lastNonStarvingTick = Find.TickManager.TicksGame;
             }
 
-            if (!IsFrozen)
+            if (!base.IsFrozen)
             {
 
-                if (Starving)
+                if (this.Starving)
                 {
 
                     if (CompVampire != null && CompVampire.IsVampire)
@@ -271,11 +269,11 @@ namespace Vampire
 
                         CompVampire.Notify_Starving(lastNonStarvingTick);
                     }
-                    else if (!pawn.Dead)
+                    else if (!this.pawn.Dead)
                     {
 
-                        HealthUtility.AdjustSeverity(pawn, HediffDefOf.BloodLoss, 1f);
-                        pawn.Kill(null);
+                        HealthUtility.AdjustSeverity(this.pawn, HediffDefOf.BloodLoss, 1f);
+                        this.pawn.Kill(null);
                     }
                 }
             }
@@ -284,10 +282,10 @@ namespace Vampire
         public override void SetInitialLevel()
         {
             //base.CurLevelPercentage = 1.0f;
-            CurLevel = CurBloodPoints = MaxBloodPoints;
+            this.CurLevel = this.CurBloodPoints = this.MaxBloodPoints;
             if (Current.ProgramState == ProgramState.Playing)
             {
-                lastNonStarvingTick = Find.TickManager.TicksGame;
+                this.lastNonStarvingTick = Find.TickManager.TicksGame;
             }
         }
 
@@ -295,23 +293,23 @@ namespace Vampire
         {
             return string.Concat(new string[]
             {
-                GetLabel(),
+                this.GetLabel(),
                 ": ",
-                CurLevelPercentage.ToStringPercent(),
+                base.CurLevelPercentage.ToStringPercent(),
                 " (",
-                CurLevel.ToString("0.##"),
+                this.CurLevel.ToString("0.##"),
                 " / ",
-                MaxLevel.ToString("0.##"),
+                this.MaxLevel.ToString("0.##"),
                 ")\n",
-                GetDescription()
+                this.GetDescription()
             });
         }
 
         public string GetLabel()
         {
-            bool isVampire = pawn.IsVampire();
+            bool isVampire = this.pawn.IsVampire();
             /// CHJEES ANDROIDS ///////////////////////////////////////////////////////
-            if (pawn.IsAndroid())
+            if (this.pawn.IsAndroid())
             {
                 if (isVampire)
                     return "ROMV_AndroidCoolantVitae".Translate();
@@ -320,14 +318,14 @@ namespace Vampire
             ///////////////////////////////////////////////////////////////////////////
             if (isVampire)
                 return "ROMV_Vitae".Translate();
-            return LabelCap;
+            return this.LabelCap;
         }
 
         public string GetDescription()
         {
-            bool isVampire = pawn.IsVampire();
+            bool isVampire = this.pawn.IsVampire();
             /// CHJEES ANDROIDS ///////////////////////////////////////////////////////
-            if (pawn.IsAndroid())
+            if (this.pawn.IsAndroid())
             {
                 if (isVampire)
                     return "ROMV_AndroidCoolantVitaeDesc".Translate();
@@ -336,13 +334,13 @@ namespace Vampire
             ///////////////////////////////////////////////////////////////////////////
             if (isVampire)
                 return "ROMV_VitaeDesc".Translate();
-            return def.description;
+            return this.def.description;
         }
         
         public Color GetColorToUse()
         {
-            bool isVampire = pawn.IsVampire();
-            if (pawn.IsAndroid())
+            bool isVampire = this.pawn.IsVampire();
+            if (this.pawn.IsAndroid())
             {
                 if (isVampire)
                     return VampireUtility.ColorAndroidCoolantVitae;
@@ -357,14 +355,14 @@ namespace Vampire
 
         public override void DrawOnGUI(Rect rect, int maxThresholdMarkers = 2147483647, float customMargin = -1f, bool drawArrows = true, bool doTooltip = true)
         {
-            if (threshPercents == null)
+            if (this.threshPercents == null)
             {
-                threshPercents = new List<float>();
+                this.threshPercents = new List<float>();
             }
-            threshPercents.Clear();
+            this.threshPercents.Clear();
             for (int i = 1; i < MaxBloodPoints; i++)
             {
-                threshPercents.Add(PercPerPoint * i);
+                this.threshPercents.Add(PercPerPoint * i);
             }
             if (rect.height > 70f)
             {
@@ -378,7 +376,7 @@ namespace Vampire
             }
             if (doTooltip)
             {
-                TooltipHandler.TipRegion(rect, new TipSignal(() => GetTipString(), rect.GetHashCode()));
+                TooltipHandler.TipRegion(rect, new TipSignal(() => this.GetTipString(), rect.GetHashCode()));
             }
 
             if (pawn != null && pawn.Faction == Faction.OfPlayerSilentFail && pawn.VampComp() is CompVampire v && v.IsVampire)
@@ -396,32 +394,32 @@ namespace Vampire
             Text.Font = ((rect.height <= 55f) ? GameFont.Tiny : GameFont.Small);
             Text.Anchor = TextAnchor.LowerLeft;
             Rect rect2 = new Rect(rect.x + num3 + rect.width * 0.1f, rect.y, rect.width - num3 - rect.width * 0.1f, rect.height / 2f);
-            Widgets.Label(rect2, GetLabel());
+            Widgets.Label(rect2, this.GetLabel());
             Text.Anchor = TextAnchor.UpperLeft;
             Rect rect3 = new Rect(rect.x, rect.y + rect.height / 2f, rect.width, rect.height / 2f);
             rect3 = new Rect(rect3.x + num3, rect3.y, rect3.width - num3 * 2f, rect3.height - num2);
             Color colorToUse = GetColorToUse(); //(this.pawn?.IsVampire() ?? false) ? new Color(0.65f, 0.008f, 0.008f) : new Color(0.73f, 0.02f, 0.02f);
-            Widgets.FillableBar(rect3, CurLevelPercentage, SolidColorMaterials.NewSolidColorTexture(colorToUse));
+            Widgets.FillableBar(rect3, this.CurLevelPercentage, SolidColorMaterials.NewSolidColorTexture(colorToUse));
             //Widgets.FillableBar(rect3, this.CurLevelPercentage);
             if (drawArrows)
             {
-                Widgets.FillableBarChangeArrows(rect3, GUIChangeArrow);
+                Widgets.FillableBarChangeArrows(rect3, this.GUIChangeArrow);
             }
-            if (threshPercents != null)
+            if (this.threshPercents != null)
             {
-                for (int i = 0; i < Mathf.Min(threshPercents.Count, maxThresholdMarkers); i++)
+                for (int i = 0; i < Mathf.Min(this.threshPercents.Count, maxThresholdMarkers); i++)
                 {
-                    DrawBarThreshold(rect3, threshPercents[i]);
+                    this.DrawBarThreshold(rect3, this.threshPercents[i]);
                 }
             }
-            float curInstantLevelPercentage = CurInstantLevelPercentage;
+            float curInstantLevelPercentage = this.CurInstantLevelPercentage;
             if (curInstantLevelPercentage >= 0f)
             {
-                DrawBarInstantMarkerAt(rect3, curInstantLevelPercentage);
+                this.DrawBarInstantMarkerAt(rect3, curInstantLevelPercentage);
             }
-            if (!def.tutorHighlightTag.NullOrEmpty())
+            if (!this.def.tutorHighlightTag.NullOrEmpty())
             {
-                UIHighlighter.HighlightOpportunity(rect, def.tutorHighlightTag);
+                UIHighlighter.HighlightOpportunity(rect, this.def.tutorHighlightTag);
             }
             Text.Font = GameFont.Small;
         }
@@ -432,7 +430,7 @@ namespace Vampire
             float num = (float)((barRect.width <= 60f) ? 1 : 2);
             Rect position = new Rect(barRect.x + barRect.width * threshPct - (num - 1f), barRect.y + barRect.height / 2f, num, barRect.height / 2f);
             Texture2D image;
-            if (threshPct < CurLevelPercentage)
+            if (threshPct < this.CurLevelPercentage)
             {
                 image = BaseContent.BlackTex;
                 GUI.color = new Color(1f, 1f, 1f, 0.9f);

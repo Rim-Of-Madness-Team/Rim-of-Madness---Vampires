@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using Harmony;
+﻿using Harmony;
 using RimWorld;
+using System.Collections.Generic;
 using UnityEngine;
-using Vampire.Components;
 using Verse;
 
-namespace Vampire.Utilities
+namespace Vampire
 {
     public static class VampireGraphicUtility
     {

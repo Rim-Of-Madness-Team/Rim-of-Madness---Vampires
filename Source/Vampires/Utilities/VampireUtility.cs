@@ -1,13 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using RimWorld;
+using System.Collections.Generic;
 using System.Linq;
-using RimWorld;
 using UnityEngine;
-using Vampire.Components;
-using Vampire.Defs;
-using Vampire.Hediffs;
 using Verse;
 
-namespace Vampire.Utilities
+namespace Vampire
 {
     public static class VampireUtility
     {
@@ -71,7 +68,7 @@ namespace Vampire.Utilities
         {
             if (vampire?.VampComp() is CompVampire v && v.IsVampire && vampire.Faction == Faction.OfPlayer)
             {
-                MoteMaker.ThrowText(vampire.DrawPos + new Vector3(0, 0, 0.1f), vampire.Map, "XP +" + amount);
+                MoteMaker.ThrowText(vampire.DrawPos + new Vector3(0, 0, 0.1f), vampire.Map, "XP +" + amount, -1f);
                 v.XP += amount;
             }
         }

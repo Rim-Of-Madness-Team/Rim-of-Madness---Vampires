@@ -1,13 +1,14 @@
 ﻿using RimWorld;
+using Verse;
 
-namespace Vampire.Buildings
+namespace Vampire
 {
     public class Building_HideyHole : Building_Grave
     {
         public override void Open()
         {
             base.Open();
-            Destroy();
+            this.Destroy(DestroyMode.Vanish);
         }
     }
 }

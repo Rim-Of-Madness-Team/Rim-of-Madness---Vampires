@@ -1,10 +1,10 @@
-﻿using System;
-using RimWorld;
+﻿using RimWorld;
+using System;
 using UnityEngine;
 using Verse;
 using Verse.Sound;
 
-namespace Vampire.Utilities
+namespace Vampire
 {
     [StaticConstructorOnStartup]
     public static class BloodFeedModeUtility
@@ -26,8 +26,8 @@ namespace Vampire.Utilities
                          
                 if (Widgets.ButtonImage(rect, icon))
                 {
-                vampBlood.preferredFeedMode = GetNextResponse(pawn);
-                    SoundDefOf.TickHigh.PlayOneShotOnCamera();
+                vampBlood.preferredFeedMode = BloodFeedModeUtility.GetNextResponse(pawn);
+                    SoundDefOf.TickHigh.PlayOneShotOnCamera(null);
                     PlayerKnowledgeDatabase.KnowledgeDemonstrated(ConceptDefOf.HostilityResponse, KnowledgeAmount.SpecificInteraction);
                 }
                 UIHighlighter.HighlightOpportunity(rect, "ROMV_FeedMode");
@@ -50,7 +50,7 @@ namespace Vampire.Utilities
                         vampBlood.preferredHumanoidFeedType = PreferredHumanoidFeedType.PrisonersOnly;
                     else if (vampBlood.preferredHumanoidFeedType == PreferredHumanoidFeedType.PrisonersOnly)
                         vampBlood.preferredHumanoidFeedType = PreferredHumanoidFeedType.All;
-                    SoundDefOf.TickHigh.PlayOneShotOnCamera();
+                    SoundDefOf.TickHigh.PlayOneShotOnCamera(null);
                 }
                 UIHighlighter.HighlightOpportunity(rectSub, "ROMV_FeedModeHumanoidType");
                 TooltipHandler.TipRegion(rectSub, string.Concat(new string[]
@@ -117,15 +117,15 @@ namespace Vampire.Utilities
             switch (response)
             {
                 case PreferredFeedMode.None:
-                    return NoneIcon;
+                    return BloodFeedModeUtility.NoneIcon;
                 case PreferredFeedMode.AnimalNonLethal:
-                    return AnimalNonLethalIcon;
+                    return BloodFeedModeUtility.AnimalNonLethalIcon;
                 case PreferredFeedMode.AnimalLethal:
-                    return AnimalLethalIcon;
+                    return BloodFeedModeUtility.AnimalLethalIcon;
                 case PreferredFeedMode.HumanoidNonLethal:
-                    return HumanoidNonLethalIcon;
+                    return BloodFeedModeUtility.HumanoidNonLethalIcon;
                 case PreferredFeedMode.HumanoidLethal:
-                    return HumanoidLethalIcon;
+                    return BloodFeedModeUtility.HumanoidLethalIcon;
                 default:
                     return BaseContent.BadTex;
             }

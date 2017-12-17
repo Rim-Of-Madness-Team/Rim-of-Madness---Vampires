@@ -1,12 +1,12 @@
 ﻿using Verse;
 
-namespace Vampire.Hediffs
+namespace Vampire
 {
     public class HediffCompProperties_Possession : HediffCompProperties_Disappears
     {
         public HediffCompProperties_Possession()
         {
-            compClass = typeof(HediffComp_Possession);
+            this.compClass = typeof(HediffComp_Possession);
         }
     }
 }

@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Vampire.Components;
-using Vampire.Defs;
-using Vampire.Utilities;
 using Verse;
 
-namespace Vampire.Hediffs
+namespace Vampire
 {
     public class HediffVampirism_VampGiver : HediffWithComps
     {
@@ -18,7 +15,7 @@ namespace Vampire.Hediffs
             {
                 if (generation == -1)
                 {
-                    switch (CurStageIndex)
+                    switch (this.CurStageIndex)
                     {
                         case 0: generation = 14; break;
                         case 1: generation = Rand.Range(10, 13); break;
@@ -42,7 +39,7 @@ namespace Vampire.Hediffs
         {
             get
             {
-                int gen = generation;
+                int gen = this.generation;
                 int math = (gen > 7) ? 10 + (Math.Abs(gen - 13)) : 10 * (Math.Abs(gen - 9));
 
                 StringBuilder s = new StringBuilder();
@@ -70,11 +67,11 @@ namespace Vampire.Hediffs
             if (!setup)
             {
                 bool setup = true;
-                if (pawn.VampComp() is CompVampire v)
+                if (this.pawn.VampComp() is CompVampire v)
                 {
-                    int generatonToSpawn = Generation;
+                    int generatonToSpawn = this.Generation;
                     //Pawn sire = VampireRelationUtility.FindSireFor(this.pawn, this.Bloodline, generatonToSpawn);
-                    v.InitializeVampirism(null, Bloodline, generatonToSpawn);
+                    v.InitializeVampirism(null, this.Bloodline, generatonToSpawn);
                 }
             }
             base.PostTick();
@@ -83,8 +80,8 @@ namespace Vampire.Hediffs
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look<bool>(ref setup, "setup");
-            Scribe_Values.Look<int>(ref generation, "generation", -1);
+            Scribe_Values.Look<bool>(ref this.setup, "setup", false);
+            Scribe_Values.Look<int>(ref this.generation, "generation", -1);
         }
     }
 }

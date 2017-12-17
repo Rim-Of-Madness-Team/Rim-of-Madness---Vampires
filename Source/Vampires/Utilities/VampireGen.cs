@@ -1,12 +1,10 @@
-﻿using System;
+﻿using RimWorld;
+using System;
 using System.Linq;
-using RimWorld;
 using UnityEngine;
-using Vampire.Defs;
-using Vampire.Hediffs;
 using Verse;
 
-namespace Vampire.Utilities
+namespace Vampire
 {
     public static class VampireGen
     {
@@ -15,7 +13,7 @@ namespace Vampire.Utilities
         {
             try
             {
-                HediffVampirism vampHediff = (HediffVampirism)HediffMaker.MakeHediff(VampDefOf.ROM_Vampirism, pawn);
+                HediffVampirism vampHediff = (HediffVampirism)HediffMaker.MakeHediff(VampDefOf.ROM_Vampirism, pawn, null);
                 vampHediff.firstVampire = firstVampire;
                 vampHediff.sire = sire?.VampComp() ?? null;
                 vampHediff.generation = generation;
@@ -31,7 +29,7 @@ namespace Vampire.Utilities
         {
             try
             {
-                HediffVampirism vampHediff = (HediffVampirism)HediffMaker.MakeHediff(VampDefOf.ROM_Vampirism, pawn);
+                HediffVampirism vampHediff = (HediffVampirism)HediffMaker.MakeHediff(VampDefOf.ROM_Vampirism, pawn, null);
                 vampHediff.firstVampire = firstVampire;
                 vampHediff.sire = sire.VampComp();
                 vampHediff.generation = sire.VampComp().Generation + 1;
@@ -49,7 +47,7 @@ namespace Vampire.Utilities
 
             if (bpR != null && pawn?.VampComp()?.Bloodline?.fangsHediff != null)
             {
-                pawn.health.RestorePart(bpR);
+                pawn.health.RestorePart(bpR, null, true);
                 pawn.health.AddHediff(pawn.VampComp().Bloodline.fangsHediff, bpR, null);
             }
         }
@@ -89,7 +87,7 @@ namespace Vampire.Utilities
             PawnGenerationRequest request = new PawnGenerationRequest(
                 PawnKindDefOf.SpaceRefugee, Faction.OfSpacer, PawnGenerationContext.NonPlayer,
                 -1, false, false, false, false, true, true, 20f, false, true,
-                true, false, false, false, false, null, null, null, null, null, null);
+                true, false, false, false, false, null, null, null, null, null, null, null);
             Pawn pawn = PawnGenerator.GeneratePawn(request);
             if (firstVampire)
             {

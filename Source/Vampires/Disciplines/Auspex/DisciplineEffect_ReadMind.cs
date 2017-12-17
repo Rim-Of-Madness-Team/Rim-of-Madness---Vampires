@@ -1,23 +1,21 @@
 ﻿using RimWorld;
-using Vampire.Defs;
-using Vampire.Hediffs;
 using Verse;
 
-namespace Vampire.Disciplines.Auspex
+namespace Vampire
 {
     public class DisciplineEffect_ReadMind : Verb_UseAbilityPawnEffect
     {
         public override void Effect(Pawn target)
         {
             CasterPawn.Drawer.Notify_DebugAffected();
-            MoteMaker.ThrowText(CasterPawn.DrawPos, CasterPawn.Map, AbilityUser.StringsToTranslate.AU_CastSuccess);
-            HediffWithComps hediff = (HediffWithComps)HediffMaker.MakeHediff(VampDefOf.ROMV_MindReadingHediff, CasterPawn);
+            MoteMaker.ThrowText(this.CasterPawn.DrawPos, this.CasterPawn.Map, AbilityUser.StringsToTranslate.AU_CastSuccess, -1f);
+            HediffWithComps hediff = (HediffWithComps)HediffMaker.MakeHediff(VampDefOf.ROMV_MindReadingHediff, this.CasterPawn, null);
             if (hediff.TryGetComp<HediffComp_ReadMind>() is HediffComp_ReadMind rm)
             {
                 rm.MindBeingRead = target;
             }
             hediff.Severity = 1.0f;
-            CasterPawn.health.AddHediff(hediff, null, null);
+            this.CasterPawn.health.AddHediff(hediff, null, null);
         }
     }
 }

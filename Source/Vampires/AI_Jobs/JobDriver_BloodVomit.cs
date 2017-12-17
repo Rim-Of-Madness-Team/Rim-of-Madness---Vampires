@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using RimWorld;
-using Vampire.Utilities;
 using Verse;
 using Verse.AI;
+using RimWorld;
 
-namespace Vampire.AI_Jobs
+namespace Vampire
 {
     public class JobDriver_BloodVomit : JobDriver
     {
@@ -17,21 +16,21 @@ namespace Vampire.AI_Jobs
         {
             get
             {
-                return lastPosture;
+                return this.lastPosture;
             }
         }
 
         public override void Notify_LastPosture(PawnPosture posture, LayingDownState layingDown)
         {
-            lastPosture = posture;
+            this.lastPosture = posture;
             this.layingDown = layingDown;
         }
 
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look<int>(ref ticksLeft, "ticksLeft");
-            Scribe_Values.Look<PawnPosture>(ref lastPosture, "lastPosture");
+            Scribe_Values.Look<int>(ref this.ticksLeft, "ticksLeft", 0, false);
+            Scribe_Values.Look<PawnPosture>(ref this.lastPosture, "lastPosture", PawnPosture.Standing, false);
         }
 
         [DebuggerHidden]
@@ -68,7 +67,7 @@ namespace Vampire.AI_Jobs
                     int curTicks = ticksLeft;
                     if (curTicks % 150 == 149)
                     {
-                        FilthMaker.MakeFilth(pawn.CurJob.targetA.Cell, pawn.Map, ThingDefOf.FilthBlood, pawn.LabelIndefinite());
+                        FilthMaker.MakeFilth(pawn.CurJob.targetA.Cell, pawn.Map, ThingDefOf.FilthBlood, pawn.LabelIndefinite(), 1);
                         if (pawn.BloodNeed() is Need_Blood n && n.CurBloodPoints > 0)
                         {
                             n.AdjustBlood(-1);

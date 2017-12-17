@@ -1,15 +1,11 @@
-﻿using System;
+﻿using RimWorld;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using RimWorld;
-using Vampire.Components;
-using Vampire.Defs;
-using Vampire.Disciplines.Animalism;
-using Vampire.Utilities;
 using Verse;
 using Verse.AI;
 
-namespace Vampire.AI_Jobs
+namespace Vampire
 {
     public class JobDriver_Feed : JobDriver
     {
@@ -17,11 +13,11 @@ namespace Vampire.AI_Jobs
         public static float BaseFeedTime = 320f;
         public static float BaseCoolantThrowupChance = 0.25f;
 
-        protected Pawn Victim => job.targetA.Thing as Pawn;
+        protected Pawn Victim => base.job.targetA.Thing as Pawn;
         protected CompVampire CompVictim => Victim.GetComp<CompVampire>();
-        protected CompVampire CompFeeder => GetActor().GetComp<CompVampire>();
+        protected CompVampire CompFeeder => this.GetActor().GetComp<CompVampire>();
         protected Need_Blood BloodVictim => Victim.BloodNeed();
-        protected Need_Blood BloodFeeder => GetActor().BloodNeed();
+        protected Need_Blood BloodFeeder => this.GetActor().BloodNeed();
 
         public override void Notify_Starting()
         {
@@ -30,13 +26,13 @@ namespace Vampire.AI_Jobs
 
         public virtual void DoEffect()
         {
-            BloodVictim.TransferBloodTo(1, BloodFeeder);
-            if (Victim.IsAndroid() && !pawn.IsAndroid())
+            this.BloodVictim.TransferBloodTo(1, BloodFeeder);
+            if (Victim.IsAndroid() && !this.pawn.IsAndroid())
             {
                 if (Rand.Value <= BaseCoolantThrowupChance)
                 {
-                    EndJobWith(JobCondition.Incompletable);
-                    pawn.jobs.StartJob(new Job(JobDefOf.Vomit, pawn.PositionHeld));
+                    this.EndJobWith(JobCondition.Incompletable);
+                    this.pawn.jobs.StartJob(new Job(JobDefOf.Vomit, this.pawn.PositionHeld));
                 }
             }
 
@@ -47,9 +43,9 @@ namespace Vampire.AI_Jobs
             this.FailOnDespawnedNullOrForbidden(TargetIndex.A);
             this.FailOn(delegate
             {
-                return pawn == Victim;
+                return this.pawn == this.Victim;
             });
-            AddEndCondition(delegate
+            this.AddEndCondition(delegate
             {
                 if (!CompFeeder.BloodPool.IsFull)
                 {
@@ -57,7 +53,7 @@ namespace Vampire.AI_Jobs
                 }
                 return JobCondition.Succeeded;
             });
-            foreach (Toil t in MakeFeedToils(job.def, this, pawn, TargetA, VampDefOf.ROMV_IWasBittenByAVampire, VampDefOf.ROMV_IGaveTheKiss, workLeft, DoEffect, ShouldContinueFeeding))
+            foreach (Toil t in MakeFeedToils(this.job.def, this, this.pawn, this.TargetA, VampDefOf.ROMV_IWasBittenByAVampire, VampDefOf.ROMV_IGaveTheKiss, workLeft, DoEffect, ShouldContinueFeeding))
             {
                 yield return t;
             }
@@ -66,7 +62,7 @@ namespace Vampire.AI_Jobs
 
         public static IEnumerable<Toil> MakeFeedToils(JobDef job, JobDriver thisDriver, Pawn actor, LocalTargetInfo TargetA, ThoughtDef victimThoughtDef, ThoughtDef actorThoughtDef, float workLeft, Action effect, Func<Pawn, Pawn, bool> stopCondition, bool needsGrapple = true, bool cleansWound = true, bool neverGiveUp = false)
         {
-            yield return Toils_Reserve.Reserve(TargetIndex.A);
+            yield return Toils_Reserve.Reserve(TargetIndex.A, 1, -1, null);
             Toil gotoToil = (actor?.Faction == TargetA.Thing?.Faction) ? Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.ClosestTouch) : Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.Touch);
             yield return gotoToil;
             Toil grappleToil = new Toil()
@@ -75,7 +71,7 @@ namespace Vampire.AI_Jobs
                 {
                     MoteMaker.MakeColonistActionOverlay(actor, ThingDefOf.Mote_ColonistAttacking);
 
-                    workLeft = BaseFeedTime;
+                    workLeft = JobDriver_Feed.BaseFeedTime;
                     Pawn victim = TargetA.Thing as Pawn; 
                     if (victim != null)
                     {
@@ -95,7 +91,7 @@ namespace Vampire.AI_Jobs
                         }
                         if (!AllowFeeding(actor, victim))
                         {
-                            actor.jobs.EndCurrentJob(JobCondition.Incompletable);
+                            actor.jobs.EndCurrentJob(JobCondition.Incompletable, true);
                         }
                         if (actor.IsVampire())
                             VampireBiteUtility.MakeNew(actor, victim);
@@ -120,7 +116,7 @@ namespace Vampire.AI_Jobs
                                 if (victimThoughtDef != null) victimThought = (Thought_Memory)ThoughtMaker.MakeThought(victimThoughtDef);
                                 if (victimThought != null)
                                 {
-                                    victim.needs.mood.thoughts.memories.TryGainMemory(victimThought);
+                                    victim.needs.mood.thoughts.memories.TryGainMemory(victimThought, null);
                                 }
                             }
                             if (actor?.needs?.mood?.thoughts?.memories != null)
@@ -129,7 +125,7 @@ namespace Vampire.AI_Jobs
                                 if (actorThoughtDef != null) actorThought = (Thought_Memory)ThoughtMaker.MakeThought(actorThoughtDef);
                                 if (actorThought != null)
                                 {
-                                    actor.needs.mood.thoughts.memories.TryGainMemory(actorThought);
+                                    actor.needs.mood.thoughts.memories.TryGainMemory(actorThought, null);
                                 }
                             }
                             
@@ -138,7 +134,7 @@ namespace Vampire.AI_Jobs
                             {
                                 if (actor?.VampComp() is CompVampire v && v.IsVampire && actor.Faction == Faction.OfPlayer)
                                 {
-                                    MoteMaker.ThrowText(actor.DrawPos, actor.Map, "XP +" + 15);
+                                    MoteMaker.ThrowText(actor.DrawPos, actor.Map, "XP +" + 15, -1f);
                                     v.XP += 15;
                                 }
                                 workLeft = BaseFeedTime;
@@ -180,7 +176,7 @@ namespace Vampire.AI_Jobs
                 defaultCompleteMode = ToilCompleteMode.Never
             };
             feedToil.socialMode = RandomSocialMode.Off;
-            feedToil.WithProgressBar(TargetIndex.A, () => 1f - workLeft / (float)BaseFeedTime);
+            feedToil.WithProgressBar(TargetIndex.A, () => 1f - workLeft / (float)BaseFeedTime, false, -0.5f);
             feedToil.PlaySustainerOrSound(delegate
             {
                 return ThingDefOf.Beer.ingestible.ingestSound;

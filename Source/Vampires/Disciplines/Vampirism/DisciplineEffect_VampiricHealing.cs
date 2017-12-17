@@ -1,7 +1,6 @@
-﻿using Vampire.Utilities;
-using Verse;
+﻿using Verse;
 
-namespace Vampire.Disciplines.Vampirism
+namespace Vampire
 {
     public class DisciplineEffect_VampiricHealing : Verb_UseAbilityPawnEffect
     {

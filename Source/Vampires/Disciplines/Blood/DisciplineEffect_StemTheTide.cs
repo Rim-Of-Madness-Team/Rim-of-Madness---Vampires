@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Verse;
 
-namespace Vampire.Disciplines.Blood
+namespace Vampire
 {
     public class DisciplineEffect_StemTheTide : Verb_UseAbilityPawnEffect
     {

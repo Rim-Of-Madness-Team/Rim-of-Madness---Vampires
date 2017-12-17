@@ -1,21 +1,19 @@
 ﻿using RimWorld;
-using Vampire.Defs;
-using Vampire.Utilities;
 using Verse;
 
-namespace Vampire.Disciplines.Animalism
+namespace Vampire
 {
     public class DisciplineEffect_SpectralWolf : AbilityUser.Verb_UseAbility
     {
         public virtual void Effect()
         {
             //target.Drawer.Notify_DebugAffected();
-            MoteMaker.ThrowText(CasterPawn.DrawPos, CasterPawn.Map, AbilityUser.StringsToTranslate.AU_CastSuccess);
+            MoteMaker.ThrowText(this.CasterPawn.DrawPos, this.CasterPawn.Map, AbilityUser.StringsToTranslate.AU_CastSuccess, -1f);
             if (TargetsAoE[0] is LocalTargetInfo t && t.Cell != default(IntVec3))
             {
                 PawnTemporary p = (PawnTemporary)PawnGenerator.GeneratePawn(VampDefOf.ROMV_WolfSpectral, Faction.OfPlayer);
-                VampireUtility.SummonEffect(t.Cell, CasterPawn.Map, CasterPawn, 2f);
-                GenSpawn.Spawn(p, t.Cell, CasterPawn.Map);
+                VampireUtility.SummonEffect(t.Cell, this.CasterPawn.Map, this.CasterPawn, 2f);
+                GenSpawn.Spawn(p, t.Cell, this.CasterPawn.Map);
             }
         }
 

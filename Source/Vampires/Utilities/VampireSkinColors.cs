@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 using Verse;
+using UnityEngine;
 
-namespace Vampire.Utilities
+namespace Vampire
 {
     public static class VampireSkinColors
     {
@@ -37,9 +37,9 @@ namespace Vampire.Utilities
         private static int GetSkinDataIndexOfMelanin(float melanin)
         {
             int result = 0;
-            for (int i = 0; i < MelaninTable.Length; i++)
+            for (int i = 0; i < VampireSkinColors.MelaninTable.Length; i++)
             {
-                if (melanin < MelaninTable[i].melanin)
+                if (melanin < VampireSkinColors.MelaninTable[i].melanin)
                 {
                     break;
                 }
@@ -59,15 +59,15 @@ namespace Vampire.Utilities
                 {
                     return colors[skinDataIndexOfMelanin];
                 }
-                float tt = Mathf.InverseLerp(MelaninTable[skinDataIndexOfMelanin].melanin, MelaninTable[skinDataIndexOfMelanin + 1].melanin, melanin);
+                float tt = Mathf.InverseLerp(VampireSkinColors.MelaninTable[skinDataIndexOfMelanin].melanin, VampireSkinColors.MelaninTable[skinDataIndexOfMelanin + 1].melanin, melanin);
                 return Color.Lerp(colors[skinDataIndexOfMelanin], colors[skinDataIndexOfMelanin + 1], tt);
             }
-            if (skinDataIndexOfMelanin == MelaninTable.Length - 1)
+            if (skinDataIndexOfMelanin == VampireSkinColors.MelaninTable.Length - 1)
             {
-                return MelaninTable[skinDataIndexOfMelanin].color;
+                return VampireSkinColors.MelaninTable[skinDataIndexOfMelanin].color;
             }
-            float t = Mathf.InverseLerp(MelaninTable[skinDataIndexOfMelanin].melanin, MelaninTable[skinDataIndexOfMelanin + 1].melanin, melanin);
-            return Color.Lerp(MelaninTable[skinDataIndexOfMelanin].color, MelaninTable[skinDataIndexOfMelanin + 1].color, t);
+            float t = Mathf.InverseLerp(VampireSkinColors.MelaninTable[skinDataIndexOfMelanin].melanin, VampireSkinColors.MelaninTable[skinDataIndexOfMelanin + 1].melanin, melanin);
+            return Color.Lerp(VampireSkinColors.MelaninTable[skinDataIndexOfMelanin].color, VampireSkinColors.MelaninTable[skinDataIndexOfMelanin + 1].color, t);
         }
     }
 }

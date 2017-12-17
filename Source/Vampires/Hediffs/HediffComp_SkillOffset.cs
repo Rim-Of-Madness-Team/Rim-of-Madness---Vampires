@@ -1,6 +1,6 @@
 ﻿using Verse;
 
-namespace Vampire.Hediffs
+namespace Vampire
 {
     public class HediffComp_SkillOffset : HediffComp
     {
@@ -8,7 +8,7 @@ namespace Vampire.Hediffs
         {
             get
             {
-                return (HediffCompProperties_SkillOffset)props;
+                return (HediffCompProperties_SkillOffset)this.props;
             }
 
         }
@@ -16,7 +16,7 @@ namespace Vampire.Hediffs
         {
             get
             {
-                return Props.skillDef.LabelCap + ": " + ((Props.offset >= 0) ? "+" : "") + Props.offset.ToString();
+                return this.Props.skillDef.LabelCap + ": " + ((this.Props.offset >= 0) ? "+" : "") + this.Props.offset.ToString();
             }
         }
 

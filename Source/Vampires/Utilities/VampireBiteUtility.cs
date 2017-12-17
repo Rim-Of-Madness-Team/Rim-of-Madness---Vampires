@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using RimWorld;
+using System.Collections.Generic;
 using System.Linq;
-using RimWorld;
 using Verse;
 
-namespace Vampire.Utilities
+namespace Vampire
 {
     public static class VampireBiteUtility
     {
@@ -27,7 +27,7 @@ namespace Vampire.Utilities
                     actor.Drawer.Notify_MeleeAttackOn(victim);
                     victim.TakeDamage(new DamageInfo(dmgDef, (int)(dmgAmount * BITEFACTOR), -1, actor, neckPart));
                     BattleLogEntry_MeleeCombat battleLogEntry_MeleeCombat = new BattleLogEntry_MeleeCombat(RulePackDefOf.Combat_Hit, dmgRules,
-                        actor, victim, ImplementOwnerTypeDefOf.Bodypart, dmgLabel);
+                        actor, victim, ImplementOwnerTypeDefOf.Bodypart, dmgLabel, null, null);
                     Find.BattleLog.Add(battleLogEntry_MeleeCombat);
                 }
             }

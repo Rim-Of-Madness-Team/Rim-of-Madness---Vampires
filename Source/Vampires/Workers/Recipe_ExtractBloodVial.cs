@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using RimWorld;
-using Vampire.Utilities;
 using Verse;
+using RimWorld;
+using System.Linq;
 
-namespace Vampire.Workers
+namespace Vampire
 {
     public class Recipe_ExtractBloodVial : Recipe_Surgery
     {
@@ -40,10 +39,10 @@ namespace Vampire.Workers
         public override void ApplyOnPawn(Pawn pawn, BodyPartRecord part, Pawn billDoer, List<Thing> ingredients, Bill bill)
         {
             bool flag = IsClean(pawn, part);
-            bool flag2 = IsViolationOnPawn(pawn, part, Faction.OfPlayer);
+            bool flag2 = this.IsViolationOnPawn(pawn, part, Faction.OfPlayer);
             if (billDoer != null)
             {
-                if (CheckSurgeryFail(billDoer, pawn, ingredients, part, bill))
+                if (base.CheckSurgeryFail(billDoer, pawn, ingredients, part, bill))
                 {
                     return;
                 }
@@ -52,9 +51,9 @@ namespace Vampire.Workers
                     billDoer,
                     pawn
                 });
-                BloodItemUtility.SpawnBloodFromExtraction(pawn);
+                BloodItemUtility.SpawnBloodFromExtraction(pawn, false);
             }
-             pawn.TakeDamage(new DamageInfo(DamageDefOf.Cut, 1, -1f, null, part));
+             pawn.TakeDamage(new DamageInfo(DamageDefOf.Cut, 1, -1f, null, part, null, DamageInfo.SourceCategory.ThingOrUnknown));
             int badGoodwillAmt = -3;
             if (flag)
             {
@@ -76,7 +75,7 @@ namespace Vampire.Workers
 
         public override string GetLabelWhenUsedOn(Pawn pawn, BodyPartRecord part)
         {
-            return recipe.LabelCap + " (" + BloodTypeUtility.BloodType(pawn).GetLabel() + ")";
+            return this.recipe.LabelCap + " (" + BloodTypeUtility.BloodType(pawn).GetLabel() + ")";
         }
     }
 }

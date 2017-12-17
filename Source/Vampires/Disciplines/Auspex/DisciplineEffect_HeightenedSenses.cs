@@ -1,7 +1,6 @@
-﻿using Vampire.Defs;
-using Verse;
+﻿using Verse;
 
-namespace Vampire.Disciplines.Auspex
+namespace Vampire
 {
     public class DisciplineEffect_HeightenedSenses : Verb_UseAbilityPawnEffect
     {

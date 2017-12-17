@@ -1,9 +1,8 @@
-﻿using System.Linq;
-using RimWorld;
-using Vampire.Defs;
+﻿using RimWorld;
+using System.Linq;
 using Verse;
 
-namespace Vampire.Utilities
+namespace Vampire
 {
     public static class VampireThoughtUtility
     {
@@ -13,7 +12,7 @@ namespace Vampire.Utilities
             {
                 return;
             }
-            drainer.needs.mood.thoughts.memories.TryGainMemory(ThoughtMaker.MakeThought(VampDefOf.ROMV_IConsumedASoul, 0));
+            drainer.needs.mood.thoughts.memories.TryGainMemory(ThoughtMaker.MakeThought(VampDefOf.ROMV_IConsumedASoul, 0), null);
         }
 
         public static void GiveThoughtsForDrinkingBlood(Pawn drainer)
@@ -22,7 +21,7 @@ namespace Vampire.Utilities
             {
                 return;
             }
-            drainer.needs.mood.thoughts.memories.TryGainMemory(ThoughtMaker.MakeThought(VampDefOf.ROMV_IGaveTheKiss, 0));
+            drainer.needs.mood.thoughts.memories.TryGainMemory(ThoughtMaker.MakeThought(VampDefOf.ROMV_IGaveTheKiss, 0), null);
         }
 
 
@@ -51,7 +50,7 @@ namespace Vampire.Utilities
                                      where x.IsColonist || x.IsPrisonerOfColony
                                      select x)
             {
-                current.needs.mood.thoughts.memories.TryGainMemory(ThoughtMaker.MakeThought(def, thoughtIndex));
+                current.needs.mood.thoughts.memories.TryGainMemory(ThoughtMaker.MakeThought(def, thoughtIndex), null);
             }
         }
 
@@ -72,11 +71,11 @@ namespace Vampire.Utilities
             {
                 if (current == victim)
                 {
-                    current.needs.mood.thoughts.memories.TryGainMemory(VampDefOf.ROMV_MyBloodHarvested);
+                    current.needs.mood.thoughts.memories.TryGainMemory(VampDefOf.ROMV_MyBloodHarvested, null);
                 }
                 else if (thoughtDef != null)
                 {
-                    current.needs.mood.thoughts.memories.TryGainMemory(thoughtDef);
+                    current.needs.mood.thoughts.memories.TryGainMemory(thoughtDef, null);
                 }
             }
         }

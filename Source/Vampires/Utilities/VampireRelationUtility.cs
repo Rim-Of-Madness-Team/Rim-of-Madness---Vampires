@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using RimWorld;
-using Vampire.Components;
-using Vampire.Defs;
+﻿using RimWorld;
+using System.Collections.Generic;
 using Verse;
 
-namespace Vampire.Utilities
+namespace Vampire
 {
     public static class VampireRelationUtility
     {

@@ -1,33 +1,33 @@
-﻿using System.Collections.Generic;
+﻿using RimWorld;
+using System.Collections.Generic;
 using System.Diagnostics;
-using RimWorld;
 using Verse;
 using Verse.AI;
 
-namespace Vampire.AI_Jobs
+namespace Vampire
 {
     public class JobDriver_EnterTorpor : JobDriver
     {
         public override bool TryMakePreToilReservations()
         {
-            return pawn.Reserve(TargetA, job);
+            return pawn.Reserve(TargetA, this.job);
         }
 
         [DebuggerHidden]
         protected override IEnumerable<Toil> MakeNewToils()
         {
             this.FailOnDespawnedOrNull(TargetIndex.A);
-            yield return Toils_Reserve.Reserve(TargetIndex.A);
+            yield return Toils_Reserve.Reserve(TargetIndex.A, 1, -1, null);
             yield return Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.InteractionCell);
             Toil prepare = Toils_General.Wait(500);
             prepare.FailOnCannotTouch(TargetIndex.A, PathEndMode.InteractionCell);
-            prepare.WithProgressBarToilDelay(TargetIndex.A);
+            prepare.WithProgressBarToilDelay(TargetIndex.A, false, -0.5f);
             yield return prepare;
             yield return new Toil
             {
                 initAction = delegate
                 {
-                    Pawn actor = pawn;
+                    Pawn actor = this.pawn;
                     Building_Casket pod = (Building_Casket)actor.CurJob.targetA.Thing;
 
                     actor.DeSpawn();

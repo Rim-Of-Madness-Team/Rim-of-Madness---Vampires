@@ -1,12 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using RimWorld;
+using System.Collections.Generic;
 using System.Diagnostics;
-using RimWorld;
-using Vampire.Components;
-using Vampire.Utilities;
 using Verse;
 using Verse.AI;
 
-namespace Vampire.AI_Jobs
+namespace Vampire
 {
     public class JobDriver_FeedAndReturn : JobDriver
     {
@@ -19,8 +17,8 @@ namespace Vampire.AI_Jobs
         {
             get
             {
-                if (job.targetA.Thing is Pawn p) return p;
-                if (job.targetA.Thing is Corpse c) return c.InnerPawn;
+                if (base.job.targetA.Thing is Pawn p) return p;
+                if (base.job.targetA.Thing is Corpse c) return c.InnerPawn;
                 else return null;
             }
         }
@@ -28,13 +26,13 @@ namespace Vampire.AI_Jobs
         {
             get
             {
-                if (job.targetB.Thing is Pawn p) return p;
-                if (job.targetB.Thing is Corpse c) return c.InnerPawn;
+                if (base.job.targetB.Thing is Pawn p) return p;
+                if (base.job.targetB.Thing is Corpse c) return c.InnerPawn;
                 else return null;
             }
         }
         protected CompVampire CompVictim => Victim.GetComp<CompVampire>();
-        protected CompVampire CompFeeder => GetActor().GetComp<CompVampire>();
+        protected CompVampire CompFeeder => this.GetActor().GetComp<CompVampire>();
         protected Need_Blood BloodVictim => CompVictim.BloodPool;
         protected Need_Blood BloodFeeder => CompFeeder.BloodPool;
 
@@ -45,7 +43,7 @@ namespace Vampire.AI_Jobs
 
         private void DoEffect()
         {
-            BloodVictim.TransferBloodTo(1, Master.BloodNeed());
+            this.BloodVictim.TransferBloodTo(1, Master.BloodNeed());
         }
 
         public override string GetReport()
@@ -59,10 +57,10 @@ namespace Vampire.AI_Jobs
             //this.FailOnDespawnedNullOrForbidden(TargetIndex.A);
             this.FailOn(delegate
             {
-                return pawn == Victim;
+                return this.pawn == this.Victim;
             });
             this.FailOnAggroMentalState(TargetIndex.A);
-            foreach (Toil t in JobDriver_Feed.MakeFeedToils(job.def, this, GetActor(), TargetA, null, null, workLeft, DoEffect, ShouldContinueFeeding))
+            foreach (Toil t in JobDriver_Feed.MakeFeedToils(this.job.def, this, this.GetActor(), this.TargetA, null, null, workLeft, DoEffect, ShouldContinueFeeding))
             {
                 yield return t;
             }

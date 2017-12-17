@@ -1,12 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using RimWorld;
-using Vampire.Components;
-using Vampire.Defs;
-using Vampire.Utilities;
 using Verse;
 
-namespace Vampire.Workers
+namespace Vampire
 {
     public class EmbraceWorker
     {

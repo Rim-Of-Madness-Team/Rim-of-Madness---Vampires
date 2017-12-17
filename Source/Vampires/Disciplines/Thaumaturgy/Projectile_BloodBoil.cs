@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using AbilityUser;
+﻿using AbilityUser;
 using RimWorld;
-using Vampire.Utilities;
+using System.Collections.Generic;
+using System.Linq;
 using Verse;
 
-namespace Vampire.Disciplines.Thaumaturgy
+namespace Vampire
 {
     public class Projectile_BloodBoil : Projectile_AbilityBase
     {
@@ -19,13 +18,13 @@ namespace Vampire.Disciplines.Thaumaturgy
                 int num = GenRadial.NumCellsInRadius(3.9f);
                 for (int i = 0; i < num; i++)
                 {
-                    FilthMaker.MakeFilth(hitThing.PositionHeld + GenRadial.RadialPattern[i], hitThing.MapHeld, ((Pawn)hitThing).RaceProps.BloodDef, ((Pawn)hitThing).LabelIndefinite());
+                    FilthMaker.MakeFilth(hitThing.PositionHeld + GenRadial.RadialPattern[i], hitThing.MapHeld, ((Pawn)hitThing).RaceProps.BloodDef, ((Pawn)hitThing).LabelIndefinite(), 1);
                 }
                 List<BodyPartRecord> parts = p.health.hediffSet.GetNotMissingParts().ToList().FindAll(x => x.depth == BodyPartDepth.Inside);
                 for (int j = 0; j < 4; j++)
                 {
                     if (!p.Dead)
-                        p.TakeDamage(new DamageInfo(DamageDefOf.Burn, Rand.Range(8, 13), -1, Caster, parts.RandomElement()));
+                        p.TakeDamage(new DamageInfo(DamageDefOf.Burn, Rand.Range(8, 13), -1, this.Caster, parts.RandomElement()));
                 }
             }
         }

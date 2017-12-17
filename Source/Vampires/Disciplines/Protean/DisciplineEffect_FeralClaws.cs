@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using RimWorld;
-using Vampire.Defs;
 using Verse;
 
-namespace Vampire.Disciplines.Protean
+namespace Vampire
 {
     public class DisciplineEffect_FeralClaws : Verb_UseAbilityPawnEffect
     {

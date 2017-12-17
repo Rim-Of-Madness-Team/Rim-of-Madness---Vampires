@@ -1,8 +1,7 @@
 ﻿using RimWorld;
-using Vampire.Utilities;
 using Verse;
 
-namespace Vampire.Disciplines.Animalism
+namespace Vampire
 {
     public class DisciplineEffect_Beckoning : Verb_UseAbilityPawnEffect
     {
@@ -12,15 +11,15 @@ namespace Vampire.Disciplines.Animalism
 
             int count = new IntRange(15, 25).RandomInRange;
             IntVec3 loc;
-            if (RCellFinder.TryFindRandomPawnEntryCell(out loc, target.Map, CellFinder.EdgeRoadChance_Animal))
+            if (RCellFinder.TryFindRandomPawnEntryCell(out loc, target.Map, CellFinder.EdgeRoadChance_Animal, null))
             {
-                VampireUtility.SummonEffect(loc, CasterPawn.Map, CasterPawn, 10f);
+                VampireUtility.SummonEffect(loc, this.CasterPawn.Map, this.CasterPawn, 10f);
 
                 for (int i = 0; i < count; i++)
                     target.Map.wildSpawner.SpawnRandomWildAnimalAt(loc);
 
             }
-            Find.LetterStack.ReceiveLetter("ROMV_AnimalHerd".Translate(), "ROMV_AnimalHerdDesc".Translate(), LetterDefOf.PositiveEvent, new RimWorld.Planet.GlobalTargetInfo(loc, target.Map));
+            Find.LetterStack.ReceiveLetter("ROMV_AnimalHerd".Translate(), "ROMV_AnimalHerdDesc".Translate(), LetterDefOf.PositiveEvent, new RimWorld.Planet.GlobalTargetInfo(loc, target.Map), null);
         }
     }
 }

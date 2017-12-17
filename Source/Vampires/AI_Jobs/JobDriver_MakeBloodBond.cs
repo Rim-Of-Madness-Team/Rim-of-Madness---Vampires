@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using Vampire.Components;
 using Verse;
 using Verse.AI;
 
-namespace Vampire.AI_Jobs
+namespace Vampire
 {
     public class JobDriver_MakeBloodBond : JobDriver
     {
@@ -16,19 +15,19 @@ namespace Vampire.AI_Jobs
         {
             get
             {
-                if (job.targetA.Thing is Pawn p) return p;
-                if (job.targetA.Thing is Corpse c) return c.InnerPawn;
+                if (base.job.targetA.Thing is Pawn p) return p;
+                if (base.job.targetA.Thing is Corpse c) return c.InnerPawn;
                 else return null;
             }
         }
         protected CompVampire CompThrall => Victim.GetComp<CompVampire>();
-        protected CompVampire CompMaster => GetActor().GetComp<CompVampire>();
+        protected CompVampire CompMaster => this.GetActor().GetComp<CompVampire>();
         protected Need_Blood BloodThrall => CompThrall.BloodPool;
         protected Need_Blood BloodMaster => CompMaster.BloodPool;
         
         private void DoEffect()
         {
-            BloodMaster.TransferBloodTo(1, BloodThrall);
+            this.BloodMaster.TransferBloodTo(1, BloodThrall);
         }
         
         [DebuggerHidden]
@@ -37,14 +36,14 @@ namespace Vampire.AI_Jobs
             //this.FailOnDespawnedNullOrForbidden(TargetIndex.A);
             this.FailOn(delegate
             {
-                return pawn == Victim;
+                return this.pawn == this.Victim;
             });
             this.FailOn(delegate
             {
                 return BloodMaster.CurBloodPoints == 0;
             });
             this.FailOnAggroMentalState(TargetIndex.A);
-            foreach (Toil t in JobDriver_Feed.MakeFeedToils(job.def, this, (Pawn)TargetA, GetActor(), null, null, workLeft, DoEffect, ShouldContinueFeeding))
+            foreach (Toil t in JobDriver_Feed.MakeFeedToils(this.job.def, this, (Pawn)TargetA, this.GetActor(), null, null, workLeft, DoEffect, ShouldContinueFeeding))
             {
                 yield return t;
             }

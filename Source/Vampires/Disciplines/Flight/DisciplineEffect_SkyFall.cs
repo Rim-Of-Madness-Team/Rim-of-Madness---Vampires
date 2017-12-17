@@ -1,7 +1,7 @@
 ﻿using RimWorld;
 using Verse;
 
-namespace Vampire.Disciplines.Flight
+namespace Vampire
 {
     public class DisciplineEffect_SkyFall : AbilityUser.Verb_UseAbility
     {
@@ -11,11 +11,11 @@ namespace Vampire.Disciplines.Flight
             {
                 LongEventHandler.QueueLongEvent(delegate
                 {
-                    FlyingObject flyingObject = (FlyingObject)GenSpawn.Spawn(ThingDef.Named("ROMV_FlyingObject"), CasterPawn.Position, CasterPawn.Map);
+                    FlyingObject flyingObject = (FlyingObject)GenSpawn.Spawn(ThingDef.Named("ROMV_FlyingObject"), this.CasterPawn.Position, this.CasterPawn.Map);
                     flyingObject.damageLaunched = false;
                     flyingObject.timesToDamage = 3;
                     flyingObject.explosion = true;
-                    flyingObject.Launch(CasterPawn, target, CasterPawn, new DamageInfo(DamageDefOf.Blunt, Rand.Range(15, 25), -1, CasterPawn));
+                    flyingObject.Launch(this.CasterPawn, target, this.CasterPawn, new DamageInfo(DamageDefOf.Blunt, Rand.Range(15, 25), -1, this.CasterPawn));
                 }, "LaunchingFlyerSkyFall", false, null);
             }
         }

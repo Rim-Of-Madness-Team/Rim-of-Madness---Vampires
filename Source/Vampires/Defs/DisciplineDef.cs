@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Verse;
 
-namespace Vampire.Defs
+namespace Vampire
 {
     public class DisciplineDef : Def
     {

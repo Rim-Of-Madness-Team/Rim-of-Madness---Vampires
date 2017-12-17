@@ -1,4 +1,4 @@
-﻿namespace Vampire.Utilities
+﻿namespace Vampire
 {
     public enum BloodPreferabilty : int
     {

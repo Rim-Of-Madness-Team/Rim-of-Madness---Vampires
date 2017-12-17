@@ -1,6 +1,6 @@
 ﻿using Verse;
 
-namespace Vampire.Components
+namespace Vampire
 {
     public class CompProperties_VampBed : CompProperties
     {
@@ -9,7 +9,7 @@ namespace Vampire.Components
 
         public CompProperties_VampBed()
         {
-            compClass = typeof(CompVampBed);
+            this.compClass = typeof(CompVampBed);
         }
     }
 }

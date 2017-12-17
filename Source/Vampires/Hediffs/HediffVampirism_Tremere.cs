@@ -1,6 +1,4 @@
-﻿using Vampire.Defs;
-
-namespace Vampire.Hediffs
+﻿namespace Vampire
 {
     public class HediffVampirism_Tremere : HediffVampirism_VampGiver
     {

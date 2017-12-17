@@ -1,6 +1,6 @@
 ﻿using Verse;
 
-namespace Vampire.Hediffs
+namespace Vampire
 {
     public class HediffComp_Possession : HediffComp_Disappears
     {
@@ -9,21 +9,21 @@ namespace Vampire.Hediffs
         {
             get
             {
-                return (HediffCompProperties_Possession)props;
+                return (HediffCompProperties_Possession)this.props;
             }
         }
         
         public void ActivateEffect(Pawn activator)
         {
-            string text = Pawn.LabelIndefinite();
-            if (Pawn.guest != null)
+            string text = this.Pawn.LabelIndefinite();
+            if (this.Pawn.guest != null)
             {
-                Pawn.guest.SetGuestStatus(null);
+                this.Pawn.guest.SetGuestStatus(null, false);
             }
-            bool flag = Pawn.Name != null;
-            if (Pawn.Faction != activator.Faction)
+            bool flag = this.Pawn.Name != null;
+            if (this.Pawn.Faction != activator.Faction)
             {
-                Pawn.SetFaction(activator.Faction, Pawn);
+                this.Pawn.SetFaction(activator.Faction, this.Pawn);
             }
         }
 
@@ -32,7 +32,7 @@ namespace Vampire.Hediffs
             base.CompPostTick(ref severityAdjustment);
             if (CompShouldRemove)
             {
-                HealthUtility.AdjustSeverity(Pawn, HediffDef.Named("HeartAttack"), 1.0f);
+                HealthUtility.AdjustSeverity(this.Pawn, HediffDef.Named("HeartAttack"), 1.0f);
             }
         }
     }

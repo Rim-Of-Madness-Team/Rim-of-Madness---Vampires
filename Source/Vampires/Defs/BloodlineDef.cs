@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
-using Vampire.Utilities;
-using Vampire.Workers;
 using Verse;
+using UnityEngine;
 
-namespace Vampire.Defs
+namespace Vampire
 {
     public class BloodlineDef : Def
     {
@@ -29,12 +27,12 @@ namespace Vampire.Defs
         {
             get
             {
-                if (embraceWorkerInt == null)
+                if (this.embraceWorkerInt == null)
                 {
-                    embraceWorkerInt = (EmbraceWorker)Activator.CreateInstance(embraceWorker);
-                    embraceWorkerInt.def = this;
+                    this.embraceWorkerInt = (EmbraceWorker)Activator.CreateInstance(this.embraceWorker);
+                    this.embraceWorkerInt.def = this;
                 }
-                return embraceWorkerInt;
+                return this.embraceWorkerInt;
             }
         }
 

@@ -1,14 +1,13 @@
 ﻿using RimWorld;
-using Vampire.Components;
 using Verse;
 using Verse.AI;
 
-namespace Vampire.AI_Jobs
+namespace Vampire
 {
     public class MentalState_Rotschreck : MentalState
     {
-        CompVampire vampComp => pawn.GetComp<CompVampire>();
-        Need_Blood vampBlood => pawn.needs.TryGetNeed<Need_Blood>();
+        CompVampire vampComp => this.pawn.GetComp<CompVampire>();
+        Need_Blood vampBlood => this.pawn.needs.TryGetNeed<Need_Blood>();
 
         public override bool ForceHostileTo(Thing t)
         {
@@ -20,7 +19,7 @@ namespace Vampire.AI_Jobs
         {
             base.MentalStateTick();
             if (pawn.PositionHeld.Roofed(pawn.MapHeld))
-                RecoverFromState();
+                this.RecoverFromState();
             //Room room = pawn.GetRoom(RegionType.Set_All);
             //if (room != null)
             //{

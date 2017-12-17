@@ -1,7 +1,7 @@
 ﻿using RimWorld;
 using Verse;
 
-namespace Vampire.Defs
+namespace Vampire
 {
     [DefOf]
     public static class VampDefOf

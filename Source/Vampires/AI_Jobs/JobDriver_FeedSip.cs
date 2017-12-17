@@ -1,13 +1,11 @@
-﻿using System;
+﻿using RimWorld;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using RimWorld;
-using Vampire.Components;
-using Vampire.Utilities;
 using Verse;
 using Verse.AI;
 
-namespace Vampire.AI_Jobs
+namespace Vampire
 {
     public class JobDriver_FeedSip : JobDriver
     {
@@ -15,11 +13,11 @@ namespace Vampire.AI_Jobs
         private float workLeft = -1f;
         public static float BaseFeedTime = 320f;
 
-        protected Pawn Victim => (Pawn)job.targetA.Thing;
+        protected Pawn Victim => (Pawn)base.job.targetA.Thing;
         protected CompVampire CompVictim => Victim.GetComp<CompVampire>();
-        protected CompVampire CompFeeder => GetActor().GetComp<CompVampire>();
+        protected CompVampire CompFeeder => this.GetActor().GetComp<CompVampire>();
         protected Need_Blood BloodVictim => Victim.BloodNeed();
-        protected Need_Blood BloodFeeder => GetActor().BloodNeed();
+        protected Need_Blood BloodFeeder => this.GetActor().BloodNeed();
 
         public override void Notify_Starting()
         {
@@ -28,7 +26,7 @@ namespace Vampire.AI_Jobs
 
         public virtual void DoEffect()
         {
-            BloodVictim.TransferBloodTo(1, BloodFeeder);
+            this.BloodVictim.TransferBloodTo(1, BloodFeeder);
         }
 
         [DebuggerHidden]
@@ -37,9 +35,9 @@ namespace Vampire.AI_Jobs
             this.FailOnDespawnedNullOrForbidden(TargetIndex.A);
             this.FailOn(delegate
             {
-                return pawn == Victim;
+                return this.pawn == this.Victim;
             });
-            AddEndCondition(delegate
+            this.AddEndCondition(delegate
             {
                 if (!CompFeeder.BloodPool.IsFull)
                 {
@@ -47,7 +45,7 @@ namespace Vampire.AI_Jobs
                 }
                 return JobCondition.Succeeded;
             });
-            foreach (Toil t in MakeFeedToils(this, pawn, TargetA, workLeft, DoEffect, ShouldContinueFeeding))
+            foreach (Toil t in MakeFeedToils(this, this.pawn, this.TargetA, workLeft, DoEffect, ShouldContinueFeeding))
             {
                 yield return t;
             }
@@ -55,7 +53,7 @@ namespace Vampire.AI_Jobs
 
         public static IEnumerable<Toil> MakeFeedToils(JobDriver thisDriver, Pawn actor, LocalTargetInfo TargetA, float workLeft, Action effect, Func<Pawn, Pawn, bool> stopCondition)
         {
-            yield return Toils_Reserve.Reserve(TargetIndex.A);
+            yield return Toils_Reserve.Reserve(TargetIndex.A, 1, -1, null);
             Toil gotoToil = Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.Touch);
             yield return gotoToil;
             Toil grappleToil = new Toil()
@@ -79,7 +77,7 @@ namespace Vampire.AI_Jobs
                         GenClamor.DoClamor(actor, 10f, ClamorType.Harm);
                         if (!AllowFeeding(actor, victim))
                         {
-                            actor.jobs.EndCurrentJob(JobCondition.Incompletable);
+                            actor.jobs.EndCurrentJob(JobCondition.Incompletable, true);
                         }
                         if (actor?.VampComp()?.Bloodline?.bloodlineHediff?.CompProps<HediffCompProperties_VerbGiver>()?.verbs is List<VerbProperties> verbProps)
                         {
@@ -109,7 +107,7 @@ namespace Vampire.AI_Jobs
                     {
                         if (actor?.VampComp() is CompVampire v && v.IsVampire && actor.Faction == Faction.OfPlayer)
                         {
-                            MoteMaker.ThrowText(actor.DrawPos, actor.Map, "XP +" + 15);
+                            MoteMaker.ThrowText(actor.DrawPos, actor.Map, "XP +" + 15, -1f);
                             v.XP += 15;
                         }
                         workLeft = BaseFeedTime;
@@ -138,7 +136,7 @@ namespace Vampire.AI_Jobs
                 defaultCompleteMode = ToilCompleteMode.Never
             };
             feedToil.socialMode = RandomSocialMode.Off;
-            feedToil.WithProgressBar(TargetIndex.A, () => 1f - workLeft / (float)BaseFeedTime);
+            feedToil.WithProgressBar(TargetIndex.A, () => 1f - workLeft / (float)BaseFeedTime, false, -0.5f);
             feedToil.PlaySustainerOrSound(delegate
             {
                 return ThingDefOf.Beer.ingestible.ingestSound;

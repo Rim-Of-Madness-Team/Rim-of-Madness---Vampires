@@ -1,13 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using RimWorld;
+using System.Collections.Generic;
 using System.Linq;
-using RimWorld;
 using UnityEngine;
-using Vampire.Components;
-using Vampire.Defs;
-using Vampire.Utilities;
 using Verse;
 
-namespace Vampire.UI
+namespace Vampire
 {
     public class VampireCardUtility
     {
@@ -91,7 +88,7 @@ namespace Vampire.UI
                 TooltipHandler.TipRegion(rect7, new TipSignal("ROMV_CharacterSheet".Translate()));
                 if (Widgets.ButtonImage(rect7, TexButton.ROMV_HumanIcon))
                 {
-                    HarmonyPatches.HarmonyPatches.isSwitched = false;
+                    HarmonyPatches.isSwitched = false;
                 }
 
                 Rect rectVampOptions = new Rect(CharacterCardUtility.PawnCardSize.x - 105f, 150f, 30f, 30f);
@@ -181,14 +178,14 @@ namespace Vampire.UI
             if (DebugSettings.godMode)
             {
                 Rect rectDebugPlus = new Rect(rectLevel.xMax, inRect.y, inRect.width * 0.3f, TextSize);
-                if (Widgets.ButtonText(rectDebugPlus, "+"))
+                if (Widgets.ButtonText(rectDebugPlus, "+", true, false, true))
                 {
                     compVampire.Notify_LevelUp(false);
                 }
                 if (compVampire.Level > 0)
                 {
                     Rect rectDebugReset = new Rect(rectDebugPlus.x, rectDebugPlus.yMax + 1, rectDebugPlus.width, TextSize);
-                    if (Widgets.ButtonText(rectDebugReset, "~"))
+                    if (Widgets.ButtonText(rectDebugReset, "~", true, false, true))
                     {
                         compVampire.Notify_ResetAbilities();
                     }

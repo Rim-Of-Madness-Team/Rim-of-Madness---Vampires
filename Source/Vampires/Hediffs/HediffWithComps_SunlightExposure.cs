@@ -1,11 +1,9 @@
 ﻿using RimWorld;
-using Vampire.Defs;
-using Vampire.Utilities;
 using Verse;
-using Verse.AI;
 using Verse.Sound;
+using Verse.AI;
 
-namespace Vampire.Hediffs
+namespace Vampire
 {
     public class HediffWithComps_SunlightExposure : HediffWithComps, ISizeReporter
     {
@@ -19,36 +17,36 @@ namespace Vampire.Hediffs
         {
             base.Tick();
 
-            if (pawn == null && pawn?.Corpse?.InnerPawn == null)
+            if (this.pawn == null && this.pawn?.Corpse?.InnerPawn == null)
             {
                 return;
             }
 
 
-            if (sustainer != null && !sustainer.Ended)
+            if (this.sustainer != null && !this.sustainer.Ended)
             {
-                sustainer.Maintain();
+                this.sustainer.Maintain();
             }
             else
             {
                 //LongEventHandler.ExecuteWhenFinished(delegate
                 //{
                 SoundDef def = SoundDef.Named("FireBurning");
-                SoundInfo info = SoundInfo.InMap(new TargetInfo(pawn.Position, pawn.Map), MaintenanceType.PerTick);
+                SoundInfo info = SoundInfo.InMap(new TargetInfo(this.pawn.Position, this.pawn.Map, false), MaintenanceType.PerTick);
                 info.volumeFactor *= 2;
                 //this.sustainer = def.TrySpawnSustainer(info); //SustainerAggregatorUtility.AggregateOrSpawnSustainerFor(this, def, info);
-                sustainer = SustainerAggregatorUtility.AggregateOrSpawnSustainerFor(this, def, info);
+                this.sustainer = SustainerAggregatorUtility.AggregateOrSpawnSustainerFor(this, def, info);
                 //});
             }
 
             if (sunBurningEffect != null)
             {
-                sunBurningEffect.EffectTick(pawn, pawn);
+                sunBurningEffect.EffectTick(this.pawn, this.pawn);
                 if (Find.TickManager.TicksGame % 20 == 0)
                 {
-                    if (CurStageIndex > 1 && Rand.Value > 0.5f) MoteMaker.ThrowSmoke(pawn.DrawPos, pawn.Map, 1f);
-                    if (CurStageIndex > 1 && Rand.Value < (CurStageIndex * 0.31f))
-                        MoteMaker.ThrowFireGlow(pawn.PositionHeld, pawn.Map, 1f);
+                    if (this.CurStageIndex > 1 && Rand.Value > 0.5f) MoteMaker.ThrowSmoke(this.pawn.DrawPos, this.pawn.Map, 1f);
+                    if (this.CurStageIndex > 1 && Rand.Value < (this.CurStageIndex * 0.31f))
+                        MoteMaker.ThrowFireGlow(this.pawn.PositionHeld, this.pawn.Map, 1f);
                 }
             }
             if (Find.TickManager.TicksGame % checkRate == 0)
@@ -65,16 +63,16 @@ namespace Vampire.Hediffs
                         }
                     }
 
-                    if (CurStageIndex > 1)
+                    if (this.CurStageIndex > 1)
                     {
                         Burn();
                     }
-                    Severity += 0.017f;
+                    this.Severity += 0.017f;
                 }
                 else
                 {
                     curSunDamage = 5;
-                    Severity -= 0.2f;
+                    this.Severity -= 0.2f;
                     if (sunBurningEffect != null) sunBurningEffect = null;
                     if (pawn?.MentalStateDef == VampDefOf.ROMV_Rotschreck) { pawn.MentalState.RecoverFromState();  }
                     if (pawn?.CurJob?.def == VampDefOf.ROMV_DigAndHide) pawn.jobs.StopAll();
@@ -89,9 +87,9 @@ namespace Vampire.Hediffs
                 if (!pawn.Dead)
                 {
                     int dmgRange = curSunDamage;
-                    DamageInfo dinfo = new DamageInfo(DamageDefOf.Burn, Rand.Range(1, curSunDamage));
+                    DamageInfo dinfo = new DamageInfo(DamageDefOf.Burn, Rand.Range(1, curSunDamage), -1f, null, null, null, DamageInfo.SourceCategory.ThingOrUnknown);
                     dinfo.SetBodyRegion(BodyPartHeight.Undefined, BodyPartDepth.Outside);
-                    if (CurStageIndex > 2)
+                    if (this.CurStageIndex > 2)
                         curSunDamage += Rand.Range(1, 2);
 
                     ApplyBurnDamage(dinfo);
@@ -117,7 +115,7 @@ namespace Vampire.Hediffs
                 {
                     h.CurState.RecoverFromState();
                 }
-                if (CurStageIndex > 1 && Rand.Value < Severity && !pawn.InMentalState)
+                if (this.CurStageIndex > 1 && Rand.Value < this.Severity && !pawn.InMentalState)
                 {
                     h.TryStartMentalState(VampDefOf.ROMV_Rotschreck);
                 }
@@ -135,7 +133,7 @@ namespace Vampire.Hediffs
 
         public float CurrentSize()
         {
-            switch (CurStageIndex)
+            switch (this.CurStageIndex)
             {
                 case 1:
                     return 8;

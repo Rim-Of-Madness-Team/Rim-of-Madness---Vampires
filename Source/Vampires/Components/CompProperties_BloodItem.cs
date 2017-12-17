@@ -1,13 +1,12 @@
-﻿using Vampire.Defs;
-using Verse;
+﻿using Verse;
 
-namespace Vampire.Components
+namespace Vampire
 {
 
     public class CompProperties_BloodItem : CompProperties
     {
         public BloodType bloodType = BloodType.LowBlood;
         public int bloodPoints = 1;        
-        public CompProperties_BloodItem() => compClass = typeof(CompBloodItem);
+        public CompProperties_BloodItem() => this.compClass = typeof(CompBloodItem);
     }
 }

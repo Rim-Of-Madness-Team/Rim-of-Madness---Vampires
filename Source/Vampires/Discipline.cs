@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using Vampire.Defs;
-using Vampire.Utilities;
 using Verse;
 
 namespace Vampire
@@ -44,9 +42,9 @@ namespace Vampire
 
         public void Notify_Reset(Pawn p)
         {
-            p.VampComp().AbilityPoints += points;
-            points = 0;
-            level = 0;
+            p.VampComp().AbilityPoints += this.points;
+            this.points = 0;
+            this.level = 0;
             UpdateAbilities();
         }
 
@@ -80,10 +78,10 @@ namespace Vampire
 
         public void ExposeData()
         {
-            Scribe_Values.Look<int>(ref level, "level");
-            Scribe_Values.Look<int>(ref points, "points");
-            Scribe_Values.Look<int>(ref prevPoints, "prevPoints");
-            Scribe_Defs.Look<DisciplineDef>(ref def, "def");
+            Scribe_Values.Look<int>(ref this.level, "level");
+            Scribe_Values.Look<int>(ref this.points, "points");
+            Scribe_Values.Look<int>(ref this.prevPoints, "prevPoints");
+            Scribe_Defs.Look<DisciplineDef>(ref this.def, "def");
         }
     }
 }
