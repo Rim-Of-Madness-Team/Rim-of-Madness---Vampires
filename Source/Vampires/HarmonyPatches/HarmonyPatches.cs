@@ -400,7 +400,7 @@ namespace Vampire
                 dReason = "ROMV_NoBloodRemaining".Translate();
             }
 
-            Vampire.VitaeAbilityDef bloodAwaken = DefDatabase<Vampire.VitaeAbilityDef>.GetNamedSilentFail("ROMV_VampiricAwaken");
+            VitaeAbilityDef bloodAwaken = DefDatabase<VitaeAbilityDef>.GetNamedSilentFail("ROMV_VampiricAwaken");
             if (!AbilityUser?.Dead ?? false)
             {
 
@@ -419,7 +419,7 @@ namespace Vampire
                 };
             }
 
-            Vampire.VitaeAbilityDef bloodResurrection = DefDatabase<Vampire.VitaeAbilityDef>.GetNamedSilentFail("ROMV_VampiricResurrection");
+            VitaeAbilityDef bloodResurrection = DefDatabase<VitaeAbilityDef>.GetNamedSilentFail("ROMV_VampiricResurrection");
             if (AbilityUser?.Corpse?.GetRotStage() < RotStage.Dessicated)
             {
                 yield return new Command_Action()
@@ -654,13 +654,13 @@ namespace Vampire
                     __result = -1f;
                     return false;
                 }
-                float num = HarmonyPatches.LovinMtbSinglePawnFactor(pawn);
+                float num = LovinMtbSinglePawnFactor(pawn);
                 if (num <= 0f)
                 {
                     __result = -1f;
                     return false;
                 }
-                float num2 = HarmonyPatches.LovinMtbSinglePawnFactor(partner);
+                float num2 = LovinMtbSinglePawnFactor(partner);
                 if (num2 <= 0f)
                 {
                     __result = -1f;
@@ -992,7 +992,7 @@ namespace Vampire
                             HediffComp_Shield shield = shieldHediff.TryGetComp<HediffComp_Shield>();
                             if (shield != null)
                             {
-                                __result = __result.Concat<Gizmo>(gizmoGetter(shield));
+                                __result = __result.Concat(gizmoGetter(shield));
                             }
                         }
                     }
@@ -1008,7 +1008,7 @@ namespace Vampire
             {
                 __result = sick.IsColonist && !sick.Dead && pawn != sick && sick.InBed() && sick.Awake() && !sick.IsForbidden(pawn) && sick.needs.joy != null && 
                     sick.needs.joy.CurCategory <= maxPatientJoy && InteractionUtility.CanReceiveInteraction(sick) && 
-                    pawn.CanReserveAndReach(sick, PathEndMode.InteractionCell, Danger.None, 1, -1, null, false) && !HarmonyPatches.AboutToRecover(sick);
+                    pawn.CanReserveAndReach(sick, PathEndMode.InteractionCell, Danger.None, 1, -1, null, false) && !AboutToRecover(sick);
                 return false;
             }
             return true; 

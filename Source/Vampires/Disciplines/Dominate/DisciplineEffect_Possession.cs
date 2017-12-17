@@ -10,7 +10,7 @@ namespace Vampire
             Hediff hediff = HediffMaker.MakeHediff(VampDefOf.ROMV_PossessionHediff, target, null);
             hediff.Severity = 1.0f;
             target.health.AddHediff(hediff, null, null);
-            hediff.TryGetComp<HediffComp_Possession>().ActivateEffect(this.CasterPawn);
+            hediff.TryGetComp<HediffComp_Possession>().ActivateEffect(CasterPawn);
         }
     }
 }

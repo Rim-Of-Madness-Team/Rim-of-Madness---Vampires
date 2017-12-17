@@ -10,7 +10,7 @@ namespace Vampire
 
         public HediffCompProperties_TickGraphic()
         {
-            this.compClass = typeof(HediffComp_TickGraphic);
+            compClass = typeof(HediffComp_TickGraphic);
         }
     }
 }

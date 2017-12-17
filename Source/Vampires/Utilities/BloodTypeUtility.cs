@@ -15,10 +15,10 @@ namespace Vampire
                 }
                 if (pawn?.RaceProps?.Humanlike ?? false)
                 {
-                    bool lowBlood = (BloodTypeUtility.IsLowblood(pawn));
-                    bool highBlood = (BloodTypeUtility.IsHighblood(pawn));
+                    bool lowBlood = (IsLowblood(pawn));
+                    bool highBlood = (IsHighblood(pawn));
 
-                    if (BloodTypeUtility.IsHighblood(pawn) && BloodTypeUtility.IsLowblood(pawn))
+                    if (IsHighblood(pawn) && IsLowblood(pawn))
                         return Vampire.BloodType.AverageBlood;
                     if (highBlood)
                         return Vampire.BloodType.HighBlood;

@@ -7,6 +7,6 @@ namespace Vampire
     {
         public BloodType bloodType = BloodType.LowBlood;
         public int bloodPoints = 1;        
-        public CompProperties_BloodItem() => this.compClass = typeof(CompBloodItem);
+        public CompProperties_BloodItem() => compClass = typeof(CompBloodItem);
     }
 }

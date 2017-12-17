@@ -13,11 +13,11 @@ namespace Vampire
         public static float BaseFeedTime = 320f;
         public static float BaseCoolantThrowupChance = 0.25f;
 
-        protected Pawn Victim => base.job.targetA.Thing as Pawn;
+        protected Pawn Victim => job.targetA.Thing as Pawn;
         protected CompVampire CompVictim => Victim.GetComp<CompVampire>();
-        protected CompVampire CompFeeder => this.GetActor().GetComp<CompVampire>();
+        protected CompVampire CompFeeder => GetActor().GetComp<CompVampire>();
         protected Need_Blood BloodVictim => Victim.BloodNeed();
-        protected Need_Blood BloodFeeder => this.GetActor().BloodNeed();
+        protected Need_Blood BloodFeeder => GetActor().BloodNeed();
 
         public override void Notify_Starting()
         {
@@ -26,13 +26,13 @@ namespace Vampire
 
         public virtual void DoEffect()
         {
-            this.BloodVictim.TransferBloodTo(1, BloodFeeder);
-            if (Victim.IsAndroid() && !this.pawn.IsAndroid())
+            BloodVictim.TransferBloodTo(1, BloodFeeder);
+            if (Victim.IsAndroid() && !pawn.IsAndroid())
             {
                 if (Rand.Value <= BaseCoolantThrowupChance)
                 {
-                    this.EndJobWith(JobCondition.Incompletable);
-                    this.pawn.jobs.StartJob(new Job(JobDefOf.Vomit, this.pawn.PositionHeld));
+                    EndJobWith(JobCondition.Incompletable);
+                    pawn.jobs.StartJob(new Job(JobDefOf.Vomit, pawn.PositionHeld));
                 }
             }
 
@@ -43,9 +43,9 @@ namespace Vampire
             this.FailOnDespawnedNullOrForbidden(TargetIndex.A);
             this.FailOn(delegate
             {
-                return this.pawn == this.Victim;
+                return pawn == Victim;
             });
-            this.AddEndCondition(delegate
+            AddEndCondition(delegate
             {
                 if (!CompFeeder.BloodPool.IsFull)
                 {
@@ -53,7 +53,7 @@ namespace Vampire
                 }
                 return JobCondition.Succeeded;
             });
-            foreach (Toil t in MakeFeedToils(this.job.def, this, this.pawn, this.TargetA, VampDefOf.ROMV_IWasBittenByAVampire, VampDefOf.ROMV_IGaveTheKiss, workLeft, DoEffect, ShouldContinueFeeding))
+            foreach (Toil t in MakeFeedToils(job.def, this, pawn, TargetA, VampDefOf.ROMV_IWasBittenByAVampire, VampDefOf.ROMV_IGaveTheKiss, workLeft, DoEffect, ShouldContinueFeeding))
             {
                 yield return t;
             }
@@ -71,7 +71,7 @@ namespace Vampire
                 {
                     MoteMaker.MakeColonistActionOverlay(actor, ThingDefOf.Mote_ColonistAttacking);
 
-                    workLeft = JobDriver_Feed.BaseFeedTime;
+                    workLeft = BaseFeedTime;
                     Pawn victim = TargetA.Thing as Pawn; 
                     if (victim != null)
                     {

@@ -27,7 +27,7 @@ namespace Vampire
             AccessTools.Method(typeof(Dialog_DebugActionsMenu), "DebugToolMap").Invoke(__instance, new object[] {
                 "Give Vampirism (Default)", new Action(()=>
             {
-                Pawn pawn = Find.VisibleMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault<Pawn>();
+                Pawn pawn = Find.VisibleMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault();
                 if (pawn != null)
                 {
                     if (!pawn.IsVampire())
@@ -44,11 +44,11 @@ namespace Vampire
             AccessTools.Method(typeof(Dialog_DebugActionsMenu), "DebugToolMap").Invoke(__instance, new object[] {
                 "Give Vampirism (w/Settings)", new Action(()=>
             {
-                Pawn pawn = Find.VisibleMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault<Pawn>();
+                Pawn pawn = Find.VisibleMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault();
                 if (pawn != null)
                 {
                     //pawn.health.AddHediff(VampDefOf.ROM_Vampirism, null, null);
-                    Find.WindowStack.Add(new Dialog_DebugOptionListLister(HarmonyPatches.Options_Bloodlines(pawn)));
+                    Find.WindowStack.Add(new Dialog_DebugOptionListLister(Options_Bloodlines(pawn)));
                     //DebugTools.curTool = null;
                 }
             })});
@@ -58,7 +58,7 @@ namespace Vampire
             AccessTools.Method(typeof(Dialog_DebugActionsMenu), "DebugToolMap").Invoke(__instance, new object[] {
                 "Remove Vampirism", new Action(()=>
             {
-                Pawn pawn = Find.VisibleMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault<Pawn>();
+                Pawn pawn = Find.VisibleMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault();
                 if (pawn != null)
                 {
                     if (pawn.IsVampire())
@@ -85,7 +85,7 @@ namespace Vampire
             AccessTools.Method(typeof(Dialog_DebugActionsMenu), "DebugToolMap").Invoke(__instance, new object[] {
                 "Add Blood (1)", new Action(()=>
             {
-                Pawn pawn = Find.VisibleMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault<Pawn>();
+                Pawn pawn = Find.VisibleMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault();
                 if (pawn != null && pawn?.BloodNeed() is Need_Blood b)
                 {
                         b.AdjustBlood(1);
@@ -97,7 +97,7 @@ namespace Vampire
             AccessTools.Method(typeof(Dialog_DebugActionsMenu), "DebugToolMap").Invoke(__instance, new object[] {
                 "Drain Blood (1)", new Action(()=>
             {
-                Pawn pawn = Find.VisibleMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault<Pawn>();
+                Pawn pawn = Find.VisibleMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault();
                 if (pawn != null && pawn?.BloodNeed() is Need_Blood b)
                 {
                         b.AdjustBlood(-1);
@@ -110,7 +110,7 @@ namespace Vampire
             AccessTools.Method(typeof(Dialog_DebugActionsMenu), "DebugToolMap").Invoke(__instance, new object[] {
                 "Add XP (100)", new Action(()=>
             {
-                Pawn pawn = Find.VisibleMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault<Pawn>();
+                Pawn pawn = Find.VisibleMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault();
                 if (pawn != null && pawn?.VampComp() is CompVampire v)
                 {
                         v.XP += 100;
@@ -132,7 +132,7 @@ namespace Vampire
             {
                 list.Add(new DebugMenuOption(current.LabelCap, DebugMenuOptionMode.Action, delegate
                 {
-                    Find.WindowStack.Add(new Dialog_DebugOptionListLister(HarmonyPatches.Options_Generation(p, current)));
+                    Find.WindowStack.Add(new Dialog_DebugOptionListLister(Options_Generation(p, current)));
 
                 }));
             }

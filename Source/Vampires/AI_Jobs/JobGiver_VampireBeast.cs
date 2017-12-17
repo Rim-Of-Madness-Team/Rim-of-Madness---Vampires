@@ -29,19 +29,19 @@ namespace Vampire
                 return null;
             }
             
-            Pawn pawn2 = this.FindPawnTarget(pawn);
+            Pawn pawn2 = FindPawnTarget(pawn);
             if (pawn2 != null && pawn.CanReach(pawn2, PathEndMode.Touch, Danger.Deadly, false, TraverseMode.ByPawn))
             {
                 if (pawn2.InAggroMentalState)
-                    return this.MeleeAttackJob(pawn2);
+                    return MeleeAttackJob(pawn2);
                 else
-                    return this.FeedJob(pawn2);
+                    return FeedJob(pawn2);
             }
 
-            Building building = this.FindTurretTarget(pawn);
+            Building building = FindTurretTarget(pawn);
             if (building != null)
             {
-                return this.MeleeAttackJob(building);
+                return MeleeAttackJob(building);
             }
             if (pawn2 != null)
             {
@@ -58,7 +58,7 @@ namespace Vampire
                         //Job job = DigUtility.PassBlockerJob(pawn, thing, cellBeforeBlocker, true);
                         //if (job != null)
                         //{
-                        return this.MeleeAttackJob(thing);
+                        return MeleeAttackJob(thing);
                         //}
                     }
                     IntVec3 loc = pawnPath.LastCellBeforeBlockerOrFinalCell(pawn.MapHeld);
@@ -70,10 +70,10 @@ namespace Vampire
                     return new Job(JobDefOf.Goto, randomCell);
                 }
             }
-            Building buildingDoor = this.FindDoorTarget(pawn);
+            Building buildingDoor = FindDoorTarget(pawn);
             if (buildingDoor != null)
             {
-                return this.MeleeAttackJob(buildingDoor);
+                return MeleeAttackJob(buildingDoor);
             }
 
             return null;

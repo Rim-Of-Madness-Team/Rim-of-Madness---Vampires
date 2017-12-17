@@ -6,7 +6,7 @@ namespace Vampire
     {
         public HediffCompProperties_Possession()
         {
-            this.compClass = typeof(HediffComp_Possession);
+            compClass = typeof(HediffComp_Possession);
         }
     }
 }

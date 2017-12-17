@@ -27,12 +27,12 @@ namespace Vampire
         {
             get
             {
-                if (this.embraceWorkerInt == null)
+                if (embraceWorkerInt == null)
                 {
-                    this.embraceWorkerInt = (EmbraceWorker)Activator.CreateInstance(this.embraceWorker);
-                    this.embraceWorkerInt.def = this;
+                    embraceWorkerInt = (EmbraceWorker)Activator.CreateInstance(embraceWorker);
+                    embraceWorkerInt.def = this;
                 }
-                return this.embraceWorkerInt;
+                return embraceWorkerInt;
             }
         }
 

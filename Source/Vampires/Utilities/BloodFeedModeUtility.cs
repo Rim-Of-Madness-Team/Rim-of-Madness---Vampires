@@ -26,7 +26,7 @@ namespace Vampire
                          
                 if (Widgets.ButtonImage(rect, icon))
                 {
-                vampBlood.preferredFeedMode = BloodFeedModeUtility.GetNextResponse(pawn);
+                vampBlood.preferredFeedMode = GetNextResponse(pawn);
                     SoundDefOf.TickHigh.PlayOneShotOnCamera(null);
                     PlayerKnowledgeDatabase.KnowledgeDemonstrated(ConceptDefOf.HostilityResponse, KnowledgeAmount.SpecificInteraction);
                 }
@@ -117,15 +117,15 @@ namespace Vampire
             switch (response)
             {
                 case PreferredFeedMode.None:
-                    return BloodFeedModeUtility.NoneIcon;
+                    return NoneIcon;
                 case PreferredFeedMode.AnimalNonLethal:
-                    return BloodFeedModeUtility.AnimalNonLethalIcon;
+                    return AnimalNonLethalIcon;
                 case PreferredFeedMode.AnimalLethal:
-                    return BloodFeedModeUtility.AnimalLethalIcon;
+                    return AnimalLethalIcon;
                 case PreferredFeedMode.HumanoidNonLethal:
-                    return BloodFeedModeUtility.HumanoidNonLethalIcon;
+                    return HumanoidNonLethalIcon;
                 case PreferredFeedMode.HumanoidLethal:
-                    return BloodFeedModeUtility.HumanoidLethalIcon;
+                    return HumanoidLethalIcon;
                 default:
                     return BaseContent.BadTex;
             }

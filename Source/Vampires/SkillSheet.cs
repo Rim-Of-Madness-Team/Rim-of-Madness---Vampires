@@ -45,8 +45,8 @@ namespace Vampire
 
         public void ExposeData()
         {
-            Scribe_References.Look<Pawn>(ref this.pawn, "pawn");
-            Scribe_Collections.Look<Discipline>(ref this.disciplines, true, "disciplines", LookMode.Deep, new object[0]);
+            Scribe_References.Look(ref pawn, "pawn");
+            Scribe_Collections.Look(ref disciplines, true, "disciplines", LookMode.Deep, new object[0]);
         }
     }
 }

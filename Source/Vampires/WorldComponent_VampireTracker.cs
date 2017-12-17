@@ -202,9 +202,9 @@ namespace Vampire
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_References.Look<Pawn>(ref this.firstVampire, "firstVampire");
-            Scribe_Collections.Look<Pawn>(ref this.dormantVampires, "dormantVampires", LookMode.Deep);
-            Scribe_Collections.Look<Pawn>(ref this.activeVampires, "activeVampires", LookMode.Deep);
+            Scribe_References.Look(ref firstVampire, "firstVampire");
+            Scribe_Collections.Look(ref dormantVampires, "dormantVampires", LookMode.Deep);
+            Scribe_Collections.Look(ref activeVampires, "activeVampires", LookMode.Deep);
         }
     }
 }

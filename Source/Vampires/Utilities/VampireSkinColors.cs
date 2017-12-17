@@ -37,9 +37,9 @@ namespace Vampire
         private static int GetSkinDataIndexOfMelanin(float melanin)
         {
             int result = 0;
-            for (int i = 0; i < VampireSkinColors.MelaninTable.Length; i++)
+            for (int i = 0; i < MelaninTable.Length; i++)
             {
-                if (melanin < VampireSkinColors.MelaninTable[i].melanin)
+                if (melanin < MelaninTable[i].melanin)
                 {
                     break;
                 }
@@ -59,15 +59,15 @@ namespace Vampire
                 {
                     return colors[skinDataIndexOfMelanin];
                 }
-                float tt = Mathf.InverseLerp(VampireSkinColors.MelaninTable[skinDataIndexOfMelanin].melanin, VampireSkinColors.MelaninTable[skinDataIndexOfMelanin + 1].melanin, melanin);
+                float tt = Mathf.InverseLerp(MelaninTable[skinDataIndexOfMelanin].melanin, MelaninTable[skinDataIndexOfMelanin + 1].melanin, melanin);
                 return Color.Lerp(colors[skinDataIndexOfMelanin], colors[skinDataIndexOfMelanin + 1], tt);
             }
-            if (skinDataIndexOfMelanin == VampireSkinColors.MelaninTable.Length - 1)
+            if (skinDataIndexOfMelanin == MelaninTable.Length - 1)
             {
-                return VampireSkinColors.MelaninTable[skinDataIndexOfMelanin].color;
+                return MelaninTable[skinDataIndexOfMelanin].color;
             }
-            float t = Mathf.InverseLerp(VampireSkinColors.MelaninTable[skinDataIndexOfMelanin].melanin, VampireSkinColors.MelaninTable[skinDataIndexOfMelanin + 1].melanin, melanin);
-            return Color.Lerp(VampireSkinColors.MelaninTable[skinDataIndexOfMelanin].color, VampireSkinColors.MelaninTable[skinDataIndexOfMelanin + 1].color, t);
+            float t = Mathf.InverseLerp(MelaninTable[skinDataIndexOfMelanin].melanin, MelaninTable[skinDataIndexOfMelanin + 1].melanin, melanin);
+            return Color.Lerp(MelaninTable[skinDataIndexOfMelanin].color, MelaninTable[skinDataIndexOfMelanin + 1].color, t);
         }
     }
 }

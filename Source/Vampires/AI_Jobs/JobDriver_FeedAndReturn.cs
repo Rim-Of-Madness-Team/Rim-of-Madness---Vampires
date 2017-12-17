@@ -17,8 +17,8 @@ namespace Vampire
         {
             get
             {
-                if (base.job.targetA.Thing is Pawn p) return p;
-                if (base.job.targetA.Thing is Corpse c) return c.InnerPawn;
+                if (job.targetA.Thing is Pawn p) return p;
+                if (job.targetA.Thing is Corpse c) return c.InnerPawn;
                 else return null;
             }
         }
@@ -26,13 +26,13 @@ namespace Vampire
         {
             get
             {
-                if (base.job.targetB.Thing is Pawn p) return p;
-                if (base.job.targetB.Thing is Corpse c) return c.InnerPawn;
+                if (job.targetB.Thing is Pawn p) return p;
+                if (job.targetB.Thing is Corpse c) return c.InnerPawn;
                 else return null;
             }
         }
         protected CompVampire CompVictim => Victim.GetComp<CompVampire>();
-        protected CompVampire CompFeeder => this.GetActor().GetComp<CompVampire>();
+        protected CompVampire CompFeeder => GetActor().GetComp<CompVampire>();
         protected Need_Blood BloodVictim => CompVictim.BloodPool;
         protected Need_Blood BloodFeeder => CompFeeder.BloodPool;
 
@@ -43,7 +43,7 @@ namespace Vampire
 
         private void DoEffect()
         {
-            this.BloodVictim.TransferBloodTo(1, Master.BloodNeed());
+            BloodVictim.TransferBloodTo(1, Master.BloodNeed());
         }
 
         public override string GetReport()
@@ -57,10 +57,10 @@ namespace Vampire
             //this.FailOnDespawnedNullOrForbidden(TargetIndex.A);
             this.FailOn(delegate
             {
-                return this.pawn == this.Victim;
+                return pawn == Victim;
             });
             this.FailOnAggroMentalState(TargetIndex.A);
-            foreach (Toil t in JobDriver_Feed.MakeFeedToils(this.job.def, this, this.GetActor(), this.TargetA, null, null, workLeft, DoEffect, ShouldContinueFeeding))
+            foreach (Toil t in JobDriver_Feed.MakeFeedToils(job.def, this, GetActor(), TargetA, null, null, workLeft, DoEffect, ShouldContinueFeeding))
             {
                 yield return t;
             }

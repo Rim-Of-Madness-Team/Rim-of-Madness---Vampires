@@ -15,7 +15,7 @@ namespace Vampire
             {
                 if (generation == -1)
                 {
-                    switch (this.CurStageIndex)
+                    switch (CurStageIndex)
                     {
                         case 0: generation = 14; break;
                         case 1: generation = Rand.Range(10, 13); break;
@@ -39,7 +39,7 @@ namespace Vampire
         {
             get
             {
-                int gen = this.generation;
+                int gen = generation;
                 int math = (gen > 7) ? 10 + (Math.Abs(gen - 13)) : 10 * (Math.Abs(gen - 9));
 
                 StringBuilder s = new StringBuilder();
@@ -67,11 +67,11 @@ namespace Vampire
             if (!setup)
             {
                 bool setup = true;
-                if (this.pawn.VampComp() is CompVampire v)
+                if (pawn.VampComp() is CompVampire v)
                 {
-                    int generatonToSpawn = this.Generation;
+                    int generatonToSpawn = Generation;
                     //Pawn sire = VampireRelationUtility.FindSireFor(this.pawn, this.Bloodline, generatonToSpawn);
-                    v.InitializeVampirism(null, this.Bloodline, generatonToSpawn);
+                    v.InitializeVampirism(null, Bloodline, generatonToSpawn);
                 }
             }
             base.PostTick();
@@ -80,8 +80,8 @@ namespace Vampire
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look<bool>(ref this.setup, "setup", false);
-            Scribe_Values.Look<int>(ref this.generation, "generation", -1);
+            Scribe_Values.Look(ref setup, "setup", false);
+            Scribe_Values.Look(ref generation, "generation", -1);
         }
     }
 }

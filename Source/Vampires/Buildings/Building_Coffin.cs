@@ -23,7 +23,7 @@ namespace Vampire
             foreach (Gizmo g in base.GetGizmos())
                 yield return g;
 
-            Pawn p = (Pawn)this.ContainedThing;
+            Pawn p = (Pawn)ContainedThing;
             if (p == null)
             {
                 p = this?.Corpse?.InnerPawn ?? null;

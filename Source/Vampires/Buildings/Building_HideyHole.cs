@@ -8,7 +8,7 @@ namespace Vampire
         public override void Open()
         {
             base.Open();
-            this.Destroy(DestroyMode.Vanish);
+            Destroy(DestroyMode.Vanish);
         }
     }
 }

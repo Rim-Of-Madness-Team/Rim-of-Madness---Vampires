@@ -10,7 +10,7 @@ namespace Vampire
     {
         public override bool TryMakePreToilReservations()
         {
-            return pawn.Reserve(TargetA, this.job);
+            return pawn.Reserve(TargetA, job);
         }
 
         [DebuggerHidden]
@@ -27,7 +27,7 @@ namespace Vampire
             {
                 initAction = delegate
                 {
-                    Pawn actor = this.pawn;
+                    Pawn actor = pawn;
                     Building_Casket pod = (Building_Casket)actor.CurJob.targetA.Thing;
 
                     actor.DeSpawn();

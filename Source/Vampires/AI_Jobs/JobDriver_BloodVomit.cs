@@ -16,21 +16,21 @@ namespace Vampire
         {
             get
             {
-                return this.lastPosture;
+                return lastPosture;
             }
         }
 
         public override void Notify_LastPosture(PawnPosture posture, LayingDownState layingDown)
         {
-            this.lastPosture = posture;
+            lastPosture = posture;
             this.layingDown = layingDown;
         }
 
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look<int>(ref this.ticksLeft, "ticksLeft", 0, false);
-            Scribe_Values.Look<PawnPosture>(ref this.lastPosture, "lastPosture", PawnPosture.Standing, false);
+            Scribe_Values.Look(ref ticksLeft, "ticksLeft", 0, false);
+            Scribe_Values.Look(ref lastPosture, "lastPosture", PawnPosture.Standing, false);
         }
 
         [DebuggerHidden]

@@ -7,7 +7,7 @@ namespace Vampire
         public override void Effect(Pawn target)
         {
             base.Effect(target);
-            HealthUtility.AdjustSeverity(this.CasterPawn, VampDefOf.ROMV_MistFormHediff, 1.0f);
+            HealthUtility.AdjustSeverity(CasterPawn, VampDefOf.ROMV_MistFormHediff, 1.0f);
         }
     }
 }

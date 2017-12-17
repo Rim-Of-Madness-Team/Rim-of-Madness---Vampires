@@ -9,11 +9,11 @@ namespace Vampire
         public virtual void Effect()
         {
             //target.Drawer.Notify_DebugAffected();
-            MoteMaker.ThrowText(this.CasterPawn.DrawPos, this.CasterPawn.Map, AbilityUser.StringsToTranslate.AU_CastSuccess, -1f);
+            MoteMaker.ThrowText(CasterPawn.DrawPos, CasterPawn.Map, AbilityUser.StringsToTranslate.AU_CastSuccess, -1f);
             if (TargetsAoE[0] is LocalTargetInfo t && t.Cell != default(IntVec3))
             {
                 PawnTemporary p = (PawnTemporary)PawnGenerator.GeneratePawn(VampDefOf.ROMV_AbyssalArmKind, Faction.OfPlayer);
-                GenSpawn.Spawn(p, t.Cell, this.CasterPawn.Map);
+                GenSpawn.Spawn(p, t.Cell, CasterPawn.Map);
             }
         }
 

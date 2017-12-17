@@ -33,16 +33,16 @@ namespace Vampire
         {
             return !pawn.Dead && !(from x in pawn.health.hediffSet.hediffs
                                    where x.Part == part
-                                   select x).Any<Hediff>();
+                                   select x).Any();
         }
 
         public override void ApplyOnPawn(Pawn pawn, BodyPartRecord part, Pawn billDoer, List<Thing> ingredients, Bill bill)
         {
             bool flag = IsClean(pawn, part);
-            bool flag2 = this.IsViolationOnPawn(pawn, part, Faction.OfPlayer);
+            bool flag2 = IsViolationOnPawn(pawn, part, Faction.OfPlayer);
             if (billDoer != null)
             {
-                if (base.CheckSurgeryFail(billDoer, pawn, ingredients, part, bill))
+                if (CheckSurgeryFail(billDoer, pawn, ingredients, part, bill))
                 {
                     return;
                 }
@@ -75,7 +75,7 @@ namespace Vampire
 
         public override string GetLabelWhenUsedOn(Pawn pawn, BodyPartRecord part)
         {
-            return this.recipe.LabelCap + " (" + BloodTypeUtility.BloodType(pawn).GetLabel() + ")";
+            return recipe.LabelCap + " (" + BloodTypeUtility.BloodType(pawn).GetLabel() + ")";
         }
     }
 }

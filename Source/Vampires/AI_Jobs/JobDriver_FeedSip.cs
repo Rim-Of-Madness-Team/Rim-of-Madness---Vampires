@@ -13,11 +13,11 @@ namespace Vampire
         private float workLeft = -1f;
         public static float BaseFeedTime = 320f;
 
-        protected Pawn Victim => (Pawn)base.job.targetA.Thing;
+        protected Pawn Victim => (Pawn)job.targetA.Thing;
         protected CompVampire CompVictim => Victim.GetComp<CompVampire>();
-        protected CompVampire CompFeeder => this.GetActor().GetComp<CompVampire>();
+        protected CompVampire CompFeeder => GetActor().GetComp<CompVampire>();
         protected Need_Blood BloodVictim => Victim.BloodNeed();
-        protected Need_Blood BloodFeeder => this.GetActor().BloodNeed();
+        protected Need_Blood BloodFeeder => GetActor().BloodNeed();
 
         public override void Notify_Starting()
         {
@@ -26,7 +26,7 @@ namespace Vampire
 
         public virtual void DoEffect()
         {
-            this.BloodVictim.TransferBloodTo(1, BloodFeeder);
+            BloodVictim.TransferBloodTo(1, BloodFeeder);
         }
 
         [DebuggerHidden]
@@ -35,9 +35,9 @@ namespace Vampire
             this.FailOnDespawnedNullOrForbidden(TargetIndex.A);
             this.FailOn(delegate
             {
-                return this.pawn == this.Victim;
+                return pawn == Victim;
             });
-            this.AddEndCondition(delegate
+            AddEndCondition(delegate
             {
                 if (!CompFeeder.BloodPool.IsFull)
                 {
@@ -45,7 +45,7 @@ namespace Vampire
                 }
                 return JobCondition.Succeeded;
             });
-            foreach (Toil t in MakeFeedToils(this, this.pawn, this.TargetA, workLeft, DoEffect, ShouldContinueFeeding))
+            foreach (Toil t in MakeFeedToils(this, pawn, TargetA, workLeft, DoEffect, ShouldContinueFeeding))
             {
                 yield return t;
             }

@@ -32,14 +32,14 @@ namespace Vampire
 
         public Alert_VampireStarving()
         {
-            this.defaultLabel = "ROMV_Alert_StarvingVampire".Translate();
-            this.defaultPriority = AlertPriority.Critical;
+            defaultLabel = "ROMV_Alert_StarvingVampire".Translate();
+            defaultPriority = AlertPriority.Critical;
         }
 
         public override string GetExplanation()
         {
             StringBuilder stringBuilder = new StringBuilder();
-            foreach (Pawn current in this.VampiresStarving)
+            foreach (Pawn current in VampiresStarving)
             {
                 stringBuilder.AppendLine("    " + current.NameStringShort);
             }
@@ -52,7 +52,7 @@ namespace Vampire
             {
                 return false;
             }
-            Pawn pawn = this.VampiresStarving.FirstOrDefault<Pawn>();
+            Pawn pawn = VampiresStarving.FirstOrDefault();
             if (pawn == null)
             {
                 return false;

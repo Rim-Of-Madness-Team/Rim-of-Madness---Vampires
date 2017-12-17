@@ -9,7 +9,7 @@ namespace Vampire
 
         public CompProperties_VampBed()
         {
-            this.compClass = typeof(CompVampBed);
+            compClass = typeof(CompVampBed);
         }
     }
 }

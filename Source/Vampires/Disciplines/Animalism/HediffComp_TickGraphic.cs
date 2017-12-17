@@ -17,7 +17,7 @@ namespace Vampire
         {
             get
             {
-                return (HediffCompProperties_TickGraphic)this.props;
+                return (HediffCompProperties_TickGraphic)props;
             }
         }
 
@@ -35,13 +35,13 @@ namespace Vampire
                     curGraphicIndex = 0;
                 }
             }
-            CurGraphic = this.Props.cycleGraphics[curGraphicIndex].Graphic;
+            CurGraphic = Props.cycleGraphics[curGraphicIndex].Graphic;
             if (CurGraphic != null)
             {
-                Material material = this.CurGraphic.MatSingle;
+                Material material = CurGraphic.MatSingle;
                 Vector3 s = new Vector3(CurGraphic.drawSize.x, 1f, CurGraphic.drawSize.y);
                 Matrix4x4 matrix = default(Matrix4x4);
-                matrix.SetTRS(this.Pawn.DrawPos, Quaternion.identity, s);
+                matrix.SetTRS(Pawn.DrawPos, Quaternion.identity, s);
                 Graphics.DrawMesh(MeshPool.plane10, matrix, material, 0);
             }
         }
@@ -49,8 +49,8 @@ namespace Vampire
         public override void CompExposeData()
         {
             base.CompExposeData();
-            Scribe_Values.Look<int>(ref this.curGraphicIndex, "curGraphicIndex", 0);
-            Scribe_Values.Look<bool>(ref this.activated, "activated", false);
+            Scribe_Values.Look(ref curGraphicIndex, "curGraphicIndex", 0);
+            Scribe_Values.Look(ref activated, "activated", false);
         }
     }
 }

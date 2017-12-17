@@ -30,9 +30,9 @@ namespace Vampire
         
         public Crime(JobDef newCrimeDef, ThoughtDef newColonistThought, ThoughtDef newVisitorThought)
         {
-            this.CrimeDef = newCrimeDef;
-            this.ColonistThought = newColonistThought;
-            this.VisitorThought = newVisitorThought;
+            CrimeDef = newCrimeDef;
+            ColonistThought = newColonistThought;
+            VisitorThought = newVisitorThought;
         }
     }
 
@@ -155,7 +155,7 @@ namespace Vampire
             }
 
                 //Log.Message("1");
-                List<Pawn> witnesses = VampireWitnessUtility.WitnessesOf(criminal, victim, crime);
+                List<Pawn> witnesses = WitnessesOf(criminal, victim, crime);
             //Log.Message("2");
             
             if (!witnesses.NullOrEmpty())
@@ -191,7 +191,7 @@ namespace Vampire
                             if (CanTakeWitnessJob(witness))
                             {
                                 IntVec3 fleeLoc = CellFinderLoose.GetFleeDest(witness, new List<Thing>() { criminal }, 23f);
-                                witness.jobs.StartJob(new Verse.AI.Job(JobDefOf.FleeAndCower, fleeLoc));
+                                witness.jobs.StartJob(new Job(JobDefOf.FleeAndCower, fleeLoc));
                                 if (witness.Faction != null && !witness.Faction.HostileTo(criminal.Faction))
                                 {
                                     witness.Faction.SetHostileTo(criminal.Faction, true);

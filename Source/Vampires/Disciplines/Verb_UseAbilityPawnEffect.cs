@@ -7,9 +7,9 @@ namespace Vampire
     {
         public virtual void Effect(Pawn target)
         {
-            if (this.Ability.Def.MainVerb.isViolent && target.Faction != this.CasterPawn.Faction)
+            if (Ability.Def.MainVerb.isViolent && target.Faction != CasterPawn.Faction)
             {
-                target.mindState.Notify_DamageTaken(new DamageInfo(DamageDefOf.Cut, -1, -1, this.CasterPawn));
+                target.mindState.Notify_DamageTaken(new DamageInfo(DamageDefOf.Cut, -1, -1, CasterPawn));
             }
             target.Drawer.Notify_DebugAffected();
             MoteMaker.ThrowText(target.DrawPos, target.Map, AbilityUser.StringsToTranslate.AU_CastSuccess, -1f);
@@ -18,7 +18,7 @@ namespace Vampire
         public override void PostCastShot(bool inResult, out bool outResult)
         {
             if (inResult &&
-                this.TargetsAoE[0].Thing is Pawn p)
+                TargetsAoE[0].Thing is Pawn p)
             {
                 Effect(p);
                 outResult = true;

@@ -8,7 +8,7 @@ namespace Vampire
         public override void Effect(Pawn target)
         {
             base.Effect(target);
-            GenExplosion.DoExplosion(target.PositionHeld, target.MapHeld, 1.9f, DamageDefOf.Stun, this.CasterPawn);
+            GenExplosion.DoExplosion(target.PositionHeld, target.MapHeld, 1.9f, DamageDefOf.Stun, CasterPawn);
         }
     }
 }
