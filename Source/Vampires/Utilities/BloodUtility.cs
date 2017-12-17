@@ -147,7 +147,7 @@ namespace Vampire
                     {
                         return false;
                     }
-                    if (t.IsBurning() || (!desperate && t.IsNotFresh()) || !getter.CanReserve(t, 1, -1, null, false))
+                    if (t.IsBurning() || (!desperate && t.IsNotFresh()) || !getter.CanReserve(t))
                     {
                         return false;
                     }
@@ -157,7 +157,7 @@ namespace Vampire
             };
             Thing thing;
             Predicate<Thing> validator = foodValidator;
-            thing = SpawnedBloodItemScan(eater, getter.Position, getter.Map.listerThings.ThingsInGroup(ThingRequestGroup.FoodSourceNotPlantOrTree), PathEndMode.ClosestTouch, TraverseParms.For(getter, Danger.Deadly, TraverseMode.ByPawn, false), 9999f, validator);
+            thing = SpawnedBloodItemScan(eater, getter.Position, getter.Map.listerThings.ThingsInGroup(ThingRequestGroup.FoodSourceNotPlantOrTree), PathEndMode.ClosestTouch, TraverseParms.For(getter), 9999f, validator);
             return thing;
         }
 
@@ -224,7 +224,7 @@ namespace Vampire
                     {
                         if (IsAcceptableVictimFor(predator, pawn2, desperate))
                         {
-                            if (predator.CanReach(pawn2, PathEndMode.Touch, Danger.Deadly, false, TraverseMode.ByPawn))
+                            if (predator.CanReach(pawn2, PathEndMode.Touch, Danger.Deadly))
                             {
                                 //if (!pawn2.IsForbidden(predator))
                                 //{

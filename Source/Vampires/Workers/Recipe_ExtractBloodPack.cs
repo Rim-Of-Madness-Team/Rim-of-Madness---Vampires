@@ -54,7 +54,7 @@ namespace Vampire
                 });
                 BloodItemUtility.SpawnBloodFromExtraction(pawn, true);
             }
-            pawn.TakeDamage(new DamageInfo(DamageDefOf.Cut, 1, -1f, null, part, null, DamageInfo.SourceCategory.ThingOrUnknown));
+            pawn.TakeDamage(new DamageInfo(DamageDefOf.Cut, 1, -1f, null, part));
             int badGoodwillAmt = -3;
             if (flag)
             {

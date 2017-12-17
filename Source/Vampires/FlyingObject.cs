@@ -34,13 +34,7 @@ namespace Vampire
         }
 
 
-        protected IntVec3 DestinationCell
-        {
-            get
-            {
-                return new IntVec3(destination);
-            }
-        }
+        protected IntVec3 DestinationCell => new IntVec3(destination);
 
         public virtual Vector3 ExactPosition
         {
@@ -51,33 +45,21 @@ namespace Vampire
             }
         }
 
-        public virtual Quaternion ExactRotation
-        {
-            get
-            {
-                return Quaternion.LookRotation(destination - origin);
-            }
-        }
+        public virtual Quaternion ExactRotation => Quaternion.LookRotation(destination - origin);
 
-        public override Vector3 DrawPos
-        {
-            get
-            {
-                return ExactPosition;
-            }
-        }
+        public override Vector3 DrawPos => ExactPosition;
 
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look(ref origin, "origin", default(Vector3), false);
-            Scribe_Values.Look(ref destination, "destination", default(Vector3), false);
-            Scribe_Values.Look(ref ticksToImpact, "ticksToImpact", 0, false);
-            Scribe_Values.Look(ref timesToDamage, "timesToDamage", 0, false);
+            Scribe_Values.Look(ref origin, "origin");
+            Scribe_Values.Look(ref destination, "destination");
+            Scribe_Values.Look(ref ticksToImpact, "ticksToImpact");
+            Scribe_Values.Look(ref timesToDamage, "timesToDamage");
             Scribe_Values.Look(ref damageLaunched, "damageLaunched", true);
-            Scribe_Values.Look(ref explosion, "explosion", false);
-            Scribe_References.Look(ref assignedTarget, "assignedTarget", false);
-            Scribe_References.Look(ref launcher, "launcher", false);
+            Scribe_Values.Look(ref explosion, "explosion");
+            Scribe_References.Look(ref assignedTarget, "assignedTarget");
+            Scribe_References.Look(ref launcher, "launcher");
             Scribe_References.Look(ref flyingThing, "flyingThing");
         }
 
@@ -117,7 +99,7 @@ namespace Vampire
             {
                 ticksToImpact++;
                 Position = ExactPosition.ToIntVec3();
-                Destroy(DestroyMode.Vanish);
+                Destroy();
                 return;
             }
 
@@ -204,7 +186,7 @@ namespace Vampire
 
             }
             GenSpawn.Spawn(flyingThing, Position, Map);
-            Destroy(DestroyMode.Vanish);
+            Destroy();
         }
 
 

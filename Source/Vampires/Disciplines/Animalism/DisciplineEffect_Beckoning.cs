@@ -11,7 +11,7 @@ namespace Vampire
 
             int count = new IntRange(15, 25).RandomInRange;
             IntVec3 loc;
-            if (RCellFinder.TryFindRandomPawnEntryCell(out loc, target.Map, CellFinder.EdgeRoadChance_Animal, null))
+            if (RCellFinder.TryFindRandomPawnEntryCell(out loc, target.Map, CellFinder.EdgeRoadChance_Animal))
             {
                 VampireUtility.SummonEffect(loc, CasterPawn.Map, CasterPawn, 10f);
 
@@ -19,7 +19,7 @@ namespace Vampire
                     target.Map.wildSpawner.SpawnRandomWildAnimalAt(loc);
 
             }
-            Find.LetterStack.ReceiveLetter("ROMV_AnimalHerd".Translate(), "ROMV_AnimalHerdDesc".Translate(), LetterDefOf.PositiveEvent, new RimWorld.Planet.GlobalTargetInfo(loc, target.Map), null);
+            Find.LetterStack.ReceiveLetter("ROMV_AnimalHerd".Translate(), "ROMV_AnimalHerdDesc".Translate(), LetterDefOf.PositiveEvent, new RimWorld.Planet.GlobalTargetInfo(loc, target.Map));
         }
     }
 }

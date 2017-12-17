@@ -51,9 +51,9 @@ namespace Vampire
                     billDoer,
                     pawn
                 });
-                BloodItemUtility.SpawnBloodFromExtraction(pawn, false);
+                BloodItemUtility.SpawnBloodFromExtraction(pawn);
             }
-             pawn.TakeDamage(new DamageInfo(DamageDefOf.Cut, 1, -1f, null, part, null, DamageInfo.SourceCategory.ThingOrUnknown));
+             pawn.TakeDamage(new DamageInfo(DamageDefOf.Cut, 1, -1f, null, part));
             int badGoodwillAmt = -3;
             if (flag)
             {

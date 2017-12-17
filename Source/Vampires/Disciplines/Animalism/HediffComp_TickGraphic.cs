@@ -13,13 +13,7 @@ namespace Vampire
         private Graphic curGraphic = null;
         public Graphic CurGraphic { get => curGraphic; set => curGraphic = value; }
 
-        public HediffCompProperties_TickGraphic Props
-        {
-            get
-            {
-                return (HediffCompProperties_TickGraphic)props;
-            }
-        }
+        public HediffCompProperties_TickGraphic Props => (HediffCompProperties_TickGraphic)props;
 
         public override void CompPostTick(ref float severityAdjustment)
         {
@@ -49,8 +43,8 @@ namespace Vampire
         public override void CompExposeData()
         {
             base.CompExposeData();
-            Scribe_Values.Look(ref curGraphicIndex, "curGraphicIndex", 0);
-            Scribe_Values.Look(ref activated, "activated", false);
+            Scribe_Values.Look(ref curGraphicIndex, "curGraphicIndex");
+            Scribe_Values.Look(ref activated, "activated");
         }
     }
 }

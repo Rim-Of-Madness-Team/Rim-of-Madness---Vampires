@@ -15,7 +15,7 @@ namespace Vampire
         [DebuggerHidden]
         protected override IEnumerable<Toil> MakeNewToils()
         {
-            yield return Toils_Reserve.Reserve(TargetIndex.A, 1, -1, null);
+            yield return Toils_Reserve.Reserve(TargetIndex.A);
             if (TargetLocA != pawn.PositionHeld) yield return Toils_Goto.GotoCell(TargetIndex.A, PathEndMode.Touch);
             Toil doWork = new Toil();
             doWork.initAction = delegate
@@ -33,8 +33,8 @@ namespace Vampire
                 workLeft -= pawn.skills.GetSkill(SkillDefOf.Melee).Level;// (StatDefOf.ConstructionSpeed, true);
                 if (workLeft <= 0f)
                 {
-                    Thing thing = ThingMaker.MakeThing(VampDefOf.ROMV_HideyHole, null);
-                    thing.SetFaction(pawn.Faction, null);
+                    Thing thing = ThingMaker.MakeThing(VampDefOf.ROMV_HideyHole);
+                    thing.SetFaction(pawn.Faction);
                     GenSpawn.Spawn(thing, TargetLocA, Map);
 
                     Pawn actor = pawn;
@@ -58,7 +58,7 @@ namespace Vampire
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look(ref workLeft, "workLeft", 0f, false);
+            Scribe_Values.Look(ref workLeft, "workLeft");
         }
 
         public override bool TryMakePreToilReservations()

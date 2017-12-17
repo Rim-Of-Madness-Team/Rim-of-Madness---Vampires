@@ -23,7 +23,7 @@ namespace Vampire
         public override void DoEditInterface(Listing_ScenEdit listing)
         {
             Rect scenPartRect = listing.GetScenPartRect(this, RowHeight * 5f + 31f);
-            if (Widgets.ButtonText(scenPartRect.TopPartPixels(RowHeight), this?.bloodline?.LabelCap ?? "ROMV_UnknownBloodline".Translate(), true, false, true))
+            if (Widgets.ButtonText(scenPartRect.TopPartPixels(RowHeight), this?.bloodline?.LabelCap ?? "ROMV_UnknownBloodline".Translate()))
             {
                 FloatMenuUtility.MakeMenu(PossibleBloodlines(), (BloodlineDef bl) => bl.LabelCap, (BloodlineDef bl) => delegate
                 {
@@ -55,7 +55,7 @@ namespace Vampire
             Widgets.Label(rect6, "ROMV_StartInCoffins".Translate());
 
             Text.Anchor = TextAnchor.UpperLeft;
-            Widgets.CheckboxLabeled(rect7, "", ref spawnInCoffins, false);
+            Widgets.CheckboxLabeled(rect7, "", ref spawnInCoffins);
             Rect rect8 = new Rect(rect.x, rect.y + RowHeight * 4, rect.width, 31);
             Rect rect9 = rect8.LeftPart(0.666f).Rounded();
             Rect rect10 = rect8.RightPart(0.333f).Rounded();
@@ -84,10 +84,10 @@ namespace Vampire
             //private int maxGeneration = 15;
             //private bool spawnInCoffins = false;
             Scribe_Defs.Look(ref bloodline, "bloodline");
-            Scribe_Values.Look(ref generationRange, "generationRange", default(IntRange), false);
+            Scribe_Values.Look(ref generationRange, "generationRange");
             Scribe_Values.Look(ref vampChance, "vampChance", 0.5f);
             Scribe_Values.Look(ref maxVampires, "maxVampires", 1);
-            Scribe_Values.Look(ref spawnInCoffins, "spawnInCoffins", false);
+            Scribe_Values.Look(ref spawnInCoffins, "spawnInCoffins");
         }
 
         public override string Summary(Scenario scen)
@@ -153,7 +153,7 @@ namespace Vampire
                 bool instaDrop = Find.GameInitData.QuickStarted;
                 if (usingDropPods)
                 {
-                    DropPodUtility.DropThingGroupsNear(MapGenerator.PlayerStartSpot, map, list, 110, instaDrop, true, true);
+                    DropPodUtility.DropThingGroupsNear(MapGenerator.PlayerStartSpot, map, list, 110, instaDrop, true);
                 }
             }
         }

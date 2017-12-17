@@ -50,7 +50,7 @@ namespace Vampire
             }
             for (int curGen = 4; curGen < 14; curGen++)
             {
-                Pawn newVamp = VampireGen.GenerateVampire(curGen, bloodline, curSire, null, false);
+                Pawn newVamp = VampireGen.GenerateVampire(curGen, bloodline, curSire);
                 futureGenerations.Add(newVamp);
                 curSire = newVamp;
             }
@@ -112,7 +112,7 @@ namespace Vampire
                     //Second Generation
                     for (int i = 0; i < 3; i++)
                     {
-                        Pawn secondGenVamp = VampireGen.GenerateVampire(2, VampDefOf.ROMV_TheThree, Caine, null, false);
+                        Pawn secondGenVamp = VampireGen.GenerateVampire(2, VampDefOf.ROMV_TheThree, Caine);
                         generationTwo.Add(secondGenVamp);
                         //Find.WorldPawns.PassToWorld(secondGenVamp, PawnDiscardDecideMode.KeepForever);
                     }
@@ -121,7 +121,7 @@ namespace Vampire
                     foreach (BloodlineDef clan in DefDatabase<BloodlineDef>.AllDefs.Where(x => x != VampDefOf.ROMV_Caine && x != VampDefOf.ROMV_TheThree))
                     {
                         Pawn randSecondGenVamp = generationTwo.RandomElement();
-                        Pawn clanFounderVamp = VampireGen.GenerateVampire(3, clan, randSecondGenVamp, null, false);
+                        Pawn clanFounderVamp = VampireGen.GenerateVampire(3, clan, randSecondGenVamp);
                         generationThree.Add(clanFounderVamp);
                         //Find.WorldPawns.PassToWorld(clanFounderVamp, PawnDiscardDecideMode.KeepForever);
                     }

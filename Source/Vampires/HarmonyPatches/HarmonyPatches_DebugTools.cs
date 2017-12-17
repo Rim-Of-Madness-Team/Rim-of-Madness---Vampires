@@ -17,7 +17,7 @@ namespace Vampire
                 "Spawn Vampire (Random)", new Action(()=>
                 {
                     Pawn randomVampire =
-                    VampireGen.GenerateVampire(VampireUtility.RandHigherGeneration, VampireUtility.RandBloodline, null, null, false);
+                    VampireGen.GenerateVampire(VampireUtility.RandHigherGeneration, VampireUtility.RandBloodline, null);
                     GenSpawn.Spawn(randomVampire, UI.MouseCell(), Find.VisibleMap);
 
                 })
@@ -34,7 +34,7 @@ namespace Vampire
                     {
                         pawn.health.AddHediff(VampDefOf.ROM_Vampirism, null, null);
                         pawn.Drawer.Notify_DebugAffected();
-                        MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, pawn.LabelShort + " is now a vampire", -1f);
+                        MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, pawn.LabelShort + " is now a vampire");
                     }
                     else
                         Messages.Message(pawn.LabelCap + " is already a vampire.", MessageTypeDefOf.RejectInput);
@@ -74,7 +74,7 @@ namespace Vampire
                             pawn.health.RestorePart(rec);
                         }
                         pawn.Drawer.Notify_DebugAffected();
-                        MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, pawn.LabelShort + " is no longer a vampire", -1f);
+                        MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, pawn.LabelShort + " is no longer a vampire");
                     }
                     else
                         Messages.Message(pawn.LabelCap + " is already a vampire.", MessageTypeDefOf.RejectInput);
@@ -90,7 +90,7 @@ namespace Vampire
                 {
                         b.AdjustBlood(1);
                         pawn.Drawer.Notify_DebugAffected();
-                        MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, "+1 Blood", -1f);
+                        MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, "+1 Blood");
                 }
             })});
 
@@ -102,7 +102,7 @@ namespace Vampire
                 {
                         b.AdjustBlood(-1);
                         pawn.Drawer.Notify_DebugAffected();
-                        MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, "-1 Blood", -1f);
+                        MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, "-1 Blood");
                 }
             })});
 
@@ -115,7 +115,7 @@ namespace Vampire
                 {
                         v.XP += 100;
                         pawn.Drawer.Notify_DebugAffected();
-                        MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, "+100 XP", -1f);
+                        MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, "+100 XP");
                 }
             })});
         }
@@ -150,7 +150,7 @@ namespace Vampire
                     p.VampComp().InitializeVampirism(null, bloodline, curGen, curGen == 1);
                     //Log.Message("0" + p.LabelShort + " " + i.ToString());
                     p.Drawer.Notify_DebugAffected();
-                    MoteMaker.ThrowText(p.DrawPos, p.Map, p.LabelShort + " is now a vampire", -1f);
+                    MoteMaker.ThrowText(p.DrawPos, p.Map, p.LabelShort + " is now a vampire");
                 }));
             }
             return list;

@@ -5,20 +5,14 @@ namespace Vampire
     public class HediffComp_Possession : HediffComp_Disappears
     {
 
-        public new HediffCompProperties_Possession Props
-        {
-            get
-            {
-                return (HediffCompProperties_Possession)props;
-            }
-        }
-        
+        public new HediffCompProperties_Possession Props => (HediffCompProperties_Possession)props;
+
         public void ActivateEffect(Pawn activator)
         {
             string text = Pawn.LabelIndefinite();
             if (Pawn.guest != null)
             {
-                Pawn.guest.SetGuestStatus(null, false);
+                Pawn.guest.SetGuestStatus(null);
             }
             bool flag = Pawn.Name != null;
             if (Pawn.Faction != activator.Faction)

@@ -36,7 +36,7 @@ namespace Vampire
                         opts.Add(new FloatMenuOption("ROMV_Feed".Translate(new object[]
                         {
                                 victim.LabelCap
-                        }) + ((curBloodVictim == 1) ? " " + "ROMV_LethalWarning".Translate() : ""), action, MenuOptionPriority.High, null, victim, 0f, null, null));
+                        }) + ((curBloodVictim == 1) ? " " + "ROMV_LethalWarning".Translate() : ""), action, MenuOptionPriority.High, null, victim));
                         // SIP //////////////////////////
                         if (curBloodVictim > 1)
                         {
@@ -49,7 +49,7 @@ namespace Vampire
                             opts.Add(new FloatMenuOption("ROMV_Sip".Translate(new object[]
                             {
                             victim.LabelCap
-                            }), action2, MenuOptionPriority.High, null, victim, 0f, null, null));
+                            }), action2, MenuOptionPriority.High, null, victim));
                         }
                     };
                     //EMBRACE /////////////////////
@@ -60,7 +60,7 @@ namespace Vampire
                             opts.Add(new FloatMenuOption("ROMV_CannotEmbrace".Translate(new object[]
                             {
                             victim.LabelCap
-                            } + " (" + "ROMV_Thinblooded".Translate() + ")"), null, MenuOptionPriority.High, null, victim, 0f, null, null));
+                            } + " (" + "ROMV_Thinblooded".Translate() + ")"), null, MenuOptionPriority.High, null, victim));
                         }
                         else
                         {
@@ -73,7 +73,7 @@ namespace Vampire
                             opts.Add(new FloatMenuOption("ROMV_Embrace".Translate(new object[]
                             {
                             victim.LabelCap
-                            }), actionTwo, MenuOptionPriority.High, null, victim, 0f, null, null));
+                            }), actionTwo, MenuOptionPriority.High, null, victim));
                         }
                     }
 
@@ -90,7 +90,7 @@ namespace Vampire
                         opts.Add(new FloatMenuOption("ROMV_FeedVampire".Translate(new object[]
                         {
                                 victim.LabelCap
-                        }), action, MenuOptionPriority.High, null, victim, 0f, null, null));
+                        }), action, MenuOptionPriority.High, null, victim));
                         Action action2 = delegate
                         {
                             Job job = new Job(VampDefOf.ROMV_Diablerie, victim);
@@ -102,7 +102,7 @@ namespace Vampire
                         opts.Add(new FloatMenuOption("ROMV_Diablerie".Translate(new object[]
                         {
                                 victim.LabelCap
-                        }) + benefitWarning, action2, MenuOptionPriority.High, null, victim, 0f, null, null));
+                        }) + benefitWarning, action2, MenuOptionPriority.High, null, victim));
                     }
 
                 }

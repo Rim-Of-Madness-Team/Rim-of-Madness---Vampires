@@ -142,7 +142,7 @@ namespace Vampire
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look(ref initialized, "initialized", false);
+            Scribe_Values.Look(ref initialized, "initialized");
             //Scribe_Collections.Look<Hediff, int>(ref this.carriedBloodInfectors, "carriedBloodInfectors", LookMode.Deep, LookMode.Value);
             //Scribe_Collections.Look<Hediff, int>(ref this.carriedBloodDrugEffects, "carriedBloodDrugEffects", LookMode.Deep, LookMode.Value);
         }

@@ -17,17 +17,11 @@ namespace Vampire
             innerContainer = new ThingOwner<Pawn>(this, true, LookMode.Reference);
         }
 
-        private bool ShouldVanish
-        {
-            get
-            {
-                return InnerPawn.RaceProps.Animal && vanishAfterTimestamp > 0 && Age >= vanishAfterTimestamp && Spawned && this.GetRoom(RegionType.Set_Passable) != null && this.GetRoom(RegionType.Set_Passable).TouchesMapEdge && !Map.roofGrid.Roofed(Position);
-            }
-        }
+        private bool ShouldVanish => InnerPawn.RaceProps.Animal && vanishAfterTimestamp > 0 && Age >= vanishAfterTimestamp && Spawned && this.GetRoom() != null && this.GetRoom().TouchesMapEdge && !Map.roofGrid.Roofed(Position);
 
         private BodyPartRecord GetBestBodyPartToEat(Pawn ingester, float nutritionWanted)
         {
-            IEnumerable<BodyPartRecord> source = from x in InnerPawn.health.hediffSet.GetNotMissingParts(BodyPartHeight.Undefined, BodyPartDepth.Undefined)
+            IEnumerable<BodyPartRecord> source = from x in InnerPawn.health.hediffSet.GetNotMissingParts()
                                                  where x.depth == BodyPartDepth.Outside && FoodUtility.GetBodyPartNutrition(InnerPawn, x) > 0.001f
                                                  select x;
             if (!source.Any())
@@ -77,7 +71,7 @@ namespace Vampire
                                 continue;
                             }
                             HediffDef hediffDefFromDamage = HealthUtility.GetHediffDefFromDamage(DamageDefOf.Burn, p, rec);
-                            Hediff_Injury hediff_Injury = (Hediff_Injury)HediffMaker.MakeHediff(hediffDefFromDamage, p, null);
+                            Hediff_Injury hediff_Injury = (Hediff_Injury)HediffMaker.MakeHediff(hediffDefFromDamage, p);
                             hediff_Injury.Part = rec;
                             hediff_Injury.source = null;
                             hediff_Injury.sourceBodyPartGroup = null;
@@ -139,7 +133,7 @@ namespace Vampire
                 }
                 s.AppendLine("DeadTime".Translate(new object[]
                 {
-                Age.ToStringTicksToPeriod(false, false, true)
+                Age.ToStringTicksToPeriod(false)
                 }));
             }
             return s.ToString().TrimEndNewlines();
@@ -156,7 +150,7 @@ namespace Vampire
             if (!burnedToAshes)
                 InnerPawn.Drawer.renderer.RenderPawnAt(drawLoc);
             else
-                Ashes.Draw(drawLoc, Rot4.North, this, 0);
+                Ashes.Draw(drawLoc, Rot4.North, this);
 
         }
 
@@ -180,11 +174,11 @@ namespace Vampire
                         Pawn AbilityUser = InnerPawn;
                         AbilityUser.Drawer.Notify_DebugAffected();
                         ResurrectionUtility.Resurrect(AbilityUser);
-                        MoteMaker.ThrowText(AbilityUser.PositionHeld.ToVector3(), AbilityUser.MapHeld, StringsToTranslate.AU_CastSuccess, -1f);
+                        MoteMaker.ThrowText(AbilityUser.PositionHeld.ToVector3(), AbilityUser.MapHeld, StringsToTranslate.AU_CastSuccess);
                         AbilityUser.BloodNeed().AdjustBlood(-99999999);
                         HealthUtility.AdjustSeverity(AbilityUser, VampDefOf.ROMV_TheBeast, 1.0f);
                         MentalStateDef MentalState_VampireBeast = DefDatabase<MentalStateDef>.GetNamed("ROMV_VampireBeast");
-                        AbilityUser.mindState.mentalStateHandler.TryStartMentalState(MentalState_VampireBeast, null, true, false, null);
+                        AbilityUser.mindState.mentalStateHandler.TryStartMentalState(MentalState_VampireBeast, null, true);
                     },
                     disabled = false
                 };
@@ -197,12 +191,12 @@ namespace Vampire
             base.ExposeData();
 
             Scribe_Values.Look(ref bloodPoints, "bloodPoints", -1);
-            Scribe_Values.Look(ref burnedToAshes, "burnedToAshes", false);
-            Scribe_Values.Look(ref diableried, "diableried", false);
+            Scribe_Values.Look(ref burnedToAshes, "burnedToAshes");
+            Scribe_Values.Look(ref diableried, "diableried");
 
-            Scribe_Values.Look(ref timeOfDeath, "timeOfDeath", 0, false);
-            Scribe_Values.Look(ref vanishAfterTimestamp, "vanishAfterTimestamp", 0, false);
-            Scribe_Values.Look(ref everBuriedInSarcophagus, "everBuriedInSarcophagus", false, false);
+            Scribe_Values.Look(ref timeOfDeath, "timeOfDeath");
+            Scribe_Values.Look(ref vanishAfterTimestamp, "vanishAfterTimestamp");
+            Scribe_Values.Look(ref everBuriedInSarcophagus, "everBuriedInSarcophagus");
             Scribe_Deep.Look(ref operationsBillStack, "operationsBillStack", new object[]
             {
                 this

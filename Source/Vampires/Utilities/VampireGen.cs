@@ -13,7 +13,7 @@ namespace Vampire
         {
             try
             {
-                HediffVampirism vampHediff = (HediffVampirism)HediffMaker.MakeHediff(VampDefOf.ROM_Vampirism, pawn, null);
+                HediffVampirism vampHediff = (HediffVampirism)HediffMaker.MakeHediff(VampDefOf.ROM_Vampirism, pawn);
                 vampHediff.firstVampire = firstVampire;
                 vampHediff.sire = sire?.VampComp() ?? null;
                 vampHediff.generation = generation;
@@ -29,7 +29,7 @@ namespace Vampire
         {
             try
             {
-                HediffVampirism vampHediff = (HediffVampirism)HediffMaker.MakeHediff(VampDefOf.ROM_Vampirism, pawn, null);
+                HediffVampirism vampHediff = (HediffVampirism)HediffMaker.MakeHediff(VampDefOf.ROM_Vampirism, pawn);
                 vampHediff.firstVampire = firstVampire;
                 vampHediff.sire = sire.VampComp();
                 vampHediff.generation = sire.VampComp().Generation + 1;
@@ -47,7 +47,7 @@ namespace Vampire
 
             if (bpR != null && pawn?.VampComp()?.Bloodline?.fangsHediff != null)
             {
-                pawn.health.RestorePart(bpR, null, true);
+                pawn.health.RestorePart(bpR);
                 pawn.health.AddHediff(pawn.VampComp().Bloodline.fangsHediff, bpR, null);
             }
         }
@@ -87,7 +87,7 @@ namespace Vampire
             PawnGenerationRequest request = new PawnGenerationRequest(
                 PawnKindDefOf.SpaceRefugee, Faction.OfSpacer, PawnGenerationContext.NonPlayer,
                 -1, false, false, false, false, true, true, 20f, false, true,
-                true, false, false, false, false, null, null, null, null, null, null, null);
+                true, false, false, false, false, null, null, null, null, null, null);
             Pawn pawn = PawnGenerator.GeneratePawn(request);
             if (firstVampire)
             {

@@ -8,8 +8,8 @@ namespace Vampire
         public override void Effect(Pawn target)
         {
             CasterPawn.Drawer.Notify_DebugAffected();
-            MoteMaker.ThrowText(CasterPawn.DrawPos, CasterPawn.Map, AbilityUser.StringsToTranslate.AU_CastSuccess, -1f);
-            HediffWithComps hediff = (HediffWithComps)HediffMaker.MakeHediff(VampDefOf.ROMV_MindReadingHediff, CasterPawn, null);
+            MoteMaker.ThrowText(CasterPawn.DrawPos, CasterPawn.Map, AbilityUser.StringsToTranslate.AU_CastSuccess);
+            HediffWithComps hediff = (HediffWithComps)HediffMaker.MakeHediff(VampDefOf.ROMV_MindReadingHediff, CasterPawn);
             if (hediff.TryGetComp<HediffComp_ReadMind>() is HediffComp_ReadMind rm)
             {
                 rm.MindBeingRead = target;

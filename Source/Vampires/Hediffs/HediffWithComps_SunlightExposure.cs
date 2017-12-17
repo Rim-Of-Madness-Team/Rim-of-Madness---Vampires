@@ -32,7 +32,7 @@ namespace Vampire
                 //LongEventHandler.ExecuteWhenFinished(delegate
                 //{
                 SoundDef def = SoundDef.Named("FireBurning");
-                SoundInfo info = SoundInfo.InMap(new TargetInfo(pawn.Position, pawn.Map, false), MaintenanceType.PerTick);
+                SoundInfo info = SoundInfo.InMap(new TargetInfo(pawn.Position, pawn.Map), MaintenanceType.PerTick);
                 info.volumeFactor *= 2;
                 //this.sustainer = def.TrySpawnSustainer(info); //SustainerAggregatorUtility.AggregateOrSpawnSustainerFor(this, def, info);
                 sustainer = SustainerAggregatorUtility.AggregateOrSpawnSustainerFor(this, def, info);
@@ -87,7 +87,7 @@ namespace Vampire
                 if (!pawn.Dead)
                 {
                     int dmgRange = curSunDamage;
-                    DamageInfo dinfo = new DamageInfo(DamageDefOf.Burn, Rand.Range(1, curSunDamage), -1f, null, null, null, DamageInfo.SourceCategory.ThingOrUnknown);
+                    DamageInfo dinfo = new DamageInfo(DamageDefOf.Burn, Rand.Range(1, curSunDamage));
                     dinfo.SetBodyRegion(BodyPartHeight.Undefined, BodyPartDepth.Outside);
                     if (CurStageIndex > 2)
                         curSunDamage += Rand.Range(1, 2);

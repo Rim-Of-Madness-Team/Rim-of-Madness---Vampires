@@ -14,13 +14,7 @@ namespace Vampire
             get => bodyGraphic;
             set => bodyGraphic = value; }
 
-        public new HediffCompProperties_AnimalForm Props
-        {
-            get
-            {
-                return (HediffCompProperties_AnimalForm)props;
-            }
-        }
+        public new HediffCompProperties_AnimalForm Props => (HediffCompProperties_AnimalForm)props;
 
         public override string CompTipStringExtra
         {
@@ -57,7 +51,7 @@ namespace Vampire
         public override void CompExposeData()
         {
             base.CompExposeData();
-            Scribe_Values.Look(ref activated, "activated", false);
+            Scribe_Values.Look(ref activated, "activated");
         }
     }
 }

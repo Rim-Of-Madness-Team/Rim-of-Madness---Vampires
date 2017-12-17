@@ -12,7 +12,7 @@ namespace Vampire
                 target.mindState.Notify_DamageTaken(new DamageInfo(DamageDefOf.Cut, -1, -1, CasterPawn));
             }
             target.Drawer.Notify_DebugAffected();
-            MoteMaker.ThrowText(target.DrawPos, target.Map, AbilityUser.StringsToTranslate.AU_CastSuccess, -1f);
+            MoteMaker.ThrowText(target.DrawPos, target.Map, AbilityUser.StringsToTranslate.AU_CastSuccess);
         }
 
         public override void PostCastShot(bool inResult, out bool outResult)

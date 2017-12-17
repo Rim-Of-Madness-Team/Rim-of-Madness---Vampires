@@ -13,11 +13,11 @@ namespace Vampire
             {
                 if (t.Cell.Standable(CasterPawn.MapHeld))
                 {
-                    MoteMaker.ThrowText(CasterPawn.DrawPos, CasterPawn.Map, AbilityUser.StringsToTranslate.AU_CastSuccess, -1f);
+                    MoteMaker.ThrowText(CasterPawn.DrawPos, CasterPawn.Map, AbilityUser.StringsToTranslate.AU_CastSuccess);
                     CasterPawn.Position = t.Cell;
                     return;
                 }
-                MoteMaker.ThrowText(CasterPawn.DrawPos, CasterPawn.Map, AbilityUser.StringsToTranslate.AU_CastFailure, -1f);
+                MoteMaker.ThrowText(CasterPawn.DrawPos, CasterPawn.Map, AbilityUser.StringsToTranslate.AU_CastFailure);
             }
         }
         

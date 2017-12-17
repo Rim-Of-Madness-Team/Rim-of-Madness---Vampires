@@ -44,7 +44,7 @@ namespace Vampire
                 }), delegate
                 {
                     selPawn.jobs.TryTakeOrderedJob(new Job(VampDefOf.ROMV_EnterTorpor, parent));
-                }, MenuOptionPriority.Default, null, null, 0f, null, null);
+                });
             }
         }
 
@@ -57,7 +57,7 @@ namespace Vampire
                 {
                     if (bed != null && bed.Spawned)
                     {
-                        bed.Destroy(DestroyMode.Vanish);
+                        bed.Destroy();
                         bed = null;
                     }
                     if (g.TryGetInnerInteractableThingOwner().FirstOrDefault(x => x is MinifiedThing) is MinifiedThing t)
@@ -94,7 +94,7 @@ namespace Vampire
             base.PostDeSpawn(map);
             if (bed != null && bed.Spawned)
             {
-                bed.Destroy(DestroyMode.Vanish);
+                bed.Destroy();
                 bed = null;
             }
         }

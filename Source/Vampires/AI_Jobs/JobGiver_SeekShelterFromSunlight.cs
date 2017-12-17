@@ -42,7 +42,7 @@ namespace Vampire
                     return null;
                 if (pawn.Drafted)
                     return null;
-                Room room = pawn.GetRoom(RegionType.Set_Passable);
+                Room room = pawn.GetRoom();
                 if (room != null)
                 {
                     if (room.PsychologicallyOutdoors)

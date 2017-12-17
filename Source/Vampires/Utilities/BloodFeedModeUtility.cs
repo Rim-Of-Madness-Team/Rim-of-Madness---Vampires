@@ -27,7 +27,7 @@ namespace Vampire
                 if (Widgets.ButtonImage(rect, icon))
                 {
                 vampBlood.preferredFeedMode = GetNextResponse(pawn);
-                    SoundDefOf.TickHigh.PlayOneShotOnCamera(null);
+                    SoundDefOf.TickHigh.PlayOneShotOnCamera();
                     PlayerKnowledgeDatabase.KnowledgeDemonstrated(ConceptDefOf.HostilityResponse, KnowledgeAmount.SpecificInteraction);
                 }
                 UIHighlighter.HighlightOpportunity(rect, "ROMV_FeedMode");
@@ -50,7 +50,7 @@ namespace Vampire
                         vampBlood.preferredHumanoidFeedType = PreferredHumanoidFeedType.PrisonersOnly;
                     else if (vampBlood.preferredHumanoidFeedType == PreferredHumanoidFeedType.PrisonersOnly)
                         vampBlood.preferredHumanoidFeedType = PreferredHumanoidFeedType.All;
-                    SoundDefOf.TickHigh.PlayOneShotOnCamera(null);
+                    SoundDefOf.TickHigh.PlayOneShotOnCamera();
                 }
                 UIHighlighter.HighlightOpportunity(rectSub, "ROMV_FeedModeHumanoidType");
                 TooltipHandler.TipRegion(rectSub, string.Concat(new string[]

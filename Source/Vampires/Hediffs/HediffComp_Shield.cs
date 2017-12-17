@@ -38,44 +38,14 @@ namespace Vampire
 
         private static readonly Material BubbleMat = MaterialPool.MatFrom("Other/BloodShield", ShaderDatabase.Transparent);
 
-        public float EnergyMax
-        {
-            get
-            {
-                return 1.1f;
-            }
-        }
+        public float EnergyMax => 1.1f;
 
-        public string labelCap
-        {
-            get
-            {
-                return Def.LabelCap;
-            }
-        }
-        public string label
-        {
-            get
-            {
-                return Def.label;
-            }
-        }
+        public string labelCap => Def.LabelCap;
+        public string label => Def.label;
 
-        private float EnergyGainPerTick
-        {
-            get
-            {
-                return 0.13f / 60f;
-            }
-        }
+        private float EnergyGainPerTick => 0.13f / 60f;
 
-        public float Energy
-        {
-            get
-            {
-                return energy;
-            }
-        }
+        public float Energy => energy;
 
         public ShieldState ShieldState
         {
@@ -89,21 +59,15 @@ namespace Vampire
             }
         }
 
-        private bool ShouldDisplay
-        {
-            get
-            {
-                return !Pawn.Dead && !Pawn.Downed && (!Pawn.IsPrisonerOfColony || (Pawn.MentalStateDef != null && Pawn.MentalStateDef.IsAggro)) || (Pawn.Faction.HostileTo(Faction.OfPlayer) || Find.TickManager.TicksGame < lastKeepDisplayTick + KeepDisplayingTicks);
-            }
-        }
+        private bool ShouldDisplay => !Pawn.Dead && !Pawn.Downed && (!Pawn.IsPrisonerOfColony || (Pawn.MentalStateDef != null && Pawn.MentalStateDef.IsAggro)) || (Pawn.Faction.HostileTo(Faction.OfPlayer) || Find.TickManager.TicksGame < lastKeepDisplayTick + KeepDisplayingTicks);
 
         public override void CompExposeData()
         {
             base.CompExposeData();
-            Scribe_Values.Look(ref energy, "energy", 0f, false);
-            Scribe_Values.Look(ref setup, "setup", false);
-            Scribe_Values.Look(ref ticksToReset, "ticksToReset", -1, false);
-            Scribe_Values.Look(ref lastKeepDisplayTick, "lastKeepDisplayTick", 0, false);
+            Scribe_Values.Look(ref energy, "energy");
+            Scribe_Values.Look(ref setup, "setup");
+            Scribe_Values.Look(ref ticksToReset, "ticksToReset", -1);
+            Scribe_Values.Look(ref lastKeepDisplayTick, "lastKeepDisplayTick");
         }
 
         [DebuggerHidden]
@@ -193,7 +157,7 @@ namespace Vampire
 
         private void AbsorbedDamage(DamageInfo dinfo)
         {
-            SoundDefOf.EnergyShieldAbsorbDamage.PlayOneShot(new TargetInfo(Pawn.Position, Pawn.Map, false));
+            SoundDefOf.EnergyShieldAbsorbDamage.PlayOneShot(new TargetInfo(Pawn.Position, Pawn.Map));
             impactAngleVect = Vector3Utility.HorizontalVectorFromAngle(dinfo.Angle);
             Vector3 loc = Pawn.TrueCenter() + impactAngleVect.RotatedBy(180f) * 0.5f;
             float num = Mathf.Min(10f, 2f + (float)dinfo.Amount / 10f);
@@ -214,7 +178,7 @@ namespace Vampire
 
         private void Break()
         {
-            SoundDefOf.EnergyShieldBroken.PlayOneShot(new TargetInfo(Pawn.Position, Pawn.Map, false));
+            SoundDefOf.EnergyShieldBroken.PlayOneShot(new TargetInfo(Pawn.Position, Pawn.Map));
             MoteMaker.MakeStaticMote(Pawn.TrueCenter(), Pawn.Map, ThingDefOf.Mote_ExplosionFlash, 12f);
             for (int i = 0; i < 6; i++)
             {
@@ -229,7 +193,7 @@ namespace Vampire
         {
             if (Pawn.Spawned)
             {
-                SoundDefOf.EnergyShieldReset.PlayOneShot(new TargetInfo(Pawn.Position, Pawn.Map, false));
+                SoundDefOf.EnergyShieldReset.PlayOneShot(new TargetInfo(Pawn.Position, Pawn.Map));
                 MoteMaker.ThrowLightningGlow(Pawn.TrueCenter(), Pawn.Map, 3f);
             }
             ticksToReset = -1;

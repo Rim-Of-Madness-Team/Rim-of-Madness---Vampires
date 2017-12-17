@@ -62,7 +62,7 @@ namespace Vampire
 
         public static IEnumerable<Toil> MakeFeedToils(JobDef job, JobDriver thisDriver, Pawn actor, LocalTargetInfo TargetA, ThoughtDef victimThoughtDef, ThoughtDef actorThoughtDef, float workLeft, Action effect, Func<Pawn, Pawn, bool> stopCondition, bool needsGrapple = true, bool cleansWound = true, bool neverGiveUp = false)
         {
-            yield return Toils_Reserve.Reserve(TargetIndex.A, 1, -1, null);
+            yield return Toils_Reserve.Reserve(TargetIndex.A);
             Toil gotoToil = (actor?.Faction == TargetA.Thing?.Faction) ? Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.ClosestTouch) : Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.Touch);
             yield return gotoToil;
             Toil grappleToil = new Toil()
@@ -91,7 +91,7 @@ namespace Vampire
                         }
                         if (!AllowFeeding(actor, victim))
                         {
-                            actor.jobs.EndCurrentJob(JobCondition.Incompletable, true);
+                            actor.jobs.EndCurrentJob(JobCondition.Incompletable);
                         }
                         if (actor.IsVampire())
                             VampireBiteUtility.MakeNew(actor, victim);
@@ -116,7 +116,7 @@ namespace Vampire
                                 if (victimThoughtDef != null) victimThought = (Thought_Memory)ThoughtMaker.MakeThought(victimThoughtDef);
                                 if (victimThought != null)
                                 {
-                                    victim.needs.mood.thoughts.memories.TryGainMemory(victimThought, null);
+                                    victim.needs.mood.thoughts.memories.TryGainMemory(victimThought);
                                 }
                             }
                             if (actor?.needs?.mood?.thoughts?.memories != null)
@@ -125,7 +125,7 @@ namespace Vampire
                                 if (actorThoughtDef != null) actorThought = (Thought_Memory)ThoughtMaker.MakeThought(actorThoughtDef);
                                 if (actorThought != null)
                                 {
-                                    actor.needs.mood.thoughts.memories.TryGainMemory(actorThought, null);
+                                    actor.needs.mood.thoughts.memories.TryGainMemory(actorThought);
                                 }
                             }
                             
@@ -134,7 +134,7 @@ namespace Vampire
                             {
                                 if (actor?.VampComp() is CompVampire v && v.IsVampire && actor.Faction == Faction.OfPlayer)
                                 {
-                                    MoteMaker.ThrowText(actor.DrawPos, actor.Map, "XP +" + 15, -1f);
+                                    MoteMaker.ThrowText(actor.DrawPos, actor.Map, "XP +" + 15);
                                     v.XP += 15;
                                 }
                                 workLeft = BaseFeedTime;
@@ -176,7 +176,7 @@ namespace Vampire
                 defaultCompleteMode = ToilCompleteMode.Never
             };
             feedToil.socialMode = RandomSocialMode.Off;
-            feedToil.WithProgressBar(TargetIndex.A, () => 1f - workLeft / (float)BaseFeedTime, false, -0.5f);
+            feedToil.WithProgressBar(TargetIndex.A, () => 1f - workLeft / (float)BaseFeedTime);
             feedToil.PlaySustainerOrSound(delegate
             {
                 return ThingDefOf.Beer.ingestible.ingestSound;

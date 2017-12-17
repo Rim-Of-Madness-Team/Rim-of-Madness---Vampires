@@ -27,13 +27,7 @@ namespace Vampire
             }
         }
 
-        public override string LabelInBrackets
-        {
-            get
-            {
-                return "ROMV_HI_Generation".Translate(HediffVampirism.AddOrdinal(Generation));
-            }
-        }
+        public override string LabelInBrackets => "ROMV_HI_Generation".Translate(HediffVampirism.AddOrdinal(Generation));
 
         public override string TipStringExtra
         {
@@ -80,7 +74,7 @@ namespace Vampire
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look(ref setup, "setup", false);
+            Scribe_Values.Look(ref setup, "setup");
             Scribe_Values.Look(ref generation, "generation", -1);
         }
     }

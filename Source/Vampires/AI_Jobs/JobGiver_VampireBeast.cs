@@ -24,13 +24,13 @@ namespace Vampire
             {
                 return null;
             }
-            if (pawn?.TryGetAttackVerb(false) == null)
+            if (pawn?.TryGetAttackVerb() == null)
             {
                 return null;
             }
             
             Pawn pawn2 = FindPawnTarget(pawn);
-            if (pawn2 != null && pawn.CanReach(pawn2, PathEndMode.Touch, Danger.Deadly, false, TraverseMode.ByPawn))
+            if (pawn2 != null && pawn.CanReach(pawn2, PathEndMode.Touch, Danger.Deadly))
             {
                 if (pawn2.InAggroMentalState)
                     return MeleeAttackJob(pawn2);
@@ -45,7 +45,7 @@ namespace Vampire
             }
             if (pawn2 != null)
             {
-                using (PawnPath pawnPath = pawn.MapHeld.pathFinder.FindPath(pawn.Position, pawn2.Position, TraverseParms.For(pawn, Danger.Deadly, TraverseMode.PassAllDestroyableThings, false), PathEndMode.OnCell))
+                using (PawnPath pawnPath = pawn.MapHeld.pathFinder.FindPath(pawn.Position, pawn2.Position, TraverseParms.For(pawn, Danger.Deadly, TraverseMode.PassAllDestroyableThings)))
                 {
                     if (!pawnPath.Found)
                     {
@@ -62,10 +62,10 @@ namespace Vampire
                         //}
                     }
                     IntVec3 loc = pawnPath.LastCellBeforeBlockerOrFinalCell(pawn.MapHeld);
-                    IntVec3 randomCell = CellFinder.RandomRegionNear(loc.GetRegion(pawn.Map, RegionType.Set_Passable), 9, TraverseParms.For(pawn, Danger.Deadly, TraverseMode.ByPawn, false), null, null, RegionType.Set_Passable).RandomCell;
+                    IntVec3 randomCell = CellFinder.RandomRegionNear(loc.GetRegion(pawn.Map), 9, TraverseParms.For(pawn)).RandomCell;
                     if (randomCell == pawn.PositionHeld)
                     {
-                        return new Job(JobDefOf.Wait, 30, false);
+                        return new Job(JobDefOf.Wait, 30);
                     }
                     return new Job(JobDefOf.Goto, randomCell);
                 }
@@ -103,13 +103,13 @@ namespace Vampire
 
         private Building FindTurretTarget(Pawn pawn)
         {
-            return (Building)AttackTargetFinder.BestAttackTarget(pawn, TargetScanFlags.NeedLOSToPawns | TargetScanFlags.NeedLOSToNonPawns | TargetScanFlags.NeedReachable | TargetScanFlags.NeedThreat, (Thing t) => t is Building && t.Spawned, 0f, 70f, default(IntVec3), 3.40282347E+38f, false);
+            return (Building)AttackTargetFinder.BestAttackTarget(pawn, TargetScanFlags.NeedLOSToPawns | TargetScanFlags.NeedLOSToNonPawns | TargetScanFlags.NeedReachable | TargetScanFlags.NeedThreat, (Thing t) => t is Building && t.Spawned, 0f, 70f);
         }
 
 
         private Building_Door FindDoorTarget(Pawn pawn)
         {
-            return (Building_Door)AttackTargetFinder.BestAttackTarget(pawn, TargetScanFlags.NeedReachable, (Thing t) => t is Building_Door && t.Spawned, 0f, 70f, default(IntVec3), 3.40282347E+38f, false);
+            return (Building_Door)AttackTargetFinder.BestAttackTarget(pawn, TargetScanFlags.NeedReachable, (Thing t) => t is Building_Door && t.Spawned, 0f, 70f);
         }
 
     }

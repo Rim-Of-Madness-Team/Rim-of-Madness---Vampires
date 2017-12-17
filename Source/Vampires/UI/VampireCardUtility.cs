@@ -178,14 +178,14 @@ namespace Vampire
             if (DebugSettings.godMode)
             {
                 Rect rectDebugPlus = new Rect(rectLevel.xMax, inRect.y, inRect.width * 0.3f, TextSize);
-                if (Widgets.ButtonText(rectDebugPlus, "+", true, false, true))
+                if (Widgets.ButtonText(rectDebugPlus, "+"))
                 {
                     compVampire.Notify_LevelUp(false);
                 }
                 if (compVampire.Level > 0)
                 {
                     Rect rectDebugReset = new Rect(rectDebugPlus.x, rectDebugPlus.yMax + 1, rectDebugPlus.width, TextSize);
-                    if (Widgets.ButtonText(rectDebugReset, "~", true, false, true))
+                    if (Widgets.ButtonText(rectDebugReset, "~"))
                     {
                         compVampire.Notify_ResetAbilities();
                     }

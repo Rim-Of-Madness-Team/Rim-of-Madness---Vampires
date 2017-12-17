@@ -73,7 +73,7 @@ namespace Vampire
                 IntVec3 intVec = criminal.Position + GenRadial.RadialPattern[num];
                 if (intVec.InBounds(map))
                 {
-                    if (GenSight.LineOfSight(intVec, criminal.Position, map, true, null, 0, 0))
+                    if (GenSight.LineOfSight(intVec, criminal.Position, map, true))
                     {
                         List<Thing> thingList = intVec.GetThingList(map);
                         for (int i = 0; i < thingList.Count; i++)
@@ -190,7 +190,7 @@ namespace Vampire
                                 .MakeThought(curCrime.VisitorThought);
                             if (CanTakeWitnessJob(witness))
                             {
-                                IntVec3 fleeLoc = CellFinderLoose.GetFleeDest(witness, new List<Thing>() { criminal }, 23f);
+                                IntVec3 fleeLoc = CellFinderLoose.GetFleeDest(witness, new List<Thing>() { criminal });
                                 witness.jobs.StartJob(new Job(JobDefOf.FleeAndCower, fleeLoc));
                                 if (witness.Faction != null && !witness.Faction.HostileTo(criminal.Faction))
                                 {
@@ -220,7 +220,7 @@ namespace Vampire
                         thought_MemoryObservation.Target = criminal;
                         //Log.Message("Loop 1 Step 8");
 
-                        witness.needs.mood.thoughts.memories.TryGainMemory(thought_MemoryObservation, null);
+                        witness.needs.mood.thoughts.memories.TryGainMemory(thought_MemoryObservation);
                         //Log.Message("Loop 1 Step 9");
 
                     }

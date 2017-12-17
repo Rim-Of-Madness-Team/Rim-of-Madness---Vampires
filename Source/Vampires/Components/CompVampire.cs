@@ -97,24 +97,13 @@ namespace Vampire
                 return result;
             }
         }
-        public float XPTillNextLevelPercent
-        {
-            get
-            {
-                return ((float)(xp - XPLastLevel) / (float)(XPTillNextLevel - XPLastLevel));
-            }
-        }
-        public int XPTillNextLevel
-        {
-            get
-            {
-                return (level + 1) * 600;
-            }
-        }
+        public float XPTillNextLevelPercent => ((float)(xp - XPLastLevel) / (float)(XPTillNextLevel - XPLastLevel));
+        public int XPTillNextLevel => (level + 1) * 600;
 
         public int AbilityPoints { get => abilityPoints; set => abilityPoints = value; }
         public bool Transformed => currentForm != null;
-        public PawnKindDef CurrentForm { get => currentForm; set { currentForm = value; }}
+        public PawnKindDef CurrentForm { get => currentForm; set => currentForm = value;
+        }
         private Graphic curFormGraphic = null;
         public Graphic CurFormGraphic { get => curFormGraphic; set => curFormGraphic = value; }
 
@@ -187,10 +176,8 @@ namespace Vampire
             }
         }
         public BloodlineDef Bloodline {
-            get
-            {
-                return bloodline;
-            } set => bloodline = value; }
+            get => bloodline;
+            set => bloodline = value; }
         public int Generation { get => generation; set => generation = value; }
         public bool Thinblooded => generation > 13;
         public Need_Blood BloodPool => AbilityUser?.needs?.TryGetNeed<Need_Blood>() ?? null;
@@ -306,7 +293,7 @@ namespace Vampire
         public void GiveEmbraceJob(Pawn newChilde)
         {
             Job embraceJob = new Job(VampDefOf.ROMV_Embrace, newChilde);
-            AbilityUser.jobs.TryTakeOrderedJob(embraceJob, JobTag.Misc);
+            AbilityUser.jobs.TryTakeOrderedJob(embraceJob);
         }
 
         public void InitializeVampirism(Pawn newSire, BloodlineDef newBloodline = null, int newGeneration = -1, bool firstVampire = false)
@@ -377,7 +364,7 @@ namespace Vampire
                         ThinkResult thinkResult = thinkNode_JobGiver.TryIssueJobPackage(p, default(JobIssueParams));
                         if (thinkResult.Job is Job j && j.IsSunlightSafeFor(p))
                         {
-                            p.jobs.StartJob(j, JobCondition.Incompletable, null, false, true, null, null, false);
+                            p.jobs.StartJob(j, JobCondition.Incompletable, null, false, true, null, null);
                         }
                         else
                         {
@@ -400,7 +387,7 @@ namespace Vampire
 
         public void Notify_Embraced(CompVampire sireComp)
         {
-            InitializeVampirism(sireComp.AbilityUser, sireComp.Bloodline, sireComp.Generation + 1, false);
+            InitializeVampirism(sireComp.AbilityUser, sireComp.Bloodline, sireComp.Generation + 1);
             Messages.Message("ROMV_EmbracedSuccessfully".Translate(new object[]
             {
                 AbilityUser.LabelShort,
@@ -466,7 +453,7 @@ namespace Vampire
                         action = delegate
                         {
                             AbilityUser.Drawer.Notify_DebugAffected();
-                            MoteMaker.ThrowText(AbilityUser.DrawPos, AbilityUser.Map, StringsToTranslate.AU_CastSuccess, -1f);
+                            MoteMaker.ThrowText(AbilityUser.DrawPos, AbilityUser.Map, StringsToTranslate.AU_CastSuccess);
                             BloodPool.AdjustBlood(-bloodHeal.bloodCost);
                             VampireUtility.Heal(AbilityUser);
                         },
@@ -481,9 +468,9 @@ namespace Vampire
         {
             Scribe_Defs.Look(ref bloodline, "bloodline");
             Scribe_Values.Look(ref generation, "generation");
-            Scribe_Values.Look(ref level, "level", 0);
-            Scribe_Values.Look(ref xp, "xp", 0);
-            Scribe_Values.Look(ref abilityPoints, "abilityPoints", 0);
+            Scribe_Values.Look(ref level, "level");
+            Scribe_Values.Look(ref xp, "xp");
+            Scribe_Values.Look(ref abilityPoints, "abilityPoints");
             Scribe_Values.Look(ref curSunlightPolicy, "curSunlightPolicy", SunlightPolicy.Restricted);
             Scribe_References.Look(ref sire, "sire");
             Scribe_Collections.Look(ref souls, "souls", LookMode.Reference);

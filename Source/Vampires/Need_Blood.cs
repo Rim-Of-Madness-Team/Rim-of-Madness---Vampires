@@ -157,10 +157,10 @@ namespace Vampire
             //private int curBloodPoints = Int32.MinValue;
             //private int nextBloodChangeTick = Int32.MaxValue;
             base.ExposeData();
-            Scribe_Values.Look(ref lastNonStarvingTick, "lastNonStarvingTick", -1, false);
-            Scribe_Values.Look(ref nextBloodChangeTick, "nextBloodChangeTick", -1, false);
-            Scribe_Values.Look(ref curBloodPoints, "curBloodPoints", -1, false);
-            Scribe_Values.Look(ref bloodFixer, "bloodFixer", false);
+            Scribe_Values.Look(ref lastNonStarvingTick, "lastNonStarvingTick", -1);
+            Scribe_Values.Look(ref nextBloodChangeTick, "nextBloodChangeTick", -1);
+            Scribe_Values.Look(ref curBloodPoints, "curBloodPoints", -1);
+            Scribe_Values.Look(ref bloodFixer, "bloodFixer");
             Scribe_Values.Look(ref preferredFeedMode, "preferredFeedMode", PreferredFeedMode.HumanoidNonLethal);
             Scribe_Values.Look(ref preferredHumanoidFeedType, "preferredHumanoidFeedType", PreferredHumanoidFeedType.PrisonersOnly);
         }

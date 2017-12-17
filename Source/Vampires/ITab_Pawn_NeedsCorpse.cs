@@ -25,13 +25,7 @@ namespace Vampire
             }
         }
 
-        public override bool IsVisible
-        {
-            get
-            {
-                return PawnForNeeds.needs != null && PawnForNeeds.needs.AllNeeds.Count > 0;
-            }
-        }
+        public override bool IsVisible => PawnForNeeds.needs != null && PawnForNeeds.needs.AllNeeds.Count > 0;
 
         public ITab_Pawn_NeedsCorpse()
         {

@@ -41,13 +41,13 @@ namespace Vampire
                         this.CanReserve(x)) is Pawn target)
                         {
                             Job newJob = new Job(VampDefOf.ROMV_FeedAndReturn, target, Master);
-                            jobs.TryTakeOrderedJob(newJob, JobTag.Misc);
+                            jobs.TryTakeOrderedJob(newJob);
                         }
                         else if (Master.Map.mapPawns.AllPawnsSpawned.FirstOrDefault(x => x.Faction != null && x != Master && !x.IsVampire() && x.RaceProps.Humanlike &&
                         this.CanReserve(x)) is Pawn tTwo)
                         {
                             Job newJob = new Job(VampDefOf.ROMV_FeedAndReturn, tTwo, Master);
-                            jobs.TryTakeOrderedJob(newJob, JobTag.Misc);
+                            jobs.TryTakeOrderedJob(newJob);
                         }
                     }
                 }
@@ -63,13 +63,13 @@ namespace Vampire
                         this.CanReserve(x)) is Pawn target)
                         {
                             Job newJob = new Job(VampDefOf.ROMV_FeedAndDestroy, target, Master);
-                            jobs.TryTakeOrderedJob(newJob, JobTag.Misc);
+                            jobs.TryTakeOrderedJob(newJob);
                         }
                         else if (Master.Map.mapPawns.AllPawnsSpawned.FirstOrDefault(x => x.Faction != null && x != Master && !x.IsVampire() && x.RaceProps.Humanlike && 
                         this.CanReserve(x)) is Pawn tTwo)
                         {
                             Job newJob = new Job(VampDefOf.ROMV_FeedAndDestroy, tTwo, Master);
-                            jobs.TryTakeOrderedJob(newJob, JobTag.Misc);
+                            jobs.TryTakeOrderedJob(newJob);
                         }
                     }
                 }
@@ -91,14 +91,14 @@ namespace Vampire
                         this.CanReserve(x)) is Pawn target)
                         {
                             Job newJob = new Job(VampDefOf.ROMV_FeedAndReturn, target, Master);
-                            jobs.TryTakeOrderedJob(newJob, JobTag.Misc);
+                            jobs.TryTakeOrderedJob(newJob);
                         }
                         else if (Master.Map.mapPawns.AllPawnsSpawned.FirstOrDefault(x => x.Faction != null && x != Master && !x.IsVampire() && 
                         x.RaceProps.Humanlike && 
                         this.CanReserve(x)) is Pawn tTwo)
                         {
                             Job newJob = new Job(VampDefOf.ROMV_FeedAndReturn, tTwo, Master);
-                            jobs.TryTakeOrderedJob(newJob, JobTag.Misc);
+                            jobs.TryTakeOrderedJob(newJob);
                         }
                     }
                 }
@@ -114,13 +114,13 @@ namespace Vampire
                         this.CanReserve(x)) is Pawn target)
                         {
                             Job newJob = new Job(VampDefOf.ROMV_FeedAndDestroy, target, Master);
-                            jobs.TryTakeOrderedJob(newJob, JobTag.Misc);
+                            jobs.TryTakeOrderedJob(newJob);
                         }
                         else if (Master.Map.mapPawns.AllPawnsSpawned.FirstOrDefault(x => x.Faction != null && x != Master && !x.IsVampire() && x.RaceProps.Humanlike &&
                         this.CanReserve(x)) is Pawn tTwo)
                         {
                             Job newJob = new Job(VampDefOf.ROMV_FeedAndDestroy, tTwo, Master);
-                            jobs.TryTakeOrderedJob(newJob, JobTag.Misc);
+                            jobs.TryTakeOrderedJob(newJob);
                         }
                     }
                 }
@@ -167,7 +167,7 @@ namespace Vampire
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look(ref ticksLeft, "ticksLeft", 0);
+            Scribe_Values.Look(ref ticksLeft, "ticksLeft");
             Scribe_References.Look(ref master, "master");
         }
     }

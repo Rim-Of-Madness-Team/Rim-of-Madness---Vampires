@@ -12,13 +12,7 @@ namespace Vampire
 
         private static readonly Texture2D EmptyShieldBarTex = SolidColorMaterials.NewSolidColorTexture(Color.clear);
 
-        public override float Width
-        {
-            get
-            {
-                return 140f;
-            }
-        }
+        public override float Width => 140f;
 
         public override GizmoResult GizmoOnGUI(Vector2 topLeft)
         {
@@ -38,7 +32,7 @@ namespace Vampire
                 Text.Anchor = TextAnchor.MiddleCenter;
                 Widgets.Label(rect3, (shield.Energy * 100f).ToString("F0") + " / " + (shield.EnergyMax * 100f).ToString("F0"));
                 Text.Anchor = TextAnchor.UpperLeft;
-            }, true, false, 1f);
+            });
             return new GizmoResult(GizmoState.Clear);
         }
     }

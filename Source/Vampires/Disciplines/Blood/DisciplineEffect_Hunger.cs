@@ -9,7 +9,7 @@ namespace Vampire
         public virtual void Effect()
         {
             CasterPawn.Drawer.Notify_DebugAffected();
-            MoteMaker.ThrowText(CasterPawn.DrawPos, CasterPawn.Map, AbilityUser.StringsToTranslate.AU_CastSuccess, -1f);
+            MoteMaker.ThrowText(CasterPawn.DrawPos, CasterPawn.Map, AbilityUser.StringsToTranslate.AU_CastSuccess);
             int num = GenRadial.NumCellsInRadius(3.9f);
             for (int i = 0; i < num; i++)
             {
@@ -22,7 +22,7 @@ namespace Vampire
                         if (t.def.defName == "FilthBlood")
                         {
                             CasterPawn.BloodNeed().AdjustBlood(1);
-                            t.Destroy(DestroyMode.Vanish);
+                            t.Destroy();
                         }
                     }
                 }

@@ -15,14 +15,14 @@ namespace Vampire
         public override void DoEditInterface(Listing_ScenEdit listing)
         {
             Rect scenPartRect = listing.GetScenPartRect(this, RowHeight * 5f);
-            text = Widgets.TextArea(scenPartRect, text, false);
+            text = Widgets.TextArea(scenPartRect, text);
         }
 
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look(ref text, "text", null, false);
-            Scribe_Values.Look(ref textKey, "textKey", null, false);
+            Scribe_Values.Look(ref text, "text");
+            Scribe_Values.Look(ref textKey, "textKey");
             Scribe_Defs.Look(ref closeSound, "closeSound");
         }
 

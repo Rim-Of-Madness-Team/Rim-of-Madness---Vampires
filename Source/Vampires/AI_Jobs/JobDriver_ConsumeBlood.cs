@@ -22,13 +22,7 @@ namespace Vampire
 
         private bool eatingFromInventory;
 
-        private Thing IngestibleSource
-        {
-            get
-            {
-                return job.GetTarget(TargetIndex.A).Thing;
-            }
-        }
+        private Thing IngestibleSource => job.GetTarget(TargetIndex.A).Thing;
 
         private float ChewDurationMultiplier
         {
@@ -39,15 +33,15 @@ namespace Vampire
                 {
                     return 1f;
                 }
-                return 1f / pawn.GetStatValue(StatDefOf.EatingSpeed, true);
+                return 1f / pawn.GetStatValue(StatDefOf.EatingSpeed);
             }
         }
 
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look(ref usingNutrientPasteDispenser, "usingNutrientPasteDispenser", false, false);
-            Scribe_Values.Look(ref eatingFromInventory, "eatingFromInventory", false, false);
+            Scribe_Values.Look(ref usingNutrientPasteDispenser, "usingNutrientPasteDispenser");
+            Scribe_Values.Look(ref eatingFromInventory, "eatingFromInventory");
         }
 
         public override string GetReport()
@@ -129,18 +123,18 @@ namespace Vampire
                 yield return Toils_Jump.Jump(chewToil);
                 yield return gotoToPickup;
                 yield return Toils_Ingest.PickupIngestible(TargetIndex.A, pawn);
-                Toil reserveExtraFoodToCollect = Toils_Reserve.Reserve(TargetIndex.C, 1, -1, null);
+                Toil reserveExtraFoodToCollect = Toils_Reserve.Reserve(TargetIndex.C);
                 Toil findExtraFoodToCollect = new Toil();
                 findExtraFoodToCollect.initAction = delegate
                 {
                     if (pawn.inventory.innerContainer.TotalStackCountOfDef(IngestibleSource.def) < job.takeExtraIngestibles)
                     {
-                        Predicate<Thing> validator = (Thing x) => pawn.CanReserve(x, 1, -1, null, false) 
+                        Predicate<Thing> validator = (Thing x) => pawn.CanReserve(x) 
                         && !x.IsForbidden(pawn) && x.IsSociallyProper(pawn);
                         Thing thing = GenClosest.ClosestThingReachable(pawn.Position, pawn.Map,
                             ThingRequest.ForDef(IngestibleSource.def), PathEndMode.Touch, 
-                            TraverseParms.For(pawn, Danger.Deadly, TraverseMode.ByPawn, false),
-                            12f, validator, null, 0, -1, false, RegionType.Set_Passable, false);
+                            TraverseParms.For(pawn),
+                            12f, validator);
                         if (thing != null)
                         {
                             pawn.CurJob.SetTarget(TargetIndex.C, thing);
@@ -187,10 +181,10 @@ namespace Vampire
                     {
                         if (!thing.Spawned)
                         {
-                            pawn.jobs.EndCurrentJob(JobCondition.Incompletable, true);
+                            pawn.jobs.EndCurrentJob(JobCondition.Incompletable);
                             return;
                         }
-                        pawn.Reserve(thing, job, 1, -1, null);
+                        pawn.Reserve(thing, job);
                     }
                 },
                 defaultCompleteMode = ToilCompleteMode.Instant
@@ -249,15 +243,15 @@ namespace Vampire
                 {
                     if (!(ingester.Position + ingester.Rotation.FacingCell).HasEatSurface(actor.Map) && ingester.GetPosture() == PawnPosture.Standing)
                     {
-                        ingester.needs.mood.thoughts.memories.TryGainMemory(ThoughtDefOf.AteWithoutTable, null);
+                        ingester.needs.mood.thoughts.memories.TryGainMemory(ThoughtDefOf.AteWithoutTable);
                     }
-                    Room room = ingester.GetRoom(RegionType.Set_Passable);
+                    Room room = ingester.GetRoom();
                     if (room != null)
                     {
                         int scoreStageIndex = RoomStatDefOf.Impressiveness.GetScoreStageIndex(room.GetStat(RoomStatDefOf.Impressiveness));
                         if (ThoughtDefOf.AteInImpressiveDiningRoom.stages[scoreStageIndex] != null)
                         {
-                            ingester.needs.mood.thoughts.memories.TryGainMemory(ThoughtMaker.MakeThought(ThoughtDefOf.AteInImpressiveDiningRoom, scoreStageIndex), null);
+                            ingester.needs.mood.thoughts.memories.TryGainMemory(ThoughtMaker.MakeThought(ThoughtDefOf.AteInImpressiveDiningRoom, scoreStageIndex));
                         }
                     }
                 }
@@ -270,7 +264,7 @@ namespace Vampire
                 {
                     thing = thing.SplitOff(1);
                 }
-                if (!thing.Destroyed) thing.Destroy(DestroyMode.Vanish);
+                if (!thing.Destroyed) thing.Destroy();
             };
             toil.defaultCompleteMode = ToilCompleteMode.Instant;
             return toil;
@@ -278,7 +272,7 @@ namespace Vampire
 
         public override bool TryMakePreToilReservations()
         {
-            return pawn.Reserve(TargetA, job, 1, -1, null);
+            return pawn.Reserve(TargetA, job);
         }
     }
 }

@@ -17,11 +17,11 @@ namespace Vampire
         protected override IEnumerable<Toil> MakeNewToils()
         {
             this.FailOnDespawnedOrNull(TargetIndex.A);
-            yield return Toils_Reserve.Reserve(TargetIndex.A, 1, -1, null);
+            yield return Toils_Reserve.Reserve(TargetIndex.A);
             yield return Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.InteractionCell);
             Toil prepare = Toils_General.Wait(500);
             prepare.FailOnCannotTouch(TargetIndex.A, PathEndMode.InteractionCell);
-            prepare.WithProgressBarToilDelay(TargetIndex.A, false, -0.5f);
+            prepare.WithProgressBarToilDelay(TargetIndex.A);
             yield return prepare;
             yield return new Toil
             {

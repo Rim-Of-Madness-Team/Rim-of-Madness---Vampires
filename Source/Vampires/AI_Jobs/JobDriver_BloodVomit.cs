@@ -12,13 +12,7 @@ namespace Vampire
 
         private PawnPosture lastPosture;
 
-        public override PawnPosture Posture
-        {
-            get
-            {
-                return lastPosture;
-            }
-        }
+        public override PawnPosture Posture => lastPosture;
 
         public override void Notify_LastPosture(PawnPosture posture, LayingDownState layingDown)
         {
@@ -29,8 +23,8 @@ namespace Vampire
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look(ref ticksLeft, "ticksLeft", 0, false);
-            Scribe_Values.Look(ref lastPosture, "lastPosture", PawnPosture.Standing, false);
+            Scribe_Values.Look(ref ticksLeft, "ticksLeft");
+            Scribe_Values.Look(ref lastPosture, "lastPosture");
         }
 
         [DebuggerHidden]
@@ -67,7 +61,7 @@ namespace Vampire
                     int curTicks = ticksLeft;
                     if (curTicks % 150 == 149)
                     {
-                        FilthMaker.MakeFilth(pawn.CurJob.targetA.Cell, pawn.Map, ThingDefOf.FilthBlood, pawn.LabelIndefinite(), 1);
+                        FilthMaker.MakeFilth(pawn.CurJob.targetA.Cell, pawn.Map, ThingDefOf.FilthBlood, pawn.LabelIndefinite());
                         if (pawn.BloodNeed() is Need_Blood n && n.CurBloodPoints > 0)
                         {
                             n.AdjustBlood(-1);

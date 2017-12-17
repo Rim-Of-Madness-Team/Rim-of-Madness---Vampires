@@ -24,7 +24,7 @@ namespace Vampire
                         {
                             if (defsToCheck.Contains(h.def))
                             {
-                                MoteMaker.ThrowText(CasterPawn.DrawPos, CasterPawn.Map, "ROMV_HediffRemoved".Translate(h.def.LabelCap), -1f);
+                                MoteMaker.ThrowText(CasterPawn.DrawPos, CasterPawn.Map, "ROMV_HediffRemoved".Translate(h.def.LabelCap));
                                 p.health.hediffSet.hediffs.Remove(h);
                             }
                         }
@@ -35,13 +35,13 @@ namespace Vampire
                     // Verse.FogGrid
                     if (CasterPawn.Map.fogGrid.IsFogged(c))
                     {
-                        MoteMaker.ThrowText(CasterPawn.DrawPos, CasterPawn.Map, AbilityUser.StringsToTranslate.AU_CastSuccess, -1f);
+                        MoteMaker.ThrowText(CasterPawn.DrawPos, CasterPawn.Map, AbilityUser.StringsToTranslate.AU_CastSuccess);
                         CasterPawn.Map.fogGrid.Notify_FogBlockerRemoved(c);
                         return;
                     }
                     else
                     {
-                        MoteMaker.ThrowText(CasterPawn.DrawPos, CasterPawn.Map, AbilityUser.StringsToTranslate.AU_CastFailure, -1f);
+                        MoteMaker.ThrowText(CasterPawn.DrawPos, CasterPawn.Map, AbilityUser.StringsToTranslate.AU_CastFailure);
                     }
                 }
             }

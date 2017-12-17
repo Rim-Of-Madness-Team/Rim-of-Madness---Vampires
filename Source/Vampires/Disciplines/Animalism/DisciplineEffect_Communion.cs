@@ -8,7 +8,7 @@ namespace Vampire
         public virtual void Effect()
         {
             //target.Drawer.Notify_DebugAffected();
-            MoteMaker.ThrowText(CasterPawn.DrawPos, CasterPawn.Map, AbilityUser.StringsToTranslate.AU_CastSuccess, -1f);
+            MoteMaker.ThrowText(CasterPawn.DrawPos, CasterPawn.Map, AbilityUser.StringsToTranslate.AU_CastSuccess);
             if (TargetsAoE[0] is LocalTargetInfo t && t.Cell != default(IntVec3))
             {
                 for (int i = 1; i <= 3; i++)

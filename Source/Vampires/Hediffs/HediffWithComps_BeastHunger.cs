@@ -19,7 +19,7 @@ namespace Vampire
                 {
                     if (CurStageIndex == 3 && pawn.MentalStateDef != MentalState_VampireBeast)
                     {
-                        pawn.mindState.mentalStateHandler.TryStartMentalState(MentalState_VampireBeast, null, true, false, null);
+                        pawn.mindState.mentalStateHandler.TryStartMentalState(MentalState_VampireBeast, null, true);
                     }
 
                     if (pB.CurLevelPercentage < 0.3f)
