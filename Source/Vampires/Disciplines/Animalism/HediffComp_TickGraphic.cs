@@ -1,7 +1,4 @@
-﻿using System;
-using RimWorld;
-using Verse;
-using System.Linq;
+﻿using Verse;
 using UnityEngine;
 
 namespace Vampire

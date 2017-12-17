@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Verse;
 using RimWorld;
-using Verse.Sound;
-using Verse.AI;
 using System.Linq;
 
 namespace Vampire

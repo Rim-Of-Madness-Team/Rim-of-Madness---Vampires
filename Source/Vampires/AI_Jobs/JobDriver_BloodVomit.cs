@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
-using Vampire;
 using Verse;
 using Verse.AI;
 using RimWorld;
