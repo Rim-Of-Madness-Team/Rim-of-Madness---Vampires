@@ -1,6 +1,4 @@
-﻿using System;
-using RimWorld;
-using Verse;
+﻿using Verse;
 using System.Text;
 
 namespace Vampire
@@ -29,7 +27,7 @@ namespace Vampire
             {
                 StringBuilder s = new StringBuilder();
                 s.Append(base.CompTipStringExtra);
-                string curMind = (MindBeingRead == null) ? "" : MindBeingRead.Label;
+                string curMind = MindBeingRead == null ? "" : MindBeingRead.Label;
                 s.AppendLine("ROMV_MindBeingRead".Translate(curMind));
                 return s.ToString();
             }

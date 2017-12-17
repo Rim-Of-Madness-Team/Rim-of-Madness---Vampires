@@ -32,14 +32,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
-      <HintPath>..\..\..\..\Harmony1091\0Harmony.dll</HintPath>
+      <HintPath>..\Dependencies\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="0JecsTools">
-      <HintPath>..\..\..\JecsTools\Assemblies\0JecsTools.dll</HintPath>
+      <HintPath>..\Dependencies\0JecsTools.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="AbilityUser">
-      <HintPath>..\..\..\JecsTools\Assemblies\AbilityUser.dll</HintPath>
+      <HintPath>..\Dependencies\AbilityUser.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp">
@@ -47,11 +47,11 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="BadHygiene">
-      <HintPath>C:\Users\mattw\Downloads\Dubs Bad Hygiene v1.2.2\Dubs Bad Hygiene\Assemblies\BadHygiene.dll</HintPath>
+      <HintPath>..\Dependencies\BadHygiene.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="CompAnimated">
-      <HintPath>..\..\..\JecsTools\Assemblies\CompAnimated.dll</HintPath>
+      <HintPath>..\Dependencies\CompAnimated.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -140,6 +140,7 @@
     <Compile Include="Hediffs\HediffVampirism_Tzimisce.cs" />
     <Compile Include="Hediffs\Hediff_AddedPart_Fangs.cs" />
     <Compile Include="ITab_Pawn_NeedsCorpse.cs" />
+      <Compile Include="PatchOperationModLoaded.cs"/>
     <Compile Include="ScenPart_LongerNights.cs" />
     <Compile Include="UI\Alert_VampireInSunlight.cs" />
     <Compile Include="UI\Alert_VampireStarving.cs" />
@@ -159,6 +160,7 @@
     <Compile Include="Components\CompVampire.cs" />
     <Compile Include="Defs\DisciplineDef.cs" />
     <Compile Include="UI\VampireCardUtility.cs" />
+      <Compile Include="Utilities\ExplosionUtility.cs"/>
     <Compile Include="Utilities\VampireBiteUtility.cs" />
     <Compile Include="Utilities\VampireGraphicUtility.cs" />
     <Compile Include="Utilities\VampireWitnessUtility.cs" />

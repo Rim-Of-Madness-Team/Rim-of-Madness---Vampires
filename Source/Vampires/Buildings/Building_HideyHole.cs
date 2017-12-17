@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using RimWorld;
+﻿using RimWorld;
 using Verse;
 
 namespace Vampire
@@ -12,7 +8,7 @@ namespace Vampire
         public override void Open()
         {
             base.Open();
-            this.Destroy(DestroyMode.Vanish);
+            Destroy();
         }
     }
 }

@@ -1,8 +1,6 @@
 ﻿using RimWorld;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 using Verse;
 using Verse.AI;
@@ -20,7 +18,7 @@ namespace Vampire
             if (canUseInventory)
             {
                 if (flag)
-                    thing = BloodUtility.BestBloodInInventory(getter, null, 0);
+                    thing = BestBloodInInventory(getter, null, 0);
                 if (thing != null)
                 {
                     if (getter.Faction != Faction.OfPlayer)
@@ -38,12 +36,12 @@ namespace Vampire
                     }
                 }
             }
-            Thing thing2 = BloodUtility.BestBloodSourceOnMap(getter, eater, desperate, BloodPreferabilty.Highblood, allowForbidden);
+            Thing thing2 = BestBloodSourceOnMap(getter, eater, desperate, BloodPreferabilty.Highblood, allowForbidden);
             if (thing == null && thing2 == null)
             {
                 if (canUseInventory && flag)
                 {
-                    thing = BloodUtility.BestBloodInInventory(getter, null, 0);
+                    thing = BestBloodInInventory(getter, null, 0);
                     if (thing != null)
                     {
                         bloodSource = thing;
@@ -54,7 +52,7 @@ namespace Vampire
                 if (thing2 == null && getter == eater)
                 {
 
-                    Pawn pawn = BloodUtility.BestPawnToHuntForVampire(getter);
+                    Pawn pawn = BestPawnToHuntForVampire(getter);
                     if (pawn != null)
                     {
                         bloodSource = pawn;
@@ -149,7 +147,7 @@ namespace Vampire
                     {
                         return false;
                     }
-                    if (t.IsBurning() || (!desperate && t.IsNotFresh()) || !getter.CanReserve(t, 1, -1, null, false))
+                    if (t.IsBurning() || !desperate && t.IsNotFresh() || !getter.CanReserve(t))
                     {
                         return false;
                     }
@@ -159,7 +157,7 @@ namespace Vampire
             };
             Thing thing;
             Predicate<Thing> validator = foodValidator;
-            thing = BloodUtility.SpawnedBloodItemScan(eater, getter.Position, getter.Map.listerThings.ThingsInGroup(ThingRequestGroup.FoodSourceNotPlantOrTree), PathEndMode.ClosestTouch, TraverseParms.For(getter, Danger.Deadly, TraverseMode.ByPawn, false), 9999f, validator);
+            thing = SpawnedBloodItemScan(eater, getter.Position, getter.Map.listerThings.ThingsInGroup(ThingRequestGroup.FoodSourceNotPlantOrTree), PathEndMode.ClosestTouch, TraverseParms.For(getter), 9999f, validator);
             return thing;
         }
 
@@ -224,16 +222,16 @@ namespace Vampire
                 //{
                     if (predator != pawn2)
                     {
-                        if (BloodUtility.IsAcceptableVictimFor(predator, pawn2, desperate))
+                        if (IsAcceptableVictimFor(predator, pawn2, desperate))
                         {
-                            if (predator.CanReach(pawn2, PathEndMode.Touch, Danger.Deadly, false, TraverseMode.ByPawn))
+                            if (predator.CanReach(pawn2, PathEndMode.Touch, Danger.Deadly))
                             {
                                 //if (!pawn2.IsForbidden(predator))
                                 //{
                                     if (!tutorialMode || pawn2.Faction != Faction.OfPlayer)
                                     {
                                     //Log.Message("Potential Prey: " + pawn2.Label);
-                                        float preyScoreFor = BloodUtility.GetPreyScoreFor(predator, pawn2);
+                                        float preyScoreFor = GetPreyScoreFor(predator, pawn2);
                                     //Log.Message("Potential Prey Score: " + preyScoreFor);
 
                                     if (preyScoreFor > num || pawn == null)
@@ -381,7 +379,7 @@ namespace Vampire
                         }
                         
                         if ((victim.IsPrisoner || victim.IsPrisonerOfColony) &&
-                           (eaterBlood.preferredHumanoidFeedType == PreferredHumanoidFeedType.PrisonersOnly))
+                           eaterBlood.preferredHumanoidFeedType == PreferredHumanoidFeedType.PrisonersOnly)
                                 return true;
 
 
@@ -423,7 +421,7 @@ namespace Vampire
         // RimWorld.FoodUtility
         public static int WillConsumeStackCountOf(Pawn ingester, ThingDef def)
         {
-            int num = Mathf.Min(10, BloodUtility.StackCountForBlood(def, ingester.VampComp().BloodPool.BloodWanted));
+            int num = Mathf.Min(10, StackCountForBlood(def, ingester.VampComp().BloodPool.BloodWanted));
             if (num < 1)
             {
                 num = 1;

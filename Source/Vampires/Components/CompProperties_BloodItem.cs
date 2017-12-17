@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Verse;
+﻿using Verse;
 
 namespace Vampire
 {
@@ -11,6 +7,6 @@ namespace Vampire
     {
         public BloodType bloodType = BloodType.LowBlood;
         public int bloodPoints = 1;        
-        public CompProperties_BloodItem() => this.compClass = typeof(CompBloodItem);
+        public CompProperties_BloodItem() => compClass = typeof(CompBloodItem);
     }
 }

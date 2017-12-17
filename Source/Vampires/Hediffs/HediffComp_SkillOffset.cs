@@ -1,26 +1,11 @@
-﻿using System;
-using RimWorld;
-using Verse;
+﻿using Verse;
 
 namespace Vampire
 {
     public class HediffComp_SkillOffset : HediffComp
     {
-        public HediffCompProperties_SkillOffset Props
-        {
-            get
-            {
-                return (HediffCompProperties_SkillOffset)this.props;
-            }
+        public HediffCompProperties_SkillOffset Props => (HediffCompProperties_SkillOffset)props;
 
-        }
-        public override string CompTipStringExtra
-        {
-            get
-            {
-                return this.Props.skillDef.LabelCap + ": " + ((this.Props.offset >= 0) ? "+" : "") + this.Props.offset.ToString();
-            }
-        }
-
+        public override string CompTipStringExtra => Props.skillDef.LabelCap + ": " + (Props.offset >= 0 ? "+" : "") + Props.offset.ToString();
     }
 }

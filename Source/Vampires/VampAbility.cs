@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using RimWorld;
+﻿using System.Text;
 using Verse;
 using AbilityUser;
 using UnityEngine;
@@ -11,7 +7,7 @@ namespace Vampire
 {
     public class VampAbility : PawnAbility
     {
-        public CompVampire Vamp => this.Pawn.VampComp(); //VampUtility.GetVamp(this.Pawn);
+        public CompVampire Vamp => Pawn.VampComp(); //VampUtility.GetVamp(this.Pawn);
         public VitaeAbilityDef AbilityDef => Def as VitaeAbilityDef;
 
         public VampAbility() : base() { }
@@ -66,7 +62,7 @@ namespace Vampire
             if (base.CanCastPowerCheck(context, out reason))
             {
                 reason = "";
-                if (this.Def != null && this.Def is VitaeAbilityDef vampDef)
+                if (Def != null && Def is VitaeAbilityDef vampDef)
                 {
                     if (Pawn.BloodNeed().CurBloodPoints < vampDef.bloodCost)
                     {

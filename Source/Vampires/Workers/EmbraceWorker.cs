@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using RimWorld;
 using Verse;
 
@@ -32,7 +30,7 @@ namespace Vampire
                 {
                     MemoryThoughtHandler memories = thoughtHaver.needs.mood.thoughts.memories;
                     //Log.Message("Memory Cleaner");
-                    if (memories.Memories.FindAll(x => x.otherPawn == vampToBe && (x.def.defName.Contains("Died")) || x.def.defName.Contains("Death")) is List<Thought_Memory> mems && mems.NullOrEmpty())
+                    if (memories.Memories.FindAll(x => x.otherPawn == vampToBe && x.def.defName.Contains("Died") || x.def.defName.Contains("Death")) is List<Thought_Memory> mems && !mems.NullOrEmpty())
                     {
                         foreach (Thought_Memory mem in mems)
                         {

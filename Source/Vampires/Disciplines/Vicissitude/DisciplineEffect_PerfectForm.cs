@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using RimWorld;
-using Verse;
+﻿using Verse;
 
 namespace Vampire
 {
@@ -12,7 +7,7 @@ namespace Vampire
         public override void Effect(Pawn target)
         {
             base.Effect(target);
-            HealthUtility.AdjustSeverity(this.CasterPawn, VampDefOf.ROMV_PerfectFormHediff, 1.0f);
+            HealthUtility.AdjustSeverity(CasterPawn, VampDefOf.ROMV_PerfectFormHediff, 1.0f);
         }
     }
 }

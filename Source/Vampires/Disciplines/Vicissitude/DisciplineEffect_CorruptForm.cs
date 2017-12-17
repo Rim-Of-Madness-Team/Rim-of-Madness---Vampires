@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using RimWorld;
 using Verse;
 
 namespace Vampire
@@ -11,7 +8,7 @@ namespace Vampire
     {
         public override void Effect(Pawn target)
         {
-            if (JecsTools.GrappleUtility.TryGrapple(this.CasterPawn, target))
+            if (JecsTools.GrappleUtility.TryGrapple(CasterPawn, target))
             {
                 base.Effect(target);
                 int boolSel = Rand.Range(0, 2);
@@ -43,11 +40,11 @@ namespace Vampire
                 }
 
                 IEnumerable<BodyPartRecord> recs = target.health.hediffSet.GetNotMissingParts();
-                if (recs.FirstOrDefault(x => (x.def.tags.Contains(tagOne))) is BodyPartRecord bp)
+                if (recs.FirstOrDefault(x => x.def.tags.Contains(tagOne)) is BodyPartRecord bp)
                 {
                     HediffGiveUtility.TryApply(target, hediffDefOne, new List<BodyPartDef> { bp.def });
                 }
-                if (recs.FirstOrDefault(x => (x.def.tags.Contains(tagTwo))) is BodyPartRecord bpII)
+                if (recs.FirstOrDefault(x => x.def.tags.Contains(tagTwo)) is BodyPartRecord bpII)
                 {
                     HediffGiveUtility.TryApply(target, hediffDefTwo, new List<BodyPartDef> { bpII.def });
                 }

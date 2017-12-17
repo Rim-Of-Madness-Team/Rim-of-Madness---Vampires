@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using RimWorld;
 using Verse;
 
 namespace Vampire
@@ -11,15 +8,12 @@ namespace Vampire
     {
         public override void Effect(Pawn target)
         {
-            Log.Message("1");
-            if (target.health.hediffSet.GetInjuriesTendable() is List<Hediff_Injury> injuries && !injuries.NullOrEmpty())
+            List<Hediff_Injury> injuries = new List<Hediff_Injury>(target.health.hediffSet.GetInjuriesTendable());
+            
+            if (!injuries.NullOrEmpty())
             {
-
-                Log.Message("2");
-
                 foreach (Hediff_Injury injury in injuries)
                 {
-                    Log.Message("3");
                     if (injury.Bleeding)
                         injury.Heal(30);
                 }

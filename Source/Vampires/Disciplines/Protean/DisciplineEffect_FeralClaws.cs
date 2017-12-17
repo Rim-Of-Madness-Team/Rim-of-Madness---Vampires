@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using RimWorld;
 using Verse;
 
@@ -14,12 +12,12 @@ namespace Vampire
             base.Effect(target);
             IEnumerable<BodyPartRecord> recs = target.health.hediffSet.GetNotMissingParts();
             Dictionary<BodyPartRecord, HediffDef> bodyPartRecords = new Dictionary<BodyPartRecord, HediffDef>();
-            if (recs.FirstOrDefault(x => (x.def == BodyPartDefOf.LeftHand)) is BodyPartRecord leftHand)
+            if (recs.FirstOrDefault(x => x.def == BodyPartDefOf.LeftHand) is BodyPartRecord leftHand)
                 bodyPartRecords.Add(leftHand, VampDefOf.ROMV_FeralClaw);
-            if (recs.FirstOrDefault(x => (x.def == BodyPartDefOf.RightHand)) is BodyPartRecord rightHand)
+            if (recs.FirstOrDefault(x => x.def == BodyPartDefOf.RightHand) is BodyPartRecord rightHand)
                 bodyPartRecords.Add(rightHand, VampDefOf.ROMV_FeralClaw);
 
-            if ((bodyPartRecords?.Count() ?? 0) > 0)
+            if ((bodyPartRecords?.Count ?? 0) > 0)
             {
                 foreach (KeyValuePair<BodyPartRecord, HediffDef> transformableParts in bodyPartRecords)
                 {

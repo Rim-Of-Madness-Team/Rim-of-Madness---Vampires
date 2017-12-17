@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using RimWorld;
+﻿using RimWorld;
 using Verse;
 
 namespace Vampire
@@ -12,7 +8,7 @@ namespace Vampire
         public override void Effect(Pawn target)
         {
             base.Effect(target);
-            GenExplosion.DoExplosion(target.PositionHeld, target.MapHeld, 1.9f, DamageDefOf.Stun, this.CasterPawn);
+            GenExplosion.DoExplosion(target.PositionHeld, target.MapHeld, 1.9f, DamageDefOf.Stun, CasterPawn);
         }
     }
 }

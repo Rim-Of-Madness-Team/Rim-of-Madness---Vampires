@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using RimWorld;
-using Verse;
+﻿using Verse;
 
 namespace Vampire
 {
@@ -12,7 +7,7 @@ namespace Vampire
         public override void Effect(Pawn target)
         {
             base.Effect(target);
-            if (target.Faction == this.CasterPawn.Faction) //To avoid throwing red errors
+            if (target.Faction == CasterPawn.Faction) //To avoid throwing red errors
                 target.ClearMind();
         }
     }

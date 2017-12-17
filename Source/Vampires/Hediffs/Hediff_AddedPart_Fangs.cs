@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using RimWorld;
+﻿using RimWorld;
 using Verse;
 
 namespace Vampire
@@ -18,7 +14,7 @@ namespace Vampire
         {
             get
             {
-                if (this.pawn.IsVampire())
+                if (pawn.IsVampire())
                     return false;
                 return true;
             }
@@ -29,9 +25,9 @@ namespace Vampire
         /// so we should also give them back their jaws.
         /// </summary>
         public override void PostRemoved()
-        {
-            if (!this.pawn.IsVampire())
-                this.pawn.health.RestorePart(base.Part, this, false);
+        {           
+            if (!pawn.IsVampire())
+                pawn.health.RestorePart(Part, this, false);
 
             base.PostRemoved();
         }

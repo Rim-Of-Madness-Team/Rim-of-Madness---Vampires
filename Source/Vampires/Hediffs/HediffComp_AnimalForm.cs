@@ -1,6 +1,4 @@
-﻿using System;
-using RimWorld;
-using Verse;
+﻿using Verse;
 using System.Linq;
 using System.Text;
 
@@ -16,13 +14,7 @@ namespace Vampire
             get => bodyGraphic;
             set => bodyGraphic = value; }
 
-        public new HediffCompProperties_AnimalForm Props
-        {
-            get
-            {
-                return (HediffCompProperties_AnimalForm)this.props;
-            }
-        }
+        public new HediffCompProperties_AnimalForm Props => (HediffCompProperties_AnimalForm)props;
 
         public override string CompTipStringExtra
         {
@@ -41,25 +33,25 @@ namespace Vampire
             if (!activated)
             {
                 activated = true;
-                if (this.Pawn.health.hediffSet.hediffs.FirstOrDefault(x => x != this.parent && x.TryGetComp<HediffComp_AnimalForm>() != null) is HediffWithComps h)
+                if (Pawn.health.hediffSet.hediffs.FirstOrDefault(x => x != parent && x.TryGetComp<HediffComp_AnimalForm>() != null) is HediffWithComps h)
                 {
-                    this.Pawn.health.hediffSet.hediffs.Remove(h);
+                    Pawn.health.hediffSet.hediffs.Remove(h);
                 }
-                this.Pawn.VampComp().CurrentForm = this.Props.animalToChangeInto;
-                this.Pawn.VampComp().CurFormGraphic = null;
+                Pawn.VampComp().CurrentForm = Props.animalToChangeInto;
+                Pawn.VampComp().CurFormGraphic = null;
 
                 //Log.Message("CurrentForm set to " + this.Props.animalToChangeInto.label);
             }
             if (CompShouldRemove)
             {
-                this.Pawn.VampComp().CurrentForm = null;
+                Pawn.VampComp().CurrentForm = null;
             }
         }
 
         public override void CompExposeData()
         {
             base.CompExposeData();
-            Scribe_Values.Look<bool>(ref this.activated, "activated", false);
+            Scribe_Values.Look(ref activated, "activated");
         }
     }
 }

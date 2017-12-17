@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using RimWorld;
 using Verse;
 
@@ -20,7 +18,7 @@ namespace Vampire
                 Hediff_MissingPart partToRestore = missingParts.RandomElement();
                 target.health.RestorePart(partToRestore.Part);
                 
-                Messages.Message("ROM_WerewolfLimbRegen".Translate(new object[] {
+                Messages.Message("ROMV_LimbRegen".Translate(new object[] {
                 target.LabelShort,
                 partToRestore.Label
             }), MessageTypeDefOf.PositiveEvent);

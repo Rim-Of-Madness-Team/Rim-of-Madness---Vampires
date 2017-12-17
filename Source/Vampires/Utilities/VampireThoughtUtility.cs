@@ -1,8 +1,5 @@
 ﻿using RimWorld;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Verse;
 
 namespace Vampire
@@ -15,7 +12,7 @@ namespace Vampire
             {
                 return;
             }
-            drainer.needs.mood.thoughts.memories.TryGainMemory(ThoughtMaker.MakeThought(VampDefOf.ROMV_IConsumedASoul, 0), null);
+            drainer.needs.mood.thoughts.memories.TryGainMemory(ThoughtMaker.MakeThought(VampDefOf.ROMV_IConsumedASoul, 0));
         }
 
         public static void GiveThoughtsForDrinkingBlood(Pawn drainer)
@@ -24,7 +21,7 @@ namespace Vampire
             {
                 return;
             }
-            drainer.needs.mood.thoughts.memories.TryGainMemory(ThoughtMaker.MakeThought(VampDefOf.ROMV_IGaveTheKiss, 0), null);
+            drainer.needs.mood.thoughts.memories.TryGainMemory(ThoughtMaker.MakeThought(VampDefOf.ROMV_IGaveTheKiss, 0));
         }
 
 
@@ -53,7 +50,7 @@ namespace Vampire
                                      where x.IsColonist || x.IsPrisonerOfColony
                                      select x)
             {
-                current.needs.mood.thoughts.memories.TryGainMemory(ThoughtMaker.MakeThought(def, thoughtIndex), null);
+                current.needs.mood.thoughts.memories.TryGainMemory(ThoughtMaker.MakeThought(def, thoughtIndex));
             }
         }
 
@@ -74,11 +71,11 @@ namespace Vampire
             {
                 if (current == victim)
                 {
-                    current.needs.mood.thoughts.memories.TryGainMemory(VampDefOf.ROMV_MyBloodHarvested, null);
+                    current.needs.mood.thoughts.memories.TryGainMemory(VampDefOf.ROMV_MyBloodHarvested);
                 }
                 else if (thoughtDef != null)
                 {
-                    current.needs.mood.thoughts.memories.TryGainMemory(thoughtDef, null);
+                    current.needs.mood.thoughts.memories.TryGainMemory(thoughtDef);
                 }
             }
         }
