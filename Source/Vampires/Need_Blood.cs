@@ -45,7 +45,7 @@ namespace Vampire
         public bool Starving => CompVampire != null && CompVampire.IsVampire && CurCategory == HungerCategory.Starving;
         public bool ShouldDie => CurBloodPoints == 0;
         public float PercPerPoint => 1f / MaxBloodPoints;
-        public bool DrainingIsDeadly => CurBloodPoints <= 2 || (pawn?.health?.hediffSet?.hediffs?.FirstOrDefault(x => x.def == HediffDefOf.BloodLoss) is Hediff bloodLoss && bloodLoss.CurStageIndex > 2);
+        public bool DrainingIsDeadly => CurBloodPoints <= 2 || pawn?.health?.hediffSet?.hediffs?.FirstOrDefault(x => x.def == HediffDefOf.BloodLoss) is Hediff bloodLoss && bloodLoss.CurStageIndex > 2;
         //public PreferredFeedMode PreferredFeedMode { get => preferredFeedMode; set => preferredFeedMode = value; }
 
 
@@ -74,7 +74,7 @@ namespace Vampire
         public int MaxBloodPointsForAnimal(Pawn p)
         {
             PawnKindDef def = p.kindDef;
-            int result = (def.RaceProps.baseBodySize < 1f) ? 1 : 2;
+            int result = def.RaceProps.baseBodySize < 1f ? 1 : 2;
             if (def == PawnKindDef.Named("Rat")) return 1;
             if (def == PawnKindDefOf.Thrumbo) return 10;
             return result;
@@ -92,7 +92,7 @@ namespace Vampire
                 if (CompVampire != null && CompVampire.IsVampire)
                 {
                     int gen = CompVampire.Generation;
-                    result = (gen > 7) ? 10 + (Math.Abs(gen - 13)) : 10 * (Math.Abs(gen - 9));
+                    result = gen > 7 ? 10 + Math.Abs(gen - 13) : 10 * Math.Abs(gen - 9);
                 }
                 return result;
             }
@@ -133,7 +133,7 @@ namespace Vampire
         #endregion  Properties
         
         public override int GUIChangeArrow 
-            => (CompVampire != null && CompVampire.IsVampire)? -1 : (CurLevel == MaxLevel) ? 0 : 1;
+            => CompVampire != null && CompVampire.IsVampire? -1 : CurLevel == MaxLevel ? 0 : 1;
         public override float CurInstantLevel => base.CurInstantLevel;
         public override float CurLevel
             {
@@ -386,12 +386,12 @@ namespace Vampire
             }
 
             float num2 = 14f;
-            float num3 = (customMargin < 0f) ? (num2 + 15f) : customMargin;
+            float num3 = customMargin < 0f ? num2 + 15f : customMargin;
             if (rect.height < 50f)
             {
                 num2 *= Mathf.InverseLerp(0f, 50f, rect.height);
             }
-            Text.Font = ((rect.height <= 55f) ? GameFont.Tiny : GameFont.Small);
+            Text.Font = rect.height <= 55f ? GameFont.Tiny : GameFont.Small;
             Text.Anchor = TextAnchor.LowerLeft;
             Rect rect2 = new Rect(rect.x + num3 + rect.width * 0.1f, rect.y, rect.width - num3 - rect.width * 0.1f, rect.height / 2f);
             Widgets.Label(rect2, GetLabel());
@@ -427,7 +427,7 @@ namespace Vampire
         // RimWorld.Need
         private void DrawBarThreshold(Rect barRect, float threshPct)
         {
-            float num = (float)((barRect.width <= 60f) ? 1 : 2);
+            float num = (float)(barRect.width <= 60f ? 1 : 2);
             Rect position = new Rect(barRect.x + barRect.width * threshPct - (num - 1f), barRect.y + barRect.height / 2f, num, barRect.height / 2f);
             Texture2D image;
             if (threshPct < CurLevelPercentage)

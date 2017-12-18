@@ -113,7 +113,7 @@ namespace Vampire
         {
             IntVec3 result = IntVec3.Invalid;
             Region region;
-            CellFinder.TryFindClosestRegionWith(pawn.GetRegion(), TraverseParms.For(pawn), (x => !x.Room.PsychologicallyOutdoors), 9999, out region, RegionType.Set_All);   //.ClosestRegionIndoors(pawn.Position, pawn.Map, TraverseParms.For(pawn, Danger.Deadly, TraverseMode.ByPawn, false), RegionType.Set_Passable);
+            CellFinder.TryFindClosestRegionWith(pawn.GetRegion(), TraverseParms.For(pawn), x => !x.Room.PsychologicallyOutdoors, 9999, out region, RegionType.Set_All);   //.ClosestRegionIndoors(pawn.Position, pawn.Map, TraverseParms.For(pawn, Danger.Deadly, TraverseMode.ByPawn, false), RegionType.Set_Passable);
             if (region != null)
             {
                 region.TryFindRandomCellInRegion(x => x.IsValid && x.x > 0 && x.z > 0 && x.InBounds(pawn.MapHeld) && x.GetDoor(pawn.MapHeld) == null, out result);
@@ -167,7 +167,7 @@ namespace Vampire
             cellRect.ClipInsideMap(map);
             IntVec3 randomCell = cellRect.RandomCell;
             if (!CellFinder.TryFindRandomCellNear(center, map, 8, (IntVec3 c) => c.Standable(map) &&
-                (GenConstruct.CanPlaceBlueprintAt(holeDef, c, rot, map).Accepted) &&
+                GenConstruct.CanPlaceBlueprintAt(holeDef, c, rot, map).Accepted &&
                 (map?.reachability?.CanReach(c, randomCell, PathEndMode.Touch, TraverseParms.For(TraverseMode.PassDoors)) ?? false), out randomCell))
             {
                 //Log.Error("Found no place to build hideyhole for burning vampire.");
@@ -255,9 +255,9 @@ namespace Vampire
                 int sunExpTicks = 0;
                 if (pawn?.health?.hediffSet?.GetFirstHediffOfDef(VampDefOf.ROMV_SunExposure) is HediffWithComps_SunlightExposure sunExp)
                 {
-                    sunExpTicks = (int)((TicksOfSurvivingSunlight * 0.75f) * sunExp.CurStageIndex);
+                    sunExpTicks = (int)(TicksOfSurvivingSunlight * 0.75f * sunExp.CurStageIndex);
                 }
-                int ticksToArrive = (cellsInSunlight * pawn.TicksPerMoveDiagonal) + sunExpTicks;
+                int ticksToArrive = cellsInSunlight * pawn.TicksPerMoveDiagonal + sunExpTicks;
                 if (ticksToArrive > TicksOfSurvivingSunlight)
                 {
                     return false;
@@ -281,7 +281,7 @@ namespace Vampire
             int ticksUntilArrival = distanceToPoint * ticksPerMove;
             int ticksLeeway = (int)(ticksUntilArrival * leewayFactor);
 
-            if ((ticksUntilArrival + ticksLeeway) <= ticksUntilDaylight)
+            if (ticksUntilArrival + ticksLeeway <= ticksUntilDaylight)
             {
                 return true;
             }

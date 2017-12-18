@@ -140,6 +140,7 @@
     <Compile Include="Hediffs\HediffVampirism_Tzimisce.cs" />
     <Compile Include="Hediffs\Hediff_AddedPart_Fangs.cs" />
     <Compile Include="ITab_Pawn_NeedsCorpse.cs" />
+      <Compile Include="PatchOperationModLoaded.cs"/>
     <Compile Include="ScenPart_LongerNights.cs" />
     <Compile Include="UI\Alert_VampireInSunlight.cs" />
     <Compile Include="UI\Alert_VampireStarving.cs" />
@@ -159,6 +160,7 @@
     <Compile Include="Components\CompVampire.cs" />
     <Compile Include="Defs\DisciplineDef.cs" />
     <Compile Include="UI\VampireCardUtility.cs" />
+      <Compile Include="Utilities\ExplosionUtility.cs"/>
     <Compile Include="Utilities\VampireBiteUtility.cs" />
     <Compile Include="Utilities\VampireGraphicUtility.cs" />
     <Compile Include="Utilities\VampireWitnessUtility.cs" />

@@ -10,7 +10,7 @@ namespace Vampire
             if (me.IsVampire() && other.IsVampire())
             {
                 CompVampire compVamp = other.GetComp<CompVampire>();
-                return me != other && (other.GetSire() == me);
+                return me != other && other.GetSire() == me;
             }
             return false;
         }

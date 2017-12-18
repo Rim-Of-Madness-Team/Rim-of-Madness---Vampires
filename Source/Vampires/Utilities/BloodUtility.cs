@@ -147,7 +147,7 @@ namespace Vampire
                     {
                         return false;
                     }
-                    if (t.IsBurning() || (!desperate && t.IsNotFresh()) || !getter.CanReserve(t))
+                    if (t.IsBurning() || !desperate && t.IsNotFresh() || !getter.CanReserve(t))
                     {
                         return false;
                     }
@@ -379,7 +379,7 @@ namespace Vampire
                         }
                         
                         if ((victim.IsPrisoner || victim.IsPrisonerOfColony) &&
-                           (eaterBlood.preferredHumanoidFeedType == PreferredHumanoidFeedType.PrisonersOnly))
+                           eaterBlood.preferredHumanoidFeedType == PreferredHumanoidFeedType.PrisonersOnly)
                                 return true;
 
 

@@ -1,4 +1,5 @@
-﻿using Verse;
+﻿using RimWorld;
+using Verse;
 
 namespace Vampire
 {
@@ -24,7 +25,7 @@ namespace Vampire
         /// so we should also give them back their jaws.
         /// </summary>
         public override void PostRemoved()
-        {
+        {           
             if (!pawn.IsVampire())
                 pawn.health.RestorePart(Part, this, false);
 

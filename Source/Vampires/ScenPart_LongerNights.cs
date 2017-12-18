@@ -42,7 +42,7 @@ namespace Vampire
 
         public string GetLongerNightsSummary()
         {
-            return (this?.nightsLength == 1.0f) ? "ROMV_EternalDarkness".Translate() : "ROMV_NightLengthBy".Translate(nightsLength.ToStringPercent());
+            return this?.nightsLength == 1.0f ? "ROMV_EternalDarkness".Translate() : "ROMV_NightLengthBy".Translate(nightsLength.ToStringPercent());
         }
 
         public override void Randomize()

@@ -36,7 +36,7 @@ namespace Vampire
                         opts.Add(new FloatMenuOption("ROMV_Feed".Translate(new object[]
                         {
                                 victim.LabelCap
-                        }) + ((curBloodVictim == 1) ? " " + "ROMV_LethalWarning".Translate() : ""), action, MenuOptionPriority.High, null, victim));
+                        }) + (curBloodVictim == 1 ? " " + "ROMV_LethalWarning".Translate() : ""), action, MenuOptionPriority.High, null, victim));
                         // SIP //////////////////////////
                         if (curBloodVictim > 1)
                         {
@@ -98,7 +98,7 @@ namespace Vampire
                             job.playerForced = true;
                             pawn.jobs.TryTakeOrderedJob(job);
                         };
-                        string benefitWarning = (selVampComp.Generation < victim.VampComp().Generation) ? " " + "ROMV_DiablerieNoBenefit".Translate() : "";
+                        string benefitWarning = selVampComp.Generation < victim.VampComp().Generation ? " " + "ROMV_DiablerieNoBenefit".Translate() : "";
                         opts.Add(new FloatMenuOption("ROMV_Diablerie".Translate(new object[]
                         {
                                 victim.LabelCap

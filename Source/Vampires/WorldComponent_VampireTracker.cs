@@ -24,7 +24,7 @@ namespace Vampire
         {
             if (idealGenerationOfChilde == -1)
             {
-                idealGenerationOfChilde = (childe?.VampComp()?.Generation == -1)? Rand.Range(10,13) : childe?.VampComp()?.Generation ?? Rand.Range(10, 13);
+                idealGenerationOfChilde = childe?.VampComp()?.Generation == -1? Rand.Range(10,13) : childe?.VampComp()?.Generation ?? Rand.Range(10, 13);
             }
 
             if (!ActiveVampires.NullOrEmpty() && ActiveVampires?.FindAll(x => x.VampComp() is CompVampire v &&

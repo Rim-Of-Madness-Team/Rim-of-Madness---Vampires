@@ -111,7 +111,7 @@ namespace Vampire
             {
                 if (Diableried)
                     return "ROMV_SoullessHuskOf".Translate(base.Label);
-                return (burnedToAshes) ? "ROMV_AshesOf".Translate(base.Label) : base.Label;
+                return burnedToAshes ? "ROMV_AshesOf".Translate(base.Label) : base.Label;
             }
         }
 

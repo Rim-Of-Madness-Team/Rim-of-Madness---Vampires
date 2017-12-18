@@ -63,7 +63,7 @@ namespace Vampire
         public static IEnumerable<Toil> MakeFeedToils(JobDef job, JobDriver thisDriver, Pawn actor, LocalTargetInfo TargetA, ThoughtDef victimThoughtDef, ThoughtDef actorThoughtDef, float workLeft, Action effect, Func<Pawn, Pawn, bool> stopCondition, bool needsGrapple = true, bool cleansWound = true, bool neverGiveUp = false)
         {
             yield return Toils_Reserve.Reserve(TargetIndex.A);
-            Toil gotoToil = (actor?.Faction == TargetA.Thing?.Faction) ? Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.ClosestTouch) : Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.Touch);
+            Toil gotoToil = actor?.Faction == TargetA.Thing?.Faction ? Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.ClosestTouch) : Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.Touch);
             yield return gotoToil;
             Toil grappleToil = new Toil()
             {
@@ -80,7 +80,7 @@ namespace Vampire
                         {
                             if (needsGrapple)
                             {
-                                int grappleBonus = (actor is PawnTemporary) ? 100 : 0 ;
+                                int grappleBonus = actor is PawnTemporary ? 100 : 0 ;
                                 if (!JecsTools.GrappleUtility.TryGrapple(actor, victim, grappleBonus))
                                 {
                                     thisDriver.EndJobWith(JobCondition.Incompletable);

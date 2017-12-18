@@ -78,12 +78,12 @@ namespace Vampire
         public static Pawn GenerateVampire(int generation, BloodlineDef bloodline, Pawn sire, Faction vampFaction = null, bool firstVampire = false)
         {
             //Lower generation vampires are impossibly old.
-            float? math = (sire != null) ? sire.ageTracker.AgeChronologicalYearsFloat + new FloatRange(100, 300).RandomInRange :
-                (generation > 4) ? Mathf.Clamp(2000 - (generation * Rand.Range(20, 200)), 16, 2000) :
-                                   100000 - (generation * Rand.Range(10000, 50000));
+            float? math = sire != null ? sire.ageTracker.AgeChronologicalYearsFloat + new FloatRange(100, 300).RandomInRange :
+                generation > 4 ? Mathf.Clamp(2000 - generation * Rand.Range(20, 200), 16, 2000) :
+                                   100000 - generation * Rand.Range(10000, 50000);
 
-            Faction faction = (vampFaction != null) ? vampFaction :
-                              (generation < 7) ? Find.FactionManager.FirstFactionOfDef(VampDefOf.ROMV_LegendaryVampires) : VampireUtility.RandVampFaction;
+            Faction faction = vampFaction != null ? vampFaction :
+                              generation < 7 ? Find.FactionManager.FirstFactionOfDef(VampDefOf.ROMV_LegendaryVampires) : VampireUtility.RandVampFaction;
             PawnGenerationRequest request = new PawnGenerationRequest(
                 PawnKindDefOf.SpaceRefugee, Faction.OfSpacer, PawnGenerationContext.NonPlayer,
                 -1, false, false, false, false, true, true, 20f, false, true,

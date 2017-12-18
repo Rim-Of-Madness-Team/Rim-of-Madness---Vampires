@@ -79,7 +79,7 @@ namespace Vampire
                     GenSpawn.Spawn(bed, parent.Position, parent.Map, parent.Rotation);
                     bed.SetFaction(parent.Faction);
                 }
-                if (bed != null && bed.Spawned && g.assignedPawn != null && ((bed?.AssignedPawns?.Contains(g.assignedPawn) ?? false) == false))
+                if (bed != null && bed.Spawned && g.assignedPawn != null && (bed?.AssignedPawns?.Contains(g.assignedPawn) ?? false) == false)
                 {
                     bed.TryAssignPawn(g.assignedPawn);
                 }

@@ -41,7 +41,7 @@ namespace Vampire
                 }));
             if (vampBlood.preferredFeedMode > PreferredFeedMode.AnimalLethal)
             {
-                Texture2D iconSub = (vampBlood.preferredHumanoidFeedType == PreferredHumanoidFeedType.All) ? HumanoidTypeAll : HumanoidTypePrisonersOnly;
+                Texture2D iconSub = vampBlood.preferredHumanoidFeedType == PreferredHumanoidFeedType.All ? HumanoidTypeAll : HumanoidTypePrisonersOnly;
                 Rect rectSub = new Rect(pos.x, rect.yMax + 5f, 24f, 24f);
 
                 if (Widgets.ButtonImage(rectSub, iconSub))
@@ -57,7 +57,7 @@ namespace Vampire
                 {
         "ROMV_FeedMode_CurrentType".Translate(),
         ": ",
-        (vampBlood.preferredHumanoidFeedType == PreferredHumanoidFeedType.All) ? "ROMV_FeedMode_TypeAll".Translate() : "ROMV_FeedMode_TypePrisonersOnly".Translate()
+        vampBlood.preferredHumanoidFeedType == PreferredHumanoidFeedType.All ? "ROMV_FeedMode_TypeAll".Translate() : "ROMV_FeedMode_TypePrisonersOnly".Translate()
                 }));
             }
         }

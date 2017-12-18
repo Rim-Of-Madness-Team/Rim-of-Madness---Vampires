@@ -45,7 +45,7 @@ namespace Vampire
                 if (Find.TickManager.TicksGame % 20 == 0)
                 {
                     if (CurStageIndex > 1 && Rand.Value > 0.5f) MoteMaker.ThrowSmoke(pawn.DrawPos, pawn.Map, 1f);
-                    if (CurStageIndex > 1 && Rand.Value < (CurStageIndex * 0.31f))
+                    if (CurStageIndex > 1 && Rand.Value < CurStageIndex * 0.31f)
                         MoteMaker.ThrowFireGlow(pawn.PositionHeld, pawn.Map, 1f);
                 }
             }

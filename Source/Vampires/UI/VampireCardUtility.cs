@@ -137,7 +137,7 @@ namespace Vampire
                     //
 
                     float powersTextSize = Text.CalcSize("ROMV_Disciplines".Translate()).x;
-                    Rect rectPowersLabel = new Rect((rect.width / 2) - (powersTextSize / 2), rectSkills.yMax + SectionOffset - 5, rect.width, HeaderSize);
+                    Rect rectPowersLabel = new Rect(rect.width / 2 - powersTextSize / 2, rectSkills.yMax + SectionOffset - 5, rect.width, HeaderSize);
                     Text.Font = GameFont.Medium;
                     Widgets.Label(rectPowersLabel, "ROMV_Disciplines".Translate().CapitalizeFirst());
                     Text.Font = GameFont.Small;
@@ -161,7 +161,7 @@ namespace Vampire
                     {
                         Rect rectDisciplines = new Rect(rect.x + ButtonSize, curY, rectPowersLabel.width, ButtonSize + Padding);
                         PowersGUIHandler(rectDisciplines, compVampire, compVampire.Sheet.Disciplines[i]);
-                        curY += ButtonSize + (Padding * 2) + (TextSize * 2);
+                        curY += ButtonSize + Padding * 2 + TextSize * 2;
                     }
             }
             GUI.EndGroup();
@@ -274,7 +274,7 @@ namespace Vampire
 
                         Widgets.DrawTextureFitted(buttonRect, ability.uiIcon, 1.0f);
                     }
-                    else if (Widgets.ButtonImage(buttonRect, ability.uiIcon) && (compVampire.AbilityUser.Faction == Faction.OfPlayer))
+                    else if (Widgets.ButtonImage(buttonRect, ability.uiIcon) && compVampire.AbilityUser.Faction == Faction.OfPlayer)
                     {
 
                         //if (compVampire.AbilityPoints < ability.abilityCost)
@@ -286,7 +286,7 @@ namespace Vampire
                         //    }), MessageTypeDefOf.RejectInput);
                         //    return;
                         //}
-                        if (compVampire.AbilityUser.story != null && (compVampire.AbilityUser.story.WorkTagIsDisabled(WorkTags.Violent) && ability.MainVerb.isViolent))
+                        if (compVampire.AbilityUser.story != null && compVampire.AbilityUser.story.WorkTagIsDisabled(WorkTags.Violent) && ability.MainVerb.isViolent)
                         {
                             Messages.Message("IsIncapableOfViolenceLower".Translate(new object[]
                             {
@@ -308,7 +308,7 @@ namespace Vampire
                         case 2: modifier = 0.72f; break;
                         case 3: modifier = 0.60f; break;
                     }
-                    if (count != 0) drawXOffset -= ((VampButtonPointSize * count) * modifier);
+                    if (count != 0) drawXOffset -= VampButtonPointSize * count * modifier;
                     else drawXOffset -= 2;
 
                     for (int j = 0; j < count + 1; j++)
@@ -316,7 +316,7 @@ namespace Vampire
 
                         ++pntCount;
                         float drawYOffset = VampButtonSize + TextSize + Padding;
-                        Rect powerRegion = new Rect(inRect.x + drawXOffset + (VampButtonPointSize * j), inRect.y + drawYOffset, VampButtonPointSize, VampButtonPointSize);
+                        Rect powerRegion = new Rect(inRect.x + drawXOffset + VampButtonPointSize * j, inRect.y + drawYOffset, VampButtonPointSize, VampButtonPointSize);
                         if (discipline.Points >= pntCount)
                         {
                             Widgets.DrawTextureFitted(powerRegion, TexButton.ROMV_PointFull, 1.0f);
@@ -329,7 +329,7 @@ namespace Vampire
                         TooltipHandler.TipRegion(powerRegion, () => ability.GetDescription() + "\n" + compVampire.PostAbilityVerbCompDesc(ability.MainVerb), 398462);
                     }
                     ++count;
-                    buttonXOffset += (ButtonSize * 3f) + Padding;
+                    buttonXOffset += ButtonSize * 3f + Padding;
                 }
             }
         }

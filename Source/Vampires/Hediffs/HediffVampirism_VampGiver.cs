@@ -34,7 +34,7 @@ namespace Vampire
             get
             {
                 int gen = generation;
-                int math = (gen > 7) ? 10 + (Math.Abs(gen - 13)) : 10 * (Math.Abs(gen - 9));
+                int math = gen > 7 ? 10 + Math.Abs(gen - 13) : 10 * Math.Abs(gen - 9);
 
                 StringBuilder s = new StringBuilder();
                 s.AppendLine(Bloodline.LabelCap);

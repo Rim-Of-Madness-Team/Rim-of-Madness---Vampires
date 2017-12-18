@@ -97,7 +97,7 @@ namespace Vampire
                 return result;
             }
         }
-        public float XPTillNextLevelPercent => ((float)(xp - XPLastLevel) / (float)(XPTillNextLevel - XPLastLevel));
+        public float XPTillNextLevelPercent => (float)(xp - XPLastLevel) / (float)(XPTillNextLevel - XPLastLevel);
         public int XPTillNextLevel => (level + 1) * 600;
 
         public int AbilityPoints { get => abilityPoints; set => abilityPoints = value; }
@@ -430,7 +430,7 @@ namespace Vampire
 
         }
 
-        public override float GrappleModifier => (IsVampire) ? 20 - generation : 0;
+        public override float GrappleModifier => IsVampire ? 20 - generation : 0;
 
 
 
@@ -440,7 +440,7 @@ namespace Vampire
             {
                 for (int i = 0; i < AbilityData.AllPowers.Count; i++)
                 {
-                    if (AbilityData.AllPowers[i] is VampAbility p && (p.ShouldShowGizmo() && p.AbilityDef.MainVerb.hasStandardCommand && p.AbilityDef.bloodCost != 0)) yield return p.GetGizmo();
+                    if (AbilityData.AllPowers[i] is VampAbility p && p.ShouldShowGizmo() && p.AbilityDef.MainVerb.hasStandardCommand && p.AbilityDef.bloodCost != 0) yield return p.GetGizmo();
                 }
                 if (AbilityUser.Downed && AbilityUser.IsVampire())
                 {

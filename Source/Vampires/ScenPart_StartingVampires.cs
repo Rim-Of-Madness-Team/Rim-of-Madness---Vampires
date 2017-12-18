@@ -103,7 +103,7 @@ namespace Vampire
 
         public string GetChanceOrMax()
         {
-            return (this?.vampChance == 1.0f) ? maxVampires.ToString() : "ROMV_ChanceOf".Translate(vampChance.ToStringPercent());
+            return this?.vampChance == 1.0f ? maxVampires.ToString() : "ROMV_ChanceOf".Translate(vampChance.ToStringPercent());
         }
 
         public string GetInCoffinsString()
@@ -113,7 +113,7 @@ namespace Vampire
 
         public string GenRangeToString()
         {
-            return (HediffVampirism.AddOrdinal(this?.generationRange.min ?? 10) + "-" + HediffVampirism.AddOrdinal(this?.generationRange.max ?? 15)) ?? "";
+            return HediffVampirism.AddOrdinal(this?.generationRange.min ?? 10) + "-" + HediffVampirism.AddOrdinal(this?.generationRange.max ?? 15) ?? "";
         }
 
         public override void Randomize()
@@ -123,7 +123,7 @@ namespace Vampire
             bloodline = PossibleBloodlines().RandomElement();
             generationRange.max = Rand.Range(10, 15);
             generationRange.min = Rand.Range(8, generationRange.max);
-            spawnInCoffins = (Rand.Value > 0.3) ? true : false;
+            spawnInCoffins = Rand.Value > 0.3 ? true : false;
         }
         
         public override void PostMapGenerate(Map map)
@@ -134,7 +134,7 @@ namespace Vampire
             }
             if (spawnInCoffins)
             {
-                bool usingDropPods = Find.Scenario.AllParts.Any(x => x is ScenPart_PlayerPawnsArriveMethod s && ((PlayerPawnsArriveMethod)AccessTools.Field(typeof(ScenPart_PlayerPawnsArriveMethod), "method").GetValue(s)) == PlayerPawnsArriveMethod.DropPods);
+                bool usingDropPods = Find.Scenario.AllParts.Any(x => x is ScenPart_PlayerPawnsArriveMethod s && (PlayerPawnsArriveMethod)AccessTools.Field(typeof(ScenPart_PlayerPawnsArriveMethod), "method").GetValue(s) == PlayerPawnsArriveMethod.DropPods);
                 List<List<Thing>> list = new List<List<Thing>>();
                 foreach (Pawn current in Find.GameInitData.startingPawns)
                 {
@@ -162,8 +162,8 @@ namespace Vampire
         {
             if (Find.VisibleMap == null)
             {
-                curVampires = Find.GameInitData.startingPawns.FindAll(x => x?.health?.hediffSet?.hediffs.FirstOrDefault(y => y.def.defName.Contains("Vampirism")) != null)?.Count() ?? 0;
-                BloodlineDef def = (randomBloodline) ? PossibleBloodlines().RandomElement() : bloodline;
+                curVampires = Find.GameInitData.startingPawns.FindAll(x => x?.health?.hediffSet?.hediffs.FirstOrDefault(y => y.def.defName.Contains("Vampirism")) != null)?.Count ?? 0;
+                BloodlineDef def = randomBloodline ? PossibleBloodlines().RandomElement() : bloodline;
                 if (pawn.RaceProps.Humanlike && context == PawnGenerationContext.PlayerStarter)
                 {
                     if (!pawn?.story?.WorkTagIsDisabled(WorkTags.Violent) ?? false)

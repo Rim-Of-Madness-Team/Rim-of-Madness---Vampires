@@ -66,7 +66,7 @@ namespace Vampire
             }
             yield return Toils_Misc.ThrowColonistAttackingMote(TargetIndex.A);
             yield return Toils_General.WaitWith(TargetIndex.A, 600, true);
-            yield return Toils_Goto.GotoThing(TargetIndex.B, Master.PositionHeld).FailOn(() => (Master == null) || (!Master.Spawned || Master.Dead));
+            yield return Toils_Goto.GotoThing(TargetIndex.B, Master.PositionHeld).FailOn(() => Master == null || !Master.Spawned || Master.Dead);
         }
 
         public bool ShouldContinueFeeding(Pawn feeder, Pawn victim)

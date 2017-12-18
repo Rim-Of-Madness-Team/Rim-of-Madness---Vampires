@@ -70,7 +70,7 @@ namespace Vampire
             {
                 initAction = delegate ()
                 {
-                    VampireCorpse vampCorpse = ((VampireCorpse)TargetA.Thing);
+                    VampireCorpse vampCorpse = (VampireCorpse)TargetA.Thing;
                     vampCorpse.Diableried = true;
                     Pawn p = vampCorpse.InnerPawn;
                     pawn.VampComp().Notify_Diablerie(p.VampComp());

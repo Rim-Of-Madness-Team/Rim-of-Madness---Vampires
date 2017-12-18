@@ -40,11 +40,11 @@ namespace Vampire
                 }
 
                 IEnumerable<BodyPartRecord> recs = target.health.hediffSet.GetNotMissingParts();
-                if (recs.FirstOrDefault(x => (x.def.tags.Contains(tagOne))) is BodyPartRecord bp)
+                if (recs.FirstOrDefault(x => x.def.tags.Contains(tagOne)) is BodyPartRecord bp)
                 {
                     HediffGiveUtility.TryApply(target, hediffDefOne, new List<BodyPartDef> { bp.def });
                 }
-                if (recs.FirstOrDefault(x => (x.def.tags.Contains(tagTwo))) is BodyPartRecord bpII)
+                if (recs.FirstOrDefault(x => x.def.tags.Contains(tagTwo)) is BodyPartRecord bpII)
                 {
                     HediffGiveUtility.TryApply(target, hediffDefTwo, new List<BodyPartDef> { bpII.def });
                 }

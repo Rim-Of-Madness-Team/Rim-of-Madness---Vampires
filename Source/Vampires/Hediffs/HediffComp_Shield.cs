@@ -59,7 +59,7 @@ namespace Vampire
             }
         }
 
-        private bool ShouldDisplay => !Pawn.Dead && !Pawn.Downed && (!Pawn.IsPrisonerOfColony || (Pawn.MentalStateDef != null && Pawn.MentalStateDef.IsAggro)) || (Pawn.Faction.HostileTo(Faction.OfPlayer) || Find.TickManager.TicksGame < lastKeepDisplayTick + KeepDisplayingTicks);
+        private bool ShouldDisplay => !Pawn.Dead && !Pawn.Downed && (!Pawn.IsPrisonerOfColony || Pawn.MentalStateDef != null && Pawn.MentalStateDef.IsAggro) || Pawn.Faction.HostileTo(Faction.OfPlayer) || Find.TickManager.TicksGame < lastKeepDisplayTick + KeepDisplayingTicks;
 
         public override void CompExposeData()
         {
@@ -122,7 +122,7 @@ namespace Vampire
 
         public bool CheckPreAbsorbDamage(DamageInfo dinfo)
         {
-            if (ShieldState == ShieldState.Active && ((dinfo.Instigator != null && !dinfo.Instigator.Position.AdjacentTo8WayOrInside(Pawn.Position)) || dinfo.Def.isExplosive))
+            if (ShieldState == ShieldState.Active && (dinfo.Instigator != null && !dinfo.Instigator.Position.AdjacentTo8WayOrInside(Pawn.Position) || dinfo.Def.isExplosive))
             {
                 if (dinfo.Instigator != null)
                 {

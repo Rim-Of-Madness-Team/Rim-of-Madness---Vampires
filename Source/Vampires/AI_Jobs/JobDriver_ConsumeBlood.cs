@@ -61,8 +61,8 @@ namespace Vampire
         public override void Notify_Starting()
         {
             base.Notify_Starting();
-            usingNutrientPasteDispenser = (IngestibleSource is Building_NutrientPasteDispenser);
-            eatingFromInventory = (pawn.inventory != null && pawn.inventory.Contains(IngestibleSource));
+            usingNutrientPasteDispenser = IngestibleSource is Building_NutrientPasteDispenser;
+            eatingFromInventory = pawn.inventory != null && pawn.inventory.Contains(IngestibleSource);
         }
 
         [DebuggerHidden]
