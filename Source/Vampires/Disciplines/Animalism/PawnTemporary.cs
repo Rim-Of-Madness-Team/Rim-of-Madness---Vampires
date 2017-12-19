@@ -57,15 +57,13 @@ namespace Vampire
                 {
                     if (Master == null)
                     {
-                        Log.Warning("No master for " + def.LabelCap + ". Cancelling FeedAndReturn job.");
+                        Log.Warning("No master for " + def.LabelCap + ". Cancelling FeedAndDestroy job.");
                     }
                     if (Master != null)
                     {
-                        Log.Message("Attempting to start FeedAndDestroy");
                         if (Master.Map.mapPawns.AllPawnsSpawned.FirstOrDefault(x => x.Faction != null && x.Faction.HostileTo(Master.Faction) &&
                         this.CanReserve(x)) is Pawn target)
                         {
-                            Log.Message("Starting FeedAndDestroy on " + target + " - hostile");
                             Job newJob = new Job(VampDefOf.ROMV_FeedAndDestroy, target, Master);
                             jobs.StartJob(newJob, JobCondition.InterruptForced);
                             //jobs.TryTakeOrderedJob(newJob);
@@ -73,7 +71,6 @@ namespace Vampire
                         else if (Master.Map.mapPawns.AllPawnsSpawned.FirstOrDefault(x => x.Faction != null && x != Master && !x.IsVampire() && x.RaceProps.Humanlike && 
                         this.CanReserve(x)) is Pawn tTwo)
                         {
-                            Log.Message("Starting FeedAndDestroy on " + tTwo + " - friendly");
                             Job newJob = new Job(VampDefOf.ROMV_FeedAndDestroy, tTwo, Master);
                             jobs.StartJob(newJob, JobCondition.InterruptForced);
                             //jobs.TryTakeOrderedJob(newJob);
@@ -97,7 +94,6 @@ namespace Vampire
                         if (Master.Map.mapPawns.AllPawnsSpawned.FirstOrDefault(x => x.Faction != null && x.Faction.HostileTo(Master.Faction) && 
                         this.CanReserve(x)) is Pawn target)
                         {
-                            Log.Message("Starting FeedAndDestroy on " + target + " - hostile");
                             Job newJob = new Job(VampDefOf.ROMV_FeedAndReturn, target, Master);
                             jobs.StartJob(newJob, JobCondition.InterruptForced);
                             //jobs.TryTakeOrderedJob(newJob);
@@ -106,7 +102,6 @@ namespace Vampire
                         x.RaceProps.Humanlike && 
                         this.CanReserve(x)) is Pawn tTwo)
                         {
-                            Log.Message("Starting FeedAndDestroy on " + tTwo + " - friendly");
                             Job newJob = new Job(VampDefOf.ROMV_FeedAndReturn, tTwo, Master);
                             jobs.StartJob(newJob, JobCondition.InterruptForced);
                             //jobs.TryTakeOrderedJob(newJob);

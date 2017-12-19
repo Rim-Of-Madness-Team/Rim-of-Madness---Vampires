@@ -300,7 +300,6 @@ namespace Vampire
         {
             if (pawn is PawnTemporary && pawn.def == VampDefOf.ROMV_BloodMistRace && __result != null && __result.def == JobDefOf.AttackMelee)
             {
-                Log.Message("Cancelling melee attack");
                 //Cancel any melee attacks
                 __result = null;
             }

@@ -55,9 +55,6 @@ namespace Vampire
         [DebuggerHidden]
         protected override IEnumerable<Toil> MakeNewToils()
         {
-            Log.Message("Making FeedAndDestroy Toils!");
-            Log.Message("Victim is: " + Victim);
-            Log.Message("Master is: " + Master);
             //this.FailOnDespawnedNullOrForbidden(TargetIndex.A);
             this.FailOn(delegate
             {
@@ -66,7 +63,6 @@ namespace Vampire
             this.FailOnAggroMentalState(TargetIndex.A);
             foreach (Toil t in JobDriver_Feed.MakeFeedToils(job.def, this, GetActor(), TargetA, null, null, workLeft, DoEffect, ShouldContinueFeeding, true, false))
             {
-                Log.Message("Returning " + t);
                 yield return t;
             }
             yield return Toils_Misc.ThrowColonistAttackingMote(TargetIndex.A);
