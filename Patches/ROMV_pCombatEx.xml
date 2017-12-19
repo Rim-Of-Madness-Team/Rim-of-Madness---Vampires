@@ -145,7 +145,6 @@ Help: XPath Syntax: https://www.w3schools.com/xml/xpath_syntax.asp
 				<value>
 					<tools>
 						<li Class="CombatExtended.ToolCE">
-							<label>claws</label>
 							<cooldownTime>1.0</cooldownTime>
 							<power>7</power>
 							<capacities>
@@ -163,7 +162,6 @@ Help: XPath Syntax: https://www.w3schools.com/xml/xpath_syntax.asp
 							<armorPenetration>0.15</armorPenetration>
 						</li>
 						<li Class="CombatExtended.ToolCE">
-							<label>claws</label>
 							<cooldownTime>1.0</cooldownTime>
 							<power>7</power>
 							<capacities>
