@@ -53,7 +53,7 @@
       </li>
       <li>
         <bodyGraphicData>
-          <texPath>Things/Pawn/Animal/WarFormA/WarForm</texPath>
+          <texPath>Things/Pawn/Animal/WarForm/WarForm</texPath>
           <drawSize>3.95</drawSize>
           <shadowData>
             <volume>(0.3, 0.4, 0.3)</volume>
