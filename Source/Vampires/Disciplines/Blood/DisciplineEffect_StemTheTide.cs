@@ -10,14 +10,10 @@ namespace Vampire
         {
             Log.Message("1");
             
-            foreach (var hediffInjury in target.health.hediffSet.GetInjuriesTendable())
-            {
-                Log.Message(hediffInjury.ToString());
-            }
+            List<Hediff_Injury> injuries = new List<Hediff_Injury>(target.health.hediffSet.GetInjuriesTendable());
             
-            if (target.health.hediffSet.GetInjuriesTendable() is List<Hediff_Injury> injuries && !injuries.NullOrEmpty())
+            if (!injuries.NullOrEmpty())
             {
-
                 Log.Message("2");
 
                 foreach (Hediff_Injury injury in injuries)
