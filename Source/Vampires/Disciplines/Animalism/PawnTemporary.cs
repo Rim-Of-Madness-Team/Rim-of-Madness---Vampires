@@ -41,12 +41,14 @@ namespace Vampire
                         this.CanReserve(x)) is Pawn target)
                         {
                             Job newJob = new Job(VampDefOf.ROMV_FeedAndReturn, target, Master);
+                            jobs.StopAll();
                             jobs.TryTakeOrderedJob(newJob);
                         }
                         else if (Master.Map.mapPawns.AllPawnsSpawned.FirstOrDefault(x => x.Faction != null && x != Master && !x.IsVampire() && x.RaceProps.Humanlike &&
                         this.CanReserve(x)) is Pawn tTwo)
                         {
                             Job newJob = new Job(VampDefOf.ROMV_FeedAndReturn, tTwo, Master);
+                            jobs.StopAll();
                             jobs.TryTakeOrderedJob(newJob);
                         }
                     }
@@ -59,17 +61,22 @@ namespace Vampire
                     }
                     if (Master != null)
                     {
+                        Log.Message("Attempting to start FeedAndDestroy");
                         if (Master.Map.mapPawns.AllPawnsSpawned.FirstOrDefault(x => x.Faction != null && x.Faction.HostileTo(Master.Faction) &&
                         this.CanReserve(x)) is Pawn target)
                         {
+                            Log.Message("Starting FeedAndDestroy on " + target + " - hostile");
                             Job newJob = new Job(VampDefOf.ROMV_FeedAndDestroy, target, Master);
-                            jobs.TryTakeOrderedJob(newJob);
+                            jobs.StartJob(newJob, JobCondition.InterruptForced);
+                            //jobs.TryTakeOrderedJob(newJob);
                         }
                         else if (Master.Map.mapPawns.AllPawnsSpawned.FirstOrDefault(x => x.Faction != null && x != Master && !x.IsVampire() && x.RaceProps.Humanlike && 
                         this.CanReserve(x)) is Pawn tTwo)
                         {
+                            Log.Message("Starting FeedAndDestroy on " + tTwo + " - friendly");
                             Job newJob = new Job(VampDefOf.ROMV_FeedAndDestroy, tTwo, Master);
-                            jobs.TryTakeOrderedJob(newJob);
+                            jobs.StartJob(newJob, JobCondition.InterruptForced);
+                            //jobs.TryTakeOrderedJob(newJob);
                         }
                     }
                 }
@@ -90,19 +97,23 @@ namespace Vampire
                         if (Master.Map.mapPawns.AllPawnsSpawned.FirstOrDefault(x => x.Faction != null && x.Faction.HostileTo(Master.Faction) && 
                         this.CanReserve(x)) is Pawn target)
                         {
+                            Log.Message("Starting FeedAndDestroy on " + target + " - hostile");
                             Job newJob = new Job(VampDefOf.ROMV_FeedAndReturn, target, Master);
-                            jobs.TryTakeOrderedJob(newJob);
+                            jobs.StartJob(newJob, JobCondition.InterruptForced);
+                            //jobs.TryTakeOrderedJob(newJob);
                         }
                         else if (Master.Map.mapPawns.AllPawnsSpawned.FirstOrDefault(x => x.Faction != null && x != Master && !x.IsVampire() && 
                         x.RaceProps.Humanlike && 
                         this.CanReserve(x)) is Pawn tTwo)
                         {
+                            Log.Message("Starting FeedAndDestroy on " + tTwo + " - friendly");
                             Job newJob = new Job(VampDefOf.ROMV_FeedAndReturn, tTwo, Master);
-                            jobs.TryTakeOrderedJob(newJob);
+                            jobs.StartJob(newJob, JobCondition.InterruptForced);
+                            //jobs.TryTakeOrderedJob(newJob);
                         }
                     }
                 }
-                if (def == VampDefOf.ROMV_BloodMistRace && CurJob != null && CurJob.def != VampDefOf.ROMV_FeedAndDestroy)
+                /*if (def == VampDefOf.ROMV_BloodMistRace && CurJob != null && CurJob.def != VampDefOf.ROMV_FeedAndDestroy)
                 {
                     if (Master == null)
                     {
@@ -123,7 +134,8 @@ namespace Vampire
                             jobs.TryTakeOrderedJob(newJob);
                         }
                     }
-                }
+                }*/
+                //The above should no longer be needed as the action cannot be interrupted.
             }
 
             ticksLeft--;

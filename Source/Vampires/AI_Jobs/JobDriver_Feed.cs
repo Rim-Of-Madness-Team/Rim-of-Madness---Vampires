@@ -18,11 +18,8 @@ namespace Vampire
         protected CompVampire CompFeeder => GetActor().GetComp<CompVampire>();
         protected Need_Blood BloodVictim => Victim.BloodNeed();
         protected Need_Blood BloodFeeder => GetActor().BloodNeed();
-
-        public override void Notify_Starting()
-        {
-            base.Notify_Starting();
-        }
+        
+        
 
         public virtual void DoEffect()
         {

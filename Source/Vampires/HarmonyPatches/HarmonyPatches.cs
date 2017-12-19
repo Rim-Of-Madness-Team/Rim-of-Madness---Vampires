@@ -267,9 +267,13 @@ namespace Vampire
             harmony.Patch(AccessTools.Method(typeof(Pawn_GuestTracker), "get_CanBeBroughtFood"), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamps_DontWantGuestFood)));
 
-            //Vampires should not be given food by wardens.
+            //Vampires should not get cabin fever.
             harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_CabinFever), "CurrentStateInternal"), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_NoCabinFever)));
+            
+            //Blood Mists should not attack, but drain their target.
+            harmony.Patch(AccessTools.Method(typeof(JobGiver_AIFightEnemy), "TryGiveJob"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(BloodMist_NoAttack)));
 
             #region DubsBadHygiene
             {
@@ -287,6 +291,19 @@ namespace Vampire
                 catch (TypeLoadException ex) { /*Log.Message(ex.ToString());*/ }
             }
             #endregion
+            
+            Log.Message("Vampires :: Harmony Patches Injected");
+        }
+
+        //Rimworld.JobGiver_AIFightEnemy
+        public static void BloodMist_NoAttack(Pawn pawn, ref Job __result)
+        {
+            if (pawn is PawnTemporary && pawn.def == VampDefOf.ROMV_BloodMistRace && __result != null && __result.def == JobDefOf.AttackMelee)
+            {
+                Log.Message("Cancelling melee attack");
+                //Cancel any melee attacks
+                __result = null;
+            }
         }
 
         // RimWorld.ThoughtWorker_CabinFever

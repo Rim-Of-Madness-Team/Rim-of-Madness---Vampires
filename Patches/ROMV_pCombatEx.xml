@@ -3,7 +3,7 @@
 Help: XPath Syntax: https://www.w3schools.com/xml/xpath_syntax.asp
 -->
 <Patch>
-	<!-- Patch in combat extended comps for our hediffs. -->
+	<!--Fangs-->
 	<Operation Class="PatchOperationSequence">
 		<success>Always</success>
 		<operations>
@@ -31,6 +31,7 @@ Help: XPath Syntax: https://www.w3schools.com/xml/xpath_syntax.asp
 		</operations>
 	</Operation>
 
+	<!--Feral Claws-->
 	<Operation Class="PatchOperationSequence">
 		<success>Always</success>
 		<operations>
@@ -51,6 +52,78 @@ Help: XPath Syntax: https://www.w3schools.com/xml/xpath_syntax.asp
 							<linkedBodyPartsGroup>Hands</linkedBodyPartsGroup>
 							<cooldownTime>1.65</cooldownTime>
 							<armorPenetration>0.25</armorPenetration>
+						</li>
+					</tools>
+				</value>
+			</li>
+		</operations>
+	</Operation>
+
+	<!--Abyssal Arm-->
+	<Operation Class="PatchOperationSequence">
+		<success>Always</success>
+		<operations>
+			<!--This ensures the patch will only be applied IF combat extended is loaded-->
+			<li Class="Vampire.PatchOperationModLoaded">
+				<modName>Combat Extended</modName>
+			</li>
+			<li Class="PatchOperationReplace">
+				<xpath>*/ThingDef[@Name="ROMV_ThingBaseAbyssalArm"]/tools</xpath>
+				<value>
+					<tools>
+						<li Class="CombatExtended.ToolCE">
+							<label>tentacle</label>
+							<capacities>
+								<li>Blunt</li>
+							</capacities>
+							<cooldownTime>1.0</cooldownTime>
+							<power>9</power>
+							<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+							<surpriseAttack>
+								<extraMeleeDamages>
+									<li>
+										<def>Stun</def>
+										<amount>20</amount>
+									</li>
+								</extraMeleeDamages>
+							</surpriseAttack>
+							<armorPenetration>0.2</armorPenetration>
+						</li>
+					</tools>
+				</value>
+			</li>
+		</operations>
+	</Operation>
+
+	<!--Blood Mist-->
+	<Operation Class="PatchOperationSequence">
+		<success>Always</success>
+		<operations>
+			<!--This ensures the patch will only be applied IF combat extended is loaded-->
+			<li Class="Vampire.PatchOperationModLoaded">
+				<modName>Combat Extended</modName>
+			</li>
+			<li Class="PatchOperationReplace">
+				<xpath>*/ThingDef[@Name="ROMV_ThingBaseBloodMist"]/tools</xpath>
+				<value>
+					<tools>
+						<li Class="CombatExtended.ToolCE">
+							<label>viscera</label>
+							<cooldownTime>1.0</cooldownTime>
+							<power>9</power>
+							<capacities>
+								<li>Scratch</li>
+							</capacities>
+							<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+							<surpriseAttack>
+								<extraMeleeDamages>
+									<li>
+										<def>Stun</def>
+										<amount>20</amount>
+									</li>
+								</extraMeleeDamages>
+							</surpriseAttack>
+							<armorPenetration>0.5</armorPenetration> <!--Very high value as it's a liquid... I guess? Maybe I just want this to be OP-->
 						</li>
 					</tools>
 				</value>
