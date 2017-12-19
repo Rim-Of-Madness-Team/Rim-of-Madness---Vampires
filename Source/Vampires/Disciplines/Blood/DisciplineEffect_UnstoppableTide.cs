@@ -12,6 +12,7 @@ namespace Vampire
             if (TargetsAoE[0] is LocalTargetInfo t && t.Cell != default(IntVec3))
             {
                 PawnTemporary p = (PawnTemporary)PawnGenerator.GeneratePawn(VampDefOf.ROMV_BloodMistKind, Faction.OfPlayer);
+                p.Master = CasterPawn;
                 GenSpawn.Spawn(p, t.Cell, CasterPawn.Map);
             }
         }
