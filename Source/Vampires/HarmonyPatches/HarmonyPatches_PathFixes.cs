@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 using RimWorld;
 using Verse;
 using Verse.AI;
@@ -16,7 +13,7 @@ namespace Vampire
         {
             if (__result && pawn.IsVampire() && 
                 (pawn.VampComp().CurrentSunlightPolicy > SunlightPolicy.Relaxed || pawn.MentalStateDef == DefDatabase<MentalStateDef>.GetNamed("ROMV_VampireBeast")) &&
-                VampireUtility.IsDaylight(pawn) && (pawn.Faction == Faction.OfPlayerSilentFail && !pawn.Drafted))
+                VampireUtility.IsDaylight(pawn) && pawn.Faction == Faction.OfPlayerSilentFail && !pawn.Drafted)
             {
                 if (!dest.Cell.Roofed(pawn.MapHeld)) __result = false;
             }
@@ -30,7 +27,7 @@ namespace Vampire
                 Map map = pawn.Map;
                 for (int i = 0; i < 2; i++)
                 {
-                    int radius = (i != 0) ? 12 : 4;
+                    int radius = i != 0 ? 12 : 4;
                     IntVec3 result;
                     if (CellFinder.TryRandomClosewalkCellNear(pawn.Position, map, radius, out result, (IntVec3 x) => !x.IsForbidden(pawn) && !x.GetTerrain(map).avoidWander && x.Roofed(pawn.MapHeld)))
                     {

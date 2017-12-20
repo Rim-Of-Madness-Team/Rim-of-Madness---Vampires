@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using RimWorld;
 using Verse;
 using AbilityUser;
@@ -60,7 +59,7 @@ namespace Vampire
                 if (vampLastHomePoint == null || vampLastHomeCheck < Find.TickManager.TicksGame)
                 {
                     vampLastHomeCheck = Find.TickManager.TicksGame + 500;
-                    vampLastHomePoint = VampSunlightPathUtility.DetermineHomePoint(this.Pawn);
+                    vampLastHomePoint = VampSunlightPathUtility.DetermineHomePoint(Pawn);
                 }
                 return vampLastHomePoint.Value;
             }
@@ -98,24 +97,13 @@ namespace Vampire
                 return result;
             }
         }
-        public float XPTillNextLevelPercent
-        {
-            get
-            {
-                return ((float)(xp - XPLastLevel) / (float)(XPTillNextLevel - XPLastLevel));
-            }
-        }
-        public int XPTillNextLevel
-        {
-            get
-            {
-                return (level + 1) * 600;
-            }
-        }
+        public float XPTillNextLevelPercent => (float)(xp - XPLastLevel) / (float)(XPTillNextLevel - XPLastLevel);
+        public int XPTillNextLevel => (level + 1) * 600;
 
         public int AbilityPoints { get => abilityPoints; set => abilityPoints = value; }
         public bool Transformed => currentForm != null;
-        public PawnKindDef CurrentForm { get => currentForm; set { currentForm = value; }}
+        public PawnKindDef CurrentForm { get => currentForm; set => currentForm = value;
+        }
         private Graphic curFormGraphic = null;
         public Graphic CurFormGraphic { get => curFormGraphic; set => curFormGraphic = value; }
 
@@ -125,7 +113,7 @@ namespace Vampire
             {
                 if (sheet == null)
                 {
-                    sheet = new SkillSheet(this.Pawn);
+                    sheet = new SkillSheet(Pawn);
                 }
                 return sheet;
             }
@@ -139,7 +127,7 @@ namespace Vampire
                 if (childer == null)
                 {
                     childer = new List<Pawn>();
-                    if (this.AbilityUser?.relations?.DirectRelations is List<DirectPawnRelation> rels)
+                    if (AbilityUser?.relations?.DirectRelations is List<DirectPawnRelation> rels)
                     {
                         foreach (DirectPawnRelation rel in rels)
                         {
@@ -188,21 +176,19 @@ namespace Vampire
             }
         }
         public BloodlineDef Bloodline {
-            get
-            {
-                return bloodline;
-            } set => bloodline = value; }
+            get => bloodline;
+            set => bloodline = value; }
         public int Generation { get => generation; set => generation = value; }
-        public bool Thinblooded => this.generation > 13;
-        public Need_Blood BloodPool => this.AbilityUser?.needs?.TryGetNeed<Need_Blood>() ?? null;
+        public bool Thinblooded => generation > 13;
+        public Need_Blood BloodPool => AbilityUser?.needs?.TryGetNeed<Need_Blood>() ?? null;
         public float TrueCombatPower
         {
             get
             {
                 float result = 0;
-                result += this.AbilityUser.kindDef.combatPower;
+                result += AbilityUser.kindDef.combatPower;
                 result += 4000;
-                for (int i = 1; i <= this.generation; i++)
+                for (int i = 1; i <= generation; i++)
                 {
                     if (i == 2) { result -= 3000; continue; }
                     if (i < 7)  { result -= 100; continue; }
@@ -216,13 +202,13 @@ namespace Vampire
         {
             get
             {
-                if (this.AbilityUser.Spawned)
+                if (AbilityUser.Spawned)
                 {
-                    Map curMap = this.AbilityUser.Map;
+                    Map curMap = AbilityUser.Map;
                     if (curMap != null)
                     {
-                        if (VampireUtility.IsDaylight(this.AbilityUser)
-                            && !this.AbilityUser.PositionHeld.Roofed(curMap))
+                        if (VampireUtility.IsDaylight(AbilityUser)
+                            && !AbilityUser.PositionHeld.Roofed(curMap))
                         {
                             return true;
                         }
@@ -243,8 +229,8 @@ namespace Vampire
         {
             if (XP <= 0) XP = 1;
             Level++;
-            if (sendNotification && this.IsVampire && this.AbilityUser != null && this.AbilityUser.Spawned && this.AbilityUser.Faction == Faction.OfPlayerSilentFail)
-                Messages.Message("ROMV_LevelUp".Translate(this.AbilityUser), new RimWorld.Planet.GlobalTargetInfo(this.AbilityUser), DefDatabase<MessageTypeDef>.GetNamed("ROMV_VampireNotifaction"));
+            if (sendNotification && IsVampire && AbilityUser != null && AbilityUser.Spawned && AbilityUser.Faction == Faction.OfPlayerSilentFail)
+                Messages.Message("ROMV_LevelUp".Translate(AbilityUser), new RimWorld.Planet.GlobalTargetInfo(AbilityUser), DefDatabase<MessageTypeDef>.GetNamed("ROMV_VampireNotifaction"));
         }
         public void Notify_ResetAbilities()
         {
@@ -253,7 +239,7 @@ namespace Vampire
 
         public void Notify_UpdateAbilities()
         {
-            if (this.AbilityUser.IsVampire() && this is CompVampire)
+            if (AbilityUser.IsVampire() && this is CompVampire)
             {
                 //Disciplines Skill Sheet
                 if (Sheet?.Disciplines is List<Discipline> dd && !dd.NullOrEmpty())
@@ -264,9 +250,9 @@ namespace Vampire
                         {
                             foreach (VitaeAbilityDef vd in vdd)
                             {
-                                if (this.AbilityData.Powers.FirstOrDefault(x => x.Def.defName == vd.defName) == null)
+                                if (AbilityData.Powers.FirstOrDefault(x => x.Def.defName == vd.defName) == null)
                                 {
-                                    this.AddPawnAbility(vd);
+                                    AddPawnAbility(vd);
                                 }
 
                             }
@@ -278,22 +264,22 @@ namespace Vampire
                 {
                     foreach (VitaeAbilityDef bloodVAD in bloodVADs)
                     {
-                        if (this.AbilityData.Powers.FirstOrDefault(x => x.Def.defName == bloodVAD.defName) == null)
+                        if (AbilityData.Powers.FirstOrDefault(x => x.Def.defName == bloodVAD.defName) == null)
                         {
-                            this.AddPawnAbility(bloodVAD);
+                            AddPawnAbility(bloodVAD);
                         }
                     }
                 }
                 //Regenerate Limb
                 if (this?.AbilityData.Powers?.FirstOrDefault(x => x.Def is VitaeAbilityDef vDef && vDef == VampDefOf.ROMV_RegenerateLimb) == null)
                 {
-                    this.AddPawnAbility(VampDefOf.ROMV_RegenerateLimb);
+                    AddPawnAbility(VampDefOf.ROMV_RegenerateLimb);
                 }
 
                 //Vampiric Healing
                 if (this?.AbilityData.Powers?.FirstOrDefault(x => x.Def is VitaeAbilityDef vDef && vDef == VampDefOf.ROMV_VampiricHealing) == null)
                 {
-                    this.AddPawnAbility(VampDefOf.ROMV_VampiricHealing);
+                    AddPawnAbility(VampDefOf.ROMV_VampiricHealing);
                 }
             }
         }
@@ -301,47 +287,47 @@ namespace Vampire
         public void GiveFeedJob(Pawn victim)
         {
             Job feedJob = new Job(VampDefOf.ROMV_Feed, victim);
-            this.AbilityUser.jobs.TryTakeOrderedJob(feedJob, JobTag.SatisfyingNeeds);
+            AbilityUser.jobs.TryTakeOrderedJob(feedJob, JobTag.SatisfyingNeeds);
         }
 
         public void GiveEmbraceJob(Pawn newChilde)
         {
             Job embraceJob = new Job(VampDefOf.ROMV_Embrace, newChilde);
-            this.AbilityUser.jobs.TryTakeOrderedJob(embraceJob, JobTag.Misc);
+            AbilityUser.jobs.TryTakeOrderedJob(embraceJob);
         }
 
         public void InitializeVampirism(Pawn newSire, BloodlineDef newBloodline = null, int newGeneration = -1, bool firstVampire = false)
         {
             //Log.Message("Init");
-            this.AbilityUser.health.hediffSet.hediffs.RemoveAll(x => x is HediffVampirism_VampGiver);
-            this.AbilityUser.health.hediffSet.hediffs.RemoveAll(x => x.def == HediffDefOf.Malnutrition);
-            this.AbilityUser.health.hediffSet.hediffs.RemoveAll(x => x is Hediff_Addiction);
-            VampireGen.TryGiveVampirismHediff(this.AbilityUser, newGeneration, newBloodline, newSire, firstVampire);
+            AbilityUser.health.hediffSet.hediffs.RemoveAll(x => x is HediffVampirism_VampGiver);
+            AbilityUser.health.hediffSet.hediffs.RemoveAll(x => x.def == HediffDefOf.Malnutrition);
+            AbilityUser.health.hediffSet.hediffs.RemoveAll(x => x is Hediff_Addiction);
+            VampireGen.TryGiveVampirismHediff(AbilityUser, newGeneration, newBloodline, newSire, firstVampire);
             if (!firstVampire)
             {
-                this.bloodline = newBloodline;// sireComp.Bloodline;
-                this.generation = newGeneration;// + 1;
-                this.sire = newSire;
-                VampireRelationUtility.SetSireChildeRelations(this.AbilityUser, newSire?.VampComp() ?? null, newGeneration);
+                bloodline = newBloodline;// sireComp.Bloodline;
+                generation = newGeneration;// + 1;
+                sire = newSire;
+                VampireRelationUtility.SetSireChildeRelations(AbilityUser, newSire?.VampComp() ?? null, newGeneration);
             }
             else
             {
-                this.generation = 1;
-                this.bloodline = VampDefOf.ROMV_Caine;
-                this.sire = null;
+                generation = 1;
+                bloodline = VampDefOf.ROMV_Caine;
+                sire = null;
             }
-            VampireGen.TryGiveVampireAdditionalHediffs(this.AbilityUser);
-            if (VampireUtility.IsDaylight(this.AbilityUser)) VampireUtility.MakeSleepy(this.AbilityUser);
-            VampireUtility.AdjustTimeTables(this.AbilityUser);
+            VampireGen.TryGiveVampireAdditionalHediffs(AbilityUser);
+            if (VampireUtility.IsDaylight(AbilityUser)) VampireUtility.MakeSleepy(AbilityUser);
+            VampireUtility.AdjustTimeTables(AbilityUser);
 
-            this.sheet = new SkillSheet(this.AbilityUser);
-            this.sheet.InitializeDisciplines();
-            this.Notify_LevelUp(false);
-            this.AbilityUser.needs.AddOrRemoveNeedsAsAppropriate(); //This removes "food" and adds "blood"
+            sheet = new SkillSheet(AbilityUser);
+            sheet.InitializeDisciplines();
+            Notify_LevelUp(false);
+            AbilityUser.needs.AddOrRemoveNeedsAsAppropriate(); //This removes "food" and adds "blood"
             if (!bloodline.allowsHair)
                 AbilityUser.story.hairDef = DefDatabase<HairDef>.GetNamed("Shaved");
             if (this?.AbilityUser?.playerSettings != null)
-                this.AbilityUser.playerSettings.hostilityResponse = HostilityResponseMode.Attack;
+                AbilityUser.playerSettings.hostilityResponse = HostilityResponseMode.Attack;
         }
 
         public override void CompTick()
@@ -364,7 +350,7 @@ namespace Vampire
                 try
                 {
                     //Log.Message("SunlightWatcher");
-                    Pawn p = this.Pawn;
+                    Pawn p = Pawn;
                     Map m = p.MapHeld;
                     IntVec3 i = p.PositionHeld;
                     if (p.ParentHolder.IsEnclosingContainer())
@@ -378,7 +364,7 @@ namespace Vampire
                         ThinkResult thinkResult = thinkNode_JobGiver.TryIssueJobPackage(p, default(JobIssueParams));
                         if (thinkResult.Job is Job j && j.IsSunlightSafeFor(p))
                         {
-                            p.jobs.StartJob(j, JobCondition.Incompletable, null, false, true, null, null, false);
+                            p.jobs.StartJob(j, JobCondition.Incompletable, null, false, true, null, null);
                         }
                         else
                         {
@@ -401,10 +387,10 @@ namespace Vampire
 
         public void Notify_Embraced(CompVampire sireComp)
         {
-            InitializeVampirism(sireComp.AbilityUser, sireComp.Bloodline, sireComp.Generation + 1, false);
+            InitializeVampirism(sireComp.AbilityUser, sireComp.Bloodline, sireComp.Generation + 1);
             Messages.Message("ROMV_EmbracedSuccessfully".Translate(new object[]
             {
-                this.AbilityUser.LabelShort,
+                AbilityUser.LabelShort,
                 sireComp.AbilityUser.LabelShort,
                 sireComp.Bloodline.LabelCap
             }), MessageTypeDefOf.PositiveEvent);
@@ -414,12 +400,12 @@ namespace Vampire
         {
             Messages.Message("ROMV_DiablerieSuccessfully".Translate(new object[]
 {
-                this.AbilityUser.LabelShort,
+                AbilityUser.LabelShort,
                 victim.AbilityUser.LabelShort
             }), MessageTypeDefOf.PositiveEvent);
-            this.Generation = Math.Min(this.Generation, victim.Generation);
-            this.Souls.Add(victim.AbilityUser);
-            VampireThoughtUtility.GiveThoughtsForDiablerie(this.AbilityUser);
+            Generation = Math.Min(Generation, victim.Generation);
+            Souls.Add(victim.AbilityUser);
+            VampireThoughtUtility.GiveThoughtsForDiablerie(AbilityUser);
         }
 
         #endregion Methods
@@ -444,7 +430,7 @@ namespace Vampire
 
         }
 
-        public override float GrappleModifier => (IsVampire) ? 20 - this.generation : 0;
+        public override float GrappleModifier => IsVampire ? 20 - generation : 0;
 
 
 
@@ -452,13 +438,13 @@ namespace Vampire
         {
             if (Find.Selector.NumSelected == 1)
             {
-                for (int i = 0; i < this.AbilityData.AllPowers.Count; i++)
+                for (int i = 0; i < AbilityData.AllPowers.Count; i++)
                 {
-                    if (this.AbilityData.AllPowers[i] is VampAbility p && (p.ShouldShowGizmo() && p.AbilityDef.MainVerb.hasStandardCommand && p.AbilityDef.bloodCost != 0)) yield return p.GetGizmo();
+                    if (AbilityData.AllPowers[i] is VampAbility p && p.ShouldShowGizmo() && p.AbilityDef.MainVerb.hasStandardCommand && p.AbilityDef.bloodCost != 0) yield return p.GetGizmo();
                 }
                 if (AbilityUser.Downed && AbilityUser.IsVampire())
                 {
-                    Vampire.VitaeAbilityDef bloodHeal = DefDatabase<Vampire.VitaeAbilityDef>.GetNamedSilentFail("ROMV_VampiricHealing");
+                    VitaeAbilityDef bloodHeal = DefDatabase<VitaeAbilityDef>.GetNamedSilentFail("ROMV_VampiricHealing");
                     yield return new Command_Action()
                     {
                         defaultLabel = bloodHeal.label,
@@ -467,11 +453,11 @@ namespace Vampire
                         action = delegate
                         {
                             AbilityUser.Drawer.Notify_DebugAffected();
-                            MoteMaker.ThrowText(AbilityUser.DrawPos, AbilityUser.Map, StringsToTranslate.AU_CastSuccess, -1f);
-                            this.BloodPool.AdjustBlood(-bloodHeal.bloodCost);
-                            VampireUtility.Heal(this.AbilityUser);
+                            MoteMaker.ThrowText(AbilityUser.DrawPos, AbilityUser.Map, StringsToTranslate.AU_CastSuccess);
+                            BloodPool.AdjustBlood(-bloodHeal.bloodCost);
+                            VampireUtility.Heal(AbilityUser);
                         },
-                        disabled = this.BloodPool.CurBloodPoints <= 0
+                        disabled = BloodPool.CurBloodPoints <= 0
                     };
                 }
             }
@@ -480,22 +466,22 @@ namespace Vampire
 
         public override void PostExposeData()
         {
-            Scribe_Defs.Look<BloodlineDef>(ref this.bloodline, "bloodline");
-            Scribe_Values.Look<int>(ref this.generation, "generation");
-            Scribe_Values.Look<int>(ref this.level, "level", 0);
-            Scribe_Values.Look<int>(ref this.xp, "xp", 0);
-            Scribe_Values.Look<int>(ref this.abilityPoints, "abilityPoints", 0);
-            Scribe_Values.Look<SunlightPolicy>(ref this.curSunlightPolicy, "curSunlightPolicy", SunlightPolicy.Restricted);
-            Scribe_References.Look<Pawn>(ref this.sire, "sire");
-            Scribe_Collections.Look<Pawn>(ref this.souls, "souls", LookMode.Reference);
-            Scribe_Deep.Look<SkillSheet>(ref this.sheet, "sheet", new object[] { this.AbilityUser });
+            Scribe_Defs.Look(ref bloodline, "bloodline");
+            Scribe_Values.Look(ref generation, "generation");
+            Scribe_Values.Look(ref level, "level");
+            Scribe_Values.Look(ref xp, "xp");
+            Scribe_Values.Look(ref abilityPoints, "abilityPoints");
+            Scribe_Values.Look(ref curSunlightPolicy, "curSunlightPolicy", SunlightPolicy.Restricted);
+            Scribe_References.Look(ref sire, "sire");
+            Scribe_Collections.Look(ref souls, "souls", LookMode.Reference);
+            Scribe_Deep.Look(ref sheet, "sheet", new object[] { AbilityUser });
             base.PostExposeData();
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
-                this.AbilityData.Powers.Clear();
-                if (this.AbilityUser.IsVampire() && (base.AbilityData.Powers == null || base.AbilityData.Powers.NullOrEmpty()))
+                AbilityData.Powers.Clear();
+                if (AbilityUser.IsVampire() && (AbilityData.Powers == null || AbilityData.Powers.NullOrEmpty()))
                 {
-                    if (this.Sheet.Disciplines is List<Discipline> dd && !dd.NullOrEmpty())
+                    if (Sheet.Disciplines is List<Discipline> dd && !dd.NullOrEmpty())
                     {
                         foreach (Discipline d in dd)
                         {
@@ -503,12 +489,12 @@ namespace Vampire
                             {
                                 foreach (VitaeAbilityDef vd in vds)
                                 {
-                                    this.AddPawnAbility(vd);
+                                    AddPawnAbility(vd);
                                 }
                             }
                         }
                     }
-                    this.Notify_UpdateAbilities();
+                    Notify_UpdateAbilities();
                 }
             }
         }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Verse;
@@ -33,14 +32,14 @@ namespace Vampire
 
         public Alert_VampireInSunlight()
         {
-            this.defaultLabel = "ROMV_Alert_VampireInTheSun".Translate();
-            this.defaultPriority = AlertPriority.Critical;
+            defaultLabel = "ROMV_Alert_VampireInTheSun".Translate();
+            defaultPriority = AlertPriority.Critical;
         }
 
         public override string GetExplanation()
         {
             StringBuilder stringBuilder = new StringBuilder();
-            foreach (Pawn current in this.VampiresInTheSun)
+            foreach (Pawn current in VampiresInTheSun)
             {
                 stringBuilder.AppendLine("    " + current.NameStringShort);
             }
@@ -53,7 +52,7 @@ namespace Vampire
             {
                 return false;
             }
-            Pawn pawn = this.VampiresInTheSun.FirstOrDefault<Pawn>();
+            Pawn pawn = VampiresInTheSun.FirstOrDefault();
             if (pawn == null)
             {
                 return false;

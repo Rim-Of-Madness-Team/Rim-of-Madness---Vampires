@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using RimWorld;
+﻿using RimWorld;
 using Verse;
 
 namespace Vampire
@@ -12,12 +8,12 @@ namespace Vampire
         public virtual void Effect()
         {
             //target.Drawer.Notify_DebugAffected();
-            MoteMaker.ThrowText(this.CasterPawn.DrawPos, this.CasterPawn.Map, AbilityUser.StringsToTranslate.AU_CastSuccess, -1f);
+            MoteMaker.ThrowText(CasterPawn.DrawPos, CasterPawn.Map, AbilityUser.StringsToTranslate.AU_CastSuccess);
             if (TargetsAoE[0] is LocalTargetInfo t && t.Cell != default(IntVec3))
             {
                 PawnTemporary p = (PawnTemporary)PawnGenerator.GeneratePawn(VampDefOf.ROMV_WolfSpectral, Faction.OfPlayer);
-                VampireUtility.SummonEffect(t.Cell, this.CasterPawn.Map, this.CasterPawn, 2f);
-                GenSpawn.Spawn(p, t.Cell, this.CasterPawn.Map);
+                VampireUtility.SummonEffect(t.Cell, CasterPawn.Map, CasterPawn, 2f);
+                GenSpawn.Spawn(p, t.Cell, CasterPawn.Map);
             }
         }
 

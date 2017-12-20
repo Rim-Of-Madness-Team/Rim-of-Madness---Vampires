@@ -1,31 +1,23 @@
-﻿using System;
-using RimWorld;
-using Verse;
+﻿using Verse;
 
 namespace Vampire
 {
     public class HediffComp_Possession : HediffComp_Disappears
     {
 
-        public new HediffCompProperties_Possession Props
-        {
-            get
-            {
-                return (HediffCompProperties_Possession)this.props;
-            }
-        }
-        
+        public new HediffCompProperties_Possession Props => (HediffCompProperties_Possession)props;
+
         public void ActivateEffect(Pawn activator)
         {
-            string text = this.Pawn.LabelIndefinite();
-            if (this.Pawn.guest != null)
+            string text = Pawn.LabelIndefinite();
+            if (Pawn.guest != null)
             {
-                this.Pawn.guest.SetGuestStatus(null, false);
+                Pawn.guest.SetGuestStatus(null);
             }
-            bool flag = this.Pawn.Name != null;
-            if (this.Pawn.Faction != activator.Faction)
+            bool flag = Pawn.Name != null;
+            if (Pawn.Faction != activator.Faction)
             {
-                this.Pawn.SetFaction(activator.Faction, this.Pawn);
+                Pawn.SetFaction(activator.Faction, Pawn);
             }
         }
 
@@ -34,7 +26,7 @@ namespace Vampire
             base.CompPostTick(ref severityAdjustment);
             if (CompShouldRemove)
             {
-                HealthUtility.AdjustSeverity(this.Pawn, HediffDef.Named("HeartAttack"), 1.0f);
+                HealthUtility.AdjustSeverity(Pawn, HediffDef.Named("HeartAttack"), 1.0f);
             }
         }
     }

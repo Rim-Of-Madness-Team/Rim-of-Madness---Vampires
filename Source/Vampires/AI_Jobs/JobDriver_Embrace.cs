@@ -1,8 +1,6 @@
 ﻿using RimWorld;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using UnityEngine;
 using Verse;
 using Verse.AI;
 
@@ -18,13 +16,13 @@ namespace Vampire
         {
             get
             {
-                if (base.job.targetA.Thing is Pawn p) return p;
-                if (base.job.targetA.Thing is Corpse c) return c.InnerPawn;
+                if (job.targetA.Thing is Pawn p) return p;
+                if (job.targetA.Thing is Corpse c) return c.InnerPawn;
                 else return null;
             }
         }
         protected CompVampire CompVictim => Victim.GetComp<CompVampire>();
-        protected CompVampire CompFeeder => this.GetActor().GetComp<CompVampire>();
+        protected CompVampire CompFeeder => GetActor().GetComp<CompVampire>();
         protected Need_Blood BloodVictim => CompVictim.BloodPool;
         protected Need_Blood BloodFeeder => CompFeeder.BloodPool;
 
@@ -35,7 +33,7 @@ namespace Vampire
 
         private void DoEffect()
         {
-            this.BloodVictim.TransferBloodTo(1, BloodFeeder);
+            BloodVictim.TransferBloodTo(1, BloodFeeder);
         }
 
         public override string GetReport()
@@ -49,10 +47,10 @@ namespace Vampire
             //this.FailOnDespawnedNullOrForbidden(TargetIndex.A);
             this.FailOn(delegate
             {
-                return this.pawn == this.Victim;
+                return pawn == Victim;
             });
             this.FailOnAggroMentalState(TargetIndex.A);
-            foreach (Toil t in JobDriver_Feed.MakeFeedToils(this.job.def, this, this.GetActor(), this.TargetA, null, null, workLeft, DoEffect, ShouldContinueFeeding, this.GetActor()?.Faction != this.TargetA.Thing?.Faction, false))
+            foreach (Toil t in JobDriver_Feed.MakeFeedToils(job.def, this, GetActor(), TargetA, null, null, workLeft, DoEffect, ShouldContinueFeeding, GetActor()?.Faction != TargetA.Thing?.Faction, false))
             {
                 yield return t;
             }
@@ -62,8 +60,8 @@ namespace Vampire
                 {
                     Pawn p = (Pawn)TargetA;
                     if (!p.Dead) p.Kill(null);
-                    this.job.SetTarget(TargetIndex.A, p.Corpse);
-                    this.pawn.Reserve(TargetA, this.job);
+                    job.SetTarget(TargetIndex.A, p.Corpse);
+                    pawn.Reserve(TargetA, job);
                 }
             };
             yield return Toils_Misc.ThrowColonistAttackingMote(TargetIndex.A);
@@ -72,7 +70,7 @@ namespace Vampire
             {
                 initAction = delegate ()
                 {
-                    this.pawn.VampComp().Bloodline.EmbraceWorker.TryEmbrace(this.pawn, Victim);
+                    pawn.VampComp().Bloodline.EmbraceWorker.TryEmbrace(pawn, Victim);
                 }
             };
         }

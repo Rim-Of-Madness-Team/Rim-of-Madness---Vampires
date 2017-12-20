@@ -1,8 +1,5 @@
 ﻿using RimWorld;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 using Verse;
 using Verse.Sound;
@@ -29,8 +26,8 @@ namespace Vampire
                          
                 if (Widgets.ButtonImage(rect, icon))
                 {
-                vampBlood.preferredFeedMode = BloodFeedModeUtility.GetNextResponse(pawn);
-                    SoundDefOf.TickHigh.PlayOneShotOnCamera(null);
+                vampBlood.preferredFeedMode = GetNextResponse(pawn);
+                    SoundDefOf.TickHigh.PlayOneShotOnCamera();
                     PlayerKnowledgeDatabase.KnowledgeDemonstrated(ConceptDefOf.HostilityResponse, KnowledgeAmount.SpecificInteraction);
                 }
                 UIHighlighter.HighlightOpportunity(rect, "ROMV_FeedMode");
@@ -44,7 +41,7 @@ namespace Vampire
                 }));
             if (vampBlood.preferredFeedMode > PreferredFeedMode.AnimalLethal)
             {
-                Texture2D iconSub = (vampBlood.preferredHumanoidFeedType == PreferredHumanoidFeedType.All) ? HumanoidTypeAll : HumanoidTypePrisonersOnly;
+                Texture2D iconSub = vampBlood.preferredHumanoidFeedType == PreferredHumanoidFeedType.All ? HumanoidTypeAll : HumanoidTypePrisonersOnly;
                 Rect rectSub = new Rect(pos.x, rect.yMax + 5f, 24f, 24f);
 
                 if (Widgets.ButtonImage(rectSub, iconSub))
@@ -53,14 +50,14 @@ namespace Vampire
                         vampBlood.preferredHumanoidFeedType = PreferredHumanoidFeedType.PrisonersOnly;
                     else if (vampBlood.preferredHumanoidFeedType == PreferredHumanoidFeedType.PrisonersOnly)
                         vampBlood.preferredHumanoidFeedType = PreferredHumanoidFeedType.All;
-                    SoundDefOf.TickHigh.PlayOneShotOnCamera(null);
+                    SoundDefOf.TickHigh.PlayOneShotOnCamera();
                 }
                 UIHighlighter.HighlightOpportunity(rectSub, "ROMV_FeedModeHumanoidType");
                 TooltipHandler.TipRegion(rectSub, string.Concat(new string[]
                 {
         "ROMV_FeedMode_CurrentType".Translate(),
         ": ",
-        (vampBlood.preferredHumanoidFeedType == PreferredHumanoidFeedType.All) ? "ROMV_FeedMode_TypeAll".Translate() : "ROMV_FeedMode_TypePrisonersOnly".Translate()
+        vampBlood.preferredHumanoidFeedType == PreferredHumanoidFeedType.All ? "ROMV_FeedMode_TypeAll".Translate() : "ROMV_FeedMode_TypePrisonersOnly".Translate()
                 }));
             }
         }
@@ -120,15 +117,15 @@ namespace Vampire
             switch (response)
             {
                 case PreferredFeedMode.None:
-                    return BloodFeedModeUtility.NoneIcon;
+                    return NoneIcon;
                 case PreferredFeedMode.AnimalNonLethal:
-                    return BloodFeedModeUtility.AnimalNonLethalIcon;
+                    return AnimalNonLethalIcon;
                 case PreferredFeedMode.AnimalLethal:
-                    return BloodFeedModeUtility.AnimalLethalIcon;
+                    return AnimalLethalIcon;
                 case PreferredFeedMode.HumanoidNonLethal:
-                    return BloodFeedModeUtility.HumanoidNonLethalIcon;
+                    return HumanoidNonLethalIcon;
                 case PreferredFeedMode.HumanoidLethal:
-                    return BloodFeedModeUtility.HumanoidLethalIcon;
+                    return HumanoidLethalIcon;
                 default:
                     return BaseContent.BadTex;
             }

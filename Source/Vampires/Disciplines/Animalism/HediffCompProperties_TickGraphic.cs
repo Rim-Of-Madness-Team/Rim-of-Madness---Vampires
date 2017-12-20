@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Verse;
 
 namespace Vampire
@@ -11,7 +10,7 @@ namespace Vampire
 
         public HediffCompProperties_TickGraphic()
         {
-            this.compClass = typeof(HediffComp_TickGraphic);
+            compClass = typeof(HediffComp_TickGraphic);
         }
     }
 }

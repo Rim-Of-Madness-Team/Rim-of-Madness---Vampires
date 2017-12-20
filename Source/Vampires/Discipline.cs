@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using RimWorld;
+﻿using System.Collections.Generic;
 using Verse;
-using AbilityUser;
 
 namespace Vampire
 {
@@ -47,9 +42,9 @@ namespace Vampire
 
         public void Notify_Reset(Pawn p)
         {
-            p.VampComp().AbilityPoints += this.points;
-            this.points = 0;
-            this.level = 0;
+            p.VampComp().AbilityPoints += points;
+            points = 0;
+            level = 0;
             UpdateAbilities();
         }
 
@@ -83,10 +78,10 @@ namespace Vampire
 
         public void ExposeData()
         {
-            Scribe_Values.Look<int>(ref this.level, "level");
-            Scribe_Values.Look<int>(ref this.points, "points");
-            Scribe_Values.Look<int>(ref this.prevPoints, "prevPoints");
-            Scribe_Defs.Look<DisciplineDef>(ref this.def, "def");
+            Scribe_Values.Look(ref level, "level");
+            Scribe_Values.Look(ref points, "points");
+            Scribe_Values.Look(ref prevPoints, "prevPoints");
+            Scribe_Defs.Look(ref def, "def");
         }
     }
 }

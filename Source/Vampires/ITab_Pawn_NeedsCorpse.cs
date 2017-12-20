@@ -1,6 +1,5 @@
 ﻿using RimWorld;
 using Verse;
-using System;
 using UnityEngine;
 
 namespace Vampire
@@ -13,11 +12,11 @@ namespace Vampire
         {
             get
             {
-                if (base.SelPawn != null)
+                if (SelPawn != null)
                 {
-                    return base.SelPawn;
+                    return SelPawn;
                 }
-                Corpse corpse = base.SelThing as Corpse;
+                Corpse corpse = SelThing as Corpse;
                 if (corpse != null)
                 {
                     return corpse.InnerPawn;
@@ -26,33 +25,27 @@ namespace Vampire
             }
         }
 
-        public override bool IsVisible
-        {
-            get
-            {
-                return PawnForNeeds.needs != null && PawnForNeeds.needs.AllNeeds.Count > 0;
-            }
-        }
+        public override bool IsVisible => PawnForNeeds.needs != null && PawnForNeeds.needs.AllNeeds.Count > 0;
 
         public ITab_Pawn_NeedsCorpse()
         {
-            this.labelKey = "TabNeeds";
-            this.tutorTag = "Needs";
+            labelKey = "TabNeeds";
+            tutorTag = "Needs";
         }
 
         public override void OnOpen()
         {
-            this.thoughtScrollPosition = default(Vector2);
+            thoughtScrollPosition = default(Vector2);
         }
 
         protected override void FillTab()
         {
-            NeedsCardUtility.DoNeedsMoodAndThoughts(new Rect(0f, 0f, this.size.x, this.size.y), PawnForNeeds, ref this.thoughtScrollPosition);
+            NeedsCardUtility.DoNeedsMoodAndThoughts(new Rect(0f, 0f, size.x, size.y), PawnForNeeds, ref thoughtScrollPosition);
         }
 
         protected override void UpdateSize()
         {
-            this.size = NeedsCardUtility.GetSize(PawnForNeeds);
+            size = NeedsCardUtility.GetSize(PawnForNeeds);
         }
     }
 }

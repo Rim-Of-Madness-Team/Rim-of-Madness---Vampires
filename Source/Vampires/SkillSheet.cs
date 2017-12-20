@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using RimWorld;
+﻿using System.Collections.Generic;
 using Verse;
 
 namespace Vampire
@@ -13,7 +9,9 @@ namespace Vampire
         private Pawn pawn;
         private List<Discipline> disciplines;
 
-        public Pawn Pawn { get { return pawn; } set { pawn = value; } }
+        public Pawn Pawn { get => pawn;
+            set => pawn = value;
+        }
         public List<Discipline> Disciplines => disciplines;
 
         public void InitializeDisciplines()
@@ -49,8 +47,8 @@ namespace Vampire
 
         public void ExposeData()
         {
-            Scribe_References.Look<Pawn>(ref this.pawn, "pawn");
-            Scribe_Collections.Look<Discipline>(ref this.disciplines, true, "disciplines", LookMode.Deep, new object[0]);
+            Scribe_References.Look(ref pawn, "pawn");
+            Scribe_Collections.Look(ref disciplines, true, "disciplines", LookMode.Deep, new object[0]);
         }
     }
 }

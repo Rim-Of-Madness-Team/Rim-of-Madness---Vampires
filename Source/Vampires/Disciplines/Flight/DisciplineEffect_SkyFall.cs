@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using RimWorld;
+﻿using RimWorld;
 using Verse;
 
 namespace Vampire
@@ -15,11 +11,11 @@ namespace Vampire
             {
                 LongEventHandler.QueueLongEvent(delegate
                 {
-                    FlyingObject flyingObject = (FlyingObject)GenSpawn.Spawn(ThingDef.Named("ROMV_FlyingObject"), this.CasterPawn.Position, this.CasterPawn.Map);
+                    FlyingObject flyingObject = (FlyingObject)GenSpawn.Spawn(ThingDef.Named("ROMV_FlyingObject"), CasterPawn.Position, CasterPawn.Map);
                     flyingObject.damageLaunched = false;
                     flyingObject.timesToDamage = 3;
                     flyingObject.explosion = true;
-                    flyingObject.Launch(this.CasterPawn, target, this.CasterPawn, new DamageInfo(DamageDefOf.Blunt, Rand.Range(15, 25), -1, this.CasterPawn));
+                    flyingObject.Launch(CasterPawn, target, CasterPawn, new DamageInfo(DamageDefOf.Blunt, Rand.Range(15, 25), -1, CasterPawn));
                 }, "LaunchingFlyerSkyFall", false, null);
             }
         }

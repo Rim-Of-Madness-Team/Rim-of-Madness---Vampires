@@ -1,43 +1,74 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <!-- Added body parts -->
+	<!-- Added body parts -->
 
-    <HediffDef Name="ROMV_AddedBodyPartBase" Abstract="True">
-      <hediffClass>Hediff_AddedPart</hediffClass>
-      <defaultLabelColor>(0.6, 0.5, 0.9)</defaultLabelColor>
-    </HediffDef>
-
-	
-  <HediffDef Name="ROMV_TransformedBodyPartBase" Abstract="True">
-    <hediffClass>JecsTools.Hediff_TransformedPart</hediffClass>
-    <defaultLabelColor>(0.6, 0.5, 0.9)</defaultLabelColor>
-    <isBad>false</isBad>
-  </HediffDef>
+	<HediffDef Name="ROMV_AddedBodyPartBase" Abstract="True">
+		<hediffClass>Hediff_AddedPart</hediffClass>
+		<defaultLabelColor>(0.6, 0.5, 0.9)</defaultLabelColor>
+	</HediffDef>
 
 
-  <HediffDef ParentName="ROMV_AddedBodyPartBase">
-    <defName>ROMV_Fangs</defName>
-    <label>fangs</label>
-	<hediffClass>Vampire.Hediff_AddedPart_Fangs</hediffClass>
-    <addedPartProps>
-      <isSolid>true</isSolid>
-      <partEfficiency>1.2</partEfficiency>
-    </addedPartProps>
-	<scenarioCanAdd>false</scenarioCanAdd>
-    <comps>
-      <li Class="HediffCompProperties_VerbGiver">
-        <tools>
-          <li>
-            <label>fangs</label>
-            <capacities>
-              <li>Bite</li>
-            </capacities>
-            <power>9</power>
-            <cooldownTime>1.65</cooldownTime>
-          </li>
-        </tools>
-      </li>
-    </comps>
-  </HediffDef>
+	<HediffDef Name="ROMV_TransformedBodyPartBase" Abstract="True">
+		<hediffClass>JecsTools.Hediff_TransformedPart</hediffClass>
+		<defaultLabelColor>(0.6, 0.5, 0.9)</defaultLabelColor>
+		<isBad>false</isBad>
+	</HediffDef>
+
+
+	<HediffDef ParentName="ROMV_AddedBodyPartBase">
+		<defName>ROMV_Fangs</defName>
+		<label>fangs</label>
+		<hediffClass>Vampire.Hediff_AddedPart_Fangs</hediffClass>
+		<addedPartProps>
+			<isSolid>true</isSolid>
+			<partEfficiency>1.2</partEfficiency>
+		</addedPartProps>
+		<scenarioCanAdd>false</scenarioCanAdd>
+		<comps>
+			<li Class="HediffCompProperties_VerbGiver">
+				<tools>
+					<li>
+						<label>fangs</label>
+						<capacities>
+							<li>Bite</li>
+						</capacities>
+						<power>9</power>
+						<cooldownTime>1.65</cooldownTime>
+					</li>
+				</tools>
+			</li>
+		</comps>
+	</HediffDef>
+
+	<HediffDef ParentName="ROMV_TransformedBodyPartBase">
+		<defName>ROMV_FeralClaw</defName>
+		<label>feral claws (Protean)</label>
+		<comps>
+			<li Class="HediffCompProperties_VerbGiver">
+				<tools>
+					<li>
+						<label>feral claw</label>
+						<capacities>
+							<li>Blunt</li>
+						</capacities>
+						<power>14</power>
+						<cooldownTime>1.65</cooldownTime>
+					</li>
+				</tools>
+			</li>
+			<li Class="HediffCompProperties_Disappears">
+				<disappearsAfterTicks>
+					<min>7500</min>
+					<max>7500</max>
+				</disappearsAfterTicks>
+			</li>
+		</comps>
+		<addedPartProps>
+			<isGoodWeapon>true</isGoodWeapon>
+			<isBionic>false</isBionic>
+			<isSolid>true</isSolid>
+			<partEfficiency>1.0</partEfficiency>
+		</addedPartProps>
+	</HediffDef>
 
 </Defs>

@@ -3,7 +3,6 @@ using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Verse;
 
 namespace Vampire
@@ -18,7 +17,7 @@ namespace Vampire
                 "Spawn Vampire (Random)", new Action(()=>
                 {
                     Pawn randomVampire =
-                    VampireGen.GenerateVampire(VampireUtility.RandHigherGeneration, VampireUtility.RandBloodline, null, null, false);
+                    VampireGen.GenerateVampire(VampireUtility.RandHigherGeneration, VampireUtility.RandBloodline, null);
                     GenSpawn.Spawn(randomVampire, UI.MouseCell(), Find.VisibleMap);
 
                 })
@@ -28,14 +27,14 @@ namespace Vampire
             AccessTools.Method(typeof(Dialog_DebugActionsMenu), "DebugToolMap").Invoke(__instance, new object[] {
                 "Give Vampirism (Default)", new Action(()=>
             {
-                Pawn pawn = Find.VisibleMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault<Pawn>();
+                Pawn pawn = Find.VisibleMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault();
                 if (pawn != null)
                 {
                     if (!pawn.IsVampire())
                     {
                         pawn.health.AddHediff(VampDefOf.ROM_Vampirism, null, null);
                         pawn.Drawer.Notify_DebugAffected();
-                        MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, pawn.LabelShort + " is now a vampire", -1f);
+                        MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, pawn.LabelShort + " is now a vampire");
                     }
                     else
                         Messages.Message(pawn.LabelCap + " is already a vampire.", MessageTypeDefOf.RejectInput);
@@ -45,11 +44,11 @@ namespace Vampire
             AccessTools.Method(typeof(Dialog_DebugActionsMenu), "DebugToolMap").Invoke(__instance, new object[] {
                 "Give Vampirism (w/Settings)", new Action(()=>
             {
-                Pawn pawn = Find.VisibleMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault<Pawn>();
+                Pawn pawn = Find.VisibleMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault();
                 if (pawn != null)
                 {
                     //pawn.health.AddHediff(VampDefOf.ROM_Vampirism, null, null);
-                    Find.WindowStack.Add(new Dialog_DebugOptionListLister(HarmonyPatches.Options_Bloodlines(pawn)));
+                    Find.WindowStack.Add(new Dialog_DebugOptionListLister(Options_Bloodlines(pawn)));
                     //DebugTools.curTool = null;
                 }
             })});
@@ -59,7 +58,7 @@ namespace Vampire
             AccessTools.Method(typeof(Dialog_DebugActionsMenu), "DebugToolMap").Invoke(__instance, new object[] {
                 "Remove Vampirism", new Action(()=>
             {
-                Pawn pawn = Find.VisibleMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault<Pawn>();
+                Pawn pawn = Find.VisibleMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault();
                 if (pawn != null)
                 {
                     if (pawn.IsVampire())
@@ -75,7 +74,7 @@ namespace Vampire
                             pawn.health.RestorePart(rec);
                         }
                         pawn.Drawer.Notify_DebugAffected();
-                        MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, pawn.LabelShort + " is no longer a vampire", -1f);
+                        MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, pawn.LabelShort + " is no longer a vampire");
                     }
                     else
                         Messages.Message(pawn.LabelCap + " is already a vampire.", MessageTypeDefOf.RejectInput);
@@ -86,24 +85,24 @@ namespace Vampire
             AccessTools.Method(typeof(Dialog_DebugActionsMenu), "DebugToolMap").Invoke(__instance, new object[] {
                 "Add Blood (1)", new Action(()=>
             {
-                Pawn pawn = Find.VisibleMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault<Pawn>();
+                Pawn pawn = Find.VisibleMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault();
                 if (pawn != null && pawn?.BloodNeed() is Need_Blood b)
                 {
                         b.AdjustBlood(1);
                         pawn.Drawer.Notify_DebugAffected();
-                        MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, "+1 Blood", -1f);
+                        MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, "+1 Blood");
                 }
             })});
 
             AccessTools.Method(typeof(Dialog_DebugActionsMenu), "DebugToolMap").Invoke(__instance, new object[] {
                 "Drain Blood (1)", new Action(()=>
             {
-                Pawn pawn = Find.VisibleMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault<Pawn>();
+                Pawn pawn = Find.VisibleMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault();
                 if (pawn != null && pawn?.BloodNeed() is Need_Blood b)
                 {
                         b.AdjustBlood(-1);
                         pawn.Drawer.Notify_DebugAffected();
-                        MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, "-1 Blood", -1f);
+                        MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, "-1 Blood");
                 }
             })});
 
@@ -111,12 +110,12 @@ namespace Vampire
             AccessTools.Method(typeof(Dialog_DebugActionsMenu), "DebugToolMap").Invoke(__instance, new object[] {
                 "Add XP (100)", new Action(()=>
             {
-                Pawn pawn = Find.VisibleMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault<Pawn>();
+                Pawn pawn = Find.VisibleMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault();
                 if (pawn != null && pawn?.VampComp() is CompVampire v)
                 {
                         v.XP += 100;
                         pawn.Drawer.Notify_DebugAffected();
-                        MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, "+100 XP", -1f);
+                        MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, "+100 XP");
                 }
             })});
         }
@@ -133,7 +132,7 @@ namespace Vampire
             {
                 list.Add(new DebugMenuOption(current.LabelCap, DebugMenuOptionMode.Action, delegate
                 {
-                    Find.WindowStack.Add(new Dialog_DebugOptionListLister(HarmonyPatches.Options_Generation(p, current)));
+                    Find.WindowStack.Add(new Dialog_DebugOptionListLister(Options_Generation(p, current)));
 
                 }));
             }
@@ -151,7 +150,7 @@ namespace Vampire
                     p.VampComp().InitializeVampirism(null, bloodline, curGen, curGen == 1);
                     //Log.Message("0" + p.LabelShort + " " + i.ToString());
                     p.Drawer.Notify_DebugAffected();
-                    MoteMaker.ThrowText(p.DrawPos, p.Map, p.LabelShort + " is now a vampire", -1f);
+                    MoteMaker.ThrowText(p.DrawPos, p.Map, p.LabelShort + " is now a vampire");
                 }));
             }
             return list;

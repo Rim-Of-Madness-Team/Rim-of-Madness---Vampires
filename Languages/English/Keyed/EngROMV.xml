@@ -82,7 +82,7 @@
 
 <!-- Alerts -->
 <ROMV_Alert_StarvingVampire>Starving vampire</ROMV_Alert_StarvingVampire>
-<ROMV_Alert_StarvingVampireDesc>There are starving. If they do not feed quickly, they may awaken their inner beast.\n\nThese are the starving vampires:\n {0}\n\nTip! Right click coffins to make a vamprie enter a torpor state, preventing them from turning into the beast.</ROMV_Alert_StarvingVampireDesc>
+<ROMV_Alert_StarvingVampireDesc>There are starving vampires in your colony. If they do not feed quickly, they may awaken their inner beast.\n\nThese are the starving vampires:\n {0}\n\nTip! Right click coffins to make a vamprie enter a torpor state, preventing them from turning into the beast.</ROMV_Alert_StarvingVampireDesc>
 <ROMV_Alert_VampireInTheSun>Vampire in sunlight</ROMV_Alert_VampireInTheSun>
 <ROMV_Alert_VampireInTheSunDesc>There are vampires in direct sunlight. Be sure to move them quickly under a roof before the sun burns them into ashes.\n\nThese are the vampires out in sunlight:\n {0}</ROMV_Alert_VampireInTheSunDesc>
 
@@ -134,5 +134,7 @@
 <ROMV_UnknownBloodline>unknown bloodline</ROMV_UnknownBloodline>
 <ROMV_StartingVampiresSummary>{0} will be (a) {1} generation {2} vampire(s){3}.</ROMV_StartingVampiresSummary>
 <!-- Start with 3 10th-13th generation Tremere vampires in coffins -->
+
+<ROMV_LimbRegen>{0}'s {1} has been regenerated.</ROMV_LimbRegen>
 
 </LanguageData>

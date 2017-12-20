@@ -1,8 +1,5 @@
 ﻿using RimWorld;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using UnityEngine;
 using Verse;
 
@@ -27,7 +24,7 @@ namespace Vampire
         {
             get
             {
-                int num = Mathf.RoundToInt((this.origin - this.destination).magnitude / (this.speed / 100f));
+                int num = Mathf.RoundToInt((origin - destination).magnitude / (speed / 100f));
                 if (num < 1)
                 {
                     num = 1;
@@ -37,61 +34,43 @@ namespace Vampire
         }
 
 
-        protected IntVec3 DestinationCell
-        {
-            get
-            {
-                return new IntVec3(this.destination);
-            }
-        }
+        protected IntVec3 DestinationCell => new IntVec3(destination);
 
         public virtual Vector3 ExactPosition
         {
             get
             {
-                Vector3 b = (this.destination - this.origin) * (1f - (float)this.ticksToImpact / (float)this.StartingTicksToImpact);
-                return this.origin + b + Vector3.up * this.def.Altitude;
+                Vector3 b = (destination - origin) * (1f - (float)ticksToImpact / (float)StartingTicksToImpact);
+                return origin + b + Vector3.up * def.Altitude;
             }
         }
 
-        public virtual Quaternion ExactRotation
-        {
-            get
-            {
-                return Quaternion.LookRotation(this.destination - this.origin);
-            }
-        }
+        public virtual Quaternion ExactRotation => Quaternion.LookRotation(destination - origin);
 
-        public override Vector3 DrawPos
-        {
-            get
-            {
-                return this.ExactPosition;
-            }
-        }
+        public override Vector3 DrawPos => ExactPosition;
 
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look<Vector3>(ref this.origin, "origin", default(Vector3), false);
-            Scribe_Values.Look<Vector3>(ref this.destination, "destination", default(Vector3), false);
-            Scribe_Values.Look<int>(ref this.ticksToImpact, "ticksToImpact", 0, false);
-            Scribe_Values.Look<int>(ref this.timesToDamage, "timesToDamage", 0, false);
-            Scribe_Values.Look<bool>(ref this.damageLaunched, "damageLaunched", true);
-            Scribe_Values.Look<bool>(ref this.explosion, "explosion", false);
-            Scribe_References.Look<Thing>(ref this.assignedTarget, "assignedTarget", false);
-            Scribe_References.Look<Thing>(ref this.launcher, "launcher", false);
-            Scribe_References.Look<Thing>(ref this.flyingThing, "flyingThing");
+            Scribe_Values.Look(ref origin, "origin");
+            Scribe_Values.Look(ref destination, "destination");
+            Scribe_Values.Look(ref ticksToImpact, "ticksToImpact");
+            Scribe_Values.Look(ref timesToDamage, "timesToDamage");
+            Scribe_Values.Look(ref damageLaunched, "damageLaunched", true);
+            Scribe_Values.Look(ref explosion, "explosion");
+            Scribe_References.Look(ref assignedTarget, "assignedTarget");
+            Scribe_References.Look(ref launcher, "launcher");
+            Scribe_References.Look(ref flyingThing, "flyingThing");
         }
 
         public void Launch(Thing launcher, LocalTargetInfo targ, Thing flyingThing, DamageInfo? impactDamage)
         {
-            this.Launch(launcher, base.Position.ToVector3Shifted(), targ, flyingThing, impactDamage);
+            Launch(launcher, Position.ToVector3Shifted(), targ, flyingThing, impactDamage);
         }
 
         public void Launch(Thing launcher, LocalTargetInfo targ, Thing flyingThing)
         {
-            this.Launch(launcher, base.Position.ToVector3Shifted(), targ, flyingThing);
+            Launch(launcher, Position.ToVector3Shifted(), targ, flyingThing);
         }
 
         public void Launch(Thing launcher, Vector3 origin, LocalTargetInfo targ, Thing flyingThing, DamageInfo? newDamageInfo = null)
@@ -101,37 +80,37 @@ namespace Vampire
 
             this.launcher = launcher;
             this.origin = origin;
-            this.impactDamage = newDamageInfo;
+            impactDamage = newDamageInfo;
             this.flyingThing = flyingThing;
             if (targ.Thing != null)
             {
-                this.assignedTarget = targ.Thing;
+                assignedTarget = targ.Thing;
             }
-            this.destination = targ.Cell.ToVector3Shifted() + new Vector3(Rand.Range(-0.3f, 0.3f), 0f, Rand.Range(-0.3f, 0.3f));
-            this.ticksToImpact = this.StartingTicksToImpact;
+            destination = targ.Cell.ToVector3Shifted() + new Vector3(Rand.Range(-0.3f, 0.3f), 0f, Rand.Range(-0.3f, 0.3f));
+            ticksToImpact = StartingTicksToImpact;
         }
 
         public override void Tick()
         {
             base.Tick();
-            Vector3 exactPosition = this.ExactPosition;
-            this.ticksToImpact--;
-            if (!this.ExactPosition.InBounds(base.Map))
+            Vector3 exactPosition = ExactPosition;
+            ticksToImpact--;
+            if (!ExactPosition.InBounds(Map))
             {
-                this.ticksToImpact++;
-                base.Position = this.ExactPosition.ToIntVec3();
-                this.Destroy(DestroyMode.Vanish);
+                ticksToImpact++;
+                Position = ExactPosition.ToIntVec3();
+                Destroy();
                 return;
             }
 
-            base.Position = this.ExactPosition.ToIntVec3();
-            if (this.ticksToImpact <= 0)
+            Position = ExactPosition.ToIntVec3();
+            if (ticksToImpact <= 0)
             {
-                if (this.DestinationCell.InBounds(base.Map))
+                if (DestinationCell.InBounds(Map))
                 {
-                    base.Position = this.DestinationCell;
+                    Position = DestinationCell;
                 }
-                this.ImpactSomething();
+                ImpactSomething();
                 return;
             }
 
@@ -143,36 +122,36 @@ namespace Vampire
             {
                 if (flyingThing is Pawn)
                 {
-                    if (this.DrawPos == null) return;
-                    if (!this.DrawPos.ToIntVec3().IsValid) return;
+                    if (DrawPos == null) return;
+                    if (!DrawPos.ToIntVec3().IsValid) return;
                     Pawn pawn = flyingThing as Pawn;
-                    pawn.Drawer.DrawAt(this.DrawPos);
+                    pawn.Drawer.DrawAt(DrawPos);
                     //Graphics.DrawMesh(MeshPool.plane10, this.DrawPos, this.ExactRotation, this.flyingThing.def.graphic.MatFront, 0);
                 }
                 else
                 {
-                    Graphics.DrawMesh(MeshPool.plane10, this.DrawPos, this.ExactRotation, this.flyingThing.def.DrawMatSingle, 0);
+                    Graphics.DrawMesh(MeshPool.plane10, DrawPos, ExactRotation, flyingThing.def.DrawMatSingle, 0);
                 }
-                base.Comps_PostDraw();
+                Comps_PostDraw();
             }
         }
 
         private void ImpactSomething()
         {
-            if (this.assignedTarget != null)
+            if (assignedTarget != null)
             {
-                Pawn pawn = this.assignedTarget as Pawn;
-                if (pawn != null && pawn.GetPosture() != PawnPosture.Standing && (this.origin - this.destination).MagnitudeHorizontalSquared() >= 20.25f && Rand.Value > 0.2f)
+                Pawn pawn = assignedTarget as Pawn;
+                if (pawn != null && pawn.GetPosture() != PawnPosture.Standing && (origin - destination).MagnitudeHorizontalSquared() >= 20.25f && Rand.Value > 0.2f)
                 {
-                    this.Impact(null);
+                    Impact(null);
                     return;
                 }
-                this.Impact(this.assignedTarget);
+                Impact(assignedTarget);
                 return;
             }
             else
             {
-                this.Impact(null);
+                Impact(null);
                 return;
             }
         }
@@ -186,7 +165,7 @@ namespace Vampire
             if (hitThing == null)
             {
 
-                if (this.Position.GetThingList(this.Map).FirstOrDefault(x => x == this.assignedTarget) is Pawn p)
+                if (Position.GetThingList(Map).FirstOrDefault(x => x == assignedTarget) is Pawn p)
                 {
 
                     hitThing = p;
@@ -203,11 +182,11 @@ namespace Vampire
                     else
                         hitThing.TakeDamage(impactDamage.Value);
                 if (explosion)
-                    GenExplosion.DoExplosion(this.Position, this.Map, 0.9f, DamageDefOf.Stun, this);
+                    GenExplosion.DoExplosion(Position, Map, 0.9f, DamageDefOf.Stun, this);
 
             }
-            GenSpawn.Spawn(flyingThing, this.Position, this.Map);
-            this.Destroy(DestroyMode.Vanish);
+            GenSpawn.Spawn(flyingThing, Position, Map);
+            Destroy();
         }
 
 

@@ -53,7 +53,7 @@
       </li>
       <li>
         <bodyGraphicData>
-          <texPath>Things/Pawn/Animal/ZuloA/ZuloA</texPath>
+          <texPath>Things/Pawn/Animal/Zulo/Zulo</texPath>
           <drawSize>3.95</drawSize>
           <shadowData>
             <volume>(0.3, 0.4, 0.3)</volume>

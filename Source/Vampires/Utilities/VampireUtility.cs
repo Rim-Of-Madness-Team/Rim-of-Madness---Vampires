@@ -1,12 +1,8 @@
-﻿using AbilityUser;
-using RimWorld;
-using System;
+﻿using RimWorld;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using UnityEngine;
 using Verse;
-using Verse.AI;
 
 namespace Vampire
 {
@@ -39,8 +35,7 @@ namespace Vampire
             
         public static void SummonEffect(IntVec3 loc, Map map, Thing summoner, float size)
         {
-            GenExplosion.DoExplosion(loc, map, size, DamageDefOf.EMP, summoner, -1, DamageDefOf.Stun.soundExplosion);
-
+            ExplosionUtility.DoExplosion(loc, map, size, DamageDefOf.EMP, summoner, -1, DamageDefOf.Stun.soundExplosion);
         }
 
         //=> (GenLocalDate.HourInteger(p) >= 6 && GenLocalDate.HourInteger(p) <= 17) && !Find.World.GameConditionManager.ConditionIsActive(GameConditionDefOf.Eclipse);
@@ -72,7 +67,7 @@ namespace Vampire
         {
             if (vampire?.VampComp() is CompVampire v && v.IsVampire && vampire.Faction == Faction.OfPlayer)
             {
-                MoteMaker.ThrowText(vampire.DrawPos + new Vector3(0, 0, 0.1f), vampire.Map, "XP +" + amount, -1f);
+                MoteMaker.ThrowText(vampire.DrawPos + new Vector3(0, 0, 0.1f), vampire.Map, "XP +" + amount);
                 v.XP += amount;
             }
         }

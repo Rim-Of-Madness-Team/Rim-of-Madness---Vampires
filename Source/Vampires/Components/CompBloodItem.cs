@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Verse;
+﻿using Verse;
 
 namespace Vampire
 {
     public class CompBloodItem : ThingComp
     {
-        public CompProperties_BloodItem Props => this.props as CompProperties_BloodItem;
+        public CompProperties_BloodItem Props => props as CompProperties_BloodItem;
     }
 }
