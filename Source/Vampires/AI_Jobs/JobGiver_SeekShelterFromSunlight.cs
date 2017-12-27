@@ -22,31 +22,37 @@ namespace Vampire
             return RCellFinder.RandomWanderDestFor(pawn, wanderRoot, wanderRadius, delegate(Pawn p, IntVec3 v) { if (v.Roofed(p.MapHeld)) return true; return false; }, PawnUtility.ResolveMaxDanger(pawn, maxDanger));
         }
 
-        public override float GetPriority(Pawn pawn)
-        {
-            if (pawn.VampComp() is CompVampire v && v.IsVampire &&
-            GenLocalDate.HourInteger(pawn) >= 6 && GenLocalDate.HourInteger(pawn) <= 17 &&
-            !pawn.PositionHeld.Roofed(pawn.MapHeld))
-            {
-                return 9.5f;
-            }
-            return 0f;
-        }
+//        public override float GetPriority(Pawn pawn)
+//        {
+//            Log.Message("VampJobPriority");
+//
+//            if (pawn.VampComp() is CompVampire v && v.IsVampire &&
+//            GenLocalDate.HourInteger(pawn) >= 6 && GenLocalDate.HourInteger(pawn) <= 17 &&
+//            !pawn.PositionHeld.Roofed(pawn.MapHeld))
+//            {
+//                return 9.5f;
+//            }
+//            return 0f;
+//        }
 
         protected override Job TryGiveJob(Pawn pawn)
         {
             try
             {
+                //Log.Message("VampJobTry");
+//                if (!VampireUtility.IsDaylight(pawn))
+//                    return null;
+//                if (pawn.Drafted)
+//                    return null;
+//                Log.Message("1");
+//                Room room = pawn.GetRoom();
+//                Log.Message("2");
+//                if (room != null)
+//                {
+//                    if (room.PsychologicallyOutdoors)
+//                    {
+//                        Log.Message("3");
 
-                if (!VampireUtility.IsDaylight(pawn))
-                    return null;
-                if (pawn.Drafted)
-                    return null;
-                Room room = pawn.GetRoom();
-                if (room != null)
-                {
-                    if (room.PsychologicallyOutdoors)
-                    {
                         if (VampSunlightPathUtility.GetSunlightPathJob(pawn) is Job j)
                             return j;
                         //    Area area = pawn.MapHeld.areaManager.Home;
@@ -154,8 +160,8 @@ namespace Vampire
                         //{
                         //    locomotionUrgency = this.locomotionUrgency
                         //};
-                    }
-                }
+                    //}
+                //}
             }
             catch (Exception e)
             {

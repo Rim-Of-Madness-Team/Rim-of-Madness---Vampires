@@ -73,6 +73,10 @@ namespace Vampire
                     if (victim != null)
                     {
 
+//                        if (!AllowFeeding(actor, victim))
+//                        {
+//                            actor.jobs.EndCurrentJob(JobCondition.Incompletable);
+//                        }
                         if (actor.InAggroMentalState || victim.InAggroMentalState || victim.Faction != actor.Faction)
                         {
                             if (needsGrapple)
@@ -85,10 +89,6 @@ namespace Vampire
                                     return;
                                 }
                             }
-                        }
-                        if (!AllowFeeding(actor, victim))
-                        {
-                            actor.jobs.EndCurrentJob(JobCondition.Incompletable);
                         }
                         if (actor.IsVampire())
                             VampireBiteUtility.MakeNew(actor, victim);
@@ -234,10 +234,10 @@ namespace Vampire
         }
         
 
-        public static bool AllowFeeding(Pawn feeder, Pawn victim)
-        {
-            return true;
-        }
+//        public static bool AllowFeeding(Pawn feeder, Pawn victim)
+//        {
+//            return victim != null && victim.PositionHeld.IsValid && victim.PositionHeld.IsSunlightSafeFor(feeder);
+//        }
 
         public override bool TryMakePreToilReservations()
         {

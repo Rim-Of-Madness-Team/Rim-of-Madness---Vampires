@@ -3,6 +3,8 @@
 
 <!-- Blood drain-related deaths -->
 
+
+
 	<ThoughtDef>
 		<defName>ROMV_IConsumedASoul</defName>
 		<durationDays>3</durationDays>
@@ -60,6 +62,7 @@
 			</li>
 		</stages>
 	</ThoughtDef>
+	
 
 
 	  <ThoughtDef ParentName="DeathMemory">

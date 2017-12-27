@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using RimWorld;
 using Verse;
 using Verse.AI;
@@ -44,7 +45,7 @@ namespace Vampire
         // RimWorld.JoyUtility
         public static void EnjoyableOutsideNow_Vampire(Pawn pawn, ref bool __result, StringBuilder outFailReason = null)
         {
-            if (pawn.IsVampire() && VampireUtility.IsDaylight(pawn))
+            if (pawn.IsVampire() && pawn.IsSunRising())
             {
                 __result = false;
             }
@@ -53,11 +54,19 @@ namespace Vampire
         // RimWorld.PawnUtility
         public static void KnownDangerAt_Vamp(IntVec3 c, Pawn forPawn, ref bool __result)
         {
-            if (forPawn.IsVampire() && forPawn.MapHeld != null && VampireUtility.IsDaylight(forPawn) && !c.Roofed(forPawn.MapHeld))
+            if (forPawn.IsVampire() && forPawn.MapHeld != null && forPawn.IsSunRising() && !c.Roofed(forPawn.MapHeld))
             {
                 __result = true;
                 return;
             }
-        }
+        }        
+        
+//        public static void Vamp_DontWanderStupid(IntVec3 c, Pawn pawn, IntVec3 root, Func<Pawn, IntVec3, bool> validator, int tryIndex, Danger maxDanger, ref bool __result)
+//        {
+//            if (__result && pawn != null && pawn.IsVampire() && pawn.Spawned && !c.Roofed(pawn.Map) &&
+//                pawn.Map != null && pawn.IsSunRising())
+//                __result = false;
+//        }
+//        
     }
 }

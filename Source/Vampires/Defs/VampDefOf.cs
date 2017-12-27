@@ -9,6 +9,7 @@ namespace Vampire
         public static NeedDef ROMV_Blood;
 
         public static HediffDef ROM_Vampirism; //Vampires have no inner organs.
+        public static HediffDef ROM_GhoulHediff;
         public static HediffDef ROMV_SunExposure;
         public static HediffDef ROMV_Fangs;
         public static HediffDef ROMV_TheBeast;
@@ -70,6 +71,7 @@ namespace Vampire
         public static ThoughtDef ROMV_KnowGuestDiedOfBloodLoss;
         public static ThoughtDef ROMV_KnowColonistDiedOfBloodLoss;
         public static ThoughtDef ROMV_IWasBittenByAVampire;
+        public static ThoughtDef ROMV_IDrankVitae;
         public static ThoughtDef ROMV_IGaveTheKiss;
         public static ThoughtDef ROMV_IConsumedASoul;
         public static ThoughtDef ROMV_ITastedASoul;
@@ -123,5 +125,12 @@ namespace Vampire
         public static JobDef ROMV_EnterTorpor;
         public static JobDef ROMV_DigAndHide;
         public static JobDef ROMV_Diablerie;
+        public static JobDef ROMV_GhoulBloodBond;
+        public static VitaeAbilityDef ROMV_VampiricHealingScars;
+        public static HediffDef ROMV_VitaeHigh;
+        public static ChemicalDef ROMV_VitaeChemical;
+        public static HediffDef ROMV_VitaeTolerance;
+        public static HediffDef ROMV_VitaeAddiction;
+        public static JobDef ROMV_GotoSafety;
     }
 }

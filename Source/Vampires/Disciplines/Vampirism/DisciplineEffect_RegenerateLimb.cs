@@ -20,7 +20,7 @@ namespace Vampire
                 
                 Messages.Message("ROMV_LimbRegen".Translate(new object[] {
                 target.LabelShort,
-                partToRestore.Label
+                partToRestore.Part.def.label
             }), MessageTypeDefOf.PositiveEvent);
             }
         }

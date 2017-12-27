@@ -327,6 +327,10 @@ namespace Vampire
             if (victim.Dead || vampire.Dead) return false;
             if (!victim.Spawned || !vampire.Spawned) return false;
             if (victim.RaceProps.IsMechanoid) return false;
+            if (victim.def == ThingDef.Named("Boomalope")) return false;
+            if (victim.def == ThingDef.Named("Boomrat")) return false;
+            if (victim?.RaceProps?.FleshType == FleshTypeDefOf.Insectoid) return false;
+            if (!VampSunlightPathUtility.CanArriveBeforeSunlight(victim.PositionHeld, vampire)) return false;
             if (victim?.BloodNeed() is Need_Blood targetBlood)
             {
                 if (vampire?.BloodNeed() is Need_Blood eaterBlood)

@@ -36,6 +36,10 @@ namespace Vampire
         private bool bloodFixer = false;
         public PreferredFeedMode preferredFeedMode = PreferredFeedMode.HumanoidNonLethal;
         public PreferredHumanoidFeedType preferredHumanoidFeedType = PreferredHumanoidFeedType.All;
+
+        //Variables related to Ghouls
+        private bool mixedBlood = false;
+        private int curGhoulVitaePoints = Int32.MinValue;   
         #endregion Variables
 
         #region Properties
@@ -45,11 +49,22 @@ namespace Vampire
         public bool Starving => CompVampire != null && CompVampire.IsVampire && CurCategory == HungerCategory.Starving;
         public bool ShouldDie => CurBloodPoints == 0;
         public float PercPerPoint => 1f / MaxBloodPoints;
-        public bool DrainingIsDeadly => CurBloodPoints <= 2 || pawn?.health?.hediffSet?.hediffs?.FirstOrDefault(x => x.def == HediffDefOf.BloodLoss) is Hediff bloodLoss && bloodLoss.CurStageIndex > 2;
-        //public PreferredFeedMode PreferredFeedMode { get => preferredFeedMode; set => preferredFeedMode = value; }
 
+        public bool DrainingIsDeadly
+        {
+            get
+            {
+                return CurBloodPoints <= 2 ||
+                       pawn?.health?.hediffSet?.hediffs?.FirstOrDefault(x => x.def == HediffDefOf.BloodLoss) is Hediff
+                           bloodLoss && bloodLoss.CurStageIndex > 2;
+            }
+        }
 
-
+        public bool BloodFixer
+        {
+            get { return bloodFixer; }
+            set { bloodFixer = value; }
+        }
 
         public int NextBloodChangeTick
         {
@@ -71,6 +86,20 @@ namespace Vampire
             }
             set => curBloodPoints = value;
         }
+
+        public int CurGhoulVitaePoints
+        {
+            get
+            {
+                if (curGhoulVitaePoints == Int32.MinValue)
+                    curGhoulVitaePoints = 0;
+                return curGhoulVitaePoints;
+            }
+            set => curGhoulVitaePoints = Mathf.Clamp(value, 0, MaxBloodPoints);
+        }
+
+        public float CurGhoulVitaePercentage => CurGhoulVitaePoints * PercPerPoint;
+
         public int MaxBloodPointsForAnimal(Pawn p)
         {
             PawnKindDef def = p.kindDef;
@@ -132,22 +161,31 @@ namespace Vampire
         }
         #endregion  Properties
         
-        public override int GUIChangeArrow 
-            => CompVampire != null && CompVampire.IsVampire? -1 : CurLevel == MaxLevel ? 0 : 1;
-        public override float CurInstantLevel => base.CurInstantLevel;
-        public override float CurLevel
+        public override int GUIChangeArrow
+        {
+            get
             {
-            get => base.CurLevel;
-            set => base.CurLevel = value;
+                if (CompVampire is CompVampire compVampire && compVampire.IsRevenant && CurLevel != MaxLevel)
+                    return 1;
+                return CompVampire != null && CompVampire.IsVampire ? -1 :
+                    CurLevel == MaxLevel ? 0 : 1;
+            }
+        }
+
+        public override float CurInstantLevel => base.CurInstantLevel;
+
+        public override float CurLevel
+        {
+            get { return base.CurLevel; }
+            set { base.CurLevel = value; }
         }
 
         public float ShouldFeedPerc => 0.7f;
 
-        public override float MaxLevel
-            => MaxBloodPoints;
-        public float BloodWanted 
-            => MaxBloodPoints - CurBloodPoints;
-        
+        public override float MaxLevel => MaxBloodPoints;
+
+        public float BloodWanted => MaxBloodPoints - CurBloodPoints;
+
         public int TicksStarving => Mathf.Max(0, Find.TickManager.TicksGame - lastNonStarvingTick);
 
         public Need_Blood(Pawn pawn) : base(pawn) { }
@@ -160,15 +198,27 @@ namespace Vampire
             Scribe_Values.Look(ref lastNonStarvingTick, "lastNonStarvingTick", -1);
             Scribe_Values.Look(ref nextBloodChangeTick, "nextBloodChangeTick", -1);
             Scribe_Values.Look(ref curBloodPoints, "curBloodPoints", -1);
+            Scribe_Values.Look(ref curGhoulVitaePoints, "curGhoulVitaePoints", -1);
             Scribe_Values.Look(ref bloodFixer, "bloodFixer");
+            Scribe_Values.Look(ref mixedBlood, "mixedBlood");
             Scribe_Values.Look(ref preferredFeedMode, "preferredFeedMode", PreferredFeedMode.HumanoidNonLethal);
             Scribe_Values.Look(ref preferredHumanoidFeedType, "preferredHumanoidFeedType", PreferredHumanoidFeedType.PrisonersOnly);
         }
         
-        public int AdjustBlood(int amt, bool alert = true)
+        public int AdjustBlood(int amt, bool alert = true, bool ghoulify = false)
         {
+
             int prevBloodPoints = CurBloodPoints;
 
+            if (ghoulify)
+            {
+                int prevGhoulVitaePoints = CurGhoulVitaePoints;
+                int potentialGhoulVitae = CurGhoulVitaePoints + amt;
+                if (!MixedBlood) MixedBlood = true;
+                CurGhoulVitaePoints = Mathf.Clamp(potentialGhoulVitae, 0, MaxBloodPoints);
+                return prevGhoulVitaePoints - CurGhoulVitaePoints;
+            }
+            
             CurBloodPoints = Mathf.Clamp(CurBloodPoints + amt, 0, MaxBloodPoints);
             CurLevelPercentage = CurBloodPoints * PercPerPoint;
 
@@ -205,12 +255,18 @@ namespace Vampire
             }
         }
 
-        public void TransferBloodTo(int amt, Need_Blood otherPool, bool alert = true)
+        public void TransferBloodTo(int amt, Need_Blood otherPool, bool alert = true, bool ghoulify = false)
         {
             int removedAmt = AdjustBlood(-amt);
-            if (removedAmt > 0) otherPool.AdjustBlood(removedAmt);
+            if (removedAmt > 0) otherPool.AdjustBlood(removedAmt, alert, ghoulify);
         }
-        
+
+        public bool MixedBlood
+        {
+            get { return mixedBlood; }
+            set { mixedBlood = value; }
+        }
+
         public override void NeedInterval()
         {
             if (pawn == null || !pawn.Spawned)
@@ -222,27 +278,6 @@ namespace Vampire
                 nextBloodChangeTick = -1;
             }
             
-            //if ((pawn?.IsVampire() ?? false) && pawn.RaceProps != null && pawn.RaceProps.Humanlike && pawn.Faction != null && pawn.Faction == Faction.OfPlayer &&
-            //    !pawn.Downed && !pawn.Dead &&
-            //    !pawn.Drafted && (CurLevelPercentage < ShouldFeedPerc) &&
-            //    !pawn.CurJob.playerForced &&
-            //    (pawn.CurJob.def != VampDefOf.ROMV_ConsumeBlood && 
-            //    pawn.CurJob.def != VampDefOf.ROMV_Feed && 
-            //    pawn.CurJob.def != VampDefOf.ROMV_Sip &&
-            //    pawn.CurJob.def != JobDefOf.AttackMelee &&
-            //    pawn.CurJob.def != JobDefOf.Arrest &&
-            //    pawn.CurJob.def != JobDefOf.BeatFire &&
-            //    pawn.CurJob.def != JobDefOf.Rescue &&
-            //    pawn.CurJob.def != JobDefOf.TendPatient &&
-            //    pawn.CurJob.def != JobDefOf.Flee &&
-            //    pawn.CurJob.def != JobDefOf.FleeAndCower))
-            //{
-            //    if (JobGiver_GetBlood.FeedJob(pawn) is Job j)
-            //    {
-            //        this.pawn.jobs.StartJob(j, JobCondition.InterruptForced, null, false, true, null, new JobTag?(JobTag.SatisfyingNeeds), false);
-            //    }
-            //}
-
             //if (Find.TickManager.TicksGame % 250 == 0)
                 //Log.Message("Ticks => " + Find.TickManager.TicksGame);
             if (Find.TickManager.TicksGame > nextBloodChangeTick)
@@ -305,8 +340,30 @@ namespace Vampire
             });
         }
 
-        public string GetLabel()
+        public string GetGhoulVitaeLabelAndPoints()
         {
+            return GetGhoulVitaeLabel() + ": " +
+                   CurGhoulVitaePercentage.ToStringPercent() +
+                   " (" + CurGhoulVitaePoints.ToString("0.##") +
+                   " / " +
+                   MaxBloodPoints.ToString("0.##") +
+                   ")\n";
+        }
+
+        public string GetGhoulVitaeLabel() => 
+            pawn.IsAndroid() ? "ROMV_AndroidCoolantVitae".Translate() : "ROMV_Vitae".Translate();
+
+        public string GetVitaeLabel() => 
+            pawn.IsVampire() ? "ROMV_AndroidCoolantVitae".Translate() : "ROMV_AndroidCoolant".Translate();
+
+        public string GetLabel(bool ghoul = false)
+        {
+            if (ghoul)
+            {
+                if (pawn.IsAndroid())
+                    return "ROMV_AndroidCoolant" + " & " + "ROMV_AndroidCoolantVitae".Translate();
+                return LabelCap + " & " +  "ROMV_Vitae".Translate();
+            }
             bool isVampire = pawn.IsVampire();
             /// CHJEES ANDROIDS ///////////////////////////////////////////////////////
             if (pawn.IsAndroid())
@@ -323,6 +380,10 @@ namespace Vampire
 
         public string GetDescription()
         {
+            if (CurGhoulVitaePoints > 0)
+            {
+                return GetGhoulVitaeLabelAndPoints() + "ROMV_GhoulVitaeDesc".Translate();
+            }
             bool isVampire = pawn.IsVampire();
             /// CHJEES ANDROIDS ///////////////////////////////////////////////////////
             if (pawn.IsAndroid())
@@ -337,8 +398,10 @@ namespace Vampire
             return def.description;
         }
         
-        public Color GetColorToUse()
+        public Color GetColorToUse(bool ghoulVitae = false)
         {
+            if (ghoulVitae)
+                return VampireUtility.ColorVitae;
             bool isVampire = pawn.IsVampire();
             if (pawn.IsAndroid())
             {
@@ -353,7 +416,7 @@ namespace Vampire
 
         }
 
-        public override void DrawOnGUI(Rect rect, int maxThresholdMarkers = 2147483647, float customMargin = -1f, bool drawArrows = true, bool doTooltip = true)
+        public override void DrawOnGUI(Rect rect, int maxThresholdMarkers = Int32.MaxValue, float customMargin = -1f, bool drawArrows = true, bool doTooltip = true)
         {
             if (threshPercents == null)
             {
@@ -379,48 +442,20 @@ namespace Vampire
                 TooltipHandler.TipRegion(rect, new TipSignal(() => GetTipString(), rect.GetHashCode()));
             }
 
-            if (pawn != null && pawn.Faction == Faction.OfPlayerSilentFail && pawn.VampComp() is CompVampire v && v.IsVampire)
-            {
-                //HostilityResponseModeUtility.DrawResponseButton(new Vector2(rect.width - 120f, 0f), pawn);
+            if (pawn != null && pawn.Faction == Faction.OfPlayerSilentFail && pawn.VampComp() is CompVampire v &&
+                v.IsVampire)
                 BloodFeedModeUtility.DrawFeedModeButton(new Vector2(rect.width - 20f, 5f), pawn);
-            }
 
-            float num2 = 14f;
-            float num3 = customMargin < 0f ? num2 + 15f : customMargin;
-            if (rect.height < 50f)
+            
+            if (CurGhoulVitaePoints > 0)
             {
-                num2 *= Mathf.InverseLerp(0f, 50f, rect.height);
+                DrawBar(rect.TopHalf(), maxThresholdMarkers, -1f, drawArrows, BarType.GhoulTopHalf);
+                DrawBar(rect.BottomHalf(), maxThresholdMarkers, -1f, pawn?.VampComp()?.IsRevenant ?? drawArrows, BarType.GhoulBottomHalf);
             }
-            Text.Font = rect.height <= 55f ? GameFont.Tiny : GameFont.Small;
-            Text.Anchor = TextAnchor.LowerLeft;
-            Rect rect2 = new Rect(rect.x + num3 + rect.width * 0.1f, rect.y, rect.width - num3 - rect.width * 0.1f, rect.height / 2f);
-            Widgets.Label(rect2, GetLabel());
-            Text.Anchor = TextAnchor.UpperLeft;
-            Rect rect3 = new Rect(rect.x, rect.y + rect.height / 2f, rect.width, rect.height / 2f);
-            rect3 = new Rect(rect3.x + num3, rect3.y, rect3.width - num3 * 2f, rect3.height - num2);
-            Color colorToUse = GetColorToUse(); //(this.pawn?.IsVampire() ?? false) ? new Color(0.65f, 0.008f, 0.008f) : new Color(0.73f, 0.02f, 0.02f);
-            Widgets.FillableBar(rect3, CurLevelPercentage, SolidColorMaterials.NewSolidColorTexture(colorToUse));
-            //Widgets.FillableBar(rect3, this.CurLevelPercentage);
-            if (drawArrows)
-            {
-                Widgets.FillableBarChangeArrows(rect3, GUIChangeArrow);
-            }
-            if (threshPercents != null)
-            {
-                for (int i = 0; i < Mathf.Min(threshPercents.Count, maxThresholdMarkers); i++)
-                {
-                    DrawBarThreshold(rect3, threshPercents[i]);
-                }
-            }
-            float curInstantLevelPercentage = CurInstantLevelPercentage;
-            if (curInstantLevelPercentage >= 0f)
-            {
-                DrawBarInstantMarkerAt(rect3, curInstantLevelPercentage);
-            }
-            if (!def.tutorHighlightTag.NullOrEmpty())
-            {
-                UIHighlighter.HighlightOpportunity(rect, def.tutorHighlightTag);
-            }
+            else
+                DrawBar(rect, maxThresholdMarkers, customMargin, drawArrows);
+            
+            
             Text.Font = GameFont.Small;
         }
 
@@ -444,7 +479,66 @@ namespace Vampire
             GUI.color = Color.white;
         }
 
+        private enum BarType
+        {
+            Standard,
+            GhoulTopHalf,
+            GhoulBottomHalf
+        }
 
+        private void DrawBar(Rect rect, float maxThresholdMarkers = Int32.MaxValue, float customMargin = -1f, bool drawArrows = false, BarType barType = BarType.Standard)
+        {
+            float num2 = (barType == BarType.Standard) ? 14f : 0f;
+            float num3 = customMargin < 0f ? num2 + 15f : customMargin;
+            float rect2yOffset = (barType != BarType.Standard) ? 10f : 0 ;
+
+            if (rect.height < 50f)
+            {
+                num2 *= Mathf.InverseLerp(0f, 50f, rect.height);
+            }
+            Text.Font = rect.height <= 55f ? GameFont.Tiny : GameFont.Small;
+            Text.Anchor = TextAnchor.LowerLeft;
+            if (barType != BarType.GhoulBottomHalf)
+            {
+                float barLabelHeightDivider = (barType == BarType.GhoulTopHalf) ? 1f : 2f;
+                float rect2yOffset2 = (barType == BarType.GhoulTopHalf) ? rect.y : rect.y + rect2yOffset;
+                
+                Rect rect2 = new Rect(rect.x + num3 + rect.width * 0.1f, rect2yOffset2, rect.width - num3 - rect.width * 0.1f,
+                    rect.height / barLabelHeightDivider);
+                Widgets.Label(rect2, GetLabel(barType == BarType.GhoulTopHalf));
+            }
+            Text.Anchor = TextAnchor.UpperLeft;
+            float rectYPlacement = (barType != BarType.Standard && barType != BarType.GhoulTopHalf) ? rect.y : rect.y + rect.height / 2f;
+            float rectHeight = (barType == BarType.Standard) ? rect.height / 2f : rect.height / 2.15f;
+            Rect rect3 = new Rect(rect.x, rectYPlacement + rect2yOffset, rect.width, rectHeight);
+            rect3 = new Rect(rect3.x + num3, rect3.y, rect3.width - num3 * 2f, rect3.height - num2);
+            Color
+                colorToUse =
+                    GetColorToUse(barType == BarType.GhoulBottomHalf); //(this.pawn?.IsVampire() ?? false) ? new Color(0.65f, 0.008f, 0.008f) : new Color(0.73f, 0.02f, 0.02f);
+            Widgets.FillableBar(rect3, (barType == BarType.GhoulBottomHalf)? CurGhoulVitaePercentage : CurLevelPercentage, SolidColorMaterials.NewSolidColorTexture(colorToUse));
+            //Widgets.FillableBar(rect3, this.CurLevelPercentage);
+            if (drawArrows)
+            {
+                Widgets.FillableBarChangeArrows(rect3, GUIChangeArrow);
+            }
+            if (threshPercents != null)
+            {
+                for (int i = 0; i < Mathf.Min(threshPercents.Count, maxThresholdMarkers); i++)
+                {
+                    DrawBarThreshold(rect3, threshPercents[i]);
+                }
+            }
+            float curInstantLevelPercentage = CurInstantLevelPercentage;
+            if (curInstantLevelPercentage >= 0f)
+            {
+                DrawBarInstantMarkerAt(rect3, curInstantLevelPercentage);
+            }
+            if (!def.tutorHighlightTag.NullOrEmpty())
+            {
+                UIHighlighter.HighlightOpportunity(rect, def.tutorHighlightTag);
+            }
+
+        }
 
 
     }

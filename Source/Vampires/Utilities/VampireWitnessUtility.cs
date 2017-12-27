@@ -53,7 +53,7 @@ namespace Vampire
             };
         }
 
-        public static Crime GetCrime(JobDef jobDef)
+        public static Crime? GetCrime(JobDef jobDef)
         {
             return AllCrimes().FirstOrDefault(x => x.CrimeDef == jobDef);
         }
@@ -154,19 +154,23 @@ namespace Vampire
                 return;
             }
 
+            Crime? curCrime = GetCrime(crime);
+            if (curCrime == null) return;
+            
                 //Log.Message("1");
                 List<Pawn> witnesses = WitnessesOf(criminal, victim, crime);
             //Log.Message("2");
+
             
             if (!witnesses.NullOrEmpty())
             {
                 //Log.Message("Loop 1 Enter");
 
+                
                 foreach (Pawn witness in witnesses)
                 {
                     //Log.Message("Loop 1 Step 1");
 
-                    Crime curCrime = GetCrime(crime);
                     //Log.Message("Loop 1 Step 2");
 
                     Thought_MemoryObservation thought_MemoryObservation = null;
@@ -175,19 +179,23 @@ namespace Vampire
                     switch (witness.GetReactionTo(criminal, victim))
                     {
                         case CrimeReaction.MoodColonist:
+                            if (curCrime.Value.ColonistThought != null)
                             thought_MemoryObservation = 
                                 (Thought_MemoryObservation)ThoughtMaker
-                                .MakeThought(curCrime.ColonistThought);
+                                .MakeThought(curCrime.Value.ColonistThought);
                             break;
                         case CrimeReaction.MoodVisitor:
+                            if (curCrime.Value.VisitorThought != null)
+
                             thought_MemoryObservation =
                                 (Thought_MemoryObservation)ThoughtMaker
-                                .MakeThought(curCrime.VisitorThought);
+                                .MakeThought(curCrime.Value.VisitorThought);
                             break;
                         case CrimeReaction.MoodVisitorFlee:
+                            if (curCrime.Value.VisitorThought != null)
                             thought_MemoryObservation =
                                 (Thought_MemoryObservation)ThoughtMaker
-                                .MakeThought(curCrime.VisitorThought);
+                                .MakeThought(curCrime.Value.VisitorThought);
                             if (CanTakeWitnessJob(witness))
                             {
                                 IntVec3 fleeLoc = CellFinderLoose.GetFleeDest(witness, new List<Thing>() { criminal });
@@ -199,9 +207,10 @@ namespace Vampire
                             }
                             break;
                         case CrimeReaction.MoodVisitorAggro:
+                            if (curCrime.Value.VisitorThought != null)
                             thought_MemoryObservation =
                                 (Thought_MemoryObservation)ThoughtMaker
-                                .MakeThought(curCrime.VisitorThought);
+                                .MakeThought(curCrime.Value.VisitorThought);
                             if (CanTakeWitnessJob(witness))
                             {
                                 witness.jobs.StartJob(new Job(JobDefOf.AttackMelee, criminal));

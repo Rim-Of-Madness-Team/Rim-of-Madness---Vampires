@@ -70,8 +70,10 @@
     <Compile Include="AI_Jobs\JobDriver_FeedAndDestroy.cs" />
     <Compile Include="AI_Jobs\JobDriver_FeedAndReturn.cs" />
     <Compile Include="AI_Jobs\JobDriver_FeedSip.cs" />
-    <Compile Include="AI_Jobs\JobDriver_MakeBloodBond.cs" />
+    <Compile Include="AI_Jobs\JobDriver_GhoulBloodBond.cs" />
+    <Compile Include="AI_Jobs\JobGiver_ShareBlood.cs" />
     <Compile Include="Buttons.cs" />
+    <Compile Include="Components\ThrallData.cs" />
     <Compile Include="Defs\ScenPart_GameStartNight.cs" />
     <Compile Include="Defs\VitaeAbilityDef.cs" />
     <Compile Include="Disciplines\Vampirism\DisciplineEffect_RegenerateLimb.cs" />
@@ -91,6 +93,7 @@
     <Compile Include="Disciplines\Thaumaturgy\Projectile_BloodReturner.cs" />
     <Compile Include="Disciplines\Thaumaturgy\Projectile_BloodStealer.cs" />
     <Compile Include="Disciplines\Vampirism\DisciplineEffect_VampiricHealing.cs" />
+    <Compile Include="Disciplines\Vampirism\DisciplineEffect_VampiricHealingScars.cs" />
     <Compile Include="FlyingObject.cs" />
     <Compile Include="HarmonyPatches\VampHumanlikeOrders.cs" />
     <Compile Include="Hediffs\Gizmo_HediffShieldStatus.cs" />
@@ -132,6 +135,7 @@
     <Compile Include="Hediffs\HediffComp_AnimalForm.cs" />
     <Compile Include="Disciplines\Verb_UseAbilityPawnEffect.cs" />
     <Compile Include="HarmonyPatches\HarmonyPatches_PathFixes.cs" />
+    <Compile Include="Hediffs\HediffGhoul.cs" />
     <Compile Include="Hediffs\HediffVampirism_Gargoyle.cs" />
     <Compile Include="Hediffs\HediffVampirism_VampGiver.cs" />
     <Compile Include="Hediffs\HediffVampirism_Lasombre.cs" />
@@ -140,10 +144,11 @@
     <Compile Include="Hediffs\HediffVampirism_Tzimisce.cs" />
     <Compile Include="Hediffs\Hediff_AddedPart_Fangs.cs" />
     <Compile Include="ITab_Pawn_NeedsCorpse.cs" />
-      <Compile Include="PatchOperationModLoaded.cs"/>
+    <Compile Include="PatchOperationModLoaded.cs" />
     <Compile Include="ScenPart_LongerNights.cs" />
     <Compile Include="UI\Alert_VampireInSunlight.cs" />
     <Compile Include="UI\Alert_VampireStarving.cs" />
+    <Compile Include="Utilities\BloodBondUtility.cs" />
     <Compile Include="Utilities\BloodFeedModeUtility.cs" />
     <Compile Include="Utilities\BloodItemUtility.cs" />
     <Compile Include="Defs\BloodType.cs" />
@@ -160,8 +165,11 @@
     <Compile Include="Components\CompVampire.cs" />
     <Compile Include="Defs\DisciplineDef.cs" />
     <Compile Include="UI\VampireCardUtility.cs" />
-      <Compile Include="Utilities\ExplosionUtility.cs"/>
+    <Compile Include="Utilities\ExplosionUtility.cs" />
+    <Compile Include="Utilities\GhoulStringUtility.cs" />
+    <Compile Include="Utilities\GhoulUtility.cs" />
     <Compile Include="Utilities\VampireBiteUtility.cs" />
+    <Compile Include="Utilities\VampireColorUtility.cs" />
     <Compile Include="Utilities\VampireGraphicUtility.cs" />
     <Compile Include="Utilities\VampireWitnessUtility.cs" />
     <Compile Include="Utilities\VampSunlightPathUtility.cs" />

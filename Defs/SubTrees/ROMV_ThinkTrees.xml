@@ -10,7 +10,7 @@
     <thinkRoot Class="ThinkNode_PrioritySorter">
 	  <subNodes>
 	    <li Class="Vampire.JobGiver_GetBlood"/>
-	    <li Class="Vampire.JobGiver_SeekShelterFromSunlight"/>
+		<li Class="Vampire.JobGiver_ShareBlood"/>
 	  </subNodes>
     </thinkRoot>
   </ThinkTreeDef>

@@ -107,6 +107,41 @@
      <tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
    </MainVerb>
  </Vampire.VitaeAbilityDef>
+ 
+   <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+   <defName>ROMV_VampiricHealingScars</defName>
+   <label>heal scars</label>
+   <bloodCost>1</bloodCost>
+   <uiIconPath>UI/Icons/Commands/Vampirism_HealingScars</uiIconPath>
+   <description>Restores scarred flesh by using up vitae.</description>
+   <MainVerb Class="AbilityUser.VerbProperties_Ability">
+     <verbClass>Vampire.DisciplineEffect_VampiricHealingScars</verbClass>
+     <hasStandardCommand>true</hasStandardCommand>
+     <defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+     <abilityDef>ROMV_VampiricHealingScars</abilityDef>
+     <isViolent>false</isViolent>
+     <warmupTime>0</warmupTime>
+     <SecondsToRecharge>12.0</SecondsToRecharge>
+     <range>24</range>
+     <burstShotCount>1</burstShotCount>
+     <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+     <soundCast>ROMV_AbilityCastSound_Blood</soundCast>
+     <muzzleFlashScale>20</muzzleFlashScale>
+     <isPrimary>false</isPrimary>
+     <AbilityTargetCategory>TargetSelf</AbilityTargetCategory>
+     <targetParams>
+       <canTargetLocations>false</canTargetLocations>
+       <canTargetPawns>false</canTargetPawns>
+       <canTargetBuildings>false</canTargetBuildings>
+       <canTargetItems>false</canTargetItems>
+       <canTargetSelf>true</canTargetSelf>
+     </targetParams>
+     <tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+     <tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+     <tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+     <tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+   </MainVerb>
+ </Vampire.VitaeAbilityDef>
 
   <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
    <defName>ROMV_RegenerateLimb</defName>

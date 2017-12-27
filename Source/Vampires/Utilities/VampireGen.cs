@@ -93,6 +93,7 @@ namespace Vampire
             {
                 NameTriple caineName = new NameTriple("Caine", "Caine", "Darkfather");
                 pawn.Name = caineName;
+                pawn.gender = Gender.Male;
             }
             pawn.story.hairColor = PawnHairColors.RandomHairColor(pawn.story.SkinColor, 20);
             if (!bloodline.allowsHair)

@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
+<!-- 12/26/17 -->
+
+  <ConceptDef>
+    <defName>ROMV_Ghouls</defName>
+    <label>Vampires: Ghouls</label>
+    <priority>50</priority>
+    <helpText>Ghouls are mortals that possess both blood and vampiric vitae. Once given vitae from a domitor (master), they can resist damage and can learn vampiric abilities. After three feedings of vitae on three seperate nights, they become blood-bonded to their domitor, and experience feelings similar to love. After a few seasons without vitae, Ghouls enter withdrawal and lose their abilities. Beware -- Ghouls without vitae become quite violent.</helpText>
+  </ConceptDef>  
+
   <ConceptDef>
     <defName>ROMV_Vampirism</defName>
     <label>Vampires: Vampirism</label>

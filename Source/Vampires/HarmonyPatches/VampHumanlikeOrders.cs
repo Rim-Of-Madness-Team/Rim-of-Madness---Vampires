@@ -52,9 +52,9 @@ namespace Vampire
                             }), action2, MenuOptionPriority.High, null, victim));
                         }
                     };
-                    //EMBRACE /////////////////////
-                    if (victim?.RaceProps?.Humanlike ?? false)
+                    if (!victimIsVampire && (victim?.RaceProps?.Humanlike ?? false))
                     {
+                        //EMBRACE /////////////////////
                         if (selVampComp.Thinblooded)
                         {
                             opts.Add(new FloatMenuOption("ROMV_CannotEmbrace".Translate(new object[]
@@ -75,7 +75,19 @@ namespace Vampire
                             victim.LabelCap
                             }), actionTwo, MenuOptionPriority.High, null, victim));
                         }
+                        //GIVE BLOOD (Ghoul) ////////////////////
+                        if (!selVampComp.IsGhoul || (selVampComp?.ThrallData?.BondStage <= BondStage.Thrall))
+                        {
+                            Action actionThree = delegate
+                            {
+                                Job job = new Job(VampDefOf.ROMV_GhoulBloodBond, victim);
+                                job.count = 1;
+                                pawn.jobs.TryTakeOrderedJob(job);
+                            };
+                            opts.Add(new FloatMenuOption("ROMV_GiveVitae".Translate() + ((!selVampComp.IsGhoul) ? " (" + "ROMV_CreateGhoul".Translate() + ")" : ""), actionThree, MenuOptionPriority.High, null, victim));
+                        }
                     }
+                    
 
                     //Diablerie /////////////////////
                     if (victimIsVampire)

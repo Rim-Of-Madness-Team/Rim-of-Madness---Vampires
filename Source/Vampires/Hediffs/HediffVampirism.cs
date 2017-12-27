@@ -109,6 +109,16 @@ namespace Vampire
                 if (this?.pawn?.VampComp()?.Thinblooded ?? false)
                     s.AppendLine("ROMV_HI_Thinblooded".Translate());
                 s.AppendLine("ROMV_HI_Immunities".Translate());
+                if (!this.comps.NullOrEmpty())
+                {
+                    foreach (HediffComp compProps in this.comps)
+                    {
+                        if (compProps is JecsTools.HediffComp_DamageSoak dmgSoak)
+                        {
+                            s.AppendLine(dmgSoak.CompTipStringExtra);
+                        }
+                    }   
+                }
                 return s.ToString();
             }
         }
