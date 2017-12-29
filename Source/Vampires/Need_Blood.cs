@@ -106,6 +106,9 @@ namespace Vampire
             int result = def.RaceProps.baseBodySize < 1f ? 1 : 2;
             if (def == PawnKindDef.Named("Rat")) return 1;
             if (def == PawnKindDefOf.Thrumbo) return 10;
+            if (def?.RaceProps?.TrainableIntelligence == TrainableIntelligenceDefOf.Advanced)
+                result += 1;
+            if (def == PawnKindDef.Named("Drake")) result += 1;
             return result;
         }
 
@@ -236,16 +239,18 @@ namespace Vampire
 
         public void Notify_NoBloodLeft(bool alert = true)
         {
-            if (pawn.Faction == Faction.OfPlayer)
+            if (pawn != null && pawn.Faction == Faction.OfPlayer)
             {
                 if (alert)
                 {
-                    if (pawn.IsVampire())
-                        Messages.Message("ROMV_BloodDepletedVamp".Translate(pawn.LabelCap), MessageTypeDefOf.NeutralEvent);
-                    else
-                        Messages.Message("ROMV_BloodDepleted".Translate(pawn.LabelCap), MessageTypeDefOf.NegativeEvent);
+                    if (pawn.Spawned && !pawn.Downed)
+                    {
+                        if (pawn.IsVampire())
+                            Messages.Message("ROMV_BloodDepletedVamp".Translate(pawn.LabelCap), MessageTypeDefOf.NeutralEvent);
+                        else
+                            Messages.Message("ROMV_BloodDepleted".Translate(pawn.LabelCap), MessageTypeDefOf.NegativeEvent);   
+                    }
                 }
-
             }
 
             if (!pawn.IsVampire())

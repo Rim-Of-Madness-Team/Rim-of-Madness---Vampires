@@ -137,7 +137,7 @@
   </HediffDef>
 
 
-  <HediffDef Name="InjuryBase" Abstract="True">
+  <HediffDef Name="ROMV_InjuryBase" Abstract="True">
     <hediffClass>Hediff_Injury</hediffClass>
     <tendable>true</tendable>
     <displayWound>true</displayWound>
@@ -150,7 +150,7 @@
   </HediffDef>
 
 
-  <HediffDef Name="DiseaseBase" Abstract="True">
+  <HediffDef Name="ROMV_DiseaseBase" Abstract="True">
     <hediffClass>HediffWithComps</hediffClass>
     <defaultLabelColor>(0.8, 0.8, 0.35)</defaultLabelColor>
     <initialSeverity>0.001</initialSeverity>

@@ -112,7 +112,7 @@ namespace Vampire
                             job.playerForced = true;
                             pawn.jobs.TryTakeOrderedJob(job);
                         };
-                        string benefitWarning = selVampComp.Generation < victim.VampComp().Generation ? " " + "ROMV_DiablerieNoBenefit".Translate() : "";
+                        string benefitWarning = (selVampComp.Generation < victim.VampComp().Generation) ? " " + "ROMV_DiablerieNoBenefit".Translate() : "";
                         opts.Add(new FloatMenuOption("ROMV_Diablerie".Translate(new object[]
                         {
                                 victim.LabelCap

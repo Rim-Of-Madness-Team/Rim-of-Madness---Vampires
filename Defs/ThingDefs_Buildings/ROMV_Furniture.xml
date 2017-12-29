@@ -273,6 +273,188 @@
 		</comps>
   </ThingDef>
 
+  <ThingDef ParentName="ROMV_BuildingBase">
+    <defName>ROMV_RoyalCoffinDouble</defName>
+    <label>Double Royal Coffin</label>
+    <thingClass>Vampire.Building_Coffin</thingClass>
+    <graphicData>
+      <texPath>Things/Building/Furniture/Coffin/RoyalCoffinDouble/spoonshortageRoyalCoffinDouble</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(3,3.5)</drawSize>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
+    </graphicData>
+    <description>A luxurious ornamented burial receptacle for the greatly honored dead. Modified to allow for a couple to rest together. (Buggy for now. Don't use this.)</description>
+    <size>(2,2)</size>
+    <pathCost>70</pathCost>
+    <castEdgeShadows>true</castEdgeShadows>
+    <fillPercent>0.5</fillPercent>
+    <tickerType>Rare</tickerType>
+    <canOverlapZones>false</canOverlapZones>
+    <minifiedDef>MinifiedFurniture</minifiedDef>
+    <building>
+			<ai_chillDestination>false</ai_chillDestination>
+      <fullGraveGraphicData>
+				<texPath>Things/Building/Furniture/Coffin/RoyalCoffinDoubleFull/spoonshortageRoyalCoffinDoubleFull</texPath>
+				<graphicClass>Graphic_Multi</graphicClass>
+				<drawSize>(3,3.5)</drawSize>
+			</fullGraveGraphicData>
+      <fixedStorageSettings>
+        <filter>
+          <categories>
+            <li>Corpses</li>
+          </categories>
+        </filter>
+      </fixedStorageSettings>
+      <defaultStorageSettings>
+        <filter>
+          <categories>
+            <li>CorpsesHumanlike</li>
+          </categories>
+          <specialFiltersToDisallow>
+            <li>AllowCorpsesStranger</li>
+          </specialFiltersToDisallow>
+        </filter>
+      </defaultStorageSettings>
+    </building>
+    <statBases>
+      <MaxHitPoints>200</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+      <WorkToBuild>5000</WorkToBuild>
+      <Mass>60</Mass>
+    </statBases>
+    <stuffCategories>
+      <li>Woody</li>
+      <li>Metallic</li>
+      <li>Stony</li>
+    </stuffCategories>
+    <inspectorTabs>
+      <li>ITab_Storage</li>
+      <li>ITab_Art</li>
+    </inspectorTabs>
+    <comps>
+      <li Class="Vampire.CompProperties_VampBed">
+        <bedDef>ROMV_RoyalCoffinDoubleBed</bedDef>
+      </li>
+      <li>
+        <compClass>CompQuality</compClass>
+      </li>
+      <li Class="CompProperties_Art">
+        <nameMaker>ArtName_SarcophagusPlate</nameMaker>
+        <descriptionMaker>ArtDescription_SarcophagusPlate</descriptionMaker>
+        <mustBeFullGrave>true</mustBeFullGrave>
+      </li>
+    </comps>
+    <techLevel>Medieval</techLevel>
+    <researchPrerequisites><li>Beds</li></researchPrerequisites>	
+    <costStuffCount>110</costStuffCount>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>Standable</passability>
+    <blockWind>true</blockWind>
+    <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+    <staticSunShadowHeight>0.3</staticSunShadowHeight>
+    <!--<designationCategory>Misc</designationCategory>-->
+    <designationHotKey>Misc9</designationHotKey>
+  </ThingDef>
+
+  
+  <ThingDef ParentName="ROMV_BuildingBase">
+    <defName>ROMV_RoyalCoffinDoubleBed</defName>
+    <label>sleeping spot</label>
+    <description>Designates a spot on the ground where people should sleep.</description>
+    <thingClass>Building_Bed</thingClass>
+    <graphicData>
+      <texPath>Things/Building/Furniture/Coffin/RoyalCoffinDouble/spoonshortageRoyalCoffinDouble</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <drawSize>(3,3.5)</drawSize>
+    </graphicData>
+    <altitudeLayer>BuildingOnTop</altitudeLayer>
+    <costStuffCount>0</costStuffCount>
+    <stuffCategories>
+      <li>Woody</li>
+      <li>Metallic</li>
+      <li>Stony</li>
+    </stuffCategories>
+    <statBases>
+      <WorkToBuild>0</WorkToBuild>
+      <Beauty>25</Beauty>
+      <BedRestEffectiveness>1.05</BedRestEffectiveness>
+      <Comfort>0.90</Comfort>
+      <ImmunityGainSpeedFactor>1.1</ImmunityGainSpeedFactor>
+      <SurgerySuccessChanceFactor>1</SurgerySuccessChanceFactor>
+    </statBases>
+		<scatterableOnMapGen>false</scatterableOnMapGen>
+    <useHitPoints>False</useHitPoints>
+    <size>(1,2)</size>
+    <passability>Standable</passability>
+    <drawGUIOverlay>True</drawGUIOverlay>
+    <selectable>False</selectable>
+    <building>
+      <isEdifice>False</isEdifice>
+      <bed_showSleeperBody>False</bed_showSleeperBody>
+      <sowTag>SupportPlantsOnly</sowTag>
+      <canPlaceOverImpassablePlant>false</canPlaceOverImpassablePlant>
+      <ai_chillDestination>false</ai_chillDestination>
+    </building>
+		<comps>
+			<li Class="CompProperties_RoomIdentifier">
+				<roomStat>Impressiveness</roomStat>
+			</li>
+		</comps>
+  </ThingDef>
+
+  
+  <ThingDef ParentName="ROMV_BuildingBase">
+    <defName>ROMV_RoyalCoffinBed</defName>
+    <label>sleeping spot</label>
+    <description>Designates a spot on the ground where people should sleep. Not comfortable.</description>
+    <thingClass>Building_Bed</thingClass>
+    <graphicData>
+      <texPath>Things/Building/Furniture/Coffin/RoyalCoffin/spoonshortageRoyalCoffin</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <drawSize>(3,3.5)</drawSize>
+    </graphicData>
+    <altitudeLayer>BuildingOnTop</altitudeLayer>
+    <costStuffCount>0</costStuffCount>
+    <stuffCategories>
+      <li>Woody</li>
+      <li>Metallic</li>
+      <li>Stony</li>
+    </stuffCategories>
+    <statBases>
+      <WorkToBuild>0</WorkToBuild>
+      <Beauty>25</Beauty>
+      <BedRestEffectiveness>1.05</BedRestEffectiveness>
+      <Comfort>0.90</Comfort>
+      <ImmunityGainSpeedFactor>1.1</ImmunityGainSpeedFactor>
+      <SurgerySuccessChanceFactor>1</SurgerySuccessChanceFactor>
+    </statBases>
+		<scatterableOnMapGen>false</scatterableOnMapGen>
+    <useHitPoints>False</useHitPoints>
+    <size>(1,2)</size>
+    <passability>Standable</passability>
+    <drawGUIOverlay>True</drawGUIOverlay>
+    <selectable>False</selectable>
+    <building>
+      <isEdifice>False</isEdifice>
+      <bed_showSleeperBody>False</bed_showSleeperBody>
+      <sowTag>SupportPlantsOnly</sowTag>
+      <canPlaceOverImpassablePlant>false</canPlaceOverImpassablePlant>
+      <ai_chillDestination>false</ai_chillDestination>
+    </building>
+		<comps>
+			<li Class="CompProperties_RoomIdentifier">
+				<roomStat>Impressiveness</roomStat>
+			</li>
+		</comps>
+  </ThingDef>
+
 
   <ThingDef ParentName="ROMV_BuildingBase">
     <defName>ROMV_SarcophagusBed</defName>

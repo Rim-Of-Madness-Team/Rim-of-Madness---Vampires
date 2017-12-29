@@ -134,5 +134,7 @@ namespace Vampire
         public static JobDef ROMV_GotoSafety;
         public static InteractionDef ROMV_VampireUnbondedDrink;
         public static InteractionDef ROMV_VampireBondedDrink;
+        public static MentalStateDef MurderousRage;
+        public static InteractionDef ROMV_VampireDiablerieAttempt;
     }
 }

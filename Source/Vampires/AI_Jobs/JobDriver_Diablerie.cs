@@ -31,14 +31,26 @@ namespace Vampire
             base.Notify_Starting();
         }
 
+        private bool DiablerieInteractionGiven = false;
+        
         private void DoEffect()
         {
             BloodVictim.TransferBloodTo(1, BloodFeeder, false);
             if (!Victim.InAggroMentalState)
             {
-                Victim.mindState.mentalStateHandler.TryStartMentalState(MentalStateDefOf.WanderPsychotic,
-                    "ROMV_AttemptedDiablerie".Translate(), true);
+                Victim.mindState.mentalStateHandler.TryStartMentalState(MentalStateDefOf.Berserk, "ROMV_AttemptedDiablerie".Translate(this.pawn), false, false, null);
+//                Victim.mindState.mentalStateHandler.TryStartMentalState(VampDefOf.MurderousRage,
+//                    "ROMV_AttemptedDiablerie".Translate(), false, false, GetActor());
             }
+
+            if (DiablerieInteractionGiven) return;
+            DiablerieInteractionGiven = true;
+            MoteMaker.MakeInteractionBubble(GetActor(), Victim, VampDefOf.ROMV_VampireDiablerieAttempt.interactionMote, VampDefOf.ROMV_VampireDiablerieAttempt.Symbol);
+            if (this?.Victim?.needs?.mood?.thoughts?.memories is MemoryThoughtHandler m)
+            {
+                m.TryGainMemory(VampDefOf.ROMV_VampireDiablerieAttempt.recipientThought, GetActor());
+            }
+            Find.PlayLog.Add(new PlayLogEntry_Interaction(VampDefOf.ROMV_VampireDiablerieAttempt, this.GetActor(), this.Victim, null));
         }
 
         public override string GetReport()

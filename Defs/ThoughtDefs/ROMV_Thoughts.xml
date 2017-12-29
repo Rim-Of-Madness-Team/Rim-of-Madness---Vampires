@@ -141,6 +141,22 @@
 		</stages>
 	</ThoughtDef>
 
+	
+	<ThoughtDef>
+		<defName>ROMV_AttemptedToConsumeMySoul</defName>
+		<durationDays>3</durationDays>
+		<stackLimit>5</stackLimit>
+		<stages>
+			<li>
+				<label>tried to consume my soul</label>
+				<description>Some MONSTER tried to consume my soul!</description>
+				<baseMoodEffect>-30</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	
+	
 	<!--
 	██████   █████  ███████ ███████ ███████
 	██   ██ ██   ██ ██      ██      ██

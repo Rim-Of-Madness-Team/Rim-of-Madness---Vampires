@@ -3,6 +3,46 @@
 
   <!-- Random social interactions -->
 
+  
+  <InteractionDef>
+    <defName>ROMV_VampireDiablerieAttempt</defName>
+    <label>attempted to consume my soul (Diablerie)</label>
+    <workerClass>Vampire.InteractionWorker_Bonding</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/AttemptDiablerie</symbol>
+    <recipientThought>ROMV_VampireDiablerieAttemptThought</recipientThought>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>100</initiatorXpGainAmount>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>logentry->Tried to consume [other_nameShortIndef]'s soul.</li>
+      </rulesStrings>
+    </logRulesInitiator>
+    <logRulesRecipient>
+      <rulesStrings>
+        <li>logentry->[other_nameShortIndef] tried to consume my soul.</li>
+      </rulesStrings>
+    </logRulesRecipient>
+  </InteractionDef>
+  
+  <ThoughtDef>
+    <defName>ROMV_VampireDiablerieAttemptThought</defName>
+    <thoughtClass>Thought_MemorySocial</thoughtClass>
+    <durationDays>30</durationDays>
+    <stackLimit>300</stackLimit>
+    <stackLimitPerPawn>1</stackLimitPerPawn>
+    <stackedEffectMultiplier>0.88</stackedEffectMultiplier>
+    <stages>
+      <li>
+		<label>diablerie attempted on me</label>
+		<description>Some MONSTER tried to consume my soul!</description>
+		<baseMoodEffect>-20</baseMoodEffect>
+        <baseOpinionOffset>-500</baseOpinionOffset>
+      </li>
+    </stages>
+  </ThoughtDef>
+  
+  
+  
   <InteractionDef>
     <defName>ROMV_VampireUnbondedDrink</defName>
     <label>shared vampiric blood (vitae)</label>
@@ -80,7 +120,7 @@
     <label>shared vampiric lore</label>
     <workerClass>Vampire.InteractionWorker_VampiricLore</workerClass>
     <symbol>Things/Mote/SpeechSymbols/ShareVampireLore</symbol>
-    <recipientThought>Cults_SafePreach</recipientThought>
+    <recipientThought>ROMV_VampireLoreThought</recipientThought>
     <initiatorXpGainSkill>Social</initiatorXpGainSkill>
     <initiatorXpGainAmount>30</initiatorXpGainAmount>
     <logRulesInitiator>
@@ -94,5 +134,22 @@
       </rulesStrings>
     </logRulesRecipient>
   </InteractionDef>
+  
+      <ThoughtDef>
+    <defName>ROMV_VampireLoreThought</defName>
+    <thoughtClass>Thought_MemorySocial</thoughtClass>
+    <durationDays>15</durationDays>
+    <stackLimit>300</stackLimit>
+    <stackLimitPerPawn>2</stackLimitPerPawn>
+    <stackedEffectMultiplier>0.88</stackedEffectMultiplier>
+    <stages>
+      <li>
+        <label>acquired vampiric knowledge</label>
+		<description>I feel more experienced already. What other secrets could there be, I wonder?</description>
+		<baseMoodEffect>5</baseMoodEffect>
+        <baseOpinionOffset>5</baseOpinionOffset>
+      </li>
+    </stages>
+  </ThoughtDef>  
   
 </Defs>
