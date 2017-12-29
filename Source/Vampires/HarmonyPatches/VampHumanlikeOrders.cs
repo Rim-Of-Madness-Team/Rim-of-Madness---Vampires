@@ -23,6 +23,7 @@ namespace Vampire
 
                     CompVampire selVampComp = pawn.GetComp<CompVampire>();
                     int curBloodVictim = victim?.BloodNeed()?.CurBloodPoints ?? 0;
+                    int curBloodActor = pawn?.BloodNeed()?.CurBloodPoints ?? 0;
                     bool victimIsVampire = victim.IsVampire();
                     // FEED //////////////////////////
                     if (!victimIsVampire || (selVampComp?.Bloodline?.canFeedOnVampires ?? false))
@@ -76,7 +77,7 @@ namespace Vampire
                             }), actionTwo, MenuOptionPriority.High, null, victim));
                         }
                         //GIVE BLOOD (Ghoul) ////////////////////
-                        if (!selVampComp.IsGhoul || (selVampComp?.ThrallData?.BondStage <= BondStage.Thrall))
+                        if (curBloodActor > 0)
                         {
                             Action actionThree = delegate
                             {
@@ -84,12 +85,13 @@ namespace Vampire
                                 job.count = 1;
                                 pawn.jobs.TryTakeOrderedJob(job);
                             };
-                            opts.Add(new FloatMenuOption("ROMV_GiveVitae".Translate() + ((!selVampComp.IsGhoul) ? " (" + "ROMV_CreateGhoul".Translate() + ")" : ""), actionThree, MenuOptionPriority.High, null, victim));
+                            opts.Add(new FloatMenuOption("ROMV_GiveVitae".Translate() + (!victim.IsGhoul() ? " (" + "ROMV_CreateGhoul".Translate() + ")" : ""), actionThree, MenuOptionPriority.High, null, victim));
                         }
+
                     }
                     
 
-                    //Diablerie /////////////////////
+                    //Diablerie ////////////////////
                     if (victimIsVampire)
                     {
                         Action action = delegate

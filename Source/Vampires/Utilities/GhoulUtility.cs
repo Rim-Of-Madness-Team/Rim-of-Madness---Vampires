@@ -106,7 +106,6 @@ namespace Vampire
             const float addictiveness = 1.0f;
             const float minToleranceToAddict = 0.01f;
             const float existingAddictionSeverityOffset = 0.2f;
-            const float largeOverdoseChance = 0.01f;
 
             var needLevelOffset = 1f;
             var overdoseSeverityOffset = new FloatRange(0.18f, 0.35f);

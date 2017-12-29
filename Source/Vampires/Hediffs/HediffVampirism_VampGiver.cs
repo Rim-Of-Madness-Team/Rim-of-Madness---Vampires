@@ -60,7 +60,9 @@ namespace Vampire
         {
             if (!setup)
             {
+#pragma warning disable 219
                 bool setup = true;
+#pragma warning restore 219
                 if (pawn.VampComp() is CompVampire v)
                 {
                     int generatonToSpawn = Generation;

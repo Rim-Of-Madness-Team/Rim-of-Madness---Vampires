@@ -275,8 +275,8 @@ namespace Vampire
                     Texture2D abilityTex = ability.uiIcon;
                     bool disabledForGhouls =
                         compVampire.IsGhoul && (int) compVampire.GhoulHediff.ghoulPower < discipline.Level;
-//                    if (disabledForGhouls)
-//                        abilityTex.MakeGrayscale();
+                    if (disabledForGhouls)
+                        GUI.color = Color.gray;
                     if (compVampire.AbilityPoints == 0 || discipline.Level >= 4)
                     {
                         Widgets.DrawTextureFitted(buttonRect, abilityTex, 1.0f);
@@ -336,6 +336,8 @@ namespace Vampire
                     }
                     ++count;
                     buttonXOffset += ButtonSize * 3f + Padding;
+                    if (disabledForGhouls)
+                        GUI.color = Color.white;
                 }
             }
         }

@@ -376,18 +376,23 @@ namespace Vampire
             }
         }
 
-        public void GiveFeedJob(Pawn victim)
+        private void GiveFeedJob(Pawn victim)
         {
             Job feedJob = new Job(VampDefOf.ROMV_Feed, victim);
             AbilityUser.jobs.TryTakeOrderedJob(feedJob, JobTag.SatisfyingNeeds);
         }
 
-        public void GiveEmbraceJob(Pawn newChilde)
+        private void GiveEmbraceJob(Pawn newChilde)
         {
             Job embraceJob = new Job(VampDefOf.ROMV_Embrace, newChilde);
             AbilityUser.jobs.TryTakeOrderedJob(embraceJob);
         }
 
+        /// <summary>
+        /// Takes a normal character and transforms them into a Ghoul.
+        /// </summary>
+        /// <param name="newDomitor"></param>
+        /// <param name="isRevenant"></param>
         public void InitializeGhoul(Pawn newDomitor, bool isRevenant = false)
         {
             this.Level = 0;
@@ -414,11 +419,20 @@ namespace Vampire
             this.Pawn.health.AddHediff(ghoulHediff, null, null);
             
             //Adjust the bond.
-            AdjustBondWith(newDomitor, 1, true);
+            AdjustBondWithRegnant(newDomitor, 1, true);
             
+            //Remove memories of harm. We're friends now! It's alright ghoul-guy.
+            VampireBiteUtility.TryRemoveHarmedMemory(newDomitor, this.Pawn);
+
         }
 
-        public void AdjustBondWith(Pawn regnant, int value, bool showMessages = true)
+        /// <summary>
+        /// Tries to adjust the bond stage of the character.
+        /// </summary>
+        /// <param name="regnant"></param>
+        /// <param name="value"></param>
+        /// <param name="showMessages"></param>
+        public void AdjustBondWithRegnant(Pawn regnant, int value, bool showMessages = true)
         {
             if (!regnant.IsVampire())
                 return;
@@ -435,6 +449,13 @@ namespace Vampire
 
         }
 
+        /// <summary>
+        /// Takes a normal character and transforms them into a fully-functioning vampire.
+        /// </summary>
+        /// <param name="newSire"></param>
+        /// <param name="newBloodline"></param>
+        /// <param name="newGeneration"></param>
+        /// <param name="firstVampire"></param>
         public void InitializeVampirism(Pawn newSire, BloodlineDef newBloodline = null, int newGeneration = -1,
             bool firstVampire = false)
         {
@@ -468,6 +489,13 @@ namespace Vampire
                 AbilityUser.story.hairDef = DefDatabase<HairDef>.GetNamed("Shaved");
             if (this?.AbilityUser?.playerSettings != null)
                 AbilityUser.playerSettings.hostilityResponse = HostilityResponseMode.Attack;
+            
+            //Prevents enemy vampires from spawning in with low vitae and hunting the players' characters.
+            //Legendary vampires, however, will spawn hungry.
+            if (this.Blood != null && 
+                this.AbilityUser.Faction != Faction.OfPlayerSilentFail &&
+                this.AbilityUser.Faction != Find.FactionManager.FirstFactionOfDef(VampDefOf.ROMV_LegendaryVampires))
+                this.Blood.CurBloodPoints = this.Blood.MaxBloodPoints;
         }
 
         public override void CompTick()
@@ -602,6 +630,7 @@ namespace Vampire
             Scribe_References.Look(ref sire, "sire");
             Scribe_Collections.Look(ref souls, "souls", LookMode.Reference);
             Scribe_Deep.Look(ref sheet, "sheet", new object[] {AbilityUser});
+            Scribe_Deep.Look(ref thrallData, "thrallData", new object[] {AbilityUser});
             base.PostExposeData();
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
@@ -630,7 +659,7 @@ namespace Vampire
 
         public void Notify_DeGhouled()
         {
-            Messages.Message("ROMV_LostGhoulPowers", MessageTypeDefOf.NegativeEvent);
+            Messages.Message("ROMV_LostGhoulPowers".Translate(this.AbilityUser).AdjustedFor(this.AbilityUser), MessageTypeDefOf.NegativeEvent);
             this.ThrallData = null;
         }
     }

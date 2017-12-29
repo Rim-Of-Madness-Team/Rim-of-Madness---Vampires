@@ -34,6 +34,11 @@ namespace Vampire
         private void DoEffect()
         {
             BloodVictim.TransferBloodTo(1, BloodFeeder, false);
+            if (!Victim.InAggroMentalState)
+            {
+                Victim.mindState.mentalStateHandler.TryStartMentalState(MentalStateDefOf.WanderPsychotic,
+                    "ROMV_AttemptedDiablerie".Translate(), true);
+            }
         }
 
         public override string GetReport()

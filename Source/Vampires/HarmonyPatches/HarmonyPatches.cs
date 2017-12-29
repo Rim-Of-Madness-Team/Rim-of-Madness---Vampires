@@ -32,7 +32,12 @@ namespace Vampire
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(MakeNewToils_VampVomit)), null);
             //Fixes random red errors relating to food need checks in this method (WillIngestStackCountOf).
             harmony.Patch(AccessTools.Method(typeof(FoodUtility), "WillIngestStackCountOf"),
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_WillIngestStackCountOf)), null);            
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_WillIngestStackCountOf)), null);    
+            //Prevents restful times.
+            harmony.Patch(AccessTools.Method(typeof(JoyGiver_SocialRelax), "TryFindIngestibleToNurse"),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(INeverDrink___Wine)), null); 
+            harmony.Patch(AccessTools.Method(typeof(JobGiver_GetJoy), "TryGiveJob"),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(INeverDrink___Juice)), null); 
 
             // PATHING
             //////////////////////////////////////////////////////////////////////////////
@@ -69,7 +74,9 @@ namespace Vampire
                         harmony.Patch(AccessTools.Method(jobGiver, "TryGiveJob"), null,
                             new HarmonyMethod(typeof(HarmonyPatches), nameof(TryGiveJob_VampireGeneral)), null);
                     }
+#pragma warning disable 168
                     catch (Exception e)
+#pragma warning restore 168
                     {
                         /*Log.Message(e.ToString());*/
                     }
@@ -91,7 +98,9 @@ namespace Vampire
                         harmony.Patch(AccessTools.Method(joyGiver, "TryGiveJob"), null,
                             new HarmonyMethod(typeof(HarmonyPatches), nameof(TryGiveJob_VampireGeneral)), null);
                     }
+#pragma warning disable 168
                     catch (Exception e)
+#pragma warning restore 168
                     {
                         /*Log.Message(e.ToString());*/
                     }
@@ -114,7 +123,9 @@ namespace Vampire
                         harmony.Patch(AccessTools.Method(workGiver, "JobOnCell"), null,
                             new HarmonyMethod(typeof(HarmonyPatches), nameof(TryGiveJob_VampireJobOnCell)), null);
                     }
+#pragma warning disable 168
                     catch (Exception e)
+#pragma warning restore 168
                     {
                         /*Log.Message(e.ToString());*/
                     }
@@ -343,7 +354,9 @@ namespace Vampire
                         }
                     })).Invoke();
                 }
+#pragma warning disable 168
                 catch (TypeLoadException ex) { /*Log.Message(ex.ToString());*/ }
+#pragma warning restore 168
             }
             #endregion
             
@@ -484,6 +497,8 @@ namespace Vampire
                     {
                         AbilityUser.BloodNeed().AdjustBlood(-1);
                         grave.EjectContents();
+                        if (grave.def == VampDefOf.ROMV_HideyHole)
+                            grave.Destroy();
                     },
                     disabled = dFlag,
                     disabledReason = dReason
@@ -1340,16 +1355,17 @@ namespace Vampire
         
         public static void TryGiveJob_VampireGeneral(Pawn pawn, ref Job __result)
         {
-            if (__result != null && pawn.IsVampire() && !__result.IsSunlightSafeFor(pawn))
+            if (__result != null && pawn.IsVampire())
             {
-                __result = null;
+                if (!pawn.Drafted && __result.def != JobDefOf.WaitWander && __result.def != JobDefOf.GotoWander && !__result.playerForced && !__result.IsSunlightSafeFor(pawn))
+                    __result = null;
             }
         }
 
                 
         public static void TryGiveJob_VampireJobOnCell(Pawn pawn, IntVec3 c, ref Job __result)
         {
-            if (__result != null && pawn.IsVampire() && !__result.IsSunlightSafeFor(pawn))
+            if (__result != null && pawn.IsVampire() && !pawn.Drafted && __result.def != JobDefOf.WaitWander && __result.def != JobDefOf.GotoWander && !__result.playerForced && !__result.IsSunlightSafeFor(pawn))
             {
                 __result = null;
             }
@@ -1364,7 +1380,30 @@ namespace Vampire
             }
             return true;
         }
+        
+        // RimWorld.JoyGiver_SocialRelax
+        public static bool INeverDrink___Wine(IntVec3 center, Pawn ingester, out Thing ingestible, ref bool __result)
+        {
+            ingestible = null;
+            if (ingester.IsVampire())
+            {
+                __result = false;
+                return false;
+            }
+            return true;
+        }
 
+        // RimWorld.JobGiver_GetJoy
+        //protected override Job TryGiveJob(Pawn pawn)
+        public static bool INeverDrink___Juice(Pawn pawn, ref Job __result)
+        {
+            if (pawn.IsVampire() && __result != null && __result.def == JobDefOf.Ingest)
+            {
+                __result = null;
+                return false;
+            }
+            return true;
+        }
 
         // Verse.AI.Group.Trigger_UrgentlyHungry
         public static bool ActivateOn_Vampire(Lord lord, TriggerSignal signal, ref bool __result)

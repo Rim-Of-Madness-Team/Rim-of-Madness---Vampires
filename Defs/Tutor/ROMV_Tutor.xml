@@ -4,10 +4,17 @@
 <!-- 12/26/17 -->
 
   <ConceptDef>
+    <defName>ROMV_GhoulsBloodBond</defName>
+    <label>Vampires: Blood Bond</label>
+    <priority>50</priority>
+    <helpText>If a drinker tastes vitae from the same vampire on three seperate nights, they will become blood bonded to the vampire. They become absolutely loyal to their regnant (master), and they become immune to domination powers from other vampires. If a vampire does not feed them any vitae over a season, they will lose their bond.</helpText>
+  </ConceptDef>
+  
+  <ConceptDef>
     <defName>ROMV_Ghouls</defName>
     <label>Vampires: Ghouls</label>
     <priority>50</priority>
-    <helpText>Ghouls are mortals that possess both blood and vampiric vitae. Once given vitae from a domitor (master), they can resist damage and can learn vampiric abilities. After three feedings of vitae on three seperate nights, they become blood-bonded to their domitor, and experience feelings similar to love. After a few seasons without vitae, Ghouls enter withdrawal and lose their abilities. Beware -- Ghouls without vitae become quite violent.</helpText>
+    <helpText>Ghouls are mortals that possess both blood and vampiric vitae. Once given vitae from a domitor (master), they can resist damage and can learn vampiric abilities. After a few seasons without vitae, Ghouls enter withdrawal and lose their abilities. Beware -- Ghouls without vitae become quite violent.</helpText>
   </ConceptDef>  
 
   <ConceptDef>

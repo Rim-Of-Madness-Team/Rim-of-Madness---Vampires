@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using RimWorld;
 using Verse;
 using Verse.AI;
@@ -69,7 +70,7 @@ namespace Vampire
                                 if (TryGoingToSafePoint(pawn, out surviveJob))
                                     return surviveJob;
                             }
-                            if (TryDiggingHideyHole(pawn, out surviveJob))
+                            else if (TryDiggingHideyHole(pawn, out surviveJob))
                                 return surviveJob;
                             break;
                     }
@@ -112,7 +113,7 @@ namespace Vampire
                         return SunlightDanger.Some;
                     return SunlightDanger.None;
                 }
-                return SunlightDanger.Extreme;
+                return pawn.IsSunRisingOrDaylight() ? SunlightDanger.Extreme : SunlightDanger.None;
             }
             return SunlightDanger.None;
         }
@@ -159,7 +160,6 @@ namespace Vampire
             return false;
         }
 
-
         /// <summary>
         /// Finds an area with a roof -- a "safe zone"
         /// </summary>
@@ -187,19 +187,21 @@ namespace Vampire
         public static bool TryDiggingHideyHole(Pawn pawn, out Job gotoJob)
         {
             gotoJob = null;
-            if (pawn?.health?.capacities?.CapableOf(PawnCapacityDefOf.Manipulation) ?? false)
+            if (pawn.IsSunRisingOrDaylight())
             {
-                gotoJob = null;
-                if (FindHideyHoleSpot(VampDefOf.ROMV_HideyHole, Rot4.Random, pawn.PositionHeld, pawn.MapHeld) is IntVec3 iv && iv.IsValid)
+                if (pawn?.health?.capacities?.CapableOf(PawnCapacityDefOf.Manipulation) ?? false)
                 {
-                    if (pawn?.CurJob != null && pawn?.CurJob?.def != VampDefOf.ROMV_DigAndHide)
+                    gotoJob = null;
+                    if (FindHideyHoleSpot(VampDefOf.ROMV_HideyHole, Rot4.Random, pawn.PositionHeld, pawn.MapHeld) is IntVec3 iv && iv.IsValid)
                     {
-                        //Log.Message("VSPU :: Hidey Place");
-                        gotoJob = new Job(VampDefOf.ROMV_DigAndHide, iv) { locomotionUrgency = LocomotionUrgency.Sprint };
-                        return true;
+                        if (pawn?.CurJob != null && pawn?.CurJob?.def != VampDefOf.ROMV_DigAndHide)
+                        {
+                            //Log.Message("VSPU :: Hidey Place");
+                            gotoJob = new Job(VampDefOf.ROMV_DigAndHide, iv) { locomotionUrgency = LocomotionUrgency.Sprint };
+                            return true;
+                        }
                     }
-
-                }
+                }   
             }
             return false;
         }
@@ -257,6 +259,7 @@ namespace Vampire
             return false;
         }
 
+        private static bool visibleMapHasRoof = true;
         /// <summary>
         /// Wandering outside is never sunlight safe.
         /// </summary>
@@ -267,7 +270,11 @@ namespace Vampire
         {
             if (job != null)
             {
-                if (job?.def == JobDefOf.GotoWander && pawn.IsSunRising() && !job.targetA.Cell.Roofed(pawn.MapHeld)) return true;
+                if (Find.TickManager.TicksGame % 100 == 0)
+                {
+                    visibleMapHasRoof = (Find.VisibleMap is Map m && m.AllCells.Any(x => x.Roofed(m)));
+                }
+                if (visibleMapHasRoof && job?.def == JobDefOf.GotoWander && pawn.IsSunRisingOrDaylight() && !job.targetA.Cell.Roofed(pawn.MapHeld)) return true;
             }
             return false;
         }
@@ -343,6 +350,8 @@ namespace Vampire
         /// <returns></returns>
         public static bool CanSurviveTimeInSunlight(IntVec3 dest, Pawn pawn)
         {
+            if (!VampireUtility.IsSunRisingOrDaylight(pawn.MapHeld)) return true;
+            if (!dest.IsValid) return false; //Avoids downed/dead/despawned pathing issues.
             if (dest == pawn.PositionHeld)
             {
                 if (VampireUtility.IsDaylight(pawn))
@@ -364,7 +373,6 @@ namespace Vampire
             path.Dispose();
             if (cellsInSunlight > 0)
             {
-
                 int sunExpTicks = 0;
                 if (pawn?.health?.hediffSet?.GetFirstHediffOfDef(VampDefOf.ROMV_SunExposure) is HediffWithComps_SunlightExposure sunExp)
                 {
@@ -432,7 +440,7 @@ namespace Vampire
         public static int DetermineTicksUntilDaylight(Map map)
         {
             int result = Int32.MaxValue;
-            if (GenCelestial.CurCelestialSunGlow(map) > 0)
+            if (VampireUtility.IsSunRisingOrDaylight(map))
             {
                 int curLightLevel = (int)(GenCelestial.CurCelestialSunGlow(map) * 100);
                 int maxLightLevel = 60;

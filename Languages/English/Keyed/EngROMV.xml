@@ -2,7 +2,8 @@
 <LanguageData>
 
 <!-- 12-24-17-->
-<ROMV_LostGhoulPowers>{0} has lost their ghoul powers from lack of vampiric vitae.</ROMV_LostGhoulPowers>
+<ROMV_LostGhoulPowers>As {0} has no vitae, HE has lost HIS ghoul abilities.</ROMV_LostGhoulPowers>
+<ROMV_AttemptedDiablerie>{0} attempted Diablerie</ROMV_AttemptedDiablerie>
 <ROMV_GhoulSheet>Ghoul Skill Sheet</ROMV_GhoulSheet>
 <ROMV_XPDescGhoul>Ghouls gain experience points from performing all manner of jobs around the colony. However, they gain XP at half the rate that vampires do.</ROMV_XPDescGhoul>
 <ROMV_DomitorVitaeIsTooWeak>{0}'s vitae is too weak to allow learning higher disciplines.</ROMV_DomitorVitaeIsTooWeak>

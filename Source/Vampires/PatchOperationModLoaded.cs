@@ -6,7 +6,9 @@ namespace Vampire
 {
     public class PatchOperationModLoaded : PatchOperation
     {
+#pragma warning disable 649
         private string modName;
+#pragma warning restore 649
         
         protected override bool ApplyWorker(XmlDocument xml)
         {

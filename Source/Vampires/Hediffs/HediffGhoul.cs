@@ -15,6 +15,7 @@ namespace Vampire
     public enum GhoulType
     {
         Standard,
+        Independent,
         Revenant
     }
     
@@ -73,7 +74,13 @@ namespace Vampire
             }
         }
 
-        public override bool ShouldRemove => initialized && pawn.VampComp().ThrallData == null;
+        public override bool ShouldRemove => initialized && pawn.BloodNeed().CurGhoulVitaePoints == 0;
+
+        public override void PostRemoved()
+        {
+            base.PostRemoved();
+            this.pawn.VampComp().Notify_DeGhouled();
+        }
 
         public override string TipStringExtra
         {

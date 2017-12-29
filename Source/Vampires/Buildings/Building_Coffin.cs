@@ -7,7 +7,9 @@ namespace Vampire
     public class Building_Coffin : Building_Sarcophagus
     {
         // RimWorld.Building_Grave
+#pragma warning disable 169
         private Graphic cachedGraphicFull;
+#pragma warning restore 169
 
 
         //public override void Draw()

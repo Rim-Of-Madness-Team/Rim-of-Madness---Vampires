@@ -194,6 +194,8 @@
     <Compile Include="AI_Jobs\MentalState_Rotschreck.cs" />
     <Compile Include="AI_Jobs\MentalState_VampireBeast.cs" />
     <Compile Include="Need_Blood.cs" />
+    <Compile Include="Workers\InteractionWorker_Bonding.cs" />
+    <Compile Include="Workers\InteractionWorker_VampiricLore.cs" />
     <Compile Include="Workers\PawnRelationWorker_Childe.cs" />
     <Compile Include="Workers\PawnRelationWorker_Sire.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

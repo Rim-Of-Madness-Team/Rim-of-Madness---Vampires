@@ -19,12 +19,12 @@ namespace Vampire
             .RandomElement();
         public static BloodlineDef RandBloodline => DefDatabase<BloodlineDef>.AllDefs
             .Where(x => x != VampDefOf.ROMV_Caine && x != VampDefOf.ROMV_TheThree).RandomElement();
+        
+        
         public static bool IsDaylight(Pawn p)
         {
             if (p != null && p.Spawned && p.MapHeld != null)
-            {
                 return IsDaylight(p.MapHeld);
-            }
             return false;
         }
         
@@ -59,16 +59,35 @@ namespace Vampire
         }
 
         //Checks for sunrise conditions.
-        public static bool IsSunRising(this Pawn p)
+        public static bool IsSunRisingOrDaylight(this Pawn p)
         {
-            return p != null && p.Spawned && p?.MapHeld != null && p.MapHeld is Map m && IsSunRising(m);
+            return p != null && p.Spawned && p?.MapHeld != null && p.MapHeld is Map m && IsSunRisingOrDaylight(m);
         }
         
+        private static Dictionary<Map, float> lastSunlightChecks = new Dictionary<Map, float>();
+
         //Sunrise is very dangerous to be out.
-        public static bool IsSunRising(Map m)
+        public static bool IsSunRisingOrDaylight(Map m)
         {
-            float num = GenCelestial.CurCelestialSunGlow(m);
-            return num > 0.01f;
+            //If it's daylight, it's not safe.
+            var curSunlight = GenCelestial.CurCelestialSunGlow(m);
+            if (GenCelestial.IsDaytime(curSunlight)) return true;
+
+            if (curSunlight > 0.01f)
+            {
+                var lastSunlight = 0f;
+                if (!lastSunlightChecks.ContainsKey(m))
+                {
+                    lastSunlightChecks.Add(m, curSunlight);
+                    lastSunlight = curSunlight;
+                }
+                else
+                {
+                    lastSunlight = lastSunlightChecks[m];
+                }
+                return curSunlight > lastSunlight;
+            }
+            return false;
         }
 
         public static string MainDesc(Pawn pawn)

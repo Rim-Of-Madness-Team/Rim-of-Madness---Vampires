@@ -45,7 +45,7 @@ namespace Vampire
         // RimWorld.JoyUtility
         public static void EnjoyableOutsideNow_Vampire(Pawn pawn, ref bool __result, StringBuilder outFailReason = null)
         {
-            if (pawn.IsVampire() && pawn.IsSunRising())
+            if (pawn.IsVampire() && pawn.IsSunRisingOrDaylight())
             {
                 __result = false;
             }
@@ -54,7 +54,7 @@ namespace Vampire
         // RimWorld.PawnUtility
         public static void KnownDangerAt_Vamp(IntVec3 c, Pawn forPawn, ref bool __result)
         {
-            if (forPawn.IsVampire() && forPawn.MapHeld != null && forPawn.IsSunRising() && !c.Roofed(forPawn.MapHeld))
+            if (forPawn.IsVampire() && forPawn.MapHeld != null && forPawn.IsSunRisingOrDaylight() && !c.Roofed(forPawn.MapHeld))
             {
                 __result = true;
                 return;

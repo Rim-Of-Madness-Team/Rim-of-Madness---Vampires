@@ -166,7 +166,9 @@ namespace Vampire
 
         }
 
+#pragma warning disable 169
         private bool debugPrinted = false;
+#pragma warning restore 169
         public override void WorldComponentTick()
         {
             base.WorldComponentTick();
