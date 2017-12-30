@@ -59,7 +59,13 @@ namespace Vampire
             
 
             //Patches all JobGivers to consider sunlight for vampires before they do them.
-            var listOfJobGivers = (from domainAssembly in AppDomain.CurrentDomain.GetAssemblies()
+            var listOfJobGivers = (from domainAssembly in AppDomain.CurrentDomain.GetAssemblies().Where(
+                x => x.GetName().Name != "Harmony" &&
+                     x.GetName().Name != "DraftingPatcher" &&
+                     x.GetName().Name != "AnimalRangedVerbsUnlocker" &&
+                     x.GetName().Name != "ExplosionTypes" &&
+                     x.GetName().Name != "NewAnimalSubproducts" &&
+                     x.GetName().Name != "NewHatcher")
                 from assemblyType in domainAssembly.GetTypes()
                 where typeof(ThinkNode_JobGiver).IsAssignableFrom(assemblyType)
                 select assemblyType).ToArray();
@@ -83,7 +89,13 @@ namespace Vampire
                 }
             }
             //Patches all JoyGivers to consider sunlight for vampires before they do them.
-            var listOfJoyGivers = (from domainAssembly in AppDomain.CurrentDomain.GetAssemblies()
+            var listOfJoyGivers = (from domainAssembly in AppDomain.CurrentDomain.GetAssemblies().Where(
+                    x => x.GetName().Name != "Harmony" &&
+                         x.GetName().Name != "DraftingPatcher" &&
+                         x.GetName().Name != "AnimalRangedVerbsUnlocker" &&
+                         x.GetName().Name != "ExplosionTypes" &&
+                         x.GetName().Name != "NewAnimalSubproducts" &&
+                         x.GetName().Name != "NewHatcher")
                 from assemblyType in domainAssembly.GetTypes()
                 where typeof(JoyGiver).IsAssignableFrom(assemblyType)
                 select assemblyType).ToArray();
@@ -108,7 +120,13 @@ namespace Vampire
             }
 
             //Patches all JoyGivers to consider sunlight for vampires before they do them.
-            var listOfWorkGivers = (from domainAssembly in AppDomain.CurrentDomain.GetAssemblies()
+            var listOfWorkGivers = (from domainAssembly in AppDomain.CurrentDomain.GetAssemblies().Where(
+                    x => x.GetName().Name != "Harmony" &&
+                         x.GetName().Name != "DraftingPatcher" &&
+                         x.GetName().Name != "AnimalRangedVerbsUnlocker" &&
+                         x.GetName().Name != "ExplosionTypes" &&
+                         x.GetName().Name != "NewAnimalSubproducts" &&
+                         x.GetName().Name != "NewHatcher")
                 from assemblyType in domainAssembly.GetTypes()
                 where typeof(WorkGiver).IsAssignableFrom(assemblyType)
                 select assemblyType).ToArray();
@@ -318,8 +336,8 @@ namespace Vampire
             harmony.Patch(AccessTools.Method(typeof(Pawn), "MakeCorpse"),
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_MakeCorpse)), null);
             //Makes vampires use one blood point to be forced awake from slumber.
-            harmony.Patch(AccessTools.Method(typeof(Pawn_JobTracker), "EndCurrentJob"),
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_EndCurrentJob)), null);
+//            harmony.Patch(AccessTools.Method(typeof(Pawn_JobTracker), "EndCurrentJob"),
+//                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_EndCurrentJob)), null);
             //Vampires should tire very much during the daylight hours.
             harmony.Patch(AccessTools.Method(typeof(Need_Rest), "NeedInterval"), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_SleepyDuringDaylight)));
