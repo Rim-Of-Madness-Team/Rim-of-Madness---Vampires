@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<LanguageData>
-
-  <ROMV_Blood.Label>Кровь</ROMV_Blood.Label>
-  <ROMV_Blood.Description>Отслеживает количество крови в организме. Восстанавливается со скоростью 1 в день. Когда полоса опустеет, организм умрет.</ROMV_Blood.Description>
-
-</LanguageData>

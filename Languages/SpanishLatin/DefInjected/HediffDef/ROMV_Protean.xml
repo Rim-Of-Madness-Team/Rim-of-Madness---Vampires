@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_BatFormHediff.label>forma de murciélago (Proteico)</ROMV_BatFormHediff.label>
+
+  <ROMV_FeralClaw.label>garras salvajes (Proteico)</ROMV_FeralClaw.label>
+  <ROMV_FeralClaw.comps.0.tools.0.label>garras salvajes</ROMV_FeralClaw.comps.0.tools.0.label>
+
+  <ROMV_MistFormHediff.label>forma de niebla (Proteico)</ROMV_MistFormHediff.label>
+  <ROMV_WarFormHediff.label>forma de niebla (Proteico)</ROMV_WarFormHediff.label>
+
+
+</LanguageData>

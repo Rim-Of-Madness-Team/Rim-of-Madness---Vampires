@@ -303,11 +303,17 @@ namespace Vampire
             harmony.Patch(AccessTools.Method(typeof(Pawn_HealthTracker), "AddHediff", new Type[] { typeof(Hediff), typeof(BodyPartRecord), typeof(DamageInfo?) }),
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(AddHediff)), null);
             
-            // RESURRECTION / CORPSES / SLEEPING BEHAVIOR
+            // GRAVES / RESURRECTION / CORPSES / SLEEPING BEHAVIOR
             //////////////////////////////////////////////////////////////////////////////////            
             //Vampire corpses can resurrect safely inside graves, sarcophogi, and caskets.
             harmony.Patch(AccessTools.Method(typeof(Building_Grave), "GetGizmos"), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_TheyNeverDie)));
+//            //Sets max assignments to be from the size of the coffin.
+//            harmony.Patch(AccessTools.Method(typeof(Building_Grave), "get_MaxAssignedPawnsCount"), null,
+//                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_CouplesLikeBiggerCaskets)));
+//            //Allows coffins to assign multiple characters
+//            harmony.Patch(AccessTools.Method(typeof(Building_Grave), "TryAssignPawn"),
+//                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_AssignToCoffin)), null);
             //Patches corpse generation for vampires.
             harmony.Patch(AccessTools.Method(typeof(Pawn), "MakeCorpse"),
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_MakeCorpse)), null);
@@ -474,6 +480,56 @@ namespace Vampire
 
         }
 
+        // RimWorld.Building_Grave
+        // get_MaxAssignedPawnsCount
+        public static void Vamp_CouplesLikeBiggerCaskets(Building_Grave __instance, ref int __result)
+        {
+            if (__instance is Building_Coffin)
+            {
+                __result = __instance.def.size.x;
+                Log.Message(__instance.ToString() + " " +  __result.ToString());
+            }
+        }
+        
+        // RimWorld.Building_Grave
+        // TryAssignPawn(Pawn pawn)
+        public static bool Vamp_AssignToCoffin(Building_Grave __instance, Pawn pawn)
+        {
+            if (__instance is Building_Coffin newCoffin)
+            {
+                if (newCoffin.AssignedPawns.Any() && newCoffin.AssignedPawns.Contains(pawn))
+                {
+                    return false;
+                }
+
+                //Clear assignments
+                var oldGrave = pawn.ownership.AssignedGrave;
+                if (oldGrave != null)
+                {
+                    if (oldGrave is Building_Coffin oldCoffin)
+                        oldCoffin.TryUnassignPawn(pawn);
+                    else
+                        oldGrave.assignedPawn = null;
+                    //pawn.ownership.AssignedGrave = null;
+                    AccessTools.Method(typeof(Pawn_Ownership), "set_AssignedGrave").Invoke(pawn.ownership, null);
+                }
+
+                //Add assignments
+                if (newCoffin.AssignedPawns.Count() >= newCoffin.def.size.x)
+                {
+                    Log.Message("Random unassign");
+                    var pawnToRemove = newCoffin.AssignedPawns.RandomElement();
+                    newCoffin.TryUnassignPawn(pawnToRemove);
+                }
+                newCoffin.assignedPawn = pawn;
+                //pawn.ownership.AssignedGrave = newCoffin;
+                AccessTools.Method(typeof(Pawn_Ownership), "set_AssignedGrave")
+                    .Invoke(pawn.ownership, new object[] {newCoffin});
+                return false;
+            }
+            return true;
+        }
+        
         public static IEnumerable<Gizmo> GraveGizmoGetter(Pawn AbilityUser, Building_Grave grave)
         {
             bool dFlag = false;

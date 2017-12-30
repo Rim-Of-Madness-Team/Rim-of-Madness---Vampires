@@ -16,6 +16,12 @@ namespace Vampire
 
         //public override bool Accepts(Thing thing)
 
+        private int CorpseCapacity => this.def.size.x;
+        private int CorpsesLoaded => innerContainer.Count;
+        public override bool Accepts(Thing thing)
+        {
+            return innerContainer.CanAcceptAnyOf(thing) && CorpsesLoaded < CorpseCapacity && GetStoreSettings().AllowedToAccept(thing);
+        }
 
         // RimWorld.Building_Grave
         //public override Graphic Graphic

@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_WarFormKind.label>Forma de Guerra</ROMV_WarFormKind.label>
+  <ROMV_WarFormKind.labelPlural>Forma de Guerra</ROMV_WarFormKind.labelPlural>
+  <ROMV_WarFormKind.labelMale>Forma de Guerra masculina</ROMV_WarFormKind.labelMale>
+  <ROMV_WarFormKind.labelMalePlural>Forma de Guerra masculinas</ROMV_WarFormKind.labelMalePlural>
+  <ROMV_WarFormKind.labelFemale>Forma de Guerra femenina</ROMV_WarFormKind.labelFemale>
+  <ROMV_WarFormKind.labelFemalePlural>Forma de Guerra femeninas</ROMV_WarFormKind.labelFemalePlural>
+  <ROMV_WarFormKind.lifeStages.0.label>Forma de Guerra</ROMV_WarFormKind.lifeStages.0.label>
+  <ROMV_WarFormKind.lifeStages.0.labelPlural>Forma de Guerra</ROMV_WarFormKind.lifeStages.0.labelPlural>
+  <ROMV_WarFormKind.lifeStages.0.labelMale>Forma de Guerra masculina</ROMV_WarFormKind.lifeStages.0.labelMale>
+  <ROMV_WarFormKind.lifeStages.0.labelMalePlural>Forma de Guerra masculinas</ROMV_WarFormKind.lifeStages.0.labelMalePlural>
+  <ROMV_WarFormKind.lifeStages.0.labelFemale>Forma de Guerra femenina</ROMV_WarFormKind.lifeStages.0.labelFemale>
+  <ROMV_WarFormKind.lifeStages.0.labelFemalePlural>Forma de Guerra femeninas</ROMV_WarFormKind.lifeStages.0.labelFemalePlural>
+  <ROMV_WarFormKind.lifeStages.1.label>Forma de Guerra</ROMV_WarFormKind.lifeStages.1.label>
+  <ROMV_WarFormKind.lifeStages.1.labelPlural>Forma de Guerra</ROMV_WarFormKind.lifeStages.1.labelPlural>
+  <ROMV_WarFormKind.lifeStages.1.labelMale>Forma de Guerra masculina</ROMV_WarFormKind.lifeStages.1.labelMale>
+  <ROMV_WarFormKind.lifeStages.1.labelMalePlural>Forma de Guerra masculinas</ROMV_WarFormKind.lifeStages.1.labelMalePlural>
+  <ROMV_WarFormKind.lifeStages.1.labelFemale>Forma de Guerra femenina</ROMV_WarFormKind.lifeStages.1.labelFemale>
+  <ROMV_WarFormKind.lifeStages.1.labelFemalePlural>Forma de Guerra femeninas</ROMV_WarFormKind.lifeStages.1.labelFemalePlural>
+  <ROMV_WarFormKind.lifeStages.2.label>Forma de Guerra</ROMV_WarFormKind.lifeStages.2.label>
+  <ROMV_WarFormKind.lifeStages.2.labelPlural>Forma de Guerra</ROMV_WarFormKind.lifeStages.2.labelPlural>
+  <ROMV_WarFormKind.lifeStages.2.labelMale>Forma de Guerra masculina</ROMV_WarFormKind.lifeStages.2.labelMale>
+  <ROMV_WarFormKind.lifeStages.2.labelMalePlural>Forma de Guerra masculinas</ROMV_WarFormKind.lifeStages.2.labelMalePlural>
+  <ROMV_WarFormKind.lifeStages.2.labelFemale>Forma de Guerra femenina</ROMV_WarFormKind.lifeStages.2.labelFemale>
+  <ROMV_WarFormKind.lifeStages.2.labelFemalePlural>Forma de Guerra femeninas</ROMV_WarFormKind.lifeStages.2.labelFemalePlural>
+
+
+</LanguageData>

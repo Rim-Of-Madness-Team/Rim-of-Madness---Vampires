@@ -108,7 +108,6 @@ namespace Vampire
             if (def == PawnKindDefOf.Thrumbo) return 10;
             if (def?.RaceProps?.TrainableIntelligence == TrainableIntelligenceDefOf.Advanced)
                 result += 1;
-            if (def == PawnKindDef.Named("Drake")) result += 1;
             return result;
         }
 

@@ -351,13 +351,13 @@
     </comps>
     <techLevel>Medieval</techLevel>
     <researchPrerequisites><li>Beds</li></researchPrerequisites>	
-    <costStuffCount>110</costStuffCount>
+    <costStuffCount>220</costStuffCount>
     <altitudeLayer>Building</altitudeLayer>
     <passability>Standable</passability>
     <blockWind>true</blockWind>
     <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
     <staticSunShadowHeight>0.3</staticSunShadowHeight>
-    <!--<designationCategory>Misc</designationCategory>-->
+    <!-- <designationCategory>Misc</designationCategory> -->
     <designationHotKey>Misc9</designationHotKey>
   </ThingDef>
 
@@ -390,13 +390,14 @@
     </statBases>
 		<scatterableOnMapGen>false</scatterableOnMapGen>
     <useHitPoints>False</useHitPoints>
-    <size>(1,2)</size>
+    <size>(2,2)</size>
     <passability>Standable</passability>
     <drawGUIOverlay>True</drawGUIOverlay>
     <selectable>False</selectable>
     <building>
       <isEdifice>False</isEdifice>
       <bed_showSleeperBody>False</bed_showSleeperBody>
+	  <bed_healPerDay>2</bed_healPerDay>
       <sowTag>SupportPlantsOnly</sowTag>
       <canPlaceOverImpassablePlant>false</canPlaceOverImpassablePlant>
       <ai_chillDestination>false</ai_chillDestination>
