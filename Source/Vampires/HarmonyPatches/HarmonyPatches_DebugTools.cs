@@ -106,7 +106,30 @@ namespace Vampire
                 }
             })});
 
+            AccessTools.Method(typeof(Dialog_DebugActionsMenu), "DebugToolMap").Invoke(__instance, new object[] {
+                "Add Ghoul Blood (1)", new Action(()=>
+                {
+                    Pawn pawn = Find.VisibleMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault();
+                    if (pawn != null && pawn.IsGhoul() && pawn?.BloodNeed() is Need_Blood b)
+                    {
+                        b.AdjustBlood(1, true, true);
+                        pawn.Drawer.Notify_DebugAffected();
+                        MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, "+1 Ghoul Vitae");
+                    }
+                })});
 
+            AccessTools.Method(typeof(Dialog_DebugActionsMenu), "DebugToolMap").Invoke(__instance, new object[] {
+                "Drain Ghoul Blood (1)", new Action(()=>
+                {
+                    Pawn pawn = Find.VisibleMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault();
+                    if (pawn != null && pawn.IsGhoul()&& pawn?.BloodNeed() is Need_Blood b)
+                    {
+                        b.AdjustBlood(-1, true, true);
+                        pawn.Drawer.Notify_DebugAffected();
+                        MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, "-1 Ghoul Blood");
+                    }
+                })});
+            
             AccessTools.Method(typeof(Dialog_DebugActionsMenu), "DebugToolMap").Invoke(__instance, new object[] {
                 "Add XP (100)", new Action(()=>
             {

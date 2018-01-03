@@ -92,54 +92,6 @@
   </ThingDef>
 
   <ThingDef ParentName="ROMV_BuildingBase">
-    <defName>ROMV_SimpleCoffinBed</defName>
-    <label>sleeping spot</label>
-    <description>Designates a spot on the ground where people should sleep. Not comfortable.</description>
-    <thingClass>Building_Bed</thingClass>
-    <graphicData>
-      <texPath>Things/Building/Furniture/Coffin/SimpleCoffin/simpleCoffin</texPath>
-      <graphicClass>Graphic_Multi</graphicClass>
-      <shaderType>CutoutComplex</shaderType>
-      <drawSize>(3,3.5)</drawSize>
-    </graphicData>
-    <altitudeLayer>BuildingOnTop</altitudeLayer>
-    <costStuffCount>0</costStuffCount>
-    <stuffCategories>
-      <li>Woody</li>
-      <li>Metallic</li>
-      <li>Stony</li>
-    </stuffCategories>
-    <statBases>
-      <WorkToBuild>0</WorkToBuild>
-      <Beauty>0</Beauty>
-      <BedRestEffectiveness>0.85</BedRestEffectiveness>
-      <Comfort>0.70</Comfort>
-      <ImmunityGainSpeedFactor>1.0</ImmunityGainSpeedFactor>
-	  <SurgerySuccessChanceFactor>1</SurgerySuccessChanceFactor>	  
-    </statBases>
-		<scatterableOnMapGen>false</scatterableOnMapGen>
-    <useHitPoints>False</useHitPoints>
-    <size>(1,2)</size>
-    <passability>Standable</passability>
-    <drawGUIOverlay>True</drawGUIOverlay>
-    <selectable>False</selectable>
-    <building>
-      <isEdifice>False</isEdifice>
-      <bed_showSleeperBody>True</bed_showSleeperBody>
-      <bed_healPerDay>2</bed_healPerDay>	  
-      <sowTag>SupportPlantsOnly</sowTag>
-      <canPlaceOverImpassablePlant>false</canPlaceOverImpassablePlant>
-      <ai_chillDestination>false</ai_chillDestination>
-    </building>
-		<comps>
-			<li Class="CompProperties_RoomIdentifier">
-				<roomStat>Impressiveness</roomStat>
-			</li>
-		</comps>
-  </ThingDef>
-
-
-  <ThingDef ParentName="ROMV_BuildingBase">
     <defName>ROMV_RoyalCoffin</defName>
     <label>Royal Coffin</label>
     <thingClass>Vampire.Building_Coffin</thingClass>
@@ -225,52 +177,6 @@
     <staticSunShadowHeight>0.3</staticSunShadowHeight>
     <designationCategory>Misc</designationCategory>
     <designationHotKey>Misc9</designationHotKey>
-  </ThingDef>
-
-  <ThingDef ParentName="ROMV_BuildingBase">
-    <defName>ROMV_RoyalCoffinBed</defName>
-    <label>sleeping spot</label>
-    <description>Designates a spot on the ground where people should sleep. Not comfortable.</description>
-    <thingClass>Building_Bed</thingClass>
-    <graphicData>
-      <texPath>Things/Building/Furniture/Coffin/RoyalCoffin/spoonshortageRoyalCoffin</texPath>
-      <graphicClass>Graphic_Multi</graphicClass>
-      <shaderType>CutoutComplex</shaderType>
-      <drawSize>(3,3.5)</drawSize>
-    </graphicData>
-    <altitudeLayer>BuildingOnTop</altitudeLayer>
-    <costStuffCount>0</costStuffCount>
-    <stuffCategories>
-      <li>Woody</li>
-      <li>Metallic</li>
-      <li>Stony</li>
-    </stuffCategories>
-    <statBases>
-      <WorkToBuild>0</WorkToBuild>
-      <Beauty>25</Beauty>
-      <BedRestEffectiveness>1.05</BedRestEffectiveness>
-      <Comfort>0.90</Comfort>
-      <ImmunityGainSpeedFactor>1.1</ImmunityGainSpeedFactor>
-      <SurgerySuccessChanceFactor>1</SurgerySuccessChanceFactor>
-    </statBases>
-		<scatterableOnMapGen>false</scatterableOnMapGen>
-    <useHitPoints>False</useHitPoints>
-    <size>(1,2)</size>
-    <passability>Standable</passability>
-    <drawGUIOverlay>True</drawGUIOverlay>
-    <selectable>False</selectable>
-    <building>
-      <isEdifice>False</isEdifice>
-      <bed_showSleeperBody>False</bed_showSleeperBody>
-      <sowTag>SupportPlantsOnly</sowTag>
-      <canPlaceOverImpassablePlant>false</canPlaceOverImpassablePlant>
-      <ai_chillDestination>false</ai_chillDestination>
-    </building>
-		<comps>
-			<li Class="CompProperties_RoomIdentifier">
-				<roomStat>Impressiveness</roomStat>
-			</li>
-		</comps>
   </ThingDef>
 
   <ThingDef ParentName="ROMV_BuildingBase">
@@ -362,13 +268,63 @@
   </ThingDef>
 
   
+  
+  
   <ThingDef ParentName="ROMV_BuildingBase">
-    <defName>ROMV_RoyalCoffinDoubleBed</defName>
+    <defName>ROMV_SarcophagusBed</defName>
     <label>sleeping spot</label>
-    <description>Designates a spot on the ground where people should sleep.</description>
+    <description>Designates a spot on the ground where people should sleep. Not comfortable.</description>
     <thingClass>Building_Bed</thingClass>
     <graphicData>
-      <texPath>Things/Building/Furniture/Coffin/RoyalCoffinDouble/spoonshortageRoyalCoffinDouble</texPath>
+      <texPath>NullTex</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,1)</drawSize>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <costStuffCount>0</costStuffCount>
+    <stuffCategories>
+      <li>Woody</li>
+      <li>Metallic</li>
+      <li>Stony</li>
+    </stuffCategories>
+    <statBases>
+      <WorkToBuild>0</WorkToBuild>
+      <Comfort>0.4</Comfort>
+    </statBases>
+		<scatterableOnMapGen>false</scatterableOnMapGen>
+    <useHitPoints>False</useHitPoints>
+    <size>(1,2)</size>
+    <passability>Standable</passability>
+    <drawGUIOverlay>True</drawGUIOverlay>
+    <selectable>False</selectable>
+    <building>
+      <isEdifice>False</isEdifice>
+      <bed_showSleeperBody>True</bed_showSleeperBody>
+      <sowTag>SupportPlantsOnly</sowTag>
+      <bed_healPerDay>2</bed_healPerDay>
+      <canPlaceOverImpassablePlant>false</canPlaceOverImpassablePlant>
+      <ai_chillDestination>false</ai_chillDestination>
+    </building>
+    <comps>
+	  <li Class="CompProperties_RoomIdentifier">
+		<roomStat>Impressiveness</roomStat>
+	  </li>
+	  <li Class="CompProperties_AffectedByFacilities">
+	    <linkableFacilities>
+		  <li>EndTable</li>
+		  <li>Dresser</li>
+	    </linkableFacilities>
+	  </li>
+    </comps>
+  </ThingDef>
+  
+  <ThingDef ParentName="ROMV_BuildingBase">
+    <defName>ROMV_SimpleCoffinBed</defName>
+    <label>sleeping spot</label>
+    <description>Designates a spot on the ground where people should sleep. Not comfortable.</description>
+    <thingClass>Building_Bed</thingClass>
+    <graphicData>
+      <texPath>Things/Building/Furniture/Coffin/SimpleCoffin/simpleCoffin</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
       <shaderType>CutoutComplex</shaderType>
       <drawSize>(3,3.5)</drawSize>
@@ -382,33 +338,39 @@
     </stuffCategories>
     <statBases>
       <WorkToBuild>0</WorkToBuild>
-      <Beauty>25</Beauty>
-      <BedRestEffectiveness>1.05</BedRestEffectiveness>
-      <Comfort>0.90</Comfort>
-      <ImmunityGainSpeedFactor>1.1</ImmunityGainSpeedFactor>
-      <SurgerySuccessChanceFactor>1</SurgerySuccessChanceFactor>
+      <Beauty>0</Beauty>
+      <BedRestEffectiveness>0.85</BedRestEffectiveness>
+      <Comfort>0.70</Comfort>
+      <ImmunityGainSpeedFactor>1.0</ImmunityGainSpeedFactor>
+	  <SurgerySuccessChanceFactor>1</SurgerySuccessChanceFactor>	  
     </statBases>
 		<scatterableOnMapGen>false</scatterableOnMapGen>
     <useHitPoints>False</useHitPoints>
-    <size>(2,2)</size>
+    <size>(1,2)</size>
     <passability>Standable</passability>
     <drawGUIOverlay>True</drawGUIOverlay>
     <selectable>False</selectable>
     <building>
       <isEdifice>False</isEdifice>
-      <bed_showSleeperBody>False</bed_showSleeperBody>
-	  <bed_healPerDay>2</bed_healPerDay>
+      <bed_showSleeperBody>True</bed_showSleeperBody>
+      <bed_healPerDay>2</bed_healPerDay>	  
       <sowTag>SupportPlantsOnly</sowTag>
       <canPlaceOverImpassablePlant>false</canPlaceOverImpassablePlant>
       <ai_chillDestination>false</ai_chillDestination>
     </building>
-		<comps>
-			<li Class="CompProperties_RoomIdentifier">
-				<roomStat>Impressiveness</roomStat>
-			</li>
-		</comps>
-  </ThingDef>
+	<comps>
+	  <li Class="CompProperties_AffectedByFacilities">
+		<linkableFacilities>
+		  <li>EndTable</li>
+		  <li>Dresser</li>
+		</linkableFacilities>
+	  </li>
+	  <li Class="CompProperties_RoomIdentifier">
+		<roomStat>Impressiveness</roomStat>
+	  </li>
+	</comps>
 
+  </ThingDef>
   
   <ThingDef ParentName="ROMV_BuildingBase">
     <defName>ROMV_RoyalCoffinBed</defName>
@@ -449,25 +411,31 @@
       <canPlaceOverImpassablePlant>false</canPlaceOverImpassablePlant>
       <ai_chillDestination>false</ai_chillDestination>
     </building>
-		<comps>
-			<li Class="CompProperties_RoomIdentifier">
-				<roomStat>Impressiveness</roomStat>
-			</li>
-		</comps>
+	<comps>
+	  <li Class="CompProperties_AffectedByFacilities">
+		<linkableFacilities>
+		  <li>EndTable</li>
+		  <li>Dresser</li>
+		</linkableFacilities>
+	  </li>
+	  <li Class="CompProperties_RoomIdentifier">
+		<roomStat>Impressiveness</roomStat>
+	  </li>
+	</comps>
   </ThingDef>
 
-
   <ThingDef ParentName="ROMV_BuildingBase">
-    <defName>ROMV_SarcophagusBed</defName>
+    <defName>ROMV_RoyalCoffinDoubleBed</defName>
     <label>sleeping spot</label>
-    <description>Designates a spot on the ground where people should sleep. Not comfortable.</description>
+    <description>Designates a spot on the ground where people should sleep.</description>
     <thingClass>Building_Bed</thingClass>
     <graphicData>
-      <texPath>NullTex</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <drawSize>(1,1)</drawSize>
+      <texPath>Things/Building/Furniture/Coffin/RoyalCoffinDouble/spoonshortageRoyalCoffinDouble</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <drawSize>(3,3.5)</drawSize>
     </graphicData>
-    <altitudeLayer>Building</altitudeLayer>
+    <altitudeLayer>BuildingOnTop</altitudeLayer>
     <costStuffCount>0</costStuffCount>
     <stuffCategories>
       <li>Woody</li>
@@ -476,31 +444,39 @@
     </stuffCategories>
     <statBases>
       <WorkToBuild>0</WorkToBuild>
-      <Comfort>0.4</Comfort>
+      <Beauty>25</Beauty>
+      <BedRestEffectiveness>1.05</BedRestEffectiveness>
+      <Comfort>0.90</Comfort>
+      <ImmunityGainSpeedFactor>1.1</ImmunityGainSpeedFactor>
+      <SurgerySuccessChanceFactor>1</SurgerySuccessChanceFactor>
     </statBases>
 		<scatterableOnMapGen>false</scatterableOnMapGen>
     <useHitPoints>False</useHitPoints>
-    <size>(1,2)</size>
+    <size>(2,2)</size>
     <passability>Standable</passability>
     <drawGUIOverlay>True</drawGUIOverlay>
     <selectable>False</selectable>
     <building>
       <isEdifice>False</isEdifice>
-      <bed_showSleeperBody>True</bed_showSleeperBody>
+      <bed_showSleeperBody>False</bed_showSleeperBody>
+	  <bed_healPerDay>2</bed_healPerDay>
       <sowTag>SupportPlantsOnly</sowTag>
-      <bed_healPerDay>2</bed_healPerDay>
       <canPlaceOverImpassablePlant>false</canPlaceOverImpassablePlant>
       <ai_chillDestination>false</ai_chillDestination>
     </building>
-		<comps>
-			<li Class="CompProperties_RoomIdentifier">
-				<roomStat>Impressiveness</roomStat>
-			</li>
-		</comps>
+	<comps>
+	  <li Class="CompProperties_RoomIdentifier">
+		<roomStat>Impressiveness</roomStat>
+	  </li>
+	  <li Class="CompProperties_AffectedByFacilities">
+        <linkableFacilities>
+          <li>EndTable</li>
+          <li>Dresser</li>
+        </linkableFacilities>
+      </li>
+	</comps>
   </ThingDef>
-
-
-
+  
 
   <!--
   ██████   █████  ███████ ███████
@@ -509,8 +485,6 @@
   ██   ██ ██   ██      ██ ██
   ██████  ██   ██ ███████ ███████
 -->
-
-
 
   <ThingDef Name="ROMV_BuildingBase" Abstract="True">
     <category>Building</category>

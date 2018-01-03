@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Linq;
+using System.Text;
 using Verse;
 using AbilityUser;
 using RimWorld;
@@ -24,12 +25,13 @@ namespace Vampire
             var bloodNeed = Pawn.needs.TryGetNeed<Need_Blood>();
             if (Pawn.IsGhoul())
                 bloodNeed.CurGhoulVitaePoints -= AbilityDef.bloodCost;
-            bloodNeed.AdjustBlood(-AbilityDef.bloodCost);
+            else
+                bloodNeed.AdjustBlood(-AbilityDef.bloodCost);
 
             //Ghouls suffer withdrawal without any vitae in their systems.
             if (Pawn.IsGhoul() && bloodNeed.CurGhoulVitaePoints <= 0)
             {
-                var need = Pawn.needs.AllNeeds.Find((Need x) => x.def == VampDefOf.ROMV_VitaeAddiction.causesNeed);
+                var need = Pawn.needs.AllNeeds.FirstOrDefault((Need x) => x.def == VampDefOf.ROMV_Chemical_Vitae);
                 if (need != null)
                     need.CurLevel = 0f;
             }       
@@ -77,6 +79,9 @@ namespace Vampire
         public bool PassesAbilitySpecialCases()
         {
             if (this.AbilityDef == null) 
+                return false;
+            var o = this.Pawn;
+            if (o != null && (!o.IsVampire() && !o.IsGhoul()))
                 return false;
             if (this.AbilityDef == VampDefOf.ROMV_RegenerateLimb)
             {

@@ -136,5 +136,6 @@ namespace Vampire
         public static InteractionDef ROMV_VampireBondedDrink;
         public static MentalStateDef MurderousRage;
         public static InteractionDef ROMV_VampireDiablerieAttempt;
+        public static NeedDef ROMV_Chemical_Vitae;
     }
 }

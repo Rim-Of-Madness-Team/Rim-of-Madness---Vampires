@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
 
+<!-- 1-4-18 -->
+<ROMV_LevelUpGhoul>{0} has gained a level in ghoul disciplines.</ROMV_LevelUpGhoul>
+
 <!-- 12-24-17-->
+
 <ROMV_LostGhoulPowers>As {0} has no vitae, HE has lost HIS ghoul abilities.</ROMV_LostGhoulPowers>
 <ROMV_AttemptedDiablerie>{0} attempted Diablerie</ROMV_AttemptedDiablerie>
 <ROMV_GhoulSheet>Ghoul Skill Sheet</ROMV_GhoulSheet>

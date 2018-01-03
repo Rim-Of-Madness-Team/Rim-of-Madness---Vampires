@@ -44,6 +44,9 @@ namespace Vampire
 
             if (Find.TickManager.TicksGame % 60 == 0)
             {
+                if (!compVampire.BeenGhoulBefore)
+                    compVampire.BeenGhoulBefore = true;
+                
                 if (compVampire.ThrallData == null)
                     return;
                 switch (compVampire.ThrallData.BondStage)

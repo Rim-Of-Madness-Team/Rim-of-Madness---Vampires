@@ -1431,6 +1431,12 @@ namespace Vampire
         {
             if (__result != null && pawn.IsVampire())
             {
+                if (__result.def == JobDefOf.Ingest)
+                {
+                    __result = null;
+                    return;
+                }
+                
                 if (!pawn.Drafted && __result.def != JobDefOf.WaitWander && __result.def != JobDefOf.GotoWander && !__result.playerForced && !__result.IsSunlightSafeFor(pawn))
                     __result = null;
             }
@@ -1439,9 +1445,19 @@ namespace Vampire
                 
         public static void TryGiveJob_VampireJobOnCell(Pawn pawn, IntVec3 c, ref Job __result)
         {
-            if (__result != null && pawn.IsVampire() && !pawn.Drafted && __result.def != JobDefOf.WaitWander && __result.def != JobDefOf.GotoWander && !__result.playerForced && !__result.IsSunlightSafeFor(pawn))
+            
+
+            if (__result != null && pawn.IsVampire())
             {
-                __result = null;
+                if (__result.def == JobDefOf.Ingest)
+                {
+                    __result = null;
+                    return;
+                }
+                if (!pawn.Drafted && __result.def != JobDefOf.WaitWander && __result.def != JobDefOf.GotoWander && !__result.playerForced && !__result.IsSunlightSafeFor(pawn))
+                {
+                    __result = null;
+                }
             }
         }
 

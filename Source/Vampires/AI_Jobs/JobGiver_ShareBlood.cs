@@ -16,7 +16,6 @@ namespace Vampire
             {
                 //Log.Message("0a");
                 return 0f;
-
             }
             if (!pawn.VampComp().IsVampire)
             {

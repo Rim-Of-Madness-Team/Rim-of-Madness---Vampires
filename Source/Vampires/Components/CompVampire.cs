@@ -146,6 +146,13 @@ namespace Vampire
         }
 
         private Graphic curFormGraphic = null;
+        private bool beenGhoulBefore = false;
+        
+        public bool BeenGhoulBefore
+        {
+            get => beenGhoulBefore;
+            set => beenGhoulBefore = value;
+        }
 
         public Graphic CurFormGraphic
         {
@@ -315,9 +322,9 @@ namespace Vampire
         {
             if (XP <= 0) XP = 1;
             Level++;
-            if (sendNotification && IsVampire && AbilityUser != null && AbilityUser.Spawned &&
+            if (sendNotification && (IsVampire || IsGhoul) && AbilityUser != null && AbilityUser.Spawned &&
                 AbilityUser.Faction == Faction.OfPlayerSilentFail)
-                Messages.Message("ROMV_LevelUp".Translate(AbilityUser),
+                Messages.Message((IsVampire) ? "ROMV_LevelUp".Translate(AbilityUser) : "ROMV_LevelUpGhoul".Translate(AbilityUser),
                     new RimWorld.Planet.GlobalTargetInfo(AbilityUser),
                     DefDatabase<MessageTypeDef>.GetNamed("ROMV_VampireNotifaction"));
         }
@@ -374,6 +381,13 @@ namespace Vampire
             {
                 AddPawnAbility(VampDefOf.ROMV_VampiricHealing);
             }
+            
+            //Vampiric Scar Healing
+            if (this?.AbilityData.Powers?.FirstOrDefault(x =>
+                    x.Def is VitaeAbilityDef vDef && vDef == VampDefOf.ROMV_VampiricHealingScars) == null)
+            {
+                AddPawnAbility(VampDefOf.ROMV_VampiricHealingScars);
+            }
         }
 
         private void GiveFeedJob(Pawn victim)
@@ -395,7 +409,11 @@ namespace Vampire
         /// <param name="isRevenant"></param>
         public void InitializeGhoul(Pawn newDomitor, bool isRevenant = false)
         {
-            this.Level = 0;
+            if (!beenGhoulBefore)
+            {
+                this.Level = 0;
+                beenGhoulBefore = true;   
+            }
             
             //If no domitor exists, generate a random lower level vampire.
             if (newDomitor == null)
@@ -622,6 +640,7 @@ namespace Vampire
         public override void PostExposeData()
         {
             Scribe_Defs.Look(ref bloodline, "bloodline");
+            Scribe_Values.Look(ref beenGhoulBefore, "beenGhoulBefore", false);
             Scribe_Values.Look(ref generation, "generation");
             Scribe_Values.Look(ref level, "level");
             Scribe_Values.Look(ref xp, "xp");
@@ -635,21 +654,9 @@ namespace Vampire
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
                 AbilityData.Powers.Clear();
-                if (AbilityUser.IsVampire() && (AbilityData.Powers == null || AbilityData.Powers.NullOrEmpty()))
+                if ((AbilityUser.IsVampire() || AbilityUser.IsGhoul()) && (AbilityData.Powers == null || AbilityData.Powers.NullOrEmpty()))
                 {
-                    if (Sheet.Disciplines is List<Discipline> dd && !dd.NullOrEmpty())
-                    {
-                        foreach (Discipline d in dd)
-                        {
-                            if (d.AvailableAbilities is List<VitaeAbilityDef> vds && !vds.NullOrEmpty())
-                            {
-                                foreach (VitaeAbilityDef vd in vds)
-                                {
-                                    AddPawnAbility(vd);
-                                }
-                            }
-                        }
-                    }
+
                     Notify_UpdateAbilities();
                 }
             }
