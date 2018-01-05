@@ -10,6 +10,7 @@ using UnityEngine;
 using RimWorld.Planet;
 using Verse.AI.Group;
 using AbilityUser;
+using DubsBadHygiene;
 
 namespace Vampire
 {
@@ -19,6 +20,8 @@ namespace Vampire
         static HarmonyPatches()
         {
             HarmonyInstance harmony = HarmonyInstance.Create("rimworld.jecrell.vampire");
+
+            #region Needs
 
             // NEEDS
             //////////////////////////////////////////////////////////////////////////////
@@ -38,6 +41,11 @@ namespace Vampire
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(INeverDrink___Wine)), null); 
             harmony.Patch(AccessTools.Method(typeof(JobGiver_GetJoy), "TryGiveJob"),
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(INeverDrink___Juice)), null); 
+            
+
+            #endregion
+
+            #region Pathing
 
             // PATHING
             //////////////////////////////////////////////////////////////////////////////
@@ -58,14 +66,18 @@ namespace Vampire
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_IsForbidden)));
             
 
+            #endregion
+
+            #region AllGiverPatches
+
             //Patches all JobGivers to consider sunlight for vampires before they do them.
             var listOfJobGivers = (from domainAssembly in AppDomain.CurrentDomain.GetAssemblies().Where(
-                x => x.GetName().Name != "Harmony" &&
-                     x.GetName().Name != "DraftingPatcher" &&
-                     x.GetName().Name != "AnimalRangedVerbsUnlocker" &&
-                     x.GetName().Name != "ExplosionTypes" &&
-                     x.GetName().Name != "NewAnimalSubproducts" &&
-                     x.GetName().Name != "NewHatcher")
+                    x => x.GetName().Name != "Harmony" &&
+                         x.GetName().Name != "DraftingPatcher" &&
+                         x.GetName().Name != "AnimalRangedVerbsUnlocker" &&
+                         x.GetName().Name != "ExplosionTypes" &&
+                         x.GetName().Name != "NewAnimalSubproducts" &&
+                         x.GetName().Name != "NewHatcher")
                 from assemblyType in domainAssembly.GetTypes()
                 where typeof(ThinkNode_JobGiver).IsAssignableFrom(assemblyType)
                 select assemblyType).ToArray();
@@ -149,7 +161,11 @@ namespace Vampire
                     }
                 }
             }
+            
 
+            #endregion
+
+            #region Beds
 
             // BEDS
             ///////////////////////////////////////////////////////////////////////////
@@ -172,7 +188,11 @@ namespace Vampire
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_BedsForTheUndead)), null);
             harmony.Patch(AccessTools.Method(typeof(RestUtility), "IsValidBedFor"), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_IsValidBedFor)));
-            
+
+            #endregion
+
+            #region Lovin
+
             // LOVIN
             ////////////////////////////////////////////////////////////////////////////////////////////
             //Vampires should not worry about sleeping in the same coffin.
@@ -182,7 +202,10 @@ namespace Vampire
             harmony.Patch(AccessTools.Method(typeof(LovePartnerRelationUtility), "GetLovinMtbHours"),
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_LovinFoodFix)), null);
 
-            
+            #endregion
+
+            #region Graphics
+
             // GRAPHICS
             ////////////////////////////////////////////////////////////////////////////
             //Gives different skin color for Vampires
@@ -202,7 +225,11 @@ namespace Vampire
             //Vampires do not make breath motes
             harmony.Patch(AccessTools.Method(typeof(PawnBreathMoteMaker), "BreathMoteMakerTick"),
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_NoBreathingMote)), null);
-            
+
+            #endregion
+
+            #region UI
+
             // UI
             /////////////////////////////////////////////////////////////////////////////////////
             //Adds vampire skill sheet button to CharacterCard
@@ -217,7 +244,11 @@ namespace Vampire
 
             harmony.Patch(AccessTools.Method(typeof(Verb_MeleeAttack), "TryCastShot"),
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_TryCastShot)), null);
-            
+
+            #endregion
+
+            #region Aging
+
             // AGING
             ////////////////////////////////////////////////////////////////////////////
             //Vampires and Ghouls do not age like others.
@@ -227,6 +258,9 @@ namespace Vampire
             harmony.Patch(AccessTools.Method(AccessTools.TypeByName("AgeInjuryUtility"), "GenerateRandomOldAgeInjuries"),
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_GenerateRandomOldAgeInjuries)), null);
 
+            #endregion
+
+            #region AI Error Handling
 
             // AI ERROR HANDLING
             ///////////////////////////////////////////////////////////////////////////////////            
@@ -260,6 +294,11 @@ namespace Vampire
             harmony.Patch(AccessTools.Method(typeof(Pawn_GuestTracker), "get_CanBeBroughtFood"), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamps_DontWantGuestFood)));            
             
+
+            #endregion
+
+            #region Menus / On-Screen Messages / Alerts
+
             // MENUS / ON-SCREEN MESSAGES / ALERTS
             ////////////////////////////////////////////////////////////////////////////////////
             //Adds vampire right click float menus.
@@ -284,7 +323,11 @@ namespace Vampire
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(GetEfficiencyLabel))); 
             //Vampire player should know about the rest curse.
             harmony.Patch(AccessTools.Method(typeof(Need), "GetTipString"), null,
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_RestTextToolTip)));           
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_RestTextToolTip)));   
+
+            #endregion
+
+            #region Thoughts & Feelings
 
             // THOUGHTS & FEELINGS
             ////////////////////////////////////////////////////////////////////////////////////
@@ -298,8 +341,12 @@ namespace Vampire
             harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_Hot), "CurrentStateInternal"), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_IgnoreHotAndCold)));
             harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_Cold), "CurrentStateInternal"), null,
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_IgnoreHotAndCold)));           
-            
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_IgnoreHotAndCold)));      
+
+            #endregion
+
+            #region Vampiric Powers
+
             // VAMPIRIC POWERS
             ///////////////////////////////////////////////////////////////////////////////////
             // Add vampire XP every time a pawn learns a skill.
@@ -321,6 +368,11 @@ namespace Vampire
             harmony.Patch(AccessTools.Method(typeof(Pawn_HealthTracker), "AddHediff", new Type[] { typeof(Hediff), typeof(BodyPartRecord), typeof(DamageInfo?) }),
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(AddHediff)), null);
             
+
+            #endregion
+
+            #region Graves / Resurrection / Corpses / Sleeping Behavior
+
             // GRAVES / RESURRECTION / CORPSES / SLEEPING BEHAVIOR
             //////////////////////////////////////////////////////////////////////////////////            
             //Vampire corpses can resurrect safely inside graves, sarcophogi, and caskets.
@@ -341,7 +393,11 @@ namespace Vampire
             //Vampires should tire very much during the daylight hours.
             harmony.Patch(AccessTools.Method(typeof(Need_Rest), "NeedInterval"), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_SleepyDuringDaylight)));
-            
+
+            #endregion
+
+            #region Misc
+
             // MISC
             ////////////////////////////////////////////////////////////////////////////////
             //Caravan patches
@@ -361,7 +417,11 @@ namespace Vampire
             //Allows scenarios to create longer/shorter days.
             harmony.Patch(AccessTools.Method(typeof(GenCelestial), "CelestialSunGlowPercent"), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_CelestialSunGlowPercent)));
-            
+
+            #endregion
+
+            #region Mods
+
             // MODS
             ///////////////////////////////////////////////////////////////////////////////////
 
@@ -371,7 +431,7 @@ namespace Vampire
                 {
                     ((Action)(() =>
                     {
-                        if (AccessTools.Method(typeof(DubsBadHygiene.Need_Bladder), nameof(DubsBadHygiene.Need_Bladder.crapPants)) != null)
+                        if (AccessTools.Method(typeof(Need_Bladder), nameof(Need_Bladder.crapPants)) != null)
                         {
                             harmony.Patch(AccessTools.Method(typeof(Pawn_NeedsTracker), "ShouldHaveNeed"),
                                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_NoBladderNeed)), null);
@@ -384,7 +444,8 @@ namespace Vampire
             }
             #endregion
             
-            //Log.Message("Vampires :: Harmony Patches Injected");
+
+            #endregion
         }
 
         //Rimworld.JobGiver_AIFightEnemy
@@ -484,13 +545,12 @@ namespace Vampire
         //Building_Grave
         public static void Vamp_TheyNeverDie(Building_Grave __instance, ref IEnumerable<Gizmo> __result)
         {
-            
             if (__instance?.Corpse is Corpse c && c.InnerPawn is Pawn p)
             {
                 if (p.Faction == Faction.OfPlayer && p.IsVampire())
                     __result = __result.Concat(GraveGizmoGetter(p, __instance));
             }
-            if (__instance.ContainedThing is Pawn q)
+            if (__instance?.ContainedThing is Pawn q)
             {
                 if (q.Faction == Faction.OfPlayer && q.IsVampire())
                     __result = __result.Concat(GraveGizmoGetter(q, __instance));

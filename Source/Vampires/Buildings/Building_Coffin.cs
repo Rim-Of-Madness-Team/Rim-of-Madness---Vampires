@@ -31,12 +31,8 @@ namespace Vampire
             foreach (Gizmo g in base.GetGizmos())
                 yield return g;
 
-            Pawn p = (Pawn)ContainedThing;
-            if (p == null)
-            {
-                p = this?.Corpse?.InnerPawn ?? null;
-            }
-            if (p != null)
+            var p = this?.Corpse?.InnerPawn ?? this?.ContainedThing as Pawn ?? null;
+            if (p?.IsVampire() ?? false)
             {
                 foreach (Gizmo y in HarmonyPatches.GraveGizmoGetter(p, this))
                     yield return y;
