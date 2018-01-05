@@ -211,6 +211,20 @@ namespace Vampire
             return result;
         }
 
+        /// <summary>
+        /// Checks if something is a vampire bed.
+        /// </summary>
+        /// <param name="bed"></param>
+        /// <returns></returns>
+        public static bool IsVampireBed(this Thing bed)
+        {
+            return bed != null &&
+                   (
+                       bed.def == ThingDef.Named("ROMV_SimpleCoffinBed") ||
+                       bed.def == ThingDef.Named("ROMV_RoyalCoffinBed") ||
+                       bed.def == ThingDef.Named("ROMV_SarcophagusBed")
+                   );
+        }
 
     }
 }

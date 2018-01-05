@@ -150,8 +150,8 @@ namespace Vampire
                 {
                     try
                     {
-                        harmony.Patch(AccessTools.Method(workGiver, "JobOnCell"), null,
-                            new HarmonyMethod(typeof(HarmonyPatches), nameof(TryGiveJob_VampireJobOnCell)), null);
+                        harmony.Patch(AccessTools.Method(workGiver, "HasJobOnCell"), null,
+                            new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_HasJobOnCell)), null);
                     }
 #pragma warning disable 168
                     catch (Exception e)
@@ -436,6 +436,11 @@ namespace Vampire
                             harmony.Patch(AccessTools.Method(typeof(Pawn_NeedsTracker), "ShouldHaveNeed"),
                                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_NoBladderNeed)), null);
                         }
+                        if (AccessTools.Method(typeof(SanitationUtil), nameof(SanitationUtil.FindBestFixture)) != null)
+                        {
+                            harmony.Patch(AccessTools.Method(typeof(SanitationUtil), "FindBestFixture"),
+                                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_NoBladderNeedDoubleUp)), null);
+                        }
                     })).Invoke();
                 }
 #pragma warning disable 168
@@ -516,26 +521,17 @@ namespace Vampire
         bool sleeperWillBePrisoner, bool checkSocialProperness, bool allowMedBedEvenIfSetToNoCare,
         bool ignoreOtherReservations, ref bool __result)
         {
-            if (sleeper != null && !sleeper.IsVampire() &&
-            (
-            bedThing.def == ThingDef.Named("ROMV_SimpleCoffinBed") ||
-            bedThing.def == ThingDef.Named("ROMV_RoyalCoffinBed") ||
-            bedThing.def == ThingDef.Named("ROMV_SarcophagusBed")
-            ))
+            if (sleeper != null && !sleeper.IsVampire() && bedThing.IsVampireBed())
             {
                 __result = false;
             }
         }
 
+        
         public static bool Vamp_BedsForTheUndead(Pawn_Ownership __instance, Building_Bed newBed)
         {
             Pawn pawn = (Pawn)AccessTools.Field(typeof(Pawn_Ownership), "pawn").GetValue(__instance);
-            if (pawn != null && !pawn.IsVampire() && 
-                (
-                newBed.def == ThingDef.Named("ROMV_SimpleCoffinBed") ||
-                newBed.def == ThingDef.Named("ROMV_RoyalCoffinBed") ||
-                newBed.def == ThingDef.Named("ROMV_SarcophagusBed")
-                ))
+            if (pawn != null && !pawn.IsVampire() && newBed.IsVampireBed())
             {
                 return false;
             }
@@ -1134,6 +1130,12 @@ namespace Vampire
             return true;
         }
 
+        private static bool Vamp_NoBladderNeedDoubleUp(Pawn pawn, ref Thing __result)
+        {
+            if (!pawn.IsVampire()) return true;
+            __result = null;
+            return false;
+        }
 
         // DubsBadHygiene.dubUtils
         public static void Vamp_StopThePoopStorm(Pawn pawn, ref bool __result)
@@ -1503,22 +1505,11 @@ namespace Vampire
         }
 
                 
-        public static void TryGiveJob_VampireJobOnCell(Pawn pawn, IntVec3 c, ref Job __result)
+        public static void Vamp_HasJobOnCell(Pawn pawn, IntVec3 c, ref bool __result)
         {
-            
-
-            if (__result != null && pawn.IsVampire())
-            {
-                if (__result.def == JobDefOf.Ingest)
-                {
-                    __result = null;
-                    return;
-                }
-                if (!pawn.Drafted && __result.def != JobDefOf.WaitWander && __result.def != JobDefOf.GotoWander && !__result.playerForced && !__result.IsSunlightSafeFor(pawn))
-                {
-                    __result = null;
-                }
-            }
+            if (!(pawn.MapHeld is Map m) || !pawn.IsVampire() || !c.IsValid || !c.InBounds(m)) return;
+            if (pawn.Drafted || c.IsSunlightSafeFor(pawn)) return;
+            __result = false;
         }
 
         public static bool TryGiveJob_DrugGiver_Vampire(Pawn pawn, ref Job __result)
@@ -1578,26 +1569,50 @@ namespace Vampire
         }
 
 
-        //WorkGiver_BuryCorpses
+        /// <summary>
+        /// Finds the best grave that is not also a bed for vampires.
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="corpse"></param>
+        /// <param name="__result"></param>
         public static void FindBestGrave_VampBed(Pawn p, Corpse corpse, ref Building_Grave __result)
         {
-            if (__result != null && __result is Building_Grave g && g?.def.GetCompProperties<CompProperties_VampBed>() is CompProperties_VampBed b)
+            //If it's a grave that uses vampbed components...
+            if (!(__result is Building_Grave g) ||
+                !(g?.def.GetCompProperties<CompProperties_VampBed>() is CompProperties_VampBed b)) return;
+
+            //Find graves empty graves, or graves without vampbeds, or graves with unassigned vampbeds.
+            bool BestGraveFinder(Thing m)
             {
-                Predicate<Thing> predicate = (Thing m) => !m.IsForbidden(p) && p.CanReserve(m) && m is Building_Grave mG && !mG.HasAnyContents && (mG?.Accepts(corpse) ?? false) && (mG.GetComp<CompVampBed>() == null || mG.GetComp<CompVampBed>() is CompVampBed v && (v?.Bed == null || v?.Bed?.AssignedPawns?.Count() == 0));
-                if (corpse?.InnerPawn?.ownership != null && corpse?.InnerPawn?.ownership?.AssignedGrave != null)
-                {
-                    Building_Grave assignedGrave = corpse?.InnerPawn?.ownership?.AssignedGrave;
-                    if (predicate(assignedGrave) && (p?.Map?.reachability?.CanReach(corpse.Position, assignedGrave, PathEndMode.ClosestTouch, TraverseParms.For(p)) ?? false))
-                    {
-                        __result = assignedGrave;
-                        return;
-                    }
-                }
-                Func<Thing, float> priorityGetter = (Thing t) => (float)((IStoreSettingsParent)t).GetStoreSettings().Priority;
-                Predicate<Thing> validator = predicate;
-                __result = (Building_Grave)GenClosest.ClosestThing_Global_Reachable(corpse.Position, corpse.Map, corpse.Map.listerThings.ThingsInGroup(ThingRequestGroup.Grave), PathEndMode.ClosestTouch, TraverseParms.For(p), 9999f, validator, priorityGetter);
-                return;
+                return !m.IsForbidden(p) && p.CanReserve(m) && m is Building_Grave mG && !mG.HasAnyContents &&
+                       (mG?.Accepts(corpse) ?? false) &&
+                       (mG.GetComp<CompVampBed>() == null || mG.GetComp<CompVampBed>() is CompVampBed v &&
+                        (v?.Bed == null || v?.Bed?.AssignedPawns?.Count() == 0));
             }
+
+            //If the corpse doesn't have an assigned grave...
+            // ... give them a grave using the predicate.
+            if (corpse?.InnerPawn?.ownership?.AssignedGrave != null)
+            {
+                var buildingGraveToAssign = corpse?.InnerPawn?.ownership?.AssignedGrave;
+                //If we can reach it...
+                // ... assign it.
+                if (BestGraveFinder(buildingGraveToAssign) && (p?.Map?.reachability?.CanReach(corpse.Position, buildingGraveToAssign,
+                                                                   PathEndMode.ClosestTouch, TraverseParms.For(p)) ?? false))
+                {
+                    __result = buildingGraveToAssign;
+                    return;
+                }
+            }
+            //Check grave storage settings...
+            float PriorityGetter(Thing t) => (float) ((IStoreSettingsParent) t).GetStoreSettings().Priority;
+                
+            //Use the best grave finder settings, find something close that accepts the user.
+            Predicate<Thing> validator = BestGraveFinder;
+            __result = (Building_Grave) GenClosest.ClosestThing_Global_Reachable(corpse.Position, corpse.Map,
+                corpse.Map.listerThings.ThingsInGroup(ThingRequestGroup.Grave), PathEndMode.ClosestTouch,
+                TraverseParms.For(p), 9999f, validator, PriorityGetter);
+            return;
         }
 
         public static bool Draw_VampBed(Building_Casket __instance)

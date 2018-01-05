@@ -16,7 +16,12 @@ namespace Vampire
             if (!missingParts.NullOrEmpty())
             {
                 Hediff_MissingPart partToRestore = missingParts.RandomElement();
-                target.health.RestorePart(partToRestore.Part);
+                var part = partToRestore.Part;
+                target.health.RestorePart(part);
+                if (part?.def == BodyPartDefOf.Jaw)
+                {
+                    VampireGen.AddFangsHediff(target);
+                }
                 
                 Messages.Message("ROMV_LimbRegen".Translate(new object[] {
                 target.LabelShort,
