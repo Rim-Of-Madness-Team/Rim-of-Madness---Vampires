@@ -264,6 +264,9 @@ namespace Vampire
 
             // AI ERROR HANDLING
             ///////////////////////////////////////////////////////////////////////////////////            
+            //Prevents blood items from spawning in people's inventories as food -- I mean -- ew
+            harmony.Patch(AccessTools.Method(typeof(Pawn_InventoryTracker), "TryAddItemNotForSale"),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_BloodItemsDontSpawnForNormies)), null);
             //Lord_AI patches
             harmony.Patch(AccessTools.Method(typeof(Trigger_UrgentlyHungry), "ActivateOn"),
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(ActivateOn_Vampire)), null);
@@ -448,11 +451,23 @@ namespace Vampire
 #pragma warning restore 168
             }
             #endregion
-            
 
             #endregion
         }
 
+        // Verse.Pawn_InventoryTracker
+        private static bool Vamp_BloodItemsDontSpawnForNormies(Pawn_InventoryTracker __instance, Thing item)
+        {
+            if (__instance?.pawn?.IsVampire() == false)
+            {
+                if (item?.def?.thingCategories?.Contains(VampDefOfTwo.ROMV_Blood) ?? false)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        
         //Rimworld.JobGiver_AIFightEnemy
         public static void BloodMist_NoAttack(Pawn pawn, ref Job __result)
         {

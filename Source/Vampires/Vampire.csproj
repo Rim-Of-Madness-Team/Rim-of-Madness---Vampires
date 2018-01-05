@@ -75,6 +75,7 @@
     <Compile Include="Buttons.cs" />
     <Compile Include="Components\ThrallData.cs" />
     <Compile Include="Defs\ScenPart_GameStartNight.cs" />
+    <Compile Include="Defs\VampDefOfTwo.cs" />
     <Compile Include="Defs\VitaeAbilityDef.cs" />
     <Compile Include="Disciplines\Vampirism\DisciplineEffect_RegenerateLimb.cs" />
     <Compile Include="Disciplines\Animalism\DisciplineEffect_Beckoning.cs" />

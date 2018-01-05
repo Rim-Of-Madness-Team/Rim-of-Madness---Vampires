@@ -11,23 +11,27 @@ namespace Vampire
         {
             base.Effect(target);
 
-            /// Restores all missing parts when transforming   
+            //Null checks
+            if (target == null) return;
             List<Hediff_MissingPart> missingParts = new List<Hediff_MissingPart>().Concat(target?.health?.hediffSet?.GetMissingPartsCommonAncestors()).ToList();
-            if (!missingParts.NullOrEmpty())
+            if (missingParts.NullOrEmpty()) return;
+            
+            
+            var partToRestore = missingParts.RandomElement();
+            var part = partToRestore.Part;
+            if (target.health != null)
             {
-                Hediff_MissingPart partToRestore = missingParts.RandomElement();
-                var part = partToRestore.Part;
                 target.health.RestorePart(part);
                 if (part?.def == BodyPartDefOf.Jaw)
                 {
-                    VampireGen.AddFangsHediff(target);
+                    target.health.AddHediff(target.VampComp().Bloodline.fangsHediff, part, null);
                 }
-                
-                Messages.Message("ROMV_LimbRegen".Translate(new object[] {
+            }
+
+            Messages.Message("ROMV_LimbRegen".Translate(new object[] {
                 target.LabelShort,
                 partToRestore.Part.def.label
             }), MessageTypeDefOf.PositiveEvent);
-            }
         }
 
 //        int maxInjuries = 6;

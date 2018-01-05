@@ -145,7 +145,7 @@
 
   <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
    <defName>ROMV_RegenerateLimb</defName>
-   <label>regenerate limb</label>
+   <label>regenerate part</label>
    <bloodCost>2</bloodCost>
    <uiIconPath>UI/Icons/Commands/Vampirism_RegenerateLimb</uiIconPath>
    <description>Restores a limb or body part lost in combat.</description>
