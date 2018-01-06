@@ -24,7 +24,7 @@ namespace Vampire
         private BondStage bondStage = BondStage.None;
 
         private bool ShouldFadeBond =>  lastVitaeDrinkTick != -1 && lastVitaeDrinkTick + GenDate.TicksPerSeason < Find.TickManager.TicksGame;
-        public bool ShouldFeedBlood => lastVitaeDrinkTick != -1 &&
+        public bool ShouldFeedBlood => pawn != null && !pawn.Dead && !pawn.Downed && !pawn.IsFighting() && !pawn.InMentalState && lastVitaeDrinkTick != -1 &&
                                        lastVitaeDrinkTick + (GenDate.TicksPerSeason / 2) < Find.TickManager.TicksGame;
 
         public Pawn Regnant

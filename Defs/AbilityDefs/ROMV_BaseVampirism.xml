@@ -14,6 +14,7 @@
      <hasStandardCommand>true</hasStandardCommand>
      <defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
      <abilityDef>ROMV_VampiricAwaken</abilityDef>
+	 <stopBurstWithoutLos>false</stopBurstWithoutLos>
      <isViolent>false</isViolent>
      <warmupTime>0</warmupTime>
      <SecondsToRecharge>0</SecondsToRecharge>
@@ -54,6 +55,7 @@
      <SecondsToRecharge>0</SecondsToRecharge>
      <range>24</range>
      <burstShotCount>1</burstShotCount>
+	 <stopBurstWithoutLos>false</stopBurstWithoutLos>
      <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
      <soundCast>ROMV_AbilityCastSound_Blood</soundCast>
      <muzzleFlashScale>20</muzzleFlashScale>
@@ -89,6 +91,7 @@
      <SecondsToRecharge>12.0</SecondsToRecharge>
      <range>24</range>
      <burstShotCount>1</burstShotCount>
+	 <stopBurstWithoutLos>false</stopBurstWithoutLos>
      <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
      <soundCast>ROMV_AbilityCastSound_Blood</soundCast>
      <muzzleFlashScale>20</muzzleFlashScale>
@@ -124,6 +127,7 @@
      <SecondsToRecharge>12.0</SecondsToRecharge>
      <range>24</range>
      <burstShotCount>1</burstShotCount>
+	 <stopBurstWithoutLos>false</stopBurstWithoutLos>
      <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
      <soundCast>ROMV_AbilityCastSound_Blood</soundCast>
      <muzzleFlashScale>20</muzzleFlashScale>
@@ -157,6 +161,7 @@
      <isViolent>false</isViolent>
      <warmupTime>0</warmupTime>
      <SecondsToRecharge>20.0</SecondsToRecharge>
+	 <stopBurstWithoutLos>false</stopBurstWithoutLos>
      <range>24</range>
      <burstShotCount>1</burstShotCount>
      <ticksBetweenBurstShots>2</ticksBetweenBurstShots>

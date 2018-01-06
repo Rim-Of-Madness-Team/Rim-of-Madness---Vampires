@@ -31,6 +31,7 @@
      <warmupTime>1</warmupTime>
      <SecondsToRecharge>200.0</SecondsToRecharge>
      <range>24</range>
+	 <stopBurstWithoutLos>false</stopBurstWithoutLos>
      <burstShotCount>1</burstShotCount>
      <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
      <soundCast>ROMV_AbilityCastSound_Auspex</soundCast>
@@ -96,6 +97,7 @@
       <isViolent>false</isViolent>
       <warmupTime>1</warmupTime>
       <SecondsToRecharge>200.0</SecondsToRecharge>
+	 <stopBurstWithoutLos>false</stopBurstWithoutLos>
       <range>24</range>
       <burstShotCount>1</burstShotCount>
       <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
@@ -149,6 +151,7 @@
      <SecondsToRecharge>200.0</SecondsToRecharge>
      <range>24</range>
      <burstShotCount>1</burstShotCount>
+	 <stopBurstWithoutLos>false</stopBurstWithoutLos>
      <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
      <soundCast>ROMV_AbilityCastSound_Auspex</soundCast>
      <muzzleFlashScale>20</muzzleFlashScale>
@@ -182,6 +185,7 @@
       <isViolent>false</isViolent>
       <warmupTime>1</warmupTime>
       <SecondsToRecharge>200.0</SecondsToRecharge>
+	  <stopBurstWithoutLos>false</stopBurstWithoutLos>
       <range>24</range>
       <burstShotCount>1</burstShotCount>
       <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
