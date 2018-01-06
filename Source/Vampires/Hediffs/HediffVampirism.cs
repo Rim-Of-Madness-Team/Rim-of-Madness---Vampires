@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Text;
 using RimWorld;
 using Verse;
@@ -81,46 +82,77 @@ namespace Vampire
             }
         }
 
+        private string GetGenerationSuffix(Pawn genPawn)
+        {
+            return " (" + AddOrdinal(genPawn.VampComp()?.Generation ?? -1) + ")";
+        }
+
         public override string TipStringExtra
         {
             get
             {
-                StringBuilder s = new StringBuilder();
-                s.AppendLine("ROMV_HI_Bloodline".Translate(this?.pawn?.VampComp()?.Bloodline?.LabelCap ?? this?.bloodline?.label ?? "Unknown"));
-                s.AppendLine("ROMV_HI_Sire".Translate(pawn.VampComp()?.Sire?.LabelCap + " (" + AddOrdinal(pawn.VampComp()?.Sire?.VampComp()?.Generation ?? -1) + ")" ?? "Unknown"));
-                if (pawn?.VampComp()?.Childer?.NullOrEmpty() ?? false)
+                var s = new StringBuilder();
+                try
                 {
-                    s.AppendLine("ROMV_HI_Childer".Translate("ROMV_HI_None".Translate()));
+                    AppendBasicVampireInfo(s);
+                    if (pawn?.VampComp()?.Childer?.NullOrEmpty() ?? true)
+                        s.AppendLine("ROMV_HI_Childer".Translate("ROMV_HI_None".Translate()));
+                    else
+                        AppendChilderNames(s);
+                    if (!pawn?.VampComp()?.Souls?.NullOrEmpty() ?? false)
+                        AppendSoulNamesTo(s);
+                    if (this?.pawn?.VampComp()?.Thinblooded ?? false)
+                        s.AppendLine("ROMV_HI_Thinblooded".Translate());
+                    s.AppendLine("ROMV_HI_Immunities".Translate());
+                    if (!this.comps.NullOrEmpty())
+                        foreach (HediffComp compProps in this.comps)
+                            if (compProps is JecsTools.HediffComp_DamageSoak dmgSoak)
+                                s.AppendLine(dmgSoak.CompTipStringExtra);
                 }
-                else
+                catch (NullReferenceException)
                 {
-                    string[] childerNames = new string[pawn.VampComp().Childer.Count];
-                    for (int i = 0; i < childerNames.Length; i++)
-                        childerNames[i] = pawn.VampComp().Childer.ElementAt(i).LabelShort;
-                    s.AppendLine("ROMV_HI_Childer".Translate(string.Join(", ", childerNames)));
-                }
-                if (!pawn?.VampComp()?.Souls?.NullOrEmpty() ?? false)
-                {
-                    string[] soulNames = new string[pawn.VampComp().Souls.Count];
-                    for (int i = 0; i < soulNames.Length; i++)
-                        soulNames[i] = pawn.VampComp().Souls.ElementAt(i).LabelShort;
-                    s.AppendLine("ROMV_HI_Souls".Translate(string.Join(", ", soulNames)));
-                }
-                if (this?.pawn?.VampComp()?.Thinblooded ?? false)
-                    s.AppendLine("ROMV_HI_Thinblooded".Translate());
-                s.AppendLine("ROMV_HI_Immunities".Translate());
-                if (!this.comps.NullOrEmpty())
-                {
-                    foreach (HediffComp compProps in this.comps)
-                    {
-                        if (compProps is JecsTools.HediffComp_DamageSoak dmgSoak)
-                        {
-                            s.AppendLine(dmgSoak.CompTipStringExtra);
-                        }
-                    }   
+                    //Log.Message(e.ToString());
                 }
                 return s.ToString();
             }
+        }
+
+        private void AppendBasicVampireInfo(StringBuilder s)
+        {
+            string bloodlineLabel =
+                GetBloodlineLabel();
+            string sireLabel =
+                GetSireLabel();
+            string sireGeneration = GetGenerationSuffix(pawn?.VampComp().Sire) ?? "Unknown";
+            sireLabel += sireGeneration;
+            s.AppendLine("ROMV_HI_Bloodline".Translate(bloodlineLabel));
+            s.AppendLine("ROMV_HI_Sire".Translate(sireLabel));
+        }
+
+        private void AppendSoulNamesTo(StringBuilder s)
+        {
+            string[] soulNames = new string[pawn.VampComp().Souls.Count];
+            for (int i = 0; i < soulNames.Length; i++)
+                soulNames[i] = pawn.VampComp().Souls.ElementAt(i).LabelShort;
+            s.AppendLine("ROMV_HI_Souls".Translate(string.Join(", ", soulNames)));
+        }
+
+        private void AppendChilderNames(StringBuilder s)
+        {
+            string[] childerNames = new string[pawn.VampComp().Childer.Count];
+            for (int i = 0; i < childerNames.Length; i++)
+                childerNames[i] = pawn.VampComp().Childer.ElementAt(i).LabelShort;
+            s.AppendLine("ROMV_HI_Childer".Translate(string.Join(", ", childerNames)));
+        }
+
+        private string GetSireLabel()
+        {
+            return this?.pawn?.VampComp()?.Sire?.LabelCap ?? "Unknown";
+        }
+
+        private string GetBloodlineLabel()
+        {
+            return this?.pawn?.VampComp()?.Bloodline?.LabelCap ?? this?.bloodline?.label ?? "Unknown";
         }
 
         public static string AddOrdinal(int num)
