@@ -420,6 +420,9 @@ namespace Vampire
             //Allows scenarios to create longer/shorter days.
             harmony.Patch(AccessTools.Method(typeof(GenCelestial), "CelestialSunGlowPercent"), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_CelestialSunGlowPercent)));
+            //Vampires should not calculate the pain of their internal organs.
+            harmony.Patch(AccessTools.Method(typeof(HediffSet), "CalculatePain"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_CalculatePain)));
 
             #endregion
 
@@ -453,6 +456,25 @@ namespace Vampire
             #endregion
 
             #endregion
+        }
+        
+        public static void Vamp_CalculatePain(HediffSet __instance, ref float __result)
+        {
+            if (!this.pawn.RaceProps.IsFlesh || this.pawn.Dead)
+            {
+                return 0f;
+            }
+            float num = 0f;
+            for (int i = 0; i < this.hediffs.Count; i++)
+            {
+                num += this.hediffs[i].PainOffset;
+            }
+            float num2 = num / this.pawn.HealthScale;
+            for (int j = 0; j < this.hediffs.Count; j++)
+            {
+                num2 *= this.hediffs[j].PainFactor;
+            }
+            return Mathf.Clamp(num2, 0f, 1f);
         }
 
         // Verse.Pawn_InventoryTracker
