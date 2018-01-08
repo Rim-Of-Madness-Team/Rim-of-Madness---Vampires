@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using RimWorld;
 using Verse;
 
@@ -31,8 +32,8 @@ namespace Vampire
             foreach (Gizmo g in base.GetGizmos())
                 yield return g;
 
-            var p = this?.Corpse?.InnerPawn ?? this?.ContainedThing as Pawn ?? null;
-            if (p?.IsVampire() ?? false)
+            var p = Corpse?.InnerPawn ?? (Pawn)(innerContainer.FirstOrDefault()) ?? null;
+            if ((p?.IsVampire() ?? false) || (p?.HasVampireHediffs() ?? false))
             {
                 foreach (Gizmo y in HarmonyPatches.GraveGizmoGetter(p, this))
                     yield return y;

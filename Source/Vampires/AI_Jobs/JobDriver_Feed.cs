@@ -60,7 +60,7 @@ namespace Vampire
         public static IEnumerable<Toil> MakeFeedToils(JobDef job, JobDriver thisDriver, Pawn actor, LocalTargetInfo TargetA, ThoughtDef victimThoughtDef, ThoughtDef actorThoughtDef, float workLeft, Action effect, Func<Pawn, Pawn, bool> stopCondition, bool needsGrapple = true, bool cleansWound = true, bool neverGiveUp = false)
         {
             yield return Toils_Reserve.Reserve(TargetIndex.A);
-            Toil gotoToil = actor?.Faction == TargetA.Thing?.Faction ? Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.ClosestTouch) : Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.Touch);
+            Toil gotoToil = actor?.Faction == TargetA.Thing?.Faction && (!actor.InAggroMentalState && !((Pawn)TargetA.Thing).InAggroMentalState) ? Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.ClosestTouch) : Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.Touch);
             yield return gotoToil;
             Toil grappleToil = new Toil()
             {

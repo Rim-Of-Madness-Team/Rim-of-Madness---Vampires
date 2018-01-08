@@ -34,6 +34,18 @@ namespace Vampire
                 return true;
             return false;
         }
+        
+        public static bool HasVampireHediffs(this Pawn pawn)
+        {
+            if (pawn == null) return false;
+            return pawn.health.hediffSet.HasHediff(VampDefOf.ROM_Vampirism) ||
+                   pawn.health.hediffSet.HasHediff(VampDefOf.ROM_VampirismRandom) ||
+                   pawn.health.hediffSet.HasHediff(VampDefOf.ROM_VampirismGargoyle) ||
+                   pawn.health.hediffSet.HasHediff(VampDefOf.ROM_VampirismLasombra) ||
+                   pawn.health.hediffSet.HasHediff(VampDefOf.ROM_VampirismPijavica) ||
+                   pawn.health.hediffSet.HasHediff(VampDefOf.ROM_VampirismTremere) ||
+                   pawn.health.hediffSet.HasHediff(VampDefOf.ROM_VampirismTzimisce);
+        }
 
         public static bool IsAndroid(this Pawn pawn)
         {

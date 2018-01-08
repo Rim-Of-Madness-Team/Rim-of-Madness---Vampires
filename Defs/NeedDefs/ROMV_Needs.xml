@@ -25,13 +25,5 @@
 	<fallPerDay>0.1</fallPerDay>
     <listPriority>50</listPriority>
   </NeedDef>
-
-  
-  <NeedDef Name="ROMV_DrugAddictionNeedBase" Abstract="True">
-    <onlyIfCausedByHediff>true</onlyIfCausedByHediff>
-    <tutorHighlightTag>NeedAddiction</tutorHighlightTag>
-    <showForCaravanMembers>true</showForCaravanMembers>
-  </NeedDef>
- 
   
 </Defs>
