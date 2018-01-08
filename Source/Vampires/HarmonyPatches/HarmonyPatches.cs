@@ -77,7 +77,9 @@ namespace Vampire
                          x.GetName().Name != "AnimalRangedVerbsUnlocker" &&
                          x.GetName().Name != "ExplosionTypes" &&
                          x.GetName().Name != "NewAnimalSubproducts" &&
-                         x.GetName().Name != "NewHatcher")
+                         x.GetName().Name != "NewHatcher" &&
+                         x.GetName().Name != "SmurfeRims" &&
+                         x.GetName().Name != "Bugs")
                 from assemblyType in domainAssembly.GetTypes()
                 where typeof(ThinkNode_JobGiver).IsAssignableFrom(assemblyType)
                 select assemblyType).ToArray();
@@ -107,7 +109,9 @@ namespace Vampire
                          x.GetName().Name != "AnimalRangedVerbsUnlocker" &&
                          x.GetName().Name != "ExplosionTypes" &&
                          x.GetName().Name != "NewAnimalSubproducts" &&
-                         x.GetName().Name != "NewHatcher")
+                         x.GetName().Name != "NewHatcher" &&
+                         x.GetName().Name != "SmurfeRims" &&
+                         x.GetName().Name != "Bugs")
                 from assemblyType in domainAssembly.GetTypes()
                 where typeof(JoyGiver).IsAssignableFrom(assemblyType)
                 select assemblyType).ToArray();
@@ -138,7 +142,9 @@ namespace Vampire
                          x.GetName().Name != "AnimalRangedVerbsUnlocker" &&
                          x.GetName().Name != "ExplosionTypes" &&
                          x.GetName().Name != "NewAnimalSubproducts" &&
-                         x.GetName().Name != "NewHatcher")
+                         x.GetName().Name != "NewHatcher" &&
+                         x.GetName().Name != "SmurfeRims" &&
+                         x.GetName().Name != "Bugs")
                 from assemblyType in domainAssembly.GetTypes()
                 where typeof(WorkGiver).IsAssignableFrom(assemblyType)
                 select assemblyType).ToArray();
@@ -460,21 +466,28 @@ namespace Vampire
         
         public static void Vamp_CalculatePain(HediffSet __instance, ref float __result)
         {
-            if (!this.pawn.RaceProps.IsFlesh || this.pawn.Dead)
+            if (__instance?.pawn == null) return;
+            if (!__instance.pawn.IsVampire()) return;
+            if (!__instance.pawn.RaceProps.IsFlesh || __instance.pawn.Dead)
+                return;
+            
+            var num = 0f;
+            for (int i = 0; i < __instance.hediffs.Count; i++)
             {
-                return 0f;
+                if (__instance?.hediffs[i]?.Part?.depth == BodyPartDepth.Inside)
+                {
+                    num += __instance.hediffs[i].PainOffset;
+                }
             }
-            float num = 0f;
-            for (int i = 0; i < this.hediffs.Count; i++)
+            float num2 = num / __instance.pawn.HealthScale;
+            for (int j = 0; j < __instance.hediffs.Count; j++)
             {
-                num += this.hediffs[i].PainOffset;
+                if (__instance?.hediffs[j]?.Part?.depth == BodyPartDepth.Inside)
+                {
+                    num2 *= __instance.hediffs[j].PainFactor;
+                }
             }
-            float num2 = num / this.pawn.HealthScale;
-            for (int j = 0; j < this.hediffs.Count; j++)
-            {
-                num2 *= this.hediffs[j].PainFactor;
-            }
-            return Mathf.Clamp(num2, 0f, 1f);
+            __result = Mathf.Clamp01(__result - num2);
         }
 
         // Verse.Pawn_InventoryTracker
