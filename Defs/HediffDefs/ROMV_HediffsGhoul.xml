@@ -186,11 +186,18 @@
     </stages>
 	<comps>
 	  <li Class="JecsTools.HediffCompProperties_DamageSoak">
-		<damageToSoak>2</damageToSoak>
-		<damageType>Blunt</damageType>
-	  </li>
-	  <li Class="JecsTools.HediffCompProperties_DamageSoak">
-		<damageToSoak>1</damageToSoak>
+		<settings>
+		  <li>
+			<damageToSoak>2</damageToSoak>
+			<damageType>Blunt</damageType>
+		  </li>
+		  <li>
+			<damageToSoak>1</damageToSoak>
+			<damageTypesToExclude>
+				<li>Burn</li>
+			</damageTypesToExclude>
+		  </li>
+		</settings>
 	  </li>
 	</comps>	
   </HediffDef>

@@ -426,9 +426,9 @@ namespace Vampire
             //Allows scenarios to create longer/shorter days.
             harmony.Patch(AccessTools.Method(typeof(GenCelestial), "CelestialSunGlowPercent"), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_CelestialSunGlowPercent)));
-            //Vampires should not calculate the pain of their internal organs.
-            harmony.Patch(AccessTools.Method(typeof(HediffSet), "CalculatePain"), null,
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_CalculatePain)));
+//            //Vampires should not calculate the pain of their internal organs.
+//            harmony.Patch(AccessTools.Method(typeof(HediffSet), "CalculatePain"), null,
+//                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_CalculatePain)));
 
             #endregion
 

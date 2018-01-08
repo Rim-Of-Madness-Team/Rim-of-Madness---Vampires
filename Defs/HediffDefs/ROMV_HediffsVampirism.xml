@@ -8,18 +8,23 @@
     <scenarioCanAdd>false</scenarioCanAdd>
 	<comps>
 	  <li Class="JecsTools.HediffCompProperties_DamageSoak">
-		<damageToSoak>3</damageToSoak>
-		<damageType>Blunt</damageType>
-	  </li>
-	  <li Class="JecsTools.HediffCompProperties_DamageSoak">
-		<damageToSoak>2</damageToSoak>
-		<damageTypesToExclude>
-		  <li>Burn</li>
-		</damageTypesToExclude>
+		<settings>
+		  <li>
+			<damageToSoak>3</damageToSoak>
+			<damageType>Blunt</damageType>
+		  </li>
+		  <li>
+			<damageToSoak>2</damageToSoak>
+			<damageTypesToExclude>
+				<li>Burn</li>
+			</damageTypesToExclude>
+		  </li>
+		</settings>
 	  </li>
 	</comps>
     <stages>
       <li>
+	    <painFactor>0.4</painFactor>
         <capMods>
           <li>
             <capacity>Consciousness</capacity>
