@@ -64,11 +64,12 @@
           <li>SleepingSickness</li>
           <li>Malaria</li>
           <li>Plague</li>
+		  <li>Cirrhosis</li>
         </makeImmuneTo>
       </li>
     </stages>
   </HediffDef>
-
+  
   <HediffDef ParentName="ROMV_VampGiver">
     <defName>ROM_VampirismRandom</defName>
     <label>vampirism (Random)</label>

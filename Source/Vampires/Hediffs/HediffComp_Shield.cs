@@ -122,7 +122,7 @@ namespace Vampire
 
         public bool CheckPreAbsorbDamage(DamageInfo dinfo)
         {
-            if (ShieldState == ShieldState.Active && (dinfo.Instigator != null && !dinfo.Instigator.Position.AdjacentTo8WayOrInside(Pawn.Position) || dinfo.Def.isExplosive))
+            if (ShieldState == ShieldState.Active && (dinfo.Instigator != null || dinfo.Def.isExplosive))
             {
                 if (dinfo.Instigator != null)
                 {

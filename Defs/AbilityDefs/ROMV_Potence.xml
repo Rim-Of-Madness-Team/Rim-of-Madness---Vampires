@@ -64,6 +64,10 @@
           <max>3000</max>
         </disappearsAfterTicks>
       </li>
+      <li Class="Vampire.HediffCompProperties_SkillOffset">
+        <skillDef>Melee</skillDef>
+        <offset>3</offset>
+      </li>	  
     </comps>
     <stages>
       <li>
@@ -125,6 +129,10 @@
           <max>3000</max>
         </disappearsAfterTicks>
       </li>
+      <li Class="Vampire.HediffCompProperties_SkillOffset">
+        <skillDef>Melee</skillDef>
+        <offset>3</offset>
+      </li>	  	  
     </comps>
     <stages>
       <li>
@@ -186,7 +194,11 @@
           <max>3000</max>
         </disappearsAfterTicks>
       </li>	  
-    </comps>
+      <li Class="Vampire.HediffCompProperties_SkillOffset">
+        <skillDef>Melee</skillDef>
+        <offset>3</offset>
+      </li>	  
+	  </comps>
     <stages>
       <li>
         <capMods>
@@ -247,6 +259,10 @@
           <max>3000</max>
         </disappearsAfterTicks>
       </li>
+      <li Class="Vampire.HediffCompProperties_SkillOffset">
+        <skillDef>Melee</skillDef>
+        <offset>3</offset>
+      </li>	  
       <li Class="JecsTools.HediffCompProperties_Knockback">
         <knockbackChance>0.8</knockbackChance>
 		<stunChance>0.2</stunChance>

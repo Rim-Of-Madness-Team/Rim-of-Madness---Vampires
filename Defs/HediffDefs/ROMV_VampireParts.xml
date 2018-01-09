@@ -34,6 +34,7 @@
 						</capacities>
 						<power>9</power>
 						<cooldownTime>1.65</cooldownTime>
+						<commonality>0.1</commonality>
 					</li>
 				</tools>
 			</li>

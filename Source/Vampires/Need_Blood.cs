@@ -134,10 +134,10 @@ namespace Vampire
             {
                 if (CompVampire != null && CompVampire.IsVampire)
                 {
-                    if (CompVampire.Generation < 7)
-                    {
-                        return -3;
-                    }
+                    //if (CompVampire.Generation < 7)
+                    //{
+                    //    return -3;
+                    //}
                     return -1;
                 }
                 return +1;
