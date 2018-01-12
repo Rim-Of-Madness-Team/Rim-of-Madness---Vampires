@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using RimWorld;
@@ -14,58 +15,76 @@ namespace Vampire
         public int generation = -1;
         public CompVampire sire = null;
         public BloodlineDef bloodline = null;
-        //private Dictionary<Hediff, int> carriedBloodInfectors = null;
-        //private Dictionary<Hediff, int> carriedBloodDrugEffects = null;
-        //public bool IsInfectionCarrier => carriedBloodInfectors != null;
-        //public bool IsDrugCarrier => carriedBloodDrugEffects != null;
 
         public override void PostTick()
         {
             base.PostTick();
-            if (pawn.VampComp() is CompVampire v)
+            if (!(pawn.VampComp() is CompVampire v)) return;
+            if (!initialized)
             {
+                initialized = true;
 
-                if (!initialized)
+                if (!firstVampire)
                 {
-                    initialized = true;
 
-                    if (!firstVampire)
-                    {
-
-                        if (sire == null)
-                            sire = VampireRelationUtility.FindSireFor(pawn, bloodline, generation).VampComp();
-                        if (generation < 0)
-                            generation = sire.Generation + 1;
-                        if (bloodline == null)
-                            bloodline = sire.Bloodline;
-                    }
-
-
-                    if (v.IsVampire && v.Sire == null)
-                    {
-                        v.InitializeVampirism(sire?.AbilityUser ?? null, bloodline, generation, firstVampire);
-                    }
-                    pawn.Drawer.renderer.graphics.ResolveAllGraphics();
+                    if (sire == null)
+                        sire = VampireRelationUtility.FindSireFor(pawn, bloodline, generation).VampComp();
+                    if (generation < 0)
+                        generation = sire.Generation + 1;
+                    if (bloodline == null)
+                        bloodline = sire.Bloodline;
                 }
 
-                if (Find.TickManager.TicksGame % 60 == 0)
-                {
-                    if (v.InSunlight)
-                        HealthUtility.AdjustSeverity(pawn, VampDefOf.ROMV_SunExposure, 0.001f);
-                    if (v.BloodPool?.CurLevelPercentage < 0.3f)
-                        HealthUtility.AdjustSeverity(pawn, VampDefOf.ROMV_TheBeast, 0.001f);
-                    if (pawn.health.hediffSet is HediffSet hdSet)
-                    {
-                        if (hdSet.GetFirstHediffOfDef(HediffDefOf.Hypothermia) is Hediff hypoThermia)
-                            hdSet.hediffs.Remove(hypoThermia);
-                        else if (hdSet.GetFirstHediffOfDef(HediffDefOf.Heatstroke) is Hediff heatStroke)
-                            hdSet.hediffs.Remove(heatStroke);
-                    }
-                }
 
+                if (v.IsVampire && v.Sire == null)
+                {
+                    v.InitializeVampirism(sire?.AbilityUser ?? null, bloodline, generation, firstVampire);
+                }
+                pawn.Drawer.renderer.graphics.ResolveAllGraphics();
+            }
+
+            if (Find.TickManager.TicksGame % 60 != 0) return;
+            if (v.InSunlight)
+                HealthUtility.AdjustSeverity(pawn, VampDefOf.ROMV_SunExposure, 0.001f);
+            if (v.BloodPool?.CurLevelPercentage < 0.3f)
+                HealthUtility.AdjustSeverity(pawn, VampDefOf.ROMV_TheBeast, 0.001f);
+            
+            //Remove nonsensical hediffs
+            if (pawn.health.hediffSet is HediffSet hdSet)
+            {
+                if (hdSet.GetFirstHediffOfDef(HediffDefOf.Hypothermia) is Hediff hypoThermia)
+                    hdSet.hediffs.Remove(hypoThermia);
+                else if (hdSet.GetFirstHediffOfDef(HediffDefOf.Heatstroke) is Hediff heatStroke)
+                    hdSet.hediffs.Remove(heatStroke);
+                else if (hdSet.GetFirstHediffOfDef(VampDefOfTwo.GutWorms) is Hediff gutWorms)
+                    hdSet.hediffs.Remove(gutWorms);
+                else if (hdSet.GetFirstHediffOfDef(VampDefOfTwo.MuscleParasites) is Hediff muscleParasites)
+                    hdSet.hediffs.Remove(muscleParasites);
+                else if (hdSet.GetFirstHediffOfDef(VampDefOfTwo.FibrousMechanites) is Hediff fibrousMechanites)
+                    hdSet.hediffs.Remove(fibrousMechanites);
+                else if (hdSet.GetFirstHediffOfDef(VampDefOfTwo.SensoryMechanites) is Hediff sensoryMechanites)
+                    hdSet.hediffs.Remove(sensoryMechanites);
+            }
+
+            //If no generational bonus exists...
+            if (!pawn.health.hediffSet.HasHediff(pawn.GenerationDef()))
+            {
+                HealthUtility.AdjustSeverity(pawn, pawn.GenerationDef(), 1.0f);
             }
         }
 
+        public override void PostRemoved()
+        {
+            base.PostRemoved();
+            if (pawn.health.hediffSet.HasHediff(pawn.GenerationDef()))
+            {
+                var hediff = pawn.health.hediffSet.GetFirstHediffOfDef(pawn.GenerationDef());
+                if (hediff != null) pawn.health.RemoveHediff(hediff);
+            }
+        }
+        
+
+/*
         public override string LabelBase
         {
             get
@@ -81,6 +100,7 @@ namespace Vampire
                 return "Vampire";
             }
         }
+*/
 
         private string GetGenerationSuffix(Pawn genPawn)
         {
@@ -101,13 +121,13 @@ namespace Vampire
                         AppendChilderNames(s);
                     if (!pawn?.VampComp()?.Souls?.NullOrEmpty() ?? false)
                         AppendSoulNamesTo(s);
-                    if (this?.pawn?.VampComp()?.Thinblooded ?? false)
+/*                    if (this?.pawn?.VampComp()?.Thinblooded ?? false)
                         s.AppendLine("ROMV_HI_Thinblooded".Translate());
                     s.AppendLine("ROMV_HI_Immunities".Translate());
                     if (!this.comps.NullOrEmpty())
                         foreach (HediffComp compProps in this.comps)
                             if (compProps is JecsTools.HediffComp_DamageSoak dmgSoak)
-                                s.AppendLine(dmgSoak.CompTipStringExtra);
+                                s.AppendLine(dmgSoak.CompTipStringExtra);*/
                 }
                 catch (NullReferenceException)
                 {

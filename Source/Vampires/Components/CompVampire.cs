@@ -616,24 +616,54 @@ namespace Vampire
             }
             if (AbilityUser.Downed && (AbilityUser.IsVampire() || AbilityUser.IsGhoul()))
             {
-                VitaeAbilityDef bloodHeal = DefDatabase<VitaeAbilityDef>.GetNamedSilentFail("ROMV_VampiricHealing");
-                yield return new Command_Action()
+                if (!(this.AbilityUser?.health?.summaryHealth?.SummaryHealthPercent > 0.99f))
                 {
-                    defaultLabel = bloodHeal.label,
-                    defaultDesc = bloodHeal.GetDescription(),
-                    icon = bloodHeal.uiIcon,
-                    action = delegate
+                    
+                    VitaeAbilityDef bloodHeal = DefDatabase<VitaeAbilityDef>.GetNamedSilentFail("ROMV_VampiricHealing");
+                
+                    yield return new Command_Action()
                     {
-                        AbilityUser.Drawer.Notify_DebugAffected();
-                        MoteMaker.ThrowText(AbilityUser.DrawPos, AbilityUser.Map, StringsToTranslate.AU_CastSuccess);
-                        if (AbilityUser.IsGhoul())
-                            BloodPool.CurGhoulVitaePoints -= bloodHeal.bloodCost;
-                        else
-                            BloodPool.AdjustBlood(-bloodHeal.bloodCost);
-                        VampireUtility.Heal(AbilityUser);
-                    },
-                    disabled = (AbilityUser.IsGhoul()) ? BloodPool.CurGhoulVitaePoints <= 0 : BloodPool.CurBloodPoints <= 0
-                };
+                        defaultLabel = bloodHeal.label,
+                        defaultDesc = bloodHeal.GetDescription(),
+                        icon = bloodHeal.uiIcon,
+                        action = delegate
+                        {
+                            AbilityUser.Drawer.Notify_DebugAffected();
+                            MoteMaker.ThrowText(AbilityUser.DrawPos, AbilityUser.Map, StringsToTranslate.AU_CastSuccess);
+                            if (AbilityUser.IsGhoul())
+                                BloodPool.CurGhoulVitaePoints -= bloodHeal.bloodCost;
+                            else
+                                BloodPool.AdjustBlood(-bloodHeal.bloodCost);
+                            VampireUtility.Heal(AbilityUser);
+                        },
+                        disabled = (AbilityUser.IsGhoul()) ? BloodPool.CurGhoulVitaePoints <= 0 : BloodPool.CurBloodPoints <= 0
+                    };
+                }
+
+                if (this.AbilityUser?.health?.hediffSet?.hediffs.Any(x => x is Hediff_MissingPart) ??
+                    false)
+                {
+                    VitaeAbilityDef bloodRegen = DefDatabase<VitaeAbilityDef>.GetNamedSilentFail("ROMV_RegenerateLimb");
+                    yield return new Command_Action()
+                    {
+                        defaultLabel = bloodRegen.label,
+                        defaultDesc = bloodRegen.GetDescription(),
+                        icon = bloodRegen.uiIcon,
+                        action = delegate
+                        {
+                            AbilityUser.Drawer.Notify_DebugAffected();
+                            MoteMaker.ThrowText(AbilityUser.DrawPos, AbilityUser.Map, StringsToTranslate.AU_CastSuccess);
+                            if (AbilityUser.IsGhoul())
+                                BloodPool.CurGhoulVitaePoints -= bloodRegen.bloodCost;
+                            else
+                                BloodPool.AdjustBlood(-bloodRegen.bloodCost);
+                        
+                            VampireUtility.RegenerateRandomPart(AbilityUser);
+                        },
+                        disabled = (AbilityUser.IsGhoul()) ? BloodPool.CurGhoulVitaePoints <= 0 : BloodPool.CurBloodPoints <= 0
+                    };
+                }
+
             }
         }
 

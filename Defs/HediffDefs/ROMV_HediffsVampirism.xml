@@ -6,68 +6,6 @@
     <hediffClass>Vampire.HediffVampirism</hediffClass>
     <label>vampirism</label>
     <scenarioCanAdd>false</scenarioCanAdd>
-	<comps>
-	  <li Class="JecsTools.HediffCompProperties_DamageSoak">
-		<settings>
-		  <li>
-			<damageToSoak>3</damageToSoak>
-			<damageType>Blunt</damageType>
-		  </li>
-		  <li>
-			<damageToSoak>2</damageToSoak>
-			<damageTypesToExclude>
-				<li>Burn</li>
-			</damageTypesToExclude>
-		  </li>
-		</settings>
-	  </li>
-	</comps>
-    <stages>
-      <li>
-	    <painFactor>0.4</painFactor>
-        <capMods>
-          <li>
-            <capacity>Consciousness</capacity>
-            <offset>0.06</offset>
-          </li>
-          <li>
-            <capacity>Sight</capacity>
-            <offset>0.06</offset>
-          </li>
-          <li>
-            <capacity>Hearing</capacity>
-            <offset>0.06</offset>
-          </li>		 	  
-          <li>
-            <capacity>Moving</capacity>
-            <offset>0.06</offset>
-          </li>
-          <li>
-            <capacity>Manipulation</capacity>
-            <offset>0.06</offset>
-          </li>
-          <li>
-            <capacity>Talking</capacity>
-            <offset>0.06</offset>
-          </li>
-        </capMods>		
-        <makeImmuneTo>
-          <li>WoundInfection</li>
-          <li>Heatstroke</li>
-          <li>Hypothermia</li>
-          <li>ToxicBuildup</li>
-          <li>Flu</li>
-          <li>GutWorms</li>
-          <li>MuscleParasites</li>
-          <li>FibrousMechanites</li>
-          <li>SensoryMechanites</li>
-          <li>SleepingSickness</li>
-          <li>Malaria</li>
-          <li>Plague</li>
-		  <li>Cirrhosis</li>
-        </makeImmuneTo>
-      </li>
-    </stages>
   </HediffDef>
   
   <HediffDef ParentName="ROMV_VampGiver">

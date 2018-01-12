@@ -140,7 +140,7 @@
     </stages>
   </HediffDef>
   
-  
+  <!-- Generation III -->
     <HediffDef ParentName="ROMV_VampBase">
     <defName>ROM_Generations_Antediluvian</defName>
     <hediffClass>Vampire.HediffVampirismGenerationBonus</hediffClass>
@@ -210,7 +210,8 @@
     </stages>
   </HediffDef>
   
-  
+  <!-- Generation IV -->  
+  <!-- Generation V -->  
     <HediffDef ParentName="ROMV_VampBase">
     <defName>ROM_Generations_Methuselah</defName>
     <hediffClass>Vampire.HediffVampirismGenerationBonus</hediffClass>
@@ -280,6 +281,9 @@
     </stages>
   </HediffDef>
 
+    <!-- Generation VI -->  
+    <!-- Generation VII -->  
+    <!-- Generation VIII -->  
     <HediffDef ParentName="ROMV_VampBase">
     <defName>ROM_Generations_Elder</defName>
     <hediffClass>Vampire.HediffVampirismGenerationBonus</hediffClass>
@@ -349,6 +353,8 @@
     </stages>
   </HediffDef>  
   
+    <!-- Generation IX -->    
+    <!-- Generation X -->    
   <HediffDef ParentName="ROMV_VampBase">
     <defName>ROM_Generations_Ancillae</defName>
     <hediffClass>Vampire.HediffVampirismGenerationBonus</hediffClass>
@@ -418,7 +424,9 @@
     </stages>
   </HediffDef>
   
-  
+    <!-- Generation XI -->    
+    <!-- Generation XII -->    
+    <!-- Generation XIII -->    
   <HediffDef ParentName="ROMV_VampBase">
     <defName>ROM_Generations_Neonate</defName>
     <hediffClass>Vampire.HediffVampirismGenerationBonus</hediffClass>
@@ -467,6 +475,77 @@
           <li>
             <capacity>Talking</capacity>
             <offset>0.15</offset>
+          </li>
+        </capMods>		
+        <makeImmuneTo>
+          <li>WoundInfection</li>
+          <li>Heatstroke</li>
+          <li>Hypothermia</li>
+          <li>ToxicBuildup</li>
+          <li>Flu</li>
+          <li>GutWorms</li>
+          <li>MuscleParasites</li>
+          <li>FibrousMechanites</li>
+          <li>SensoryMechanites</li>
+          <li>SleepingSickness</li>
+          <li>Malaria</li>
+          <li>Plague</li>
+		  <li>Cirrhosis</li>
+        </makeImmuneTo>
+      </li>
+    </stages>
+  </HediffDef>
+  
+  <!-- Generation 14 Up -->
+  
+    <HediffDef ParentName="ROMV_VampBase">
+    <defName>ROM_Generations_Thinblood</defName>
+    <hediffClass>Vampire.HediffVampirismGenerationBonus</hediffClass>
+    <label>Thinblood</label>
+    <scenarioCanAdd>false</scenarioCanAdd>
+	<comps>
+	  <li Class="JecsTools.HediffCompProperties_DamageSoak">
+		<settings>
+		  <li>
+			<damageToSoak>3</damageToSoak>
+			<damageType>Blunt</damageType>
+		  </li>
+		  <li>
+			<damageToSoak>3</damageToSoak>
+			<damageTypesToExclude>
+				<li>Burn</li>
+			</damageTypesToExclude>
+		  </li>
+		</settings>
+	  </li>
+	</comps>
+    <stages>
+      <li>
+	    <painFactor>0.6</painFactor>
+        <capMods>
+          <li>
+            <capacity>Consciousness</capacity>
+            <offset>0.08</offset>
+          </li>
+          <li>
+            <capacity>Sight</capacity>
+            <offset>0.08</offset>
+          </li>
+          <li>
+            <capacity>Hearing</capacity>
+            <offset>0.08</offset>
+          </li>		 	  
+          <li>
+            <capacity>Moving</capacity>
+            <offset>0.08</offset>
+          </li>
+          <li>
+            <capacity>Manipulation</capacity>
+            <offset>0.08</offset>
+          </li>
+          <li>
+            <capacity>Talking</capacity>
+            <offset>0.08</offset>
           </li>
         </capMods>		
         <makeImmuneTo>

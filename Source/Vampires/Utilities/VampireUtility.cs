@@ -159,6 +159,37 @@ namespace Vampire
                 }
             }
         }
+        
+        /// <summary>
+        /// Regenerates a random part or limb of the character.
+        /// </summary>
+        /// <param name="target"></param>
+        public static void RegenerateRandomPart(Pawn target)
+        {
+//Null checks
+            if (target == null) return;
+            List<Hediff_MissingPart> missingParts = new List<Hediff_MissingPart>()
+                .Concat(target?.health?.hediffSet?.GetMissingPartsCommonAncestors()).ToList();
+            if (missingParts.NullOrEmpty()) return;
+
+
+            var partToRestore = missingParts.RandomElement();
+            var part = partToRestore.Part;
+            if (target.health != null)
+            {
+                target.health.RestorePart(part);
+                if (part?.def == BodyPartDefOf.Jaw)
+                {
+                    target.health.AddHediff(target.VampComp().Bloodline.fangsHediff, part, null);
+                }
+            }
+
+            Messages.Message("ROMV_LimbRegen".Translate(new object[]
+            {
+                target.LabelShort,
+                partToRestore.Part.def.label
+            }), MessageTypeDefOf.PositiveEvent);
+        }
 
  
         /// <summary>
@@ -236,6 +267,38 @@ namespace Vampire
                        bed.def == ThingDef.Named("ROMV_RoyalCoffinBed") ||
                        bed.def == ThingDef.Named("ROMV_SarcophagusBed")
                    );
+        }
+        
+        /// <summary>
+        /// Finds the generation hediff to give to a vampire.
+        /// </summary>
+        public static HediffDef GenerationDef(this Pawn pawn)
+        {
+            switch (pawn?.VampComp()?.Generation ?? 13)
+            {
+                case 1:
+                    return VampDefOfTwo.ROM_Generations_Caine;
+                case 2:
+                    return VampDefOfTwo.ROM_Generations_TheThree;
+                case 3:
+                    return VampDefOfTwo.ROM_Generations_Antediluvian;
+                case 4:
+                case 5:
+                    return VampDefOfTwo.ROM_Generations_Methuselah;
+                case 6:
+                case 7:
+                case 8:
+                    return VampDefOfTwo.ROM_Generations_Elder;
+                case 9:
+                case 10:
+                    return VampDefOfTwo.ROM_Generations_Ancillae;
+                case 11:
+                case 12:
+                case 13:
+                    return VampDefOfTwo.ROM_Generations_Neonate;
+            }
+            return VampDefOfTwo.ROM_Generations_Thinblood;
+            
         }
 
     }
