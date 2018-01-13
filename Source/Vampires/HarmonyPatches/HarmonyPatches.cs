@@ -402,6 +402,10 @@ namespace Vampire
             //Vampires should tire very much during the daylight hours.
             harmony.Patch(AccessTools.Method(typeof(Need_Rest), "NeedInterval"), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_SleepyDuringDaylight)));
+            //Vampires should not have memories like SleptInCold and SleptInHeat
+            harmony.Patch(AccessTools.Method(typeof(Toils_LayDown), "ApplyBedThoughts"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_ApplyBedThoughts)));
+            
 
             #endregion
 
@@ -429,6 +433,9 @@ namespace Vampire
 //            //Vampires should not calculate the pain of their internal organs.
 //            harmony.Patch(AccessTools.Method(typeof(HediffSet), "CalculatePain"), null,
 //                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_CalculatePain)));
+            //Vampires do not need warm clothes alerts.
+            harmony.Patch(AccessTools.Method(typeof(Alert_NeedWarmClothes), "GetReport"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_DontNeedWarmClothesReports)));
 
             #endregion
 
@@ -464,6 +471,54 @@ namespace Vampire
             #endregion
         }
         
+        //Alert_NeedWarmClothes
+        public static void Vamp_DontNeedWarmClothesReports(Alert_NeedWarmClothes __instance, ref AlertReport __result )
+        {
+            if (__result.culprit.Thing is Pawn p && p.IsVampire())
+            {
+                float num = AlertNeedWarmClothes_LowestTemperatureComing(p.MapHeld);
+                var colonists = new List<Pawn>(p.MapHeld.mapPawns.FreeColonistsSpawned.Where(x => !x.IsVampire()));
+                if (!colonists.NullOrEmpty())
+                {
+                    foreach (Pawn pawn in colonists)
+                    {
+                        if (pawn.GetStatValue(StatDefOf.ComfyTemperatureMin, true) > num)
+                        {
+                            __result = pawn;
+                            return;
+                        }
+                    }
+                }
+                __result = false;
+                return;
+            }
+        }
+        private static float AlertNeedWarmClothes_LowestTemperatureComing(Map map)
+        {
+            Twelfth twelfth = GenLocalDate.Twelfth(map);
+            float a = GenTemperature.AverageTemperatureAtTileForTwelfth(map.Tile, twelfth);
+            for (int i = 0; i < 3; i++)
+            {
+                twelfth = twelfth.NextTwelfth();
+                a = Mathf.Min(a, GenTemperature.AverageTemperatureAtTileForTwelfth(map.Tile, twelfth));
+            }
+            return Mathf.Min(a, map.mapTemperature.OutdoorTemp);
+        }
+        
+        // RimWorld.Toils_LayDown
+        public static void Vamp_ApplyBedThoughts(Pawn actor)
+        {
+            if (actor.needs.mood == null)
+            {
+                return;
+            }
+            if (actor.IsVampire())
+            {
+                actor.needs.mood.thoughts.memories.RemoveMemoriesOfDef(ThoughtDefOf.SleptInCold);
+                actor.needs.mood.thoughts.memories.RemoveMemoriesOfDef(ThoughtDefOf.SleptInHeat);   
+            }
+        }
+
         public static void Vamp_CalculatePain(HediffSet __instance, ref float __result)
         {
             if (__instance?.pawn == null) return;
@@ -1809,6 +1864,31 @@ namespace Vampire
 
                 }
                 
+                //Hide corpse consumption from menus.
+                Thing corpse = c.GetThingList(pawn.Map).FirstOrDefault(t => t is Corpse);
+                if (corpse != null)
+                {
+                    string text;
+                    if (corpse.def.ingestible.ingestCommandString.NullOrEmpty())
+                    {
+                        text = "ConsumeThing".Translate(new object[]
+                        {
+                            corpse.LabelShort
+                        });
+                    }
+                    else
+                    {
+                        text = string.Format(corpse.def.ingestible.ingestCommandString, corpse.LabelShort);
+                    }
+
+                    FloatMenuOption o = opts.FirstOrDefault(x => x.Label.Contains(text));
+                    if (o != null)
+                    {
+                        opts.Remove(o);
+                    }
+
+                }
+                
                 //Add blood consumption
                 Thing bloodItem = c.GetThingList(pawn.Map).FirstOrDefault(t => t.def.GetCompProperties<CompProperties_BloodItem>() != null);
                 if (bloodItem != null)
@@ -1818,7 +1898,7 @@ namespace Vampire
                     {
                         text = "ConsumeThing".Translate(new object[]
                         {
-                        food.LabelShort
+                        bloodItem.LabelShort
                         });
                     }
                     if (!bloodItem.IsSociallyProper(pawn))

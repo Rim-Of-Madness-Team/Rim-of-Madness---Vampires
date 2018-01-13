@@ -39,7 +39,8 @@ namespace Vampire
         {
             try
             {
-                if (pawn.MapHeld is Map map && pawn.PositionHeld is IntVec3 pos && pos.IsValid && !pos.Roofed(map))
+                if (pawn.MapHeld is Map map && pawn.PositionHeld is IntVec3 pos && pos.IsValid && 
+                    !pos.Roofed(map) && VampireUtility.IsForcedDarknessConditionInactive(map))
                 {
                     if (VampSunlightPathUtility.GetSunlightPathJob(pawn) is Job j)
                         return j;   

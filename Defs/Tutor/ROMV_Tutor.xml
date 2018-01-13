@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
+<!-- 1/13/17 -->
+
+  <ConceptDef>
+    <defName>ROMV_VampDiablerie</defName>
+    <label>Vampires: Diablerie</label>
+    <priority>50</priority>
+    <helpText>Diablerie is when one vampire drains another vampire of not just all its vitae, but its very soul. If the victim had a lower generation than the attacker, the consumer will lower its generation to match the generation of the soul it devoured. This is the only way to further empower your vampires.</helpText>
+  </ConceptDef>
+
+  <ConceptDef>
+    <defName>ROMV_VampGenerations</defName>
+    <label>Vampires: Generations</label>
+    <priority>50</priority>
+    <helpText>Vampires have a long and sordid history that extends back to the very first vampire. Generations represent how far removed a vampire is from the first vampire. The higher the number, the less powerful the vampiric curse. The only way to lower one's generation and become more powerful is to commit Diablerie.</helpText>
+  </ConceptDef>
+  
+
 <!-- 12/26/17 -->
 
   <ConceptDef>

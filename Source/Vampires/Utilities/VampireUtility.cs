@@ -1,4 +1,5 @@
-﻿using RimWorld;
+﻿using System;
+using RimWorld;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -63,9 +64,30 @@ namespace Vampire
         public static bool IsDaylight(Map m)
         {
             float num = GenCelestial.CurCelestialSunGlow(m);
-            if (GenCelestial.IsDaytime(num))
+            if (GenCelestial.IsDaytime(num) && 
+                IsForcedDarknessConditionInactive(m))
             {
                 return true;
+            }
+            return false;
+        }
+
+        public static bool IsForcedDarknessConditionInactive(Map m)
+        {
+            return (!m.gameConditionManager.ConditionIsActive(GameConditionDefOf.Eclipse) &&
+                    !BloodMoonConditionActive(m));
+        }
+
+
+        public static bool BloodMoonConditionActive(Map m)
+        {
+            try
+            {
+                if (DefDatabase<GameConditionDef>.GetNamedSilentFail("HPLovecraft_BloodMoon") is GameConditionDef def)
+                    return m.gameConditionManager.ConditionIsActive(def);
+            }
+            catch
+            {
             }
             return false;
         }
