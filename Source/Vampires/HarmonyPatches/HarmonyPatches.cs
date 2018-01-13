@@ -10,6 +10,7 @@ using UnityEngine;
 using RimWorld.Planet;
 using Verse.AI.Group;
 using AbilityUser;
+using DubsBadHygiene;
 
 namespace Vampire
 {
@@ -20,13 +21,37 @@ namespace Vampire
         {
             HarmonyInstance harmony = HarmonyInstance.Create("rimworld.jecrell.vampire");
 
+            #region Needs
+
+            // NEEDS
+            //////////////////////////////////////////////////////////////////////////////
             //Fixes issues with having no food need.
             harmony.Patch(AccessTools.Method(typeof(Pawn_NeedsTracker), "ShouldHaveNeed"), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(ShouldHaveNeed_Vamp)));
             harmony.Patch(AccessTools.Method(typeof(ThinkNode_ConditionalNeedPercentageAbove), "Satisfied"),
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Satisfied_Vamp)), null);
+            //Vampires vomit blood instead of their digested meals.
+            harmony.Patch(AccessTools.Method(typeof(JobDriver_Vomit), "MakeNewToils"),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(MakeNewToils_VampVomit)), null);
+            //Fixes random red errors relating to food need checks in this method (WillIngestStackCountOf).
+            harmony.Patch(AccessTools.Method(typeof(FoodUtility), "WillIngestStackCountOf"),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_WillIngestStackCountOf)), null);    
+            //Prevents restful times.
+            harmony.Patch(AccessTools.Method(typeof(JoyGiver_SocialRelax), "TryFindIngestibleToNurse"),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(INeverDrink___Wine)), null); 
+            harmony.Patch(AccessTools.Method(typeof(JobGiver_GetJoy), "TryGiveJob"),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(INeverDrink___Juice)), null); 
+            
 
+            #endregion
+
+            #region Pathing
+
+            // PATHING
+            //////////////////////////////////////////////////////////////////////////////
             //The wander handler now makes vampires wander indoors (for their safety).
+//            harmony.Patch(AccessTools.Method(typeof(RimWorld.RCellFinder), "CanWanderToCell"), null,
+//                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_DontWanderStupid)));            
             harmony.Patch(AccessTools.Method(typeof(PawnUtility), "KnownDangerAt"), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(KnownDangerAt_Vamp)));
             harmony.Patch(AccessTools.Method(typeof(JoyUtility), "EnjoyableOutsideNow", new Type[] { typeof(Pawn), typeof(StringBuilder) }), null,
@@ -37,35 +62,119 @@ namespace Vampire
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(TryGiveJob_DrugGiver_Vampire)), null);
             harmony.Patch(AccessTools.Method(typeof(ReachabilityUtility), "CanReach", new Type[] { typeof(Pawn), typeof(LocalTargetInfo), typeof(PathEndMode), typeof(Danger), typeof(bool), typeof(TraverseMode) }), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(CanReach_Vampire)));
+            harmony.Patch(AccessTools.Method(typeof(ForbidUtility), "IsForbidden", new Type[] { typeof(IntVec3), typeof(Pawn) }), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_IsForbidden)));
+            
 
-            //The Doctor alert will no longer check a vampire to see if it's fed.
-            harmony.Patch(AccessTools.Method(typeof(Alert_NeedDoctor), "get_Patients"),
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(get_Patients_Vamp)), null);
+            #endregion
 
-            //Vampires vomit blood instead of their digested meals.
-            harmony.Patch(AccessTools.Method(typeof(JobDriver_Vomit), "MakeNewToils"),
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(MakeNewToils_VampVomit)), null);
+            #region AllGiverPatches
 
-            //Adds vampire right click float menus.
-            harmony.Patch(AccessTools.Method(typeof(FloatMenuMakerMap), "AddHumanlikeOrders"), null,
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(AddHumanlikeOrders_Vamp)));
+            //Patches all JobGivers to consider sunlight for vampires before they do them.
+            var listOfJobGivers = (from domainAssembly in AppDomain.CurrentDomain.GetAssemblies().Where(
+                    x => x.GetName().Name != "Harmony" &&
+                         x.GetName().Name != "DraftingPatcher" &&
+                         x.GetName().Name != "AnimalRangedVerbsUnlocker" &&
+                         x.GetName().Name != "ExplosionTypes" &&
+                         x.GetName().Name != "NewAnimalSubproducts" &&
+                         x.GetName().Name != "NewHatcher" &&
+                         x.GetName().Name != "SmurfeRims" &&
+                         x.GetName().Name != "Bugs")
+                from assemblyType in domainAssembly.GetTypes()
+                where typeof(ThinkNode_JobGiver).IsAssignableFrom(assemblyType)
+                select assemblyType).ToArray();
 
-            //Gives different skin color for Vampires
-            harmony.Patch(AccessTools.Method(typeof(Pawn_StoryTracker), "get_SkinColor"),
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(get_SkinColor_Vamp)), null);
+            if (!listOfJobGivers.NullOrEmpty())
+            {
 
-            //Adds debug/dev tools for making vampires.
-            harmony.Patch(AccessTools.Method(typeof(Dialog_DebugActionsMenu), "DoListingItems_MapTools"), null,
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(DoListingItems_MapTools_Vamp)));
+                foreach (var jobGiver in listOfJobGivers)
+                {
+                    try
+                    {
+                        harmony.Patch(AccessTools.Method(jobGiver, "TryGiveJob"), null,
+                            new HarmonyMethod(typeof(HarmonyPatches), nameof(TryGiveJob_VampireGeneral)), null);
+                    }
+#pragma warning disable 168
+                    catch (Exception e)
+#pragma warning restore 168
+                    {
+                        /*Log.Message(e.ToString());*/
+                    }
+                }
+            }
+            //Patches all JoyGivers to consider sunlight for vampires before they do them.
+            var listOfJoyGivers = (from domainAssembly in AppDomain.CurrentDomain.GetAssemblies().Where(
+                    x => x.GetName().Name != "Harmony" &&
+                         x.GetName().Name != "DraftingPatcher" &&
+                         x.GetName().Name != "AnimalRangedVerbsUnlocker" &&
+                         x.GetName().Name != "ExplosionTypes" &&
+                         x.GetName().Name != "NewAnimalSubproducts" &&
+                         x.GetName().Name != "NewHatcher" &&
+                         x.GetName().Name != "SmurfeRims" &&
+                         x.GetName().Name != "Bugs")
+                from assemblyType in domainAssembly.GetTypes()
+                where typeof(JoyGiver).IsAssignableFrom(assemblyType)
+                select assemblyType).ToArray();
 
-            //Adds blood extraction recipes to all living organisms
-            harmony.Patch(AccessTools.Method(typeof(ThingDef), "get_AllRecipes"), null,
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(get_AllRecipes_BloodFeedable)));
+            if (!listOfJoyGivers.NullOrEmpty())
+            {
 
-            //Adds blood extraction recipes to all living organisms
-            harmony.Patch(AccessTools.Method(typeof(Bill_Medical), "Notify_DoBillStarted"),
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(Notify_DoBillStarted_Debug)), null);
+                foreach (var joyGiver in listOfJoyGivers)
+                {
+                    try
+                    {
+                        harmony.Patch(AccessTools.Method(joyGiver, "TryGiveJob"), null,
+                            new HarmonyMethod(typeof(HarmonyPatches), nameof(TryGiveJob_VampireGeneral)), null);
+                    }
+#pragma warning disable 168
+                    catch (Exception e)
+#pragma warning restore 168
+                    {
+                        /*Log.Message(e.ToString());*/
+                    }
+                }
+            }
 
+            //Patches all JoyGivers to consider sunlight for vampires before they do them.
+            var listOfWorkGivers = (from domainAssembly in AppDomain.CurrentDomain.GetAssemblies().Where(
+                    x => x.GetName().Name != "Harmony" &&
+                         x.GetName().Name != "DraftingPatcher" &&
+                         x.GetName().Name != "AnimalRangedVerbsUnlocker" &&
+                         x.GetName().Name != "ExplosionTypes" &&
+                         x.GetName().Name != "NewAnimalSubproducts" &&
+                         x.GetName().Name != "NewHatcher" &&
+                         x.GetName().Name != "SmurfeRims" &&
+                         x.GetName().Name != "Bugs")
+                from assemblyType in domainAssembly.GetTypes()
+                where typeof(WorkGiver).IsAssignableFrom(assemblyType)
+                select assemblyType).ToArray();
+
+            if (!listOfWorkGivers.NullOrEmpty())
+            {
+
+                foreach (var workGiver in listOfWorkGivers)
+                {
+                    try
+                    {
+                        harmony.Patch(AccessTools.Method(workGiver, "HasJobOnCell"), null,
+                            new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_HasJobOnCell)), null);
+                    }
+#pragma warning disable 168
+                    catch (Exception e)
+#pragma warning restore 168
+                    {
+                        /*Log.Message(e.ToString());*/
+                    }
+                }
+            }
+            
+
+            #endregion
+
+            #region Beds
+
+            // BEDS
+            ///////////////////////////////////////////////////////////////////////////
             //Add overrides to methods if CompVampBed is active.
             harmony.Patch(AccessTools.Method(typeof(Building_Casket), "Draw"),
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Draw_VampBed)), null);
@@ -77,21 +186,37 @@ namespace Vampire
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(GetFloatMenuOptions_VampBed)));
             harmony.Patch(AccessTools.Method(typeof(WorkGiver_BuryCorpses), "FindBestGrave"), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(FindBestGrave_VampBed)));
+            //Adds comfort to vampire beds.
+            harmony.Patch(AccessTools.Method(typeof(PawnUtility), "GainComfortFromCellIfPossible"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_BedComfort)));
+            //Caskets and coffins do not autoassign to colonists.
+            harmony.Patch(AccessTools.Method(typeof(Pawn_Ownership), "ClaimBedIfNonMedical"),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_BedsForTheUndead)), null);
+            harmony.Patch(AccessTools.Method(typeof(RestUtility), "IsValidBedFor"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_IsValidBedFor)));
 
-            //Caravan patches
-            harmony.Patch(AccessTools.Method(typeof(Dialog_FormCaravan), "CheckForErrors"), null,
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(CheckForErrors_Vampires)));
-            harmony.Patch(AccessTools.Method(typeof(Caravan), "get_Resting"), null,
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(get_Resting_Vampires)));
+            #endregion
 
-            //Lord_AI patches
-            harmony.Patch(AccessTools.Method(typeof(Trigger_UrgentlyHungry), "ActivateOn"),
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(ActivateOn_Vampire)), null);
+            #region Lovin
 
-            //Allow fortitude to soak damage
-            harmony.Patch(AccessTools.Method(typeof(Pawn_HealthTracker), "PreApplyDamage"),
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(VampFortitude)), null);
+            // LOVIN
+            ////////////////////////////////////////////////////////////////////////////////////////////
+            //Vampires should not worry about sleeping in the same coffin.
+            harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_WantToSleepWithSpouseOrLover), "CurrentStateInternal"),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_FineSleepingAlone)), null);
+            //Vampires had trouble with lovin' due to a food check.
+            harmony.Patch(AccessTools.Method(typeof(LovePartnerRelationUtility), "GetLovinMtbHours"),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_LovinFoodFix)), null);
 
+            #endregion
+
+            #region Graphics
+
+            // GRAPHICS
+            ////////////////////////////////////////////////////////////////////////////
+            //Gives different skin color for Vampires
+            harmony.Patch(AccessTools.Method(typeof(Pawn_StoryTracker), "get_SkinColor"),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(get_SkinColor_Vamp)), null);
             //Changes vampire appearances and statistics based on their current forms
             harmony.Patch(AccessTools.Method(typeof(Pawn), "get_BodySize"), null, new HarmonyMethod(typeof(HarmonyPatches),
                 nameof(VampireBodySize)));
@@ -103,19 +228,16 @@ namespace Vampire
                 nameof(Vamp_ResolveApparelGraphics)), null);
             harmony.Patch(AccessTools.Method(typeof(PawnRenderer), "RenderPawnInternal", new Type[] { typeof(Vector3), typeof(Quaternion), typeof(bool), typeof(Rot4), typeof(Rot4), typeof(RotDrawMode), typeof(bool), typeof(bool) }), new HarmonyMethod(typeof(VampireGraphicUtility),
                 nameof(VampireGraphicUtility.RenderVampire)), null);
+            //Vampires do not make breath motes
+            harmony.Patch(AccessTools.Method(typeof(PawnBreathMoteMaker), "BreathMoteMakerTick"),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_NoBreathingMote)), null);
 
-            //Allows skill adjustments
-            harmony.Patch(AccessTools.Method(typeof(SkillRecord), "get_Level"), null,
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(VampLevel)));
+            #endregion
 
-            //Vampires do not age like others.
-            harmony.Patch(AccessTools.Method(typeof(Pawn_AgeTracker), "BirthdayBiological"),
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(VampireBirthdayBiological)), null);
-            //Nor do they suffer health effects as they age.
-            harmony.Patch(AccessTools.Method(AccessTools.TypeByName("AgeInjuryUtility"), "GenerateRandomOldAgeInjuries"),
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_GenerateRandomOldAgeInjuries)), null);
+            #region UI
 
-
+            // UI
+            /////////////////////////////////////////////////////////////////////////////////////
             //Adds vampire skill sheet button to CharacterCard
             harmony.Patch(AccessTools.Method(typeof(CharacterCardUtility), "DrawCharacterCard", new Type[] { typeof(Rect), typeof(Pawn), typeof(Action), typeof(Rect) }), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_DrawCharacterCard)));
@@ -129,55 +251,124 @@ namespace Vampire
             harmony.Patch(AccessTools.Method(typeof(Verb_MeleeAttack), "TryCastShot"),
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_TryCastShot)), null);
 
-            // Add XP every time a pawn learns a skill.
-            harmony.Patch(AccessTools.Method(typeof(SkillRecord), "Learn"), null, new HarmonyMethod(typeof(HarmonyPatches), nameof(Learn_PostFix)));
+            #endregion
 
-            // RimWorld.SickPawnVisitUtility
-            harmony.Patch(AccessTools.Method(typeof(SickPawnVisitUtility), "CanVisit"), new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_CanVisit)), null);
+            #region Aging
 
-            //Adds blood shield
-            harmony.Patch(AccessTools.Method(typeof(Pawn), "GetGizmos"), null, new HarmonyMethod(typeof(HarmonyPatches).GetMethod("GetGizmos_PostFix")));
-            harmony.Patch(AccessTools.Method(typeof(PawnRenderer), "DrawEquipment"), null, new HarmonyMethod(typeof(HarmonyPatches).GetMethod("DrawEquipment_PostFix")));
+            // AGING
+            ////////////////////////////////////////////////////////////////////////////
+            //Vampires and Ghouls do not age like others.
+            harmony.Patch(AccessTools.Method(typeof(Pawn_AgeTracker), "BirthdayBiological"),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(VampireBirthdayBiological)), null);
+            //Nor do they suffer health effects as they age.
+            harmony.Patch(AccessTools.Method(AccessTools.TypeByName("AgeInjuryUtility"), "GenerateRandomOldAgeInjuries"),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_GenerateRandomOldAgeInjuries)), null);
 
-            harmony.Patch(AccessTools.Method(typeof(ForbidUtility), "IsForbidden", new Type[] { typeof(IntVec3), typeof(Pawn) }), null,
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_IsForbidden)));
+            #endregion
 
+            #region AI Error Handling
+
+            // AI ERROR HANDLING
+            ///////////////////////////////////////////////////////////////////////////////////            
+            //Prevents blood items from spawning in people's inventories as food -- I mean -- ew
+            harmony.Patch(AccessTools.Method(typeof(Pawn_InventoryTracker), "TryAddItemNotForSale"),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_BloodItemsDontSpawnForNormies)), null);
+            //Lord_AI patches
+            harmony.Patch(AccessTools.Method(typeof(Trigger_UrgentlyHungry), "ActivateOn"),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(ActivateOn_Vampire)), null);
             //Patches so that wardens do not try to feed vampires
             harmony.Patch(AccessTools.Method(typeof(Pawn_GuestTracker), "get_CanBeBroughtFood"), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_WardensDontFeedVamps)));
+            //Guests were also checking for "food" related items.
+            harmony.Patch(AccessTools.Method(typeof(GatheringsUtility), "ShouldGuestKeepAttendingGathering"),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_GuestFix)), null);       
+            //Removes more guest food checks
+            harmony.Patch(AccessTools.Method(typeof(JobGiver_EatInPartyArea), "TryGiveJob"),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_DontEatAtTheParty)), null); 
+            //Blood Mists should not attack, but drain their target.
+            harmony.Patch(AccessTools.Method(typeof(JobGiver_AIFightEnemy), "TryGiveJob"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(BloodMist_NoAttack)));
+            //Removes food check.
+            harmony.Patch(AccessTools.Method(typeof(SickPawnVisitUtility), "CanVisit"), new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_CanVisit)), null);
+            //Patches out binging behavior
+            harmony.Patch(AccessTools.Method(typeof(JobGiver_Binge), "TryGiveJob"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_DontBinge))); 
+            //Vampires should never skygaze during sunrise...
+            harmony.Patch(AccessTools.Method(typeof(JobDriver_Skygaze), "GetReport"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_QuitWatchingSunrisesAlreadyJeez)));
+            //Vampires should not try to do drugs when idle.
+            harmony.Patch(AccessTools.Method(typeof(JobGiver_IdleJoy), "TryGiveJob"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamps_DontDoIdleDrugs)));         
+            //Vampires should not be given food by wardens.
+            harmony.Patch(AccessTools.Method(typeof(Pawn_GuestTracker), "get_CanBeBroughtFood"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamps_DontWantGuestFood)));            
+            
 
+            #endregion
 
-            //Patches to remove vampires from daylight raids.
-            harmony.Patch(AccessTools.Method(typeof(Scenario), "Notify_PawnGenerated"), null,
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_DontGenerateVampsInDaylight)));
+            #region Menus / On-Screen Messages / Alerts
 
-            //Makes vampires use one blood point to be forced awake from slumber.
-            harmony.Patch(AccessTools.Method(typeof(Pawn_JobTracker), "EndCurrentJob"),
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_EndCurrentJob)), null);
-
-            //Patch to add comfort to vampire beds.
-            harmony.Patch(AccessTools.Method(typeof(PawnUtility), "GainComfortFromCellIfPossible"), null,
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_BedComfort)));
-
-            //Patch to remove vampire's ability to bleed.
-            harmony.Patch(AccessTools.Method(typeof(Hediff_Injury), "get_BleedRate"), null,
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(get_VampBleedRate)));
-
-            //Patch to hide vampire capacities.
-            //harmony.Patch(AccessTools.Method(typeof(PawnCapacitiesHandler), "GetLevel"), null,
-            //    new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_HidePawnCapacities)), null);
+            // MENUS / ON-SCREEN MESSAGES / ALERTS
+            ////////////////////////////////////////////////////////////////////////////////////
+            //Adds vampire right click float menus.
+            harmony.Patch(AccessTools.Method(typeof(FloatMenuMakerMap), "AddHumanlikeOrders"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(AddHumanlikeOrders_Vamp)));
+            //Adds debug/dev tools for making vampires.
+            harmony.Patch(AccessTools.Method(typeof(Dialog_DebugActionsMenu), "DoListingItems_MapTools"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(DoListingItems_MapTools_Vamp)));
+            //Adds blood extraction recipes to all living organisms
+            harmony.Patch(AccessTools.Method(typeof(ThingDef), "get_AllRecipes"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(get_AllRecipes_BloodFeedable)));
+            //Adds blood extraction recipes to all living organisms
+            harmony.Patch(AccessTools.Method(typeof(Bill_Medical), "Notify_DoBillStarted"),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Notify_DoBillStarted_Debug)), null);
+            //The Doctor alert will no longer check a vampire to see if it's fed.
+            harmony.Patch(AccessTools.Method(typeof(Alert_NeedDoctor), "get_Patients"),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(get_Patients_Vamp)), null);
+            //Shows the atrophied organs of the vampire as unused.
             harmony.Patch(AccessTools.Method(typeof(HealthCardUtility), "GetPawnCapacityTip"), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_GetPawnCapacityTip)));
             harmony.Patch(AccessTools.Method(typeof(HealthCardUtility), "GetEfficiencyLabel"), null,
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(GetEfficiencyLabel)));
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(GetEfficiencyLabel))); 
+            //Vampire player should know about the rest curse.
+            harmony.Patch(AccessTools.Method(typeof(Need), "GetTipString"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_RestTextToolTip)));   
 
+            #endregion
 
+            #region Thoughts & Feelings
+
+            // THOUGHTS & FEELINGS
+            ////////////////////////////////////////////////////////////////////////////////////
+            //Vampires should not dislike the darkness.
+            harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_Dark), "CurrentStateInternal"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_TheyDontDislikeDarkness)));
+            //Vampires should not get cabin fever.
+            harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_CabinFever), "CurrentStateInternal"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_NoCabinFever)));
             //Vampires do not worry about hot and cold
             harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_Hot), "CurrentStateInternal"), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_IgnoreHotAndCold)));
             harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_Cold), "CurrentStateInternal"), null,
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_IgnoreHotAndCold)));
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_IgnoreHotAndCold)));      
 
+            #endregion
+
+            #region Vampiric Powers
+
+            // VAMPIRIC POWERS
+            ///////////////////////////////////////////////////////////////////////////////////
+            // Add vampire XP every time a pawn learns a skill.
+            harmony.Patch(AccessTools.Method(typeof(SkillRecord), "Learn"), null, new HarmonyMethod(typeof(HarmonyPatches), nameof(Learn_PostFix)));
+            //Allow fortitude to soak damage
+            harmony.Patch(AccessTools.Method(typeof(Pawn_HealthTracker), "PreApplyDamage"),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(VampFortitude)), null);
+            //Adds blood shield
+            harmony.Patch(AccessTools.Method(typeof(Pawn), "GetGizmos"), null, new HarmonyMethod(typeof(HarmonyPatches).GetMethod("GetGizmos_PostFix")));
+            harmony.Patch(AccessTools.Method(typeof(PawnRenderer), "DrawEquipment"), null, new HarmonyMethod(typeof(HarmonyPatches).GetMethod("DrawEquipment_PostFix")));
+            //Remove vampire's ability to bleed.
+            harmony.Patch(AccessTools.Method(typeof(Hediff_Injury), "get_BleedRate"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(get_VampBleedRate)));
             //Vampires are not affected by Hypothermia nor Heatstroke
             harmony.Patch(AccessTools.Method(typeof(HediffGiver_Heat), "OnIntervalPassed"), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_IgnoreStrokeAndHypotherm)));
@@ -185,95 +376,73 @@ namespace Vampire
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_IgnoreStrokeAndHypotherm)));
             harmony.Patch(AccessTools.Method(typeof(Pawn_HealthTracker), "AddHediff", new Type[] { typeof(Hediff), typeof(BodyPartRecord), typeof(DamageInfo?) }),
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(AddHediff)), null);
+            
 
-            //Vampires do not make breath motes
-            harmony.Patch(AccessTools.Method(typeof(PawnBreathMoteMaker), "BreathMoteMakerTick"),
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_NoBreathingMote)), null);
+            #endregion
 
+            #region Graves / Resurrection / Corpses / Sleeping Behavior
 
-            //Vampires had trouble with lovin' due to a food check.
-            harmony.Patch(AccessTools.Method(typeof(LovePartnerRelationUtility), "GetLovinMtbHours"),
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_LovinFoodFix)), null);
-            //Guests were also checking for "food" related items.
-            harmony.Patch(AccessTools.Method(typeof(GatheringsUtility), "ShouldGuestKeepAttendingGathering"),
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_GuestFix)), null);
-            //More food checks
-            harmony.Patch(AccessTools.Method(typeof(JobGiver_EatInPartyArea), "TryGiveJob"),
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_DontEatAtTheParty)), null);
-
-            //Players can't slaughter temporary summons
-            harmony.Patch(AccessTools.Method(typeof(Designator_Slaughter), "CanDesignateThing"),
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_CantSlaughterTemps)), null);
-
-            //Vampires should not worry about sleeping in the same coffin.
-            harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_WantToSleepWithSpouseOrLover), "CurrentStateInternal"),
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_FineSleepingAlone)), null);
-
-            //Vampire corpses can resurrect themselves.
-            // MOVED TO VAMPIRECORPSE CLASS
-            //harmony.Patch(AccessTools.Method(typeof(ThingWithComps), "GetGizmos"), null,
-            //    new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_TheyNeverDie)), null);
-
-            //Vampires should not dislike the darkness.
-            harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_Dark), "CurrentStateInternal"), null,
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_TheyDontDislikeDarkness)));
-
-
-            //Fixes random red errors relating to food need checks in this method (WillIngestStackCountOf).
-            harmony.Patch(AccessTools.Method(typeof(FoodUtility), "WillIngestStackCountOf"),
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_WillIngestStackCountOf)), null);
-
-
-            //Vampires should tire very much during the daylight hours.
-            harmony.Patch(AccessTools.Method(typeof(Need_Rest), "NeedInterval"), null,
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_SleepyDuringDaylight)));
-
-
-            //
-            harmony.Patch(AccessTools.Method(typeof(GenCelestial), "CelestialSunGlowPercent"), null,
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_CelestialSunGlowPercent)));
-
-            //Patches out binging behavior
-            harmony.Patch(AccessTools.Method(typeof(JobGiver_Binge), "TryGiveJob"), null,
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_DontBinge)));
-
-            //Patches corpse generation for vampires.
-            harmony.Patch(AccessTools.Method(typeof(Pawn), "MakeCorpse"),
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_MakeCorpse)), null);
-
+            // GRAVES / RESURRECTION / CORPSES / SLEEPING BEHAVIOR
+            //////////////////////////////////////////////////////////////////////////////////            
             //Vampire corpses can resurrect safely inside graves, sarcophogi, and caskets.
             harmony.Patch(AccessTools.Method(typeof(Building_Grave), "GetGizmos"), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_TheyNeverDie)));
-
-            //Caskets and coffins do not autoassign to colonists.
-            harmony.Patch(AccessTools.Method(typeof(Pawn_Ownership), "ClaimBedIfNonMedical"),
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_BedsForTheUndead)), null);
-            harmony.Patch(AccessTools.Method(typeof(RestUtility), "IsValidBedFor"), null,
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_IsValidBedFor)));
-
-            //Vampires should never skygaze during sunrise...
-            harmony.Patch(AccessTools.Method(typeof(JobDriver_Skygaze), "GetReport"), null,
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_QuitWatchingSunrisesAlreadyJeez)));
-
-            //Vampire player should know about the rest curse.
-            harmony.Patch(AccessTools.Method(typeof(Need), "GetTipString"), null,
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_RestTextToolTip)));
-
-            //Vampires should not try to do drugs when idle.
-            harmony.Patch(AccessTools.Method(typeof(JobGiver_IdleJoy), "TryGiveJob"), null,
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamps_DontDoIdleDrugs)));
-
-            //Vampires should not be given food by wardens.
-            harmony.Patch(AccessTools.Method(typeof(Pawn_GuestTracker), "get_CanBeBroughtFood"), null,
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamps_DontWantGuestFood)));
-
-            //Vampires should not get cabin fever.
-            harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_CabinFever), "CurrentStateInternal"), null,
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_NoCabinFever)));
+//            //Sets max assignments to be from the size of the coffin.
+//            harmony.Patch(AccessTools.Method(typeof(Building_Grave), "get_MaxAssignedPawnsCount"), null,
+//                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_CouplesLikeBiggerCaskets)));
+//            //Allows coffins to assign multiple characters
+//            harmony.Patch(AccessTools.Method(typeof(Building_Grave), "TryAssignPawn"),
+//                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_AssignToCoffin)), null);
+            //Patches corpse generation for vampires.
+            harmony.Patch(AccessTools.Method(typeof(Pawn), "MakeCorpse"),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_MakeCorpse)), null);
+            //Makes vampires use one blood point to be forced awake from slumber.
+//            harmony.Patch(AccessTools.Method(typeof(Pawn_JobTracker), "EndCurrentJob"),
+//                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_EndCurrentJob)), null);
+            //Vampires should tire very much during the daylight hours.
+            harmony.Patch(AccessTools.Method(typeof(Need_Rest), "NeedInterval"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_SleepyDuringDaylight)));
+            //Vampires should not have memories like SleptInCold and SleptInHeat
+            harmony.Patch(AccessTools.Method(typeof(Toils_LayDown), "ApplyBedThoughts"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_ApplyBedThoughts)));
             
-            //Blood Mists should not attack, but drain their target.
-            harmony.Patch(AccessTools.Method(typeof(JobGiver_AIFightEnemy), "TryGiveJob"), null,
-                new HarmonyMethod(typeof(HarmonyPatches), nameof(BloodMist_NoAttack)));
+
+            #endregion
+
+            #region Misc
+
+            // MISC
+            ////////////////////////////////////////////////////////////////////////////////
+            //Caravan patches
+            harmony.Patch(AccessTools.Method(typeof(Dialog_FormCaravan), "CheckForErrors"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(CheckForErrors_Vampires)));
+            harmony.Patch(AccessTools.Method(typeof(Caravan), "get_Resting"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(get_Resting_Vampires)));
+            //Allows skill adjustments
+            harmony.Patch(AccessTools.Method(typeof(SkillRecord), "get_Level"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(VampLevel)));
+            //Patches to remove vampires from daylight raids.
+            harmony.Patch(AccessTools.Method(typeof(Scenario), "Notify_PawnGenerated"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_DontGenerateVampsInDaylight)));
+            //Players can't slaughter temporary summons
+            harmony.Patch(AccessTools.Method(typeof(Designator_Slaughter), "CanDesignateThing"),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_CantSlaughterTemps)), null);
+            //Allows scenarios to create longer/shorter days.
+            harmony.Patch(AccessTools.Method(typeof(GenCelestial), "CelestialSunGlowPercent"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_CelestialSunGlowPercent)));
+//            //Vampires should not calculate the pain of their internal organs.
+//            harmony.Patch(AccessTools.Method(typeof(HediffSet), "CalculatePain"), null,
+//                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_CalculatePain)));
+            //Vampires do not need warm clothes alerts.
+            harmony.Patch(AccessTools.Method(typeof(Alert_NeedWarmClothes), "GetReport"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_DontNeedWarmClothesReports)));
+
+            #endregion
+
+            #region Mods
+
+            // MODS
+            ///////////////////////////////////////////////////////////////////////////////////
 
             #region DubsBadHygiene
             {
@@ -281,20 +450,114 @@ namespace Vampire
                 {
                     ((Action)(() =>
                     {
-                        if (AccessTools.Method(typeof(DubsBadHygiene.Need_Bladder), nameof(DubsBadHygiene.Need_Bladder.crapPants)) != null)
+                        if (AccessTools.Method(typeof(Need_Bladder), nameof(Need_Bladder.crapPants)) != null)
                         {
                             harmony.Patch(AccessTools.Method(typeof(Pawn_NeedsTracker), "ShouldHaveNeed"),
                                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_NoBladderNeed)), null);
                         }
+                        if (AccessTools.Method(typeof(SanitationUtil), nameof(SanitationUtil.FindBestFixture)) != null)
+                        {
+                            harmony.Patch(AccessTools.Method(typeof(SanitationUtil), "FindBestFixture"),
+                                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_NoBladderNeedDoubleUp)), null);
+                        }
                     })).Invoke();
                 }
+#pragma warning disable 168
                 catch (TypeLoadException ex) { /*Log.Message(ex.ToString());*/ }
+#pragma warning restore 168
             }
             #endregion
-            
-            Log.Message("Vampires :: Harmony Patches Injected");
+
+            #endregion
+        }
+        
+        //Alert_NeedWarmClothes
+        public static void Vamp_DontNeedWarmClothesReports(Alert_NeedWarmClothes __instance, ref AlertReport __result )
+        {
+            if (__result.culprit.Thing is Pawn p && p.IsVampire())
+            {
+                float num = AlertNeedWarmClothes_LowestTemperatureComing(p.MapHeld);
+                var colonists = new List<Pawn>(p.MapHeld.mapPawns.FreeColonistsSpawned.Where(x => !x.IsVampire()));
+                if (!colonists.NullOrEmpty())
+                {
+                    foreach (Pawn pawn in colonists)
+                    {
+                        if (pawn.GetStatValue(StatDefOf.ComfyTemperatureMin, true) > num)
+                        {
+                            __result = pawn;
+                            return;
+                        }
+                    }
+                }
+                __result = false;
+                return;
+            }
+        }
+        private static float AlertNeedWarmClothes_LowestTemperatureComing(Map map)
+        {
+            Twelfth twelfth = GenLocalDate.Twelfth(map);
+            float a = GenTemperature.AverageTemperatureAtTileForTwelfth(map.Tile, twelfth);
+            for (int i = 0; i < 3; i++)
+            {
+                twelfth = twelfth.NextTwelfth();
+                a = Mathf.Min(a, GenTemperature.AverageTemperatureAtTileForTwelfth(map.Tile, twelfth));
+            }
+            return Mathf.Min(a, map.mapTemperature.OutdoorTemp);
+        }
+        
+        // RimWorld.Toils_LayDown
+        public static void Vamp_ApplyBedThoughts(Pawn actor)
+        {
+            if (actor.needs.mood == null)
+            {
+                return;
+            }
+            if (actor.IsVampire())
+            {
+                actor.needs.mood.thoughts.memories.RemoveMemoriesOfDef(ThoughtDefOf.SleptInCold);
+                actor.needs.mood.thoughts.memories.RemoveMemoriesOfDef(ThoughtDefOf.SleptInHeat);   
+            }
         }
 
+        public static void Vamp_CalculatePain(HediffSet __instance, ref float __result)
+        {
+            if (__instance?.pawn == null) return;
+            if (!__instance.pawn.IsVampire()) return;
+            if (!__instance.pawn.RaceProps.IsFlesh || __instance.pawn.Dead)
+                return;
+            
+            var num = 0f;
+            for (int i = 0; i < __instance.hediffs.Count; i++)
+            {
+                if (__instance?.hediffs[i]?.Part?.depth == BodyPartDepth.Inside)
+                {
+                    num += __instance.hediffs[i].PainOffset;
+                }
+            }
+            float num2 = num / __instance.pawn.HealthScale;
+            for (int j = 0; j < __instance.hediffs.Count; j++)
+            {
+                if (__instance?.hediffs[j]?.Part?.depth == BodyPartDepth.Inside)
+                {
+                    num2 *= __instance.hediffs[j].PainFactor;
+                }
+            }
+            __result = Mathf.Clamp01(__result - num2);
+        }
+
+        // Verse.Pawn_InventoryTracker
+        private static bool Vamp_BloodItemsDontSpawnForNormies(Pawn_InventoryTracker __instance, Thing item)
+        {
+            if (__instance?.pawn?.IsVampire() == false)
+            {
+                if (item?.def?.thingCategories?.Contains(VampDefOfTwo.ROMV_Blood) ?? false)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        
         //Rimworld.JobGiver_AIFightEnemy
         public static void BloodMist_NoAttack(Pawn pawn, ref Job __result)
         {
@@ -363,26 +626,17 @@ namespace Vampire
         bool sleeperWillBePrisoner, bool checkSocialProperness, bool allowMedBedEvenIfSetToNoCare,
         bool ignoreOtherReservations, ref bool __result)
         {
-            if (sleeper != null && !sleeper.IsVampire() &&
-            (
-            bedThing.def == ThingDef.Named("ROMV_SimpleCoffinBed") ||
-            bedThing.def == ThingDef.Named("ROMV_RoyalCoffinBed") ||
-            bedThing.def == ThingDef.Named("ROMV_SarcophagusBed")
-            ))
+            if (sleeper != null && !sleeper.IsVampire() && bedThing.IsVampireBed())
             {
                 __result = false;
             }
         }
 
+        
         public static bool Vamp_BedsForTheUndead(Pawn_Ownership __instance, Building_Bed newBed)
         {
             Pawn pawn = (Pawn)AccessTools.Field(typeof(Pawn_Ownership), "pawn").GetValue(__instance);
-            if (pawn != null && !pawn.IsVampire() && 
-                (
-                newBed.def == ThingDef.Named("ROMV_SimpleCoffinBed") ||
-                newBed.def == ThingDef.Named("ROMV_RoyalCoffinBed") ||
-                newBed.def == ThingDef.Named("ROMV_SarcophagusBed")
-                ))
+            if (pawn != null && !pawn.IsVampire() && newBed.IsVampireBed())
             {
                 return false;
             }
@@ -392,13 +646,12 @@ namespace Vampire
         //Building_Grave
         public static void Vamp_TheyNeverDie(Building_Grave __instance, ref IEnumerable<Gizmo> __result)
         {
-            
             if (__instance?.Corpse is Corpse c && c.InnerPawn is Pawn p)
             {
                 if (p.Faction == Faction.OfPlayer && p.IsVampire())
                     __result = __result.Concat(GraveGizmoGetter(p, __instance));
             }
-            if (__instance.ContainedThing is Pawn q)
+            if (__instance?.ContainedThing is Pawn q)
             {
                 if (q.Faction == Faction.OfPlayer && q.IsVampire())
                     __result = __result.Concat(GraveGizmoGetter(q, __instance));
@@ -406,6 +659,56 @@ namespace Vampire
 
         }
 
+        // RimWorld.Building_Grave
+        // get_MaxAssignedPawnsCount
+        public static void Vamp_CouplesLikeBiggerCaskets(Building_Grave __instance, ref int __result)
+        {
+            if (__instance is Building_Coffin)
+            {
+                __result = __instance.def.size.x;
+                Log.Message(__instance.ToString() + " " +  __result.ToString());
+            }
+        }
+        
+        // RimWorld.Building_Grave
+        // TryAssignPawn(Pawn pawn)
+        public static bool Vamp_AssignToCoffin(Building_Grave __instance, Pawn pawn)
+        {
+            if (__instance is Building_Coffin newCoffin)
+            {
+                if (newCoffin.AssignedPawns.Any() && newCoffin.AssignedPawns.Contains(pawn))
+                {
+                    return false;
+                }
+
+                //Clear assignments
+                var oldGrave = pawn.ownership.AssignedGrave;
+                if (oldGrave != null)
+                {
+                    if (oldGrave is Building_Coffin oldCoffin)
+                        oldCoffin.TryUnassignPawn(pawn);
+                    else
+                        oldGrave.assignedPawn = null;
+                    //pawn.ownership.AssignedGrave = null;
+                    AccessTools.Method(typeof(Pawn_Ownership), "set_AssignedGrave").Invoke(pawn.ownership, null);
+                }
+
+                //Add assignments
+                if (newCoffin.AssignedPawns.Count() >= newCoffin.def.size.x)
+                {
+                    Log.Message("Random unassign");
+                    var pawnToRemove = newCoffin.AssignedPawns.RandomElement();
+                    newCoffin.TryUnassignPawn(pawnToRemove);
+                }
+                newCoffin.assignedPawn = pawn;
+                //pawn.ownership.AssignedGrave = newCoffin;
+                AccessTools.Method(typeof(Pawn_Ownership), "set_AssignedGrave")
+                    .Invoke(pawn.ownership, new object[] {newCoffin});
+                return false;
+            }
+            return true;
+        }
+        
         public static IEnumerable<Gizmo> GraveGizmoGetter(Pawn AbilityUser, Building_Grave grave)
         {
             bool dFlag = false;
@@ -429,6 +732,8 @@ namespace Vampire
                     {
                         AbilityUser.BloodNeed().AdjustBlood(-1);
                         grave.EjectContents();
+                        if (grave.def == VampDefOf.ROMV_HideyHole)
+                            grave.Destroy();
                     },
                     disabled = dFlag,
                     disabledReason = dReason
@@ -930,6 +1235,12 @@ namespace Vampire
             return true;
         }
 
+        private static bool Vamp_NoBladderNeedDoubleUp(Pawn pawn, ref Thing __result)
+        {
+            if (!pawn.IsVampire()) return true;
+            __result = null;
+            return false;
+        }
 
         // DubsBadHygiene.dubUtils
         public static void Vamp_StopThePoopStorm(Pawn pawn, ref bool __result)
@@ -1079,7 +1390,7 @@ namespace Vampire
         {
             Pawn pawn = (Pawn)AccessTools.Field(typeof(SkillRecord), "pawn").GetValue(__instance);
             if (xp > 0 && pawn.TryGetComp<CompVampire>() is CompVampire compVamp &&
-                compVamp.IsVampire && Find.TickManager.TicksGame > compVamp.ticksToLearnXP)
+                (compVamp.IsVampire || compVamp.IsGhoul) && Find.TickManager.TicksGame > compVamp.ticksToLearnXP)
             {
                 int delay = 132;
                 if (__instance.def == SkillDefOf.Intellectual || __instance.def == SkillDefOf.Growing) delay += 52;
@@ -1104,7 +1415,7 @@ namespace Vampire
         // RimWorld.AgeInjuryUtility
         public static bool Vamp_GenerateRandomOldAgeInjuries(Pawn pawn, bool tryNotToKillPawn)
         {
-            if (pawn.IsVampire())
+            if (pawn.IsVampire() || pawn.IsGhoul())
             {
                 return false;
             }
@@ -1141,7 +1452,7 @@ namespace Vampire
         public static bool Vamp_FillTab(ITab_Pawn_Character __instance)
         {
             Pawn p = (Pawn)AccessTools.Method(typeof(ITab_Pawn_Character), "get_PawnToShowInfoAbout").Invoke(__instance, null);
-            if (p.IsVampire())
+            if (p.IsVampire() || p.IsGhoul())
             {
                 Rect rect = new Rect(17f, 17f, CharacterCardUtility.PawnCardSize.x, CharacterCardUtility.PawnCardSize.y);
                 if (isSwitched)
@@ -1156,14 +1467,14 @@ namespace Vampire
 
         public static void Vamp_DrawCharacterCard(Rect rect, Pawn pawn, Action randomizeCallback, Rect creationRect = default(Rect))
         {
-            if (pawn.IsVampire())
+            if (pawn.IsVampire() || pawn.IsGhoul())
             {
                 bool flag = randomizeCallback != null;
                 if (!flag && pawn.IsColonist && !pawn.health.Dead)
                 {
                     Rect rect7 = new Rect(CharacterCardUtility.PawnCardSize.x - 140f, 14f, 30f, 30f);
-                    TooltipHandler.TipRegion(rect7, new TipSignal("ROMV_VampireSheet".Translate()));
-                    if (Widgets.ButtonImage(rect7, TexButton.ROMV_VampireIcon))
+                    TooltipHandler.TipRegion(rect7, new TipSignal((pawn.IsGhoul()) ? "ROMV_GhoulSheet".Translate() : "ROMV_VampireSheet".Translate()));
+                    if (Widgets.ButtonImage(rect7, (pawn.IsGhoul()) ? TexButton.ROMV_GhoulIcon : TexButton.ROMV_VampireIcon))
                     {
                         isSwitched = true;
                     }
@@ -1177,7 +1488,7 @@ namespace Vampire
         {
             Pawn p = Traverse.Create(__instance).Field("pawn").GetValue<Pawn>();
 
-            if (p.RaceProps.Humanlike && p.IsVampire() && PawnUtility.ShouldSendNotificationAbout(p))
+            if (p.RaceProps.Humanlike && (p.IsVampire() || p.IsGhoul()) && PawnUtility.ShouldSendNotificationAbout(p))
             {
 
                 Find.LetterStack.ReceiveLetter("LetterLabelBirthday".Translate(), "ROMV_VampireBirthday".Translate(new object[]{
@@ -1281,6 +1592,30 @@ namespace Vampire
             absorbed = false;
             return true;
         }
+        
+        
+        public static void TryGiveJob_VampireGeneral(Pawn pawn, ref Job __result)
+        {
+            if (__result != null && pawn.IsVampire())
+            {
+                if (__result.def == JobDefOf.Ingest)
+                {
+                    __result = null;
+                    return;
+                }
+                
+                if (!pawn.Drafted && __result.def != JobDefOf.WaitWander && __result.def != JobDefOf.GotoWander && !__result.playerForced && !__result.IsSunlightSafeFor(pawn))
+                    __result = null;
+            }
+        }
+
+                
+        public static void Vamp_HasJobOnCell(Pawn pawn, IntVec3 c, ref bool __result)
+        {
+            if (!(pawn.MapHeld is Map m) || !pawn.IsVampire() || !c.IsValid || !c.InBounds(m)) return;
+            if (pawn.Drafted || c.IsSunlightSafeFor(pawn)) return;
+            __result = false;
+        }
 
         public static bool TryGiveJob_DrugGiver_Vampire(Pawn pawn, ref Job __result)
         {
@@ -1291,7 +1626,30 @@ namespace Vampire
             }
             return true;
         }
+        
+        // RimWorld.JoyGiver_SocialRelax
+        public static bool INeverDrink___Wine(IntVec3 center, Pawn ingester, out Thing ingestible, ref bool __result)
+        {
+            ingestible = null;
+            if (ingester.IsVampire())
+            {
+                __result = false;
+                return false;
+            }
+            return true;
+        }
 
+        // RimWorld.JobGiver_GetJoy
+        //protected override Job TryGiveJob(Pawn pawn)
+        public static bool INeverDrink___Juice(Pawn pawn, ref Job __result)
+        {
+            if (pawn.IsVampire() && __result != null && __result.def == JobDefOf.Ingest)
+            {
+                __result = null;
+                return false;
+            }
+            return true;
+        }
 
         // Verse.AI.Group.Trigger_UrgentlyHungry
         public static bool ActivateOn_Vampire(Lord lord, TriggerSignal signal, ref bool __result)
@@ -1316,26 +1674,50 @@ namespace Vampire
         }
 
 
-        //WorkGiver_BuryCorpses
+        /// <summary>
+        /// Finds the best grave that is not also a bed for vampires.
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="corpse"></param>
+        /// <param name="__result"></param>
         public static void FindBestGrave_VampBed(Pawn p, Corpse corpse, ref Building_Grave __result)
         {
-            if (__result != null && __result is Building_Grave g && g?.def.GetCompProperties<CompProperties_VampBed>() is CompProperties_VampBed b)
+            //If it's a grave that uses vampbed components...
+            if (!(__result is Building_Grave g) ||
+                !(g?.def.GetCompProperties<CompProperties_VampBed>() is CompProperties_VampBed b)) return;
+
+            //Find graves empty graves, or graves without vampbeds, or graves with unassigned vampbeds.
+            bool BestGraveFinder(Thing m)
             {
-                Predicate<Thing> predicate = (Thing m) => !m.IsForbidden(p) && p.CanReserve(m) && m is Building_Grave mG && !mG.HasAnyContents && (mG?.Accepts(corpse) ?? false) && (mG.GetComp<CompVampBed>() == null || mG.GetComp<CompVampBed>() is CompVampBed v && (v?.Bed == null || v?.Bed?.AssignedPawns?.Count() == 0));
-                if (corpse?.InnerPawn?.ownership != null && corpse?.InnerPawn?.ownership?.AssignedGrave != null)
-                {
-                    Building_Grave assignedGrave = corpse?.InnerPawn?.ownership?.AssignedGrave;
-                    if (predicate(assignedGrave) && (p?.Map?.reachability?.CanReach(corpse.Position, assignedGrave, PathEndMode.ClosestTouch, TraverseParms.For(p)) ?? false))
-                    {
-                        __result = assignedGrave;
-                        return;
-                    }
-                }
-                Func<Thing, float> priorityGetter = (Thing t) => (float)((IStoreSettingsParent)t).GetStoreSettings().Priority;
-                Predicate<Thing> validator = predicate;
-                __result = (Building_Grave)GenClosest.ClosestThing_Global_Reachable(corpse.Position, corpse.Map, corpse.Map.listerThings.ThingsInGroup(ThingRequestGroup.Grave), PathEndMode.ClosestTouch, TraverseParms.For(p), 9999f, validator, priorityGetter);
-                return;
+                return !m.IsForbidden(p) && p.CanReserve(m) && m is Building_Grave mG && !mG.HasAnyContents &&
+                       (mG?.Accepts(corpse) ?? false) &&
+                       (mG.GetComp<CompVampBed>() == null || mG.GetComp<CompVampBed>() is CompVampBed v &&
+                        (v?.Bed == null || v?.Bed?.AssignedPawns?.Count() == 0));
             }
+
+            //If the corpse doesn't have an assigned grave...
+            // ... give them a grave using the predicate.
+            if (corpse?.InnerPawn?.ownership?.AssignedGrave != null)
+            {
+                var buildingGraveToAssign = corpse?.InnerPawn?.ownership?.AssignedGrave;
+                //If we can reach it...
+                // ... assign it.
+                if (BestGraveFinder(buildingGraveToAssign) && (p?.Map?.reachability?.CanReach(corpse.Position, buildingGraveToAssign,
+                                                                   PathEndMode.ClosestTouch, TraverseParms.For(p)) ?? false))
+                {
+                    __result = buildingGraveToAssign;
+                    return;
+                }
+            }
+            //Check grave storage settings...
+            float PriorityGetter(Thing t) => (float) ((IStoreSettingsParent) t).GetStoreSettings().Priority;
+                
+            //Use the best grave finder settings, find something close that accepts the user.
+            Predicate<Thing> validator = BestGraveFinder;
+            __result = (Building_Grave) GenClosest.ClosestThing_Global_Reachable(corpse.Position, corpse.Map,
+                corpse.Map.listerThings.ThingsInGroup(ThingRequestGroup.Grave), PathEndMode.ClosestTouch,
+                TraverseParms.For(p), 9999f, validator, PriorityGetter);
+            return;
         }
 
         public static bool Draw_VampBed(Building_Casket __instance)
@@ -1482,6 +1864,31 @@ namespace Vampire
 
                 }
                 
+                //Hide corpse consumption from menus.
+                Thing corpse = c.GetThingList(pawn.Map).FirstOrDefault(t => t is Corpse);
+                if (corpse != null)
+                {
+                    string text;
+                    if (corpse.def.ingestible.ingestCommandString.NullOrEmpty())
+                    {
+                        text = "ConsumeThing".Translate(new object[]
+                        {
+                            corpse.LabelShort
+                        });
+                    }
+                    else
+                    {
+                        text = string.Format(corpse.def.ingestible.ingestCommandString, corpse.LabelShort);
+                    }
+
+                    FloatMenuOption o = opts.FirstOrDefault(x => x.Label.Contains(text));
+                    if (o != null)
+                    {
+                        opts.Remove(o);
+                    }
+
+                }
+                
                 //Add blood consumption
                 Thing bloodItem = c.GetThingList(pawn.Map).FirstOrDefault(t => t.def.GetCompProperties<CompProperties_BloodItem>() != null);
                 if (bloodItem != null)
@@ -1491,7 +1898,7 @@ namespace Vampire
                     {
                         text = "ConsumeThing".Translate(new object[]
                         {
-                        food.LabelShort
+                        bloodItem.LabelShort
                         });
                     }
                     if (!bloodItem.IsSociallyProper(pawn))

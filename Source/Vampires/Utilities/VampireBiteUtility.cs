@@ -93,9 +93,27 @@ namespace Vampire
                         new BattleLogEntry_StateTransition(victim,
                         RulePackDef.Named("ROMV_BiteCleaned"), actor, null, null)
                     );
+                    if (victim.IsGhoul() && victim?.VampComp()?.ThrallData?.BondStage == BondStage.Thrall)
+                    {
+                        TryRemoveHarmedMemory(actor, victim);
+                    }
+                    else if (!victim.health.capacities.CanBeAwake)
+                    {
+                        TryRemoveHarmedMemory(actor, victim);
+                    }
                 }
 
             }
+        }
+
+        public static bool TryRemoveHarmedMemory(Pawn actor, Pawn victim)
+        {
+            if (victim?.needs?.mood?.thoughts?.memories is MemoryThoughtHandler m)
+            {
+                m.RemoveMemoriesOfDefWhereOtherPawnIs(ThoughtDefOf.HarmedMe, actor);
+                return true;
+            }
+            return false;
         }
     }
 }

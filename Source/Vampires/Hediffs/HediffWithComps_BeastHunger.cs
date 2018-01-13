@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using UnityEngine;
 using Verse;
 
 namespace Vampire
@@ -24,7 +25,7 @@ namespace Vampire
 
                     if (pB.CurLevelPercentage < 0.3f)
                     {
-                        Severity += 0.005f;
+                        Severity = Mathf.Clamp01(Severity + 0.005f);
                     }
                     else
                     {

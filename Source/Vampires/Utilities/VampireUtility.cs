@@ -1,4 +1,5 @@
-﻿using RimWorld;
+﻿using System;
+using RimWorld;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -6,14 +7,9 @@ using Verse;
 
 namespace Vampire
 {
-    public static class VampireUtility
+    public static partial class VampireUtility
     {
-        public static CompVampire VampComp(this Pawn pawn)
-        {
-            return pawn.GetComp<CompVampire>();
-        }
 
-        public static readonly Color VampColor = new Color(0.6f, 0.5f, 0.9f);
 
         public static int RandHigherGeneration => Rand.Range(7, 13);
         public static int RandLowerGeneration => Rand.Range(3, 6);
@@ -24,34 +20,110 @@ namespace Vampire
             .RandomElement();
         public static BloodlineDef RandBloodline => DefDatabase<BloodlineDef>.AllDefs
             .Where(x => x != VampDefOf.ROMV_Caine && x != VampDefOf.ROMV_TheThree).RandomElement();
+        
+        
         public static bool IsDaylight(Pawn p)
         {
             if (p != null && p.Spawned && p.MapHeld != null)
-            {
                 return IsDaylight(p.MapHeld);
-            }
             return false;
         }
-            
-        public static void SummonEffect(IntVec3 loc, Map map, Thing summoner, float size)
+        
+        public static bool IsVampire(this Pawn pawn)
         {
-            ExplosionUtility.DoExplosion(loc, map, size, DamageDefOf.EMP, summoner, -1, DamageDefOf.Stun.soundExplosion);
+            if (pawn != null && pawn?.GetComp<CompVampire>() is CompVampire v && v.IsVampire)
+                return true;
+            return false;
+        }
+        
+        public static bool HasVampireHediffs(this Pawn pawn)
+        {
+            if (pawn == null) return false;
+            return pawn.health.hediffSet.HasHediff(VampDefOf.ROM_Vampirism) ||
+                   pawn.health.hediffSet.HasHediff(VampDefOf.ROM_VampirismRandom) ||
+                   pawn.health.hediffSet.HasHediff(VampDefOf.ROM_VampirismGargoyle) ||
+                   pawn.health.hediffSet.HasHediff(VampDefOf.ROM_VampirismLasombra) ||
+                   pawn.health.hediffSet.HasHediff(VampDefOf.ROM_VampirismPijavica) ||
+                   pawn.health.hediffSet.HasHediff(VampDefOf.ROM_VampirismTremere) ||
+                   pawn.health.hediffSet.HasHediff(VampDefOf.ROM_VampirismTzimisce);
         }
 
+        public static bool IsAndroid(this Pawn pawn)
+        {
+            if (pawn != null && pawn?.def?.race?.hediffGiverSets?.FirstOrDefault(x => x.defName == "ChjAndroidStandard") != null)
+                return true;
+            return false;
+        }
+
+        public static CompVampire VampComp(this Pawn pawn)
+        {
+            return pawn.GetComp<CompVampire>();
+        }
+        
         //=> (GenLocalDate.HourInteger(p) >= 6 && GenLocalDate.HourInteger(p) <= 17) && !Find.World.GameConditionManager.ConditionIsActive(GameConditionDefOf.Eclipse);
         public static bool IsDaylight(Map m)
         {
             float num = GenCelestial.CurCelestialSunGlow(m);
-            if (GenCelestial.IsDaytime(num))
+            if (GenCelestial.IsDaytime(num) && 
+                IsForcedDarknessConditionInactive(m))
             {
                 return true;
             }
             return false;
         }
 
-        //=> (GenLocalDate.HourInteger(m) >= 6 && GenLocalDate.HourInteger(m) <= 17) && !Find.World.GameConditionManager.ConditionIsActive(GameConditionDefOf.Eclipse);
+        public static bool IsForcedDarknessConditionInactive(Map m)
+        {
+            return (!m.gameConditionManager.ConditionIsActive(GameConditionDefOf.Eclipse) &&
+                    !BloodMoonConditionActive(m));
+        }
 
-        // Verse.Pawn
+
+        public static bool BloodMoonConditionActive(Map m)
+        {
+            try
+            {
+                if (DefDatabase<GameConditionDef>.GetNamedSilentFail("HPLovecraft_BloodMoon") is GameConditionDef def)
+                    return m.gameConditionManager.ConditionIsActive(def);
+            }
+            catch
+            {
+            }
+            return false;
+        }
+
+        //Checks for sunrise conditions.
+        public static bool IsSunRisingOrDaylight(this Pawn p)
+        {
+            return p != null && p.Spawned && p?.MapHeld != null && p.MapHeld is Map m && IsSunRisingOrDaylight(m);
+        }
+        
+        private static Dictionary<Map, float> lastSunlightChecks = new Dictionary<Map, float>();
+
+        //Sunrise is very dangerous to be out.
+        public static bool IsSunRisingOrDaylight(Map m)
+        {
+            //If it's daylight, it's not safe.
+            var curSunlight = GenCelestial.CurCelestialSunGlow(m);
+            if (GenCelestial.IsDaytime(curSunlight)) return true;
+
+            if (curSunlight > 0.01f)
+            {
+                var lastSunlight = 0f;
+                if (!lastSunlightChecks.ContainsKey(m))
+                {
+                    lastSunlightChecks.Add(m, curSunlight);
+                    lastSunlight = curSunlight;
+                }
+                else
+                {
+                    lastSunlight = lastSunlightChecks[m];
+                }
+                return curSunlight > lastSunlight;
+            }
+            return false;
+        }
+
         public static string MainDesc(Pawn pawn)
         {
             string text = "ROMV_VampireDesc".Translate(new object[]
@@ -62,6 +134,11 @@ namespace Vampire
             return text.CapitalizeFirst();
         }
 
+        
+        public static void SummonEffect(IntVec3 loc, Map map, Thing summoner, float size)
+        {
+            ExplosionUtility.DoExplosion(loc, map, size, DamageDefOf.EMP, null, -1, DamageDefOf.Stun.soundExplosion);
+        }
 
         public static void GiveVampXP(this Pawn vampire, int amount=15)
         {
@@ -72,31 +149,75 @@ namespace Vampire
             }
         }
 
-        public static void Heal(Pawn target, int maxInjuries = 4, int maxInjuriesPerBodyPartInit = 2)
+        /// <summary>
+        /// Heals body part injuries for Vampires.
+        /// </summary>
+        /// <param name="target"></param>
+        /// <param name="maxInjuries"></param>
+        /// <param name="maxInjuriesPerBodyPartInit"></param>
+        public static void Heal(Pawn target, int maxInjuries = 4, int maxInjuriesPerBodyPartInit = 2, bool scarsOnly = false)
         {
-            int maxInjuriesPerBodyPart;
-            foreach (BodyPartRecord rec in target.health.hediffSet.GetInjuredParts())
+            foreach (var rec in target.health.hediffSet.GetInjuredParts())
             {
-                if (maxInjuries > 0)
+                if (maxInjuries <= 0) continue;
+                var maxInjuriesPerBodyPart = maxInjuriesPerBodyPartInit;
+                foreach (var current in from injury in target.health.hediffSet.GetHediffs<Hediff_Injury>() where injury.Part == rec select injury)
                 {
-                    maxInjuriesPerBodyPart = maxInjuriesPerBodyPartInit;
-                    foreach (Hediff_Injury current in from injury in target.health.hediffSet.GetHediffs<Hediff_Injury>() where injury.Part == rec select injury)
+                    if (maxInjuriesPerBodyPart <= 0) continue;
+                    if (!scarsOnly)
                     {
-                        if (maxInjuriesPerBodyPart > 0)
-                        {
-                            if (current.CanHealNaturally() && !current.IsOld()) // basically check for scars and old wounds
-                            {
-                                current.Heal((int)current.Severity + 1);
-                                maxInjuries--;
-                                maxInjuriesPerBodyPart--;
-                            }
-                        }
+                        if (!current.CanHealNaturally() || current.IsOld()) continue;
+                        current.Heal((int)current.Severity + 1);
+                        maxInjuries--;
+                        maxInjuriesPerBodyPart--;
+                    }
+                    else
+                    {
+                        if (current.CanHealNaturally() && !current.IsOld()) continue;
+                        current.Heal((int)current.Severity + 1);
+                        maxInjuries--;
+                        maxInjuriesPerBodyPart--;
                     }
                 }
             }
         }
+        
+        /// <summary>
+        /// Regenerates a random part or limb of the character.
+        /// </summary>
+        /// <param name="target"></param>
+        public static void RegenerateRandomPart(Pawn target)
+        {
+//Null checks
+            if (target == null) return;
+            List<Hediff_MissingPart> missingParts = new List<Hediff_MissingPart>()
+                .Concat(target?.health?.hediffSet?.GetMissingPartsCommonAncestors()).ToList();
+            if (missingParts.NullOrEmpty()) return;
+
+
+            var partToRestore = missingParts.RandomElement();
+            var part = partToRestore.Part;
+            if (target.health != null)
+            {
+                target.health.RestorePart(part);
+                if (part?.def == BodyPartDefOf.Jaw)
+                {
+                    target.health.AddHediff(target.VampComp().Bloodline.fangsHediff, part, null);
+                }
+            }
+
+            Messages.Message("ROMV_LimbRegen".Translate(new object[]
+            {
+                target.LabelShort,
+                partToRestore.Part.def.label
+            }), MessageTypeDefOf.PositiveEvent);
+        }
 
  
+        /// <summary>
+        /// Forces vampires to have night-time work assignments.
+        /// </summary>
+        /// <param name="pawn"></param>
         public static void AdjustTimeTables(Pawn pawn)
         {
             if (pawn.IsVampire() && pawn.timetable is Pawn_TimetableTracker t)
@@ -118,7 +239,11 @@ namespace Vampire
             }
         }
 
-        // Make new vampires exhausted.
+        
+        /// <summary>
+        /// Forces a vampire to sleep.
+        /// </summary>
+        /// <param name="pawn"></param>
         public static void MakeSleepy(Pawn pawn)
         {
             if (pawn?.VampComp() is CompVampire v && pawn?.needs?.rest is Need_Rest r)
@@ -127,25 +252,12 @@ namespace Vampire
             }
         }
 
-        // RimWorld.ParentRelationUtility
-        public static bool IsVampire(this Pawn pawn)
-        {
-            if (pawn != null && pawn?.GetComp<CompVampire>() is CompVampire v && v.IsVampire)
-                return true;
-            return false;
-        }
-
-        public static Color ColorAndroidCoolant = new Color(153, 217, 234);
-        public static Color ColorAndroidCoolantVitae = new Color(183, 217, 234);
-        public static Color ColorBlood = new Color(0.73f, 0.02f, 0.02f);
-        public static Color ColorVitae = new Color(0.65f, 0.008f, 0.008f);
-        public static bool IsAndroid(this Pawn pawn)
-        {
-            if (pawn != null && pawn?.def?.race?.hediffGiverSets?.FirstOrDefault(x => x.defName == "ChjAndroidStandard") != null)
-                return true;
-            return false;
-        }
-
+  
+        /// <summary>
+        /// Returns grappler modifier for vampires
+        /// </summary>
+        /// <param name="grappler"></param>
+        /// <returns></returns>
         public static int GrapplerModifier(Pawn grappler)
         {
             int result = 0;
@@ -155,11 +267,61 @@ namespace Vampire
             }
             if (grappler.def == VampDefOf.ROMV_BatSpectralRace)
             {
-                result += 5;
+                result += 15;
+            }
+            if (grappler.def == VampDefOf.ROMV_BloodMistRace)
+            {
+                result += 15;
             }
             return result;
         }
 
+        /// <summary>
+        /// Checks if something is a vampire bed.
+        /// </summary>
+        /// <param name="bed"></param>
+        /// <returns></returns>
+        public static bool IsVampireBed(this Thing bed)
+        {
+            return bed != null &&
+                   (
+                       bed.def == ThingDef.Named("ROMV_SimpleCoffinBed") ||
+                       bed.def == ThingDef.Named("ROMV_RoyalCoffinBed") ||
+                       bed.def == ThingDef.Named("ROMV_SarcophagusBed")
+                   );
+        }
+        
+        /// <summary>
+        /// Finds the generation hediff to give to a vampire.
+        /// </summary>
+        public static HediffDef GenerationDef(this Pawn pawn)
+        {
+            switch (pawn?.VampComp()?.Generation ?? 13)
+            {
+                case 1:
+                    return VampDefOfTwo.ROM_Generations_Caine;
+                case 2:
+                    return VampDefOfTwo.ROM_Generations_TheThree;
+                case 3:
+                    return VampDefOfTwo.ROM_Generations_Antediluvian;
+                case 4:
+                case 5:
+                    return VampDefOfTwo.ROM_Generations_Methuselah;
+                case 6:
+                case 7:
+                case 8:
+                    return VampDefOfTwo.ROM_Generations_Elder;
+                case 9:
+                case 10:
+                    return VampDefOfTwo.ROM_Generations_Ancillae;
+                case 11:
+                case 12:
+                case 13:
+                    return VampDefOfTwo.ROM_Generations_Neonate;
+            }
+            return VampDefOfTwo.ROM_Generations_Thinblood;
+            
+        }
 
     }
 }

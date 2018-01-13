@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_Blood_Hunger.label>hambre</ROMV_Blood_Hunger.label>
+  <ROMV_Blood_Hunger.description>Permite al vampiro consumir sangre del suelo cercano.</ROMV_Blood_Hunger.description>
+
+  <ROMV_Blood_Purge.label>purgar</ROMV_Blood_Purge.label>
+  <ROMV_Blood_Purge.description>Obliga al objetivo a vomitar algo de su sangre en el suelo.</ROMV_Blood_Purge.description>
+
+  <ROMV_Blood_StemTheTide.label>detener hemorragia</ROMV_Blood_StemTheTide.label>
+  <ROMV_Blood_StemTheTide.description>Detiene toda pérdida de sangre en el objetivo.</ROMV_Blood_StemTheTide.description>
+
+  <ROMV_Blood_UnstoppableTide.label>hemorragia imparable</ROMV_Blood_UnstoppableTide.label>
+  <ROMV_Blood_UnstoppableTide.description>Rompe parte del cuerpo del taumaturgo para convertirse en una masa flotante de vitae que va a consumir la sangre, la piel y los huesos del objetivo, y devolver el resultado al taumaturgo.</ROMV_Blood_UnstoppableTide.description>
+
+
+</LanguageData>

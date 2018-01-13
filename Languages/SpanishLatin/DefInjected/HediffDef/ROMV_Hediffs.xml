@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROM_Vampirism.label>vampirismo</ROM_Vampirism.label>
+
+  <ROM_VampirismRandom.label>vampirismo (Aleatorio)</ROM_VampirismRandom.label>
+  <ROM_VampirismRandom.stages.0.label>Sangre fina (Débil)</ROM_VampirismRandom.stages.0.label>
+  <ROM_VampirismRandom.stages.1.label>10-13th Generación (Común)</ROM_VampirismRandom.stages.1.label>
+  <ROM_VampirismRandom.stages.2.label>7th-9th Generación (Poderoso)</ROM_VampirismRandom.stages.2.label>
+  <ROM_VampirismRandom.stages.3.label>5th-6th Generación (Sobre Poderoso)</ROM_VampirismRandom.stages.3.label>
+
+  <ROM_VampirismTzimisce.label>vampirismo (Tzimisce)</ROM_VampirismTzimisce.label>
+  <ROM_VampirismTzimisce.stages.0.label>Sangre fina (Débil)</ROM_VampirismTzimisce.stages.0.label>
+  <ROM_VampirismTzimisce.stages.1.label>10-13th Generación (Común)</ROM_VampirismTzimisce.stages.1.label>
+  <ROM_VampirismTzimisce.stages.2.label>7th-9th Generación (Poderoso)</ROM_VampirismTzimisce.stages.2.label>
+  <ROM_VampirismTzimisce.stages.3.label>5th-6th Generación (Sobre Poderoso)</ROM_VampirismTzimisce.stages.3.label>
+
+  <ROM_VampirismLasombra.label>vampirismo (Lasombra)</ROM_VampirismLasombra.label>
+  <ROM_VampirismLasombra.stages.0.label>Sangre fina  (Débil)</ROM_VampirismLasombra.stages.0.label>
+  <ROM_VampirismLasombra.stages.1.label>10-13th Generación (Común)</ROM_VampirismLasombra.stages.1.label>
+  <ROM_VampirismLasombra.stages.2.label>7th-9th Generación (Poderoso)</ROM_VampirismLasombra.stages.2.label>
+  <ROM_VampirismLasombra.stages.3.label>5th-6th Generación (Sobre Poderoso)</ROM_VampirismLasombra.stages.3.label>
+
+  <ROM_VampirismTremere.label>vampirismo (Tremere)</ROM_VampirismTremere.label>
+  <ROM_VampirismTremere.stages.0.label>Sangre fina  (Débil)</ROM_VampirismTremere.stages.0.label>
+  <ROM_VampirismTremere.stages.1.label>10-13th Generación (Común)</ROM_VampirismTremere.stages.1.label>
+  <ROM_VampirismTremere.stages.2.label>7th-9th Generación (Poderoso)</ROM_VampirismTremere.stages.2.label>
+  <ROM_VampirismTremere.stages.3.label>5th-6th Generación (Sobre Poderoso)</ROM_VampirismTremere.stages.3.label>
+
+  <ROM_VampirismPijavica.label>vampirismo (Pijavica)</ROM_VampirismPijavica.label>
+  <ROM_VampirismPijavica.stages.0.label>Sangre fina  (Débil)</ROM_VampirismPijavica.stages.0.label>
+  <ROM_VampirismPijavica.stages.1.label>10-13th Generación (Común)</ROM_VampirismPijavica.stages.1.label>
+  <ROM_VampirismPijavica.stages.2.label>7th-9th Generación (Poderoso)</ROM_VampirismPijavica.stages.2.label>
+  <ROM_VampirismPijavica.stages.3.label>5th-6th Generación (Sobre Poderoso)</ROM_VampirismPijavica.stages.3.label>
+
+  <ROM_VampirismGargoyle.label>vampirismo (Gargoyle)</ROM_VampirismGargoyle.label>
+  <ROM_VampirismGargoyle.stages.0.label>Sangre fina  (Débil)</ROM_VampirismGargoyle.stages.0.label>
+  <ROM_VampirismGargoyle.stages.1.label>10-13th Generación (Común)</ROM_VampirismGargoyle.stages.1.label>
+  <ROM_VampirismGargoyle.stages.2.label>7th-9th Generación (Poderoso)</ROM_VampirismGargoyle.stages.2.label>
+  <ROM_VampirismGargoyle.stages.3.label>5th-6th Generación (Sobre Poderoso)</ROM_VampirismGargoyle.stages.3.label>
+
+  <ROMV_TheBeast.label>la bestia</ROMV_TheBeast.label>
+  <ROMV_TheBeast.stages.0.label>antojado</ROMV_TheBeast.stages.0.label>
+  <ROMV_TheBeast.stages.1.label>hambriento</ROMV_TheBeast.stages.1.label>
+  <ROMV_TheBeast.stages.2.label>famélico</ROMV_TheBeast.stages.2.label>
+  <ROMV_TheBeast.stages.3.label>bestia liberada</ROMV_TheBeast.stages.3.label>
+
+  <ROMV_SunExposure.label>expuesto a la luz del sol</ROMV_SunExposure.label>
+  <ROMV_SunExposure.stages.0.label>inicial</ROMV_SunExposure.stages.0.label>
+  <ROMV_SunExposure.stages.1.label>menor</ROMV_SunExposure.stages.1.label>
+  <ROMV_SunExposure.stages.2.label>seria</ROMV_SunExposure.stages.2.label>
+  <ROMV_SunExposure.stages.3.label>extrema</ROMV_SunExposure.stages.3.label>
+
+
+</LanguageData>

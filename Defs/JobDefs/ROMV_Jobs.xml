@@ -3,6 +3,13 @@
 
 	<!-- Misc -->
 
+	  <JobDef>
+		<defName>ROMV_GotoSafety</defName>
+		<driverClass>JobDriver_Goto</driverClass>
+		<reportString>moving.</reportString>
+	</JobDef>
+
+	
   <JobDef>
     <defName>ROMV_DigAndHide</defName>
     <driverClass>Vampire.JobDriver_DigAndHide</driverClass>
@@ -63,6 +70,13 @@
     <defName>ROMV_Embrace</defName>
     <driverClass>Vampire.JobDriver_Embrace</driverClass>
     <reportString>embracing TargetA.</reportString>
+  </JobDef>
+  
+  
+  <JobDef>
+    <defName>ROMV_GhoulBloodBond</defName>
+    <driverClass>Vampire.JobDriver_GhoulBloodBond</driverClass>
+    <reportString>feeding vitae to TargetA.</reportString>
   </JobDef>
 
 

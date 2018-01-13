@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_Thaumaturgy_BloodStrike.label>ataque de sangre</ROMV_Thaumaturgy_BloodStrike.label>
+  <ROMV_Thaumaturgy_BloodStrike.description>Lanza un proyectil de sangre hacia el objetivo, que puede recoger y devolver sangre al taumaturgo.</ROMV_Thaumaturgy_BloodStrike.description>
+
+  <ROMV_Thaumaturgy_BloodShield.label>escudo de sangre</ROMV_Thaumaturgy_BloodShield.label>
+  <ROMV_Thaumaturgy_BloodShield.description>Los escudos de sangre rodean al taumaturgo y absorben varios golpes antes de disiparse.</ROMV_Thaumaturgy_BloodShield.description>
+
+  <ROMV_Thaumaturgy_BloodSalvo.label>pileta de sangre</ROMV_Thaumaturgy_BloodSalvo.label>
+  <ROMV_Thaumaturgy_BloodSalvo.description>Lanza tres proyectiles de sangre en un área de efecto, que pueden recoger y devolver sangre al taumaturgo.</ROMV_Thaumaturgy_BloodSalvo.description>
+
+  <ROMV_Thaumaturgy_BloodBoil.label>hervor de sangre</ROMV_Thaumaturgy_BloodBoil.label>
+  <ROMV_Thaumaturgy_BloodBoil.description>Hace que la sangre del objetivo hierva hasta que dañe a otros en una explosión.</ROMV_Thaumaturgy_BloodBoil.description>
+
+
+</LanguageData>

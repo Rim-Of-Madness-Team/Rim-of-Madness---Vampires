@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_FlyingObject.label>objeto volador</ROMV_FlyingObject.label>
+  <ROMV_DominateProjectile.label>explosión psiónica</ROMV_DominateProjectile.label>
+  <ROMV_BloodProjectile_BloodBoil.label>proyectil de ebullición de sangre</ROMV_BloodProjectile_BloodBoil.label>
+  <ROMV_BloodProjectile.label>proyectil de sangre</ROMV_BloodProjectile.label>
+  <ROMV_BloodProjectile_Returner.label>proyectil de sangre</ROMV_BloodProjectile_Returner.label>
+
+
+</LanguageData>

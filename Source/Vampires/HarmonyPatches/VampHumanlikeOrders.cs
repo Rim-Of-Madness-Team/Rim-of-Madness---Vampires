@@ -23,6 +23,7 @@ namespace Vampire
 
                     CompVampire selVampComp = pawn.GetComp<CompVampire>();
                     int curBloodVictim = victim?.BloodNeed()?.CurBloodPoints ?? 0;
+                    int curBloodActor = pawn?.BloodNeed()?.CurBloodPoints ?? 0;
                     bool victimIsVampire = victim.IsVampire();
                     // FEED //////////////////////////
                     if (!victimIsVampire || (selVampComp?.Bloodline?.canFeedOnVampires ?? false))
@@ -52,9 +53,9 @@ namespace Vampire
                             }), action2, MenuOptionPriority.High, null, victim));
                         }
                     };
-                    //EMBRACE /////////////////////
-                    if (victim?.RaceProps?.Humanlike ?? false)
+                    if (!victimIsVampire && (victim?.RaceProps?.Humanlike ?? false))
                     {
+                        //EMBRACE /////////////////////
                         if (selVampComp.Thinblooded)
                         {
                             opts.Add(new FloatMenuOption("ROMV_CannotEmbrace".Translate(new object[]
@@ -75,9 +76,22 @@ namespace Vampire
                             victim.LabelCap
                             }), actionTwo, MenuOptionPriority.High, null, victim));
                         }
-                    }
+                        //GIVE BLOOD (Ghoul) ////////////////////
+                        if (curBloodActor > 0)
+                        {
+                            Action actionThree = delegate
+                            {
+                                Job job = new Job(VampDefOf.ROMV_GhoulBloodBond, victim);
+                                job.count = 1;
+                                pawn.jobs.TryTakeOrderedJob(job);
+                            };
+                            opts.Add(new FloatMenuOption("ROMV_GiveVitae".Translate() + (!victim.IsGhoul() ? " (" + "ROMV_CreateGhoul".Translate() + ")" : ""), actionThree, MenuOptionPriority.High, null, victim));
+                        }
 
-                    //Diablerie /////////////////////
+                    }
+                    
+
+                    //Diablerie ////////////////////
                     if (victimIsVampire)
                     {
                         Action action = delegate
@@ -98,7 +112,7 @@ namespace Vampire
                             job.playerForced = true;
                             pawn.jobs.TryTakeOrderedJob(job);
                         };
-                        string benefitWarning = selVampComp.Generation < victim.VampComp().Generation ? " " + "ROMV_DiablerieNoBenefit".Translate() : "";
+                        string benefitWarning = (selVampComp.Generation < victim.VampComp().Generation) ? " " + "ROMV_DiablerieNoBenefit".Translate() : "";
                         opts.Add(new FloatMenuOption("ROMV_Diablerie".Translate(new object[]
                         {
                                 victim.LabelCap

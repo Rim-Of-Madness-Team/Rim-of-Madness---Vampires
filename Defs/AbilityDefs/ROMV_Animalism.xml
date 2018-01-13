@@ -25,6 +25,7 @@
      <defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
      <abilityDef>ROMV_Animalism_Beckoning</abilityDef>
      <isViolent>false</isViolent>
+	 <stopBurstWithoutLos>false</stopBurstWithoutLos>
      <warmupTime>1</warmupTime>
      <SecondsToRecharge>300.0</SecondsToRecharge>
      <range>24</range>

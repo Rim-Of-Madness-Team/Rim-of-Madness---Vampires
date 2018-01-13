@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Blood drain-related deaths -->
+
+  <ROMV_IConsumedASoul.stages.0.label>consumio una alma</ROMV_IConsumedASoul.stages.0.label>
+  <ROMV_IConsumedASoul.stages.0.description>¡Nunca me he sentido tan vivo!</ROMV_IConsumedASoul.stages.0.description>
+
+  <ROMV_ITastedASoul.stages.0.label>Le tomo gusto a una alma</ROMV_ITastedASoul.stages.0.label>
+  <ROMV_ITastedASoul.stages.0.description>¡Verdaderamente un sabor divino!</ROMV_ITastedASoul.stages.0.description>
+
+  <ROMV_IGaveTheKiss.stages.0.label>bebio sangre fresca</ROMV_IGaveTheKiss.stages.0.label>
+  <ROMV_IGaveTheKiss.stages.0.description>Que satisfactorio.</ROMV_IGaveTheKiss.stages.0.description>
+
+  <ROMV_IWasBittenByAVampire.stages.0.label>mordido por un vampiro</ROMV_IWasBittenByAVampire.stages.0.label>
+  <ROMV_IWasBittenByAVampire.stages.0.description>¡Vaya! ¡Qué susto!</ROMV_IWasBittenByAVampire.stages.0.description>
+  <ROMV_IWasBittenByAVampire.stages.1.label>mordido por el maestro</ROMV_IWasBittenByAVampire.stages.1.label>
+  <ROMV_IWasBittenByAVampire.stages.1.description>Le di mi sangre al maestro.</ROMV_IWasBittenByAVampire.stages.1.description>
+
+  <ROMV_KnowGuestDiedOfBloodLoss.stages.0.label>exanguinación justificada</ROMV_KnowGuestDiedOfBloodLoss.stages.0.label>
+  <ROMV_KnowGuestDiedOfBloodLoss.stages.0.description>Un prisionero o invitado culpable fue drenado de sangre. Parecía justificado, pero sigue siendo una forma brutal de irse.</ROMV_KnowGuestDiedOfBloodLoss.stages.0.description>
+  <ROMV_KnowGuestDiedOfBloodLoss.stages.1.label>alguien fue drenado hasta la muerte</ROMV_KnowGuestDiedOfBloodLoss.stages.1.label>
+  <ROMV_KnowGuestDiedOfBloodLoss.stages.1.description>Un prisionero o invitado murió porque la colonia vació toda su sangre fuera de su cuerpo. Fue horrible.</ROMV_KnowGuestDiedOfBloodLoss.stages.1.description>
+
+  <ROMV_KnowColonistDiedOfBloodLoss.stages.0.label>exanguinación justificada</ROMV_KnowColonistDiedOfBloodLoss.stages.0.label>
+  <ROMV_KnowColonistDiedOfBloodLoss.stages.0.description>Un colonista fue drenado de sangre. Parecía justificado, pero sigue siendo una forma brutal de irse.</ROMV_KnowColonistDiedOfBloodLoss.stages.0.description>
+  <ROMV_KnowColonistDiedOfBloodLoss.stages.1.label>colonista drenado hasta la muerte</ROMV_KnowColonistDiedOfBloodLoss.stages.1.label>
+  <ROMV_KnowColonistDiedOfBloodLoss.stages.1.description>Un colonista murió porque la colonia vació toda su sangre fuera de su cuerpo. Fue horrible.</ROMV_KnowColonistDiedOfBloodLoss.stages.1.description>
+
+
+  <!-- Blood Harvesting -->
+
+  <ROMV_KnowGuestBloodHarvested.stages.0.label>la sangre de alguien fue cosechada</ROMV_KnowGuestBloodHarvested.stages.0.label>
+  <ROMV_KnowGuestBloodHarvested.stages.0.description>La colonia tomó sangre de un invitado o prisionero. No es ético, tomar la sangre de alguien cuando no tiene otra opción.</ROMV_KnowGuestBloodHarvested.stages.0.description>
+
+  <ROMV_MyBloodHarvested.stages.0.label>mi sangre fue cosechada</ROMV_MyBloodHarvested.stages.0.label>
+  <ROMV_MyBloodHarvested.stages.0.description>La colonia cosechó sangre de mí. ¡Dios! ¿Qué piensan ellos que soy? ¿Algún tipo de banco de sangre?</ROMV_MyBloodHarvested.stages.0.description>
+
+
+</LanguageData>

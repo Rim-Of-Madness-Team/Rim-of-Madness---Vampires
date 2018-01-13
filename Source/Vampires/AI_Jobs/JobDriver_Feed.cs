@@ -60,7 +60,7 @@ namespace Vampire
         public static IEnumerable<Toil> MakeFeedToils(JobDef job, JobDriver thisDriver, Pawn actor, LocalTargetInfo TargetA, ThoughtDef victimThoughtDef, ThoughtDef actorThoughtDef, float workLeft, Action effect, Func<Pawn, Pawn, bool> stopCondition, bool needsGrapple = true, bool cleansWound = true, bool neverGiveUp = false)
         {
             yield return Toils_Reserve.Reserve(TargetIndex.A);
-            Toil gotoToil = actor?.Faction == TargetA.Thing?.Faction ? Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.ClosestTouch) : Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.Touch);
+            Toil gotoToil = actor?.Faction == TargetA.Thing?.Faction && (!actor.InAggroMentalState && !((Pawn)TargetA.Thing).InAggroMentalState) ? Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.ClosestTouch) : Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.Touch);
             yield return gotoToil;
             Toil grappleToil = new Toil()
             {
@@ -73,6 +73,10 @@ namespace Vampire
                     if (victim != null)
                     {
 
+//                        if (!AllowFeeding(actor, victim))
+//                        {
+//                            actor.jobs.EndCurrentJob(JobCondition.Incompletable);
+//                        }
                         if (actor.InAggroMentalState || victim.InAggroMentalState || victim.Faction != actor.Faction)
                         {
                             if (needsGrapple)
@@ -85,10 +89,6 @@ namespace Vampire
                                     return;
                                 }
                             }
-                        }
-                        if (!AllowFeeding(actor, victim))
-                        {
-                            actor.jobs.EndCurrentJob(JobCondition.Incompletable);
                         }
                         if (actor.IsVampire())
                             VampireBiteUtility.MakeNew(actor, victim);
@@ -234,10 +234,10 @@ namespace Vampire
         }
         
 
-        public static bool AllowFeeding(Pawn feeder, Pawn victim)
-        {
-            return true;
-        }
+//        public static bool AllowFeeding(Pawn feeder, Pawn victim)
+//        {
+//            return victim != null && victim.PositionHeld.IsValid && victim.PositionHeld.IsSunlightSafeFor(feeder);
+//        }
 
         public override bool TryMakePreToilReservations()
         {

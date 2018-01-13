@@ -10,7 +10,7 @@ namespace Vampire
         // RimWorld.Dialog_FormCaravan
         public static void CheckForErrors_Vampires(List<Pawn> pawns, ref bool __result)
         {
-            if (pawns.Any(x => x.IsVampire() && pawns.Any(y => !y.IsVampire())))
+            if (pawns.Any(x => x.IsVampire() && pawns.Any(y => ((y?.RaceProps?.Humanlike ?? false) && !y.IsVampire()))))
             {
                 Messages.Message("ROMV_Caravan_WarningMixedWithVampires".Translate(), MessageTypeDefOf.RejectInput);
                 __result = false;

@@ -1,6 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
 
+  <!-- 12-16-17-->
+  <ROMV_SP_Restricted>Политика солнечного света: ограниченная\n\nЭтот вампир не выйдет на улицу в дневное время, если не призван и не вынужден.</ROMV_SP_Restricted>
+  <ROMV_SP_Relaxed>Политика солнечного света: Расслабленная\n\nЭтот вампир может выйти на улицу в дневное время, когда это необходимо. Этот вариант может помочь, если у вас есть вампир, оказавшийся в солнечном свете.</ROMV_SP_Relaxed>
+
+  <!-- 12-14-17 -->
+  <ROMV_RestAddedTip>Вампиры не могут получить отдых в течение дня и смогут полностью отдохнуть, когда наступает ночь.</ROMV_RestAddedTip>
+  <ROMV_FeedMode_CurrentType>Текущий тип</ROMV_FeedMode_CurrentType>
+  <ROMV_FeedMode_TypeAll>Все гуманоиды</ROMV_FeedMode_TypeAll>
+  <ROMV_FeedMode_TypePrisonersOnly>Только заключенные</ROMV_FeedMode_TypePrisonersOnly>
+
+  <!-- 12-13-17 -->
+  <ROMV_LevelUp>{0} достиг уровня в вампиризме.</ROMV_LevelUp>
+
   <!-- 12-9-17 -->
   <ROMV_SoullessHuskOf>Шелуха {0}</ROMV_SoullessHuskOf>
   <ROMV_AndroidCoolant>Хладагент андроида</ROMV_AndroidCoolant>

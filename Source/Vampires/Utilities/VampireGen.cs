@@ -43,13 +43,11 @@ namespace Vampire
 
         public static void AddFangsHediff(Pawn pawn)
         {
-            BodyPartRecord bpR = pawn.health?.hediffSet?.GetNotMissingParts().FirstOrDefault(x => x.def == BodyPartDefOf.Jaw);
-
-            if (bpR != null && pawn?.VampComp()?.Bloodline?.fangsHediff != null)
-            {
+                BodyPartRecord bpR = pawn.health?.hediffSet?.GetNotMissingParts().FirstOrDefault(x => x.def == BodyPartDefOf.Jaw);
+                if (bpR == null || pawn?.VampComp()?.Bloodline?.fangsHediff == null) return;
                 pawn.health.RestorePart(bpR);
                 pawn.health.AddHediff(pawn.VampComp().Bloodline.fangsHediff, bpR, null);
-            }
+            
         }
 
         public static void AddBloodlineHediff(Pawn pawn)
@@ -93,6 +91,7 @@ namespace Vampire
             {
                 NameTriple caineName = new NameTriple("Caine", "Caine", "Darkfather");
                 pawn.Name = caineName;
+                pawn.gender = Gender.Male;
             }
             pawn.story.hairColor = PawnHairColors.RandomHairColor(pawn.story.SkinColor, 20);
             if (!bloodline.allowsHair)

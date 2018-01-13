@@ -82,7 +82,7 @@ namespace Vampire
             GUI.BeginGroup(rect);
 
             CompVampire compVampire = pawn.GetComp<CompVampire>();
-            if (compVampire != null && compVampire.IsVampire)
+            if (compVampire != null && (compVampire.IsVampire || compVampire.IsGhoul))
             {
                 Rect rect7 = new Rect(CharacterCardUtility.PawnCardSize.x - 105f, 0f, 30f, 30f);
                 TooltipHandler.TipRegion(rect7, new TipSignal("ROMV_CharacterSheet".Translate()));
@@ -91,22 +91,25 @@ namespace Vampire
                     HarmonyPatches.isSwitched = false;
                 }
 
-                Rect rectVampOptions = new Rect(CharacterCardUtility.PawnCardSize.x - 105f, 150f, 30f, 30f);
-                if (compVampire.CurrentSunlightPolicy == SunlightPolicy.Relaxed)
+                if (compVampire.IsVampire)
                 {
-                    TooltipHandler.TipRegion(rectVampOptions, new TipSignal("ROMV_SP_Relaxed".Translate()));
-                    if (Widgets.ButtonImage(rectVampOptions, TexButton.ROMV_SunlightPolicyRelaxed))
+                    Rect rectVampOptions = new Rect(CharacterCardUtility.PawnCardSize.x - 105f, 150f, 30f, 30f);
+                    if (compVampire.CurrentSunlightPolicy == SunlightPolicy.Relaxed)
                     {
-                        compVampire.CurrentSunlightPolicy = SunlightPolicy.Restricted;
+                        TooltipHandler.TipRegion(rectVampOptions, new TipSignal("ROMV_SP_Relaxed".Translate()));
+                        if (Widgets.ButtonImage(rectVampOptions, TexButton.ROMV_SunlightPolicyRelaxed))
+                        {
+                            compVampire.CurrentSunlightPolicy = SunlightPolicy.Restricted;
+                        }
                     }
-                }
-                else
-                {
-                    TooltipHandler.TipRegion(rectVampOptions, new TipSignal("ROMV_SP_Restricted".Translate()));
-                    if (Widgets.ButtonImage(rectVampOptions, TexButton.ROMV_SunlightPolicyRestricted))
+                    else
                     {
-                        compVampire.CurrentSunlightPolicy = SunlightPolicy.Relaxed;
-                    }
+                        TooltipHandler.TipRegion(rectVampOptions, new TipSignal("ROMV_SP_Restricted".Translate()));
+                        if (Widgets.ButtonImage(rectVampOptions, TexButton.ROMV_SunlightPolicyRestricted))
+                        {
+                            compVampire.CurrentSunlightPolicy = SunlightPolicy.Relaxed;
+                        }
+                    }   
                 }
 
                 NameTriple nameTriple = pawn.Name as NameTriple;
@@ -115,7 +118,7 @@ namespace Vampire
                 Text.Font = GameFont.Medium;
                 Widgets.Label(rectSkillsLabel, pawn.Name.ToStringFull);
                 Text.Font = GameFont.Small;
-                string label = VampireUtility.MainDesc(pawn);
+                string label = (compVampire.IsGhoul) ? GhoulUtility.MainDesc(pawn)  : VampireUtility.MainDesc(pawn);
                 Rect rectDesc = new Rect(0f, 45f, rect.width, 60f);
                 Widgets.Label(rectDesc, label);
 
@@ -209,12 +212,11 @@ namespace Vampire
 
         public static string XPTipString(CompVampire compVampire)
         {
-            return compVampire.XP.ToString() + " / " + compVampire.XPTillNextLevel.ToString() + "\n" + "ROMV_XPDesc".Translate();
+            return compVampire.XP.ToString() + " / " + compVampire.XPTillNextLevel.ToString() + "\n" + ((compVampire.IsGhoul) ? "ROMV_XPDescGhoul".Translate() : "ROMV_XPDesc".Translate());
         }
 
         public static void DrawLevelBar(Rect rect, CompVampire compVampire)
         {
-            ////base.DrawOnGUI(rect, maxThresholdMarkers, customMargin, drawArrows, doTooltip);
             if (rect.height > 70f)
             {
                 float num = (rect.height - 70f) / 2f;
@@ -237,8 +239,6 @@ namespace Vampire
 
             Color colorToUse = new Color(1.0f, 0.91f, 0f);
             Widgets.FillableBar(rect3, (float)compVampire.XPTillNextLevelPercent, SolidColorMaterials.NewSolidColorTexture(colorToUse), BaseContent.GreyTex, false);
-            //Widgets.FillableBar(rect3, (float)compVampire.XPTillNextLevelPercent, (Texture2D)AccessTools.Field(typeof(Widgets), "BarFullTexHor").GetValue(null), BaseContent.GreyTex, false);
-            //compVampire.XPTillNextLevelPercent
         }
         #endregion InfoPane
 
@@ -251,6 +251,8 @@ namespace Vampire
         #endregion SkillsPane
 
         #region PowersGUI
+       
+        
         public static void PowersGUIHandler(Rect inRect, CompVampire compVampire, Discipline discipline)
         {
             float buttonXOffset = inRect.x;
@@ -269,23 +271,18 @@ namespace Vampire
                     Rect buttonRect = new Rect(buttonXOffset, rectLabel.yMax, VampButtonSize, VampButtonSize);
                     TooltipHandler.TipRegion(buttonRect, () => ability.LabelCap + "\n\n" + ability.description, 398452); //"\n\n" + "PJ_CheckStarsForMoreInfo".Translate()
 
+                    
+                    Texture2D abilityTex = ability.uiIcon;
+                    bool disabledForGhouls =
+                        compVampire.IsGhoul && (int) compVampire.GhoulHediff.ghoulPower < discipline.Level;
+                    if (disabledForGhouls)
+                        GUI.color = Color.gray;
                     if (compVampire.AbilityPoints == 0 || discipline.Level >= 4)
                     {
-
-                        Widgets.DrawTextureFitted(buttonRect, ability.uiIcon, 1.0f);
+                        Widgets.DrawTextureFitted(buttonRect, abilityTex, 1.0f);
                     }
-                    else if (Widgets.ButtonImage(buttonRect, ability.uiIcon) && compVampire.AbilityUser.Faction == Faction.OfPlayer)
+                    else if (Widgets.ButtonImage(buttonRect, abilityTex) && compVampire.AbilityUser.Faction == Faction.OfPlayer)
                     {
-
-                        //if (compVampire.AbilityPoints < ability.abilityCost)
-                        //{
-                        //    Messages.Message("ROMV_NotEnoughAbilityPoints".Translate(new object[]
-                        //    {
-                        //    compVampire.AbilityPoints,
-                        //    ability.abilityCost
-                        //    }), MessageTypeDefOf.RejectInput);
-                        //    return;
-                        //}
                         if (compVampire.AbilityUser.story != null && compVampire.AbilityUser.story.WorkTagIsDisabled(WorkTags.Violent) && ability.MainVerb.isViolent)
                         {
                             Messages.Message("IsIncapableOfViolenceLower".Translate(new object[]
@@ -294,6 +291,15 @@ namespace Vampire
                             }), MessageTypeDefOf.RejectInput);
                             return;
                         }
+                        if (disabledForGhouls)
+                        {
+                            Messages.Message("ROMV_DomitorVitaeIsTooWeak".Translate(new object[]
+                            {
+                                compVampire.parent.LabelShort
+                            }), MessageTypeDefOf.RejectInput);
+                            return;
+                        }
+
                         discipline.Notify_PointsInvested(1); //LevelUpPower(power);
                         compVampire.Notify_UpdateAbilities();
                         compVampire.AbilityPoints -= 1; //powerDef.abilityPoints;
@@ -330,6 +336,8 @@ namespace Vampire
                     }
                     ++count;
                     buttonXOffset += ButtonSize * 3f + Padding;
+                    if (disabledForGhouls)
+                        GUI.color = Color.white;
                 }
             }
         }

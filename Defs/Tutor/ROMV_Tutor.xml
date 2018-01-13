@@ -1,6 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
+<!-- 1/13/17 -->
+
+  <ConceptDef>
+    <defName>ROMV_VampDiablerie</defName>
+    <label>Vampires: Diablerie</label>
+    <priority>50</priority>
+    <helpText>Diablerie is when one vampire drains another vampire of not just all its vitae, but its very soul. If the victim had a lower generation than the attacker, the consumer will lower its generation to match the generation of the soul it devoured. This is the only way to further empower your vampires.</helpText>
+  </ConceptDef>
+
+  <ConceptDef>
+    <defName>ROMV_VampGenerations</defName>
+    <label>Vampires: Generations</label>
+    <priority>50</priority>
+    <helpText>Vampires have a long and sordid history that extends back to the very first vampire. Generations represent how far removed a vampire is from the first vampire. The higher the number, the less powerful the vampiric curse. The only way to lower one's generation and become more powerful is to commit Diablerie.</helpText>
+  </ConceptDef>
+  
+
+<!-- 12/26/17 -->
+
+  <ConceptDef>
+    <defName>ROMV_GhoulsBloodBond</defName>
+    <label>Vampires: Blood Bond</label>
+    <priority>50</priority>
+    <helpText>If a drinker tastes vitae from the same vampire on three seperate nights, they will become blood bonded to the vampire. They become absolutely loyal to their regnant (master), and they become immune to domination powers from other vampires. If a vampire does not feed them any vitae over a season, they will lose their bond.</helpText>
+  </ConceptDef>
+  
+  <ConceptDef>
+    <defName>ROMV_Ghouls</defName>
+    <label>Vampires: Ghouls</label>
+    <priority>50</priority>
+    <helpText>Ghouls are mortals that possess both blood and vampiric vitae. Once given vitae from a domitor (master), they can resist damage and can learn vampiric abilities. After a few seasons without vitae, Ghouls enter withdrawal and lose their abilities. Beware -- Ghouls without vitae become quite violent.</helpText>
+  </ConceptDef>  
+
   <ConceptDef>
     <defName>ROMV_Vampirism</defName>
     <label>Vampires: Vampirism</label>

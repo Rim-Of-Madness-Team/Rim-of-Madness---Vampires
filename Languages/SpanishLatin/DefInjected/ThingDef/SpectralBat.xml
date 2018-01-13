@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_BatSpectralRace.label>murciélago espectral</ROMV_BatSpectralRace.label>
+  <ROMV_BatSpectralRace.description>Una criatura voladora fantasmal que se asemeja a un murciélago vampiro.</ROMV_BatSpectralRace.description>
+  <!-- Leather Amount: 0 -->
+  <ROMV_BatSpectralRace_Meat.label>carne de murciélago espectral</ROMV_BatSpectralRace_Meat.label>
+  <ROMV_BatSpectralRace_Meat.description>carne de murciélago espectral</ROMV_BatSpectralRace_Meat.description>
+  <ROMV_BatSpectralRace_Corpse.label>cadáver de murciélago espectral</ROMV_BatSpectralRace_Corpse.label>
+  <ROMV_BatSpectralRace_Corpse.description>cadáver de murciélago espectral</ROMV_BatSpectralRace_Corpse.description>
+
+
+</LanguageData>

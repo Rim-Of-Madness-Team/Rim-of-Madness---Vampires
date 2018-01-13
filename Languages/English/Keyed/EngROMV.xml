@@ -1,8 +1,54 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
 
+<!-- 1-13-18 -->
+<ROMV_HI_Pain>Pain: x{0}</ROMV_HI_Pain>
+<ROMV_HI_Senses>Senses: +{0}</ROMV_HI_Senses>
+<ROMV_HI_Vigor>Vigor: +{0}</ROMV_HI_Vigor>
+
+<!-- 1-4-18 -->
+<ROMV_LevelUpGhoul>{0} has gained a level in ghoul disciplines.</ROMV_LevelUpGhoul>
+
+<!-- 12-24-17-->
+
+<ROMV_LostGhoulPowers>As {0} has no vitae, HE has lost HIS ghoul abilities.</ROMV_LostGhoulPowers>
+<ROMV_AttemptedDiablerie>{0} attempted Diablerie</ROMV_AttemptedDiablerie>
+<ROMV_GhoulSheet>Ghoul Skill Sheet</ROMV_GhoulSheet>
+<ROMV_XPDescGhoul>Ghouls gain experience points from performing all manner of jobs around the colony. However, they gain XP at half the rate that vampires do.</ROMV_XPDescGhoul>
+<ROMV_DomitorVitaeIsTooWeak>{0}'s vitae is too weak to allow learning higher disciplines.</ROMV_DomitorVitaeIsTooWeak>
+<ROMV_GhoulPower_Modern>Modern</ROMV_GhoulPower_Modern>
+<ROMV_GhoulPower_Old>Old</ROMV_GhoulPower_Old>
+<ROMV_GhoulPower_Ancient>Ancient</ROMV_GhoulPower_Ancient>
+<ROMV_GhoulPower_Primeval>Primeval</ROMV_GhoulPower_Primeval>
+<ROMV_GhoulDesc>{0} ghoul of the {1} bloodline.</ROMV_GhoulDesc>
+<ROMV_GhoulVitaeDesc>Ghouls possess both mortal blood and vampiric vitae. Like with vampires, vitae is used to fuel abilities. Ghouls will lose one point of vitae per season. Special ghouls, known as revenants, manufacture their own vitae, and gain one vitae every two days.</ROMV_GhoulVitaeDesc>
+<ROMV_CreateGhoul>Create Ghoul</ROMV_CreateGhoul>
+<ROMV_GiveVitae>Give vitae</ROMV_GiveVitae>
+<ROMV_HI_GhoulImmunities>Prevents: aging effects</ROMV_HI_GhoulImmunities>
+<ROMV_BondStage_Thrall>Stage III (Thrall)</ROMV_BondStage_Thrall>
+<ROMV_BondStage_SecondTaste>Stage II (Second drink)</ROMV_BondStage_SecondTaste>
+<ROMV_BondStage_FirstTaste>Stage I (First drink)</ROMV_BondStage_FirstTaste>
+<ROMV_BondStage_None>Unbonded</ROMV_BondStage_None>
+<ROMV_HI_BondStage>Blood Bond Stage:</ROMV_HI_BondStage>
+<ROMV_HI_Ghoul>Ghoul</ROMV_HI_Ghoul>
+<ROMV_HI_GhoulDomitor>Domitor: {0}</ROMV_HI_GhoulDomitor>
+<ROMV_HI_GhoulRevenant>Revenant</ROMV_HI_GhoulRevenant>
+<ROMV_HI_GhoulRevenantDesc>Revenants are hereditary ghouls capable of generating their own vitae from their blood over time.</ROMV_HI_GhoulRevenantDesc>
+
+<ROMV_BloodBondStrained>{0} has weakened their blood bond with {1}.</ROMV_BloodBondStrained>
+<ROMV_BloodBondImproved>{0} has strengthened a blood bond with {1}.</ROMV_BloodBondImproved>
+
+<ROMV_FailedToAdjustBondStage>{0}'s system rejected the bond attempt.</ROMV_FailedToAdjustBondStage>
+<ROMV_FailedToAdjustBondStageLabel>Bond Failed</ROMV_FailedToAdjustBondStageLabel>
+<ROMV_FailedToAdjustBondStageDesc>{0}'s system is still adjusting to the last load of vitae. Perhaps given a little more time, a day or so, then {0}'s body would be ready to strengthen the bond.</ROMV_FailedToAdjustBondStageDesc>
+<ROMV_FailedToAdjustBondStageDescTwo>{0}'s system rejected starting a blood bond with {1}. Currently, {0} still has some bond remaining with {2}, and cannot bond with another. For each stage of bonding, at least a season must pass for the effects of the bond to fade away.</ROMV_FailedToAdjustBondStageDescTwo>
+
+<ROMV_BecomeAGhoul>{0} has become a ghoul.</ROMV_BecomeAGhoul>
+
+<ROMV_BloodBondFormed>{0} is now a thrall of {1}, after forging a new blood bond.</ROMV_BloodBondFormed>
+
 <!-- 12-16-17-->
-<ROMV_SP_Restricted>Sunlight Policy: Restricted\n\nThis vampire will not go outdoors during daylight hours unless drafted and forced to do so.</ROMV_SP_Restricted>
+<ROMV_SP_Restricted>Sunlight Policy: Restricted\coden\nThis vampire will not go outdoors during daylight hours unless drafted and forced to do so.</ROMV_SP_Restricted>
 <ROMV_SP_Relaxed>Sunlight Policy: Relaxed\n\nThis vampire may go outdoors during daylight hours when necessary. This option may help if you have a vampire trapped in sunlight.</ROMV_SP_Relaxed>
 
 <!-- 12-14-17 -->
@@ -36,7 +82,7 @@
 <!-- 11-4-17 x2-->
 <ROMV_HI_UnusedCapacities>NAME is one with the dead. HISCAP corpse has no need for most bodily functions. HECAP CAN still force them to function, to pass for being one of the living or when absolutely necessary.</ROMV_HI_UnusedCapacities>
 <ROMV_HI_Unused>Unused</ROMV_HI_Unused>
-<ROMV_HI_Immunities>Prevents: disease, infections, temperature effects.</ROMV_HI_Immunities>
+<ROMV_HI_Immunities>Prevents: aging effects, disease,\ninfections, temperature effects.</ROMV_HI_Immunities>
 <ROMV_HI_Vampirism>Vampirism</ROMV_HI_Vampirism>
 
 <!-- 11-4-17 -->

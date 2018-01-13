@@ -29,6 +29,7 @@
       <SecondsToRecharge>200.0</SecondsToRecharge>
       <range>24</range>
       <burstShotCount>1</burstShotCount>
+	 <stopBurstWithoutLos>false</stopBurstWithoutLos>
       <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
       <soundCast>ROMV_AbilityCastSound_Blood</soundCast>
       <muzzleFlashScale>20</muzzleFlashScale>

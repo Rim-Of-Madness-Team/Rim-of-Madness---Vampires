@@ -16,7 +16,6 @@ namespace Vampire
         private string maxVampiresBuf = "";
         private int curVampires = 0;
         private IntRange generationRange = new IntRange(10, 13);
-        private int maxGeneration = 15;
         private bool spawnInCoffins = false;
         
 

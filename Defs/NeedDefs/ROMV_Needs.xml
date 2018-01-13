@@ -16,5 +16,14 @@
     <freezeWhileSleeping>true</freezeWhileSleeping>
     <showForCaravanMembers>true</showForCaravanMembers>
   </NeedDef>
-
+  
+    <NeedDef ParentName="ROMV_DrugAddictionNeedBase">
+    <defName>ROMV_Chemical_Vitae</defName>
+    <needClass>Need_Chemical</needClass>
+    <label>Thirst for Vitae</label>
+    <description>One tasting of vampiric vitae is never enough, and now this individual needs to regularly consume vampiric blood to avoid violent withdrawal symptoms.</description>
+	<fallPerDay>0.1</fallPerDay>
+    <listPriority>50</listPriority>
+  </NeedDef>
+  
 </Defs>

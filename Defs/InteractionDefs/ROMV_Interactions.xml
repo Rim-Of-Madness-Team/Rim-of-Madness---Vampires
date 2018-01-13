@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!-- Random social interactions -->
+
+  
+  <InteractionDef>
+    <defName>ROMV_VampireDiablerieAttempt</defName>
+    <label>attempted to consume my soul (Diablerie)</label>
+    <workerClass>Vampire.InteractionWorker_Bonding</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/AttemptDiablerie</symbol>
+    <recipientThought>ROMV_VampireDiablerieAttemptThought</recipientThought>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>100</initiatorXpGainAmount>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>logentry->Tried to consume [other_nameShortIndef]'s soul.</li>
+      </rulesStrings>
+    </logRulesInitiator>
+    <logRulesRecipient>
+      <rulesStrings>
+        <li>logentry->[other_nameShortIndef] tried to consume my soul.</li>
+      </rulesStrings>
+    </logRulesRecipient>
+  </InteractionDef>
+  
+  <ThoughtDef>
+    <defName>ROMV_VampireDiablerieAttemptThought</defName>
+    <thoughtClass>Thought_MemorySocial</thoughtClass>
+    <durationDays>30</durationDays>
+    <stackLimit>300</stackLimit>
+    <stackLimitPerPawn>1</stackLimitPerPawn>
+    <stackedEffectMultiplier>0.88</stackedEffectMultiplier>
+    <stages>
+      <li>
+		<label>diablerie attempted on me</label>
+		<description>Some MONSTER tried to consume my soul!</description>
+		<baseMoodEffect>-20</baseMoodEffect>
+        <baseOpinionOffset>-500</baseOpinionOffset>
+      </li>
+    </stages>
+  </ThoughtDef>
+  
+  
+  
+  <InteractionDef>
+    <defName>ROMV_VampireUnbondedDrink</defName>
+    <label>shared vampiric blood (vitae)</label>
+    <workerClass>Vampire.InteractionWorker_Bonding</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/BloodBonding</symbol>
+    <recipientThought>ROMV_BloodBondSocialBoost</recipientThought>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>30</initiatorXpGainAmount>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>logentry->Gave blood to [other_nameShortIndef].</li>
+      </rulesStrings>
+    </logRulesInitiator>
+    <logRulesRecipient>
+      <rulesStrings>
+        <li>logentry->Drank blood from [other_nameShortIndef].</li>
+      </rulesStrings>
+    </logRulesRecipient>
+  </InteractionDef>
+  
+  
+  <InteractionDef>
+    <defName>ROMV_VampireBondedDrink</defName>
+    <label>shared vampiric blood (vitae)</label>
+    <workerClass>Vampire.InteractionWorker_Bonding</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/BloodBonding</symbol>
+    <recipientThought>ROMV_BloodBondEnslavement</recipientThought>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>30</initiatorXpGainAmount>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>logentry->Gave blood to [other_nameShortIndef].</li>
+      </rulesStrings>
+    </logRulesInitiator>
+    <logRulesRecipient>
+      <rulesStrings>
+        <li>logentry->Drank blood from [other_nameShortIndef].</li>
+      </rulesStrings>
+    </logRulesRecipient>
+  </InteractionDef>
+  
+  
+    <ThoughtDef>
+    <defName>ROMV_BloodBondSocialBoost</defName>
+    <thoughtClass>Thought_MemorySocial</thoughtClass>
+    <durationDays>15</durationDays>
+    <stackLimit>300</stackLimit>
+    <stackLimitPerPawn>1</stackLimitPerPawn>
+    <stackedEffectMultiplier>0.88</stackedEffectMultiplier>
+    <stages>
+      <li>
+        <label>drank their blood</label>
+        <baseOpinionOffset>15</baseOpinionOffset>
+      </li>
+    </stages>
+  </ThoughtDef>
+  
+    <ThoughtDef>
+    <defName>ROMV_BloodBondEnslavement</defName>
+    <thoughtClass>Thought_MemorySocial</thoughtClass>
+    <durationDays>15</durationDays>
+    <stackLimit>300</stackLimit>
+    <stackLimitPerPawn>1</stackLimitPerPawn>
+    <stackedEffectMultiplier>0.88</stackedEffectMultiplier>
+    <stages>
+      <li>
+        <label>blood bond</label>
+        <baseOpinionOffset>80</baseOpinionOffset>
+      </li>
+    </stages>
+  </ThoughtDef>  
+  
+  <InteractionDef>
+    <defName>ROMV_VampireLore</defName>
+    <label>shared vampiric lore</label>
+    <workerClass>Vampire.InteractionWorker_VampiricLore</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/ShareVampireLore</symbol>
+    <recipientThought>ROMV_VampireLoreThought</recipientThought>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>30</initiatorXpGainAmount>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>logentry->Shared vampiric knowledge with [other_nameShortIndef].</li>
+      </rulesStrings>
+    </logRulesInitiator>
+    <logRulesRecipient>
+      <rulesStrings>
+        <li>logentry->Learned vampiric knowledge from [other_nameShortIndef].</li>
+      </rulesStrings>
+    </logRulesRecipient>
+  </InteractionDef>
+  
+      <ThoughtDef>
+    <defName>ROMV_VampireLoreThought</defName>
+    <thoughtClass>Thought_MemorySocial</thoughtClass>
+    <durationDays>15</durationDays>
+    <stackLimit>300</stackLimit>
+    <stackLimitPerPawn>2</stackLimitPerPawn>
+    <stackedEffectMultiplier>0.88</stackedEffectMultiplier>
+    <stages>
+      <li>
+        <label>acquired vampiric knowledge</label>
+		<description>I feel more experienced already. What other secrets could there be, I wonder?</description>
+		<baseMoodEffect>5</baseMoodEffect>
+        <baseOpinionOffset>5</baseOpinionOffset>
+      </li>
+    </stages>
+  </ThoughtDef>  
+  
+</Defs>

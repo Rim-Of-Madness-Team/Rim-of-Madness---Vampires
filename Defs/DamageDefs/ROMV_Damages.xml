@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
-  <DamageDef Name="LocalInjuryBase" Abstract="True">
+  <DamageDef Name="ROMV_LocalInjuryBase" Abstract="True">
     <workerClass>DamageWorker_AddInjury</workerClass>
   </DamageDef>
 
 	<!-- Surgical cut: Makes it possible to remove inner organs without harming outer body parts -->
-	<DamageDef ParentName="LocalInjuryBase">
+	<DamageDef ParentName="ROMV_LocalInjuryBase">
 		<defName>ROMV_Drain</defName>
 		<label>drain</label>
     <externalViolence>true</externalViolence>

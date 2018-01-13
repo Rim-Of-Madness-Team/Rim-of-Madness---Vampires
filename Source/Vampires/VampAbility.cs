@@ -1,6 +1,8 @@
-﻿using System.Text;
+﻿using System.Linq;
+using System.Text;
 using Verse;
 using AbilityUser;
+using RimWorld;
 using UnityEngine;
 
 namespace Vampire
@@ -17,9 +19,22 @@ namespace Vampire
 
         public override void PostAbilityAttempt()
         {
-            //Log.Message("VampAbility :: PostAbilityAttempt Called");
             base.PostAbilityAttempt();
-            Pawn.needs.TryGetNeed<Need_Blood>().AdjustBlood(-AbilityDef.bloodCost);
+
+            //Ghouls lose their CurGhoulVitaePoints
+            var bloodNeed = Pawn.needs.TryGetNeed<Need_Blood>();
+            if (Pawn.IsGhoul())
+                bloodNeed.CurGhoulVitaePoints -= AbilityDef.bloodCost;
+            else
+                bloodNeed.AdjustBlood(-AbilityDef.bloodCost);
+
+            //Ghouls suffer withdrawal without any vitae in their systems.
+            if (Pawn.IsGhoul() && bloodNeed.CurGhoulVitaePoints <= 0)
+            {
+                var need = Pawn.needs.AllNeeds.FirstOrDefault((Need x) => x.def == VampDefOf.ROMV_Chemical_Vitae);
+                if (need != null)
+                    need.CurLevel = 0f;
+            }       
         }
 
         /// <summary>
@@ -52,9 +67,35 @@ namespace Vampire
 
         public override bool ShouldShowGizmo()
         {
-            if (Find.Selector.NumSelected == 1 && (this?.AbilityDef?.MainVerb?.hasStandardCommand ?? false) && (!this?.Pawn?.Downed ?? false) && (!this?.Pawn?.Dead ?? false))
+            if (Find.Selector.NumSelected == 1 && (this?.AbilityDef?.MainVerb?.hasStandardCommand ?? false) &&
+                (!this?.Pawn?.Downed ?? false) && (!this?.Pawn?.Dead ?? false) && PassesAbilitySpecialCases())
+            {
                 return true;
+                
+            }
             return false;
+        }
+
+        public bool PassesAbilitySpecialCases()
+        {
+            if (this.AbilityDef == null) 
+                return false;
+            var o = this.Pawn;
+            if (o != null && (!o.IsVampire() && !o.IsGhoul()))
+                return false;
+            if (this.AbilityDef == VampDefOf.ROMV_RegenerateLimb)
+            {
+                return this.AbilityUser?.AbilityUser?.health?.hediffSet?.hediffs.Any(x => x is Hediff_MissingPart) ?? false;
+            }
+            else if (this.AbilityDef == VampDefOf.ROMV_VampiricHealing)
+            {
+                return !(this.AbilityUser?.AbilityUser?.health?.summaryHealth?.SummaryHealthPercent > 0.99f);
+            }
+            else if (this.AbilityDef == VampDefOf.ROMV_VampiricHealingScars)
+            {
+                return this.AbilityUser?.AbilityUser?.health?.hediffSet?.hediffs.Any(x => x.IsOld()) ?? false;
+            }
+            return true;
         }
 
         public override bool CanCastPowerCheck(AbilityContext context, out string reason)
@@ -64,9 +105,21 @@ namespace Vampire
                 reason = "";
                 if (Def != null && Def is VitaeAbilityDef vampDef)
                 {
-                    if (Pawn.BloodNeed().CurBloodPoints < vampDef.bloodCost)
+                    if (Pawn.IsVampire())
                     {
-                        reason = "ROMV_NotEnoughBloodPoints".Translate(vampDef.bloodCost);
+                        if (Pawn.BloodNeed().CurBloodPoints < vampDef.bloodCost)
+                        {
+                            reason = "ROMV_NotEnoughBloodPoints".Translate(vampDef.bloodCost);
+                            return false;
+                        }   
+                    }
+                    else if (Pawn.IsGhoul())
+                    {
+                        if (Pawn.BloodNeed().CurGhoulVitaePoints < vampDef.bloodCost)
+                        {
+                            reason = "ROMV_NotEnoughBloodPoints".Translate(vampDef.bloodCost);
+                            return false;
+                        }  
                     }
                 }
                 return true;
