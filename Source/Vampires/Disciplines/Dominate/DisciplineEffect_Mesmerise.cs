@@ -1,4 +1,7 @@
-﻿using Verse;
+﻿using System.Linq;
+using RimWorld;
+using Verse;
+using Verse.AI;
 
 namespace Vampire
 {
@@ -9,6 +12,14 @@ namespace Vampire
             base.Effect(target);
             if (target.Faction == CasterPawn.Faction) //To avoid throwing red errors
                 target.ClearMind();
+            
+            //See Issue 5: Make sure all pawns know that the target is no longer a threat, to force them to re-evaluate attacking.
+            //Useful when clearing beserk status.
+            foreach (Pawn p in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Colonists.Where(p => p.mindState.meleeThreat == target))
+            {
+                p.mindState.meleeThreat = null;
+                p.jobs.EndCurrentJob(JobCondition.InterruptForced);
+            }
         }
     }
 }

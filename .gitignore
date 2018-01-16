@@ -3,5 +3,10 @@ PublishedFileId.txt
 .idea/
 *.DotSettings
 Textures/Things/Pawn/Gargoyles/Heads.zip
-[Dd]ependencies/
 RimworldModReleaseTool.exe
+
+Deployer\.exe
+Source/Dependencies/CompAnimated.dll
+Source/Dependencies/0Harmony.dll
+Source/Dependencies/0JecsTools.dll
+Source/Dependencies/AbilityUser.dll
