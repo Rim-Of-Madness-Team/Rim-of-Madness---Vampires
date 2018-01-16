@@ -3,6 +3,7 @@
 
   <!-- Misc -->
 
+  <ROMV_GotoSafety.reportString>перемещается.</ROMV_GotoSafety.reportString>
   <ROMV_DigAndHide.reportString>отчаянно копает дыру.</ROMV_DigAndHide.reportString>
   <ROMV_Feed.reportString>Питается TargetA.</ROMV_Feed.reportString>
   <ROMV_Sip.reportString>Питается TargetA.</ROMV_Sip.reportString>
@@ -13,6 +14,7 @@
   <ROMV_Diablerie.reportString>Пытается поглотить душу TargetA.</ROMV_Diablerie.reportString>
   <ROMV_ConsumeBlood.reportString>Потребляет TarjetA.</ROMV_ConsumeBlood.reportString>
   <ROMV_Embrace.reportString>Обхватывает TargetA.</ROMV_Embrace.reportString>
+  <ROMV_GhoulBloodBond.reportString>питается витэ TargetA.</ROMV_GhoulBloodBond.reportString>
   <ROMV_EnterTorpor.reportString>входит в состояние оцепенения.</ROMV_EnterTorpor.reportString>
 
 

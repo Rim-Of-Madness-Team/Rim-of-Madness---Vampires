@@ -36,5 +36,8 @@
   <ROMV_MyBloodHarvested.stages.0.label>Моя кровь собрана</ROMV_MyBloodHarvested.stages.0.label>
   <ROMV_MyBloodHarvested.stages.0.description>Колония собрала у меня кровь. Боже! Что они думают, что я? Какой-то банк крови?</ROMV_MyBloodHarvested.stages.0.description>
 
+  <ROMV_AttemptedToConsumeMySoul.stages.0.label>пытался поглотить мою душу</ROMV_AttemptedToConsumeMySoul.stages.0.label>
+  <ROMV_AttemptedToConsumeMySoul.stages.0.description>Один МОНСТР пытался поглотить мою душу!</ROMV_AttemptedToConsumeMySoul.stages.0.description>
+
 
 </LanguageData>

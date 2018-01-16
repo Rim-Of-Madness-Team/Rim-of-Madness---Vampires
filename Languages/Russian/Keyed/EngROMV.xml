@@ -1,6 +1,52 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
 
+  <!-- 1-13-18 -->
+  <ROMV_HI_Pain>Боль: x{0}</ROMV_HI_Pain>
+  <ROMV_HI_Senses>Чувства: +{0}</ROMV_HI_Senses>
+  <ROMV_HI_Vigor>Сила: +{0}</ROMV_HI_Vigor>
+
+  <!-- 1-4-18 -->
+  <ROMV_LevelUpGhoul>{0} достиг уровня в дисциплинах гуля.</ROMV_LevelUpGhoul>
+
+  <!-- 12-24-17-->
+
+  <ROMV_LostGhoulPowers>Поскольку {0} не имеет витэ, HE потерял(а) свои способности гуля.</ROMV_LostGhoulPowers>
+  <ROMV_AttemptedDiablerie>{0} попытался совершить Диаблери</ROMV_AttemptedDiablerie>
+  <ROMV_GhoulSheet>Лист навыков гуля</ROMV_GhoulSheet>
+  <ROMV_XPDescGhoul>Гули получают очки опыта от выполнения всех видов работы вблизи колонии. Тем не менее, они получают XP вдвое меньше, чем вампиры.</ROMV_XPDescGhoul>
+  <ROMV_DomitorVitaeIsTooWeak>Витэ {0} слишком слаба, чтобы учиться более высоким дисциплинам.</ROMV_DomitorVitaeIsTooWeak>
+  <ROMV_GhoulPower_Modern>Современный</ROMV_GhoulPower_Modern>
+  <ROMV_GhoulPower_Old>Старый</ROMV_GhoulPower_Old>
+  <ROMV_GhoulPower_Ancient>Древний</ROMV_GhoulPower_Ancient>
+  <ROMV_GhoulPower_Primeval>Первозданный</ROMV_GhoulPower_Primeval>
+  <ROMV_GhoulDesc>Гуль {0} из родословной {1}.</ROMV_GhoulDesc>
+  <ROMV_GhoulVitaeDesc>Гули обладают как кровью смертных, так и витэ вампиров Как и с вампирами, витэ используется для того, чтобы подпитывать способности. Гули теряют одно очко за сезон. Специальные гули, известные как ревенанты, производят свое собственное витэ и получают одно витэ каждые два дня.</ROMV_GhoulVitaeDesc>
+  <ROMV_CreateGhoul>Создать гуля</ROMV_CreateGhoul>
+  <ROMV_GiveVitae>Витэ гуля</ROMV_GiveVitae>
+  <ROMV_HI_GhoulImmunities>Предотвращает: эффекты старения</ROMV_HI_GhoulImmunities>
+  <ROMV_BondStage_Thrall>стадия III (Порабощение)</ROMV_BondStage_Thrall>
+  <ROMV_BondStage_SecondTaste>стадия II (Второй глоток)</ROMV_BondStage_SecondTaste>
+  <ROMV_BondStage_FirstTaste>стадия I (Первый глоток)</ROMV_BondStage_FirstTaste>
+  <ROMV_BondStage_None>Несвязанный</ROMV_BondStage_None>
+  <ROMV_HI_BondStage>Стадия кровной связи:</ROMV_HI_BondStage>
+  <ROMV_HI_Ghoul>Гуль</ROMV_HI_Ghoul>
+  <ROMV_HI_GhoulDomitor>Укротитель: {0}</ROMV_HI_GhoulDomitor>
+  <ROMV_HI_GhoulRevenant>Ревенант</ROMV_HI_GhoulRevenant>
+  <ROMV_HI_GhoulRevenantDesc>Ревенанты - наследственные гули, способные генерировать своё собственное витэ из их крови с течением времени.</ROMV_HI_GhoulRevenantDesc>
+
+  <ROMV_BloodBondStrained>{0} ослабляет их кровную связь с {1}.</ROMV_BloodBondStrained>
+  <ROMV_BloodBondImproved>{0} укрепил кровную связь с {1}.</ROMV_BloodBondImproved>
+
+  <ROMV_FailedToAdjustBondStage>Система {0} отклонила попытку создания связи.</ROMV_FailedToAdjustBondStage>
+  <ROMV_FailedToAdjustBondStageLabel>Связь провалена</ROMV_FailedToAdjustBondStageLabel>
+  <ROMV_FailedToAdjustBondStageDesc>Система {0} все еще приспосабливается к последней загрузки витэ. Возможно, надо дать немного больше времени, день или около того, тогда тело {0} будет готово укрепить связь.</ROMV_FailedToAdjustBondStageDesc>
+  <ROMV_FailedToAdjustBondStageDescTwo>Система {0} отвергла начало кровной связи с {1}. В настоящее время {0} все еще имеет некоторую связь, оставшуюся с {2}, и не может связывать себя с другим. Для каждого этапа связывания должен пройти, по крайней мере сезон, чтобы последствия связи исчезли.</ROMV_FailedToAdjustBondStageDescTwo>
+
+  <ROMV_BecomeAGhoul>{0} превратился в гуля.</ROMV_BecomeAGhoul>
+
+  <ROMV_BloodBondFormed>{0} теперь является рабом {1}, после выковывания новой кровной связи.</ROMV_BloodBondFormed>
+
   <!-- 12-16-17-->
   <ROMV_SP_Restricted>Политика солнечного света: ограниченная\n\nЭтот вампир не выйдет на улицу в дневное время, если не призван и не вынужден.</ROMV_SP_Restricted>
   <ROMV_SP_Relaxed>Политика солнечного света: Расслабленная\n\nЭтот вампир может выйти на улицу в дневное время, когда это необходимо. Этот вариант может помочь, если у вас есть вампир, оказавшийся в солнечном свете.</ROMV_SP_Relaxed>
@@ -67,13 +113,13 @@
   <ROMV_XPDesc>Вампиры получают очки опыта от выполнения всех видов работ в колонии.</ROMV_XPDesc>
 
   <!-- Float Menus -->
-  <ROMV_Feed>Питается {0}</ROMV_Feed>
+  <ROMV_Feed>Питаться {0}</ROMV_Feed>
   <ROMV_LethalWarning>(Летально)</ROMV_LethalWarning>
-  <ROMV_Sip>Пьет кровь {0}</ROMV_Sip>
-  <ROMV_FeedVampire>Питается {0} (Создает кровавые узы)</ROMV_FeedVampire>
-  <ROMV_Diablerie>Колдует над {0} (Поглащает душу)</ROMV_Diablerie>
+  <ROMV_Sip>Пить кровь {0}</ROMV_Sip>
+  <ROMV_FeedVampire>Питаться {0} (Создает кровные узы)</ROMV_FeedVampire>
+  <ROMV_Diablerie>Колдовать над {0} (Поглощает душу)</ROMV_Diablerie>
   <ROMV_DiablerieNoBenefit>(Нет пользы: высшее поколение)</ROMV_DiablerieNoBenefit>
-  <ROMV_Embrace>Обращает {0} (Дает вампиризм)</ROMV_Embrace>
+  <ROMV_Embrace>Обратить {0} (Дает вампиризм)</ROMV_Embrace>
   <ROMV_CannotEmbrace>Нельзя обратить {0}</ROMV_CannotEmbrace>
   <ROMV_EnterTorpor>Войти в состояние оцепенения (Сон на неопределенный срок)</ROMV_EnterTorpor>
 
@@ -84,7 +130,7 @@
   <ROMV_Alert_StarvingVampire>Голодный вампир</ROMV_Alert_StarvingVampire>
   <ROMV_Alert_StarvingVampireDesc>Есть голодающие. Если их быстро не покормить, можно разбудить их внутреннего зверя.\n\nЭто голодные вампиры:\n{0}\n\nНамек! Щелкните правой кнопкой мыши на гроб, чтобы ввести вампира в состояние оцепенения, не позволяя им превратиться в зверя.</ROMV_Alert_StarvingVampireDesc>
   <ROMV_Alert_VampireInTheSun>Вампир на солнечном свете</ROMV_Alert_VampireInTheSun>
-  <ROMV_Alert_VampireInTheSunDesc>Есть вампиры, которые находятся под прямыми солнечными лучами. Обязательно отправте их быстро под крышу, прежде чем солнце сожжет их в пепел.\n\nЭти вампиры находятся на солнечном свете:\n{0}</ROMV_Alert_VampireInTheSunDesc>
+  <ROMV_Alert_VampireInTheSunDesc>Есть вампиры, которые находятся под прямыми солнечными лучами. Обязательно отправьте их быстро под крышу, прежде чем солнце сожжет их в пепел.\n\nЭти вампиры находятся на солнечном свете:\n{0}</ROMV_Alert_VampireInTheSunDesc>
 
   <!-- Messages -->
   <ROMV_Caravan_WarningMixedWithVampires>Сначала поместите вампиров в гробы или отправьте караван-вампиров.</ROMV_Caravan_WarningMixedWithVampires>
@@ -133,5 +179,8 @@
   <ROMV_ChanceOf>{0} вероятность</ROMV_ChanceOf>
   <ROMV_UnknownBloodline>неизвестную родословную</ROMV_UnknownBloodline>
   <ROMV_StartingVampiresSummary>{0} будет {1} генерировать {2} вампира(ов) {3}.</ROMV_StartingVampiresSummary>
+  <!-- Start with 3 10th-13th generation Tremere vampires in coffins -->
+
+  <ROMV_LimbRegen>{0} {1} был регенерирован.</ROMV_LimbRegen>
 
 </LanguageData>

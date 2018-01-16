@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using RimWorld;
 using Verse;
 using RimWorld.Planet;
 
@@ -24,7 +25,7 @@ namespace Vampire
         {
             if (idealGenerationOfChilde == -1)
             {
-                idealGenerationOfChilde = childe?.VampComp()?.Generation == -1? Rand.Range(10,13) : childe?.VampComp()?.Generation ?? Rand.Range(10, 13);
+                idealGenerationOfChilde = GetNewlySpawnedVampireGeneration(childe);
             }
 
             if (!ActiveVampires.NullOrEmpty() && ActiveVampires?.FindAll(x => x.VampComp() is CompVampire v &&
@@ -34,6 +35,31 @@ namespace Vampire
             }
             List<Pawn> vampsGen = TryGeneratingBloodline(childe, bloodline);
             return vampsGen.FirstOrDefault(x => x?.VampComp()?.Generation == idealGenerationOfChilde - 1);
+        }
+
+        private int GetNewlySpawnedVampireGeneration(Pawn childe)
+        {
+            if (childe?.VampComp()?.Generation != -1) return childe?.VampComp()?.Generation ?? Rand.Range(10, 13);
+            
+            var result = -1;
+            if (Rand.Value < 0.1)
+            {
+                result = Rand.Range(7, 9);
+                if (childe.Spawned && childe.Faction != Faction.OfPlayerSilentFail)
+                {
+                    Find.LetterStack.ReceiveLetter("ROMV_PowerfulVampireLabel".Translate(),
+                    "ROMV_PowerfulVampireDesc".Translate(new object[]
+                    {
+                        childe.LabelShort,
+                        HediffVampirism.AddOrdinal(result),
+                    }), LetterDefOf.ThreatSmall, childe, null);
+                }
+                //Log.Message("Vampires :: Spawned " + result + " generaton vampire.");
+                return result;
+            }
+            result = Rand.Range(10, 13);
+            Log.Message("Vampires :: Spawned " + result + " generaton vampire.");                
+            return result;
         }
 
         public List<Pawn> TryGeneratingBloodline(Pawn childe, BloodlineDef bloodline)
