@@ -17,6 +17,8 @@
 			<damageToSoak>2000</damageToSoak>
 			<damageTypesToExclude>
 				<li>Burn</li>
+				
+				<li>ROMV_Drain</li>
 			</damageTypesToExclude>
 		  </li>
 		</settings>
@@ -87,6 +89,7 @@
 			<damageToSoak>100</damageToSoak>
 			<damageTypesToExclude>
 				<li>Burn</li>
+				<li>ROMV_Drain</li>
 			</damageTypesToExclude>
 		  </li>
 		</settings>
@@ -157,6 +160,7 @@
 			<damageToSoak>70</damageToSoak>
 			<damageTypesToExclude>
 				<li>Burn</li>
+				<li>ROMV_Drain</li>
 			</damageTypesToExclude>
 		  </li>
 		</settings>
@@ -228,6 +232,7 @@
 			<damageToSoak>35</damageToSoak>
 			<damageTypesToExclude>
 				<li>Burn</li>
+				<li>ROMV_Drain</li>
 			</damageTypesToExclude>
 		  </li>
 		</settings>
@@ -300,6 +305,7 @@
 			<damageToSoak>15</damageToSoak>
 			<damageTypesToExclude>
 				<li>Burn</li>
+				<li>ROMV_Drain</li>
 			</damageTypesToExclude>
 		  </li>
 		</settings>
@@ -371,6 +377,7 @@
 			<damageToSoak>7</damageToSoak>
 			<damageTypesToExclude>
 				<li>Burn</li>
+				<li>ROMV_Drain</li>
 			</damageTypesToExclude>
 		  </li>
 		</settings>
@@ -443,6 +450,7 @@
 			<damageToSoak>4</damageToSoak>
 			<damageTypesToExclude>
 				<li>Burn</li>
+				<li>ROMV_Drain</li>
 			</damageTypesToExclude>
 		  </li>
 		</settings>
@@ -514,6 +522,7 @@
 			<damageToSoak>3</damageToSoak>
 			<damageTypesToExclude>
 				<li>Burn</li>
+				<li>ROMV_Drain</li>
 			</damageTypesToExclude>
 		  </li>
 		</settings>
