@@ -138,8 +138,8 @@
       <ThoughtDef>
     <defName>ROMV_VampireLoreThought</defName>
     <thoughtClass>Thought_MemorySocial</thoughtClass>
-    <durationDays>15</durationDays>
-    <stackLimit>300</stackLimit>
+    <durationDays>3</durationDays>
+    <stackLimit>1</stackLimit>
     <stackLimitPerPawn>2</stackLimitPerPawn>
     <stackedEffectMultiplier>0.88</stackedEffectMultiplier>
     <stages>
