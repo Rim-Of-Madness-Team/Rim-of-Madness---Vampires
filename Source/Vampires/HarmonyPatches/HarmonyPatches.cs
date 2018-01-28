@@ -441,9 +441,13 @@ namespace Vampire
             harmony.Patch(AccessTools.Method(typeof(Listing_TreeThingFilter), "Visible", new Type[] { typeof(ThingDef) }), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(CorpsesAreNotVisible)));
             
-            //Hides corpses of temporary things from the filter menus
+            //Prevents the game from kicking players out of spawned maps when their vampire hides in a hidey hole.
             harmony.Patch(AccessTools.Method(typeof(MapPawns), "get_AnyPawnBlockingMapRemoval"), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(get_LetVampiresKeepMapsOpen)));
+            
+            //Vampires no longer suffer global work speed reduction at night.
+            harmony.Patch(AccessTools.Method(typeof(StatPart_Glow), "FactorFromGlow"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(VampiresAlwaysWorkHard)));
             
             //Remove temporary character (PawnTemporary) corpses from the list, since they can't tie.
             //harmony.Patch(AccessTools.Method(typeof(ThingDefGenerator_Corpses), "ImpliedCorpseDefs"), null,
@@ -483,6 +487,14 @@ namespace Vampire
             #endregion
         }
 
+        // RimWorld.StatPart_Glow
+        public static void VampiresAlwaysWorkHard(Thing t, ref float __result) //FactorFromGlow
+        {
+            if (t is Pawn p && p.IsVampire())
+                __result = 1.0f;
+        }
+
+        
         //public static int mapTimeoutTicks = 600;
         
         // Verse.MapPawns
