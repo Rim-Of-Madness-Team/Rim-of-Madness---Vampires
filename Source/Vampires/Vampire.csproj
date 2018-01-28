@@ -95,6 +95,7 @@
     <Compile Include="Disciplines\Vampirism\DisciplineEffect_VampiricHealing.cs" />
     <Compile Include="Disciplines\Vampirism\DisciplineEffect_VampiricHealingScars.cs" />
     <Compile Include="FlyingObject.cs" />
+    <Compile Include="HarmonyPatches\HarmonyPatches_HashTables.cs" />
     <Compile Include="HarmonyPatches\VampHumanlikeOrders.cs" />
     <Compile Include="Hediffs\Gizmo_HediffShieldStatus.cs" />
     <Compile Include="Hediffs\HediffComp_ReadMind.cs" />

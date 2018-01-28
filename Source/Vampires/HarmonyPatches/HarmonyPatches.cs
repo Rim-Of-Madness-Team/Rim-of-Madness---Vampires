@@ -437,16 +437,17 @@ namespace Vampire
             harmony.Patch(AccessTools.Method(typeof(Alert_NeedWarmClothes), "GetReport"), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_DontNeedWarmClothesReports)));
             
-            
             //Hides corpses of temporary things from the filter menus
             harmony.Patch(AccessTools.Method(typeof(Listing_TreeThingFilter), "Visible", new Type[] { typeof(ThingDef) }), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(CorpsesAreNotVisible)));
-
+            
+            //Hides corpses of temporary things from the filter menus
+            harmony.Patch(AccessTools.Method(typeof(MapPawns), "get_AnyPawnBlockingMapRemoval"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(get_LetVampiresKeepMapsOpen)));
+            
             //Remove temporary character (PawnTemporary) corpses from the list, since they can't tie.
             //harmony.Patch(AccessTools.Method(typeof(ThingDefGenerator_Corpses), "ImpliedCorpseDefs"), null,
-            //    new HarmonyMethod(typeof(HarmonyPatches), nameof(RemovePawnTemporaryCorpses)));
-            
-            
+            //    new HarmonyMethod(typeof(HarmonyPatches), nameof(RemovePawnTemporaryCorpses)));        
             
             #endregion
 
@@ -480,6 +481,33 @@ namespace Vampire
             #endregion
 
             #endregion
+        }
+
+        //public static int mapTimeoutTicks = 600;
+        
+        // Verse.MapPawns
+        public static void get_LetVampiresKeepMapsOpen(MapPawns __instance, ref bool __result) //get_AnyPawnBlockingMapRemoval
+        {
+            //Find some hidey holes~~
+            if (__result) return;
+            //if (mapTimeoutTicks > 0)
+            //{
+            //    --mapTimeoutTicks;
+            //    __result = true;
+            //}            
+            var list = __instance?.AllPawns?.FirstOrDefault()?.MapHeld?.listerThings?.ThingsOfDef(VampDefOf.ROMV_HideyHole) ?? null;
+            if (list == null) return;
+            
+            //Anyone in a hidey hole? If so, don't kill the map.
+            foreach (var t in list)
+            {
+                var hideyHole = t as Building_HideyHole;
+                if (hideyHole != null && hideyHole.ContainedThing is Pawn p && !p.Dead)
+                {
+                    __result = true;
+                }
+            }
+            //mapTimeoutTicks = 600;
         }
         
         // Verse.Listing_TreeThingFilter

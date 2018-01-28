@@ -8,9 +8,34 @@ namespace Vampire
 {
     public class JobDriver_DigAndHide : JobDriver
     {
+        private float workLeft = -1000f;
         protected const int BaseWorkAmount = 8900;
 
-        private float workLeft = -1000f;
+        public float WorkLeft
+        {
+            get
+            {
+                if (HarmonyPatches.DigHoleAttempts.ContainsKey(this.GetActor()))
+                {
+                    if (!HarmonyPatches.DigHoleAttempts[this.GetActor()].ShouldUseData())
+                        HarmonyPatches.DigHoleAttempts.Remove(this.GetActor());
+                    else
+                        return HarmonyPatches.DigHoleAttempts[this.GetActor()].WorkLeft;
+                }
+                HarmonyPatches.DigHoleAttempts.Add(this.GetActor(), new DigHoleAttempt(Find.TickManager.TicksGame, BaseWorkAmount));
+                HarmonyPatches.DigHoleAttempts[this.GetActor()].TicksSinceAttempt = Find.TickManager.TicksGame;
+                return HarmonyPatches.DigHoleAttempts[this.GetActor()].WorkLeft;
+            }
+            set
+            {
+                if (!HarmonyPatches.DigHoleAttempts.ContainsKey(this.GetActor()))
+                {
+                    HarmonyPatches.DigHoleAttempts.Add(this.GetActor(), new DigHoleAttempt(Find.TickManager.TicksGame, BaseWorkAmount));
+                }
+                HarmonyPatches.DigHoleAttempts[this.GetActor()].WorkLeft = value;
+                HarmonyPatches.DigHoleAttempts[this.GetActor()].TicksSinceAttempt = Find.TickManager.TicksGame;
+            }
+        }
 
         [DebuggerHidden]
         protected override IEnumerable<Toil> MakeNewToils()
@@ -20,7 +45,8 @@ namespace Vampire
             Toil doWork = new Toil();
             doWork.initAction = delegate
             {
-                workLeft = BaseWorkAmount;
+                if (WorkLeft < -500f)
+                    WorkLeft = BaseWorkAmount;
                 job.SetTarget(TargetIndex.B, pawn);
             };
             doWork.tickAction = delegate
@@ -30,9 +56,10 @@ namespace Vampire
                     EndJobWith(JobCondition.Incompletable);
                     return;
                 }
-                workLeft -= pawn.skills.GetSkill(SkillDefOf.Melee).Level;// (StatDefOf.ConstructionSpeed, true);
-                if (workLeft <= 0f)
+                WorkLeft -= pawn.skills.GetSkill(SkillDefOf.Melee).Level;// (StatDefOf.ConstructionSpeed, true);
+                if (WorkLeft <= 0f)
                 {
+                    WorkLeft = BaseWorkAmount;
                     Thing thing = ThingMaker.MakeThing(VampDefOf.ROMV_HideyHole);
                     thing.SetFaction(pawn.Faction);
                     GenSpawn.Spawn(thing, TargetLocA, Map);
@@ -48,7 +75,7 @@ namespace Vampire
                 }
                 //JoyUtility.JoyTickCheckEnd(this.pawn, JoyTickFullJoyAction.EndJob, 1f);
             };
-            doWork.WithProgressBar(TargetIndex.B, () => 1f - (float)workLeft / (float)BaseWorkAmount);
+            doWork.WithProgressBar(TargetIndex.B, () => 1f - (float)WorkLeft / (float)BaseWorkAmount);
             doWork.defaultCompleteMode = ToilCompleteMode.Never;
             //doWork.FailOn(() => !JoyUtility.EnjoyableOutsideNow(this.pawn, null));
             //doWork.FailOnCannotTouch(TargetIndex.A, PathEndMode.Touch);
