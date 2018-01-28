@@ -75,7 +75,7 @@ namespace Vampire
 
         public override string GetLabelWhenUsedOn(Pawn pawn, BodyPartRecord part)
         {
-            return recipe.LabelCap + " (" + BloodTypeUtility.BloodType(pawn).GetLabel() + ")";
+            return recipe.LabelCap + " (" + BloodTypeUtility.BloodType(pawn).GetLabel() + ")" + ((BloodItemUtility.ExtractionWillKill(pawn)) ? " (" + "ROMV_DeadlyOperationShort".Translate() + ")"  : "");
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Vampire
 
         public override bool IsViolationOnPawn(Pawn pawn, BodyPartRecord part, Faction billDoerFaction)
         {
-            if (BloodItemUtility.ExtractionWillKill(pawn))
+            if (BloodItemUtility.ExtractionWillKill(pawn, true))
             {
                 Messages.Message("ROMV_DeadlyOperation".Translate(pawn.Label), MessageTypeDefOf.NegativeEvent);
             }
@@ -77,7 +77,7 @@ namespace Vampire
 
         public override string GetLabelWhenUsedOn(Pawn pawn, BodyPartRecord part)
         {
-            return recipe.LabelCap + " (" + BloodTypeUtility.BloodType(pawn).GetLabel() + ")";
+            return recipe.LabelCap + " (" + BloodTypeUtility.BloodType(pawn).GetLabel() + ")" + ((BloodItemUtility.ExtractionWillKill(pawn, true)) ? " (" + "ROMV_DeadlyOperationShort".Translate() + ")" : "");
         }
     }
 }

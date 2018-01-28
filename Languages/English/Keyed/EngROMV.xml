@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
 
+<!-- 1-28-18 -->
+<ROMV_DeadlyOperationShort>DEADLY</ROMV_DeadlyOperationShort>
+
 <!-- 1-17-18 -->
 <ROMV_PowerfulVampireLabel>Powerful Vampire</ROMV_PowerfulVampireLabel>
 <ROMV_PowerfulVampireDesc>{0} is a {1} generation vampire. Powerful vampires tend to be extra dangerous, so tread lightly.</ROMV_PowerfulVampireDesc>

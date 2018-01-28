@@ -10,7 +10,7 @@ namespace Vampire
         public static bool ExtractionWillKill(Pawn extractee, bool isBloodPack = false)
         {
             int amt = isBloodPack ? AMT_BLOODPACK : AMT_BLOODVIAL;
-            if (extractee?.BloodNeed()?.CurBloodPoints <= amt)
+            if (extractee?.BloodNeed() is Need_Blood bn && (bn.CurBloodPoints <= amt || bn.DrainingIsDeadly))
                 return true;
             return false;
         }
