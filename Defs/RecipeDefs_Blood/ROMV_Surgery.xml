@@ -1,17 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
-  <RecipeDef Abstract="True" Name="SurgeryFlesh">
+  <RecipeDef Abstract="True" Name="ROMV_SurgeryFlesh">
     <effectWorking>Surgery</effectWorking>
     <soundWorking>Recipe_Surgery</soundWorking>
     <workSpeedStat>MedicalOperationSpeed</workSpeedStat>
     <workSkill>Medicine</workSkill>
     <workSkillLearnFactor>16</workSkillLearnFactor>
+	<surgerySuccessChanceFactor>99999</surgerySuccessChanceFactor>
   </RecipeDef>
 
 	<!-- removing body parts -->
 
-  <RecipeDef ParentName="SurgeryFlesh">
+  <RecipeDef ParentName="ROMV_SurgeryFlesh">
 		<defName>ROMV_ExtractBloodVial</defName>
 		<label>extract blood vial</label>
 		<description>Makes a vial of blood.</description>
@@ -22,7 +23,7 @@
 	</RecipeDef>
 
 
-  <RecipeDef ParentName="SurgeryFlesh">
+  <RecipeDef ParentName="ROMV_SurgeryFlesh">
 		<defName>ROMV_ExtractBloodPack</defName>
 		<label>extract blood pack</label>
 		<description>Makes a pack of blood.</description>
