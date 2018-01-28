@@ -30,7 +30,7 @@
     </graphicData>
     <soundInteract>Standard_Drop</soundInteract>
     <soundDrop>Standard_Drop</soundDrop>
-    <socialPropernessMatters>true</socialPropernessMatters>
+    <socialPropernessMatters>false</socialPropernessMatters>
     <statBases>
       <MaxHitPoints>60</MaxHitPoints>
       <MarketValue>30</MarketValue>
@@ -62,7 +62,7 @@
     </graphicData>
     <soundInteract>Standard_Drop</soundInteract>
     <soundDrop>Standard_Drop</soundDrop>
-    <socialPropernessMatters>true</socialPropernessMatters>
+    <socialPropernessMatters>false</socialPropernessMatters>
     <statBases>
       <MaxHitPoints>60</MaxHitPoints>
       <MarketValue>60</MarketValue>

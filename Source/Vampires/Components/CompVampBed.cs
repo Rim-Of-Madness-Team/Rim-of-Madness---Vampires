@@ -96,6 +96,8 @@ namespace Vampire
             }
         }
 
+        private readonly bool harmonyPatchIsActiveForMultipleCharacters = false;
+
         /// <summary>
         /// Remove and add assignments to the bed as needed.
         /// </summary>
@@ -103,23 +105,53 @@ namespace Vampire
         /// <param name="bedPawns"></param>
         private void AssignBedPawnsAsNeeded(Building_Grave g, List<Pawn> bedPawns)
         {
-            if (g.AssignedPawns != null && g.AssignedPawns.Any())
+            if (g.PositionHeld.GetFirstPawn(g.MapHeld) is Pawn p && !p.Awake())
             {
-                if (bedPawns.Any())
+                if (bedPawns.Contains(p))
+                    return;
+                else
                 {
-                    var tempBedPawns = new List<Pawn>(bedPawns);
-                    foreach (var bedPawn in tempBedPawns)
-                    {
-                        if (!g.AssignedPawns.Contains(bedPawn))
-                            bed.TryUnassignPawn(bedPawn);
-                    }
+                    bed.TryAssignPawn(p);
+                    g.TryAssignPawn(p);
                 }
-                foreach (var gravePawn in g.AssignedPawns)
-                    bed.TryAssignPawn(gravePawn);
             }
-            else if (bed.AssignedPawns.Any())
-                foreach (var pawn in bedPawns)
-                    bed.TryUnassignPawn(pawn);
+            else
+            {
+                HashSet<Pawn> gravePawns = new HashSet<Pawn>(g.AssignedPawns);
+                HashSet<Pawn> bedPawnsSet = new HashSet<Pawn>(bedPawns);
+                if (gravePawns.SetEquals(bedPawnsSet)) return;
+                else if (gravePawns.Count() >= bedPawnsSet.Count())
+                {
+                    if (bedPawnsSet.Any())
+                        foreach (var bp in bedPawnsSet)
+                            bed.TryUnassignPawn(bp);
+                    foreach (var gp in gravePawns)
+                        bed.TryAssignPawn(gp);
+                }
+                else if (gravePawns.Count() < bedPawnsSet.Count() && harmonyPatchIsActiveForMultipleCharacters)
+                {
+                    foreach (var bp in bedPawnsSet)
+                        g.TryAssignPawn(bp);
+                }   
+            }
+
+//            if (g.AssignedPawns != null && g.AssignedPawns.Count() > 0)
+//            {
+//                if (bedPawns.Any())
+//                {
+//                    var tempBedPawns = new List<Pawn>(bedPawns);
+//                    foreach (var bedPawn in tempBedPawns)
+//                    {
+//                        if (!g.AssignedPawns.Contains(bedPawn))
+//                            bed.TryUnassignPawn(bedPawn);
+//                    }
+//                }
+//                foreach (var gravePawn in g.AssignedPawns)
+//                    bed.TryAssignPawn(gravePawn);
+//            }
+//            else if (bed.AssignedPawns.Any())
+//                foreach (var pawn in bedPawns)
+//                    bed.TryUnassignPawn(pawn);
         }
 
 
