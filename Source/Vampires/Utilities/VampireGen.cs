@@ -100,6 +100,32 @@ namespace Vampire
             //TryGiveVampirismHediff(pawn, generation, bloodline, sire, firstVampire);
             return pawn;
         }
+        
+        /// <summary>
+        /// It's best to clear all of these when a vampire is initialized.
+        /// </summary>
+        public static void RemoveMortalHediffs(Pawn AbilityUser)
+        {
+            AbilityUser.health.hediffSet.hediffs.RemoveAll(x => x is HediffVampirism_VampGiver);
+            AbilityUser.health.hediffSet.hediffs.RemoveAll(x => x.def == HediffDefOf.Malnutrition);
+            AbilityUser.health.hediffSet.hediffs.RemoveAll(x => x is Hediff_Addiction);
+            AbilityUser.health.hediffSet.hediffs.RemoveAll(x => x.def == HediffDefOf.BadBack);
+            AbilityUser.health.hediffSet.hediffs.RemoveAll(x => x.def == HediffDefOf.Asthma);
+            AbilityUser.health.hediffSet.hediffs.RemoveAll(x => x.def == HediffDefOf.Cataract);
+            AbilityUser.health.hediffSet.hediffs.RemoveAll(x => x.def == HediffDefOf.Carcinoma);
+            AbilityUser.health.hediffSet.hediffs.RemoveAll(x => x.def == HediffDefOf.Flu);
+            AbilityUser.health.hediffSet.hediffs.RemoveAll(x => x.def == HediffDefOf.FoodPoisoning);
+            AbilityUser.health.hediffSet.hediffs.RemoveAll(x => x.def == HediffDefOf.Frail);
+            AbilityUser.health.hediffSet.hediffs.RemoveAll(x => x.def == HediffDefOf.Heatstroke);
+            AbilityUser.health.hediffSet.hediffs.RemoveAll(x => x.def == HediffDefOf.Hypothermia);
+            AbilityUser.health.hediffSet.hediffs.RemoveAll(x => x.def == HediffDefOf.Hangover);
+            AbilityUser.health.hediffSet.hediffs.RemoveAll(x => x.def == HediffDefOf.Plague);
+            AbilityUser.health.hediffSet.hediffs.RemoveAll(x => x.def == HediffDefOf.Blindness);
+            AbilityUser.health.hediffSet.hediffs.RemoveAll(x => x.def == HediffDefOf.Malaria);
+            AbilityUser.health.hediffSet.hediffs.RemoveAll(x => x.def == HediffDefOf.ResurrectionPsychosis);
+            AbilityUser.health.hediffSet.hediffs.RemoveAll(x => x.def == HediffDefOf.ResurrectionSickness);
+            AbilityUser.health.hediffSet.hediffs.RemoveAll(x => x.def == HediffDefOf.WoundInfection);
+        }
 
     }
 }

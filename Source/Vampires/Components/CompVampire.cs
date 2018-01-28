@@ -478,9 +478,7 @@ namespace Vampire
             bool firstVampire = false)
         {
             //Log.Message("Init");
-            AbilityUser.health.hediffSet.hediffs.RemoveAll(x => x is HediffVampirism_VampGiver);
-            AbilityUser.health.hediffSet.hediffs.RemoveAll(x => x.def == HediffDefOf.Malnutrition);
-            AbilityUser.health.hediffSet.hediffs.RemoveAll(x => x is Hediff_Addiction);
+            VampireGen.RemoveMortalHediffs(AbilityUser);
             VampireGen.TryGiveVampirismHediff(AbilityUser, newGeneration, newBloodline, newSire, firstVampire);
             if (!firstVampire)
             {
@@ -515,6 +513,8 @@ namespace Vampire
                 this.AbilityUser.Faction != Find.FactionManager.FirstFactionOfDef(VampDefOf.ROMV_LegendaryVampires))
                 this.Blood.CurBloodPoints = this.Blood.MaxBloodPoints;
         }
+
+
 
         public override void CompTick()
         {

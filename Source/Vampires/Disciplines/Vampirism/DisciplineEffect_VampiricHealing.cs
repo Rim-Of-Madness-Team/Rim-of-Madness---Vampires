@@ -7,6 +7,7 @@ namespace Vampire
         public override void Effect(Pawn target)
         {
             base.Effect(target);
+            VampireGen.RemoveMortalHediffs(target);
             VampireUtility.Heal(target);
         }
     }
