@@ -3,7 +3,7 @@
 
   <ThingDef ParentName="ROMV_ThingBaseTenebrous">
     <defName>ROMV_TenebrousRace</defName>
-    <label>shadow</label>
+    <label>shadow</label>	
     <description>An animated shadow.</description>
     <thingClass>Vampire.PawnTemporary</thingClass>
     <race>

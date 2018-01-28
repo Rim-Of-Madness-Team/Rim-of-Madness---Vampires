@@ -436,7 +436,18 @@ namespace Vampire
             //Vampires do not need warm clothes alerts.
             harmony.Patch(AccessTools.Method(typeof(Alert_NeedWarmClothes), "GetReport"), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_DontNeedWarmClothesReports)));
+            
+            
+            //Hides corpses of temporary things from the filter menus
+            harmony.Patch(AccessTools.Method(typeof(Listing_TreeThingFilter), "Visible", new Type[] { typeof(ThingDef) }), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(CorpsesAreNotVisible)));
 
+            //Remove temporary character (PawnTemporary) corpses from the list, since they can't tie.
+            //harmony.Patch(AccessTools.Method(typeof(ThingDefGenerator_Corpses), "ImpliedCorpseDefs"), null,
+            //    new HarmonyMethod(typeof(HarmonyPatches), nameof(RemovePawnTemporaryCorpses)));
+            
+            
+            
             #endregion
 
             #region Mods
@@ -471,6 +482,26 @@ namespace Vampire
             #endregion
         }
         
+        // Verse.Listing_TreeThingFilter
+        public static void CorpsesAreNotVisible(ThingDef td, ref bool __result)
+        {
+            if (td?.ingestible?.sourceDef?.thingClass == typeof(PawnTemporary))
+                __result = false;
+        }
+        
+//        public static void RemovePawnTemporaryCorpses(ref IEnumerable<ThingDef> __result)
+//        {
+//            List<ThingDef> curResult = new List<ThingDef>(__result);
+//            foreach (var corpse in curResult)
+//            {
+//                ThingDef sourceDef = corpse.ingestible.sourceDef;
+//                Log.Message(sourceDef.defName + " | " + sourceDef.thingClass.ToString());    
+//            }
+//            curResult.RemoveAll(x => x.ingestible.sourceDef.thingClass == typeof(PawnTemporary));
+//            __result = curResult;   
+//        }
+        //}
+
         //Alert_NeedWarmClothes
         public static void Vamp_DontNeedWarmClothesReports(Alert_NeedWarmClothes __instance, ref AlertReport __result )
         {
@@ -656,7 +687,6 @@ namespace Vampire
                 if (q.Faction == Faction.OfPlayer && q.IsVampire())
                     __result = __result.Concat(GraveGizmoGetter(q, __instance));
             }
-
         }
 
         // RimWorld.Building_Grave

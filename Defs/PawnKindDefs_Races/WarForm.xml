@@ -4,6 +4,9 @@
   <ThingDef ParentName="ROMV_ThingBaseWarForm">
     <defName>ROMV_WarFormRace</defName>
     <label>war form</label>
+
+		<thingClass>Vampire.PawnTemporary</thingClass>
+		<category>Ethereal</category>	
     <description>.</description>
     <race>
       <baseBodySize>3.0</baseBodySize>

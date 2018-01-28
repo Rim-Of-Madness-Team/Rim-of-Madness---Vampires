@@ -4,6 +4,9 @@
   <ThingDef ParentName="ROMV_ThingBaseZulo">
     <defName>ROMV_ZuloRace</defName>
     <label>Zulo</label>
+
+		<thingClass>Vampire.PawnTemporary</thingClass>
+		<category>Ethereal</category>	
     <description>A Zulo of perverted flesh and bone.</description>
     <race>
       <baseBodySize>3.0</baseBodySize>
