@@ -9,7 +9,7 @@ namespace Vampire
     {
         public virtual BloodlineDef Bloodline => VampireUtility.RandBloodline;
         private int generation = -1;
-        public virtual int Generation
+        public int Generation
         {
             get
             {
@@ -25,6 +25,7 @@ namespace Vampire
                 }
                 return generation;
             }
+            set { generation = value; }
         }
 
         public override string LabelInBrackets => "ROMV_HI_Generation".Translate(HediffVampirism.AddOrdinal(Generation));

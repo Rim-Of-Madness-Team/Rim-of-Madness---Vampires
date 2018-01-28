@@ -14,8 +14,8 @@ namespace Vampire
 
         public override void DoEditInterface(Listing_ScenEdit listing)
         {
-            Rect scenPartRect = listing.GetScenPartRect(this, RowHeight * 5f);
-            text = Widgets.TextArea(scenPartRect, text);
+            Rect scenPartRect = listing.GetScenPartRect(this, RowHeight);
+            //text = Widgets.TextArea(scenPartRect, text);
         }
 
         public override void ExposeData()

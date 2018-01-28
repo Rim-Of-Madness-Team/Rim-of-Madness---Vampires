@@ -21,7 +21,7 @@ namespace Vampire
 
         public override void DoEditInterface(Listing_ScenEdit listing)
         {
-            Rect scenPartRect = listing.GetScenPartRect(this, RowHeight * 5f + 31f);
+            Rect scenPartRect = listing.GetScenPartRect(this, RowHeight * 4f + 31f);
             if (Widgets.ButtonText(scenPartRect.TopPartPixels(RowHeight), this?.bloodline?.LabelCap ?? "ROMV_UnknownBloodline".Translate()))
             {
                 FloatMenuUtility.MakeMenu(PossibleBloodlines(), (BloodlineDef bl) => bl.LabelCap, (BloodlineDef bl) => delegate
@@ -30,21 +30,20 @@ namespace Vampire
                 });
             }
             //Widgets.IntRange(new Rect(scenPartRect.x, scenPartRect.y + ScenPart.RowHeight, scenPartRect.width, 31f), listing.CurHeight.GetHashCode(), ref this.generationRange, 4, this.maxGeneration, "ROMV_VampireGeneration");
-            //DoVampModifierEditInterface(new Rect(scenPartRect.x, scenPartRect.y + ScenPart.RowHeight, scenPartRect.width, 31f));
+            DoVampModifierEditInterface(new Rect(scenPartRect.x, scenPartRect.y, scenPartRect.width, 31f));
         }
 
         // RimWorld.ScenPart_PawnModifier
         protected void DoVampModifierEditInterface(Rect rect)
         {
-            Rect rect2 = new Rect(rect.x, rect.y + RowHeight * 2, rect.width, 31);
-            Rect rect3 = rect2.LeftPart(0.333f).Rounded();
-            Rect rect4 = rect2.RightPart(0.666f).Rounded();
+            Rect rect2 = new Rect(rect.x, rect.y + RowHeight, rect.width, 31);
+            
+            Text.Anchor = TextAnchor.MiddleCenter;
+            Widgets.Label(rect2, "ROMV_VampireGeneration".Translate(generationRange.min + "-" + generationRange.max));
 
-            Text.Anchor = TextAnchor.MiddleRight;
-            Widgets.Label(rect3, "ROMV_Chance".Translate());
-
-            Text.Anchor = TextAnchor.UpperLeft;
-            vampChance = Widgets.HorizontalSlider(rect4, vampChance, 0f, 1f, false, "", "", "");
+            Rect rect3 = new Rect(rect.x, rect.y + RowHeight * 2, rect.width, 31);
+            Widgets.IntRange(rect3, 21, ref generationRange, 1, 13, "", 0); //HorizontalSlider(rect3, vampChance, 0f, 1f, false, "", "", "");
+            
             //Widgets.TextFieldNumeric<float>(rect4, ref this, ref this.numOfVampsBuffer, 1, 50);
             Rect rect5 = new Rect(rect.x, rect.y + RowHeight * 3, rect.width, 31);
             Rect rect6 = rect5.LeftPart(0.333f).Rounded();
@@ -177,6 +176,7 @@ namespace Vampire
                             if (def == VampDefOf.ROMV_ClanTremere) hediffDefToApply = VampDefOf.ROM_VampirismTremere;
                             if (def == VampDefOf.ROMV_ClanTzimize) hediffDefToApply = VampDefOf.ROM_VampirismTzimisce;
                             HealthUtility.AdjustSeverity(pawn, hediffDefToApply, 0.5f);
+                            
                             pawn.story.hairColor = PawnHairColors.RandomHairColor(pawn.story.SkinColor, 20);
                             int ticksToAdd = Rand.Range(GenDate.TicksPerYear, GenDate.TicksPerYear * 200);
                             pawn.ageTracker.AgeBiologicalTicks += ticksToAdd;
@@ -189,6 +189,13 @@ namespace Vampire
                                 x.def == HediffDefOf.Cataract ||
                                 x.def == HediffDef.Named("HearingLoss") ||
                                 x.def == HediffDef.Named("HeartArteryBlockage"));
+                                if (hediffs.FirstOrDefault(x => x is HediffVampirism_VampGiver) is
+                                    HediffVampirism_VampGiver v)
+                                {
+                                    int gen = generationRange.RandomInRange;
+                                    Log.Message("Applied generation: " + gen);
+                                    v.Generation = gen;
+                                }
                             }
                             //VampireGen.TryGiveVampirismHediff(pawn, generationRange.RandomInRange, def, null, false);
                         }

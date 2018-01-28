@@ -74,7 +74,6 @@
     <Compile Include="AI_Jobs\JobGiver_ShareBlood.cs" />
     <Compile Include="Buttons.cs" />
     <Compile Include="Components\ThrallData.cs" />
-    <Compile Include="Defs\ScenPart_GameStartNight.cs" />
     <Compile Include="Defs\VampDefOfTwo.cs" />
     <Compile Include="Defs\VitaeAbilityDef.cs" />
     <Compile Include="Disciplines\Vampirism\DisciplineEffect_RegenerateLimb.cs" />
@@ -147,6 +146,7 @@
     <Compile Include="Hediffs\Hediff_AddedPart_Fangs.cs" />
     <Compile Include="ITab_Pawn_NeedsCorpse.cs" />
     <Compile Include="PatchOperationModLoaded.cs" />
+    <Compile Include="ScenPart_GameStartNight.cs" />
     <Compile Include="ScenPart_LongerNights.cs" />
     <Compile Include="UI\Alert_VampireInSunlight.cs" />
     <Compile Include="UI\Alert_VampireStarving.cs" />
