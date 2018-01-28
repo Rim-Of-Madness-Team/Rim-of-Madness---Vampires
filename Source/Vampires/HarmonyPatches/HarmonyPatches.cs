@@ -1956,8 +1956,12 @@ namespace Vampire
                     {
                         text = "ConsumeThing".Translate(new object[]
                         {
-                        bloodItem.LabelShort
+                            bloodItem.LabelShort
                         });
+                    }
+                    else
+                    {
+                        text = string.Format(bloodItem.def.ingestible.ingestCommandString, bloodItem.LabelShort);
                     }
                     if (!bloodItem.IsSociallyProper(pawn))
                     {
