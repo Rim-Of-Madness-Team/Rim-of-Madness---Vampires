@@ -242,7 +242,7 @@ namespace Vampire
         {
             HarmonyPatches.VampGuestCache.RemoveAll(
                 x => x.Key is Pawn p &&
-                     (p.Dead || p.Faction == Faction.OfPlayerSilentFail ||
+                     (p.Dead || p.Faction == Faction.OfPlayerSilentFail || p.IsPrisoner ||
                       (!p.Spawned && !(p.ParentHolder is Building_HideyHole))));
         }
 
