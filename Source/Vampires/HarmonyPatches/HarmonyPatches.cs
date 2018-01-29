@@ -449,6 +449,10 @@ namespace Vampire
             harmony.Patch(AccessTools.Method(typeof(StatPart_Glow), "FactorFromGlow"), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(VampiresAlwaysWorkHard)));
             
+            //Vampire guests and visitors should leave after their time is passed.
+            harmony.Patch(AccessTools.Method(typeof(LordMaker), "MakeNewLord"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(VampiresGuestTracker)));
+            
             //Remove temporary character (PawnTemporary) corpses from the list, since they can't tie.
             //harmony.Patch(AccessTools.Method(typeof(ThingDefGenerator_Corpses), "ImpliedCorpseDefs"), null,
             //    new HarmonyMethod(typeof(HarmonyPatches), nameof(RemovePawnTemporaryCorpses)));        
@@ -485,6 +489,31 @@ namespace Vampire
             #endregion
 
             #endregion
+        }
+        
+        public static Dictionary<Pawn, int> VampGuestCache = new Dictionary<Pawn, int>();
+
+        public static void VampiresGuestTracker(Faction faction, LordJob lordJob, Map map,
+            IEnumerable<Pawn> startingPawns, ref Lord __result)
+        {
+            //Only a few lords will have vampires with these issues.
+            if (!(lordJob is LordJob_VisitColony) && !(lordJob is LordJob_AssistColony) &&
+                !(lordJob is LordJob_TravelAndExit)) return;
+            if (startingPawns == null || !startingPawns.Any()) return;
+            
+            foreach (var startingPawn in startingPawns)
+            {
+                if (startingPawn.IsVampire())
+                {
+                    if (HarmonyPatches.VampGuestCache.ContainsKey(startingPawn))
+                    {
+                        HarmonyPatches.VampGuestCache.Remove(startingPawn);
+                    }
+                    int curTicks = Find.TickManager.TicksGame;
+                    HarmonyPatches.VampGuestCache.Add(startingPawn, curTicks);
+                    //Log.Message("Vampire tracking: " + startingPawn.Label + " " + curTicks);
+                }
+            }
         }
 
         // RimWorld.StatPart_Glow

@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using RimWorld;
 using Verse;
 using RimWorld.Planet;
+using Verse.AI;
 
 namespace Vampire
 {
@@ -58,7 +60,7 @@ namespace Vampire
                 return result;
             }
             result = Rand.Range(10, 13);
-            Log.Message("Vampires :: Spawned " + result + " generaton vampire.");                
+            //Log.Message("Vampires :: Spawned " + result + " generaton vampire.");                
             return result;
         }
 
@@ -198,11 +200,50 @@ namespace Vampire
         public override void WorldComponentTick()
         {
             base.WorldComponentTick();
-            //if (debugPrinted == false)
-            //{
-            //    debugPrinted = true;
-            //    PrintVampires();
-            //}
+            if (Find.TickManager.TicksGame % 100 == 0)
+            {
+                CleanVampGuestCache();
+                if (HarmonyPatches.VampGuestCache == null || !HarmonyPatches.VampGuestCache.Any()) return;
+                foreach (var keyValuePair in HarmonyPatches.VampGuestCache)
+                {
+                    Pawn p = keyValuePair.Key;
+                    if (p == null) continue;
+                    if (p.Downed) continue;
+                    if (keyValuePair.Value + 16000 > Find.TickManager.TicksGame) continue;
+                    if (p.CurJob?.def == JobDefOf.Goto) continue;
+                    if (p.InMentalState || p.IsFighting()) continue;
+                    if (p.IsSunRisingOrDaylight()) continue;
+                    if (p.ParentHolder is Building_HideyHole g)
+                    {
+                        g.EjectContents();
+                    }
+                    TryGiveJobGiverToVampGuest(p);
+                }   
+            }
+        }
+
+        private static void TryGiveJobGiverToVampGuest(Pawn p)
+        {
+            var thinkNode_JobGiver = (ThinkNode_JobGiver) Activator.CreateInstance(typeof(JobGiver_ExitMapBest));
+            thinkNode_JobGiver.ResolveReferences();
+            var thinkResult = thinkNode_JobGiver.TryIssueJobPackage(p, default(JobIssueParams));
+            if (thinkResult.Job != null)
+            {
+                //Log.Message("Vampire Guest Handler :: " + p.LabelShort + " :: Started ExitMapBest job.");
+                p.jobs.StartJob(thinkResult.Job, JobCondition.None, null, false, true, null, null, false);
+            }
+            else
+            {
+                //Log.Message("Vampire Guest Handler :: " + p.LabelShort + " :: Failed to give ExitMapBest job.");
+            }
+        }
+
+        private static void CleanVampGuestCache()
+        {
+            HarmonyPatches.VampGuestCache.RemoveAll(
+                x => x.Key is Pawn p &&
+                     (p.Dead || p.Faction == Faction.OfPlayerSilentFail ||
+                      (!p.Spawned && !(p.ParentHolder is Building_HideyHole))));
         }
 
         public void PrintVampires()
