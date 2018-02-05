@@ -76,6 +76,18 @@ namespace Vampire
             return false;
         }
 
+        public override void Notify_AbilityFailed(bool refund)
+        {
+            base.Notify_AbilityFailed(refund);
+            if (refund)
+            {
+                if (Pawn.IsGhoul())
+                    Pawn.BloodNeed().CurGhoulVitaePoints += AbilityDef.bloodCost;
+                else
+                    Pawn.BloodNeed().AdjustBlood(AbilityDef.bloodCost);
+            }
+        }
+
         public bool PassesAbilitySpecialCases()
         {
             if (this.AbilityDef == null) 
