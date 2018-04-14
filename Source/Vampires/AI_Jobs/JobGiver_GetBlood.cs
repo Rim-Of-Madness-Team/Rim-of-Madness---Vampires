@@ -28,7 +28,7 @@ namespace Vampire
             {
                 return 0f;
             }
-
+            
             if (pawn.Drafted)
             {
                 return 0f;
@@ -45,8 +45,8 @@ namespace Vampire
             {
                 //Log.Message("0d");
                 return 0f;
-
             }
+            
             //HungerCategory.Starving && FoodUtility.ShouldBeFedBySomeone(pawn))
             //{
             //    return 0f;
@@ -55,6 +55,10 @@ namespace Vampire
             //{
             //    return 0f;
             //}
+            if (Find.World.GetComponent<WorldComponent_VampireTracker>().recentVampires?.ContainsKey(pawn) ?? false)
+            {
+                return 0f;
+            }
             if (blood.CurLevelPercentage < blood.ShouldFeedPerc)
             {
                 //Log.Message("0e");
@@ -85,7 +89,7 @@ namespace Vampire
             {
                 return null;
             }
-            if (thing != null)
+            if (thing != null && thing != pawn && thing.Spawned)
             {
                 Pawn pawn2 = thing as Pawn;
                 if (pawn2 != null)

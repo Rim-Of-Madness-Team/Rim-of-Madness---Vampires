@@ -73,6 +73,8 @@
     <Compile Include="AI_Jobs\JobDriver_GhoulBloodBond.cs" />
     <Compile Include="AI_Jobs\JobGiver_ShareBlood.cs" />
     <Compile Include="Buttons.cs" />
+    <Compile Include="Components\CompAntiVampireWeapon.cs" />
+    <Compile Include="Components\CompProperties_AntiVampireWeapon.cs" />
     <Compile Include="Components\ThrallData.cs" />
     <Compile Include="Defs\VampDefOfTwo.cs" />
     <Compile Include="Defs\VitaeAbilityDef.cs" />

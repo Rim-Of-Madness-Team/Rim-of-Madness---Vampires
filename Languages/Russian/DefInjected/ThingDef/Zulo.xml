@@ -3,10 +3,6 @@
 
   <ROMV_ZuloRace.label>Зуло</ROMV_ZuloRace.label>
   <ROMV_ZuloRace.description>Зуло с искаженной плотью и костями.</ROMV_ZuloRace.description>
-  <!-- Use Leather From: GrizzlyBear -->
-  <!-- Use Meat From: GrizzlyBear -->
-  <ROMV_ZuloRace_Corpse.label>труп Зуло</ROMV_ZuloRace_Corpse.label>
-  <ROMV_ZuloRace_Corpse.description>Мёртвое тело Зуло.</ROMV_ZuloRace_Corpse.description>
 
 
 </LanguageData>

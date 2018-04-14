@@ -20,7 +20,8 @@ namespace Vampire
     public enum SunlightPolicy : int
     {
         Relaxed = 0,
-        Restricted = 1
+        Restricted = 1,
+        NoAI = 2
     }
 
 

@@ -193,7 +193,7 @@ namespace Vampire
                                     HediffVampirism_VampGiver v)
                                 {
                                     int gen = generationRange.RandomInRange;
-                                    Log.Message("Applied generation: " + gen);
+                                    //Log.Message("Applied generation: " + gen);
                                     v.Generation = gen;
                                 }
                             }

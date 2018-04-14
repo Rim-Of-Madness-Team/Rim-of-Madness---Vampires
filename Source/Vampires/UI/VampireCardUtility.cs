@@ -94,22 +94,30 @@ namespace Vampire
                 if (compVampire.IsVampire)
                 {
                     Rect rectVampOptions = new Rect(CharacterCardUtility.PawnCardSize.x - 105f, 150f, 30f, 30f);
-                    if (compVampire.CurrentSunlightPolicy == SunlightPolicy.Relaxed)
+                    switch (compVampire.CurrentSunlightPolicy)
                     {
-                        TooltipHandler.TipRegion(rectVampOptions, new TipSignal("ROMV_SP_Relaxed".Translate()));
-                        if (Widgets.ButtonImage(rectVampOptions, TexButton.ROMV_SunlightPolicyRelaxed))
-                        {
-                            compVampire.CurrentSunlightPolicy = SunlightPolicy.Restricted;
-                        }
+                        case SunlightPolicy.Relaxed:
+                            TooltipHandler.TipRegion(rectVampOptions, new TipSignal("ROMV_SP_Relaxed".Translate()));
+                            if (Widgets.ButtonImage(rectVampOptions, TexButton.ROMV_SunlightPolicyRelaxed))
+                            {
+                                compVampire.CurrentSunlightPolicy = SunlightPolicy.Restricted;
+                            }
+                            break;
+                        case SunlightPolicy.Restricted:
+                            TooltipHandler.TipRegion(rectVampOptions, new TipSignal("ROMV_SP_Restricted".Translate()));
+                            if (Widgets.ButtonImage(rectVampOptions, TexButton.ROMV_SunlightPolicyRestricted))
+                            {
+                                compVampire.CurrentSunlightPolicy = SunlightPolicy.NoAI;
+                            }
+                            break;
+                        case SunlightPolicy.NoAI:
+                            TooltipHandler.TipRegion(rectVampOptions, new TipSignal("ROMV_SP_NoAI".Translate()));
+                            if (Widgets.ButtonImage(rectVampOptions, TexButton.ROMV_SunlightPolicyNoAI))
+                            {
+                                compVampire.CurrentSunlightPolicy = SunlightPolicy.Relaxed;
+                            }
+                            break;
                     }
-                    else
-                    {
-                        TooltipHandler.TipRegion(rectVampOptions, new TipSignal("ROMV_SP_Restricted".Translate()));
-                        if (Widgets.ButtonImage(rectVampOptions, TexButton.ROMV_SunlightPolicyRestricted))
-                        {
-                            compVampire.CurrentSunlightPolicy = SunlightPolicy.Relaxed;
-                        }
-                    }   
                 }
 
                 NameTriple nameTriple = pawn.Name as NameTriple;

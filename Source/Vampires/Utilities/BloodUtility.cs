@@ -49,9 +49,8 @@ namespace Vampire
                         return true;
                     }
                 }
-                if (thing2 == null && getter == eater)
+                if (getter == eater)
                 {
-
                     Pawn pawn = BestPawnToHuntForVampire(getter);
                     if (pawn != null)
                     {
@@ -201,50 +200,22 @@ namespace Vampire
         // RimWorld.FoodUtility
         private static Pawn BestPawnToHuntForVampire(Pawn predator, bool desperate = false)
         {
-            //if (predator.meleeVerbs.TryGetMeleeVerb() == null)
-            //{
-            //    return null;
-            //}
-            //bool flag = false;
-            //float summaryHealthPercent = predator.health.summaryHealth.SummaryHealthPercent;
-            //if (summaryHealthPercent < 0.25f)
-            //{
-            //    flag = true;
-            //}
-            List<Pawn> allPawnsSpawned = predator.Map.mapPawns.AllPawnsSpawned;
+            var allPawnsSpawned = predator.Map.mapPawns.AllPawnsSpawned;
             Pawn pawn = null;
             float num = 0f;
             bool tutorialMode = TutorSystem.TutorialMode;
             for (int i = 0; i < allPawnsSpawned.Count; i++)
             {
                 Pawn pawn2 = allPawnsSpawned[i];
-                //if (predator.GetRoom(RegionType.Set_Passable) == pawn2.GetRoom(RegionType.Set_Passable))
-                //{
-                    if (predator != pawn2)
-                    {
-                        if (IsAcceptableVictimFor(predator, pawn2, desperate))
-                        {
-                            if (predator.CanReach(pawn2, PathEndMode.Touch, Danger.Deadly))
-                            {
-                                //if (!pawn2.IsForbidden(predator))
-                                //{
-                                    if (!tutorialMode || pawn2.Faction != Faction.OfPlayer)
-                                    {
-                                    //Log.Message("Potential Prey: " + pawn2.Label);
-                                        float preyScoreFor = GetPreyScoreFor(predator, pawn2);
-                                    //Log.Message("Potential Prey Score: " + preyScoreFor);
-
-                                    if (preyScoreFor > num || pawn == null)
-                                        {
-                                            num = preyScoreFor;
-                                            pawn = pawn2;
-                                        }
-                                    }
-                                //}
-                            }
-                        }
-                    }
-                //}
+                if (predator == pawn2) continue;
+                if (!IsAcceptableVictimFor(predator, pawn2, desperate)) continue;
+                if (!predator.CanReach(pawn2, PathEndMode.Touch, Danger.Deadly)) continue;
+                if (tutorialMode && pawn2.Faction == Faction.OfPlayer) continue;
+                float preyScoreFor = GetPreyScoreFor(predator, pawn2);
+                if (!(preyScoreFor > num) && pawn != null) continue;
+                num = preyScoreFor;
+                pawn = pawn2;
+                
             }
             return pawn;
         }
@@ -330,7 +301,7 @@ namespace Vampire
             if (victim.def == ThingDef.Named("Boomalope")) return false;
             if (victim.def == ThingDef.Named("Boomrat")) return false;
             if (victim?.RaceProps?.FleshType == FleshTypeDefOf.Insectoid) return false;
-            if (!VampSunlightPathUtility.CanArriveBeforeSunlight(victim.PositionHeld, vampire)) return false;
+            if (!victim.PositionHeld.CanArriveBeforeSunlight(vampire)) return false;
             if (victim?.BloodNeed() is Need_Blood targetBlood)
             {
                 if (vampire?.BloodNeed() is Need_Blood eaterBlood)
@@ -355,6 +326,9 @@ namespace Vampire
 
                     if (victim.RaceProps.Animal)
                     {
+                        //Prevents caravan animals from being eaten.
+                        if (victim.Faction != null && victim.Faction != Faction.OfPlayerSilentFail)
+                            return false;
                         if (eaterBlood.preferredFeedMode > PreferredFeedMode.AnimalLethal)
                             return false;
                         if (eaterBlood.preferredFeedMode == PreferredFeedMode.AnimalNonLethal)

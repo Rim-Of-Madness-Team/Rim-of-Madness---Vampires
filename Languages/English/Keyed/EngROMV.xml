@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
 
+<!-- 3-18-18 -->
+<ROMV_SP_NoAI>Sunlight Policy: No AI\coden\nThis removes all AI checks regarding sunlight.</ROMV_SP_NoAI>
+
 <!-- 1-28-18 -->
 <ROMV_DeadlyOperationShort>DEADLY</ROMV_DeadlyOperationShort>
 

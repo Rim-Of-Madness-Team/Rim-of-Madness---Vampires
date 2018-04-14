@@ -47,15 +47,7 @@ namespace Vampire
             if (Rand.Value < 0.1)
             {
                 result = Rand.Range(7, 9);
-                if (childe.Spawned && childe.Faction != Faction.OfPlayerSilentFail)
-                {
-                    Find.LetterStack.ReceiveLetter("ROMV_PowerfulVampireLabel".Translate(),
-                    "ROMV_PowerfulVampireDesc".Translate(new object[]
-                    {
-                        childe.LabelShort,
-                        HediffVampirism.AddOrdinal(result),
-                    }), LetterDefOf.ThreatSmall, childe, null);
-                }
+
                 //Log.Message("Vampires :: Spawned " + result + " generaton vampire.");
                 return result;
             }
@@ -197,9 +189,36 @@ namespace Vampire
 #pragma warning disable 169
         private bool debugPrinted = false;
 #pragma warning restore 169
+
+        public Dictionary<Pawn, int> recentVampires = new Dictionary<Pawn, int>();
+        
         public override void WorldComponentTick()
         {
             base.WorldComponentTick();
+            if (recentVampires.Any())
+                recentVampires.RemoveAll(x => x.Key.Dead || x.Key.DestroyedOrNull());
+            if (recentVampires.Any())
+            {
+                var recentVampiresKeys = new List<Pawn>(recentVampires.Keys);
+                foreach (var key in recentVampiresKeys)
+                {
+                    recentVampires[key] += 1;
+                    if (recentVampires[key] > 100)
+                    {
+                        recentVampires.Remove(key);
+                        if (!key.Spawned || key.Faction == Faction.OfPlayerSilentFail) continue;
+                        var generation = key?.VampComp()?.Generation;
+                        if (generation != null && generation <= 8)
+                            Find.LetterStack.ReceiveLetter("ROMV_PowerfulVampireLabel".Translate(),
+                                "ROMV_PowerfulVampireDesc".Translate(new object[]
+                                {
+                                    key.LabelShort,
+                                    HediffVampirism.AddOrdinal(generation.Value),
+                                }), LetterDefOf.ThreatSmall, key, null);
+                    }
+                }
+            }
+
             if (Find.TickManager.TicksGame % 100 == 0)
             {
                 CleanVampGuestCache();

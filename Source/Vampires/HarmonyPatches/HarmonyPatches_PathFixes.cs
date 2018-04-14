@@ -12,12 +12,15 @@ namespace Vampire
         // Verse.ReachabilityUtility
         public static void CanReach_Vampire(ref bool __result, Pawn pawn, LocalTargetInfo dest, PathEndMode peMode, Danger maxDanger, bool canBash = false, TraverseMode mode = TraverseMode.ByPawn)
         {
-            if (__result && pawn.IsVampire() && 
-                (pawn.VampComp().CurrentSunlightPolicy > SunlightPolicy.Relaxed || pawn.MentalStateDef == DefDatabase<MentalStateDef>.GetNamed("ROMV_VampireBeast")) &&
-                VampireUtility.IsDaylight(pawn) && pawn.Faction == Faction.OfPlayerSilentFail && !pawn.Drafted)
-            {
-                if (!dest.Cell.Roofed(pawn.MapHeld)) __result = false;
-            }
+            var inBeastMentalState = pawn?.MentalStateDef == DefDatabase<MentalStateDef>.GetNamed("ROMV_VampireBeast");
+            var inRestrictedSunlightAIMode = pawn?.VampComp()?.CurrentSunlightPolicy == SunlightPolicy.Restricted;
+            var isDaylight = VampireUtility.IsDaylight(pawn);
+            var isPlayerCharacter = pawn?.Faction == Faction.OfPlayerSilentFail;
+            var isNotDrafted = !pawn?.Drafted ?? false;
+            var destIsNotRoofed = !dest.Cell.Roofed(pawn?.MapHeld ?? Find.VisibleMap);
+            if (__result && pawn.IsVampire() &&
+                (inRestrictedSunlightAIMode || inBeastMentalState) &&
+                isDaylight && isPlayerCharacter && isNotDrafted && destIsNotRoofed) __result = false;
         }
 
         //JobGiver_GetRest 

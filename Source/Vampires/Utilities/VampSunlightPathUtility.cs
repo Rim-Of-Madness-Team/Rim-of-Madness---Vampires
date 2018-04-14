@@ -43,6 +43,9 @@ namespace Vampire
                     return null;
 //                if (pawn.pather != null && pawn.pather.Destination != null && pawn.pather.Destination.IsSunlightSafeFor(pawn))
 //                    return null;
+                if (vampComp.CurrentSunlightPolicy == SunlightPolicy.NoAI)
+                    return null;
+                
                 if (pawn.GetRoom() is Room room && room.PsychologicallyOutdoors)
                 {
                     Job surviveJob;

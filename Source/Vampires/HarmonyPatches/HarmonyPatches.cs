@@ -765,7 +765,7 @@ namespace Vampire
             if (__instance is Building_Coffin)
             {
                 __result = __instance.def.size.x;
-                Log.Message(__instance.ToString() + " " +  __result.ToString());
+                //Log.Message(__instance.ToString() + " " +  __result.ToString());
             }
         }
         
@@ -795,7 +795,7 @@ namespace Vampire
                 //Add assignments
                 if (newCoffin.AssignedPawns.Count() >= newCoffin.def.size.x)
                 {
-                    Log.Message("Random unassign");
+                    //Log.Message("Random unassign");
                     var pawnToRemove = newCoffin.AssignedPawns.RandomElement();
                     newCoffin.TryUnassignPawn(pawnToRemove);
                 }
@@ -1290,10 +1290,20 @@ namespace Vampire
         // RimWorld.Scenario
         public static void Vamp_DontGenerateVampsInDaylight(Scenario __instance, Pawn pawn, PawnGenerationContext context)
         {
-            if (pawn.IsVampire() && VampireUtility.IsDaylight(pawn) && pawn.Faction != Faction.OfPlayerSilentFail &&
-                pawn?.health?.hediffSet?.hediffs is List<Hediff> hdiffs)
+            if (pawn.IsVampire())
             {
-                hdiffs.RemoveAll(x => x.def == VampDefOf.ROM_Vampirism);
+                if (VampireUtility.IsDaylight(pawn) && pawn.Faction != Faction.OfPlayerSilentFail && pawn?.health?.hediffSet?.hediffs is List<Hediff> hdiffs)
+                {
+                    hdiffs.RemoveAll(x => x.def == VampDefOf.ROM_Vampirism);
+                }
+                else
+                {
+                    var recentVampires = Find.World.GetComponent<WorldComponent_VampireTracker>().recentVampires;
+                    //Log.Message("Added " + pawn.Label + " to recent vampires list");
+                    recentVampires?.Add(pawn, 1);
+                    
+
+                }
             }
         }
 
@@ -1360,7 +1370,7 @@ namespace Vampire
         // RimWorld.ForbidUtility
         public static void Vamp_IsForbidden(IntVec3 c, Pawn pawn, ref bool __result)
         {
-            if (pawn.IsVampire() && VampireUtility.IsDaylight(pawn) && !c.Roofed(pawn.Map))
+            if (pawn.IsVampire() && (pawn.VampComp().CurrentSunlightPolicy != SunlightPolicy.NoAI && VampireUtility.IsDaylight(pawn)) && !c.Roofed(pawn.Map))
                 __result = true;
         }
 

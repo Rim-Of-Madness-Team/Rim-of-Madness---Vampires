@@ -1,6 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
 
+  <!-- 1-28-18 -->
+  <ROMV_DeadlyOperationShort>СМЕРТОНОСНЫЙ</ROMV_DeadlyOperationShort>
+
+  <!-- 1-17-18 -->
+  <ROMV_PowerfulVampireLabel>Могущественный вампир</ROMV_PowerfulVampireLabel>
+  <ROMV_PowerfulVampireDesc>вампир {0} поколения {1}. Могущественные вампиры, как правило очень опасны, так что действуйте очень осторожно.</ROMV_PowerfulVampireDesc>
+
   <!-- 1-13-18 -->
   <ROMV_HI_Pain>Боль: x{0}</ROMV_HI_Pain>
   <ROMV_HI_Senses>Чувства: +{0}</ROMV_HI_Senses>
