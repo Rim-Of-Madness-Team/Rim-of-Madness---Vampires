@@ -113,6 +113,9 @@ namespace Vampire
         public static BloodlineDef ROMV_ClanLasombra;
         public static BloodlineDef ROMV_ClanPijavica;
         public static BloodlineDef ROMV_ClanGargoyle;
+        public static BloodlineDef ROMV_ClanNosferatu;
+        public static BloodlineDef ROMV_ClanVentrue;
+        public static BloodlineDef ROMV_ClanGangrel;
 
         public static JobDef ROMV_Feed;
         public static JobDef ROMV_Sip;
@@ -137,5 +140,9 @@ namespace Vampire
         public static MentalStateDef MurderousRage;
         public static InteractionDef ROMV_VampireDiablerieAttempt;
         public static NeedDef ROMV_Chemical_Vitae;
+        public static HediffDef ROMV_HideHediff;
+        public static HediffDef ROMV_InvisibilityHediff;
+        public static HediffDef ROMV_HiddenForceHediff;
+        public static HediffDef ROMV_Presence_BloodLustHediff;
     }
 }

@@ -46,25 +46,14 @@ namespace Vampire
                 //Log.Message("0d");
                 return 0f;
             }
-            
-            //HungerCategory.Starving && FoodUtility.ShouldBeFedBySomeone(pawn))
-            //{
-            //    return 0f;
-            //}
-            //if (blood.CurCategory < this.minCategory)
-            //{
-            //    return 0f;
-            //}
             if (Find.World.GetComponent<WorldComponent_VampireTracker>().recentVampires?.ContainsKey(pawn) ?? false)
             {
                 return 0f;
             }
             if (blood.CurLevelPercentage < blood.ShouldFeedPerc)
             {
-                //Log.Message("0e");
                 return 9.5f;
             }
-                //Log.Message("0f");
             return 0f;
         }
 

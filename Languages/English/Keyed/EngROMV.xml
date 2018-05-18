@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
 
+<!-- 5-16-18 -->
+<ROMV_CannotPossessVamps>No matter how powerful the dominator, one cannot possess another kindred.</ROMV_CannotPossessVamps>
+<ROMV_VampiresArrivalLabel>Vampires Arrived</ROMV_VampiresArrivalLabel>
+<ROMV_VampiresArrivalDesc>One or more vampires have arrived. Tread lightly.\n\nIncoming Vampires:\n{0}</ROMV_VampiresArrivalDesc>
+<ROMV_QuestHandleVampire>Our information suggests this is a den of vampirism.</ROMV_QuestHandleVampire>
+
 <!-- 3-18-18 -->
 <ROMV_SP_NoAI>Sunlight Policy: No AI\coden\nThis removes all AI checks regarding sunlight.</ROMV_SP_NoAI>
 

@@ -1,4 +1,5 @@
-﻿using Verse;
+﻿using RimWorld;
+using Verse;
 
 namespace Vampire
 {
@@ -10,6 +11,11 @@ namespace Vampire
         public void ActivateEffect(Pawn activator)
         {
             string text = Pawn.LabelIndefinite();
+            if (Pawn.IsVampire())
+            {
+                Messages.Message("ROMV_CannotPossessVamps".Translate(), MessageTypeDefOf.RejectInput);
+                return;
+            }
             if (Pawn.guest != null)
             {
                 Pawn.guest.SetGuestStatus(null);

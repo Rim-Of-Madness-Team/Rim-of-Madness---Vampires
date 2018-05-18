@@ -75,9 +75,14 @@
     <Compile Include="Buttons.cs" />
     <Compile Include="Components\CompAntiVampireWeapon.cs" />
     <Compile Include="Components\CompProperties_AntiVampireWeapon.cs" />
+    <Compile Include="Components\MapComponent_HiddenTracker.cs" />
     <Compile Include="Components\ThrallData.cs" />
     <Compile Include="Defs\VampDefOfTwo.cs" />
     <Compile Include="Defs\VitaeAbilityDef.cs" />
+    <Compile Include="Disciplines\Obfuscation\DisciplineEffect_Conceal.cs" />
+    <Compile Include="Disciplines\Obfuscation\DisciplineEffect_HiddenForce.cs" />
+    <Compile Include="Disciplines\Obfuscation\DisciplineEffect_Invisibility.cs" />
+    <Compile Include="Disciplines\Obfuscation\DisciplineEffect_Hide.cs" />
     <Compile Include="Disciplines\Vampirism\DisciplineEffect_RegenerateLimb.cs" />
     <Compile Include="Disciplines\Animalism\DisciplineEffect_Beckoning.cs" />
     <Compile Include="Disciplines\Animalism\DisciplineEffect_Communion.cs" />
@@ -96,10 +101,16 @@
     <Compile Include="Disciplines\Thaumaturgy\Projectile_BloodStealer.cs" />
     <Compile Include="Disciplines\Vampirism\DisciplineEffect_VampiricHealing.cs" />
     <Compile Include="Disciplines\Vampirism\DisciplineEffect_VampiricHealingScars.cs" />
+    <Compile Include="Disciplines\Ventrue\DisciplineEffect_BloodLust.cs" />
+    <Compile Include="Disciplines\Ventrue\DisciplineEffect_CeaseFire.cs" />
     <Compile Include="FlyingObject.cs" />
+    <Compile Include="GenStep_VampireLair.cs" />
+    <Compile Include="HandleVampireQuestComp.cs" />
     <Compile Include="HarmonyPatches\HarmonyPatches_HashTables.cs" />
     <Compile Include="HarmonyPatches\VampHumanlikeOrders.cs" />
     <Compile Include="Hediffs\Gizmo_HediffShieldStatus.cs" />
+    <Compile Include="Hediffs\HediffCompProperties_Hidden.cs" />
+    <Compile Include="Hediffs\HediffComp_Hidden.cs" />
     <Compile Include="Hediffs\HediffComp_ReadMind.cs" />
     <Compile Include="Disciplines\Blood\DisciplineEffect_UnstoppableTide.cs" />
     <Compile Include="Disciplines\Blood\DisciplineEffect_Hunger.cs" />
@@ -147,10 +158,12 @@
     <Compile Include="Hediffs\HediffVampirism_Tremere.cs" />
     <Compile Include="Hediffs\HediffVampirism_Tzimisce.cs" />
     <Compile Include="Hediffs\Hediff_AddedPart_Fangs.cs" />
+    <Compile Include="IncidentWorker_QuestVampire.cs" />
     <Compile Include="ITab_Pawn_NeedsCorpse.cs" />
     <Compile Include="PatchOperationModLoaded.cs" />
     <Compile Include="ScenPart_GameStartNight.cs" />
     <Compile Include="ScenPart_LongerNights.cs" />
+    <Compile Include="SymbolResolver_VampireLair.cs" />
     <Compile Include="UI\Alert_VampireInSunlight.cs" />
     <Compile Include="UI\Alert_VampireStarving.cs" />
     <Compile Include="Utilities\BloodBondUtility.cs" />
@@ -175,6 +188,7 @@
     <Compile Include="Utilities\GhoulUtility.cs" />
     <Compile Include="Utilities\VampireBiteUtility.cs" />
     <Compile Include="Utilities\VampireColorUtility.cs" />
+    <Compile Include="Utilities\VampireFactionUtility.cs" />
     <Compile Include="Utilities\VampireGraphicUtility.cs" />
     <Compile Include="Utilities\VampireWitnessUtility.cs" />
     <Compile Include="Utilities\VampSunlightPathUtility.cs" />
@@ -219,6 +233,5 @@
     <Compile Include="Utilities\VampireUtility.cs" />
     <Compile Include="WorldComponent_VampireTracker.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

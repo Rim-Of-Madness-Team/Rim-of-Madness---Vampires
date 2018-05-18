@@ -35,7 +35,6 @@ namespace Vampire
                         bloodline = sire.Bloodline;
                 }
 
-
                 if (v.IsVampire && v.Sire == null)
                 {
                     v.InitializeVampirism(sire?.AbilityUser ?? null, bloodline, generation, firstVampire);

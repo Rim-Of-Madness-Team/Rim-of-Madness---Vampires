@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Verse;
 
 namespace Vampire
@@ -19,12 +20,14 @@ namespace Vampire
             get
             {
                 if (availableAbilities == null)
-                {
                     availableAbilities = new List<VitaeAbilityDef>();
-                    for (int i = 0; i < level; i++)
-                    {
-                        availableAbilities.Add(def.abilities[i]);
-                    }
+                for (int i = 0; i < level; i++)
+                {
+                    availableAbilities.Add(def.abilities[i]);
+                    if (!Def.extraAbilities.NullOrEmpty() &&
+                        def.extraAbilities.FindAll(x => x.level == i) is List<VitaeAbilityDefLevel> vadlList)
+                        foreach (var vadl in vadlList)
+                            availableAbilities.Add(vadl.def);
                 }
                 return availableAbilities;
             }

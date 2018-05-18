@@ -1,11 +1,13 @@
 ﻿using Harmony;
 using RimWorld;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Verse;
 
 namespace Vampire
 {
+    [StaticConstructorOnStartup]
     public static class VampireGraphicUtility
     {
         // Verse.GraphicDatabaseHeadRecords
@@ -71,23 +73,53 @@ namespace Vampire
             return null;
         }
 
+        private static Graphic invisibleForm = null;
         public static bool RenderVampire(PawnRenderer __instance, Vector3 rootLoc, Quaternion quat, bool renderBody, Rot4 bodyFacing, Rot4 headFacing, RotDrawMode bodyDrawType, bool portrait, bool headStump)
         {
             Pawn p = Traverse.Create(__instance).Field("pawn").GetValue<Pawn>();
+            if (p?.Map?.GetComponent<MapComponent_HiddenTracker>()?.hiddenCharacters?.Contains(p) ?? false)
+            {
+                //<texPath>Things/Pawn/Animal/Tenebrous/tenebrous</texPath>
+                //<drawSize>2.0</drawSize>
+                if (VampireGraphicUtility.invisibleForm == null)
+                {
+                    var graphicData = new GraphicData();
+                    graphicData.drawSize = new Vector2(2,2);
+                    graphicData.texPath = "Things/Pawn/Hidden/hidden";
+                    VampireGraphicUtility.invisibleForm = graphicData.Graphic;
+                }
+                __instance.graphics.nakedGraphic = VampireGraphicUtility.invisibleForm;
+                return false;
+            }            
+            if (p?.Map?.GetComponent<MapComponent_HiddenTracker>()?.toRemoveCharacters?.Contains(p) ?? false)
+            {
+                __instance.graphics.nakedGraphic = null;
+                if (p.IsVampire() && p.VampComp() is CompVampire vampCompy)
+                    vampCompy.atDirty = true;
+                p?.Map?.GetComponent<MapComponent_HiddenTracker>()?.toRemoveCharacters.Remove(p);
+                //return false;
+            }
             if (p?.VampComp() is CompVampire v)
             {
                 if (v.Transformed)
                 {
                     if (__instance.graphics.nakedGraphic == null || v.CurFormGraphic == null || v.atDirty)
                     {
-                        if (v.CurrentForm.race.GetCompProperties<CompAnimated.CompProperties_Animated>() is CompAnimated.CompProperties_Animated Props)
+                        if (v.CurrentForm != null)
                         {
-                            Graphic curGraphic = v.CurFormGraphic;
-                            v.CurFormGraphic = CompAnimated.CompAnimated.ResolveCurGraphic(p, Props, ref curGraphic, ref v.atCurIndex, ref v.atCurTicks, ref v.atDirty, false);
+                            if (v.CurrentForm.race.GetCompProperties<CompAnimated.CompProperties_Animated>() is CompAnimated.CompProperties_Animated Props)
+                            {
+                                Graphic curGraphic = v.CurFormGraphic;
+                                v.CurFormGraphic = CompAnimated.CompAnimated.ResolveCurGraphic(p, Props, ref curGraphic, ref v.atCurIndex, ref v.atCurTicks, ref v.atDirty, false);
+                            }
+                            else
+                            {
+                                v.CurFormGraphic = v.CurrentForm.lifeStages[0].bodyGraphicData.Graphic;
+                            }
                         }
                         else
                         {
-                            v.CurFormGraphic = v.CurrentForm.lifeStages[0].bodyGraphicData.Graphic;
+                            v.CurFormGraphic = p.kindDef.lifeStages[p.ageTracker.CurLifeStageIndex].bodyGraphicData.Graphic;// v.CurrentForm.lifeStages[0].bodyGraphicData.Graphic;
                         }
                         __instance.graphics.nakedGraphic = v.CurFormGraphic;
                         __instance.graphics.ResolveApparelGraphics();

@@ -287,49 +287,33 @@
     </allowedArrivalTemperatureRange>
     <pawnGroupMakers>
       <li>
-        <!-- Normal fights, standard mix -->
         <kindDef>Normal</kindDef>
         <commonality>100</commonality>
         <options>
-          <Drifter>5</Drifter>
-          <GrenadierEMP>5</GrenadierEMP>
-          <GrenadierDestructive>20</GrenadierDestructive>
-          <Thrasher>70</Thrasher>
-          <MercenarySlasher>70</MercenarySlasher>
-          <MercenaryHeavy>60</MercenaryHeavy>
-          <MercenarySniper>80</MercenarySniper>
-          <Scavenger>100</Scavenger>
-          <Pirate>120</Pirate>
-          <MercenaryGunner>100</MercenaryGunner>
-          <MercenaryElite>100</MercenaryElite>
-          <PirateBoss>100</PirateBoss>
-        </options>
-      </li>
-      <li>
-        <!-- Normal fights, melee-only -->
-        <kindDef>Normal</kindDef>
-        <commonality>25</commonality>
-        <disallowedStrategies>
-          <li>Siege</li>
-        </disallowedStrategies>
-        <options>
-          <MercenarySlasher>100</MercenarySlasher>
+          <ROMV_BondedMortalKind>5</ROMV_BondedMortalKind>
+          <ROMV_LesserGhoulKind>60</ROMV_LesserGhoulKind>
+          <ROMV_GhoulKind>100</ROMV_GhoulKind>
+          <ROMV_ThinbloodVampireKind>150</ROMV_ThinbloodVampireKind>
+          <ROMV_LesserVampireKind>180</ROMV_LesserVampireKind>
+          <ROMV_VampireKind>230</ROMV_VampireKind>
+          <ROMV_GreaterVampireKind>20</ROMV_GreaterVampireKind>
+          <ROMV_AncientVampireKind>5</ROMV_AncientVampireKind>
+          <ROMV_PrinceVampireKind>1</ROMV_PrinceVampireKind>
         </options>
       </li>
       <li>
         <!-- Base defense -->
         <kindDef>FactionBase</kindDef>
         <options>
-          <Drifter>5</Drifter>
-          <GrenadierDestructive>20</GrenadierDestructive>
-          <Thrasher>70</Thrasher>
-          <MercenarySlasher>70</MercenarySlasher>
-          <MercenarySniper>80</MercenarySniper>
-          <Scavenger>100</Scavenger>
-          <Pirate>120</Pirate>
-          <MercenaryGunner>100</MercenaryGunner>
-          <MercenaryElite>100</MercenaryElite>
-          <PirateBoss>100</PirateBoss>
+          <ROMV_BondedMortalKind>5</ROMV_BondedMortalKind>
+          <ROMV_LesserGhoulKind>60</ROMV_LesserGhoulKind>
+          <ROMV_GhoulKind>100</ROMV_GhoulKind>
+          <ROMV_ThinbloodVampireKind>150</ROMV_ThinbloodVampireKind>
+          <ROMV_LesserVampireKind>180</ROMV_LesserVampireKind>
+          <ROMV_VampireKind>230</ROMV_VampireKind>
+          <ROMV_GreaterVampireKind>20</ROMV_GreaterVampireKind>
+          <ROMV_AncientVampireKind>5</ROMV_AncientVampireKind>
+          <ROMV_PrinceVampireKind>1</ROMV_PrinceVampireKind>
         </options>
       </li>
     </pawnGroupMakers>

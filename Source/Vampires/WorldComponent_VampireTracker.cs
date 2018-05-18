@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using RimWorld;
 using Verse;
 using RimWorld.Planet;
@@ -191,6 +192,8 @@ namespace Vampire
 #pragma warning restore 169
 
         public Dictionary<Pawn, int> recentVampires = new Dictionary<Pawn, int>();
+        public List<Pawn> tempVampires = new List<Pawn>();
+        
         
         public override void WorldComponentTick()
         {
@@ -199,13 +202,15 @@ namespace Vampire
                 recentVampires.RemoveAll(x => x.Key.Dead || x.Key.DestroyedOrNull());
             if (recentVampires.Any())
             {
-                var recentVampiresKeys = new List<Pawn>(recentVampires.Keys);
+                var recentVampiresKeys = new List<Pawn>(recentVampires.Keys.Where(x => x.Spawned && x.Faction != Faction.OfPlayerSilentFail));
+
                 foreach (var key in recentVampiresKeys)
                 {
                     recentVampires[key] += 1;
                     if (recentVampires[key] > 100)
                     {
                         recentVampires.Remove(key);
+                        tempVampires.Add(key);
                         if (!key.Spawned || key.Faction == Faction.OfPlayerSilentFail) continue;
                         var generation = key?.VampComp()?.Generation;
                         if (generation != null && generation <= 8)
@@ -221,6 +226,20 @@ namespace Vampire
 
             if (Find.TickManager.TicksGame % 100 == 0)
             {
+                if (tempVampires.Count > 1)
+                {
+                    var recentVampiresKeys = new List<Pawn>(tempVampires);
+                    tempVampires.Clear();
+                    StringBuilder stringBuilder = new StringBuilder();
+                    foreach (var pawn in recentVampiresKeys)
+                    {
+                        stringBuilder.AppendLine("    " + pawn.NameStringShort + " (" + HediffVampirism.AddOrdinal(pawn.VampComp().Generation) + ")");
+                    }
+                    string vampList = "ROMV_VampiresArrivalDesc".Translate(stringBuilder.ToString());
+                    Find.LetterStack.ReceiveLetter("ROMV_VampiresArrivalLabel".Translate(), vampList, LetterDefOf.ThreatSmall, recentVampiresKeys.FirstOrDefault(), null);
+                }
+                
+                
                 CleanVampGuestCache();
                 if (HarmonyPatches.VampGuestCache == null || !HarmonyPatches.VampGuestCache.Any()) return;
                 foreach (var keyValuePair in HarmonyPatches.VampGuestCache)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using RimWorld;
 using Verse;
 using AbilityUser;
@@ -206,28 +207,6 @@ namespace Vampire
                 return childer;
             }
         }
-        //public List<Pawn> Ghouls
-        //{
-        //    get
-        //    {
-        //        if (ghouls == null)
-        //        {
-        //            ghouls = new List<Pawn>();
-        //            if (this.AbilityUser?.relations?.DirectRelations is List<DirectPawnRelation> rels)
-        //            {
-        //                foreach (DirectPawnRelation rel in rels)
-        //                {
-        //                    if (rel.def == VampDefOf.ROMV_Childe)
-        //                    {
-        //                        ghouls.Add(rel.otherPawn);
-        //                    }
-        //                }
-        //            }
-
-        //        }
-        //        return ghouls;
-        //    }
-        //}
         public List<Pawn> Souls
         {
             get
@@ -347,8 +326,9 @@ namespace Vampire
                 {
                     if (discipline?.AvailableAbilities is List<VitaeAbilityDef> vdd && !vdd.NullOrEmpty())
                     {
-                        foreach (var vitaeAbilityDef in vdd)
+                        for (var i = 0; i < vdd.Count; i++)
                         {
+                            var vitaeAbilityDef = vdd[i];
                             if (AbilityData.Powers.FirstOrDefault(x => x.Def.defName == vitaeAbilityDef.defName) ==
                                 null)
                             {
@@ -529,6 +509,19 @@ namespace Vampire
                 atDirty = true;
             }
         }
+
+
+        private bool factionResolved = false;
+
+        /// Give AI Werewolves levels in different forms.
+        public void ResolveAIFactionSpawns()
+        {
+            if (!factionResolved && VampireFactionUtility.IsVampireFaction(Pawn?.Faction))
+            {
+                factionResolved = true;
+            }
+        }
+
 
         public void SunlightWatcherTick()
         {

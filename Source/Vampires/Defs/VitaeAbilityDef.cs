@@ -12,4 +12,10 @@ namespace Vampire
         public int bloodCost;
         public List<string> tags;
     }
+
+    public class VitaeAbilityDefLevel
+    {
+        public VitaeAbilityDef def;
+        public int level;
+    }
 }

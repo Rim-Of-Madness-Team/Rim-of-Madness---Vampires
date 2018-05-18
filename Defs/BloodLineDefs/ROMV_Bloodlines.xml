@@ -1,6 +1,54 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
+  <!-- New as of 5-7-18 -->
+  
+  <Vampire.BloodlineDef>
+    <defName>ROMV_ClanVentrue</defName>
+    <label>Ventrue</label>
+    <description>Clan Venture are the ruling class, the nobility, aristocracy, company CEOs, wealthy individuals, politicians, assorted royalty. They ruled in life, and they rule in undeath as well.</description>
+    <fangsHediff>ROMV_Fangs</fangsHediff>
+    <bloodlineHediff/>
+    <embraceWorker>Vampire.EmbraceWorker</embraceWorker>
+    <disciplines>
+      <li>ROMV_Presence</li>
+      <li>ROMV_Dominate</li>
+      <li>ROMV_Fortitude</li>
+    </disciplines>
+  </Vampire.BloodlineDef>
+  
+  <Vampire.BloodlineDef>
+    <defName>ROMV_ClanGangrel</defName>
+    <label>Gangrel</label>
+    <description>Clan Gangrel are nomadic with closer ties to the animal aspect of the Beast. They are known for their rebellious nature and quick tempers.</description>
+    <fangsHediff>ROMV_Fangs</fangsHediff>
+    <bloodlineHediff/>
+    <embraceWorker>Vampire.EmbraceWorker</embraceWorker>
+    <disciplines>
+      <li>ROMV_Protean</li>
+      <li>ROMV_Animalism</li>
+      <li>ROMV_Fortitude</li>
+    </disciplines>
+  </Vampire.BloodlineDef>
+  
+  <Vampire.BloodlineDef>
+    <defName>ROMV_ClanNosferatu</defName>
+    <label>Nosferatu</label>
+    <description>Clan Nosferatu are easily recognizable as monstrous vampires from their appearances. They must hide to survive in the masquerade, as their very visage betrays their identities.</description>
+    <fangsHediff>ROMV_Fangs</fangsHediff>
+    <bloodlineHediff/>
+    <embraceWorker>Vampire.EmbraceWorker</embraceWorker>
+    <allowsHair>False</allowsHair>
+    <disciplines>
+      <li>ROMV_Obfuscation</li>
+      <li>ROMV_Animalism</li>
+      <li>ROMV_Potence</li>
+    </disciplines>
+    <headGraphicsPath>Things/Pawn/Nosferatu/Heads/</headGraphicsPath>
+  </Vampire.BloodlineDef>
+
+  <!-- Previous defs -->
+
   <Vampire.BloodlineDef>
     <defName>ROMV_Caine</defName>
     <label>First Vampire</label>
@@ -9,6 +57,21 @@
     <scenarioCanAdd>false</scenarioCanAdd>
     <fangsHediff>ROMV_Fangs</fangsHediff>
     <embraceWorker>Vampire.EmbraceWorker</embraceWorker>
+    <disciplines>
+      <li>ROMV_Animalism</li>
+      <li>ROMV_Auspex</li>  
+	  <li>ROMV_BloodDiscipline</li>
+      <li>ROMV_Dominate</li>    
+	  <li>ROMV_Flight</li>
+      <li>ROMV_Fortitude</li>
+      <li>ROMV_Obfuscation</li>
+	  <li>ROMV_Obtenebration</li>
+      <li>ROMV_Potence</li>
+      <li>ROMV_Presence</li>
+      <li>ROMV_Protean</li>  
+	  <li>ROMV_Thaumaturgy</li>
+	  <li>ROMV_Vicissitude</li>
+    </disciplines>
   </Vampire.BloodlineDef>
 
   <Vampire.BloodlineDef>
@@ -19,7 +82,23 @@
     <scenarioCanAdd>false</scenarioCanAdd>
     <fangsHediff>ROMV_Fangs</fangsHediff>
     <embraceWorker>Vampire.EmbraceWorker</embraceWorker>
+    <disciplines>
+      <li>ROMV_Animalism</li>
+      <li>ROMV_Auspex</li>  
+	  <li>ROMV_BloodDiscipline</li>
+      <li>ROMV_Dominate</li>    
+	  <li>ROMV_Flight</li>
+      <li>ROMV_Fortitude</li>
+      <li>ROMV_Obfuscation</li>
+	  <li>ROMV_Obtenebration</li>
+      <li>ROMV_Potence</li>
+      <li>ROMV_Presence</li>
+      <li>ROMV_Protean</li>  
+	  <li>ROMV_Thaumaturgy</li>
+	  <li>ROMV_Vicissitude</li>
+    </disciplines>
   </Vampire.BloodlineDef>
+  
 
   <Vampire.BloodlineDef>
     <defName>ROMV_ClanTzimize</defName>

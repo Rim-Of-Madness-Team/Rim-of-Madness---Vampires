@@ -3,6 +3,7 @@ using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using Verse;
 using Verse.AI;
@@ -91,6 +92,8 @@ namespace Vampire
                 {
                     try
                     {
+                        MethodInfo tryGiveJob = AccessTools.Method(jobGiver, "TryGiveJob");
+                        if (tryGiveJob?.DeclaringType == jobGiver)
                         harmony.Patch(AccessTools.Method(jobGiver, "TryGiveJob"), null,
                             new HarmonyMethod(typeof(HarmonyPatches), nameof(TryGiveJob_VampireGeneral)), null);
                     }
@@ -123,6 +126,8 @@ namespace Vampire
                 {
                     try
                     {
+                        MethodInfo tryGiveJob = AccessTools.Method(joyGiver, "TryGiveJob");
+                        if (tryGiveJob?.DeclaringType == joyGiver)
                         harmony.Patch(AccessTools.Method(joyGiver, "TryGiveJob"), null,
                             new HarmonyMethod(typeof(HarmonyPatches), nameof(TryGiveJob_VampireGeneral)), null);
                     }
@@ -135,7 +140,7 @@ namespace Vampire
                 }
             }
 
-            //Patches all JoyGivers to consider sunlight for vampires before they do them.
+            //Patches all WorkGivers to consider sunlight for vampires before they do them.
             var listOfWorkGivers = (from domainAssembly in AppDomain.CurrentDomain.GetAssemblies().Where(
                     x => x.GetName().Name != "Harmony" &&
                          x.GetName().Name != "DraftingPatcher" &&
@@ -156,8 +161,10 @@ namespace Vampire
                 {
                     try
                     {
-                        harmony.Patch(AccessTools.Method(workGiver, "HasJobOnCell"), null,
-                            new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_HasJobOnCell)), null);
+                        MethodInfo hasJobOnCellInfo = AccessTools.Method(workGiver, "HasJobOnCell");
+                        if (hasJobOnCellInfo?.DeclaringType == workGiver)
+                            harmony.Patch(AccessTools.Method(workGiver, "HasJobOnCell"), null,
+                                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_HasJobOnCell)), null);
                     }
 #pragma warning disable 168
                     catch (Exception e)
@@ -1038,14 +1045,30 @@ namespace Vampire
         // RimWorld.LovePartnerRelationUtility
         private static float LovinMtbSinglePawnFactor(Pawn pawn)
         {
-            float num = 1f;
-            num /= 1f - pawn.health.hediffSet.PainTotal;
-            float level = pawn.health.capacities.GetLevel(PawnCapacityDefOf.Consciousness);
-            if (level < 0.5f)
+            try
             {
-                num /= level * 2f;
+                float num = 1f;
+                var num2 = pawn?.health?.hediffSet?.PainTotal ?? -1f;
+                if (num2 > -1f)
+                {
+                    num /= 1f - num2;
+                    if (pawn?.health?.capacities?.GetLevel(PawnCapacityDefOf.Consciousness) != null)
+                    {
+                        float level = pawn.health.capacities.GetLevel(PawnCapacityDefOf.Consciousness);
+                        if (level < 0.5f)
+                        {
+                            num /= level * 2f;
+                        }
+                    }
+                    return num / GenMath.FlatHill(0f, 14f, 16f, 25f, 80f, 0.2f, pawn.ageTracker.AgeBiologicalYearsFloat);                
+                }
             }
-            return num / GenMath.FlatHill(0f, 14f, 16f, 25f, 80f, 0.2f, pawn.ageTracker.AgeBiologicalYearsFloat);
+            catch (Exception e)
+            {
+                return -1f;
+            }
+            return -1f;
+
         }
 
 
@@ -1069,7 +1092,7 @@ namespace Vampire
                     __result = -1f;
                     return false;
                 }
-                if (pawn.health.hediffSet.BleedRateTotal > 0f || partner.health.hediffSet.BleedRateTotal > 0f)
+                if (pawn?.health?.hediffSet?.BleedRateTotal > 0f || partner?.health?.hediffSet?.BleedRateTotal > 0f)
                 {
                     __result = -1f;
                     return false;
@@ -1484,11 +1507,26 @@ namespace Vampire
         {
             if (__instance?.CasterPawn is Pawn p && p.IsVampire())
             {
-                if (__instance.CasterPawn.health.hediffSet.hediffs.FirstOrDefault(x => x.TryGetComp<HediffComp_AnimalForm>() != null) is HediffWithComps ht && ht.TryGetComp<HediffComp_AnimalForm>() is HediffComp_AnimalForm af && !af.Props.canGiveDamage)
+                if (__instance.CasterPawn.health.hediffSet.hediffs.FirstOrDefault(x =>
+                        x.TryGetComp<HediffComp_AnimalForm>() != null) is HediffWithComps ht &&
+                    ht.TryGetComp<HediffComp_AnimalForm>() is HediffComp_AnimalForm af && !af.Props.canGiveDamage)
                 {
-                    __instance.CasterPawn.health.hediffSet.hediffs.Remove(ht);
+                    
+                    //__instance.CasterPawn.health.hediffSet.hediffs.Remove(ht);
+                    __instance.CasterPawn.health.RemoveHediff(ht);
                     __instance.CasterPawn.VampComp().CurrentForm = null;
                     __instance.CasterPawn.VampComp().CurFormGraphic = null;
+                    __instance.CasterPawn.Drawer.renderer.graphics.ResolveAllGraphics();
+                }
+                if (__instance.CasterPawn.health.hediffSet.hediffs.FirstOrDefault(x =>
+                        x.TryGetComp<HediffComp_Hidden>() != null) is HediffWithComps htt &&
+                    htt.TryGetComp<HediffComp_Hidden>() is HediffComp_Hidden hf && !hf.Props.canGiveDamage)
+                {
+                    //__instance.CasterPawn.health.hediffSet.hediffs.Remove(htt);
+                    __instance.CasterPawn.health.RemoveHediff(htt);
+                    __instance.CasterPawn.VampComp().CurrentForm = null;
+                    __instance.CasterPawn.VampComp().CurFormGraphic = null;
+                    __instance.CasterPawn.Drawer.renderer.graphics.nakedGraphic = null;
                     __instance.CasterPawn.Drawer.renderer.graphics.ResolveAllGraphics();
                 }
             }
@@ -1633,7 +1671,7 @@ namespace Vampire
         // Verse.Pawn
         public static void VampireBodySize(Pawn __instance, ref float __result)
         {
-            if (__instance?.VampComp() is CompVampire v && v.Transformed)
+            if (__instance?.VampComp() is CompVampire v && v.Transformed && v.CurrentForm != null)
             {
                 __result = v.CurrentForm.race.race.baseBodySize;  //Mathf.Clamp((__result * w.CurrentWerewolfForm.def.sizeFactor) + (w.CurrentWerewolfForm.level * 0.1f), __result, __result * (w.CurrentWerewolfForm.def.sizeFactor * 2));
             }
@@ -1642,7 +1680,7 @@ namespace Vampire
         // Verse.Pawn
         public static void VampireHealthScale(Pawn __instance, ref float __result)
         {
-            if (__instance?.VampComp() is CompVampire v && v.Transformed)
+            if (__instance?.VampComp() is CompVampire v && v.Transformed && v.CurrentForm != null)
             {
                 __result = v.CurrentForm.race.race.baseHealthScale;  //Mathf.Clamp((__result * w.CurrentWerewolfForm.def.sizeFactor) + (w.CurrentWerewolfForm.level * 0.1f), __result, __result * (w.CurrentWerewolfForm.def.sizeFactor * 2));
             }
@@ -1662,16 +1700,20 @@ namespace Vampire
                 }
                 if (pawn.health.hediffSet.hediffs != null && pawn.health.hediffSet.hediffs.Count > 0)
                 {
-                    //Hediff fortitudeHediff = pawn.health.hediffSet.hediffs.FirstOrDefault((Hediff x) => x.TryGetComp<HediffComp_DamageSoak>() != null);
-                    //if (fortitudeHediff != null)
-                    //{
-                    //    HediffComp_DamageSoak soaker = fortitudeHediff.TryGetComp<HediffComp_DamageSoak>();
-                    //    if (soaker != null)
-                    //    {
-                    //        MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, "ROMV_DamageSoaked".Translate(soaker.Props.damageToSoak), -1f);
-                    //        dinfo.SetAmount(Mathf.Max(dinfo.Amount - soaker.Props.damageToSoak, 0));
-                    //    }
-                    //}
+                    if (dinfo.Instigator is Pawn instigator && instigator.health.hediffSet.hediffs != null &&
+                        instigator.health.hediffSet.hediffs.Count > 0)
+                    {
+                        if (instigator.health.hediffSet.hediffs.FirstOrDefault(x =>
+                                x.TryGetComp<HediffComp_Hidden>() != null) is HediffWithComps hide &&
+                            hide.TryGetComp<HediffComp_Hidden>() is HediffComp_Hidden hideComp)
+                        {
+                            Log.Message("Original damage: " + dinfo.Amount);
+                            if (hideComp.Props.damageFactor > 0f)
+                                dinfo.SetAmount((int)(dinfo.Amount * hideComp.Props.damageFactor));
+                            Log.Message("Damage applied: " + dinfo.Amount);
+                        }
+                    }
+                    
                     if (pawn.health.hediffSet.hediffs.FirstOrDefault(x => x.TryGetComp<HediffComp_ReadMind>() != null) is HediffWithComps h && h.TryGetComp<HediffComp_ReadMind>() is HediffComp_ReadMind rm)
                     {
                         if (rm.MindBeingRead == dinfo.Instigator)
@@ -1682,6 +1724,13 @@ namespace Vampire
                         }
                     }
                     if (pawn.health.hediffSet.hediffs.FirstOrDefault(x => x.TryGetComp<HediffComp_AnimalForm>() != null) is HediffWithComps ht && ht.TryGetComp<HediffComp_AnimalForm>().Props.immuneTodamage)
+                    {
+                        pawn.Drawer.Notify_DebugAffected();
+                        absorbed = true;
+                        return false;
+                    }
+                    
+                    if (pawn.health.hediffSet.hediffs.FirstOrDefault(x => x.TryGetComp<HediffComp_Hidden>() != null) is HediffWithComps httt && httt.TryGetComp<HediffComp_Hidden>().Props.immuneTodamage)
                     {
                         pawn.Drawer.Notify_DebugAffected();
                         absorbed = true;

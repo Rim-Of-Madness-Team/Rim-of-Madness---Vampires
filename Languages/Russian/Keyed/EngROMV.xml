@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
 
+  <!-- 3-18-18 -->
+  <ROMV_SP_NoAI>Политика солнечного света: Нет ИИ\кода\nЭто удаляет все проверки ИИ, касающиеся солнечного света.</ROMV_SP_NoAI>
+
   <!-- 1-28-18 -->
   <ROMV_DeadlyOperationShort>СМЕРТОНОСНЫЙ</ROMV_DeadlyOperationShort>
 

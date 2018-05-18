@@ -60,6 +60,9 @@ namespace Vampire
         public static float PowersColumnWidth = 123f;
 
         public static bool adjustedForLanguage = false;
+        
+        private static Vector2 scrollPosition = Vector2.zero;
+        private static float scrollViewHeight;
 
         public static void AdjustForLanguage()
         {
@@ -80,6 +83,7 @@ namespace Vampire
             AdjustForLanguage();
 
             GUI.BeginGroup(rect);
+            
 
             CompVampire compVampire = pawn.GetComp<CompVampire>();
             if (compVampire != null && (compVampire.IsVampire || compVampire.IsGhoul))
@@ -157,9 +161,12 @@ namespace Vampire
 
                     Widgets.DrawLineHorizontal(rect.x - 10, rectPowersLabel.yMax, rect.width - 15f);
                 //---------------------------------------------------------------------
-
-
                 float curY = rectPowersLabel.yMax;
+                var outRect = new Rect(rect.x + ButtonSize, curY + 3f, rect.width * 0.9f, (rectSkills.height * 4f) + 16f);
+                //rectSkills.width -= 10f;
+                var viewRect = new Rect(rect.x + ButtonSize, curY + 3f, (rect.width * 0.9f) - 16f, scrollViewHeight);//rectSkills.height * 4f);
+                float scrollViewY = 0f;
+                Widgets.BeginScrollView(outRect, ref scrollPosition, viewRect, true);
                 if (compVampire.Sheet.Pawn == null)
                 {
                     compVampire.Sheet.Pawn = pawn;
@@ -172,8 +179,15 @@ namespace Vampire
                     {
                         Rect rectDisciplines = new Rect(rect.x + ButtonSize, curY, rectPowersLabel.width, ButtonSize + Padding);
                         PowersGUIHandler(rectDisciplines, compVampire, compVampire.Sheet.Disciplines[i]);
-                        curY += ButtonSize + Padding * 2 + TextSize * 2;
+                        var y = ButtonSize + Padding * 2 + TextSize * 2;
+                        curY += y;
+                        scrollViewY += y;
                     }
+                if (Event.current.type == EventType.Layout)
+                {
+                    scrollViewHeight = scrollViewY + (ButtonSize + Padding * 2 + TextSize * 2) + 30f;
+                }
+                Widgets.EndScrollView();
             }
             GUI.EndGroup();
         }
@@ -266,7 +280,7 @@ namespace Vampire
             float buttonXOffset = inRect.x;
             if (discipline?.Def?.abilities is List<VitaeAbilityDef> abilities && !abilities.NullOrEmpty())
             {
-                Rect rectLabel = new Rect(inRect.x - ButtonSize, inRect.y, inRect.width * 0.7f, TextSize);
+                Rect rectLabel = new Rect(inRect.x, inRect.y, inRect.width * 0.7f, TextSize);
                 Text.Font = GameFont.Small;
                 Widgets.Label(rectLabel, discipline.Def.LabelCap);
                 Text.Font = GameFont.Small;
