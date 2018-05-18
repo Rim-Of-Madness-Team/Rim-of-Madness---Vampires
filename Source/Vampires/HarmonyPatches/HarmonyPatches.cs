@@ -189,7 +189,7 @@ namespace Vampire
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Accepts_VampBed)), null);
             harmony.Patch(AccessTools.Method(typeof(Building_Grave), "get_Graphic"),
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(get_Graphic_VampBed)), null);
-            harmony.Patch(AccessTools.Method(typeof(Building_Casket), "GetFloatMenuOptions"), null,
+            harmony.Patch(AccessTools.Method(typeof(ThingWithComps), "GetFloatMenuOptions"), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(GetFloatMenuOptions_VampBed)));
             harmony.Patch(AccessTools.Method(typeof(WorkGiver_BuryCorpses), "FindBestGrave"), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(FindBestGrave_VampBed)));
@@ -1929,7 +1929,7 @@ namespace Vampire
             return true;
         }
         
-        public static void GetFloatMenuOptions_VampBed(Building_Casket __instance, Pawn selPawn, ref IEnumerable<FloatMenuOption> __result)
+        public static void GetFloatMenuOptions_VampBed(ThingWithComps __instance, Pawn selPawn, ref IEnumerable<FloatMenuOption> __result)
         {
             if (__instance.GetComps<CompVampBed>() is CompVampBed b)
             {
