@@ -420,6 +420,11 @@ namespace Vampire
 
             // MISC
             ////////////////////////////////////////////////////////////////////////////////
+
+            //BestAttackTarget
+            //Presence Level Cooldowns
+            harmony.Patch(AccessTools.Method(typeof(AttackTargetFinder), "BestAttackTarget"), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(BestAttackTarget)));
             //Caravan patches
             harmony.Patch(AccessTools.Method(typeof(Dialog_FormCaravan), "CheckForErrors"), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(CheckForErrors_Vampires)));
@@ -519,6 +524,38 @@ namespace Vampire
                     int curTicks = Find.TickManager.TicksGame;
                     HarmonyPatches.VampGuestCache.Add(startingPawn, curTicks);
                     //Log.Message("Vampire tracking: " + startingPawn.Label + " " + curTicks);
+                }
+            }
+        }
+
+
+        public static void BestAttackTarget(IAttackTargetSearcher searcher, TargetScanFlags flags,
+            Predicate<Thing> validator, float minDist, float maxDist,
+            IntVec3 locus, float maxTravelRadiusFromLocus, bool canBash, ref IAttackTarget __result)
+        {
+            if (searcher?.Thing is Pawn pSearch && __result?.Thing is Pawn p && p.IsVampire() && p.VampComp().Sheet.Disciplines.FirstOrDefault(x => x.Def.defName == "ROMV_Presence") is Discipline d)
+            {
+                HediffDef defToApply = null;
+                switch (d.Level)
+                {
+                        default:
+                            break;
+                        case 1:
+                            defToApply = VampDefOf.ROMV_PresenceICooldownHediff;
+                            break;
+                        case 2:
+                            defToApply = VampDefOf.ROMV_PresenceIICooldownHediff;
+                            break;
+                        case 3:
+                            defToApply = VampDefOf.ROMV_PresenceIIICooldownHediff;
+                            break;
+                        case 4:
+                            defToApply = VampDefOf.ROMV_PresenceIVCooldownHediff;
+                            break;
+                }
+                if (defToApply != null)
+                {
+                    HealthUtility.AdjustSeverity(pSearch, defToApply, 1.0f);
                 }
             }
         }

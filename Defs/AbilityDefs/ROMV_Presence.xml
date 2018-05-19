@@ -27,7 +27,7 @@
     <defName>ROMV_PresenceI</defName>
     <label>Presence I</label>
     <uiIconPath>UI/Icons/Commands/PresenceI</uiIconPath>
-    <description>Permanent +3 social bonus for each level in presence. Enemies nearby increase their attack cooldown by 0.1 seconds.</description>
+    <description>Permanent +3 social bonus for each level in presence. Enemies nearby increase their attack cooldown by 5%.</description>
     <MainVerb Class="AbilityUser.VerbProperties_Ability">
       <verbClass>Vampire.DisciplineEffect_EnterTheAbyss</verbClass>
       <hasStandardCommand>false</hasStandardCommand>
@@ -77,12 +77,32 @@
       </li>	  
     </comps>
   </HediffDef>
+  <HediffDef ParentName="ROMV_VampBase">
+    <defName>ROMV_PresenceICooldownHediff</defName>
+    <label>charmed (Presence I)</label>
+    <comps>
+      <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>
+          <min>13000</min>
+          <max>13000</max>
+        </disappearsAfterTicks>
+      </li>
+    </comps>
+    <stages>
+	  <li>
+	  <statOffsets>
+	    <RangedWeapon_Cooldown>0.05</RangedWeapon_Cooldown>
+		<MeleeWeapon_CooldownMultiplier>0.05</MeleeWeapon_CooldownMultiplier>
+	  </statOffsets>
+	  </li>
+	</stages>
+  </HediffDef>
 
   <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
     <defName>ROMV_PresenceII</defName>
     <label>Presence II</label>
     <uiIconPath>UI/Icons/Commands/PresenceII</uiIconPath>
-    <description>Permanent +3 social bonus for each level in presence. Enemies nearby increase their attack cooldown by 0.2 seconds. </description>
+    <description>Permanent +3 social bonus for each level in presence. Enemies nearby increase their attack cooldown by 10%. </description>
     <MainVerb Class="AbilityUser.VerbProperties_Ability">
       <verbClass>Vampire.DisciplineEffect_EnterTheAbyss</verbClass>
       <hasStandardCommand>false</hasStandardCommand>
@@ -132,12 +152,34 @@
       </li>	  	  
     </comps>
   </HediffDef>
+  <HediffDef ParentName="ROMV_VampBase">
+    <defName>ROMV_PresenceIICooldownHediff</defName>
+    <label>charmed (Presence II)</label>
+    <comps>
+      <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>
+          <min>13000</min>
+          <max>13000</max>
+        </disappearsAfterTicks>
+      </li>
+
+    </comps>	
+    <stages>
+	  <li>
+	    <statOffsets>
+	      <RangedWeapon_Cooldown>0.1</RangedWeapon_Cooldown>
+		  <MeleeWeapon_CooldownMultiplier>0.1</MeleeWeapon_CooldownMultiplier>
+	    </statOffsets>
+	  </li>
+	</stages>
+  </HediffDef>
+
 
   <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
     <defName>ROMV_PresenceIII</defName>
     <label>Presence III</label>
     <uiIconPath>UI/Icons/Commands/PresenceIII</uiIconPath>
-    <description>Permanent +3 social bonus for each level in presence. Enemies nearby increase their attack cooldown by 0.25 seconds. Adds "peace talks" dialog option.</description>
+    <description>Permanent +3 social bonus for each level in presence. Enemies nearby increase their attack cooldown by 12%. Adds "peace talks" dialog option.</description>
     <MainVerb Class="AbilityUser.VerbProperties_Ability">
       <verbClass>Vampire.DisciplineEffect_EnterTheAbyss</verbClass>
       <hasStandardCommand>false</hasStandardCommand>
@@ -186,13 +228,34 @@
         <offset>3</offset>
       </li>	  
 	  </comps>
+  </HediffDef> 
+  <HediffDef ParentName="ROMV_VampBase">
+    <defName>ROMV_PresenceIIICooldownHediff</defName>
+    <label>charmed (Presence III)</label>
+    <comps>
+      <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>
+          <min>13000</min>
+          <max>13000</max>
+        </disappearsAfterTicks>
+      </li>
+    </comps>
+    <stages>
+	  <li>
+	    <statOffsets>
+	      <RangedWeapon_Cooldown>0.12</RangedWeapon_Cooldown>
+		  <MeleeWeapon_CooldownMultiplier>0.12</MeleeWeapon_CooldownMultiplier>
+	    </statOffsets>
+	  </li>
+	</stages>
   </HediffDef>
+
 
   <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
     <defName>ROMV_PresenceIV</defName>
     <label>Presence IV</label>
     <uiIconPath>UI/Icons/Commands/PresenceIV</uiIconPath>
-    <description>Permanent +3 social bonus for each level in presence. Enemies nearby increase their attack cooldown by 0.25 seconds. Adds "peace talks" dialog option. Adds two once per year abilities:\n\n- Cease fire - immediately halts a faction raid and sends them home.\n-Bloodlust - rally your colony into an enraged horde capable of ignoring their wounds (lasts 4 in-game hours).</description>
+    <description>Permanent +3 social bonus for each level in presence. Enemies nearby increase their attack cooldown by 15%. Adds "peace talks" dialog option. Adds two once per year abilities:\n\n- Cease fire - immediately halts a faction raid and sends them home.\n-Bloodlust - rally your colony into an enraged horde capable of ignoring their wounds (lasts 4 in-game hours).</description>
     <MainVerb Class="AbilityUser.VerbProperties_Ability">
       <verbClass>Vampire.DisciplineEffect_EnterTheAbyss</verbClass>
       <hasStandardCommand>False</hasStandardCommand>
@@ -242,7 +305,26 @@
       </li>
 	</comps>
   </HediffDef>
-  
+  <HediffDef ParentName="ROMV_VampBase">
+    <defName>ROMV_PresenceIVCooldownHediff</defName>
+    <label>charmed (Presence IV)</label>
+    <comps>
+      <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>
+          <min>13000</min>
+          <max>13000</max>
+        </disappearsAfterTicks>
+      </li>
+    </comps>
+    <stages>
+	  <li>
+	    <statOffsets>
+	      <RangedWeapon_Cooldown>0.15</RangedWeapon_Cooldown>
+	      <MeleeWeapon_CooldownMultiplier>0.15</MeleeWeapon_CooldownMultiplier>
+	    </statOffsets>
+	  </li>
+	</stages>
+  </HediffDef>
   
   <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
     <defName>ROMV_Presence_BloodLust</defName>

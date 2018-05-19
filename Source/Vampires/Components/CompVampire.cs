@@ -24,8 +24,7 @@ namespace Vampire
         Restricted = 1,
         NoAI = 2
     }
-
-
+    
     public class CompVampire : CompAbilityUser
     {
         #region Variables

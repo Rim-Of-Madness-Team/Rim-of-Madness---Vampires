@@ -144,5 +144,9 @@ namespace Vampire
         public static HediffDef ROMV_InvisibilityHediff;
         public static HediffDef ROMV_HiddenForceHediff;
         public static HediffDef ROMV_Presence_BloodLustHediff;
+        public static HediffDef ROMV_PresenceICooldownHediff;
+        public static HediffDef ROMV_PresenceIICooldownHediff;
+        public static HediffDef ROMV_PresenceIIICooldownHediff;
+        public static HediffDef ROMV_PresenceIVCooldownHediff;
     }
 }
