@@ -49,6 +49,27 @@
     <scenarioCanAdd>true</scenarioCanAdd>
   </HediffDef>
 
+  <HediffDef ParentName="ROMV_VampGiver">
+    <defName>ROM_VampirismVentrue</defName>
+    <hediffClass>Vampire.HediffVampirism_Ventrue</hediffClass>
+    <label>vampirism (Ventrue)</label>
+    <scenarioCanAdd>true</scenarioCanAdd>
+  </HediffDef>
+
+  <HediffDef ParentName="ROMV_VampGiver">
+    <defName>ROM_VampirismGangrel</defName>
+    <hediffClass>Vampire.HediffVampirism_Gangrel</hediffClass>
+    <label>vampirism (Gangrel)</label>
+    <scenarioCanAdd>true</scenarioCanAdd>
+  </HediffDef>
+  
+  <HediffDef ParentName="ROMV_VampGiver">
+    <defName>ROM_VampirismNosferatu</defName>
+    <hediffClass>Vampire.HediffVampirism_Nosferatu</hediffClass>
+    <label>vampirism (Nosferatu)</label>
+    <scenarioCanAdd>true</scenarioCanAdd>
+  </HediffDef>
+
   <HediffDef Name="ROMV_VampGiver" ParentName="ROMV_VampBase" Abstract="True">
     <hediffClass>Vampire.HediffVampirism_VampGiver</hediffClass>
     <initialSeverity>0.5</initialSeverity>

@@ -151,12 +151,15 @@
     <Compile Include="HarmonyPatches\HarmonyPatches_PathFixes.cs" />
     <Compile Include="Hediffs\HediffGhoul.cs" />
     <Compile Include="Hediffs\HediffVampirismGenerationBonus.cs" />
+    <Compile Include="Hediffs\HediffVampirism_Gangrel.cs" />
     <Compile Include="Hediffs\HediffVampirism_Gargoyle.cs" />
+    <Compile Include="Hediffs\HediffVampirism_Nosferatu.cs" />
     <Compile Include="Hediffs\HediffVampirism_VampGiver.cs" />
     <Compile Include="Hediffs\HediffVampirism_Lasombre.cs" />
     <Compile Include="Hediffs\HediffVampirism_Pijavica.cs" />
     <Compile Include="Hediffs\HediffVampirism_Tremere.cs" />
     <Compile Include="Hediffs\HediffVampirism_Tzimisce.cs" />
+    <Compile Include="Hediffs\HediffVampirism_Ventrue.cs" />
     <Compile Include="Hediffs\Hediff_AddedPart_Fangs.cs" />
     <Compile Include="IncidentWorker_QuestVampire.cs" />
     <Compile Include="ITab_Pawn_NeedsCorpse.cs" />
