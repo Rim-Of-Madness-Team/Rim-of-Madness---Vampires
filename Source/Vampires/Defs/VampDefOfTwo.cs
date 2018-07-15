@@ -20,5 +20,6 @@ namespace Vampire
         public static HediffDef FibrousMechanites;
         public static HediffDef SensoryMechanites;
         public static BodyPartDef Spine;
+        public static EffecterDef ROMV_BloodVomit;
     }
 }

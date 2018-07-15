@@ -9,24 +9,14 @@ namespace Vampire
     public class JobDriver_BloodVomit : JobDriver
     {
         private int ticksLeft;
-
-        private PawnPosture lastPosture;
-
-        public override PawnPosture Posture => lastPosture;
-
-        public override void Notify_LastPosture(PawnPosture posture, LayingDownState layingDown)
+        public override void SetInitialPosture()
         {
-            lastPosture = posture;
-            this.layingDown = layingDown;
-        }
-
+		}
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look(ref ticksLeft, "ticksLeft");
-            Scribe_Values.Look(ref lastPosture, "lastPosture");
+            Scribe_Values.Look<int>(ref this.ticksLeft, "ticksLeft", 0, false);
         }
-
         [DebuggerHidden]
         protected override IEnumerable<Toil> MakeNewToils()
         {
@@ -83,7 +73,7 @@ namespace Vampire
                 }
             };
             to.defaultCompleteMode = ToilCompleteMode.Never;
-            to.WithEffect(EffecterDef.Named("ROMV_BloodVomit"), TargetIndex.A);
+            to.WithEffect(VampDefOfTwo.ROMV_BloodVomit, TargetIndex.A);
             to.PlaySustainerOrSound(() => SoundDef.Named("Vomit"));
             yield return to;
         }
