@@ -178,7 +178,7 @@ namespace Vampire
             BaseGen.symbolStack.Push("floor", resolveParams2);
         }
 
-        public override void Generate(Map map)
+        public override void Generate(Map map, GenStepParams parms)
         {
             CellRect rectToDefend;
             if (!MapGenerator.TryGetVar<CellRect>("RectOfInterest", out rectToDefend))
@@ -197,7 +197,7 @@ namespace Vampire
             rp.edgeDefenseWidth = new int?(2);
             rp.edgeDefenseTurretsCount = 0; // new int?(Rand.RangeInclusive(0, 1));
             rp.edgeDefenseMortarsCount = new int?(0);
-            rp.factionBasePawnGroupPointsFactor = new float?(0.4f);
+            rp.settlementPawnGroupPoints = new float?(0.4f);
             BaseGen.globalSettings.map = map;
 //			BaseGen.globalSettings.minBuildings = 1;
 //			BaseGen.globalSettings.minBarracks = 1;
@@ -262,5 +262,7 @@ namespace Vampire
         private const int Size = 16;
 
         private static List<CellRect> possibleRects = new List<CellRect>();
+
+        public override int SeedPart => throw new NotImplementedException();
     }
 }

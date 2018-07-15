@@ -40,7 +40,7 @@ namespace Vampire
         }
 
         // Verse.GraphicGetter_NakedHumanlike
-        public static Graphic GetNakedBodyGraphic(Pawn pawn, BodyType bodyType, Shader shader, Color skinColor)
+        public static Graphic GetNakedBodyGraphic(Pawn pawn, BodyTypeDef bodyType, Shader shader, Color skinColor)
         {
             //Log.Message(pawn.ToString());
             //Log.Message(bodyType.ToString());

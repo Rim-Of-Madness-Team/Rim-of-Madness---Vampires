@@ -243,7 +243,7 @@ namespace Vampire
             GenerateApparelFromSource(pawn, sourcePawn);
             PawnGenerationRequest con = new PawnGenerationRequest();
             PawnInventoryGenerator.GenerateInventoryFor(pawn, con);
-            Graphic nakedBodyGraphic = GraphicGetter_NakedHumanlike.GetNakedBodyGraphic(sourcePawn.story.bodyType, ShaderDatabase.CutoutSkin, sourcePawn.story.SkinColor);
+            Graphic nakedGraphic = GraphicDatabase.Get<Graphic_Multi>(this.pawn.story.bodyType.bodyNakedGraphicPath, ShaderDatabase.CutoutSkin, Vector2.one, this.pawn.story.SkinColor);
             Graphic headGraphic = GraphicDatabase.Get<Graphic_Multi>(sourcePawn.story.HeadGraphicPath, ShaderDatabase.CutoutSkin, Vector2.one, sourcePawn.story.SkinColor);
             Graphic hairGraphic = GraphicDatabase.Get<Graphic_Multi>(sourcePawn.story.hairDef.texPath, ShaderDatabase.Cutout, Vector2.one, sourcePawn.story.hairColor);
             pawn.Drawer.renderer.graphics.headGraphic = headGraphic;

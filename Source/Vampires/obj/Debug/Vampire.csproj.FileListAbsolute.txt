@@ -1,0 +1,2 @@
+C:\Users\Joshy\Documents\Rim-of-Madness---Vampires-master\Source\Vampires\obj\Debug\Vampire.csprojAssemblyReference.cache
+C:\Users\Joshy\Documents\Rim-of-Madness---Vampires-master\Source\Vampires\obj\Debug\Vampire.csproj.CoreCompileInputs.cache

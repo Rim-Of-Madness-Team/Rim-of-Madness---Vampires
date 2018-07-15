@@ -17,9 +17,9 @@ namespace Vampire
         //Very common interaction
         private const float BaseSelectionWeight = 1f;
 
-        public override void Interacted(Pawn initiator, Pawn recipient, List<RulePackDef> extraSentencePacks)
-        {
-            base.Interacted(initiator, recipient, extraSentencePacks);
+        public override void Interacted(Pawn initiator, Pawn recipient, List<RulePackDef> extraSentencePacks, out string letterText, out string letterLabel, out LetterDef letterDef)
+            {
+            base.Interacted(initiator, recipient, extraSentencePacks, out letterText, out letterLabel, out letterDef);
             int diff = initiator.VampComp().Level - recipient.VampComp().Level;
             int xpToGive = (int)(10 + (VAMPIRE_XPPERLEVELDIFF * diff));
             if (recipient.IsGhoul()) xpToGive = (int)(xpToGive * 0.5f);
@@ -27,7 +27,7 @@ namespace Vampire
             MoteMaker.ThrowText(recipient.DrawPos, recipient.MapHeld, "XP +" + xpToGive);
 
         }
-
+  
         public override float RandomSelectionWeight(Pawn initiator, Pawn recipient)
         {
             //We need two individuals that are part of the colony
