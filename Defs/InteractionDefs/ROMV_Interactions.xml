@@ -14,12 +14,12 @@
     <initiatorXpGainAmount>100</initiatorXpGainAmount>
     <logRulesInitiator>
       <rulesStrings>
-        <li>logentry->Tried to consume [other_nameShortIndef]'s soul.</li>
+        <li>r_logentry->Tried to consume [other_nameShortIndef]'s soul.</li>
       </rulesStrings>
     </logRulesInitiator>
     <logRulesRecipient>
       <rulesStrings>
-        <li>logentry->[other_nameShortIndef] tried to consume my soul.</li>
+        <li>r_logentry->[other_nameShortIndef] tried to consume my soul.</li>
       </rulesStrings>
     </logRulesRecipient>
   </InteractionDef>
@@ -29,7 +29,7 @@
     <thoughtClass>Thought_MemorySocial</thoughtClass>
     <durationDays>30</durationDays>
     <stackLimit>300</stackLimit>
-    <stackLimitPerPawn>1</stackLimitPerPawn>
+    <stackLimitForSameOtherPawn>1</stackLimitForSameOtherPawn>
     <stackedEffectMultiplier>0.88</stackedEffectMultiplier>
     <stages>
       <li>
@@ -53,12 +53,12 @@
     <initiatorXpGainAmount>30</initiatorXpGainAmount>
     <logRulesInitiator>
       <rulesStrings>
-        <li>logentry->Gave blood to [other_nameShortIndef].</li>
+        <li>r_logentry->Gave blood to [other_nameShortIndef].</li>
       </rulesStrings>
     </logRulesInitiator>
     <logRulesRecipient>
       <rulesStrings>
-        <li>logentry->Drank blood from [other_nameShortIndef].</li>
+        <li>r_logentry->Drank blood from [other_nameShortIndef].</li>
       </rulesStrings>
     </logRulesRecipient>
   </InteractionDef>
@@ -74,12 +74,12 @@
     <initiatorXpGainAmount>30</initiatorXpGainAmount>
     <logRulesInitiator>
       <rulesStrings>
-        <li>logentry->Gave blood to [other_nameShortIndef].</li>
+        <li>r_logentry->Gave blood to [other_nameShortIndef].</li>
       </rulesStrings>
     </logRulesInitiator>
     <logRulesRecipient>
       <rulesStrings>
-        <li>logentry->Drank blood from [other_nameShortIndef].</li>
+        <li>r_logentry->Drank blood from [other_nameShortIndef].</li>
       </rulesStrings>
     </logRulesRecipient>
   </InteractionDef>
@@ -90,7 +90,7 @@
     <thoughtClass>Thought_MemorySocial</thoughtClass>
     <durationDays>15</durationDays>
     <stackLimit>300</stackLimit>
-    <stackLimitPerPawn>1</stackLimitPerPawn>
+    <stackLimitForSameOtherPawn>1</stackLimitForSameOtherPawn>
     <stackedEffectMultiplier>0.88</stackedEffectMultiplier>
     <stages>
       <li>
@@ -105,7 +105,7 @@
     <thoughtClass>Thought_MemorySocial</thoughtClass>
     <durationDays>15</durationDays>
     <stackLimit>300</stackLimit>
-    <stackLimitPerPawn>1</stackLimitPerPawn>
+    <stackLimitForSameOtherPawn>1</stackLimitForSameOtherPawn>
     <stackedEffectMultiplier>0.88</stackedEffectMultiplier>
     <stages>
       <li>
@@ -125,12 +125,12 @@
     <initiatorXpGainAmount>30</initiatorXpGainAmount>
     <logRulesInitiator>
       <rulesStrings>
-        <li>logentry->Shared vampiric knowledge with [other_nameShortIndef].</li>
+        <li>r_logentry->Shared vampiric knowledge with [other_nameShortIndef].</li>
       </rulesStrings>
     </logRulesInitiator>
     <logRulesRecipient>
       <rulesStrings>
-        <li>logentry->Learned vampiric knowledge from [other_nameShortIndef].</li>
+        <li>r_logentry->Learned vampiric knowledge from [other_nameShortIndef].</li>
       </rulesStrings>
     </logRulesRecipient>
   </InteractionDef>
@@ -140,7 +140,7 @@
     <thoughtClass>Thought_MemorySocial</thoughtClass>
     <durationDays>3</durationDays>
     <stackLimit>1</stackLimit>
-    <stackLimitPerPawn>2</stackLimitPerPawn>
+    <stackLimitForSameOtherPawn>2</stackLimitForSameOtherPawn>
     <stackedEffectMultiplier>0.88</stackedEffectMultiplier>
     <stages>
       <li>

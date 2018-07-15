@@ -142,7 +142,7 @@ namespace Vampire
 
         public override void DrawAt(Vector3 drawLoc, bool flip = false)
         {
-            Building building = this.StoringBuilding();
+            Building building = this.StoringThing();
             if (building != null && building.def == ThingDefOf.Grave)
             {
                 return;

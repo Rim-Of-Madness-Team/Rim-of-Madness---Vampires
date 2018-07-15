@@ -8,7 +8,7 @@ namespace Vampire
 {
 	public class IncidentWorker_QuestVampire : IncidentWorker
 	{
-		protected override bool CanFireNowSub(IIncidentTarget target)
+		protected override bool CanFireNowSub(IncidentParms parms)
 		{
 			return false;
 		}

@@ -6,8 +6,8 @@
   <ROMV_MonstrosityRace.tools.0.label>левый коготь</ROMV_MonstrosityRace.tools.0.label>
   <ROMV_MonstrosityRace.tools.1.label>правый коготь</ROMV_MonstrosityRace.tools.1.label>
   <ROMV_MonstrosityRace.tools.3.label>голова</ROMV_MonstrosityRace.tools.3.label>
-  <!-- Use Leather From: GrizzlyBear -->
-  <!-- Use Meat From: GrizzlyBear -->
+  <!-- Use Leather From: Bear_Grizzly -->
+  <!-- Use Meat From: Bear_Grizzly -->
   <ROMV_MonstrosityRace_Corpse.label>мёртвое чудовище</ROMV_MonstrosityRace_Corpse.label>
   <ROMV_MonstrosityRace_Corpse.description>Мёртвое чудовище.</ROMV_MonstrosityRace_Corpse.description>
 

@@ -1128,9 +1128,9 @@ namespace Vampire
         {
             if (p.IsVampire())
             {
-                __result = !p.Downed && p.health.hediffSet.BleedRateTotal <= 0f &&
+                __result = !p.Downed && p?.health?.hediffSet?.BleedRateTotal <= 0f &&
                            p?.needs?.rest?.CurCategory < RestCategory.Exhausted &&
-                           !p.health.hediffSet.HasTendableNonInjuryNonMissingPartHediff() && p.Awake() &&
+                           (!p?.health?.hediffSet?.HasTendableNonInjuryNonMissingPartHediff() ?? true) && p.Awake() &&
                            !p.InAggroMentalState && !p.IsPrisoner;
                 return false;
             }
@@ -1647,7 +1647,7 @@ namespace Vampire
                 (compVamp.IsVampire || compVamp.IsGhoul) && Find.TickManager.TicksGame > compVamp.ticksToLearnXP)
             {
                 int delay = 132;
-                if (__instance.def == SkillDefOf.Intellectual || __instance.def == SkillDefOf.Growing) delay += 52;
+                if (__instance.def == SkillDefOf.Intellectual || __instance.def == SkillDefOf.Plants) delay += 52;
                 compVamp.ticksToLearnXP = Find.TickManager.TicksGame + delay;
                 //Log.Message("XP");
                 compVamp.XP++;
@@ -1885,7 +1885,7 @@ namespace Vampire
                     return;
                 }
 
-                if (!pawn.Drafted && __result.def != JobDefOf.WaitWander && __result.def != JobDefOf.GotoWander &&
+                if (!pawn.Drafted && __result.def != JobDefOf.Wait_Wander && __result.def != JobDefOf.GotoWander &&
                     !__result.playerForced && !__result.IsSunlightSafeFor(pawn))
                     __result = null;
             }
@@ -1936,23 +1936,21 @@ namespace Vampire
         // Verse.AI.Group.Trigger_UrgentlyHungry
         public static bool ActivateOn_Vampire(Lord lord, TriggerSignal signal, ref bool __result)
         {
-            if (lord?.ownedPawns?.Any(x => x.IsVampire()) ?? false)
+            if (lord?.ownedPawns == null || lord?.ownedPawns?.Count == 0) return true;
+            if (!(lord?.ownedPawns?.Any(x => x.IsVampire() || x.Dead || x.RaceProps.IsMechanoid) ?? false)) return true;
+            if (signal.type == TriggerSignalType.Tick)
             {
-                if (signal.type == TriggerSignalType.Tick)
+                for (int i = 0; i < lord?.ownedPawns?.Count; i++)
                 {
-                    for (int i = 0; i < lord.ownedPawns.Count; i++)
+                    if (lord?.ownedPawns[i]?.needs?.food?.CurCategory >= HungerCategory.UrgentlyHungry)
                     {
-                        if (lord?.ownedPawns[i]?.needs?.food?.CurCategory >= HungerCategory.UrgentlyHungry)
-                        {
-                            __result = true;
-                            return false;
-                        }
+                        __result = true;
+                        return false;
                     }
                 }
-                __result = false;
-                return false;
             }
-            return true;
+            __result = false;
+            return false;
         }
 
 
@@ -2268,7 +2266,7 @@ namespace Vampire
                         if (curTicks % 150 == 149)
                         {
                             FilthMaker.MakeFilth(__instance.pawn.CurJob.targetA.Cell, __instance.pawn.Map,
-                                ThingDefOf.FilthBlood, __instance.pawn.LabelIndefinite());
+                                ThingDefOf.Filth_Blood, __instance.pawn.LabelIndefinite());
                             if (__instance.pawn.BloodNeed() is Need_Blood n && n.CurBloodPoints > 0)
                             {
                                 n.AdjustBlood(-1);

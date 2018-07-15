@@ -72,6 +72,7 @@
     <Compile Include="AI_Jobs\JobDriver_FeedSip.cs" />
     <Compile Include="AI_Jobs\JobDriver_GhoulBloodBond.cs" />
     <Compile Include="AI_Jobs\JobGiver_ShareBlood.cs" />
+    <Compile Include="Buildings\Building_CoffinSealed.cs" />
     <Compile Include="Buttons.cs" />
     <Compile Include="Components\CompAntiVampireWeapon.cs" />
     <Compile Include="Components\CompProperties_AntiVampireWeapon.cs" />
@@ -166,7 +167,6 @@
     <Compile Include="PatchOperationModLoaded.cs" />
     <Compile Include="ScenPart_GameStartNight.cs" />
     <Compile Include="ScenPart_LongerNights.cs" />
-    <Compile Include="SymbolResolver_VampireLair.cs" />
     <Compile Include="UI\Alert_VampireInSunlight.cs" />
     <Compile Include="UI\Alert_VampireStarving.cs" />
     <Compile Include="Utilities\BloodBondUtility.cs" />
@@ -216,6 +216,8 @@
     <Compile Include="AI_Jobs\MentalState_Rotschreck.cs" />
     <Compile Include="AI_Jobs\MentalState_VampireBeast.cs" />
     <Compile Include="Need_Blood.cs" />
+    <Compile Include="Workers\GenStep_AncientVampireCrypt.cs" />
+    <Compile Include="Workers\IncidentWorker_AncientVampireCrypt.cs" />
     <Compile Include="Workers\InteractionWorker_Bonding.cs" />
     <Compile Include="Workers\InteractionWorker_VampiricLore.cs" />
     <Compile Include="Workers\PawnRelationWorker_Childe.cs" />
@@ -234,6 +236,7 @@
     <Compile Include="Utilities\VampireGen.cs" />
     <Compile Include="Utilities\VampireThoughtUtility.cs" />
     <Compile Include="Utilities\VampireUtility.cs" />
+    <Compile Include="Workers\SymbolResolver_VampireLair.cs" />
     <Compile Include="WorldComponent_VampireTracker.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

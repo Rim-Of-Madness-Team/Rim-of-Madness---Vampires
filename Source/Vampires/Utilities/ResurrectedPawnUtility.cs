@@ -86,7 +86,7 @@ namespace Vampire
                 {
                     pawn.mindState.mentalStateHandler.TryStartMentalState(MentalStateDefOf.Berserk);
                 }
-                //Log.Message(pawn.NameStringShort);
+                //Log.Message(pawn.Name.ToStringShort);
                 return pawn;
             }
             catch (Exception e)

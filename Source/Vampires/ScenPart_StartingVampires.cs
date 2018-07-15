@@ -158,7 +158,7 @@ namespace Vampire
         
         public override void Notify_PawnGenerated(Pawn pawn, PawnGenerationContext context)
         {
-            if (Find.VisibleMap == null)
+            if (Find.CurrentMap == null)
             {
                 curVampires = Find.GameInitData.startingPawns.FindAll(x => x?.health?.hediffSet?.hediffs.FirstOrDefault(y => y.def.defName.Contains("Vampirism")) != null)?.Count ?? 0;
                 BloodlineDef def = randomBloodline ? PossibleBloodlines().RandomElement() : bloodline;
@@ -183,7 +183,7 @@ namespace Vampire
                             pawn.ageTracker.AgeChronologicalTicks += ticksToAdd;
                             if (pawn.health.hediffSet.hediffs is List<Hediff> hediffs)
                             {
-                                hediffs.RemoveAll(x => x.IsOld() ||
+                                hediffs.RemoveAll(x => x.IsPermanent() ||
                                 x.def == HediffDefOf.BadBack ||
                                 x.def == HediffDefOf.Frail ||
                                 x.def == HediffDefOf.Cataract ||

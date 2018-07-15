@@ -51,7 +51,7 @@ namespace Vampire
             }
             if (Find.TickManager.TicksGame % checkRate == 0)
             {
-                if (pawn?.PositionHeld is IntVec3 pos && pos != default(IntVec3) && pos.Roofed(pawn?.MapHeld ?? Find.VisibleMap) == false &&
+                if (pawn?.PositionHeld is IntVec3 pos && pos != default(IntVec3) && pos.Roofed(pawn?.MapHeld ?? Find.CurrentMap) == false &&
                     VampireUtility.IsDaylight(pawn))
                 {
                     if (sunBurningEffect == null)

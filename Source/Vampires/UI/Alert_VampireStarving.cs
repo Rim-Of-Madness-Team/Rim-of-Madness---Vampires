@@ -41,7 +41,7 @@ namespace Vampire
             StringBuilder stringBuilder = new StringBuilder();
             foreach (Pawn current in VampiresStarving)
             {
-                stringBuilder.AppendLine("    " + current.NameStringShort);
+                stringBuilder.AppendLine("    " + current.Name.ToStringShort);
             }
             return string.Format("ROMV_Alert_StarvingVampireDesc".Translate(), stringBuilder.ToString());
         }

@@ -233,7 +233,7 @@ namespace Vampire
                     StringBuilder stringBuilder = new StringBuilder();
                     foreach (var pawn in recentVampiresKeys)
                     {
-                        stringBuilder.AppendLine("    " + pawn.NameStringShort + " (" + HediffVampirism.AddOrdinal(pawn.VampComp().Generation) + ")");
+                        stringBuilder.AppendLine("    " + pawn.Name.ToStringShort + " (" + HediffVampirism.AddOrdinal(pawn.VampComp().Generation) + ")");
                     }
                     string vampList = "ROMV_VampiresArrivalDesc".Translate(stringBuilder.ToString());
                     Find.LetterStack.ReceiveLetter("ROMV_VampiresArrivalLabel".Translate(), vampList, LetterDefOf.ThreatSmall, recentVampiresKeys.FirstOrDefault(), null);

@@ -275,7 +275,7 @@ namespace Vampire
             {
                 if (Find.TickManager.TicksGame % 100 == 0)
                 {
-                    visibleMapHasRoof = (Find.VisibleMap is Map m && m.AllCells.Any(x => x.Roofed(m)));
+                    visibleMapHasRoof = (Find.CurrentMap is Map m && m.AllCells.Any(x => x.Roofed(m)));
                 }
                 if (visibleMapHasRoof && job?.def == JobDefOf.GotoWander && pawn.IsSunRisingOrDaylight() && !job.targetA.Cell.Roofed(pawn.MapHeld)) return true;
             }

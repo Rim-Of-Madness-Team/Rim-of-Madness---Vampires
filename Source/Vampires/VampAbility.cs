@@ -105,7 +105,7 @@ namespace Vampire
             }
             else if (this.AbilityDef == VampDefOf.ROMV_VampiricHealingScars)
             {
-                return this.AbilityUser?.AbilityUser?.health?.hediffSet?.hediffs.Any(x => x.IsOld()) ?? false;
+                return this.AbilityUser?.AbilityUser?.health?.hediffSet?.hediffs.Any(x => x.IsPermanent()) ?? false;
             }
             return true;
         }

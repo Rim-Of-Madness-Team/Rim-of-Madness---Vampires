@@ -2,6 +2,97 @@
 <Defs>
 
 
+<!-- NPC Vampire Tomb -->
+
+
+  <ThingDef ParentName="ROMV_BuildingBase">
+    <defName>ROMV_SealedCoffin</defName>
+    <label>Sealed Coffin</label>
+    <thingClass>Vampire.Building_CoffinSealed</thingClass>
+    <graphicData>
+      <texPath>Things/Building/Furniture/Coffin/RoyalCoffin/spoonshortageRoyalCoffin</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(3,3.5)</drawSize>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
+    </graphicData>
+    <description>Created to preserve and seal vampires of significant power.</description>
+    <size>(1,2)</size>
+    <pathCost>70</pathCost>
+    <castEdgeShadows>true</castEdgeShadows>
+    <fillPercent>0.5</fillPercent>
+    <tickerType>Rare</tickerType>
+    <canOverlapZones>false</canOverlapZones>
+    <minifiedDef>MinifiedThing</minifiedDef>
+    <building>
+			<ai_chillDestination>false</ai_chillDestination>
+      <fullGraveGraphicData>
+				<texPath>Things/Building/Furniture/Coffin/SealedCoffinFull/draegon1993SealedCoffinFull</texPath>
+				<graphicClass>Graphic_Multi</graphicClass>
+				<drawSize>(3,3.5)</drawSize>
+			</fullGraveGraphicData>
+      <fixedStorageSettings>
+        <filter>
+          <categories>
+            <li>Corpses</li>
+          </categories>
+        </filter>
+      </fixedStorageSettings>
+      <defaultStorageSettings>
+        <filter>
+          <categories>
+            <li>CorpsesHumanlike</li>
+          </categories>
+          <specialFiltersToDisallow>
+            <li>AllowCorpsesStranger</li>
+          </specialFiltersToDisallow>
+        </filter>
+      </defaultStorageSettings>
+    </building>
+    <statBases>
+      <MaxHitPoints>200</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+      <WorkToBuild>5000</WorkToBuild>
+      <Mass>60</Mass>
+    </statBases>
+    <stuffCategories>
+      <li>Metallic</li>
+      <li>Stony</li>
+    </stuffCategories>
+    <inspectorTabs>
+      <li>ITab_Storage</li>
+      <li>ITab_Art</li>
+    </inspectorTabs>
+    <comps>
+      <li Class="Vampire.CompProperties_VampBed">
+        <bedDef>ROMV_RoyalCoffinBed</bedDef>
+      </li>
+      <li>
+        <compClass>CompQuality</compClass>
+      </li>
+      <li Class="CompProperties_Art">
+        <nameMaker>NamerArtSarcophagusPlate</nameMaker>
+        <descriptionMaker>ArtDescription_SarcophagusPlate</descriptionMaker>
+        <mustBeFullGrave>true</mustBeFullGrave>
+      </li>
+    </comps>
+    <techLevel>Neolithic</techLevel>
+    <researchPrerequisites><li>ComplexFurniture</li></researchPrerequisites>	
+    <costStuffCount>110</costStuffCount>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>Standable</passability>
+    <blockWind>true</blockWind>
+    <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+    <staticSunShadowHeight>0.3</staticSunShadowHeight>
+	
+  </ThingDef>
+
+
+
   <!--============================== Beds ==============================-->
 
   
@@ -27,7 +118,7 @@
     <fillPercent>0.5</fillPercent>
     <tickerType>Rare</tickerType>
     <canOverlapZones>false</canOverlapZones>
-    <minifiedDef>MinifiedFurniture</minifiedDef>
+    <minifiedDef>MinifiedThing</minifiedDef>
     <building>
 			<ai_chillDestination>false</ai_chillDestination>
       <fullGraveGraphicData>
@@ -76,7 +167,7 @@
         <compClass>CompQuality</compClass>
       </li>
       <li Class="CompProperties_Art">
-        <nameMaker>ArtName_SarcophagusPlate</nameMaker>
+        <nameMaker>NamerArtSarcophagusPlate</nameMaker>
         <descriptionMaker>ArtDescription_SarcophagusPlate</descriptionMaker>
         <mustBeFullGrave>true</mustBeFullGrave>
       </li>
@@ -113,7 +204,7 @@
     <fillPercent>0.5</fillPercent>
     <tickerType>Rare</tickerType>
     <canOverlapZones>false</canOverlapZones>
-    <minifiedDef>MinifiedFurniture</minifiedDef>
+    <minifiedDef>MinifiedThing</minifiedDef>
     <building>
 			<ai_chillDestination>false</ai_chillDestination>
       <fullGraveGraphicData>
@@ -162,13 +253,13 @@
         <compClass>CompQuality</compClass>
       </li>
       <li Class="CompProperties_Art">
-        <nameMaker>ArtName_SarcophagusPlate</nameMaker>
+        <nameMaker>NamerArtSarcophagusPlate</nameMaker>
         <descriptionMaker>ArtDescription_SarcophagusPlate</descriptionMaker>
         <mustBeFullGrave>true</mustBeFullGrave>
       </li>
     </comps>
     <techLevel>Medieval</techLevel>
-    <researchPrerequisites><li>Beds</li></researchPrerequisites>	
+    <researchPrerequisites><li>ComplexFurniture</li></researchPrerequisites>	
     <costStuffCount>110</costStuffCount>
     <altitudeLayer>Building</altitudeLayer>
     <passability>Standable</passability>
@@ -201,7 +292,7 @@
     <fillPercent>0.5</fillPercent>
     <tickerType>Rare</tickerType>
     <canOverlapZones>false</canOverlapZones>
-    <minifiedDef>MinifiedFurniture</minifiedDef>
+    <minifiedDef>MinifiedThing</minifiedDef>
     <building>
 			<ai_chillDestination>false</ai_chillDestination>
       <fullGraveGraphicData>
@@ -250,13 +341,13 @@
         <compClass>CompQuality</compClass>
       </li>
       <li Class="CompProperties_Art">
-        <nameMaker>ArtName_SarcophagusPlate</nameMaker>
+        <nameMaker>NamerArtSarcophagusPlate</nameMaker>
         <descriptionMaker>ArtDescription_SarcophagusPlate</descriptionMaker>
         <mustBeFullGrave>true</mustBeFullGrave>
       </li>
     </comps>
     <techLevel>Medieval</techLevel>
-    <researchPrerequisites><li>Beds</li></researchPrerequisites>	
+    <researchPrerequisites><li>ComplexFurniture</li></researchPrerequisites>	
     <costStuffCount>220</costStuffCount>
     <altitudeLayer>Building</altitudeLayer>
     <passability>Standable</passability>
@@ -476,6 +567,13 @@
       </li>
 	</comps>
   </ThingDef>
+
+
+
+
+
+
+
   
 
   <!--
@@ -487,15 +585,15 @@
 -->
 
   <ThingDef Name="ROMV_BuildingBase" Abstract="True">
-    <category>Building</category>
+    <category>Building</category><thingCategories><li>Buildings</li></thingCategories>
     <thingClass>Building</thingClass>
-    <soundImpactDefault>BulletImpactMetal</soundImpactDefault>
+    <soundImpactDefault>BulletImpact_Metal</soundImpactDefault>
     <selectable>true</selectable>
     <drawerType>MapMeshAndRealTime</drawerType>
     <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
     <repairEffect>Repair</repairEffect>
     <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
-    <filthLeaving>BuildingRubble</filthLeaving>
+    <filthLeaving>Filth_RubbleBuilding</filthLeaving>
     <statBases>
       <SellPriceFactor>0.70</SellPriceFactor>
     </statBases>
@@ -508,7 +606,7 @@
       </li>
     </comps>
     <designationCategory>Furniture</designationCategory>
-    <minifiedDef>MinifiedFurniture</minifiedDef>
+    <minifiedDef>MinifiedThing</minifiedDef>
     <tradeTags>
       <li>Furniture</li>
     </tradeTags>
@@ -517,7 +615,7 @@
   <ThingDef Name="ROMV_ArtableFurnitureBase" ParentName="ROMV_FurnitureBase" Abstract="True">
     <comps>
       <li Class="CompProperties_Art">
-        <nameMaker>ArtName_Furniture</nameMaker>
+        <nameMaker>NamerArtFurniture</nameMaker>
         <descriptionMaker>ArtDescription_Furniture</descriptionMaker>
         <minQualityForArtistic>Excellent</minQualityForArtistic>
 			</li>

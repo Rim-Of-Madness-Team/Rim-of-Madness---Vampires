@@ -81,10 +81,10 @@ namespace Vampire
             if (fangs != null && TryGetFangsDmgInfo(fangs, out dmgLabel, out dmgAmount, out dmgDef, out dmgRules))
             {
 
-                Hediff_Injury neckInjury = (Hediff_Injury)victim.health.hediffSet.hediffs.FirstOrDefault(x => x is Hediff_Injury y && !y.IsOld() && y?.Part?.def == BodyPartDefOf.Neck);
+                Hediff_Injury neckInjury = (Hediff_Injury)victim.health.hediffSet.hediffs.FirstOrDefault(x => x is Hediff_Injury y && !y.IsPermanent() && y?.Part?.def == BodyPartDefOf.Neck);
                 if (neckInjury == null)
                 {
-                    neckInjury = (Hediff_Injury)victim.health.hediffSet.hediffs.FirstOrDefault(x => x is Hediff_Injury y && !y.IsOld());
+                    neckInjury = (Hediff_Injury)victim.health.hediffSet.hediffs.FirstOrDefault(x => x is Hediff_Injury y && !y.IsPermanent());
                 }
                 if (neckInjury != null)
                 {

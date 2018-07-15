@@ -21,7 +21,7 @@
     </hairTags>
     <autoFlee>false</autoFlee>
     <canUseAvoidGrid>false</canUseAvoidGrid>
-    <techLevel>Ultra</techLevel>
+    <techLevel>Neolithic</techLevel>
     <startingGoodwill>
       <min>20</min>
       <max>20</max>
@@ -31,7 +31,7 @@
       <min>20</min>
       <max>20</max>
     </naturalColonyGoodwill>
-    <homeIconPath>World/WorldObjects/DefaultFactionBase</homeIconPath>
+    <homeIconPath>World/WorldObjects/DefaultSettlement</homeIconPath>
     <allowedArrivalTemperatureRange>
       <min>-999</min>
       <max>-998</max>
@@ -51,7 +51,7 @@
 			<li>(0, 0)</li>
 		</points>
 	</raidCommonalityFromPointsCurve>
-    <baseSelectionWeight>0.0000001</baseSelectionWeight>
+    <settlementGenerationWeight>0.0000001</settlementGenerationWeight>
     <requiredCountAtGameStart>1</requiredCountAtGameStart>
     <canMakeRandomly>true</canMakeRandomly>
     <canSiege>true</canSiege>
@@ -67,8 +67,8 @@
       <max>40</max>
     </startingGoodwill>
     <factionNameMaker>NamerFactionOutlander</factionNameMaker>
-    <baseNameMaker>NamerFactionBaseOutlander</baseNameMaker>
-    <techLevel>Industrial</techLevel>
+    <settlementNameMaker>NamerFactionBaseOutlander</settlementNameMaker>
+    <techLevel>Neolithic</techLevel>
     <backstoryCategory>Civil</backstoryCategory>
     <hairTags>
       <li>Rural</li>
@@ -95,7 +95,7 @@
     </allowedArrivalTemperatureRange>
     <pawnGroupMakers>
       <li>
-        <kindDef>Normal</kindDef>
+        <kindDef>Combat</kindDef>
         <options>
           <Villager>50</Villager>
           <GrenadierDestructive>15</GrenadierDestructive>
@@ -124,7 +124,7 @@
         </guards>
       </li>
       <li>
-        <kindDef>FactionBase</kindDef>
+        <kindDef>Settlement</kindDef>
         <options>
           <GrenadierDestructive>15</GrenadierDestructive>
           <MercenarySlasher>70</MercenarySlasher>
@@ -136,7 +136,7 @@
         </options>
       </li>
     </pawnGroupMakers>
-    <homeIconPath>World/WorldObjects/DefaultFactionBase</homeIconPath>
+    <homeIconPath>World/WorldObjects/DefaultSettlement</homeIconPath>
   </FactionDef>
 
 
@@ -146,7 +146,7 @@
       <description>Anarchs are vampires who reject the status quo of Cainite society. The resulting organization of anarchs is called the Anarch Movement.</description>
       <pawnsPlural>anarchs</pawnsPlural>
       <fixedName>anarch movement</fixedName>
-      <baseSelectionWeight>0.0000001</baseSelectionWeight>
+      <settlementGenerationWeight>0.0000001</settlementGenerationWeight>
       <requiredCountAtGameStart>1</requiredCountAtGameStart>
       <hidden>true</hidden>
 	  <raidCommonalityFromPointsCurve>
@@ -167,8 +167,8 @@
         <max>40</max>
       </startingGoodwill>
       <factionNameMaker>NamerFactionOutlander</factionNameMaker>
-      <baseNameMaker>NamerFactionBaseOutlander</baseNameMaker>
-      <techLevel>Industrial</techLevel>
+      <settlementNameMaker>NamerFactionBaseOutlander</settlementNameMaker>
+      <techLevel>Neolithic</techLevel>
       <backstoryCategory>Civil</backstoryCategory>
       <hairTags>
         <li>Rural</li>
@@ -195,7 +195,7 @@
       </allowedArrivalTemperatureRange>
       <pawnGroupMakers>
         <li>
-          <kindDef>Normal</kindDef>
+          <kindDef>Combat</kindDef>
           <options>
             <Villager>50</Villager>
             <GrenadierDestructive>15</GrenadierDestructive>
@@ -224,7 +224,7 @@
           </guards>
         </li>
         <li>
-          <kindDef>FactionBase</kindDef>
+          <kindDef>Settlement</kindDef>
           <options>
             <GrenadierDestructive>15</GrenadierDestructive>
             <MercenarySlasher>70</MercenarySlasher>
@@ -236,7 +236,7 @@
           </options>
         </li>
       </pawnGroupMakers>
-      <homeIconPath>World/WorldObjects/DefaultFactionBase</homeIconPath>
+      <homeIconPath>World/WorldObjects/DefaultSettlement</homeIconPath>
     </FactionDef>
 
   <FactionDef>
@@ -251,7 +251,7 @@
 			<li>(0, 0)</li>
 		</points>
 	</raidCommonalityFromPointsCurve>
-    <baseSelectionWeight>0.0000001</baseSelectionWeight>
+    <settlementGenerationWeight>0.0000001</settlementGenerationWeight>
     <requiredCountAtGameStart>1</requiredCountAtGameStart>
     <maxCountAtGameStart>1</maxCountAtGameStart>
     <canMakeRandomly>true</canMakeRandomly>
@@ -271,8 +271,8 @@
     </startingGoodwill>
     <mustStartOneEnemy>true</mustStartOneEnemy>
     <factionNameMaker>NamerFactionPirate</factionNameMaker>
-    <baseNameMaker>NamerFactionBasePirate</baseNameMaker>
-    <techLevel>Spacer</techLevel>
+    <settlementNameMaker>NamerSettlementPirate</settlementNameMaker>
+    <techLevel>Neolithic</techLevel>
     <backstoryCategory>Raider</backstoryCategory>
     <hairTags>
       <li>Punk</li>
@@ -287,7 +287,7 @@
     </allowedArrivalTemperatureRange>
     <pawnGroupMakers>
       <li>
-        <kindDef>Normal</kindDef>
+        <kindDef>Combat</kindDef>
         <commonality>100</commonality>
         <options>
           <ROMV_BondedMortalKind>5</ROMV_BondedMortalKind>
@@ -303,7 +303,7 @@
       </li>
       <li>
         <!-- Base defense -->
-        <kindDef>FactionBase</kindDef>
+        <kindDef>Settlement</kindDef>
         <options>
           <ROMV_BondedMortalKind>5</ROMV_BondedMortalKind>
           <ROMV_LesserGhoulKind>60</ROMV_LesserGhoulKind>
@@ -317,7 +317,7 @@
         </options>
       </li>
     </pawnGroupMakers>
-    <homeIconPath>World/WorldObjects/DefaultFactionBase</homeIconPath>
+    <homeIconPath>World/WorldObjects/DefaultSettlement</homeIconPath>
   </FactionDef>
 
 </Defs>

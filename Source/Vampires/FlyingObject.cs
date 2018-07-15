@@ -16,7 +16,7 @@ namespace Vampire
         protected float speed = 30.0f;
         protected int ticksToImpact;
         protected Thing launcher;
-        protected Thing assignedTarget;
+        protected Thing usedTarget;
         protected Thing flyingThing;
         public DamageInfo? impactDamage;
 
@@ -58,7 +58,7 @@ namespace Vampire
             Scribe_Values.Look(ref timesToDamage, "timesToDamage");
             Scribe_Values.Look(ref damageLaunched, "damageLaunched", true);
             Scribe_Values.Look(ref explosion, "explosion");
-            Scribe_References.Look(ref assignedTarget, "assignedTarget");
+            Scribe_References.Look(ref usedTarget, "usedTarget");
             Scribe_References.Look(ref launcher, "launcher");
             Scribe_References.Look(ref flyingThing, "flyingThing");
         }
@@ -84,7 +84,7 @@ namespace Vampire
             this.flyingThing = flyingThing;
             if (targ.Thing != null)
             {
-                assignedTarget = targ.Thing;
+                usedTarget = targ.Thing;
             }
             destination = targ.Cell.ToVector3Shifted() + new Vector3(Rand.Range(-0.3f, 0.3f), 0f, Rand.Range(-0.3f, 0.3f));
             ticksToImpact = StartingTicksToImpact;
@@ -138,15 +138,15 @@ namespace Vampire
 
         private void ImpactSomething()
         {
-            if (assignedTarget != null)
+            if (usedTarget != null)
             {
-                Pawn pawn = assignedTarget as Pawn;
+                Pawn pawn = usedTarget as Pawn;
                 if (pawn != null && pawn.GetPosture() != PawnPosture.Standing && (origin - destination).MagnitudeHorizontalSquared() >= 20.25f && Rand.Value > 0.2f)
                 {
                     Impact(null);
                     return;
                 }
-                Impact(assignedTarget);
+                Impact(usedTarget);
                 return;
             }
             else
@@ -165,7 +165,7 @@ namespace Vampire
             if (hitThing == null)
             {
 
-                if (Position.GetThingList(Map).FirstOrDefault(x => x == assignedTarget) is Pawn p)
+                if (Position.GetThingList(Map).FirstOrDefault(x => x == usedTarget) is Pawn p)
                 {
 
                     hitThing = p;

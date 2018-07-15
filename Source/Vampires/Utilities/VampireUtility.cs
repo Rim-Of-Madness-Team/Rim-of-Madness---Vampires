@@ -166,14 +166,14 @@ namespace Vampire
                     if (maxInjuriesPerBodyPart <= 0) continue;
                     if (!scarsOnly)
                     {
-                        if (!current.CanHealNaturally() || current.IsOld()) continue;
+                        if (!current.CanHealNaturally() || current.IsPermanent()) continue;
                         current.Heal((int)current.Severity + 1);
                         maxInjuries--;
                         maxInjuriesPerBodyPart--;
                     }
                     else
                     {
-                        if (current.CanHealNaturally() && !current.IsOld()) continue;
+                        if (current.CanHealNaturally() && !current.IsPermanent()) continue;
                         current.Heal((int)current.Severity + 1);
                         maxInjuries--;
                         maxInjuriesPerBodyPart--;

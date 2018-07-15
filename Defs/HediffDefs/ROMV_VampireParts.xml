@@ -20,7 +20,7 @@
 		<label>fangs</label>
 		<hediffClass>Vampire.Hediff_AddedPart_Fangs</hediffClass>
 		<addedPartProps>
-			<isSolid>true</isSolid>
+			<solid>true</solid>
 			<partEfficiency>1.2</partEfficiency>
 		</addedPartProps>
 		<scenarioCanAdd>false</scenarioCanAdd>
@@ -66,8 +66,8 @@
 		</comps>
 		<addedPartProps>
 			<isGoodWeapon>true</isGoodWeapon>
-			<isBionic>false</isBionic>
-			<isSolid>true</isSolid>
+			 
+			<solid>true</solid>
 			<partEfficiency>1.0</partEfficiency>
 		</addedPartProps>
 	</HediffDef>

@@ -16,12 +16,13 @@
 		  <Flammability>2</Flammability>
 		  <MaxHitPoints>2</MaxHitPoints>
 		  <Mass>60</Mass>
+		  <Nutrition>1</Nutrition>
 		</statBases>
 	  <alwaysHaulable>true</alwaysHaulable>
 	  <soundDrop>Corpse_Drop</soundDrop>
 	  <pathCost>15</pathCost>
 	  <socialPropernessMatters>false</socialPropernessMatters>
-	  <tradeability>Never</tradeability>
+	  <tradeability>None</tradeability>
 	  <inspectorTabs>
         <li>ITab_Pawn_Health</li>
         <li>Vampire.ITab_Pawn_NeedsCorpse</li>
@@ -53,7 +54,6 @@
 	  <foodType>Corpse</foodType>
 	  <sourceDef>Human</sourceDef>
 	  <preferability>DesperateOnly</preferability>
-	  <nutrition>1</nutrition>
 	  <maxNumToIngestAtOnce>1</maxNumToIngestAtOnce>
 	  <ingestEffect>EatMeat</ingestEffect>
 	  <ingestSound>RawMeat_Eat</ingestSound>

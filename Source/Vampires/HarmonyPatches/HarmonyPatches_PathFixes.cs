@@ -17,7 +17,7 @@ namespace Vampire
             var isDaylight = VampireUtility.IsDaylight(pawn);
             var isPlayerCharacter = pawn?.Faction == Faction.OfPlayerSilentFail;
             var isNotDrafted = !pawn?.Drafted ?? false;
-            var destIsNotRoofed = !dest.Cell.Roofed(pawn?.MapHeld ?? Find.VisibleMap);
+            var destIsNotRoofed = !dest.Cell.Roofed(pawn?.MapHeld ?? Find.CurrentMap);
             if (__result && pawn.IsVampire() &&
                 (inRestrictedSunlightAIMode || inBeastMentalState) &&
                 isDaylight && isPlayerCharacter && isNotDrafted && destIsNotRoofed) __result = false;

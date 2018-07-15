@@ -28,7 +28,7 @@ namespace Vampire
 //                        {
 //                            if (maxInjuriesPerBodypart > 0)
 //                            {
-//                                if (current.CanHealNaturally() && !current.IsOld()) // basically check for scars and old wounds
+//                                if (current.CanHealNaturally() && !current.IsPermanent()) // basically check for scars and old wounds
 //                                {
 //                                    current.Heal((int) current.Severity + 1);
 //                                    maxInjuries--;

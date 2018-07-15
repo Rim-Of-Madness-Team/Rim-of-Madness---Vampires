@@ -18,7 +18,7 @@ namespace Vampire
                 {
                     Pawn randomVampire =
                     VampireGen.GenerateVampire(VampireUtility.RandHigherGeneration, VampireUtility.RandBloodline, null);
-                    GenSpawn.Spawn(randomVampire, UI.MouseCell(), Find.VisibleMap);
+                    GenSpawn.Spawn(randomVampire, UI.MouseCell(), Find.CurrentMap);
 
                 })
             });
@@ -27,7 +27,7 @@ namespace Vampire
             AccessTools.Method(typeof(Dialog_DebugActionsMenu), "DebugToolMap").Invoke(__instance, new object[] {
                 "Give Vampirism (Default)", new Action(()=>
             {
-                Pawn pawn = Find.VisibleMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault();
+                Pawn pawn = Find.CurrentMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault();
                 if (pawn != null)
                 {
                     if (!pawn.IsVampire())
@@ -44,7 +44,7 @@ namespace Vampire
             AccessTools.Method(typeof(Dialog_DebugActionsMenu), "DebugToolMap").Invoke(__instance, new object[] {
                 "Give Vampirism (w/Settings)", new Action(()=>
             {
-                Pawn pawn = Find.VisibleMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault();
+                Pawn pawn = Find.CurrentMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault();
                 if (pawn != null)
                 {
                     //pawn.health.AddHediff(VampDefOf.ROM_Vampirism, null, null);
@@ -58,7 +58,7 @@ namespace Vampire
             AccessTools.Method(typeof(Dialog_DebugActionsMenu), "DebugToolMap").Invoke(__instance, new object[] {
                 "Remove Vampirism", new Action(()=>
             {
-                Pawn pawn = Find.VisibleMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault();
+                Pawn pawn = Find.CurrentMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault();
                 if (pawn != null)
                 {
                     if (pawn.IsVampire())
@@ -85,7 +85,7 @@ namespace Vampire
             AccessTools.Method(typeof(Dialog_DebugActionsMenu), "DebugToolMap").Invoke(__instance, new object[] {
                 "Add Blood (1)", new Action(()=>
             {
-                Pawn pawn = Find.VisibleMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault();
+                Pawn pawn = Find.CurrentMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault();
                 if (pawn != null && pawn?.BloodNeed() is Need_Blood b)
                 {
                         b.AdjustBlood(1);
@@ -97,7 +97,7 @@ namespace Vampire
             AccessTools.Method(typeof(Dialog_DebugActionsMenu), "DebugToolMap").Invoke(__instance, new object[] {
                 "Drain Blood (1)", new Action(()=>
             {
-                Pawn pawn = Find.VisibleMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault();
+                Pawn pawn = Find.CurrentMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault();
                 if (pawn != null && pawn?.BloodNeed() is Need_Blood b)
                 {
                         b.AdjustBlood(-1);
@@ -109,7 +109,7 @@ namespace Vampire
             AccessTools.Method(typeof(Dialog_DebugActionsMenu), "DebugToolMap").Invoke(__instance, new object[] {
                 "Add Ghoul Blood (1)", new Action(()=>
                 {
-                    Pawn pawn = Find.VisibleMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault();
+                    Pawn pawn = Find.CurrentMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault();
                     if (pawn != null && pawn.IsGhoul() && pawn?.BloodNeed() is Need_Blood b)
                     {
                         b.AdjustBlood(1, true, true);
@@ -121,7 +121,7 @@ namespace Vampire
             AccessTools.Method(typeof(Dialog_DebugActionsMenu), "DebugToolMap").Invoke(__instance, new object[] {
                 "Drain Ghoul Blood (1)", new Action(()=>
                 {
-                    Pawn pawn = Find.VisibleMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault();
+                    Pawn pawn = Find.CurrentMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault();
                     if (pawn != null && pawn.IsGhoul()&& pawn?.BloodNeed() is Need_Blood b)
                     {
                         b.AdjustBlood(-1, true, true);
@@ -133,7 +133,7 @@ namespace Vampire
             AccessTools.Method(typeof(Dialog_DebugActionsMenu), "DebugToolMap").Invoke(__instance, new object[] {
                 "Add XP (100)", new Action(()=>
             {
-                Pawn pawn = Find.VisibleMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault();
+                Pawn pawn = Find.CurrentMap.thingGrid.ThingsAt(UI.MouseCell()).Where((Thing t) => t is Pawn).Cast<Pawn>().FirstOrDefault();
                 if (pawn != null && pawn?.VampComp() is CompVampire v)
                 {
                         v.XP += 100;

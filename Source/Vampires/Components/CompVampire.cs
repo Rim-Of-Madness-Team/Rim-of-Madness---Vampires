@@ -496,11 +496,50 @@ namespace Vampire
 
 
 
+        private bool? pawnKindDefIsVampire = null;
         public override void CompTick()
         {
+            if (pawnKindDefIsVampire == null)
+            {
+                pawnKindDefIsVampire = false;
+                if (Pawn.kindDef.defName == "ROMV_ThinbloodVampireKind")
+                {
+                    InitializeVampirism(null, VampireUtility.RandBloodline, Rand.Range(14, 15));
+                    pawnKindDefIsVampire = true;
+                }
+                else if (Pawn.kindDef.defName == "ROMV_LesserVampireKind")
+                {
+                    InitializeVampirism(null, VampireUtility.RandBloodline, Rand.Range(12, 13));
+                    pawnKindDefIsVampire = true;
+                }
+                else if (Pawn.kindDef.defName == "ROMV_VampireKind")
+                {
+                    InitializeVampirism(null, VampireUtility.RandBloodline, Rand.Range(9, 11));
+                    pawnKindDefIsVampire = true;
+                }
+                else if (Pawn.kindDef.defName == "ROMV_GreaterVampireKind")
+                {
+                    InitializeVampirism(null, VampireUtility.RandBloodline, Rand.Range(7, 8));
+                    pawnKindDefIsVampire = true;
+                }
+                else if (Pawn.kindDef.defName == "ROMV_AncientVampireKind")
+                {
+                    InitializeVampirism(null, VampireUtility.RandBloodline, Rand.Range(3, 6));
+                    pawnKindDefIsVampire = true;
+                }
+                else if (Pawn.kindDef.defName == "ROMV_VampireKind")
+                {
+                    InitializeVampirism(null, VampireUtility.RandBloodline, Rand.Range(3, 6));
+                    pawnKindDefIsVampire = true;
+                }
+            }
+            
             base.CompTick();
+            
             if (!IsVampire)
-                return;
+            {
+                return;                
+            }
 
             SunlightWatcherTick();
             if (Transformed && atCurTicks != -1 && Find.TickManager.TicksGame > atCurTicks)

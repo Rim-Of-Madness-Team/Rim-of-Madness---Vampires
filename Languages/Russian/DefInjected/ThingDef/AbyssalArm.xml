@@ -4,8 +4,8 @@
   <ROMV_AbyssalArmRace.label>Абиссальная рука</ROMV_AbyssalArmRace.label>
   <ROMV_AbyssalArmRace.description>Массивное темное щупальце, тянущееся из бездны.</ROMV_AbyssalArmRace.description>
   <ROMV_AbyssalArmRace.tools.0.label>щупальце</ROMV_AbyssalArmRace.tools.0.label>
-  <!-- Use Leather From: GrizzlyBear -->
-  <!-- Use Meat From: GrizzlyBear -->
+  <!-- Use Leather From: Bear_Grizzly -->
+  <!-- Use Meat From: Bear_Grizzly -->
   <ROMV_AbyssalArmRace_Corpse.label>мёртвая абиссальная рука</ROMV_AbyssalArmRace_Corpse.label>
   <ROMV_AbyssalArmRace_Corpse.description>Мёртвая абиссальная рука.</ROMV_AbyssalArmRace_Corpse.description>
 

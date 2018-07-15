@@ -36,14 +36,14 @@
 	</comps>	
     <verbs>
       <li>
-        <verbClass>Verb_MeleeAttack</verbClass>
+        <verbClass>Verb_MeleeAttackDamage</verbClass>
         <defaultCooldownTime>1.35</defaultCooldownTime>
         <meleeDamageBaseAmount>6</meleeDamageBaseAmount>
         <meleeDamageDef>Bite</meleeDamageDef>
         <linkedBodyPartsGroup>Teeth</linkedBodyPartsGroup>
       </li>
       <li>
-        <verbClass>Verb_MeleeAttack</verbClass>
+        <verbClass>Verb_MeleeAttackDamage</verbClass>
         <defaultCooldownTime>1.35</defaultCooldownTime>
         <meleeDamageBaseAmount>5</meleeDamageBaseAmount>
         <meleeDamageDef>Blunt</meleeDamageDef>
@@ -57,11 +57,8 @@
       <baseBodySize>0.22</baseBodySize>
       <baseHealthScale>0.35</baseHealthScale>
       <foodType>VegetarianRoughAnimal</foodType>
-      <trainableIntelligence>Advanced</trainableIntelligence>
-      <wildness>0.8</wildness>
-      <leatherColor>(185,125,79)</leatherColor>
-      <leatherLabel>capybaraskin</leatherLabel>
-      <leatherInsulation>0.75</leatherInsulation>
+      <trainability>Advanced</trainability>
+      <leatherDef>Leather_Plain</leatherDef>
       <wildness>1.0</wildness>
       <nuzzleMtbHours>120</nuzzleMtbHours>
       <gestationPeriodDays>14</gestationPeriodDays>
@@ -107,8 +104,8 @@
     <race>ROMV_BatSpectralRace</race>
     <canArriveManhunter>false</canArriveManhunter>
     <combatPower>50</combatPower>
-    <wildSpawn_EcoSystemWeight>0</wildSpawn_EcoSystemWeight>
-    <wildSpawn_spawnWild>false</wildSpawn_spawnWild>
+    <ecoSystemWeight>0</ecoSystemWeight>
+     
     <lifeStages>
       <li>
         <bodyGraphicData>

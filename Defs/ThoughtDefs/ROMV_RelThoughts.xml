@@ -18,7 +18,7 @@
     <thoughtClass>Thought_MemorySocial</thoughtClass>
     <durationDays>80.0</durationDays>
     <stackLimit>300</stackLimit>
-    <stackLimitPerPawn>10</stackLimitPerPawn>
+    <stackLimitForSameOtherPawn>10</stackLimitForSameOtherPawn>
     <stages>
       <li>
         <label>destroyed my sire</label>
@@ -32,7 +32,7 @@
     <thoughtClass>Thought_MemorySocial</thoughtClass>
     <durationDays>20.0</durationDays>
     <stackLimit>10</stackLimit>
-    <stackLimitPerPawn>2</stackLimitPerPawn>
+    <stackLimitForSameOtherPawn>2</stackLimitForSameOtherPawn>
     <stages>
       <li>
         <label>blood-bonded sold</label>
@@ -61,7 +61,7 @@
     <thoughtClass>Thought_MemorySocial</thoughtClass>
     <durationDays>80.0</durationDays>
     <stackLimit>300</stackLimit>
-    <stackLimitPerPawn>10</stackLimitPerPawn>
+    <stackLimitForSameOtherPawn>10</stackLimitForSameOtherPawn>
     <stages>
       <li>
         <label>destroyed my childe</label>

@@ -102,7 +102,7 @@
     <defName>ROMV_PresenceII</defName>
     <label>Presence II</label>
     <uiIconPath>UI/Icons/Commands/PresenceII</uiIconPath>
-    <description>Permanent +3 social bonus for each level in presence. Enemies nearby increase their attack cooldown by 10%. </description>
+    <description>Permanent +3 social bonus for each level in presence. Enemies nearby increase their attack cooldown by 10%.</description>
     <MainVerb Class="AbilityUser.VerbProperties_Ability">
       <verbClass>Vampire.DisciplineEffect_EnterTheAbyss</verbClass>
       <hasStandardCommand>false</hasStandardCommand>

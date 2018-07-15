@@ -7,16 +7,16 @@
     <description>This fearsome visage sends chills down one's spine, as this wolf appears to be not of this world.</description>
     <race>
       <baseBodySize>3.0</baseBodySize>
-      <useMeatFrom>GrizzlyBear</useMeatFrom>
-      <useLeatherFrom>GrizzlyBear</useLeatherFrom>
+      <useMeatFrom>Bear_Grizzly</useMeatFrom>
+      <useLeatherFrom>Bear_Grizzly</useLeatherFrom>
     </race>
   </ThingDef>
 
   <PawnKindDef ParentName="AnimalKindBase" Name="ROMV_AnimalKindBaseWolf" Abstract="True">
     <combatPower>175</combatPower>
     <canArriveManhunter>false</canArriveManhunter>
-    <wildSpawn_spawnWild>false</wildSpawn_spawnWild>
-    <wildSpawn_EcoSystemWeight>0.0</wildSpawn_EcoSystemWeight>
+     
+    <ecoSystemWeight>0.0</ecoSystemWeight>
   </PawnKindDef>
 
   <PawnKindDef ParentName="ROMV_AnimalKindBaseWolf">
@@ -80,7 +80,7 @@
       </statBases>
       <verbs>
         <li>
-          <verbClass>Verb_MeleeAttack</verbClass>
+          <verbClass>Verb_MeleeAttackDamage</verbClass>
           <defaultCooldownTime>1.3</defaultCooldownTime>
           <meleeDamageBaseAmount>13</meleeDamageBaseAmount>
           <meleeDamageDef>Scratch</meleeDamageDef>
@@ -95,7 +95,7 @@
           </surpriseAttack>
         </li>
         <li>
-          <verbClass>Verb_MeleeAttack</verbClass>
+          <verbClass>Verb_MeleeAttackDamage</verbClass>
           <defaultCooldownTime>1.3</defaultCooldownTime>
           <meleeDamageBaseAmount>13</meleeDamageBaseAmount>
           <meleeDamageDef>Scratch</meleeDamageDef>
@@ -110,7 +110,7 @@
           </surpriseAttack>
         </li>
         <li>
-          <verbClass>Verb_MeleeAttack</verbClass>
+          <verbClass>Verb_MeleeAttackDamage</verbClass>
           <defaultCooldownTime>1.6</defaultCooldownTime>
           <meleeDamageBaseAmount>15</meleeDamageBaseAmount>
           <meleeDamageDef>Bite</meleeDamageDef>
@@ -125,7 +125,7 @@
           </surpriseAttack>
         </li>
         <li>
-          <verbClass>Verb_MeleeAttack</verbClass>
+          <verbClass>Verb_MeleeAttackDamage</verbClass>
           <defaultCooldownTime>1.35</defaultCooldownTime>
           <meleeDamageBaseAmount>8</meleeDamageBaseAmount>
           <meleeDamageDef>Blunt</meleeDamageDef>
@@ -146,7 +146,7 @@
         <leatherInsulation>1.0</leatherInsulation>
         <gestationPeriodDays>22.5</gestationPeriodDays>
         <nameOnTameChance>1</nameOnTameChance>
-        <trainableIntelligence>Advanced</trainableIntelligence>
+        <trainability>Advanced</trainability>
         <wildness>1.0</wildness>
         <nuzzleMtbHours>120</nuzzleMtbHours>
         <manhunterOnDamageChance>1</manhunterOnDamageChance>
@@ -187,8 +187,8 @@
 
     <PawnKindDef ParentName="AnimalKindBase" Name="AnimalKindBaseWolf" Abstract="True">
       <combatPower>75</combatPower>
-      <wildSpawn_spawnWild>true</wildSpawn_spawnWild>
-      <wildSpawn_EcoSystemWeight>0.9</wildSpawn_EcoSystemWeight>
+       
+      <ecoSystemWeight>0.9</ecoSystemWeight>
     </PawnKindDef>
 
 </Defs>

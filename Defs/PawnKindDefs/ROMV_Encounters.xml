@@ -6,11 +6,11 @@
     <defaultFactionType>ROMV_Sabbat</defaultFactionType>
     <backstoryCategory>Raider</backstoryCategory>
     <baseRecruitDifficulty>0.65</baseRecruitDifficulty>
-    <chemicalAddictionChance>0.10</chemicalAddictionChance>
-    <backstoryCryptosleepCommonality>0.1</backstoryCryptosleepCommonality>
-    <invNutrition>2.55</invNutrition>
+    <chemicalAddictionChance>0.0</chemicalAddictionChance>
+    <backstoryCryptosleepCommonality>0.0</backstoryCryptosleepCommonality>
+    <invNutrition>0.0</invNutrition>
     <apparelTags>
-      <li>Outlander</li>
+      <li>Tribal</li>
     </apparelTags>
   </PawnKindDef>
 
@@ -28,14 +28,13 @@
       <min>90</min>
       <max>280</max>
     </apparelMoney>
-    <apparelAllowHeadwearChance>0.2</apparelAllowHeadwearChance>
+    <apparelAllowHeadgearChance>0.2</apparelAllowHeadgearChance>
     <weaponMoney>
       <min>60</min>
       <max>200</max>
     </weaponMoney>
     <weaponTags>
-      <li>SimpleGun</li>
-      <li>NonNeolithicOnlySimpleMelee</li>
+		<li>NeolithicMeleeBasic</li>
     </weaponTags>
     <techHediffsMoney>
       <min>0</min>
@@ -56,7 +55,7 @@
           </countRange>
         </li>
         <li>
-          <thingDef>Medicine</thingDef>
+          <thingDef>MedicineIndustrial</thingDef>
           <countRange>
             <min>1</min>
             <max>1</max>
@@ -83,13 +82,13 @@
     <apparelTags>
       <li>Outlander</li>
     </apparelTags>
-    <apparelAllowHeadwearChance>0.7</apparelAllowHeadwearChance>
+    <apparelAllowHeadgearChance>0.7</apparelAllowHeadgearChance>
     <weaponMoney>
       <min>450</min>
       <max>600</max>
     </weaponMoney>
     <weaponTags>
-      <li>Gun</li>
+		<li>NeolithicMeleeBasic</li>
     </weaponTags>
     <techHediffsMoney>
       <min>0</min>
@@ -110,7 +109,7 @@
           </countRange>
         </li>
         <li>
-          <thingDef>Medicine</thingDef>
+          <thingDef>MedicineIndustrial</thingDef>
           <countRange>
             <min>1</min>
             <max>1</max>
@@ -129,30 +128,25 @@
       <max>3.5</max>
     </gearHealthRange>
     <apparelTags>
-      <li>Outlander</li>
+      <li>Tribal</li>
     </apparelTags>
     <apparelMoney>
       <min>2500</min>
       <max>4200</max>
     </apparelMoney>
-    <apparelAllowHeadwearChance>0.9</apparelAllowHeadwearChance>
+    <apparelAllowHeadgearChance>0.9</apparelAllowHeadgearChance>
     <weaponMoney>
       <min>1600</min>
       <max>2000</max>
     </weaponMoney>
     <weaponTags>
-      <li>SimpleGun</li>
-      <li>EliteGun</li>
+		<li>NeolithicMeleeBasic</li>
     </weaponTags>
     <techHediffsMoney>
       <min>2000</min>
       <max>3000</max>
     </techHediffsMoney>
-    <combatEnhancingDrugsCount>
-      <min>1</min>
-      <max>2</max>
-    </combatEnhancingDrugsCount>
-    <combatEnhancingDrugsChance>0.1</combatEnhancingDrugsChance>
+    <combatEnhancingDrugsChance>0.0</combatEnhancingDrugsChance>
     <techHediffsTags>
       <li>Advanced</li>
     </techHediffsTags>
@@ -168,7 +162,7 @@
           </countRange>
         </li>
         <li>
-          <thingDef>Medicine</thingDef>
+          <thingDef>MedicineIndustrial</thingDef>
           <countRange>
             <min>1</min>
             <max>2</max>
@@ -212,6 +206,12 @@
     <defName>ROMV_AncientVampireKind</defName>
     <label>ancient vampire</label>
     <labelPlural>ancient vampires</labelPlural>
+  </PawnKindDef>
+  
+  <PawnKindDef ParentName="ROMV_EncounterNormalBase">
+    <defName>ROMV_FirstVampireKind</defName>
+    <label>first vampire</label>
+    <labelPlural>first vampires</labelPlural>
   </PawnKindDef>
   
   <PawnKindDef ParentName="ROMV_EncounterNormalBase">

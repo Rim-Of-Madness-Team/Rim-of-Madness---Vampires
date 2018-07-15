@@ -164,11 +164,11 @@ namespace Vampire
 
         Effecter effecter = null;
 
-        public override void DeSpawn()
+        public override void DeSpawn(DestroyMode mode = DestroyMode.Vanish)
         {
             if (effecter != null) effecter.Cleanup();
             VampireUtility.SummonEffect(PositionHeld, MapHeld, this, 2f);
-            base.DeSpawn();
+            base.DeSpawn(mode);
         }
 
         public override void ExposeData()

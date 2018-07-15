@@ -37,6 +37,7 @@
       <Mass>0.075</Mass>
       <Flammability>1.0</Flammability>
       <DeteriorationRate>8</DeteriorationRate>
+	  <Nutrition>0.1</Nutrition>
     </statBases>
     <thingCategories>
       <li>ROMV_Blood</li>
@@ -44,7 +45,6 @@
     <ingestible>
       <preferability>DesperateOnly</preferability>
       <foodType>Processed</foodType>
-      <nutrition>0.10</nutrition>
       <joy>0.10</joy>
       <joyKind>Gluttonous</joyKind>
       <maxNumToIngestAtOnce>1</maxNumToIngestAtOnce>
@@ -69,6 +69,7 @@
       <Mass>0.145</Mass>
       <Flammability>1.0</Flammability>
       <DeteriorationRate>8</DeteriorationRate>
+	  <Nutrition>0.2</Nutrition>
     </statBases>
     <thingCategories>
       <li>ROMV_Blood</li>
@@ -76,7 +77,6 @@
     <ingestible>
       <preferability>DesperateOnly</preferability>
       <foodType>Processed</foodType>
-      <nutrition>0.20</nutrition>
       <joy>0.10</joy>
       <joyKind>Gluttonous</joyKind>
       <maxNumToIngestAtOnce>1</maxNumToIngestAtOnce>

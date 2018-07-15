@@ -73,6 +73,24 @@ namespace Vampire
             return true;
         }
 
+        public static PawnKindDef DetermineKindDef(int generation)
+        {
+            PawnKindDef result = PawnKindDef.Named("ROMV_VampireKind");
+            if (generation == 1)
+                result = PawnKindDef.Named("ROMV_FirstVampireKind");
+            else if (generation <= 6)
+                result = PawnKindDef.Named("ROMV_AncientVampireKind");
+            else if (generation <= 9)
+                result = PawnKindDef.Named("ROMV_GreaterVampireKind");
+            else if (generation <= 12)
+                result = PawnKindDef.Named("ROMV_VampireKind");
+            else if (generation <= 14)
+                result = PawnKindDef.Named("ROMV_LesserVampireKind");
+            else
+                result = PawnKindDef.Named("ROMV_ThinbloodVampireKind");
+            return result;
+        }
+        
         public static Pawn GenerateVampire(int generation, BloodlineDef bloodline, Pawn sire, Faction vampFaction = null, bool firstVampire = false)
         {
             //Lower generation vampires are impossibly old.
@@ -83,7 +101,7 @@ namespace Vampire
             Faction faction = vampFaction != null ? vampFaction :
                               generation < 7 ? Find.FactionManager.FirstFactionOfDef(VampDefOf.ROMV_LegendaryVampires) : VampireUtility.RandVampFaction;
             PawnGenerationRequest request = new PawnGenerationRequest(
-                PawnKindDefOf.SpaceRefugee, Faction.OfSpacer, PawnGenerationContext.NonPlayer,
+                DetermineKindDef(generation), faction, PawnGenerationContext.NonPlayer,
                 -1, false, false, false, false, true, true, 20f, false, true,
                 true, false, false, false, false, null, null, null, null, null, null);
             Pawn pawn = PawnGenerator.GeneratePawn(request);
