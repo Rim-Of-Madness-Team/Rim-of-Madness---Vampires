@@ -134,7 +134,7 @@ namespace Vampire
             {
                 bool usingDropPods = Find.Scenario.AllParts.Any(x => x is ScenPart_PlayerPawnsArriveMethod s && (PlayerPawnsArriveMethod)AccessTools.Field(typeof(ScenPart_PlayerPawnsArriveMethod), "method").GetValue(s) == PlayerPawnsArriveMethod.DropPods);
                 List<List<Thing>> list = new List<List<Thing>>();
-                foreach (Pawn current in Find.GameInitData.startingPawns)
+                foreach (Pawn current in Find.GameInitData.startingAndOptionalPawns)
                 {
                     if (current.RaceProps.Humanlike && current?.health?.hediffSet?.hediffs.FirstOrDefault(y => y.def.defName.Contains("Vampirism")) != null)
                     {
@@ -156,11 +156,11 @@ namespace Vampire
             }
         }
         
-        public override void Notify_PawnGenerated(Pawn pawn, PawnGenerationContext context)
+        public override void Notify_PawnGenerated(Pawn pawn, PawnGenerationContext context, bool redressed)
         {
             if (Find.CurrentMap == null)
             {
-                curVampires = Find.GameInitData.startingPawns.FindAll(x => x?.health?.hediffSet?.hediffs.FirstOrDefault(y => y.def.defName.Contains("Vampirism")) != null)?.Count ?? 0;
+                curVampires = Find.GameInitData.startingAndOptionalPawns.FindAll(x => x?.health?.hediffSet?.hediffs.FirstOrDefault(y => y.def.defName.Contains("Vampirism")) != null)?.Count ?? 0;
                 BloodlineDef def = randomBloodline ? PossibleBloodlines().RandomElement() : bloodline;
                 if (pawn.RaceProps.Humanlike && context == PawnGenerationContext.PlayerStarter)
                 {
