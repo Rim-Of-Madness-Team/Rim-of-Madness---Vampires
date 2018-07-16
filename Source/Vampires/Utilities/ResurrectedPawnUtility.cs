@@ -26,7 +26,7 @@ namespace Vampire
         public static Pawn DoGeneratePawnFromSource(Pawn sourcePawn, bool isBerserk = true, bool oathOfHastur = false)
         {
             PawnKindDef pawnKindDef = sourcePawn.kindDef;
-            Faction factionDirect = isBerserk ? Find.FactionManager.FirstFactionOfDef(FactionDefOf.SpacerHostile) : Faction.OfPlayer;
+            Faction factionDirect = isBerserk ? Find.FactionManager.FirstFactionOfDef(FactionDefOf.AncientsHostile) : Faction.OfPlayer;
             Pawn pawn = (Pawn)ThingMaker.MakeThing(pawnKindDef.race);
             try
             {
@@ -182,7 +182,7 @@ namespace Vampire
         public static Pawn GenerateClonePawnFromSource(Pawn sourcePawn)
         {
             PawnKindDef pawnKindDef = PawnKindDef.Named("ReanimatedCorpse");
-            Faction factionDirect = Find.FactionManager.FirstFactionOfDef(FactionDefOf.SpacerHostile);
+            Faction factionDirect = Find.FactionManager.FirstFactionOfDef(FactionDefOf.AncientsHostile);
             Pawn pawn = (Pawn)ThingMaker.MakeThing(pawnKindDef.race);
             pawn.kindDef = pawnKindDef;
             pawn.SetFactionDirect(factionDirect);
@@ -240,15 +240,15 @@ namespace Vampire
                 }
                 //pawn.story.GenerateSkillsFromBackstory();
             }
-            GenerateApparelFromSource(pawn, sourcePawn);
-            PawnGenerationRequest con = new PawnGenerationRequest();
-            PawnInventoryGenerator.GenerateInventoryFor(pawn, con);
-            Graphic nakedGraphic = GraphicDatabase.Get<Graphic_Multi>(this.pawn.story.bodyType.bodyNakedGraphicPath, ShaderDatabase.CutoutSkin, Vector2.one, this.pawn.story.SkinColor);
-            Graphic headGraphic = GraphicDatabase.Get<Graphic_Multi>(sourcePawn.story.HeadGraphicPath, ShaderDatabase.CutoutSkin, Vector2.one, sourcePawn.story.SkinColor);
-            Graphic hairGraphic = GraphicDatabase.Get<Graphic_Multi>(sourcePawn.story.hairDef.texPath, ShaderDatabase.Cutout, Vector2.one, sourcePawn.story.hairColor);
-            pawn.Drawer.renderer.graphics.headGraphic = headGraphic;
-            pawn.Drawer.renderer.graphics.nakedGraphic = nakedBodyGraphic;
-            pawn.Drawer.renderer.graphics.hairGraphic = hairGraphic;
+            //GenerateApparelFromSource(pawn, sourcePawn);
+            //PawnGenerationRequest con = new PawnGenerationRequest();
+            //PawnInventoryGenerator.GenerateInventoryFor(pawn, con);
+            //Graphic nakedGraphic = GraphicDatabase.Get<Graphic_Multi>(pawn.story.bodyType.bodyNakedGraphicPath, ShaderDatabase.CutoutSkin, Vector2.one, pawn.story.SkinColor);
+            //Graphic headGraphic = GraphicDatabase.Get<Graphic_Multi>(sourcePawn.story.HeadGraphicPath, ShaderDatabase.CutoutSkin, Vector2.one, sourcePawn.story.SkinColor);
+            //Graphic hairGraphic = GraphicDatabase.Get<Graphic_Multi>(sourcePawn.story.hairDef.texPath, ShaderDatabase.Cutout, Vector2.one, sourcePawn.story.hairColor);
+            //pawn.Drawer.renderer.graphics.headGraphic = headGraphic;
+            //pawn.Drawer.renderer.graphics.nakedGraphic = nakedBodyGraphic;
+            //pawn.Drawer.renderer.graphics.hairGraphic = hairGraphic;
             return pawn;
         }
 

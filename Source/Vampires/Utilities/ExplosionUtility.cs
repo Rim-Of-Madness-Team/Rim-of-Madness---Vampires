@@ -29,7 +29,7 @@ namespace Vampire
                 explosion.postExplosionSpawnThingCount = postExplosionSpawnThingCount;
                 explosion.applyDamageToExplosionCellsNeighbors = applyDamageToExplosionCellsNeighbors;
                 explosion.chanceToStartFire = chanceToStartFire;
-                explosion.dealMoreDamageAtCenter = dealMoreDamageAtCenter;
+                explosion.damageFalloff = dealMoreDamageAtCenter;
                 explosion.StartExplosion(explosionSound);
             }
         }

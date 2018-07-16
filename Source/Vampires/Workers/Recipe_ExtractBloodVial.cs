@@ -69,7 +69,7 @@ namespace Vampire
             }
             if (flag2)
             {
-                pawn.Faction.AffectGoodwillWith(billDoer.Faction, badGoodwillAmt);
+                pawn.Faction.TryAffectGoodwillWith(billDoer.Faction, badGoodwillAmt);
             }
         }
 

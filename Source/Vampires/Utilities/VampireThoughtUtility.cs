@@ -46,7 +46,7 @@ namespace Vampire
             {
                 def = VampDefOf.ROMV_KnowGuestDiedOfBloodLoss;
             }
-            foreach (Pawn current in from x in PawnsFinder.AllMapsCaravansAndTravelingTransportPods
+            foreach (Pawn current in from x in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive
                                      where x.IsColonist || x.IsPrisonerOfColony
                                      select x)
             {
@@ -65,7 +65,7 @@ namespace Vampire
             {
                 thoughtDef = VampDefOf.ROMV_KnowGuestBloodHarvested;
             }
-            foreach (Pawn current in from x in PawnsFinder.AllMapsCaravansAndTravelingTransportPods
+            foreach (Pawn current in from x in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive
                                      where x.IsColonist || x.IsPrisonerOfColony
                                      select x)
             {

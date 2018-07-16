@@ -23,15 +23,14 @@ namespace Vampire
                 if (neckPart == null) neckPart = victim.health.hediffSet.GetNotMissingParts().RandomElement();
                 if (neckPart != null)
                 {
-                    GenClamor.DoClamor(actor, 10f, ClamorType.Harm);
+                    GenClamor.DoClamor(actor, 10f, ClamorDefOf.Harm);
                     actor.Drawer.Notify_MeleeAttackOn(victim);
-                    victim.TakeDamage(new DamageInfo(dmgDef, (int)(dmgAmount * BITEFACTOR), -1, actor, neckPart));
-                    BattleLogEntry_MeleeCombat battleLogEntry_MeleeCombat = new BattleLogEntry_MeleeCombat(RulePackDefOf.Combat_Hit, dmgRules,
-                        actor, victim, ImplementOwnerTypeDefOf.Bodypart, dmgLabel);
+                    victim.TakeDamage(new DamageInfo(dmgDef, (int)(dmgAmount * BITEFACTOR), 0, -1 , actor, neckPart));
+                    BattleLogEntry_MeleeCombat battleLogEntry_MeleeCombat = new BattleLogEntry_MeleeCombat(dmgRules, true, actor,  victim, ImplementOwnerTypeDefOf.Bodypart, dmgLabel);
                     Find.BattleLog.Add(battleLogEntry_MeleeCombat);
                 }
             }
-             
+                
         }
 
         public static bool TryGetFangsDmgInfo(HediffWithComps fangs, out string label, out float dmg, out DamageDef dDef, out RulePackDef rules)
@@ -49,7 +48,7 @@ namespace Vampire
                 label = firstTool.label;
                 dmg = firstTool.power;
                 dDef = manueverDef.verb.meleeDamageDef;
-                rules = manueverDef.combatLogRules;
+                rules = manueverDef.combatLogRulesHit; //Might want to check on this Jeccy, I'm assuming that's what it's looking for (Original was combatLogRules)
                 return true;
             }
             return false;
