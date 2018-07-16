@@ -106,7 +106,7 @@ namespace Vampire
             int result = def.RaceProps.baseBodySize < 1f ? 1 : 2;
             if (def == PawnKindDef.Named("Rat")) return 1;
             if (def == PawnKindDefOf.Thrumbo) return 10;
-            if (def?.RaceProps?.TrainableIntelligence == TrainableIntelligenceDefOf.Advanced)
+            if (def?.RaceProps?.trainability == TrainabilityDefOf.Advanced)
                 result += 1;
             return result;
         }
