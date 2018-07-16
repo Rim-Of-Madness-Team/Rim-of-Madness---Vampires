@@ -663,7 +663,7 @@ namespace Vampire
         //Alert_NeedWarmClothes
         public static void Vamp_DontNeedWarmClothesReports(Alert_NeedWarmClothes __instance, ref AlertReport __result)
         {
-            if (__result.culprit.Thing is Pawn p && p.IsVampire())
+            if (__result.culprits.Thing is Pawn p && p.IsVampire())
             {
                 float num = AlertNeedWarmClothes_LowestTemperatureComing(p.MapHeld);
                 var colonists = new List<Pawn>(p.MapHeld.mapPawns.FreeColonistsSpawned.Where(x => !x.IsVampire()));
@@ -1591,7 +1591,7 @@ namespace Vampire
             {
                 return true;
             }
-            if (pawn.health.hediffSet.HasTendedImmunizableNotImmuneHediff())
+            if (pawn.health.hediffSet.HasTendableNonInjuryNonMissingPartHediff())
             {
                 return false;
             }
@@ -2291,7 +2291,7 @@ namespace Vampire
                     }
                 };
                 to.defaultCompleteMode = ToilCompleteMode.Never;
-                to.WithEffect(EffecterDef.Named("ROMV_BloodVomit"), TargetIndex.A);
+                to.WithEffect(VampDefOfTwo("ROMV_BloodVomit"), TargetIndex.A);
                 to.PlaySustainerOrSound(() => SoundDef.Named("Vomit"));
                 __result = __result.Add(to);
 
@@ -2320,14 +2320,14 @@ namespace Vampire
                             {
                                 if (p2.IsVampire())
                                 {
-                                    if (HealthAIUtility.ShouldBeTendedNow(p2))
+                                    if (HealthAIUtility.ShouldBeTendedNowByPlayer(p2))
                                         Patients.Add(p2);
                                 }
                                 else
                                 {
                                     if (p2.Downed &&
                                         (p2?.needs?.food?.CurCategory ?? HungerCategory.Fed) < HungerCategory.Fed &&
-                                        p2.InBed() || HealthAIUtility.ShouldBeTendedNow(p2))
+                                        p2.InBed() || HealthAIUtility.ShouldBeTendedNowByPlayer(p2))
                                     {
                                         Patients.Add(p2);
                                     }
