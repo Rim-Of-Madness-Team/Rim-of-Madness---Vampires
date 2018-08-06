@@ -47,33 +47,34 @@ namespace Vampire
             this.FailOnAggroMentalState(TargetIndex.A);
             
             yield return Toils_Reserve.Reserve(TargetIndex.A);
-            var toil = GetActor()?.Faction == TargetA.Thing?.Faction ? Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.ClosestTouch) : Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.Touch);
+            var newDomitor = GetActor();
+            var toil = newDomitor?.Faction == TargetA.Thing?.Faction ? Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.ClosestTouch) : Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.Touch);
             Toil gotoToil = toil;
             yield return gotoToil;
             Toil grappleToil = new Toil()
             {
                 initAction = delegate
                 {
-                    MoteMaker.MakeColonistActionOverlay(GetActor(), ThingDefOf.Mote_ColonistAttacking);
+                    MoteMaker.MakeColonistActionOverlay(newDomitor, ThingDefOf.Mote_ColonistAttacking);
 
                     workLeft = BaseFeedTime;
                     Pawn victim = TargetA.Thing as Pawn; 
                     if (victim != null)
                     {
 
-                        if (GetActor().InAggroMentalState || victim.InAggroMentalState || victim.Faction != GetActor().Faction)
+                        if (newDomitor.InAggroMentalState || victim.InAggroMentalState || victim.Faction != newDomitor.Faction)
                         {
-                            int grappleBonus = GetActor() is PawnTemporary ? 100 : 0 ;
-                            if (!JecsTools.GrappleUtility.TryGrapple(GetActor(), victim, grappleBonus))
+                            int grappleBonus = newDomitor is PawnTemporary ? 100 : 0 ;
+                            if (!JecsTools.GrappleUtility.TryGrapple(newDomitor, victim, grappleBonus))
                             {
                                 this.EndJobWith(JobCondition.Incompletable);
-                                PawnUtility.ForceWait(GetActor(), (int)(BaseFeedTime * 0.15f));
+                                PawnUtility.ForceWait(newDomitor, (int)(BaseFeedTime * 0.15f));
                                 return;
                             }
                         }
-                        if (GetActor().IsVampire())
+                        if (newDomitor.IsVampire())
                             //VampireBiteUtility.MakeNew(GetActor(), GetActor()); //Actor opens their own wound.
-                        victim.stances.stunner.StunFor((int)BaseFeedTime);
+                        victim.stances.stunner.StunFor((int)BaseFeedTime, newDomitor);
                     }
                 }
             };
@@ -87,7 +88,7 @@ namespace Vampire
                         if (TargetA.Thing is Pawn victim && victim.Spawned && !victim.Dead)
                         {
                             workLeft--;
-                            VampireWitnessUtility.HandleWitnessesOf(this.job.def, GetActor(), victim);
+                            VampireWitnessUtility.HandleWitnessesOf(this.job.def, newDomitor, victim);
 //                            if (victim?.needs?.mood?.thoughts?.memories != null)
 //                            {
 //                                var victimThoughtDef = VampDefOf.ROMV_IDrankVitae;
@@ -100,24 +101,24 @@ namespace Vampire
 //                            }
                             if (workLeft <= 0f)
                             {
-                                if (GetActor()?.VampComp() is CompVampire v && v.IsVampire && GetActor().Faction == Faction.OfPlayer)
+                                if (newDomitor?.VampComp() is CompVampire v && v.IsVampire && newDomitor.Faction == Faction.OfPlayer)
                                 {
-                                    MoteMaker.ThrowText(GetActor().DrawPos, GetActor().Map, "XP +" + 15);
+                                    MoteMaker.ThrowText(newDomitor.DrawPos, newDomitor.Map, "XP +" + 15);
                                     v.XP += 15;
                                 }
                                 workLeft = BaseFeedTime;
-                                MoteMaker.MakeColonistActionOverlay(GetActor(), ThingDefOf.Mote_ColonistAttacking);
+                                MoteMaker.MakeColonistActionOverlay(newDomitor, ThingDefOf.Mote_ColonistAttacking);
 
                                 if (!victim.IsGhoul())
                                 {
-                                    CompThrall.InitializeGhoul(GetActor());   
+                                    CompThrall.InitializeGhoul(newDomitor);   
                                 }
                                 else
                                 {
-                                    CompThrall.ThrallData.TryAdjustBondStage(GetActor(), 1);
+                                    CompThrall.ThrallData.TryAdjustBondStage(newDomitor, 1);
                                 }
                                 BloodMaster.TransferBloodTo(1, BloodThrall, true, true);
-                                GhoulUtility.GiveVitaeEffects(victim, GetActor());
+                                GhoulUtility.GiveVitaeEffects(victim, newDomitor);
                                 //VampireBiteUtility.CleanBite(GetActor(), GetActor());
                                 this.ReadyForNextToil();
                             }
@@ -144,7 +145,7 @@ namespace Vampire
             return false;
         }
 
-        public override bool TryMakePreToilReservations()
+        public override bool TryMakePreToilReservations(bool uhuh)
         {
             return true;
         }

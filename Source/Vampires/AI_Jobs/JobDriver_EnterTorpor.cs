@@ -8,7 +8,7 @@ namespace Vampire
 {
     public class JobDriver_EnterTorpor : JobDriver
     {
-        public override bool TryMakePreToilReservations()
+        public override bool TryMakePreToilReservations(bool uhuh)
         {
             return pawn.Reserve(TargetA, job);
         }

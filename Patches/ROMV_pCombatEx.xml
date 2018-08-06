@@ -203,7 +203,7 @@ Help: XPath Syntax: https://www.w3schools.com/xml/xpath_syntax.asp
 								<li>Blunt</li>
 							</capacities>
 							<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
-							<commonality>0.01</commonality>
+							<chanceFactor>0.01</chanceFactor>
 							<armorPenetration>0.05</armorPenetration>
 						</li>
 					</tools>

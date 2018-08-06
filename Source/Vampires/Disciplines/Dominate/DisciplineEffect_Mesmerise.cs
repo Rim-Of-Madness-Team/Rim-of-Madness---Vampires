@@ -15,7 +15,7 @@ namespace Vampire
             
             //See Issue 5: Make sure all pawns know that the target is no longer a threat, to force them to re-evaluate attacking.
             //Useful when clearing beserk status.
-            foreach (Pawn p in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Colonists.Where(p => p.mindState.meleeThreat == target))
+            foreach (Pawn p in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive_Colonists.Where(p => p.mindState.meleeThreat == target))
             {
                 p.mindState.meleeThreat = null;
                 p.jobs.EndCurrentJob(JobCondition.InterruptForced);

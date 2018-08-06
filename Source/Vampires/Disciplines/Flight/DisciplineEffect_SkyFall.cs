@@ -15,7 +15,7 @@ namespace Vampire
                     flyingObject.damageLaunched = false;
                     flyingObject.timesToDamage = 3;
                     flyingObject.explosion = true;
-                    flyingObject.Launch(CasterPawn, target, CasterPawn, new DamageInfo(DamageDefOf.Blunt, Rand.Range(15, 25), -1, CasterPawn));
+                    flyingObject.Launch(CasterPawn, target, CasterPawn, new DamageInfo(DamageDefOf.Blunt, Rand.Range(15, 25), 1f, -1, CasterPawn));
                 }, "LaunchingFlyerSkyFall", false, null);
             }
         }

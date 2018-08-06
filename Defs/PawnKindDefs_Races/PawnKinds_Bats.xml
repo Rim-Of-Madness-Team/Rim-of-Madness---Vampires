@@ -55,7 +55,6 @@
         <defaultCooldownTime>1.65</defaultCooldownTime>
         <meleeDamageBaseAmount>1</meleeDamageBaseAmount>
         <meleeDamageDef>Blunt</meleeDamageDef>
-        <commonality>0.01</commonality>
         <linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
       </li>
     </verbs>
@@ -102,7 +101,7 @@
       <soundMeleeMiss>Pawn_Melee_SmallScratch_Miss</soundMeleeMiss>
     </race>
     <tradeTags>
-      <li>StandardAnimal</li>
+      <li>AnimalUncommon</li>
     </tradeTags>
   </ThingDef>
 
@@ -152,65 +151,5 @@
       </li>
     </lifeStages>
   </PawnKindDef>
-
-  <!-- ======================== BASES ============================= -->
-
-  <ThingDef Name="BasePawn" Abstract="True">
-    <thingClass>Pawn</thingClass>
-    <category>Pawn</category>
-    <selectable>true</selectable>
-    <tickerType>Normal</tickerType>
-    <altitudeLayer>Pawn</altitudeLayer>
-    <useHitPoints>false</useHitPoints>
-    <hasTooltip>true</hasTooltip>
-    <soundImpactDefault>BulletImpact_Flesh</soundImpactDefault>
-    <statBases>
-      <Mass>70</Mass>
-    </statBases>
-    <inspectorTabs>
-      <li>ITab_Pawn_Health</li>
-      <li>ITab_Pawn_Needs</li>
-      <li>ITab_Pawn_Character</li>
-      <li>ITab_Pawn_Training</li>
-      <li>ITab_Pawn_Gear</li>
-      <li>ITab_Pawn_Guest</li>
-      <li>ITab_Pawn_Prisoner</li>
-      <li>ITab_Pawn_Social</li>
-    </inspectorTabs>
-    <comps>
-      <li>
-        <compClass>CompAttachBase</compClass>
-      </li>
-    </comps>
-    <drawGUIOverlay>true</drawGUIOverlay>
-  </ThingDef>
-
-  <ThingDef ParentName="BasePawn" Name="AnimalThingBase" Abstract="True">
-    <statBases>
-      <Flammability>1.0</Flammability>
-      <LeatherAmount>25</LeatherAmount>
-    </statBases>
-    <race>
-      <thinkTreeMain>Animal</thinkTreeMain>
-      <thinkTreeConstant>AnimalConstant</thinkTreeConstant>
-      <hasGenders>true</hasGenders>
-      <nameGenerator>NamerAnimalGenericMale</nameGenerator>
-      <nameGeneratorFemale>NamerAnimalGenericFemale</nameGeneratorFemale>
-      <manhunterOnDamageChance>0.0125</manhunterOnDamageChance>
-      <manhunterOnTameFailChance>0.003</manhunterOnTameFailChance>
-      <nameOnNuzzleChance>0.5</nameOnNuzzleChance>
-      <hediffGiverSets>
-        <li>OrganicStandard</li>
-      </hediffGiverSets>
-    </race>
-    <recipes>
-      <li>ExciseCarcinoma</li>
-      <li>RemoveBodyPart</li>
-      <li>Euthanize</li>
-      <li>Anesthetize</li>
-    </recipes>
-  </ThingDef>
-
-  <PawnKindDef Name="AnimalKindBase" Abstract="True"></PawnKindDef>
 
 </Defs>

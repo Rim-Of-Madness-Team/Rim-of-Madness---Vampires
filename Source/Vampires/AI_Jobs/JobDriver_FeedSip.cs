@@ -74,7 +74,7 @@ namespace Vampire
                                 thisDriver.EndJobWith(JobCondition.Incompletable);
                             }
                         }
-                        GenClamor.DoClamor(actor, 10f, ClamorType.Harm);
+                        GenClamor.DoClamor(actor, 10f, ClamorDefOf.Harm);
                         if (!AllowFeeding(actor, victim))
                         {
                             actor.jobs.EndCurrentJob(JobCondition.Incompletable);
@@ -85,11 +85,11 @@ namespace Vampire
                             {
                                 if (verbs.Find(x => verbProps.Contains(x.verbProps)) is Verb_MeleeAttack v)
                                 {
-                                    victim.TakeDamage(new DamageInfo(v.verbProps.meleeDamageDef, v.verbProps.meleeDamageBaseAmount, -1, actor));
+                                    victim.TakeDamage(new DamageInfo(v.verbProps.meleeDamageDef, v.verbProps.meleeDamageBaseAmount, v.verbProps.meleeArmorPenetrationBase, -1, actor));
                                 }
                             }
                         }
-                        victim.stances.stunner.StunFor((int)BaseFeedTime);
+                        victim.stances.stunner.StunFor((int)BaseFeedTime, actor);
                     }
                 }
             };
@@ -126,7 +126,7 @@ namespace Vampire
                         {
                             if (victim != null && !victim.Dead)
                             {
-                                victim.stances.stunner.StunFor((int)BaseFeedTime);
+                                victim.stances.stunner.StunFor((int)BaseFeedTime, actor);
                                 PawnUtility.ForceWait((Pawn)TargetA.Thing, (int)BaseFeedTime, actor);
 
                             }
@@ -187,7 +187,7 @@ namespace Vampire
             return true;
         }
 
-        public override bool TryMakePreToilReservations()
+        public override bool TryMakePreToilReservations(bool uhuh)
         {
             return true;
         }

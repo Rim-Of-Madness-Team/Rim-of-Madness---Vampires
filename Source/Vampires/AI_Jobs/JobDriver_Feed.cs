@@ -92,7 +92,7 @@ namespace Vampire
                         }
                         if (actor.IsVampire())
                             VampireBiteUtility.MakeNew(actor, victim);
-                        victim.stances.stunner.StunFor((int)BaseFeedTime);
+                        victim.stances.stunner.StunFor((int)BaseFeedTime, actor);
                     }
                 }
             };
@@ -154,7 +154,7 @@ namespace Vampire
                                 {
                                     if (victim != null && !victim.Dead)
                                     {
-                                        victim.stances.stunner.StunFor((int)BaseFeedTime);
+                                        victim.stances.stunner.StunFor((int)BaseFeedTime, actor);
                                         PawnUtility.ForceWait((Pawn)TargetA.Thing, (int)BaseFeedTime, actor);
 
                                     }
@@ -239,7 +239,7 @@ namespace Vampire
 //            return victim != null && victim.PositionHeld.IsValid && victim.PositionHeld.IsSunlightSafeFor(feeder);
 //        }
 
-        public override bool TryMakePreToilReservations()
+        public override bool TryMakePreToilReservations(bool uhuh)
         {
             return true;
         }

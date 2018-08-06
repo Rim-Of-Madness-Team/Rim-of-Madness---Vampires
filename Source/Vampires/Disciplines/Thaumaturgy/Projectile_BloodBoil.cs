@@ -24,7 +24,7 @@ namespace Vampire
                 for (int j = 0; j < 4; j++)
                 {
                     if (!p.Dead)
-                        p.TakeDamage(new DamageInfo(DamageDefOf.Burn, Rand.Range(8, 13), -1, Caster, parts.RandomElement()));
+                        p.TakeDamage(new DamageInfo(DamageDefOf.Burn, Rand.Range(8, 13), 1f, -1, Caster, parts.RandomElement()));
                 }
             }
         }

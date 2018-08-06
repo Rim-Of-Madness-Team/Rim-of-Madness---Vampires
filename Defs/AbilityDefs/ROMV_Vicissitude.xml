@@ -95,7 +95,7 @@
       <tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
     </MainVerb>
   </Vampire.VitaeAbilityDef>
-  <HediffDef ParentName="ROMV_InjuryBase">
+  <HediffDef ParentName="InjuryBase">
     <defName>ROMV_CorruptFormHediff_Sight</defName>
     <label>loose bags of skin</label>
     <displayWound>false</displayWound>
@@ -124,7 +124,7 @@
       </li>
     </stages>
   </HediffDef>
-  <HediffDef ParentName="ROMV_InjuryBase">
+  <HediffDef ParentName="InjuryBase">
     <defName>ROMV_CorruptFormHediff_Legs</defName>
     <label>split-bone and flesh</label>
     <displayWound>false</displayWound>
@@ -153,7 +153,7 @@
       </li>
     </stages>
   </HediffDef>
-  <HediffDef ParentName="ROMV_InjuryBase">
+  <HediffDef ParentName="InjuryBase">
     <defName>ROMV_CorruptFormHediff_Arms</defName>
     <label>torn ligaments</label>
     <displayWound>false</displayWound>

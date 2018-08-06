@@ -2,7 +2,7 @@
 <Defs>
   <!-- Injuries -->
 
-	<HediffDef ParentName="ROMV_InjuryBase">
+	<HediffDef ParentName="InjuryBase">
 		<defName>ROMV_DrainHediff</defName>
 		<label>drain</label>
     <comps>

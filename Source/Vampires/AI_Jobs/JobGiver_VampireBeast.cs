@@ -24,7 +24,7 @@ namespace Vampire
             {
                 return null;
             }
-            if (pawn?.TryGetAttackVerb() == null)
+            if (pawn?.TryGetAttackVerb(null) == null)
             {
                 return null;
             }

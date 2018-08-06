@@ -29,15 +29,15 @@ namespace Vampire
 			resolveParams.rect = rp.rect;
 			resolveParams.faction = faction;
 			resolveParams.singlePawnLord = singlePawnLord;
-			resolveParams.pawnGroupKindDef = (rp.pawnGroupKindDef ?? PawnGroupKindDefOf.FactionBase);
+			resolveParams.pawnGroupKindDef = (rp.pawnGroupKindDef ?? PawnGroupKindDefOf.Settlement);
 			resolveParams.singlePawnSpawnCellExtraPredicate = (rp.singlePawnSpawnCellExtraPredicate ?? ((IntVec3 x) => map.reachability.CanReachMapEdge(x, traverseParms)));
 			if (resolveParams.pawnGroupMakerParams == null)
 			{
 				float num3 = 1000f; //(!faction.def.techLevel.IsNeolithicOrWorse()) ? SymbolResolver_VampireLair.NonNeolithicPawnsPoints.RandomInRange : SymbolResolver_VampireLair.NeolithicPawnsPoints.RandomInRange;
-				float? factionBasePawnGroupPointsFactor = rp.factionBasePawnGroupPointsFactor;
+				float? factionBasePawnGroupPointsFactor = rp.settlementPawnGroupPoints;
 				if (factionBasePawnGroupPointsFactor != null)
 				{
-					num3 *= rp.factionBasePawnGroupPointsFactor.Value;
+					num3 *= rp.settlementPawnGroupPoints.Value;
 				}
 				resolveParams.pawnGroupMakerParams = new PawnGroupMakerParms();
 				resolveParams.pawnGroupMakerParams.tile = map.Tile;

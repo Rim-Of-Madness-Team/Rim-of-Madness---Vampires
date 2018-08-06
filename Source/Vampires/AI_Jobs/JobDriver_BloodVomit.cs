@@ -10,21 +10,10 @@ namespace Vampire
     {
         private int ticksLeft;
 
-        private PawnPosture lastPosture;
-
-        public override PawnPosture Posture => lastPosture;
-
-        public override void Notify_LastPosture(PawnPosture posture, LayingDownState layingDown)
-        {
-            lastPosture = posture;
-            this.layingDown = layingDown;
-        }
-
         public override void ExposeData()
         {
             base.ExposeData();
             Scribe_Values.Look(ref ticksLeft, "ticksLeft");
-            Scribe_Values.Look(ref lastPosture, "lastPosture");
         }
 
         [DebuggerHidden]
@@ -83,12 +72,12 @@ namespace Vampire
                 }
             };
             to.defaultCompleteMode = ToilCompleteMode.Never;
-            to.WithEffect(EffecterDef.Named("ROMV_BloodVomit"), TargetIndex.A);
+            to.WithEffect(DefDatabase<EffecterDef>.GetNamed("ROMV_BloodVomit"), TargetIndex.A);
             to.PlaySustainerOrSound(() => SoundDef.Named("Vomit"));
             yield return to;
         }
 
-        public override bool TryMakePreToilReservations()
+        public override bool TryMakePreToilReservations(bool uhuh)
         {
             return true;
         }

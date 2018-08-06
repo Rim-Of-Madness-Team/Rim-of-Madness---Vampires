@@ -69,7 +69,7 @@
   
 
 
-  <HediffDef ParentName="ROMV_DrugToleranceBase">
+  <HediffDef ParentName="DrugToleranceBase">
     <defName>ROMV_VitaeTolerance</defName>
     <label>vitae tolerance</label>
     <comps>
@@ -92,7 +92,7 @@
 		</hediffGivers>
   </HediffDef>
   
-  <HediffDef ParentName="ROMV_AddictionBase">
+  <HediffDef ParentName="AddictionBase">
     <defName>ROMV_VitaeAddiction</defName>
     <hediffClass>Hediff_Addiction</hediffClass>
     <label>vitae addiction</label>
@@ -138,48 +138,5 @@
       </li>
     </stages>
   </ThoughtDef>
- 
-<!-- BASES --> 
-  
-  <NeedDef Name="ROMV_DrugAddictionNeedBase" Abstract="True">
-    <onlyIfCausedByHediff>true</onlyIfCausedByHediff>
-    <tutorHighlightTag>NeedAddiction</tutorHighlightTag>
-    <showForCaravanMembers>true</showForCaravanMembers>
-  </NeedDef>
- 
-   <HediffDef Name="ROMV_AddictionBase" Abstract="True">
-    <defaultLabelColor>(255,0,127)</defaultLabelColor>
-    <initialSeverity>0.5</initialSeverity>
-    <maxSeverity>1.0</maxSeverity>
-    <scenarioCanAdd>true</scenarioCanAdd>
-  </HediffDef>
- 
-  <HediffDef Name="ROMV_DrugToleranceBase" Abstract="True">
-    <hediffClass>HediffWithComps</hediffClass>
-    <defaultLabelColor>(179,86,132)</defaultLabelColor>
-    <maxSeverity>1.0</maxSeverity>
-    <scenarioCanAdd>true</scenarioCanAdd>
-    <isBad>false</isBad>
-    <stages>
-      <li>
-        <minSeverity>0</minSeverity>
-        <becomeVisible>false</becomeVisible>
-        <label>small</label>
-      </li>
-      <li>
-        <minSeverity>0.20</minSeverity>
-        <label>small</label>
-      </li>
-      <li>
-        <minSeverity>0.50</minSeverity>
-        <label>large</label>
-      </li>
-      <li>
-        <minSeverity>0.80</minSeverity>
-        <label>massive</label>
-      </li>
-    </stages>
-  </HediffDef> 
-  
   
 </Defs>

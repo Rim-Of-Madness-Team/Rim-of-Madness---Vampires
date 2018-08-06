@@ -16,7 +16,7 @@ namespace Vampire
                 VampireUtility.SummonEffect(loc, CasterPawn.Map, CasterPawn, 10f);
 
                 for (int i = 0; i < count; i++)
-                    target.Map.wildSpawner.SpawnRandomWildAnimalAt(loc);
+                    target.Map.wildAnimalSpawner.SpawnRandomWildAnimalAt(loc);
 
             }
             Find.LetterStack.ReceiveLetter("ROMV_AnimalHerd".Translate(), "ROMV_AnimalHerdDesc".Translate(), LetterDefOf.PositiveEvent, new RimWorld.Planet.GlobalTargetInfo(loc, target.Map));

@@ -63,7 +63,7 @@ namespace Vampire
                 generation < 7 ? Find.FactionManager.FirstFactionOfDef(VampDefOf.ROMV_LegendaryVampires) :
                 VampireUtility.RandVampFaction;
             PawnGenerationRequest request = new PawnGenerationRequest(
-                PawnKindDefOf.SpaceRefugee, Faction.OfSpacer, PawnGenerationContext.NonPlayer,
+                PawnKindDefOf.SpaceRefugee, Faction.OfAncients, PawnGenerationContext.NonPlayer,
                 -1, false, false, false, false, true, true, 20f, false, true,
                 true, false, false, false, false, null, null, null, null, null, null);
             Pawn pawn = PawnGenerator.GeneratePawn(request);

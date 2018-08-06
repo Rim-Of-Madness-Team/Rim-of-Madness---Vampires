@@ -261,7 +261,7 @@ namespace Vampire
             {
                 if (prey?.Faction == predator.Faction)
                 {
-                    if (prey?.playerSettings?.master != null)
+                    if (prey?.playerSettings?.Master != null)
                         return -750f;
                     if (prey?.RaceProps?.petness >= 5)
                         return -500f;

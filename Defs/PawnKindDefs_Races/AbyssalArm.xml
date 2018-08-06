@@ -107,7 +107,6 @@
 			<baseHungerRate>0.0001</baseHungerRate>
 			<baseHealthScale>1.0</baseHealthScale>
 			<foodType>CarnivoreAnimal</foodType>
-			<leatherInsulation>1.0</leatherInsulation>
 			<gestationPeriodDays>22.5</gestationPeriodDays>
 			<nameOnTameChance>1</nameOnTameChance>
 			<trainability>Advanced</trainability>

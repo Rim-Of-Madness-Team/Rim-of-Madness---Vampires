@@ -157,7 +157,7 @@ namespace Vampire
 
         private void AbsorbedDamage(DamageInfo dinfo)
         {
-            SoundDefOf.EnergyShieldAbsorbDamage.PlayOneShot(new TargetInfo(Pawn.Position, Pawn.Map));
+            SoundDefOf.EnergyShield_AbsorbDamage.PlayOneShot(new TargetInfo(Pawn.Position, Pawn.Map));
             impactAngleVect = Vector3Utility.HorizontalVectorFromAngle(dinfo.Angle);
             Vector3 loc = Pawn.TrueCenter() + impactAngleVect.RotatedBy(180f) * 0.5f;
             float num = Mathf.Min(10f, 2f + (float)dinfo.Amount / 10f);
@@ -178,7 +178,7 @@ namespace Vampire
 
         private void Break()
         {
-            SoundDefOf.EnergyShieldBroken.PlayOneShot(new TargetInfo(Pawn.Position, Pawn.Map));
+            SoundDefOf.EnergyShield_Broken.PlayOneShot(new TargetInfo(Pawn.Position, Pawn.Map));
             MoteMaker.MakeStaticMote(Pawn.TrueCenter(), Pawn.Map, ThingDefOf.Mote_ExplosionFlash, 12f);
             for (int i = 0; i < 6; i++)
             {
@@ -193,7 +193,7 @@ namespace Vampire
         {
             if (Pawn.Spawned)
             {
-                SoundDefOf.EnergyShieldReset.PlayOneShot(new TargetInfo(Pawn.Position, Pawn.Map));
+                SoundDefOf.EnergyShield_Reset.PlayOneShot(new TargetInfo(Pawn.Position, Pawn.Map));
                 MoteMaker.ThrowLightningGlow(Pawn.TrueCenter(), Pawn.Map, 3f);
             }
             ticksToReset = -1;

@@ -27,9 +27,9 @@
         <li>ITab_Pawn_Health</li>
         <li>Vampire.ITab_Pawn_NeedsCorpse</li>
         <li>ITab_Pawn_Character</li>
-        <li>ITab_Pawn_Gear</li>
         <li>ITab_Pawn_Social</li>
-        <li>ITab_Pawn_Combat</li>
+        <li>ITab_Pawn_Gear</li>
+        <li>ITab_Pawn_Log</li>
     </inspectorTabs>
 	<recipes>
 	  <li>RemoveBodyPart</li>
@@ -42,7 +42,7 @@
 		<dessicatedDamagePerDay>0.7</dessicatedDamagePerDay>
 	  </li>
 	  <li Class="CompProperties_SpawnerFilth">
-	    <filthDef>FilthCorpseBile</filthDef>
+	    <filthDef>Filth_CorpseBile</filthDef>
 		<spawnCountOnSpawn>0</spawnCountOnSpawn>
 		<spawnMtbHours>0</spawnMtbHours>
 		<spawnRadius>0.1</spawnRadius>

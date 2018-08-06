@@ -17,7 +17,7 @@
     <showForCaravanMembers>true</showForCaravanMembers>
   </NeedDef>
   
-    <NeedDef ParentName="ROMV_DrugAddictionNeedBase">
+    <NeedDef ParentName="DrugAddictionNeedBase">
     <defName>ROMV_Chemical_Vitae</defName>
     <needClass>Need_Chemical</needClass>
     <label>Thirst for Vitae</label>

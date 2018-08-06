@@ -9,7 +9,7 @@ namespace Vampire
         {
             if (Ability.Def.MainVerb.isViolent && target.Faction != CasterPawn.Faction)
             {
-                target.mindState.Notify_DamageTaken(new DamageInfo(DamageDefOf.Cut, -1, -1, CasterPawn));
+                target.mindState.Notify_DamageTaken(new DamageInfo(DamageDefOf.Cut, -1, 0f, -1, CasterPawn));
             }
             target.Drawer.Notify_DebugAffected();
             MoteMaker.ThrowText(target.DrawPos, target.Map, AbilityUser.StringsToTranslate.AU_CastSuccess);

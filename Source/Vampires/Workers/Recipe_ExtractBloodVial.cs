@@ -53,7 +53,7 @@ namespace Vampire
                 });
                 BloodItemUtility.SpawnBloodFromExtraction(pawn);
             }
-             pawn.TakeDamage(new DamageInfo(DamageDefOf.Cut, 1, -1f, null, part));
+             pawn.TakeDamage(new DamageInfo(DamageDefOf.Cut, 1, 1f, -1f, null, part));
             int badGoodwillAmt = -3;
             if (flag)
             {
@@ -69,7 +69,7 @@ namespace Vampire
             }
             if (flag2)
             {
-                pawn.Faction.AffectGoodwillWith(billDoer.Faction, badGoodwillAmt);
+                pawn.Faction.TryAffectGoodwillWith(billDoer.Faction, badGoodwillAmt);
             }
         }
 

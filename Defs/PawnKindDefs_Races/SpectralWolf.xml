@@ -129,7 +129,6 @@
           <defaultCooldownTime>1.35</defaultCooldownTime>
           <meleeDamageBaseAmount>8</meleeDamageBaseAmount>
           <meleeDamageDef>Blunt</meleeDamageDef>
-          <commonality>0.01</commonality>
           <linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
         </li>
       </verbs>
@@ -143,7 +142,6 @@
         <baseHungerRate>0.18</baseHungerRate>
         <baseHealthScale>0.99</baseHealthScale>
         <foodType>CarnivoreAnimal</foodType>
-        <leatherInsulation>1.0</leatherInsulation>
         <gestationPeriodDays>22.5</gestationPeriodDays>
         <nameOnTameChance>1</nameOnTameChance>
         <trainability>Advanced</trainability>

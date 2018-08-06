@@ -54,7 +54,7 @@ namespace Vampire
             {
                 if (pawn.story.adulthood != null)
                 {
-                    string toCheck = pawn.story.GetBackstory(BackstorySlot.Adulthood).Title;
+                    string toCheck = pawn.story.GetBackstory(BackstorySlot.Adulthood).title;
                     switch (toCheck)
                     {
                         case "Urbworld pimp":
@@ -66,7 +66,7 @@ namespace Vampire
                 }
                 if (pawn.story.childhood != null)
                 {
-                    string toCheck2 = pawn.story.GetBackstory(BackstorySlot.Childhood).Title;
+                    string toCheck2 = pawn.story.GetBackstory(BackstorySlot.Childhood).title;
                     switch (toCheck2)
                     {
                         case "Colosseum cleaner":
@@ -95,7 +95,7 @@ namespace Vampire
             {
                 if (pawn.story.adulthood != null)
                 {
-                    string toCheck = pawn.story.GetBackstory(BackstorySlot.Adulthood).Title;
+                    string toCheck = pawn.story.GetBackstory(BackstorySlot.Adulthood).title;
                     switch (toCheck)
                     {
                         case "Medieval lord":
@@ -107,7 +107,7 @@ namespace Vampire
                 }
                 if (pawn.story.childhood != null)
                 {
-                    string toCheck2 = pawn.story.GetBackstory(BackstorySlot.Childhood).Title;
+                    string toCheck2 = pawn.story.GetBackstory(BackstorySlot.Childhood).title;
                     switch (toCheck2)
                     {
                         case "Squire":

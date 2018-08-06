@@ -14,7 +14,7 @@ namespace Vampire
             Faction faction;
             Faction faction2;
             int num;
-            return base.CanFireNowSub(target) &&
+            return base.CanFireNowSub(parms) &&
                    TryFindNewSiteTile(out num, 8, 30, false, true, -1);
         }
 
@@ -62,10 +62,9 @@ namespace Vampire
             {
                 return false;
             }
-            Site site = SiteMaker.MakeSite(SiteCoreDefOf.Nothing, DefDatabase<SitePartDef>.GetNamed("ROMV_AncientVampireCrypt"),
+            Site site = SiteMaker.MakeSite(SiteCoreDefOf.Nothing, DefDatabase<SitePartDef>.GetNamed("ROMV_AncientVampireCrypt"), tile,
                 Find.FactionManager.FirstFactionOfDef(FactionDef.Named("ROMV_LegendaryVampires")));
-            site.Tile = tile;
-            site.GetComponent<DefeatAllEnemiesQuestComp>().StartQuest(Faction.OfPlayer, 8f, GenerateRewards());
+            site.GetComponent<DefeatAllEnemiesQuestComp>().StartQuest(Faction.OfPlayer, 8, GenerateRewards());
             Find.WorldObjects.Add(site);
             base.SendStandardLetter(site);
             return true;
@@ -73,9 +72,9 @@ namespace Vampire
 
         private List<Thing> GenerateRewards(Faction alliedFaction = null)
         {
-            ItemCollectionGeneratorParams parms = default(ItemCollectionGeneratorParams);
+            ThingSetMakerParams parms = default(ThingSetMakerParams);
             parms.techLevel = TechLevel.Medieval; //new TechLevel?(alliedFaction.def.techLevel);
-            return ItemCollectionGeneratorDefOf.BanditCampQuestRewards.Worker.Generate(parms);
+            return ThingSetMakerDefOf.Reward_StandardByDropPod.root.Generate(parms);
         }
 
 //        private bool TryFindFactions(out Faction alliedFaction, out Faction enemyFaction)

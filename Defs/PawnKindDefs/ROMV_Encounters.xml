@@ -80,7 +80,7 @@
       <max>1100</max>
     </apparelMoney>
     <apparelTags>
-      <li>Outlander</li>
+      <li>IndustrialBasic</li><li>IndustrialAdvanced</li>
     </apparelTags>
     <apparelAllowHeadgearChance>0.7</apparelAllowHeadgearChance>
     <weaponMoney>

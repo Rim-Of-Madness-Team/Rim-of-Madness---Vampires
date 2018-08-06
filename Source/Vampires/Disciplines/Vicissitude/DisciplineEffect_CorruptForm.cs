@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using RimWorld;
 using Verse;
 
 namespace Vampire
@@ -12,28 +13,28 @@ namespace Vampire
             {
                 base.Effect(target);
                 int boolSel = Rand.Range(0, 2);
-                string tagOne = "";
-                string tagTwo = "";
+                BodyPartTagDef tagOne = null;
+                BodyPartTagDef tagTwo = null;
                 HediffDef hediffDefOne = null;
                 HediffDef hediffDefTwo = null;
                 switch (boolSel)
                 {
                     case 0:
-                        tagOne = "MovingLimbCore";
-                        tagTwo = "SightSource";
+                        tagOne = BodyPartTagDefOf.MovingLimbCore;
+                        tagTwo = BodyPartTagDefOf.SightSource;
                         hediffDefOne = VampDefOf.ROMV_CorruptFormHediff_Legs;
                         hediffDefTwo = VampDefOf.ROMV_CorruptFormHediff_Sight;
 
                         break;
                     case 1:
-                        tagOne = "ManipulationLimbCore";
-                        tagTwo = "SightSource";
+                        tagOne = BodyPartTagDefOf.ManipulationLimbCore;
+                        tagTwo = BodyPartTagDefOf.SightSource;
                         hediffDefOne = VampDefOf.ROMV_CorruptFormHediff_Arms;
                         hediffDefTwo = VampDefOf.ROMV_CorruptFormHediff_Sight;
                         break;
                     case 2:
-                        tagOne = "ManipulationLimbCore";
-                        tagTwo = "MovingLimbCore";
+                        tagOne = BodyPartTagDefOf.ManipulationLimbCore;
+                        tagTwo = BodyPartTagDefOf.MovingLimbCore;
                         hediffDefOne = VampDefOf.ROMV_CorruptFormHediff_Arms;
                         hediffDefTwo = VampDefOf.ROMV_CorruptFormHediff_Legs;
                         break;
@@ -42,11 +43,11 @@ namespace Vampire
                 IEnumerable<BodyPartRecord> recs = target.health.hediffSet.GetNotMissingParts();
                 if (recs.FirstOrDefault(x => x.def.tags.Contains(tagOne)) is BodyPartRecord bp)
                 {
-                    HediffGiveUtility.TryApply(target, hediffDefOne, new List<BodyPartDef> { bp.def });
+                    HediffGiverUtility.TryApply(target, hediffDefOne, new List<BodyPartDef> { bp.def });
                 }
                 if (recs.FirstOrDefault(x => x.def.tags.Contains(tagTwo)) is BodyPartRecord bpII)
                 {
-                    HediffGiveUtility.TryApply(target, hediffDefTwo, new List<BodyPartDef> { bpII.def });
+                    HediffGiverUtility.TryApply(target, hediffDefTwo, new List<BodyPartDef> { bpII.def });
                 }
             }
 

@@ -18,7 +18,7 @@ namespace Vampire
                 {
                     Projectile_BloodReturner projectile =
                         (Projectile_BloodReturner)GenSpawn.Spawn(ThingDef.Named("ROMV_BloodProjectile_Returner"), hitThing.PositionHeld, hitThing.MapHeld);
-                    projectile.Launch(hitThing, origin.ToIntVec3());
+                    projectile.Launch(hitThing, origin.ToIntVec3(), origin.ToIntVec3(), ProjectileHitFlags.IntendedTarget);
                 }
             }
         }

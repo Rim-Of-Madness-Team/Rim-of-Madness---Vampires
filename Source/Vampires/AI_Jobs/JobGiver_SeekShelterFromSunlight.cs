@@ -19,7 +19,8 @@ namespace Vampire
         protected virtual IntVec3 GetExactWanderDest(Pawn pawn)
         {
             IntVec3 wanderRoot = pawn.PositionHeld;
-            return RCellFinder.RandomWanderDestFor(pawn, wanderRoot, wanderRadius, delegate(Pawn p, IntVec3 v) { if (v.Roofed(p.MapHeld)) return true; return false; }, PawnUtility.ResolveMaxDanger(pawn, maxDanger));
+            return RCellFinder.RandomWanderDestFor(pawn, wanderRoot, wanderRadius,
+                (p, loc, root) => loc.Roofed(p.MapHeld), PawnUtility.ResolveMaxDanger(pawn, maxDanger));
         }
 
 //        public override float GetPriority(Pawn pawn)

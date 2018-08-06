@@ -47,7 +47,6 @@
         <defaultCooldownTime>1.35</defaultCooldownTime>
         <meleeDamageBaseAmount>5</meleeDamageBaseAmount>
         <meleeDamageDef>Blunt</meleeDamageDef>
-        <commonality>0.01</commonality>
         <linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
       </li>
     </verbs>
@@ -93,9 +92,7 @@
       <soundMeleeHitBuilding>Pawn_Melee_SmallScratch_HitBuilding</soundMeleeHitBuilding>
       <soundMeleeMiss>Pawn_Melee_SmallScratch_Miss</soundMeleeMiss>
     </race>
-    <tradeTags>
-      <li>StandardAnimal</li>
-    </tradeTags>
+    <tradeTags/>
   </ThingDef>
 
   <PawnKindDef ParentName="AnimalKindBase">

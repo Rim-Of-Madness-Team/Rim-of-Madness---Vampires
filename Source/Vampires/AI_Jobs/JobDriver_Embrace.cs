@@ -88,7 +88,7 @@ namespace Vampire
             return true;
         }
 
-        public override bool TryMakePreToilReservations()
+        public override bool TryMakePreToilReservations(bool uhuh)
         {
             return true;
         }

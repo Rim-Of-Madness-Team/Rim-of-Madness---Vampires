@@ -101,23 +101,9 @@
     </stages>
   </HediffDef>
 
-
-  <HediffDef Name="ROMV_InjuryBase" Abstract="True">
-    <hediffClass>Hediff_Injury</hediffClass>
-    <tendable>true</tendable>
-    <displayWound>true</displayWound>
-  </HediffDef>
-
   <HediffDef Name="ROMV_VampBase" Abstract="True">
     <hediffClass>HediffWithComps</hediffClass>
     <defaultLabelColor>(0.6, 0.5, 0.9)</defaultLabelColor>
-    <initialSeverity>0.001</initialSeverity>
-  </HediffDef>
-
-
-  <HediffDef Name="ROMV_DiseaseBase" Abstract="True">
-    <hediffClass>HediffWithComps</hediffClass>
-    <defaultLabelColor>(0.8, 0.8, 0.35)</defaultLabelColor>
     <initialSeverity>0.001</initialSeverity>
   </HediffDef>
 

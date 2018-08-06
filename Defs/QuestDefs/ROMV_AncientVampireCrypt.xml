@@ -5,9 +5,9 @@
 		<defName>ROMV_QuestAncientVampireCrypt</defName>
 		<label>ancient vampire crypt</label>
 		<category>Misc</category>
-    <targetTypes>
+    <targetTags>
       <li>World</li>
-    </targetTypes>
+    </targetTags>
 		<workerClass>Vampire.IncidentWorker_AncientVampireCrypt</workerClass>
 		<letterLabel>ancient vampire crypt</letterLabel>
 		<letterText>A magnificently powerful vampire's tomb has been discovered. Dare we confront the creature?</letterText>
@@ -31,7 +31,7 @@
     <expandingIconTexture>World/AncientVampireCrypt</expandingIconTexture>
     <applyFactionColorToSiteTexture>false</applyFactionColorToSiteTexture>
     <showFactionInInspectString>false</showFactionInInspectString>
-    <knownDanger>true</knownDanger>
+    
     <requiresFaction>false</requiresFaction>
     <tags>
       <li>AncientVampireCrypt</li>

@@ -2,9 +2,10 @@
 <Defs>
 
 
-    <ThingDef ParentName="ROMV_BuildingBase">
+    <ThingDef ParentName="BuildingBase">
       <defName>ROMV_HideyHole</defName>
       <label>odd dirt patch</label>
+	  <thingCategories />
       <thingClass>Vampire.Building_HideyHole</thingClass>
       <graphicData>
         <texPath>Things/Building/Misc/DirtPile</texPath>

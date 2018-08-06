@@ -7,7 +7,7 @@ namespace Vampire
 {
 	public class GenStep_VampireLair : GenStep
 	{
-		public override void Generate(Map map)
+		public override void Generate(Map map, GenStepParams parms)
 		{
 			CellRect rectToDefend;
 			if (!MapGenerator.TryGetVar<CellRect>("RectOfInterest", out rectToDefend))
@@ -30,13 +30,15 @@ namespace Vampire
 			resolveParams.edgeDefenseWidth = new int?(2);
 			//resolveParams.edgeDefenseTurretsCount = new int?(Rand.RangeInclusive(0, 1));
 			resolveParams.edgeDefenseMortarsCount = new int?(0);
-			resolveParams.factionBasePawnGroupPointsFactor = new float?(0.4f);
+			resolveParams.settlementPawnGroupPoints = new float?(0.4f);
 			BaseGen.globalSettings.map = map;
 			BaseGen.globalSettings.minBuildings = 1;
 			BaseGen.globalSettings.minBarracks = 1;
 			BaseGen.symbolStack.Push("factionBase", resolveParams);
 			BaseGen.Generate();
 		}
+
+		public override int SeedPart => 778579656;
 
 		private CellRect GetOutpostRect(CellRect rectToDefend, Map map)
 		{

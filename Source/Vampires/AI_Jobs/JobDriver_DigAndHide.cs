@@ -88,7 +88,7 @@ namespace Vampire
             Scribe_Values.Look(ref workLeft, "workLeft");
         }
 
-        public override bool TryMakePreToilReservations()
+        public override bool TryMakePreToilReservations(bool uhuh)
         {
             return true;
         }

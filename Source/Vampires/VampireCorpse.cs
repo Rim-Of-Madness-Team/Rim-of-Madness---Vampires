@@ -22,13 +22,13 @@ namespace Vampire
         private BodyPartRecord GetBestBodyPartToEat(Pawn ingester, float nutritionWanted)
         {
             IEnumerable<BodyPartRecord> source = from x in InnerPawn.health.hediffSet.GetNotMissingParts()
-                                                 where x.depth == BodyPartDepth.Outside && FoodUtility.GetBodyPartNutrition(InnerPawn, x) > 0.001f
+                                                 where x.depth == BodyPartDepth.Outside && FoodUtility.GetBodyPartNutrition(this, x) > 0.001f
                                                  select x;
             if (!source.Any())
             {
                 return null;
             }
-            return source.MinBy((BodyPartRecord x) => Mathf.Abs(FoodUtility.GetBodyPartNutrition(InnerPawn, x) - nutritionWanted));
+            return source.MinBy((BodyPartRecord x) => Mathf.Abs(FoodUtility.GetBodyPartNutrition(this, x) - nutritionWanted));
         }
 
         private void NotifyColonistBar()
@@ -77,7 +77,7 @@ namespace Vampire
                             hediff_Injury.sourceBodyPartGroup = null;
                             hediff_Injury.sourceHediffDef = null;
                             hediff_Injury.Severity = 999999;
-                            p.health.AddHediff(hediff_Injury, null, new DamageInfo?(new DamageInfo(DamageDefOf.Burn, 999999, -1, null, rec)));
+                            p.health.AddHediff(hediff_Injury, null, new DamageInfo?(new DamageInfo(DamageDefOf.Burn, 999999, 1f, -1, null, rec)));
                         }
                     }
                 }
@@ -133,7 +133,7 @@ namespace Vampire
                 }
                 s.AppendLine("DeadTime".Translate(new object[]
                 {
-                Age.ToStringTicksToPeriod(false)
+                Age.ToStringTicksToPeriod()
                 }));
             }
             return s.ToString().TrimEndNewlines();
@@ -142,7 +142,7 @@ namespace Vampire
 
         public override void DrawAt(Vector3 drawLoc, bool flip = false)
         {
-            Building building = this.StoringThing();
+            Thing building = this.StoringThing();
             if (building != null && building.def == ThingDefOf.Grave)
             {
                 return;

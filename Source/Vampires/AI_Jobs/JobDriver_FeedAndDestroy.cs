@@ -46,7 +46,7 @@ namespace Vampire
                 {
                     if (!Victim.Dead)
                     {
-                        Victim.TakeDamage(new DamageInfo(DamageDefOf.Bite, Rand.Range(8, 12), -1, GetActor(), parts.RandomElement()));
+                        Victim.TakeDamage(new DamageInfo(DamageDefOf.Bite, Rand.Range(8, 12), 1f, -1, GetActor(), parts.RandomElement()));
                     }
                 }
             }
@@ -87,7 +87,7 @@ namespace Vampire
             return true;
         }
 
-        public override bool TryMakePreToilReservations()
+        public override bool TryMakePreToilReservations(bool uhuh)
         {
             return true;
         }

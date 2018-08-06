@@ -104,12 +104,12 @@ namespace Vampire
             if (victim.BloodNeed().CurBloodPoints <= 1)
             {
                 int dmg = Rand.Range(1, 20) + feeder.skills.GetSkill(SkillDefOf.Melee).Level;
-                victim.TakeDamage(new DamageInfo(VampDefOf.ROMV_Drain, dmg, -1, feeder));
+                victim.TakeDamage(new DamageInfo(VampDefOf.ROMV_Drain, dmg, 1f, -1, feeder));
             }
             return true;
         }
 
-        public override bool TryMakePreToilReservations()
+        public override bool TryMakePreToilReservations(bool uhuh)
         {
             return true;
         }

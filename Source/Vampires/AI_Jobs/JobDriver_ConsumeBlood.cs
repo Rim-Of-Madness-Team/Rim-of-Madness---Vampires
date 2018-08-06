@@ -270,7 +270,7 @@ namespace Vampire
             return toil;
         }
 
-        public override bool TryMakePreToilReservations()
+        public override bool TryMakePreToilReservations(bool uhuh)
         {
             return pawn.Reserve(TargetA, job);
         }
