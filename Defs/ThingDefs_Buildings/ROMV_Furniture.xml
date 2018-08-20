@@ -20,7 +20,6 @@
         <cornerBR>Damage/Corner</cornerBR>
       </damageData>
     </graphicData>
-    <minifiedDef>MinifiedThing</minifiedDef>
     <description>Created to preserve and seal vampires of significant power.</description>
     <size>(1,2)</size>
     <pathCost>70</pathCost>
@@ -28,7 +27,6 @@
     <fillPercent>0.5</fillPercent>
     <tickerType>Rare</tickerType>
     <canOverlapZones>false</canOverlapZones>
-    <minifiedDef>MinifiedThing</minifiedDef>
     <building>
 			<ai_chillDestination>false</ai_chillDestination>
       <fullGraveGraphicData>
@@ -97,7 +95,7 @@
   <!--============================== Beds ==============================-->
 
   
-  <ThingDef ParentName="BuildingBase">
+  <ThingDef ParentName="FurnitureBase">
     <defName>ROMV_SimpleCoffin</defName>
     <label>Coffin</label>
     <thingClass>Vampire.Building_Coffin</thingClass>
@@ -112,7 +110,6 @@
         <cornerBR>Damage/Corner</cornerBR>
       </damageData>
     </graphicData>
-    <minifiedDef>MinifiedThing</minifiedDef>
     <description>A burial receptacle for the dead.</description>
     <size>(1,2)</size>
     <pathCost>70</pathCost>
@@ -184,7 +181,7 @@
     <designationHotKey>Misc9</designationHotKey>
   </ThingDef>
 
-  <ThingDef ParentName="BuildingBase">
+  <ThingDef ParentName="FurnitureBase">
     <defName>ROMV_RoyalCoffin</defName>
     <label>Royal Coffin</label>
     <thingClass>Vampire.Building_Coffin</thingClass>
@@ -199,7 +196,6 @@
         <cornerBR>Damage/Corner</cornerBR>
       </damageData>
     </graphicData>
-    <minifiedDef>MinifiedThing</minifiedDef>
     <description>A luxurious ornamented burial receptacle for the greatly honored dead.</description>
     <size>(1,2)</size>
     <pathCost>70</pathCost>
@@ -273,7 +269,7 @@
     <designationHotKey>Misc9</designationHotKey>
   </ThingDef>
 
-  <ThingDef ParentName="BuildingBase">
+  <ThingDef ParentName="FurnitureBase">
     <defName>ROMV_RoyalCoffinDouble</defName>
     <label>Double Royal Coffin</label>
     <thingClass>Vampire.Building_Coffin</thingClass>
@@ -288,7 +284,6 @@
         <cornerBR>Damage/Corner</cornerBR>
       </damageData>
     </graphicData>
-    <minifiedDef>MinifiedThing</minifiedDef>
     <description>A luxurious ornamented burial receptacle for the greatly honored dead. Modified to allow for a couple to rest together. (Buggy for now. Don't use this.)</description>
     <size>(2,2)</size>
     <pathCost>70</pathCost>

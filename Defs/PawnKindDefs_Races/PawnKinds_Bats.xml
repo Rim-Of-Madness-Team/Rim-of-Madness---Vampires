@@ -1,6 +1,51 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
+
+  <Vampire.TransformationDef>
+    <defName>ROMV_BatKind</defName>
+    <label>Bat Form</label>
+    <baseBodySize>0.22</baseBodySize>
+    <baseHealthScale>0.33</baseHealthScale>
+	<bodyGraphicData>
+	  <texPath>Things/Pawn/Animal/BatVampire/Draegon1993BatVampireA</texPath>
+	  <color>(110,95,82)</color>
+	  <drawSize>2.2</drawSize>
+	  <shaderType>CutoutComplex</shaderType>
+	</bodyGraphicData>
+	<comps>
+	  <li Class="CompAnimated.CompProperties_Animated">
+	    <movingFrames>
+		  <li>
+            <texPath>Things/Pawn/Animal/BatVampire/Draegon1993BatVampireA</texPath>
+            <color>(110,95,82)</color>
+            <drawSize>2.2</drawSize>
+            <shaderType>CutoutComplex</shaderType>
+		    <graphicClass>Graphic_Multi</graphicClass>
+		  </li>
+		  <li>
+            <texPath>Things/Pawn/Animal/BatVampire/Draegon1993BatVampireB</texPath>
+            <color>(110,95,82)</color>
+            <drawSize>2.2</drawSize>
+            <shaderType>CutoutComplex</shaderType>
+		    <graphicClass>Graphic_Multi</graphicClass>
+		  </li>
+		</movingFrames>
+		<stillFrames>
+		  <li>
+            <texPath>Things/Pawn/Animal/BatVampire/Draegon1993BatVampire_Sitting</texPath>
+            <color>(110,95,82)</color>
+            <drawSize>2.2</drawSize>
+            <shaderType>CutoutComplex</shaderType>
+		    <graphicClass>Graphic_Multi</graphicClass>
+		  </li>
+		</stillFrames>
+		<sound/>
+		<secondsBetweenFrames>0.15</secondsBetweenFrames>
+	  </li>
+	</comps>
+  </Vampire.TransformationDef>  
+
   <ThingDef ParentName="AnimalThingBase">
     <defName>ROMV_BatRace</defName>
     <label>bat</label>

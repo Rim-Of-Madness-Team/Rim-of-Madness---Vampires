@@ -41,7 +41,7 @@ namespace Vampire
         private int level = 0;
         private int xp = 0;
         private int abilityPoints = 0;
-        private PawnKindDef currentForm = null;
+        private TransformationDef currentForm = null;
         private SunlightPolicy curSunlightPolicy = SunlightPolicy.Restricted;
 
         public int ticksToLearnXP = -1;
@@ -140,7 +140,7 @@ namespace Vampire
 
         public bool Transformed => currentForm != null;
 
-        public PawnKindDef CurrentForm
+        public TransformationDef CurrentForm
         {
             get => currentForm;
             set => currentForm = value;
@@ -492,6 +492,9 @@ namespace Vampire
                 this.AbilityUser.Faction != Faction.OfPlayerSilentFail &&
                 this.AbilityUser.Faction != Find.FactionManager.FirstFactionOfDef(VampDefOf.ROMV_LegendaryVampires))
                 this.Blood.CurBloodPoints = this.Blood.MaxBloodPoints;
+            
+            
+            Find.World.GetComponent<WorldComponent_VampireTracker>().AddVampire(AbilityUser, newSire, bloodline, generation, AbilityUser.ageTracker.AgeBiologicalYearsFloat);
         }
 
 

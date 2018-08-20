@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using RimWorld;
 using Verse;
@@ -9,9 +10,31 @@ using Verse.AI;
 
 namespace Vampire
 {
+    /// <summary>
+    /// The Vampire Tracker is a WorldComponent that starts when the world is created.
+    /// It fulfills several purposes...
+    ///     1) It generates the first generation vampire, Caine.
+    ///     2) It generates Caine's children (2nd generation)
+    ///     3) When a vampire appears in a player's game, it generates a vampire lineage up to that generation.
+    ///         E.g. Dracula, a 5th generation vampire is created in the player's game, so...
+    ///              we create the sire of Dracula (4th gen vamp) and their sire before that (3rd gen vamp)
+    ///     4) It stores Vampires as VampireData to prevent data cleaning mods from removing them.
+    ///         E.g. If the character is deleted from a cleaning mod, this VampireData will regenerate
+    ///              them based on saved code.
+    ///     5) Allows players to make a final configuration of vampires on scenario startup
+    /// </summary>
     public class WorldComponent_VampireTracker : WorldComponent
     {
-        public Pawn firstVampire;
+        private bool finalConfiguationSet = false;
+        private bool worldLoaded = false;
+        private bool debugPrinted = false;
+        private Pawn firstVampire;
+        private List<Pawn> activeVampires = null;
+        private List<Pawn> dormantVampires = null;
+        private List<Pawn> tempVampires = new List<Pawn>();
+        public Dictionary<Pawn, int> recentVampires = new Dictionary<Pawn, int>();
+        private Dictionary<VampireRecord, Pawn> worldVampires = new Dictionary<VampireRecord, Pawn>();
+        
         public Pawn FirstVampire
         {
             get
@@ -23,97 +46,18 @@ namespace Vampire
                 return firstVampire;
             }
         }
-
-        public Pawn GetLaterGenerationVampire(Pawn childe, BloodlineDef bloodline, int idealGenerationOfChilde = -1)
-        {
-            if (idealGenerationOfChilde == -1)
-            {
-                idealGenerationOfChilde = GetNewlySpawnedVampireGeneration(childe);
-            }
-
-            if (!ActiveVampires.NullOrEmpty() && ActiveVampires?.FindAll(x => x.VampComp() is CompVampire v &&
-            !x.Spawned && v.Bloodline == bloodline && v.Generation == idealGenerationOfChilde - 1) is List<Pawn> vamps && !vamps.NullOrEmpty())
-            {
-                return vamps.RandomElement();
-            }
-            List<Pawn> vampsGen = TryGeneratingBloodline(childe, bloodline);
-            return vampsGen.FirstOrDefault(x => x?.VampComp()?.Generation == idealGenerationOfChilde - 1);
-        }
-
-        private int GetNewlySpawnedVampireGeneration(Pawn childe)
-        {
-            if (childe?.VampComp()?.Generation != -1) return childe?.VampComp()?.Generation ?? Rand.Range(10, 13);
-            
-            var result = -1;
-            if (Rand.Value < 0.1)
-            {
-                result = Rand.Range(7, 9);
-
-                //Log.Message("Vampires :: Spawned " + result + " generaton vampire.");
-                return result;
-            }
-            result = Rand.Range(10, 13);
-            //Log.Message("Vampires :: Spawned " + result + " generaton vampire.");                
-            return result;
-        }
-
-        public List<Pawn> TryGeneratingBloodline(Pawn childe, BloodlineDef bloodline)
-        {
-            List<Pawn> tempOldGen = new List<Pawn>(DormantVampires);
-            if (bloodline == null) bloodline = VampireUtility.RandBloodline;
-            Pawn thirdGenVamp = tempOldGen.FirstOrDefault(x => x?.VampComp() is CompVampire v && v.Generation == 3 && v.Bloodline == bloodline);
-            List<Pawn> futureGenerations = new List<Pawn>();
-            Pawn curSire = thirdGenVamp;
-            if (curSire == null)
-            {
-                Log.Error("Cannot find third generation sire.");
-                return null;
-            }
-            for (int curGen = 4; curGen < 14; curGen++)
-            {
-                Pawn newVamp = VampireGen.GenerateVampire(curGen, bloodline, curSire);
-                futureGenerations.Add(newVamp);
-                curSire = newVamp;
-            }
-            activeVampires.AddRange(futureGenerations);
-            PrintVampires();
-            return futureGenerations;
-        }
-
-        public List<Pawn> activeVampires = null;
-        public List<Pawn> ActiveVampires
+        public List<Pawn> HigherGenVampires
         {
             get
             {
                 if (activeVampires == null)
                 {
                     activeVampires = new List<Pawn>();
-
-                    //List<Pawn> tempOldGenerations = new List<Pawn>(DormantVampires);
-                    //List<Pawn> fifthGeneration = tempOldGenerations.FindAll(x => x.VampComp().Generation == 5);
-                    //List<Pawn> futureGenerations = new List<Pawn>();
-
-                    //foreach (Pawn fifthGenVamp in fifthGeneration)
-                    //{
-                    //    for (int i = 0; i < Rand.Range(2, 3); i++)
-                    //    {
-                    //        Pawn curSire = fifthGenVamp;
-                    //        for (int curGen = 6; curGen < 14; curGen++)
-                    //        {
-                    //            Pawn newVamp = VampireUtility.GenerateVampire(curGen, curSire.VampComp().Bloodline, curSire, false);
-                    //            futureGenerations.Add(newVamp);
-                    //            curSire = newVamp;
-                    //        }
-                    //    }
-                    //}
-                    //activeVampires.AddRange((fifthGeneration).Concat(futureGenerations));
                 }
                 return activeVampires;
             }
         }
-
-        public List<Pawn> dormantVampires = null;
-        public List<Pawn> DormantVampires
+        public List<Pawn> LowerGenVampires
         {
             get
             {
@@ -123,8 +67,6 @@ namespace Vampire
                     dormantVampires = new List<Pawn>();
                     List<Pawn> generationTwo = new List<Pawn>();
                     List<Pawn> generationThree = new List<Pawn>();
-                    List<Pawn> generationFour = new List<Pawn>();
-                    List<Pawn> generationFive = new List<Pawn>();
                     //First Generation
                     Pawn Caine = FirstVampire;
                     //Find.WorldPawns.PassToWorld(Caine, PawnDiscardDecideMode.KeepForever);
@@ -139,70 +81,54 @@ namespace Vampire
                     }
                     //Log.Message("3");
                     //Third Generation
-                    foreach (BloodlineDef clan in DefDatabase<BloodlineDef>.AllDefs.Where(x => x != VampDefOf.ROMV_Caine && x != VampDefOf.ROMV_TheThree))
+                    foreach (BloodlineDef clan in DefDatabase<BloodlineDef>.AllDefs.Where(x =>
+                        x != VampDefOf.ROMV_Caine && x != VampDefOf.ROMV_TheThree))
                     {
                         Pawn randSecondGenVamp = generationTwo.RandomElement();
                         Pawn clanFounderVamp = VampireGen.GenerateVampire(3, clan, randSecondGenVamp);
                         generationThree.Add(clanFounderVamp);
                         //Find.WorldPawns.PassToWorld(clanFounderVamp, PawnDiscardDecideMode.KeepForever);
                     }
-                    //Log.Message("4");
-                    ////Fourth Generation
-                    //foreach (Pawn genThreeVamp in generationThree)
-                    //{
-                    //    for (int i = 0; i < Rand.Range(2,3); i++)
-                    //    {
-                    //        Pawn genFourVamp = VampireUtility.GenerateVampire(4, genThreeVamp.VampComp().Bloodline, genThreeVamp, false);
-                    //        generationFour.Add(genFourVamp);
-                    //    }
-                    //}
-                    //Log.Message("5");
-                    ////Fifth Generation
-                    //foreach (Pawn genFourVamp in generationFour)
-                    //{
-                    //    for (int i = 0; i < Rand.Range(2,3); i++)
-                    //    {
-                    //        Pawn genFiveVamp = VampireUtility.GenerateVampire(5, genFourVamp.VampComp().Bloodline, genFourVamp, false);
-                    //        generationFive.Add(genFiveVamp);
-                    //    }
-                    //}
-                    //Log.Message("5a");
-
                     dormantVampires.Add(Caine);
                     //Log.Message("5b");
 
                     dormantVampires.AddRange(generationTwo);
                     dormantVampires.AddRange(generationThree);
-                    dormantVampires.AddRange(generationFour);//.
                     //    Concat(generationFive));
                     //Log.Message("5c");
-
                 }
                 return dormantVampires;
             }
         }
 
-        public WorldComponent_VampireTracker(World world) : base(world)
+        public Pawn GetVampire(string searchKey)
         {
-
+            var record = worldVampires.Keys.FirstOrDefault(x => x.ID == searchKey);
+            if (record != null)
+            {
+                if (worldVampires[record] != null)
+                {
+                    return worldVampires[record];
+                }
+                return worldVampires[record] = record.GenerateForWorld();
+            }
+            Log.Error("Failed to get vampire ID " + searchKey);
+            return null;
         }
-
-#pragma warning disable 169
-        private bool debugPrinted = false;
-#pragma warning restore 169
-
-        public Dictionary<Pawn, int> recentVampires = new Dictionary<Pawn, int>();
-        public List<Pawn> tempVampires = new List<Pawn>();
-        
         
         public override void WorldComponentTick()
         {
             base.WorldComponentTick();
+            
+            //Constant tick check.
+            //Alert player to powerful vampire spawns
             if (recentVampires.Any())
                 recentVampires.RemoveAll(x => x.Key.Dead || x.Key.DestroyedOrNull());
             if (recentVampires.Any())
             {
-                var recentVampiresKeys = new List<Pawn>(recentVampires.Keys.Where(x => x.Spawned && x.Faction != Faction.OfPlayerSilentFail));
+                var recentVampiresKeys =
+                    new List<Pawn>(recentVampires.Keys.Where(x =>
+                        x.Spawned && x.Faction != Faction.OfPlayerSilentFail));
 
                 foreach (var key in recentVampiresKeys)
                 {
@@ -223,9 +149,23 @@ namespace Vampire
                     }
                 }
             }
-
+            
+            //Rarer tick check
             if (Find.TickManager.TicksGame % 100 == 0)
             {
+                if (!finalConfiguationSet)
+                {
+                    finalConfiguationSet = true;
+                    Find.WindowStack.Add(new Dialog_VampireSetup());
+                }
+                
+                if (!worldLoaded)
+                {
+                    worldLoaded = true;
+                    WorldVampiresCheck();
+                }
+                
+                
                 if (tempVampires.Count > 1)
                 {
                     var recentVampiresKeys = new List<Pawn>(tempVampires);
@@ -233,13 +173,15 @@ namespace Vampire
                     StringBuilder stringBuilder = new StringBuilder();
                     foreach (var pawn in recentVampiresKeys)
                     {
-                        stringBuilder.AppendLine("    " + pawn.Name.ToStringShort + " (" + HediffVampirism.AddOrdinal(pawn.VampComp().Generation) + ")");
+                        stringBuilder.AppendLine("    " + pawn.Name.ToStringShort + " (" +
+                                                 HediffVampirism.AddOrdinal(pawn.VampComp().Generation) + ")");
                     }
                     string vampList = "ROMV_VampiresArrivalDesc".Translate(stringBuilder.ToString());
-                    Find.LetterStack.ReceiveLetter("ROMV_VampiresArrivalLabel".Translate(), vampList, LetterDefOf.ThreatSmall, recentVampiresKeys.FirstOrDefault(), null);
+                    Find.LetterStack.ReceiveLetter("ROMV_VampiresArrivalLabel".Translate(), vampList,
+                        LetterDefOf.ThreatSmall, recentVampiresKeys.FirstOrDefault(), null);
                 }
-                
-                
+
+                //In a hidey hole? Let's check if it's time to leave.
                 CleanVampGuestCache();
                 if (HarmonyPatches.VampGuestCache == null || !HarmonyPatches.VampGuestCache.Any()) return;
                 foreach (var keyValuePair in HarmonyPatches.VampGuestCache)
@@ -256,8 +198,86 @@ namespace Vampire
                         g.EjectContents();
                     }
                     TryGiveJobGiverToVampGuest(p);
-                }   
+                }
             }
+        }
+
+        private void WorldVampiresCheck()
+        {
+            if (worldVampires?.Count > 0)
+            {
+                foreach (VampireRecord key in worldVampires.Keys)
+                {
+                    if (worldVampires[key] == null)
+                    {
+                        worldVampires[key] = key.GenerateForWorld();
+                        Log.Warning(key.ID + " had no worldpawn generated. Regenerated.");
+                    }
+                }
+            }
+        }
+
+        public Pawn GetLaterGenerationVampire(Pawn childe, BloodlineDef bloodline, int idealGenerationOfChilde = -1)
+        {
+            if (idealGenerationOfChilde == -1)
+            {
+                idealGenerationOfChilde = GetNewlySpawnedVampireGeneration(childe);
+            }
+
+            if (!HigherGenVampires.NullOrEmpty() && HigherGenVampires?.FindAll(x => x.VampComp() is CompVampire v &&
+                                                                              !x.Spawned && v.Bloodline == bloodline &&
+                                                                              v.Generation ==
+                                                                              idealGenerationOfChilde - 1) is List<Pawn>
+                    vamps && !vamps.NullOrEmpty())
+            {
+                return vamps.RandomElement();
+            }
+            List<Pawn> vampsGen = TryGeneratingBloodline(childe, bloodline);
+            return vampsGen.FirstOrDefault(x => x?.VampComp()?.Generation == idealGenerationOfChilde - 1);
+        }
+        private int GetNewlySpawnedVampireGeneration(Pawn childe)
+        {
+            if (childe?.VampComp()?.Generation != -1) return childe?.VampComp()?.Generation ?? Rand.Range(10, 13);
+
+            var result = -1;
+            if (Rand.Value < 0.1)
+            {
+                result = Rand.Range(7, 9);
+
+                //Log.Message("Vampires :: Spawned " + result + " generaton vampire.");
+                return result;
+            }
+            result = Rand.Range(10, 13);
+            //Log.Message("Vampires :: Spawned " + result + " generaton vampire.");                
+            return result;
+        }
+
+        private List<Pawn> TryGeneratingBloodline(Pawn childe, BloodlineDef bloodline)
+        {
+            List<Pawn> tempOldGen = new List<Pawn>(LowerGenVampires);
+            if (bloodline == null) bloodline = VampireUtility.RandBloodline;
+            Pawn thirdGenVamp = tempOldGen.FirstOrDefault(x =>
+                x?.VampComp() is CompVampire v && v.Generation == 3 && v.Bloodline == bloodline);
+            List<Pawn> futureGenerations = new List<Pawn>();
+            Pawn curSire = thirdGenVamp;
+            if (curSire == null)
+            {
+                Log.Error("Cannot find third generation sire.");
+                return null;
+            }
+            for (int curGen = 4; curGen < 14; curGen++)
+            {
+                Pawn newVamp = VampireGen.GenerateVampire(curGen, bloodline, curSire);
+                futureGenerations.Add(newVamp);
+                curSire = newVamp;
+            }
+            activeVampires.AddRange(futureGenerations);
+            PrintVampires();
+            return futureGenerations;
+        }
+
+        public WorldComponent_VampireTracker(World world) : base(world)
+        {
         }
 
         private static void TryGiveJobGiverToVampGuest(Pawn p)
@@ -312,6 +332,31 @@ namespace Vampire
             Scribe_References.Look(ref firstVampire, "firstVampire");
             Scribe_Collections.Look(ref dormantVampires, "dormantVampires", LookMode.Deep);
             Scribe_Collections.Look(ref activeVampires, "activeVampires", LookMode.Deep);
+        }
+
+        public void AddVampire(Pawn pawn, Pawn sire, BloodlineDef bloodline, int generation, float? age)
+        {
+            var sireId = (generation == 1) ? "" : sire.VampComp().Generation.ToString() + "_" + sire.VampComp().Bloodline.ToString() + "_" + sire.Name.ToStringFull + "_" + sire.gender.ToString();
+            
+            //Make a temporary new record of the vampire.
+            var newRecord = new VampireRecord(pawn, generation, bloodline,
+                age ?? new FloatRange(18f, 100f).RandomInRange, sireId, pawn.Faction);
+            
+            //Check to make sure the record doesn't already exist.
+            if (worldVampires?.Count > 0)
+            {
+                if (worldVampires.FirstOrDefault(x => x.Key.Equals(newRecord)) is KeyValuePair<VampireRecord, Pawn> rec &&
+                    rec.Key is VampireRecord vampRec)
+                {
+                    worldVampires[vampRec] = pawn;
+                    return;
+                }   
+            }
+            //If not, add a new record
+            worldVampires?.Add(newRecord, pawn);
+            
+            //Check all other vampire records for issues
+            WorldVampiresCheck();
         }
     }
 }

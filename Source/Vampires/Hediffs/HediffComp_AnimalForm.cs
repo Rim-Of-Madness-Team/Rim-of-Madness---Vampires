@@ -21,8 +21,8 @@ namespace Vampire
             get
             {
                 StringBuilder s = new StringBuilder();
-                s.AppendLine("ROMV_HI_BodySize".Translate(Props.animalToChangeInto.RaceProps.baseBodySize.ToStringPercent()));
-                s.AppendLine("ROMV_HI_HealthScale".Translate(Props.animalToChangeInto.RaceProps.baseHealthScale.ToStringPercent()));
+                s.AppendLine("ROMV_HI_BodySize".Translate(Props.animalToChangeInto.baseBodySize.ToStringPercent()));
+                s.AppendLine("ROMV_HI_HealthScale".Translate(Props.animalToChangeInto.baseHealthScale.ToStringPercent()));
                 return s.ToString();
             }
         }

@@ -4,7 +4,7 @@
   <PawnKindDef Name="ROMV_EncounterBase" Abstract="True">
     <race>Human</race>
     <defaultFactionType>ROMV_Sabbat</defaultFactionType>
-    <backstoryCategory>Raider</backstoryCategory>
+    <backstoryCategories><li>Raider</li></backstoryCategories>
     <baseRecruitDifficulty>0.65</baseRecruitDifficulty>
     <chemicalAddictionChance>0.0</chemicalAddictionChance>
     <backstoryCryptosleepCommonality>0.0</backstoryCryptosleepCommonality>

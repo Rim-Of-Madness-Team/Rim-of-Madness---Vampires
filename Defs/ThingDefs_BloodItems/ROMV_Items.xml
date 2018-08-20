@@ -1,89 +1,54 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
-  <!--================== Bases ==================-->
-
-  <ThingDef Name="ResourceBase" Abstract="True">
-    <thingClass>ThingWithComps</thingClass>
-    <category>Item</category>
-    <resourceReadoutPriority>Middle</resourceReadoutPriority>
-    <useHitPoints>true</useHitPoints>
-    <selectable>true</selectable>
-    <altitudeLayer>Item</altitudeLayer>
-    <stackLimit>75</stackLimit>
+  <ThingDef ParentName="ResourceBase" Name="ROMV_BloodItem" Abstract="true">
+	<techLevel>Medieval</techLevel>
+    <soundInteract>Standard_Drop</soundInteract>
+    <soundDrop>Standard_Drop</soundDrop>
+    <socialPropernessMatters>false</socialPropernessMatters>
+    <thingCategories>
+      <li>ROMV_Blood</li>
+    </thingCategories>
     <statBases>
-      <Beauty>-4</Beauty>
+      <MaxHitPoints>60</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+      <DeteriorationRate>8</DeteriorationRate>
     </statBases>
-    <comps>
-      <li Class="CompProperties_Forbiddable"/>
-    </comps>
-    <alwaysHaulable>true</alwaysHaulable>
-    <drawGUIOverlay>true</drawGUIOverlay>
-    <rotatable>false</rotatable>
-    <pathCost>15</pathCost>
+    <ingestible>
+      <preferability>DesperateOnly</preferability>
+      <foodType>Processed</foodType>
+      <joy>0.10</joy>
+      <joyKind>Gluttonous</joyKind>
+      <maxNumToIngestAtOnce>1</maxNumToIngestAtOnce>
+      <ingestSound>Ingest_Beer</ingestSound>
+      <ingestCommandString>Drink {0}</ingestCommandString>
+      <ingestReportString>Drinking {0}.</ingestReportString>
+    </ingestible>
   </ThingDef>
 
-  <ThingDef ParentName="ResourceBase" Name="ROMV_BloodVial" Abstract="true">
+  <ThingDef ParentName="ROMV_BloodItem" Name="ROMV_BloodVial" Abstract="true">
     <graphicData>
       <texPath>Things/Item/Resource/BloodVial</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
-    <soundInteract>Standard_Drop</soundInteract>
-    <soundDrop>Standard_Drop</soundDrop>
-    <socialPropernessMatters>false</socialPropernessMatters>
     <statBases>
-      <MaxHitPoints>60</MaxHitPoints>
       <MarketValue>30</MarketValue>
       <Mass>0.075</Mass>
-      <Flammability>1.0</Flammability>
-      <DeteriorationRate>8</DeteriorationRate>
 	  <Nutrition>0.1</Nutrition>
     </statBases>
-    <thingCategories>
-      <li>ROMV_Blood</li>
-    </thingCategories>
-    <ingestible>
-      <preferability>DesperateOnly</preferability>
-      <foodType>Processed</foodType>
-      <joy>0.10</joy>
-      <joyKind>Gluttonous</joyKind>
-      <maxNumToIngestAtOnce>1</maxNumToIngestAtOnce>
-      <ingestSound>Ingest_Beer</ingestSound>
-      <ingestCommandString>Drink {0}</ingestCommandString>
-      <ingestReportString>Drinking {0}.</ingestReportString>
-    </ingestible>
     <stackLimit>10</stackLimit>
   </ThingDef>
 
-  <ThingDef ParentName="ResourceBase" Name="ROMV_BloodPack" Abstract="true">
+  <ThingDef ParentName="ROMV_BloodItem" Name="ROMV_BloodPack" Abstract="true">
     <graphicData>
       <texPath>Things/Item/Resource/BloodPack</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
-    <soundInteract>Standard_Drop</soundInteract>
-    <soundDrop>Standard_Drop</soundDrop>
-    <socialPropernessMatters>false</socialPropernessMatters>
     <statBases>
-      <MaxHitPoints>60</MaxHitPoints>
       <MarketValue>60</MarketValue>
       <Mass>0.145</Mass>
-      <Flammability>1.0</Flammability>
-      <DeteriorationRate>8</DeteriorationRate>
 	  <Nutrition>0.2</Nutrition>
     </statBases>
-    <thingCategories>
-      <li>ROMV_Blood</li>
-    </thingCategories>
-    <ingestible>
-      <preferability>DesperateOnly</preferability>
-      <foodType>Processed</foodType>
-      <joy>0.10</joy>
-      <joyKind>Gluttonous</joyKind>
-      <maxNumToIngestAtOnce>1</maxNumToIngestAtOnce>
-      <ingestSound>Ingest_Beer</ingestSound>
-      <ingestCommandString>Drink {0}</ingestCommandString>
-      <ingestReportString>Drinking {0}.</ingestReportString>
-    </ingestible>
     <stackLimit>5</stackLimit>
   </ThingDef>
 

@@ -31,8 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="0Harmony, Version=1.0.9.1, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\Dependencies\0Harmony.dll</HintPath>
+    <Reference Include="0Harmony, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\..\HarmonyLibrary\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="0JecsTools">
       <HintPath>..\Dependencies\0JecsTools.dll</HintPath>
@@ -78,8 +78,10 @@
     <Compile Include="Components\CompProperties_AntiVampireWeapon.cs" />
     <Compile Include="Components\MapComponent_HiddenTracker.cs" />
     <Compile Include="Components\ThrallData.cs" />
+    <Compile Include="Components\TransformationDef.cs" />
     <Compile Include="Defs\VampDefOfTwo.cs" />
     <Compile Include="Defs\VitaeAbilityDef.cs" />
+    <Compile Include="Dialog_VampireSetup.cs" />
     <Compile Include="Disciplines\Obfuscation\DisciplineEffect_Conceal.cs" />
     <Compile Include="Disciplines\Obfuscation\DisciplineEffect_HiddenForce.cs" />
     <Compile Include="Disciplines\Obfuscation\DisciplineEffect_Invisibility.cs" />
@@ -165,6 +167,7 @@
     <Compile Include="IncidentWorker_QuestVampire.cs" />
     <Compile Include="ITab_Pawn_NeedsCorpse.cs" />
     <Compile Include="PatchOperationModLoaded.cs" />
+    <Compile Include="VampireRecord.cs" />
     <Compile Include="ScenPart_GameStartNight.cs" />
     <Compile Include="ScenPart_LongerNights.cs" />
     <Compile Include="UI\Alert_VampireInSunlight.cs" />
@@ -197,6 +200,7 @@
     <Compile Include="Utilities\VampSunlightPathUtility.cs" />
     <Compile Include="VampAbility.cs" />
     <Compile Include="VampireCorpse.cs" />
+    <Compile Include="VampireSettingsInit.cs" />
     <Compile Include="Workers\EmbraceWorker.cs" />
     <Compile Include="HarmonyPatches\HarmonyPatches.cs" />
     <Compile Include="HarmonyPatches\HarmonyPatches_Caravan.cs" />

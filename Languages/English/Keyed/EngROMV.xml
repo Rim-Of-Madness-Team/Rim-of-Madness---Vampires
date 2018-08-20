@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
 
+<!-- 8-17-19 -->
+<ROMV_GameMode_Disabled>Disabled</ROMV_GameMode_Disabled>
+<ROMV_GameMode_DisabledDesc>Vampires do not spawn in the world. Vampire events are disabled.</ROMV_GameMode_DisabledDesc>
+<ROMV_GameMode_EventsOnly>Events Only</ROMV_GameMode_EventsOnly>
+<ROMV_GameMode_EventsOnlyDesc>Vampires do not spawn in encounters or raids, but can appear in special local map or world incidents.</ROMV_GameMode_EventsOnlyDesc>
+<ROMV_GameMode_Standard>Standard</ROMV_GameMode_Standard>
+<ROMV_GameMode_StandardDesc>The chance of another character you encounter having Vampirism is 5%, and the lowest generation vampire active outside of events is 7th generation.</ROMV_GameMode_StandardDesc>
+<ROMV_GameMode_Custom>Custom</ROMV_GameMode_Custom>
+<ROMV_GameMode_CustomDesc>Set the vampire spawn rate and lowest vampire generation.</ROMV_GameMode_CustomDesc>
+
 <!-- 5-16-18 -->
 <ROMV_CannotPossessVamps>No matter how powerful the dominator, one cannot possess another kindred.</ROMV_CannotPossessVamps>
 <ROMV_VampiresArrivalLabel>Vampires Arrived</ROMV_VampiresArrivalLabel>

@@ -1,6 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
+
+  <Vampire.TransformationDef>
+    <defName>ROMV_MistKind</defName>
+    <label>mist</label>
+    <baseBodySize>1.0</baseBodySize>
+    <baseHealthScale>1.0</baseHealthScale>
+	<bodyGraphicData>
+	  <texPath>Things/Pawn/Animal/Mist/Mist</texPath>
+	  <drawSize>3.5</drawSize>
+	  <shaderType>TransparentPostLight</shaderType>
+	  <color>RGBA(1.0, 1.0, 1.0, 0.17)</color>
+	</bodyGraphicData>
+  </Vampire.TransformationDef>  
+
+
   <ThingDef ParentName="ROMV_ThingBaseMist">
     <defName>ROMV_MistRace</defName>
     <label>shadow</label>

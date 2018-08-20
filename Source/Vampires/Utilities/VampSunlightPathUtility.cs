@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using RimWorld;
 using Verse;
@@ -11,13 +12,18 @@ namespace Vampire
         public static readonly int TicksFromDarknessToSunlight = 9700; //1 minute 37 seconds from darkness (0% lit) to sunrise (60% lit)
         public static readonly int TicksBetweenLightChanges = 130; //TicksFromDarknessToSunlight by 60. This is one unit between percent changes.
         public static readonly int TicksOfSurvivingSunlight = 1800; //30 real seconds in sunlight is when burning begins.
-
+        
+        public static Dictionary<Pawn, int> LastCheckedHashTable = new Dictionary<Pawn, int>();
+        //Simple table to prevent overchecking.
+        
         /// <summary>
         /*
             No overriding path is made if...
-                .1. Character(C) is indoors.
-                .2. C drafted.
-                .3. C's job's destination is ""safe""
+                .1. C drafted.
+                .2. Sunlight policy is set to NO AI mode
+                .3. Character(C) is indoors.
+                .4. Safety check passed 1 seconds ago (LastCheckedHashTable).
+                .5. C's job's destination is ""safe""
                 ""Safe"" jobs meet all these criteria...
                     .3a.a job's destination is indoors or under a roof AND
                        .i. it's nighttime OR

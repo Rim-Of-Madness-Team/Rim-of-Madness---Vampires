@@ -1,4 +1,5 @@
-﻿using Harmony;
+﻿using System;
+using Harmony;
 using RimWorld;
 using System.Collections.Generic;
 using System.Linq;
@@ -81,10 +82,12 @@ namespace Vampire
         }
 
         private static Graphic invisibleForm = null;
-
-        public static bool RenderVampire(PawnRenderer __instance, Vector3 rootLoc, float quat, bool renderBody,
+        
+        public static bool RenderVampire(PawnRenderer __instance, Vector3 rootLoc, Single angle, bool renderBody,
             Rot4 bodyFacing, Rot4 headFacing, RotDrawMode bodyDrawType, bool portrait, bool headStump)
         {
+            Quaternion quaternion = Quaternion.AngleAxis(angle, Vector3.up);
+            
             Pawn p = Traverse.Create(__instance).Field("pawn").GetValue<Pawn>();
             if (p?.Map?.GetComponent<MapComponent_HiddenTracker>()?.hiddenCharacters?.Contains(p) ?? false)
             {
@@ -116,7 +119,7 @@ namespace Vampire
                     {
                         if (v.CurrentForm != null)
                         {
-                            if (v.CurrentForm.race.GetCompProperties<CompAnimated.CompProperties_Animated>() is
+                            if (v.CurrentForm.GetCompProperties<CompAnimated.CompProperties_Animated>() is
                                 CompAnimated.CompProperties_Animated Props)
                             {
                                 Graphic curGraphic = v.CurFormGraphic;
@@ -125,7 +128,7 @@ namespace Vampire
                             }
                             else
                             {
-                                v.CurFormGraphic = v.CurrentForm.lifeStages[0].bodyGraphicData.Graphic;
+                                v.CurFormGraphic = v.CurrentForm.bodyGraphicData.Graphic;
                             }
                         }
                         else
@@ -158,17 +161,18 @@ namespace Vampire
                                 {
                                     scaleVector.x *=
                                         1f + (1f - (portrait
-                                                  ? v.CurrentForm.lifeStages[0].bodyGraphicData.drawSize
-                                                  : v.CurrentForm.lifeStages[0].bodyGraphicData.drawSize)
+                                                  ? v.CurrentForm.bodyGraphicData.drawSize
+                                                  : v.CurrentForm.bodyGraphicData.drawSize)
                                               .x);
                                     scaleVector.z *=
                                         1f + (1f - (portrait
-                                                  ? v.CurrentForm.lifeStages[0].bodyGraphicData.drawSize
-                                                  : v.CurrentForm.lifeStages[0].bodyGraphicData.drawSize)
+                                                  ? v.CurrentForm.bodyGraphicData.drawSize
+                                                  : v.CurrentForm.bodyGraphicData.drawSize)
                                               .y);
                                 }
                                 else scaleVector = new Vector3(0, 0, 0);
-                                GenDraw.DrawMeshNowOrLater(mesh, loc + scaleVector, quat.ToQuat(), damagedMat, portrait);
+                                GenDraw.DrawMeshNowOrLater(mesh, loc + scaleVector, quaternion, damagedMat,
+                                    portrait);
                                 loc.y += 0.0046875f;
                             }
                             if (bodyDrawType == RotDrawMode.Fresh)
@@ -176,7 +180,7 @@ namespace Vampire
                                 Vector3 drawLoc = rootLoc;
                                 drawLoc.y += 0.01875f;
                                 Traverse.Create(__instance).Field("woundOverlays").GetValue<PawnWoundDrawer>()
-                                    .RenderOverBody(drawLoc, mesh, quat.ToQuat(), portrait);
+                                    .RenderOverBody(drawLoc, mesh, quaternion, portrait);
                             }
                         }
                     }
