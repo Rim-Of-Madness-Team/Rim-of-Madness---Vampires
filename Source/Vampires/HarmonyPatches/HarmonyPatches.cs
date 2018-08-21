@@ -19,6 +19,8 @@ namespace Vampire
     [StaticConstructorOnStartup]
     static partial class HarmonyPatches
     {
+        public static bool VampireGenInProgress = false;
+        
         static HarmonyPatches()
         {
             HarmonyInstance harmony = HarmonyInstance.Create("rimworld.jecrell.vampire");
@@ -329,6 +331,7 @@ namespace Vampire
             harmony.Patch(AccessTools.Method(typeof(Pawn_AgeTracker), "BirthdayBiological"),
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(VampireBirthdayBiological)), null);
             //Log.Message("32");
+            
             //Nor do they suffer health effects as they age.
             harmony.Patch(
                 AccessTools.Method(AccessTools.TypeByName("AgeInjuryUtility"), "GenerateRandomOldAgeInjuries"),
@@ -834,25 +837,28 @@ namespace Vampire
         //Alert_NeedWarmClothes
         public static void Vamp_DontNeedWarmClothesReports(Alert_NeedWarmClothes __instance, ref AlertReport __result)
         {
-            var vamps = __result.culprits.Where(x => x.Thing is Pawn y && y.IsVampire());
-            if (vamps?.Count() > 0)
+            if (__result.culprits?.Count() > 0)
             {
-                var p = vamps.First().Thing;
-                float num = AlertNeedWarmClothes_LowestTemperatureComing(p.MapHeld);
-                var colonists = new List<Pawn>(p.MapHeld.mapPawns.FreeColonistsSpawned.Where(x => !x.IsVampire()));
-                if (!colonists.NullOrEmpty())
+                var vamps = __result.culprits.Where(x => x.Thing is Pawn y && y.IsVampire());
+                if (vamps?.Count() > 0)
                 {
-                    foreach (Pawn pawn in colonists)
+                    var p = vamps.First().Thing;
+                    float num = AlertNeedWarmClothes_LowestTemperatureComing(p.MapHeld);
+                    var colonists = new List<Pawn>(p.MapHeld.mapPawns.FreeColonistsSpawned.Where(x => !x.IsVampire()));
+                    if (!colonists.NullOrEmpty())
                     {
-                        if (pawn.GetStatValue(StatDefOf.ComfyTemperatureMin, true) > num)
+                        foreach (Pawn pawn in colonists)
                         {
-                            __result = pawn;
-                            return;
+                            if (pawn.GetStatValue(StatDefOf.ComfyTemperatureMin, true) > num)
+                            {
+                                __result = pawn;
+                                return;
+                            }
                         }
                     }
+                    __result = false;
+                    return;
                 }
-                __result = false;
-                return;
             }
         }
 
@@ -1842,7 +1848,7 @@ namespace Vampire
         // RimWorld.AgeInjuryUtility
         public static bool Vamp_GenerateRandomOldAgeInjuries(Pawn pawn, bool tryNotToKillPawn)
         {
-            if (pawn.IsVampire() || pawn.IsGhoul())
+            if (VampireGenInProgress || pawn.IsVampire() || pawn.IsGhoul())
             {
                 return false;
             }

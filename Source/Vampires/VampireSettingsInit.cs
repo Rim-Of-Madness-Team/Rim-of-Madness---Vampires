@@ -5,11 +5,14 @@ namespace Vampire
     [StaticConstructorOnStartup]
     public static class VampireSettingsInit
     {
-
         public static GameMode mode = GameMode.Standard;
         public static float spawnPct = 0.05f;
         public static int lowestActiveVampGen = 7;
 
+        public static void ApplySettings()
+        {
+            
+        }
     }
     
     public enum GameMode

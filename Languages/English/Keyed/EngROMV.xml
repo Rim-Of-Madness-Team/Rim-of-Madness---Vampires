@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
 
-<!-- 8-17-19 -->
+<!-- 8-21-19 -->
+<ROMV_Slider_GlobalSpreadRight>100%</ROMV_Slider_GlobalSpreadRight>
+<ROMV_Slider_GlobalSpreadLeft>0%</ROMV_Slider_GlobalSpreadLeft>
+<ROMV_Slider_GlobalSpread>Global Vampirism Percentage:</ROMV_Slider_GlobalSpread>
 <ROMV_GameMode_Disabled>Disabled</ROMV_GameMode_Disabled>
 <ROMV_GameMode_DisabledDesc>Vampires do not spawn in the world. Vampire events are disabled.</ROMV_GameMode_DisabledDesc>
 <ROMV_GameMode_EventsOnly>Events Only</ROMV_GameMode_EventsOnly>

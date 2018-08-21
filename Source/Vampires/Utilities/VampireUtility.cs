@@ -31,7 +31,7 @@ namespace Vampire
         
         public static bool IsVampire(this Pawn pawn)
         {
-            if (pawn != null && pawn?.GetComp<CompVampire>() is CompVampire v && v.IsVampire)
+            if (pawn != null && pawn?.TryGetComp<CompVampire>() is CompVampire v && v.IsVampire)
                 return true;
             return false;
         }
@@ -57,7 +57,7 @@ namespace Vampire
 
         public static CompVampire VampComp(this Pawn pawn)
         {
-            return pawn.GetComp<CompVampire>();
+            return pawn?.TryGetComp<CompVampire>();
         }
         
         //=> (GenLocalDate.HourInteger(p) >= 6 && GenLocalDate.HourInteger(p) <= 17) && !Find.World.GameConditionManager.ConditionIsActive(GameConditionDefOf.Eclipse);

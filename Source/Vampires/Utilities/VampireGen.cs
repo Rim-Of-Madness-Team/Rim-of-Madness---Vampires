@@ -100,11 +100,15 @@ namespace Vampire
 
             Faction faction = vampFaction != null ? vampFaction :
                               generation < 7 ? Find.FactionManager.FirstFactionOfDef(VampDefOf.ROMV_LegendaryVampires) : VampireUtility.RandVampFaction;
+            
+            HarmonyPatches.VampireGenInProgress = true;
             PawnGenerationRequest request = new PawnGenerationRequest(
                 DetermineKindDef(generation), faction, PawnGenerationContext.NonPlayer,
                 -1, true, false, false, false, true, true, 20f, false, true,
                 true, false, false, false, false, null, null, null, math, null, null);
             Pawn pawn = PawnGenerator.GeneratePawn(request);
+            HarmonyPatches.VampireGenInProgress = false;
+            
             if (firstVampire)
             {
                 NameTriple caineName = new NameTriple("Caine", "Caine", "Darkfather");
