@@ -34,7 +34,7 @@
   <ROMV_CannotPurgeMechanoids>{0} no tiene sangre para purgar.</ROMV_CannotPurgeMechanoids>
 
   <!-- 11-4-17 x2-->
-  <ROMV_HI_UnusedCapacities>NAME es uno con los muertos. Ya no necesita la mayoría de las funciones corporales. Aún así puede obligarlos a funcionar, pasar por ser uno de los vivos o cuando sea absolutamente necesario.</ROMV_HI_UnusedCapacities>
+  <ROMV_HI_UnusedCapacities>[PAWN_nameDef] es uno con los muertos. Ya no necesita la mayoría de las funciones corporales. Aún así puede obligarlos a funcionar, pasar por ser uno de los vivos o cuando sea absolutamente necesario.</ROMV_HI_UnusedCapacities>
   <ROMV_HI_Unused>Sin usar</ROMV_HI_Unused>
   <ROMV_HI_Immunities>Previene: enfermedades, infecciones, efectos de temperatura.</ROMV_HI_Immunities>
   <ROMV_HI_Vampirism>Vampirismo</ROMV_HI_Vampirism>

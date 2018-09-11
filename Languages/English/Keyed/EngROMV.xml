@@ -40,7 +40,7 @@
 
 <!-- 12-24-17-->
 
-<ROMV_LostGhoulPowers>As {0} has no vitae, HE has lost HIS ghoul abilities.</ROMV_LostGhoulPowers>
+<ROMV_LostGhoulPowers>As {0} has no vitae, [PAWN_pronoun] has lost [PAWN_possessive] ghoul abilities.</ROMV_LostGhoulPowers>
 <ROMV_AttemptedDiablerie>{0} attempted Diablerie</ROMV_AttemptedDiablerie>
 <ROMV_GhoulSheet>Ghoul Skill Sheet</ROMV_GhoulSheet>
 <ROMV_XPDescGhoul>Ghouls gain experience points from performing all manner of jobs around the colony. However, they gain XP at half the rate that vampires do.</ROMV_XPDescGhoul>
@@ -109,7 +109,7 @@
 <ROMV_CannotPurgeMechanoids>{0} has no blood to purge.</ROMV_CannotPurgeMechanoids>
 
 <!-- 11-4-17 x2-->
-<ROMV_HI_UnusedCapacities>NAME is one with the dead. HISCAP corpse has no need for most bodily functions. HECAP CAN still force them to function, to pass for being one of the living or when absolutely necessary.</ROMV_HI_UnusedCapacities>
+<ROMV_HI_UnusedCapacities>[PAWN_nameDef] is one with the dead. [PAWN_possessive] corpse has no need for most bodily functions. [PAWN_pronoun] CAN still force them to function, to pass for being one of the living or when absolutely necessary.</ROMV_HI_UnusedCapacities>
 <ROMV_HI_Unused>Unused</ROMV_HI_Unused>
 <ROMV_HI_Immunities>Prevents: aging effects, disease,\ninfections, temperature effects.</ROMV_HI_Immunities>
 <ROMV_HI_Vampirism>Vampirism</ROMV_HI_Vampirism>

@@ -147,7 +147,7 @@
     <label>possession</label>
     <bloodCost>3</bloodCost>
     <uiIconPath>UI/Icons/Commands/Dominate_Possession</uiIconPath>
-    <description>	The victim will temporarily join your side, until it eventually dies of cardiac arrest.</description>
+    <description>The victim will temporarily join your side, until it eventually dies of cardiac arrest.</description>
     <MainVerb Class="AbilityUser.VerbProperties_Ability">
       <verbClass>Vampire.DisciplineEffect_Possession</verbClass>
       <hasStandardCommand>true</hasStandardCommand>

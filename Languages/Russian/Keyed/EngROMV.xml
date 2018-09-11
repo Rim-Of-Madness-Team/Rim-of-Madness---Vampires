@@ -21,7 +21,7 @@
 
   <!-- 12-24-17-->
 
-  <ROMV_LostGhoulPowers>Поскольку {0} не имеет витэ, HE потерял(а) свои способности гуля.</ROMV_LostGhoulPowers>
+  <ROMV_LostGhoulPowers>Поскольку {0} не имеет витэ, [PAWN_pronoun] потерял(а) свои способности гуля.</ROMV_LostGhoulPowers>
   <ROMV_AttemptedDiablerie>{0} попытался совершить Диаблери</ROMV_AttemptedDiablerie>
   <ROMV_GhoulSheet>Лист навыков гуля</ROMV_GhoulSheet>
   <ROMV_XPDescGhoul>Гули получают очки опыта от выполнения всех видов работы вблизи колонии. Тем не менее, они получают XP вдвое меньше, чем вампиры.</ROMV_XPDescGhoul>
@@ -90,7 +90,7 @@
   <ROMV_CannotPurgeMechanoids>{0} не очищает кровь.</ROMV_CannotPurgeMechanoids>
 
   <!-- 11-4-17 x2-->
-  <ROMV_HI_UnusedCapacities>NAME - это одно с мертвыми. HIS труп не нуждается в большинстве физических функций. HECAP CAN может заставить их функционировать, чтобы сойти за одного из живых или когда это совершенно необходимо.</ROMV_HI_UnusedCapacities>
+  <ROMV_HI_UnusedCapacities>[PAWN_nameDef] - это одно с мертвыми. [PAWN_possessive] труп не нуждается в большинстве физических функций. [PAWN_pronoun] CAN может заставить их функционировать, чтобы сойти за одного из живых или когда это совершенно необходимо.</ROMV_HI_UnusedCapacities>
   <ROMV_HI_Unused>Отсутствует</ROMV_HI_Unused>
   <ROMV_HI_Immunities>Предотвращает: заболевания, инфекции, температурные эффекты.</ROMV_HI_Immunities>
   <ROMV_HI_Vampirism>Вампиризм</ROMV_HI_Vampirism>
