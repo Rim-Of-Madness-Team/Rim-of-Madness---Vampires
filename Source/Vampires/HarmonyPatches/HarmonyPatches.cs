@@ -270,6 +270,15 @@ namespace Vampire
             harmony.Patch(AccessTools.Method(typeof(PawnGraphicSet), "ResolveApparelGraphics"), new HarmonyMethod(
                 typeof(HarmonyPatches),
                 nameof(Vamp_ResolveApparelGraphics)), null);
+            
+            harmony.Patch(AccessTools.Method(typeof(Scenario), "Notify_NewPawnGenerating"), null, new HarmonyMethod(
+                typeof(HarmonyPatches),
+                nameof(Vamp_NewPawnGenerating)), null);
+            
+            //harmony.Patch(AccessTools.Property(typeof(RaceProperties), "Humanlike").GetGetMethod(), new HarmonyMethod(
+            //    typeof(HarmonyPatches),
+            //    nameof(Vamp_HumanlikeMeshExclusion)), null);
+
             // TODO Needs fixing
 //            //Log.Message("26");
 //            harmony.Patch(
@@ -653,6 +662,21 @@ namespace Vampire
             #endregion
 
             #endregion
+        }
+
+        //Scenario
+        public static void Vamp_NewPawnGenerating(Scenario __instance, Pawn pawn, PawnGenerationContext context)
+        {
+            if (VampireSettingsInit.ShouldUseSettings)
+            {
+                if (Rand.Chance(VampireSettingsInit.Get.spawnPct) && pawn.RaceProps.Humanlike)
+                {
+                    Hediff hediff = HediffMaker.MakeHediff(VampDefOf.ROM_Vampirism, pawn, null);
+                    hediff.Severity = 1f;
+                    pawn.health.AddHediff(hediff, null, null, null);
+                }
+                
+            }
         }
         
         
@@ -1191,6 +1215,11 @@ namespace Vampire
             {
                 ////Log.Message("Sun glow adjusted");
                 __result = Mathf.Clamp01(__result - p.nightsLength);
+            }
+
+            if (VampireSettingsInit.Get.sunDimming > 0f)
+            {
+                __result = Mathf.Clamp01(__result - VampireSettingsInit.Get.sunDimming);                
             }
         }
 

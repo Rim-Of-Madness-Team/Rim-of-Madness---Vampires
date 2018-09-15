@@ -57,6 +57,10 @@ namespace Vampire
 
         protected override bool TryExecuteWorker(IncidentParms parms)
         {
+            if (!VampireSettingsInit.Get.eventsEnabled)
+            {
+                return false;
+            }
             int tile;
             if (!TryFindNewSiteTile(out tile, 8, 30, false, true, -1))
             {

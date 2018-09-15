@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
 
-<!-- 8-21-19 -->
+<!-- 9-15-18 -->
+<ROMV_VampireSettingsButton>Open Vampire Settings</ROMV_VampireSettingsButton>
+<ROMV_VampireSettingsUnavailable>Vampire settings currently unavailable.\n\nPlease start a new game or load a game to edit vampire settings.</ROMV_VampireSettingsUnavailable>
+<ROMV_Slider_SunDimmingTooltip>Dimming the sun will increase the length of nights on this particular RimWorld.\n\n10% is default.\nWarning: Dimming the sun too much may disrupt wildlife and ecosystems.</ROMV_Slider_SunDimmingTooltip>
+<ROMV_Slider_SunDimming>Sun Dimming Percentage</ROMV_Slider_SunDimming>
+<ROMV_Slider_LowestActiveGenTooltip>This setting detemines the lowest possible generation for vampires encounted outside of undisturbed ancient coffins or special events. Higher generation numbers mean weaker vampires. Lower generation numbers mean stronger vampires. 4th is the minimum option here, because the 3rd generation is the original ancestor of each clan, and of which there is only one.\n\n7 is recommended.</ROMV_Slider_LowestActiveGenTooltip>
+<ROMV_Slider_LowestActiveGen>Lowest active generation</ROMV_Slider_LowestActiveGen>
+<ROMV_Slider_GlobalSpreadTooltip>This setting determines how much of the world's population are vampires.\n\n5% is recommended.</ROMV_Slider_GlobalSpreadTooltip>
 <ROMV_Slider_GlobalSpreadRight>100%</ROMV_Slider_GlobalSpreadRight>
 <ROMV_Slider_GlobalSpreadLeft>0%</ROMV_Slider_GlobalSpreadLeft>
-<ROMV_Slider_GlobalSpread>Global Vampirism Percentage:</ROMV_Slider_GlobalSpread>
+<ROMV_Slider_GlobalSpread>Global Vampirism Percentage</ROMV_Slider_GlobalSpread>
 <ROMV_GameMode_Disabled>Disabled</ROMV_GameMode_Disabled>
 <ROMV_GameMode_DisabledDesc>Vampires do not spawn in the world. Vampire events are disabled.</ROMV_GameMode_DisabledDesc>
 <ROMV_GameMode_EventsOnly>Events Only</ROMV_GameMode_EventsOnly>

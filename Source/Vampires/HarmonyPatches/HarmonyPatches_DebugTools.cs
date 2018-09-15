@@ -17,7 +17,7 @@ namespace Vampire
                 "Spawn Vampire (Random)", new Action(()=>
                 {
                     Pawn randomVampire =
-                    VampireGen.GenerateVampire(VampireUtility.RandHigherGeneration, VampireUtility.RandBloodline, null);
+                    VampireGen.GenerateVampire(VampireGen.RandHigherGeneration, VampireUtility.RandBloodline, null);
                     GenSpawn.Spawn(randomVampire, UI.MouseCell(), Find.CurrentMap);
 
                 })

@@ -6,6 +6,7 @@ using System.Text;
 using RimWorld;
 using Verse;
 using RimWorld.Planet;
+using UnityEngine;
 using Verse.AI;
 
 namespace Vampire
@@ -153,10 +154,18 @@ namespace Vampire
             //Rarer tick check
             if (Find.TickManager.TicksGame % 100 == 0)
             {
-                if (!finalConfiguationSet)
+                if (!VampireSettingsInit.Get.settingsWindowSeen)
                 {
-                    finalConfiguationSet = true;
-                    Find.WindowStack.Add(new Dialog_VampireSetup());
+                    VampireSettingsInit.Get.settingsWindowSeen = true;
+                    if (VampireSettingsInit.ShouldUseSettings)
+                    {
+                        Find.WindowStack.Add(new Dialog_VampireSetup()
+                    {
+                        forcePause = true
+                        
+                    });
+                        
+                    }
                 }
                 
                 if (!worldLoaded)
@@ -237,17 +246,17 @@ namespace Vampire
         }
         private int GetNewlySpawnedVampireGeneration(Pawn childe)
         {
-            if (childe?.VampComp()?.Generation != -1) return childe?.VampComp()?.Generation ?? Rand.Range(10, 13);
+            if (childe?.VampComp()?.Generation != -1) return childe?.VampComp()?.Generation ?? Mathf.Clamp(VampireGen.RandHigherGenerationWeak, 1, 13);
 
             var result = -1;
             if (Rand.Value < 0.1)
             {
-                result = Rand.Range(7, 9);
+                result = VampireGen.RandHigherGenerationTough;
 
                 //Log.Message("Vampires :: Spawned " + result + " generaton vampire.");
                 return result;
             }
-            result = Rand.Range(10, 13);
+            result = Mathf.Clamp(VampireGen.RandHigherGenerationWeak, 1, 13);
             //Log.Message("Vampires :: Spawned " + result + " generaton vampire.");                
             return result;
         }

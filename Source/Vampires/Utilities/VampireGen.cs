@@ -8,7 +8,45 @@ namespace Vampire
 {
     public static class VampireGen
     {
+        public const int VAMP_MINSPAWNGENERATION = 4;
+        public const int VAMP_MAXSPAWNGENERATION = 14;
 
+        public static int RandHigherGenerationWeak
+        {
+            get
+            {
+                var minGenWeaker = VampireSettingsInit.Get.lowestActiveVampGen + 3;
+                var maxGen = VAMP_MAXSPAWNGENERATION;
+                minGenWeaker = 
+                    (minGenWeaker > maxGen) ? 
+                        maxGen :
+                        minGenWeaker;
+                return Rand.Range(minGenWeaker, maxGen);
+            }
+        }
+        
+        public static int RandHigherGenerationTough
+        {
+            get
+            {
+                var minGen = VampireSettingsInit.Get.lowestActiveVampGen;
+                var maxGenTougher = 11;
+                maxGenTougher = (maxGenTougher < minGen) ? minGen : maxGenTougher;
+                var maxGen = Mathf.Clamp(maxGenTougher, minGen, maxGenTougher);
+                return Rand.Range(minGen, maxGenTougher);
+            }
+        }
+        
+        public static int RandHigherGeneration
+        {
+            get { return Rand.Range(VampireSettingsInit.Get.lowestActiveVampGen, VAMP_MAXSPAWNGENERATION); }
+        }
+        public static int RandLowerGeneration //3-6
+        {
+            get { return Rand.Range(VAMP_MINSPAWNGENERATION, VampireSettingsInit.Get.lowestActiveVampGen); }
+
+        }
+        
         public static bool TryGiveVampirismHediff(Pawn pawn, int generation, BloodlineDef bloodline, Pawn sire, bool firstVampire = false)
         {
             try

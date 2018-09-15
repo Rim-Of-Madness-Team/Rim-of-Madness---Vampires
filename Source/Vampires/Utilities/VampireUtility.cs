@@ -11,8 +11,7 @@ namespace Vampire
     {
 
 
-        public static int RandHigherGeneration => Rand.Range(7, 13);
-        public static int RandLowerGeneration => Rand.Range(3, 6);
+
         public static Faction RandVampFaction => Find.FactionManager.AllFactions
             .Where(x => x.def == VampDefOf.ROMV_Camarilla ||
                         x.def == VampDefOf.ROMV_Anarch ||
