@@ -143,7 +143,7 @@ namespace Vampire
             PawnGenerationRequest request = new PawnGenerationRequest(
                 DetermineKindDef(generation), faction, PawnGenerationContext.NonPlayer,
                 -1, true, false, false, false, true, true, 20f, false, true,
-                true, false, false, false, false, null, null, null, math, null, null);
+                true, false, false, false, false, null, null, null, 18, null, null);
             Pawn pawn = PawnGenerator.GeneratePawn(request);
             HarmonyPatches.VampireGenInProgress = false;
             
@@ -157,6 +157,7 @@ namespace Vampire
             if (!bloodline.allowsHair)
                 pawn.story.hairDef = DefDatabase<HairDef>.GetNamed("Shaved");
             pawn.VampComp().InitializeVampirism(sire, bloodline, generation, firstVampire);
+            pawn.ageTracker.AgeBiologicalTicks = (long) (math * GenDate.TicksPerYear);
             //TryGiveVampirismHediff(pawn, generation, bloodline, sire, firstVampire);
             return pawn;
         }

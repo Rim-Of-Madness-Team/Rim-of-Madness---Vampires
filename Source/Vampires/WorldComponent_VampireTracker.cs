@@ -8,6 +8,7 @@ using Verse;
 using RimWorld.Planet;
 using UnityEngine;
 using Verse.AI;
+using Random = UnityEngine.Random;
 
 namespace Vampire
 {
@@ -271,7 +272,7 @@ namespace Vampire
             Pawn curSire = thirdGenVamp;
             if (curSire == null)
             {
-                Log.Error("Cannot find third generation sire.");
+                Log.Warning("Cannot find third generation sire.");
                 return null;
             }
             for (int curGen = 4; curGen < 14; curGen++)
