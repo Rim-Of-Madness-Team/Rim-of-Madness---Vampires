@@ -345,27 +345,51 @@ namespace Vampire
 
         public void AddVampire(Pawn pawn, Pawn sire, BloodlineDef bloodline, int generation, float? age)
         {
-            var sireId = (generation == 1) ? "" : sire.VampComp().Generation.ToString() + "_" + sire.VampComp().Bloodline.ToString() + "_" + sire.Name.ToStringFull + "_" + sire.gender.ToString();
+            try
+            {
+
+            //Log.Message("1");
+            //Log.Message(sire.LabelShort + " Gen: " + generation);
+            var sireId = (generation == 1) ? "" : sire?.VampComp()?.Generation.ToString() + "_" + sire?.VampComp()?.Bloodline.ToString() + "_" + sire?.Name?.ToStringFull + "_" + sire?.gender.ToString();
+            //Log.Message("2");
             
             //Make a temporary new record of the vampire.
             var newRecord = new VampireRecord(pawn, generation, bloodline,
                 age ?? new FloatRange(18f, 100f).RandomInRange, sireId, pawn.Faction);
+            //Log.Message("3");
             
             //Check to make sure the record doesn't already exist.
             if (worldVampires?.Count > 0)
             {
+                //Log.Message("4a");
+
                 if (worldVampires.FirstOrDefault(x => x.Key.Equals(newRecord)) is KeyValuePair<VampireRecord, Pawn> rec &&
                     rec.Key is VampireRecord vampRec)
                 {
+
                     worldVampires[vampRec] = pawn;
                     return;
                 }   
             }
+            //Log.Message("5");
+
             //If not, add a new record
             worldVampires?.Add(newRecord, pawn);
-            
+
+            //Log.Message("6");
+
+                
+            }
+            catch (Exception e)
+            {
+                Log.Message(e.ToString());
+            }
+                
             //Check all other vampire records for issues
             WorldVampiresCheck();
+            
+            //Log.Message("7");
+
         }
     }
 }
