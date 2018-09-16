@@ -57,7 +57,7 @@ namespace Vampire
 
         protected override bool TryExecuteWorker(IncidentParms parms)
         {
-            if (!VampireSettingsInit.Get.eventsEnabled)
+            if (!VampireSettings.Get.eventsEnabled)
             {
                 return false;
             }

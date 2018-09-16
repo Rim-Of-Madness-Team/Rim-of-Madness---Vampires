@@ -155,10 +155,10 @@ namespace Vampire
             //Rarer tick check
             if (Find.TickManager.TicksGame % 100 == 0)
             {
-                if (!VampireSettingsInit.Get.settingsWindowSeen)
+                if (!VampireSettings.Get.settingsWindowSeen)
                 {
-                    VampireSettingsInit.Get.settingsWindowSeen = true;
-                    if (VampireSettingsInit.ShouldUseSettings)
+                    VampireSettings.Get.settingsWindowSeen = true;
+                    if (VampireSettings.ShouldUseSettings)
                     {
                         Find.WindowStack.Add(new Dialog_VampireSetup()
                     {

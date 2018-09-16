@@ -201,7 +201,7 @@
     <Compile Include="Utilities\VampSunlightPathUtility.cs" />
     <Compile Include="VampAbility.cs" />
     <Compile Include="VampireCorpse.cs" />
-    <Compile Include="VampireSettingsInit.cs" />
+    <Compile Include="VampireSettings.cs" />
     <Compile Include="Workers\EmbraceWorker.cs" />
     <Compile Include="HarmonyPatches\HarmonyPatches.cs" />
     <Compile Include="HarmonyPatches\HarmonyPatches_Caravan.cs" />

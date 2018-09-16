@@ -20,7 +20,7 @@ namespace Vampire
     static partial class HarmonyPatches
     {
         public static bool VampireGenInProgress = false;
-        
+
         static HarmonyPatches()
         {
             HarmonyInstance harmony = HarmonyInstance.Create("rimworld.jecrell.vampire");
@@ -127,6 +127,7 @@ namespace Vampire
                     }
                 }
             }
+
             //Patches all JoyGivers to consider sunlight for vampires before they do them.
             var listOfJoyGivers = (from domainAssembly in AppDomain.CurrentDomain.GetAssemblies().Where(
                     x => x.GetName().Name != "Harmony" &&
@@ -270,11 +271,11 @@ namespace Vampire
             harmony.Patch(AccessTools.Method(typeof(PawnGraphicSet), "ResolveApparelGraphics"), new HarmonyMethod(
                 typeof(HarmonyPatches),
                 nameof(Vamp_ResolveApparelGraphics)), null);
-            
+
             harmony.Patch(AccessTools.Method(typeof(Scenario), "Notify_NewPawnGenerating"), null, new HarmonyMethod(
                 typeof(HarmonyPatches),
                 nameof(Vamp_NewPawnGenerating)), null);
-            
+
             //harmony.Patch(AccessTools.Property(typeof(RaceProperties), "Humanlike").GetGetMethod(), new HarmonyMethod(
             //    typeof(HarmonyPatches),
             //    nameof(Vamp_HumanlikeMeshExclusion)), null);
@@ -340,7 +341,7 @@ namespace Vampire
             harmony.Patch(AccessTools.Method(typeof(Pawn_AgeTracker), "BirthdayBiological"),
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(VampireBirthdayBiological)), null);
             //Log.Message("32");
-            
+
             //Nor do they suffer health effects as they age.
             harmony.Patch(
                 AccessTools.Method(AccessTools.TypeByName("AgeInjuryUtility"), "GenerateRandomOldAgeInjuries"),
@@ -493,7 +494,7 @@ namespace Vampire
 //            harmony.Patch(AccessTools.Method(typeof(HediffGiver_Hypothermia), "OnIntervalPassed"), null,
 //                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_IgnoreStrokeAndHypotherm)));
 
-            
+
             //            //Log.Message("63");
 //            harmony.Patch(
 //                AccessTools.Method(typeof(Pawn_HealthTracker), "AddHediff",
@@ -598,7 +599,7 @@ namespace Vampire
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(VampiresGuestTracker)));
             //Log.Message("80");
 
-            
+
             //Checks for food in caravans (Prefix)
             harmony.Patch(AccessTools.Method(typeof(DaysWorthOfFoodCalculator), "ApproxDaysWorthOfFood",
                     new Type[]
@@ -645,12 +646,14 @@ namespace Vampire
                         typeof(int), typeof(bool)
                     }), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(ApproxDaysWorthOfFoodPawns_PostFix)));
-            //Log.Message("82");
 
+            harmony.Patch(AccessTools.Method(typeof(PawnAddictionHediffsGenerator),
+                    "GenerateAddictionsAndTolerancesFor"),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(GenerateAddictionsAndTolerancesFor_PreFix)), null);
 
-            //Remove temporary character (PawnTemporary) corpses from the list, since they can't tie.
-            //harmony.Patch(AccessTools.Method(typeof(ThingDefGenerator_Corpses), "ImpliedCorpseDefs"), null,
-            //    new HarmonyMethod(typeof(HarmonyPatches), nameof(RemovePawnTemporaryCorpses)));        
+            harmony.Patch(AccessTools.Method(typeof(JobGiver_PackFood),
+                    "TryGiveJob"),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(VampsDontPackFood)), null);
 
             #endregion
 
@@ -671,6 +674,7 @@ namespace Vampire
                             harmony.Patch(AccessTools.Method(typeof(Pawn_NeedsTracker), "ShouldHaveNeed"),
                                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_NoBladderNeed)), null);
                         }
+
                         if (AccessTools.Method(typeof(SanitationUtil), nameof(SanitationUtil.FindBestFixture)) != null)
                         {
                             harmony.Patch(AccessTools.Method(typeof(SanitationUtil), "FindBestFixture"),
@@ -690,43 +694,69 @@ namespace Vampire
 
             #endregion
         }
+        //JobGiver_PackFood.TryGiveJob
+        public static bool VampsDontPackFood(Pawn pawn, ref Job __result)
+        {
+            if (pawn.IsVampire())
+            {
+                __result = null;
+                return false;
+            }
+            return true;
+        }
+
+
+        //PawnAddictionHediffsGenerator
+        public static bool GenerateAddictionsAndTolerancesFor_PreFix(Pawn pawn)
+        {
+            if (pawn.IsVampire())
+                return false;
+            return true;
+        }
 
         //Scenario
         public static void Vamp_NewPawnGenerating(Scenario __instance, Pawn pawn, PawnGenerationContext context)
         {
-            if (VampireSettingsInit.ShouldUseSettings)
+            if (VampireSettings.ShouldUseSettings)
             {
-                if (Rand.Chance(VampireSettingsInit.Get.spawnPct) && pawn.RaceProps.Humanlike)
+                if (Rand.Chance(VampireSettings.Get.spawnPct) && pawn.RaceProps.Humanlike)
                 {
                     Hediff hediff = HediffMaker.MakeHediff(VampDefOf.ROM_Vampirism, pawn, null);
                     hediff.Severity = 1f;
                     pawn.health.AddHediff(hediff, null, null, null);
                 }
-                
+            }
+            else if (VampireSettings.Get.settingsWindowSeen == false)
+            {
+                if (VampireSettings.Get.mode == GameMode.Disabled)
+                {
+                    VampireSettings.Get.settingsWindowSeen = true;
+                    VampireSettings.Get.mode = GameMode.Standard;
+                    VampireSettings.Get.ApplySettings();
+                }
             }
         }
-        
-        
-        public static Mesh GetPawnMesh(bool portrait, Pawn pawn, Rot4 facing, bool wantsBody) =>
-            pawn.GetComp<CompVampire>() is CompVampire v && v.Transformed ?
-                portrait ?
-                    wantsBody ?
-                        v.CurrentForm.bodyGraphicData.Graphic.MeshAt(facing):
-                        null:
-                    wantsBody ?
-                        v.CurrentForm.bodyGraphicData.Graphic.MeshAt(facing) :
-                        null :
-                wantsBody ?
-                    MeshPool.humanlikeBodySet.MeshAt(rot: facing) :
-                    MeshPool.humanlikeHeadSet.MeshAt(rot: facing);
 
-        
-        public static IEnumerable<CodeInstruction> RenderPawnInternalTranspiler(IEnumerable<CodeInstruction> instructions)
+
+        public static Mesh GetPawnMesh(bool portrait, Pawn pawn, Rot4 facing, bool wantsBody) =>
+            pawn.GetComp<CompVampire>() is CompVampire v && v.Transformed ? portrait ? wantsBody
+                ? v.CurrentForm.bodyGraphicData.Graphic.MeshAt(facing)
+                : null :
+            wantsBody ? v.CurrentForm.bodyGraphicData.Graphic.MeshAt(facing) :
+            null :
+            wantsBody ? MeshPool.humanlikeBodySet.MeshAt(rot: facing) :
+            MeshPool.humanlikeHeadSet.MeshAt(rot: facing);
+
+
+        public static IEnumerable<CodeInstruction> RenderPawnInternalTranspiler(
+            IEnumerable<CodeInstruction> instructions)
         {
-            FieldInfo  humanlikeBodyInfo = AccessTools.Field(typeof(MeshPool), nameof(MeshPool.humanlikeBodySet));
-            FieldInfo  humanlikeHeadInfo = AccessTools.Field(typeof(MeshPool), nameof(MeshPool.humanlikeHeadSet));
-            MethodInfo hairInfo          = AccessTools.Property(typeof(PawnGraphicSet), nameof(PawnGraphicSet.HairMeshSet)).GetGetMethod();
-            MethodInfo isAnimalInfo      = AccessTools.Property(typeof(RaceProperties), nameof(RaceProperties.Animal)).GetGetMethod();
+            FieldInfo humanlikeBodyInfo = AccessTools.Field(typeof(MeshPool), nameof(MeshPool.humanlikeBodySet));
+            FieldInfo humanlikeHeadInfo = AccessTools.Field(typeof(MeshPool), nameof(MeshPool.humanlikeHeadSet));
+            MethodInfo hairInfo = AccessTools.Property(typeof(PawnGraphicSet), nameof(PawnGraphicSet.HairMeshSet))
+                .GetGetMethod();
+            MethodInfo isAnimalInfo = AccessTools.Property(typeof(RaceProperties), nameof(RaceProperties.Animal))
+                .GetGetMethod();
 
             List<CodeInstruction> instructionList = instructions.ToList();
 
@@ -738,20 +768,22 @@ namespace Vampire
                     instructionList.RemoveRange(i, 2);
                     yield return new CodeInstruction(OpCodes.Ldarg_S, 7); // portrait
                     yield return new CodeInstruction(OpCodes.Ldarg_0);
-                    yield return new CodeInstruction(OpCodes.Ldfld,   AccessTools.Field(typeof(PawnRenderer), "pawn"));
+                    yield return new CodeInstruction(OpCodes.Ldfld, AccessTools.Field(typeof(PawnRenderer), "pawn"));
                     yield return new CodeInstruction(OpCodes.Ldarg_S, 4); // bodyfacing
                     yield return new CodeInstruction(OpCodes.Ldc_I4_1);
-                    instruction = new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(HarmonyPatches), nameof(GetPawnMesh)));
+                    instruction = new CodeInstruction(OpCodes.Call,
+                        AccessTools.Method(typeof(HarmonyPatches), nameof(GetPawnMesh)));
                 }
                 else if (instruction.operand == humanlikeHeadInfo)
                 {
                     instructionList.RemoveRange(i, 2);
                     yield return new CodeInstruction(OpCodes.Ldarg_S, 7); // portrait
                     yield return new CodeInstruction(OpCodes.Ldarg_0);
-                    yield return new CodeInstruction(OpCodes.Ldfld,   AccessTools.Field(typeof(PawnRenderer), "pawn"));
+                    yield return new CodeInstruction(OpCodes.Ldfld, AccessTools.Field(typeof(PawnRenderer), "pawn"));
                     yield return new CodeInstruction(OpCodes.Ldarg_S, 5); //headfacing
                     yield return new CodeInstruction(OpCodes.Ldc_I4_0);
-                    instruction = new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(HarmonyPatches), nameof(GetPawnMesh)));
+                    instruction = new CodeInstruction(OpCodes.Call,
+                        AccessTools.Method(typeof(HarmonyPatches), nameof(GetPawnMesh)));
                 }
 
                 yield return instruction;
@@ -792,6 +824,7 @@ namespace Vampire
                         defToApply = VampDefOf.ROMV_PresenceIVCooldownHediff;
                         break;
                 }
+
                 if (defToApply != null)
                 {
                     HealthUtility.AdjustSeverity(pSearch, defToApply, 1.0f);
@@ -799,8 +832,6 @@ namespace Vampire
             }
         }
 
-        
-        
 
         public static Dictionary<Pawn, int> VampGuestCache = new Dictionary<Pawn, int>();
 
@@ -820,6 +851,7 @@ namespace Vampire
                     {
                         HarmonyPatches.VampGuestCache.Remove(startingPawn);
                     }
+
                     int curTicks = Find.TickManager.TicksGame;
                     HarmonyPatches.VampGuestCache.Add(startingPawn, curTicks);
                     ////Log.Message("Vampire tracking: " + startingPawn.Label + " " + curTicks);
@@ -862,6 +894,7 @@ namespace Vampire
                     __result = true;
                 }
             }
+
             //mapTimeoutTicks = 600;
         }
 
@@ -907,6 +940,7 @@ namespace Vampire
                             }
                         }
                     }
+
                     __result = false;
                     return;
                 }
@@ -922,6 +956,7 @@ namespace Vampire
                 twelfth = twelfth.NextTwelfth();
                 a = Mathf.Min(a, GenTemperature.AverageTemperatureAtTileForTwelfth(map.Tile, twelfth));
             }
+
             return Mathf.Min(a, map.mapTemperature.OutdoorTemp);
         }
 
@@ -932,6 +967,7 @@ namespace Vampire
             {
                 return;
             }
+
             if (actor.IsVampire())
             {
                 actor.needs.mood.thoughts.memories.RemoveMemoriesOfDef(ThoughtDefOf.SleptInCold);
@@ -954,6 +990,7 @@ namespace Vampire
                     num += __instance.hediffs[i].PainOffset;
                 }
             }
+
             float num2 = num / __instance.pawn.HealthScale;
             for (int j = 0; j < __instance.hediffs.Count; j++)
             {
@@ -962,6 +999,7 @@ namespace Vampire
                     num2 *= __instance.hediffs[j].PainFactor;
                 }
             }
+
             __result = Mathf.Clamp01(__result - num2);
         }
 
@@ -975,6 +1013,7 @@ namespace Vampire
                     return false;
                 }
             }
+
             return true;
         }
 
@@ -1062,6 +1101,7 @@ namespace Vampire
             {
                 return false;
             }
+
             return true;
         }
 
@@ -1073,6 +1113,7 @@ namespace Vampire
                 if (p.Faction == Faction.OfPlayer && p.IsVampire())
                     __result = __result.Concat(GraveGizmoGetter(p, __instance));
             }
+
             if (__instance?.ContainedThing is Pawn q)
             {
                 if (q.Faction == Faction.OfPlayer && q.IsVampire())
@@ -1121,12 +1162,14 @@ namespace Vampire
                     var pawnToRemove = newCoffin.AssignedPawns.RandomElement();
                     newCoffin.TryUnassignPawn(pawnToRemove);
                 }
+
                 newCoffin.assignedPawn = pawn;
                 //pawn.ownership.AssignedGrave = newCoffin;
                 AccessTools.Method(typeof(Pawn_Ownership), "set_AssignedGrave")
                     .Invoke(pawn.ownership, new object[] {newCoffin});
                 return false;
             }
+
             return true;
         }
 
@@ -1201,6 +1244,7 @@ namespace Vampire
                     __result = null;
                     return false;
                 }
+
                 VampireCorpse corpse = (VampireCorpse) ThingMaker.MakeThing(ThingDef.Named("ROMV_VampCorpse"));
                 corpse.InnerPawn = __instance;
                 corpse.BloodPoints = __instance.BloodNeed().CurBloodPoints;
@@ -1212,13 +1256,16 @@ namespace Vampire
                 {
                     corpse.InnerPawn.ownership.ClaimGrave(assignedGrave);
                 }
+
                 if (inBed)
                 {
                     corpse.InnerPawn.Drawer.renderer.wiggler.SetToCustomRotation(bedRotation + 180f);
                 }
+
                 __result = corpse as Corpse;
                 return false;
             }
+
             return true;
         }
 
@@ -1244,9 +1291,9 @@ namespace Vampire
                 __result = Mathf.Clamp01(__result - p.nightsLength);
             }
 
-            if (VampireSettingsInit.Get.sunDimming > 0f)
+            if (VampireSettings.Get.sunDimming > 0f)
             {
-                __result = Mathf.Clamp01(__result - VampireSettingsInit.Get.sunDimming);                
+                __result = Mathf.Clamp01(__result - VampireSettings.Get.sunDimming);
             }
         }
 
@@ -1277,6 +1324,7 @@ namespace Vampire
                 __result = Mathf.Min(def.ingestible.maxNumToIngestAtOnce, 1);
                 return false;
             }
+
             return true;
         }
 
@@ -1343,6 +1391,7 @@ namespace Vampire
                 __result = false;
                 return false;
             }
+
             return true;
         }
 
@@ -1355,6 +1404,7 @@ namespace Vampire
                 __result = null;
                 return false;
             }
+
             return true;
         }
 
@@ -1369,6 +1419,7 @@ namespace Vampire
                            !p.InAggroMentalState && !p.IsPrisoner;
                 return false;
             }
+
             return true;
         }
 
@@ -1391,6 +1442,7 @@ namespace Vampire
                             num /= level * 2f;
                         }
                     }
+
                     return num / GenMath.FlatHill(0f, 14f, 16f, 25f, 80f, 0.2f,
                                pawn.ageTracker.AgeBiologicalYearsFloat);
                 }
@@ -1399,6 +1451,7 @@ namespace Vampire
             {
                 return -1f;
             }
+
             return -1f;
         }
 
@@ -1413,34 +1466,40 @@ namespace Vampire
                     __result = -1f;
                     return false;
                 }
+
                 if (DebugSettings.alwaysDoLovin)
                 {
                     __result = 0.1f;
                     return false;
                 }
+
                 if (pawn?.needs?.food is Need_Food food && food.Starving ||
                     partner?.needs?.food is Need_Food foodPartner && foodPartner.Starving)
                 {
                     __result = -1f;
                     return false;
                 }
+
                 if (pawn?.health?.hediffSet?.BleedRateTotal > 0f || partner?.health?.hediffSet?.BleedRateTotal > 0f)
                 {
                     __result = -1f;
                     return false;
                 }
+
                 float num = LovinMtbSinglePawnFactor(pawn);
                 if (num <= 0f)
                 {
                     __result = -1f;
                     return false;
                 }
+
                 float num2 = LovinMtbSinglePawnFactor(partner);
                 if (num2 <= 0f)
                 {
                     __result = -1f;
                     return false;
                 }
+
                 float num3 = 12f;
                 num3 *= num;
                 num3 *= num2;
@@ -1451,6 +1510,7 @@ namespace Vampire
                                (float) partner.relations.OpinionOf(pawn));
                 return false;
             }
+
             return true;
         }
 
@@ -1485,9 +1545,11 @@ namespace Vampire
                         {
                             pawn.health.hediffSet.hediffs.Remove(hd);
                         }
+
                         return false;
                     }
                 }
+
                 if (hediff is HediffVampirism v)
                 {
                     if (pawn.MapHeld != null && VampireUtility.IsDaylight(pawn.MapHeld) &&
@@ -1497,10 +1559,12 @@ namespace Vampire
                         {
                             pawn.health.hediffSet.hediffs.Remove(hd);
                         }
+
                         return false;
                     }
                 }
             }
+
             return true;
         }
 
@@ -1540,6 +1604,7 @@ namespace Vampire
             {
                 return false;
             }
+
             return true;
         }
 
@@ -1698,6 +1763,7 @@ namespace Vampire
                     return false;
                 }
             }
+
             return true;
         }
 
@@ -1812,6 +1878,7 @@ namespace Vampire
                            !AboutToRecover(sick);
                 return false;
             }
+
             return true;
         }
 
@@ -1822,14 +1889,17 @@ namespace Vampire
             {
                 return false;
             }
+
             if (!HealthAIUtility.ShouldSeekMedicalRestUrgent(pawn) && !HealthAIUtility.ShouldSeekMedicalRest(pawn))
             {
                 return true;
             }
+
             if (pawn.health.hediffSet.HasImmunizableNotImmuneHediff())
             {
                 return false;
             }
+
             float num = 0f;
             List<Hediff> hediffs = pawn.health.hediffSet.hediffs;
             for (int i = 0; i < hediffs.Count; i++)
@@ -1841,6 +1911,7 @@ namespace Vampire
                     num += hediff_Injury.Severity;
                 }
             }
+
             return num < 8f * pawn.RaceProps.baseHealthScale;
         }
 
@@ -1860,6 +1931,7 @@ namespace Vampire
                     __instance.CasterPawn.VampComp().CurFormGraphic = null;
                     __instance.CasterPawn.Drawer.renderer.graphics.ResolveAllGraphics();
                 }
+
                 if (__instance.CasterPawn.health.hediffSet.hediffs.FirstOrDefault(x =>
                         x.TryGetComp<HediffComp_Hidden>() != null) is HediffWithComps htt &&
                     htt.TryGetComp<HediffComp_Hidden>() is HediffComp_Hidden hf && !hf.Props.canGiveDamage)
@@ -1872,6 +1944,7 @@ namespace Vampire
                     __instance.CasterPawn.Drawer.renderer.graphics.ResolveAllGraphics();
                 }
             }
+
             return true;
         }
 
@@ -1898,6 +1971,7 @@ namespace Vampire
                 __instance.apparelGraphics.Clear();
                 return false;
             }
+
             return true;
         }
 
@@ -1908,6 +1982,7 @@ namespace Vampire
             {
                 return false;
             }
+
             return true;
         }
 
@@ -1922,6 +1997,7 @@ namespace Vampire
                     if (newBodyGraphic != null)
                         __instance.nakedGraphic = newBodyGraphic;
                 }
+
                 if (v?.Bloodline?.headGraphicsPath != "")
                 {
                     string headPath = VampireGraphicUtility.GetHeadGraphicPath(__instance.pawn);
@@ -1933,6 +2009,7 @@ namespace Vampire
                             __instance.headGraphic = newHeadGraphic;
                     }
                 }
+
                 __instance.ResolveApparelGraphics();
             }
         }
@@ -1955,6 +2032,7 @@ namespace Vampire
                     CharacterCardUtility.DrawCharacterCard(rect, p);
                 return false;
             }
+
             return true;
         }
 
@@ -1996,6 +2074,7 @@ namespace Vampire
                     }), LetterDefOf.PositiveEvent, p);
                 return false;
             }
+
             return true;
         }
 
@@ -2052,6 +2131,7 @@ namespace Vampire
                     absorbed = true;
                     return false;
                 }
+
                 if (pawn.health.hediffSet.hediffs != null && pawn.health.hediffSet.hediffs.Count > 0)
                 {
                     if (dinfo.Instigator is Pawn instigator && instigator.health.hediffSet.hediffs != null &&
@@ -2078,6 +2158,7 @@ namespace Vampire
                             return false;
                         }
                     }
+
                     if (pawn.health.hediffSet.hediffs.FirstOrDefault(x => x.TryGetComp<HediffComp_AnimalForm>() != null)
                             is HediffWithComps ht && ht.TryGetComp<HediffComp_AnimalForm>().Props.immuneTodamage)
                     {
@@ -2105,6 +2186,7 @@ namespace Vampire
                     }
                 }
             }
+
             absorbed = false;
             return true;
         }
@@ -2141,6 +2223,7 @@ namespace Vampire
                 __result = null;
                 return false;
             }
+
             return true;
         }
 
@@ -2153,6 +2236,7 @@ namespace Vampire
                 __result = false;
                 return false;
             }
+
             return true;
         }
 
@@ -2165,6 +2249,7 @@ namespace Vampire
                 __result = null;
                 return false;
             }
+
             return true;
         }
 
@@ -2184,6 +2269,7 @@ namespace Vampire
                     }
                 }
             }
+
             __result = false;
             return false;
         }
@@ -2246,6 +2332,7 @@ namespace Vampire
                     __instance.Draw();
                 return false;
             }
+
             return true;
         }
 
@@ -2258,9 +2345,11 @@ namespace Vampire
                     __result = true;
                     return false;
                 }
+
                 __result = __instance.Accepts(thing);
                 return false;
             }
+
             return true;
         }
 
@@ -2273,6 +2362,7 @@ namespace Vampire
                     __result = __instance.DefaultGraphic;
                     return false;
                 }
+
                 if (__instance.def.building.fullGraveGraphicData == null)
                 {
                     __result = __instance.DefaultGraphic;
@@ -2284,10 +2374,12 @@ namespace Vampire
                     AccessTools.Field(typeof(Building_Grave), "cachedGraphicFull").SetValue(__instance,
                         __instance.def.building.fullGraveGraphicData.GraphicColoredFor(__instance));
                 }
+
                 __result = (Graphic) AccessTools.Field(typeof(Building_Grave), "cachedGraphicFull")
                     .GetValue(__instance);
                 return false;
             }
+
             return true;
         }
 
@@ -2326,6 +2418,7 @@ namespace Vampire
                 //}
                 return false;
             }
+
             return true;
         }
 
@@ -2354,6 +2447,7 @@ namespace Vampire
                     Traverse.Create(__instance).Field("melanin").GetValue<float>());
                 return false;
             }
+
             return true;
         }
 
@@ -2432,10 +2526,12 @@ namespace Vampire
                     {
                         text = string.Format(bloodItem.def.ingestible.ingestCommandString, bloodItem.LabelShort);
                     }
+
                     if (!bloodItem.IsSociallyProper(pawn))
                     {
                         text = text + " (" + "ReservedForPrisoners".Translate() + ")";
                     }
+
                     FloatMenuOption item5;
                     if (bloodItem.def.IsPleasureDrug && pawn.IsTeetotaler())
                     {
@@ -2458,6 +2554,7 @@ namespace Vampire
                             pawn.jobs.TryTakeOrderedJob(job);
                         }, priority), pawn, bloodItem);
                     }
+
                     opts.Add(item5);
                 }
             }
@@ -2484,11 +2581,13 @@ namespace Vampire
                             {
                                 break;
                             }
+
                             if (c.InBounds(__instance.pawn.Map) && c.Standable(__instance.pawn.Map))
                             {
                                 goto IL_A1;
                             }
                         }
+
                         c = __instance.pawn.Position;
                         IL_A1:
                         __instance.pawn.CurJob.targetA = c;
@@ -2532,6 +2631,7 @@ namespace Vampire
 
                 return false;
             }
+
             return true;
         }
 
@@ -2569,12 +2669,14 @@ namespace Vampire
                                 }
                             }
                         }
+
                         __result = null;
                         __result = Patients;
                         return false;
                     }
                 }
             }
+
             return true;
         }
 
@@ -2587,6 +2689,7 @@ namespace Vampire
                 __result = pawn.Position;
                 return false;
             }
+
             return true;
         }
 
@@ -2602,6 +2705,7 @@ namespace Vampire
                     PawnUtility.ResolveMaxDanger(pawn, Danger.None));
                 return false;
             }
+
             return true;
         }
 
@@ -2615,6 +2719,7 @@ namespace Vampire
                 __result = true;
                 return false;
             }
+
             return true;
         }
 
@@ -2630,6 +2735,7 @@ namespace Vampire
                     return;
                 }
             }
+
             if (nd == VampDefOf.ROMV_Blood)
             {
                 if (p?.RaceProps?.IsMechanoid ?? false)
@@ -2637,6 +2743,7 @@ namespace Vampire
                     __result = false;
                     return;
                 }
+
                 string typeString = p.GetType().ToString();
                 ////Log.Message(typeString);
                 if (p.GetType().ToString() == "ProjectJedi.PawnGhost")

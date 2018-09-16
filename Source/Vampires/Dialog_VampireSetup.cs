@@ -24,62 +24,66 @@ namespace Vampire
             Rect radioRect = new Rect(0f, 40f, inRect.width, inRect.height - 36);
             selectedVampireInfoListing.Begin(radioRect);
             if (selectedVampireInfoListing.RadioButton("ROMV_GameMode_Disabled".Translate(),
-                VampireSettingsInit.Get.mode == GameMode.Disabled, 0f,
+                VampireSettings.Get.mode == GameMode.Disabled, 0f,
                 "ROMV_GameMode_DisabledDesc".Translate()))
             {
-                VampireSettingsInit.Get.mode = GameMode.Disabled;
+                VampireSettings.Get.mode = GameMode.Disabled;
+                VampireSettings.Get.ApplySettings();
             }
 
             selectedVampireInfoListing.Gap(6f);
             if (selectedVampireInfoListing.RadioButton("ROMV_GameMode_EventsOnly".Translate(),
-                VampireSettingsInit.Get.mode == GameMode.EventsOnly,
+                VampireSettings.Get.mode == GameMode.EventsOnly,
                 0f, "ROMV_GameMode_EventsOnlyDesc".Translate()))
             {
-                VampireSettingsInit.Get.mode = GameMode.EventsOnly;
+                VampireSettings.Get.mode = GameMode.EventsOnly;
+                VampireSettings.Get.ApplySettings();
             }
 
             selectedVampireInfoListing.Gap(6f);
 
             if (selectedVampireInfoListing.RadioButton("ROMV_GameMode_Standard".Translate(),
-                VampireSettingsInit.Get.mode == GameMode.Standard, 0f, "ROMV_GameMode_StandardDesc".Translate()))
+                VampireSettings.Get.mode == GameMode.Standard, 0f, "ROMV_GameMode_StandardDesc".Translate()))
             {
-                VampireSettingsInit.Get.mode = GameMode.Standard;
+                VampireSettings.Get.mode = GameMode.Standard;
+                VampireSettings.Get.ApplySettings();
             }
 
             selectedVampireInfoListing.Gap(6f);
 
             if (selectedVampireInfoListing.RadioButton("ROMV_GameMode_Custom".Translate(),
-                VampireSettingsInit.Get.mode == GameMode.Custom, 0f, "ROMV_GameMode_CustomDesc".Translate()))
+                VampireSettings.Get.mode == GameMode.Custom, 0f, "ROMV_GameMode_CustomDesc".Translate()))
             {
-                VampireSettingsInit.Get.mode = GameMode.Custom;
+                VampireSettings.Get.mode = GameMode.Custom;
+                VampireSettings.Get.ApplySettings();
             }
 
-            if (VampireSettingsInit.Get.mode == GameMode.Custom)
+            if (VampireSettings.Get.mode == GameMode.Custom)
             {
                 selectedVampireInfoListing.Gap(24f);
                 var spawnPctRect = selectedVampireInfoListing.GetRect(22f);
-                VampireSettingsInit.Get.spawnPct = //selectedVampireInfoListing.Slider(1f, 0f, 100f) * 0.01f;
-                    Widgets.HorizontalSlider(spawnPctRect, VampireSettingsInit.Get.spawnPct, 0.01f, 1f, true,
-                        "ROMV_Slider_GlobalSpread".Translate() + ": " + VampireSettingsInit.Get.spawnPct.ToStringPercent(),
+                VampireSettings.Get.spawnPct = //selectedVampireInfoListing.Slider(1f, 0f, 100f) * 0.01f;
+                    Widgets.HorizontalSlider(spawnPctRect, VampireSettings.Get.spawnPct, 0.01f, 1f, true,
+                        "ROMV_Slider_GlobalSpread".Translate() + ": " + VampireSettings.Get.spawnPct.ToStringPercent(),
                         "ROMV_Slider_GlobalSpreadLeft".Translate(),
                         "ROMV_Slider_GlobalSpreadRight".Translate(), -1f);
                 selectedVampireInfoListing.Gap(selectedVampireInfoListing.verticalSpacing);
                 TooltipHandler.TipRegion(spawnPctRect, () => "ROMV_Slider_GlobalSpreadTooltip".Translate(), 9513127);
                 selectedVampireInfoListing.Gap(24f);
                 var lowestActiveVampGenRect = selectedVampireInfoListing.GetRect(22f);
-                VampireSettingsInit.Get.lowestActiveVampGen = //(int) selectedVampireInfoListing.Slider(1f, 4f, 13f);
+                VampireSettings.Get.lowestActiveVampGen = //(int) selectedVampireInfoListing.Slider(1f, 4f, 13f);
                     (int) Widgets.HorizontalSlider(lowestActiveVampGenRect,
-                        VampireSettingsInit.Get.lowestActiveVampGen, 4f, 14f, false,
-                        "ROMV_Slider_LowestActiveGen".Translate() + ": " + VampireSettingsInit.Get.lowestActiveVampGen,
+                        VampireSettings.Get.lowestActiveVampGen, 4f, 14f, false,
+                        "ROMV_Slider_LowestActiveGen".Translate() + ": " + VampireSettings.Get.lowestActiveVampGen,
                         VampireGen.VAMP_MINSPAWNGENERATION.ToString(),
                         VampireGen.VAMP_MAXSPAWNGENERATION.ToString(), 1f);
                 TooltipHandler.TipRegion(lowestActiveVampGenRect, () => "ROMV_Slider_LowestActiveGenTooltip".Translate(), 57438827);
                 selectedVampireInfoListing.Gap(24f);
                 var sunDimmingRect = selectedVampireInfoListing.GetRect(22f);
-                VampireSettingsInit.Get.sunDimming = //(int) selectedVampireInfoListing.Slider(1f, 4f, 13f);
+                VampireSettings.Get.sunDimming = //(int) selectedVampireInfoListing.Slider(1f, 4f, 13f);
                     Widgets.HorizontalSlider(sunDimmingRect,
-                        VampireSettingsInit.Get.sunDimming, 0f, 1f, false,
-                        "ROMV_Slider_SunDimming".Translate() + ": " + VampireSettingsInit.Get.sunDimming,
+                        VampireSettings.Get.sunDimming, 0f, 1f, false,
+                        "ROMV_Slider_SunDimming".Translate() + ": " + VampireSettings.Get.sunDimming,
                         0f.ToStringPercent(),
                         1f.ToStringPercent(), -1f);
                 TooltipHandler.TipRegion(sunDimmingRect, () => "ROMV_Slider_SunDimmingTooltip".Translate(), 75433216);
@@ -93,7 +97,7 @@ namespace Vampire
             Rect acceptButton = new Rect((inRect.width * 0.5f), inRect.height - (38f * 2), 150, 38);
             if (Widgets.ButtonText(acceptButton, "AcceptButton".Translate()))
             {
-                VampireSettingsInit.Get.ApplySettings();
+                VampireSettings.Get.ApplySettings();
                 this.Close(false);
             }
 

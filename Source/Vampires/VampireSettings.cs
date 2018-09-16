@@ -7,7 +7,7 @@ using Verse;
 namespace Vampire
 {
     [StaticConstructorOnStartup]
-    public static class VampireSettingsInit
+    public static class VampireSettings
     {
 //        public static GameMode mode = GameMode.Standard;
 //        public static float spawnPct = 0.05f;

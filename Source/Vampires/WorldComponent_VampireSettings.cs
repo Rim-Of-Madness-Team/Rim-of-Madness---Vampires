@@ -1,3 +1,4 @@
+using RimWorld;
 using RimWorld.Planet;
 using Verse;
 
@@ -5,11 +6,11 @@ namespace Vampire
 {
     public class WorldComponent_VampireSettings : WorldComponent
     {
-        public GameMode mode = GameMode.Standard;
-        public float spawnPct = 0.05f;
+        public GameMode mode = GameMode.Disabled;
+        public float spawnPct = 0.0f;
         public int lowestActiveVampGen = 7;
-        public bool eventsEnabled = true;
-        public float sunDimming = 0.1f;
+        public bool eventsEnabled = false;
+        public float sunDimming = 0.0f;
         public bool settingsWindowSeen = false;
 
         public WorldComponent_VampireSettings(World world) : base(world)
@@ -33,7 +34,7 @@ namespace Vampire
                     sunDimming = 0f;
                     break;
                 case GameMode.Standard:
-                    spawnPct = 0.5f;
+                    spawnPct = 0.05f;
                     lowestActiveVampGen = 7;
                     eventsEnabled = true;
                     sunDimming = 0.1f;
@@ -41,6 +42,9 @@ namespace Vampire
                 case GameMode.Custom:
                     break;
             }
+            Log.Message("Vampire settings applied.");
+            Messages.Message("Vampire settings applied.", null, MessageTypeDefOf.TaskCompletion);
+            
         }
 
         public override void ExposeData()

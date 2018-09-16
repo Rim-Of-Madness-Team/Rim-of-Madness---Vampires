@@ -15,7 +15,7 @@ namespace Vampire
         {
             get
             {
-                var minGenWeaker = VampireSettingsInit.Get.lowestActiveVampGen + 3;
+                var minGenWeaker = VampireSettings.Get.lowestActiveVampGen + 3;
                 var maxGen = VAMP_MAXSPAWNGENERATION;
                 minGenWeaker = 
                     (minGenWeaker > maxGen) ? 
@@ -29,7 +29,7 @@ namespace Vampire
         {
             get
             {
-                var minGen = VampireSettingsInit.Get.lowestActiveVampGen;
+                var minGen = VampireSettings.Get.lowestActiveVampGen;
                 var maxGenTougher = 11;
                 maxGenTougher = (maxGenTougher < minGen) ? minGen : maxGenTougher;
                 var maxGen = Mathf.Clamp(maxGenTougher, minGen, maxGenTougher);
@@ -39,11 +39,11 @@ namespace Vampire
         
         public static int RandHigherGeneration
         {
-            get { return Rand.Range(VampireSettingsInit.Get.lowestActiveVampGen, VAMP_MAXSPAWNGENERATION); }
+            get { return Rand.Range(VampireSettings.Get.lowestActiveVampGen, VAMP_MAXSPAWNGENERATION); }
         }
         public static int RandLowerGeneration //3-6
         {
-            get { return Rand.Range(VAMP_MINSPAWNGENERATION, VampireSettingsInit.Get.lowestActiveVampGen); }
+            get { return Rand.Range(VAMP_MINSPAWNGENERATION, VampireSettings.Get.lowestActiveVampGen); }
 
         }
         
