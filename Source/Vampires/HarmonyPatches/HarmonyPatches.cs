@@ -598,26 +598,53 @@ namespace Vampire
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(VampiresGuestTracker)));
             //Log.Message("80");
 
-            //TODO Fix it
+            
             //Checks for food in caravans (Prefix)
-//            harmony.Patch(AccessTools.Method(typeof(DaysWorthOfFoodCalculator), "ApproxDaysWorthOfFood",
-//                    new Type[]
-//                    {
-//                        typeof(List<Pawn>), typeof(List<ThingCount>), typeof(bool),
-//                        typeof(IgnorePawnsInventoryMode)
-//                    }),
-//                new HarmonyMethod(typeof(HarmonyPatches), nameof(ApproxDaysWorthOfFood_PreFix)), null);
+            harmony.Patch(AccessTools.Method(typeof(DaysWorthOfFoodCalculator), "ApproxDaysWorthOfFood",
+                    new Type[]
+                    {
+                        typeof(List<TransferableOneWay>), typeof(int),
+                        typeof(IgnorePawnsInventoryMode), typeof(Faction),
+                        typeof(WorldPath), typeof(float), typeof(int)
+                    }),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(ApproxDaysWorthOfFood_PreFix)), null);
 //            //Log.Message("81");
 //
 //
 //            //Checks for food in caravans (Postfix)
-//            harmony.Patch(AccessTools.Method(typeof(DaysWorthOfFoodCalculator), "ApproxDaysWorthOfFood",
-//                    new Type[]
-//                    {
-//                        typeof(List<Pawn>), typeof(List<ThingCount>), typeof(bool),
-//                        typeof(IgnorePawnsInventoryMode)
-//                    }), null,
-//                new HarmonyMethod(typeof(HarmonyPatches), nameof(ApproxDaysWorthOfFood_PostFix)));
+            harmony.Patch(AccessTools.Method(typeof(DaysWorthOfFoodCalculator), "ApproxDaysWorthOfFood",
+                    new Type[]
+                    {
+                        typeof(List<TransferableOneWay>), typeof(int),
+                        typeof(IgnorePawnsInventoryMode), typeof(Faction),
+                        typeof(WorldPath), typeof(float), typeof(int)
+                    }), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(ApproxDaysWorthOfFood_PostFix)));
+            //Log.Message("82");
+
+            //Checks for food in caravans (Prefix)
+            harmony.Patch(AccessTools.Method(typeof(DaysWorthOfFoodCalculator), "ApproxDaysWorthOfFood",
+                    new Type[]
+                    {
+                        typeof(List<Pawn>), typeof(List<ThingDefCount>),
+                        typeof(int), typeof(IgnorePawnsInventoryMode),
+                        typeof(Faction), typeof(WorldPath), typeof(float),
+                        typeof(int), typeof(bool)
+                    }),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(ApproxDaysWorthOfFoodPawns_PreFix)), null);
+//            //Log.Message("81");
+//
+//
+//            //Checks for food in caravans (Postfix)
+            harmony.Patch(AccessTools.Method(typeof(DaysWorthOfFoodCalculator), "ApproxDaysWorthOfFood",
+                    new Type[]
+                    {
+                        typeof(List<Pawn>), typeof(List<ThingDefCount>),
+                        typeof(int), typeof(IgnorePawnsInventoryMode),
+                        typeof(Faction), typeof(WorldPath), typeof(float),
+                        typeof(int), typeof(bool)
+                    }), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(ApproxDaysWorthOfFoodPawns_PostFix)));
             //Log.Message("82");
 
 

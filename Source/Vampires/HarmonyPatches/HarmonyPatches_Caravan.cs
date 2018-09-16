@@ -25,17 +25,49 @@ namespace Vampire
         {
             if (__instance.PawnsListForReading.Any(x => x.IsVampire()))
             {
-                float num = GenDate.HourFloat((long)GenTicks.TicksAbs, Find.WorldGrid.LongLatOf(__instance.Tile).x);
+                float num = GenDate.HourFloat((long) GenTicks.TicksAbs, Find.WorldGrid.LongLatOf(__instance.Tile).x);
                 __result = num >= 6f && num <= 17f;
             }
         }
 
-        private static List<Pawn> caravanVampires = new List<Pawn>();
-        
+        private static List<TransferableOneWay> caravanTransferrables = new List<TransferableOneWay>();
+
         //public static class DaysWorthOfFoodCalculator
         //{
-        public static void ApproxDaysWorthOfFood_PreFix(ref List<Pawn> pawns, List<ThingCount> extraFood,
-            bool assumeCanEatLocalPlants, IgnorePawnsInventoryMode ignoreInventory, ref float __result)
+        public static void ApproxDaysWorthOfFood_PreFix(ref List<TransferableOneWay> transferables, int tile,
+            IgnorePawnsInventoryMode ignoreInventory, Faction faction, WorldPath path = null,
+            float nextTileCostLeft = 0f, int caravanTicksPerMove = 3300)
+        {
+            if (!transferables.NullOrEmpty())
+            {
+                caravanTransferrables = new List<TransferableOneWay>();
+                caravanTransferrables.AddRange(transferables.FindAll(x =>
+                    x.HasAnyThing && x.AnyThing is Pawn y && y.IsVampire()));
+                transferables.RemoveAll(x => x.HasAnyThing && x.AnyThing is Pawn y && y.IsVampire());
+            }
+        }
+
+        //public static class DaysWorthOfFoodCalculator
+        //{
+        public static void ApproxDaysWorthOfFood_PostFix(ref List<TransferableOneWay> transferables, int tile,
+            IgnorePawnsInventoryMode ignoreInventory, Faction faction, WorldPath path = null,
+            float nextTileCostLeft = 0f, int caravanTicksPerMove = 3300)
+        {
+            if (transferables == null)
+            {
+                transferables = new List<TransferableOneWay>();
+            }
+
+            transferables.AddRange(caravanTransferrables);
+        }
+
+        private static List<Pawn> caravanVampires = new List<Pawn>();
+
+        //public static class DaysWorthOfFoodCalculator
+        //{
+        public static void ApproxDaysWorthOfFoodPawns_PreFix(ref List<Pawn> pawns, List<ThingDefCount> extraFood,
+            int tile, IgnorePawnsInventoryMode ignoreInventory, Faction faction, WorldPath path,
+            float nextTileCostLeft, int caravanTicksPerMove, bool assumeCaravanMoving)
         {
             if (!pawns.NullOrEmpty())
             {
@@ -44,17 +76,19 @@ namespace Vampire
                 pawns.RemoveAll(x => x.IsVampire());
             }
         }
+
         //public static class DaysWorthOfFoodCalculator
         //{
-        public static void ApproxDaysWorthOfFood_PostFix(ref List<Pawn> pawns, List<ThingCount> extraFood,
-            bool assumeCanEatLocalPlants, IgnorePawnsInventoryMode ignoreInventory, ref float __result)
+        public static void ApproxDaysWorthOfFoodPawns_PostFix(ref List<Pawn> pawns, List<ThingDefCount> extraFood,
+            int tile, IgnorePawnsInventoryMode ignoreInventory, Faction faction, WorldPath path,
+            float nextTileCostLeft, int caravanTicksPerMove, bool assumeCaravanMoving)
         {
             if (pawns == null)
             {
                 pawns = new List<Pawn>();
             }
+
             pawns.AddRange(caravanVampires);
         }
-
     }
 }
