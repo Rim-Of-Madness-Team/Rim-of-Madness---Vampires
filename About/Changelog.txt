@@ -1,0 +1,4 @@
+1.19.0.3 (10-03-2018)
+========================
+Vampires now properly display their transformations.\nVampires no longer suffer from heart attacks.\nVampires should no longer be affected by drug policy errors.
+

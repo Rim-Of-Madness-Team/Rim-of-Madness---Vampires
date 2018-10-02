@@ -1,18 +1,32 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-	<name>Rim of Madness - Vampires</name>
-	<author>Jecrell</author>
-	<targetVersion>0.19.0</targetVersion>
-	<description>v1.0.0
-    Adds vampires to RimWorld.
+  <name>Rim of Madness - Vampires</name>
+  <author>Jecrell</author>
+  <targetVersion>0.19.0</targetVersion>
+  <description>1.19.0.3 (10-03-2018)
 
-		Heavily inspired by Vampire the Masquerade, this mod introduces a disease known as vampirism.
-		There are five Vampire bloodlines included with the mod currently.
-		Different bloodlines have different abilities: 46 in total.
-		Adds in "vitae" and blood mechanics (check the needs menu).
+Adds vampires to RimWorld.
 
-		REQUIRES JECSTOOLS TO PLAY
+Heavily inspired by Vampire the Masquerade, this mod introduces a disease known as vampirism.
+There are five Vampire bloodlines included with the mod currently.
+Different bloodlines have different abilities: over 50!
+Adds in "vitae" and blood mechanics (check the needs menu).
+
+REQUIRES JECSTOOLS TO PLAY
 		
-		Avilable languages: English, Spanish (by Daru), and Russian (by kr33man)</description>
+Avilable languages: English, Spanish (by Daru), and Russian (by kr33man)
+
+Thank you to my Patrons for supporting me in my efforts. Without you, none of this would be possible.
+
+These are the most excellent rim dwellers who support me: 
+Brachiaraidos, Cory Bonifay, CrankyPeanut, E_T, Finwej, Jan Koutsky, Jonathan, K. Bolden, Kiya Nicoll, Matt Harris, Paul Fenwick, Toc Anastar, Grendalloffen, Martin K. Bonde, Harvey Mclellan, Shane M. aka ShotgunFace, Bentley Alsup, Eric Idema, MasterScootie, GoSu, Josh McCabe, spook, Clifford Campbell, J, Michael Paugh, John Kanady, Luis Figueroa, Midgeman, Nate Haug, Richard Paul, SilentWeirdo, Audrin Navarro, Calhoun Cattell, Михаил Юрченко, Nemuri Hime, Calum, Keith Thoma, Dick Jones, Patrick, Tim Stillson, Nathan Getman, Sharp Spook, Emily Shaw, Populous25, Steven James, Zalson, Mark, Marcus Sireanu, Drachken, Nicholas Bateman, Baron Xot, Justin Andres, Luis Salvatierra, Christopher, TinyFloatingTurtle, George Chong Chuang Ming, John Boehr, Oliver White, roxxploxx, Robin Hager, That Guy, Allic, Karol Rybak, Austin Harbert, Yewty, Evan Hwang, Ryan Brock, Jonathan Holzinger, MC, Alexander, Alex Mederer, Kevin Reagan, Toss Antilles, Chelsea Archambeau, Aron Glasser, Dan Winn, Fredric Sundberg, Sarah Banks, ted stevens
+
+========================
+Changelog
+========================
+1.19.0.3 (10-03-2018)
+========================
+Vampires now properly display their transformations.\nVampires no longer suffer from heart attacks.\nVampires should no longer be affected by drug policy errors.
+
+</description>
 </ModMetaData>

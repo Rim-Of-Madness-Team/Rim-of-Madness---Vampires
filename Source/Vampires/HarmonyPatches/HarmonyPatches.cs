@@ -290,20 +290,23 @@ namespace Vampire
 //                        typeof(bool), typeof(bool)
 //                    }), null, null,
 //                new HarmonyMethod(typeof(HarmonyPatches), nameof(RenderPawnInternalTranspiler)));
+//
 
-
-//            harmony.Patch(
-//                AccessTools.Method(typeof(PawnRenderer), "RenderPawnInternal",
-//                    
-//                    new Type[]
-//                    {
-//                        typeof(Vector3), typeof(Single), typeof(bool), typeof(Rot4), typeof(Rot4),
-//                        typeof(RotDrawMode), typeof(bool), typeof(bool)
-//                    }), new HarmonyMethod(typeof(HarmonyPatches),
-//                    nameof(HarmonyPatches.RenderVampire)), null);
+            harmony.Patch(
+                AccessTools.Method(typeof(PawnRenderer), "RenderPawnInternal",
+                    
+                        new[]
+                        {
+                            typeof(Vector3), typeof(float), typeof(bool), typeof(Rot4), typeof(Rot4), typeof(RotDrawMode),
+                            typeof(bool), typeof(bool)
+                    }), new HarmonyMethod(typeof(HarmonyPatches),
+                    nameof(VampireGraphicUtility.RenderVampire)), null);
             //Vampires do not make breath motes
             harmony.Patch(AccessTools.Method(typeof(PawnBreathMoteMaker), "BreathMoteMakerTick"),
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_NoBreathingMote)), null);
+            
+            harmony.Patch(AccessTools.Method(typeof(PawnGraphicSet), "MatsBodyBaseAt"),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_MatsBodyBaseAt)), null);
             //Log.Message("27");
 
             #endregion
@@ -655,6 +658,17 @@ namespace Vampire
                     "TryGiveJob"),
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(VampsDontPackFood)), null);
 
+            
+            harmony.Patch(AccessTools.Method(typeof(Pawn_DrugPolicyTracker),
+                    nameof(Pawn_DrugPolicyTracker.ShouldTryToTakeScheduledNow)),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(VampiresDontHaveDrugSchedules)), null);
+            
+            harmony.Patch(AccessTools.Method(typeof(HediffGiver_RandomAgeCurved),
+                    nameof(HediffGiver_RandomAgeCurved.OnIntervalPassed)),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(VampsDontHaveHeartAttacks)), null);
+
+            
+            
             #endregion
 
             #region Mods
@@ -693,6 +707,41 @@ namespace Vampire
             #endregion
 
             #endregion
+        }
+
+        //HediffGiver_RandomAgeCurved
+        public static bool VampsDontHaveHeartAttacks(Pawn pawn, Hediff cause)
+        {
+            if (pawn.IsVampire())
+                return false;
+            return true;
+        }
+
+        //Pawn_DrugPolicyTracker.ShouldTryToTakeScheduledNow
+        public static bool VampiresDontHaveDrugSchedules(Pawn_DrugPolicyTracker __instance, ThingDef ingestible, ref bool __result)
+        {
+            if (__instance?.pawn?.IsVampire() == true)
+            {
+                __result = false;
+                return false;
+            }
+
+            return true;
+
+        }
+
+        //PawnGraphicSet.MatsBodyBaseAt
+        public static bool Vamp_MatsBodyBaseAt(PawnGraphicSet __instance, Rot4 facing, RotDrawMode bodyCondition, ref List<Material> __result)
+        {
+            if (__instance.nakedGraphic != null) return true;
+            if (__instance.pawn.IsVampire() && __instance?.pawn?.VampComp()?.CurrentForm != null)
+            {
+                __instance.nakedGraphic = __instance.pawn.VampComp().CurrentForm.bodyGraphicData.Graphic;
+                return true;
+            }
+            __result = new List<Material>();
+            __result.Add(GraphicDatabase.Get<Graphic_Single>("NullTex").MatSingle);
+            return false;
         }
         //JobGiver_PackFood.TryGiveJob
         public static bool VampsDontPackFood(Pawn pawn, ref Job __result)
@@ -738,14 +787,17 @@ namespace Vampire
         }
 
 
-        public static Mesh GetPawnMesh(bool portrait, Pawn pawn, Rot4 facing, bool wantsBody) =>
-            pawn.GetComp<CompVampire>() is CompVampire v && v.Transformed ? portrait ? wantsBody
-                ? v.CurrentForm.bodyGraphicData.Graphic.MeshAt(facing)
-                : null :
-            wantsBody ? v.CurrentForm.bodyGraphicData.Graphic.MeshAt(facing) :
-            null :
-            wantsBody ? MeshPool.humanlikeBodySet.MeshAt(rot: facing) :
-            MeshPool.humanlikeHeadSet.MeshAt(rot: facing);
+        public static Mesh GetPawnMesh(bool portrait, Pawn pawn, Rot4 facing, bool wantsBody)
+        {
+            if (pawn.GetComp<CompVampire>() is CompVampire v && v.Transformed)
+                if (wantsBody)
+                    return v.CurrentForm.bodyGraphicData.Graphic.MeshAt(facing);
+                else
+                    return null;
+            if (wantsBody)
+                return MeshPool.humanlikeBodySet.MeshAt(rot: facing);
+            return MeshPool.humanlikeHeadSet.MeshAt(rot: facing);
+        }
 
 
         public static IEnumerable<CodeInstruction> RenderPawnInternalTranspiler(
@@ -1929,6 +1981,8 @@ namespace Vampire
                     __instance.CasterPawn.health.RemoveHediff(ht);
                     __instance.CasterPawn.VampComp().CurrentForm = null;
                     __instance.CasterPawn.VampComp().CurFormGraphic = null;
+                    __instance.CasterPawn.Drawer.renderer.graphics.nakedGraphic = null;
+                    __instance.CasterPawn.Drawer.renderer.graphics.headGraphic = null;
                     __instance.CasterPawn.Drawer.renderer.graphics.ResolveAllGraphics();
                 }
 
@@ -1941,6 +1995,7 @@ namespace Vampire
                     __instance.CasterPawn.VampComp().CurrentForm = null;
                     __instance.CasterPawn.VampComp().CurFormGraphic = null;
                     __instance.CasterPawn.Drawer.renderer.graphics.nakedGraphic = null;
+                    __instance.CasterPawn.Drawer.renderer.graphics.headGraphic = null;
                     __instance.CasterPawn.Drawer.renderer.graphics.ResolveAllGraphics();
                 }
             }
@@ -1965,7 +2020,7 @@ namespace Vampire
         // Verse.PawnGraphicSet
         public static bool Vamp_ResolveApparelGraphics(PawnGraphicSet __instance)
         {
-            if (__instance.pawn.VampComp() is CompVampire v && v.Transformed)
+            if (__instance.pawn.VampComp() is CompVampire v && v.CurrentForm != null)
             {
                 __instance.ClearCache();
                 __instance.apparelGraphics.Clear();
@@ -1988,29 +2043,40 @@ namespace Vampire
 
         public static void Vamp_ResolveAllGraphics(PawnGraphicSet __instance)
         {
-            if (__instance?.pawn?.VampComp() is CompVampire v && v.IsVampire && !v.Transformed)
+            if (__instance?.pawn?.VampComp() is CompVampire v && v.IsVampire)
             {
-                if (v?.Bloodline?.nakedBodyGraphicsPath != "")
+                if (!v.Transformed)
                 {
-                    Graphic newBodyGraphic = VampireGraphicUtility.GetNakedBodyGraphic(__instance.pawn,
-                        __instance.pawn.story.bodyType, ShaderDatabase.CutoutSkin, __instance.pawn.story.SkinColor);
-                    if (newBodyGraphic != null)
-                        __instance.nakedGraphic = newBodyGraphic;
-                }
-
-                if (v?.Bloodline?.headGraphicsPath != "")
-                {
-                    string headPath = VampireGraphicUtility.GetHeadGraphicPath(__instance.pawn);
-                    if (headPath != "")
+                    if (v?.Bloodline?.nakedBodyGraphicsPath != "")
                     {
-                        Graphic newHeadGraphic = VampireGraphicUtility.GetVampireHead(__instance.pawn, headPath,
-                            __instance.pawn.story.SkinColor);
-                        if (newHeadGraphic != null)
-                            __instance.headGraphic = newHeadGraphic;
+                        Graphic newBodyGraphic = VampireGraphicUtility.GetNakedBodyGraphic(__instance.pawn,
+                            __instance.pawn.story.bodyType, ShaderDatabase.CutoutSkin, __instance.pawn.story.SkinColor);
+                        if (newBodyGraphic != null)
+                            __instance.nakedGraphic = newBodyGraphic;
+                    }
+
+                    if (v?.Bloodline?.headGraphicsPath != "")
+                    {
+                        string headPath = VampireGraphicUtility.GetHeadGraphicPath(__instance.pawn);
+                        if (headPath != "")
+                        {
+                            Graphic newHeadGraphic = VampireGraphicUtility.GetVampireHead(__instance.pawn, headPath,
+                                __instance.pawn.story.SkinColor);
+                            if (newHeadGraphic != null)
+                                __instance.headGraphic = newHeadGraphic;
+                        }
                     }
                 }
-
-                __instance.ResolveApparelGraphics();
+                else
+                {
+                    Log.Message("Rendering vampire...");
+                    __instance.nakedGraphic = v.CurFormGraphic;
+                    __instance.hairGraphic = GraphicDatabase.Get<Graphic_Single>("NullTex",
+                        ShaderDatabase.CutoutComplex, Vector2.one, Color.white);
+                    __instance.headGraphic = GraphicDatabase.Get<Graphic_Single>("NullTex",
+                        ShaderDatabase.CutoutComplex, Vector2.one, Color.white);
+                }
+                __instance.ResolveApparelGraphics(); 
             }
         }
 

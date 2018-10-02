@@ -1,0 +1,10 @@
+Adds vampires to RimWorld.
+
+Heavily inspired by Vampire the Masquerade, this mod introduces a disease known as vampirism.
+There are five Vampire bloodlines included with the mod currently.
+Different bloodlines have different abilities: over 50!
+Adds in "vitae" and blood mechanics (check the needs menu).
+
+REQUIRES JECSTOOLS TO PLAY
+		
+Avilable languages: English, Spanish (by Daru), and Russian (by kr33man)

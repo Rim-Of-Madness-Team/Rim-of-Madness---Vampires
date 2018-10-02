@@ -4,9 +4,9 @@
 
 Rim of Madness - Vampires Update
 ====================
-Version: 1.19.0.2
+Version: 1.19.0.3
 Updated: 09-16-2018
-Description: Fixes issue with caravans being unable to calculate food.
+Description: Vampire frequency reduced to properly match settings. Fixed issue with tolerances generation. Fixed issue with JobGiver_PackFood.
 ====================
 
 Download now on...
@@ -25,9 +25,9 @@ Discuss the mod on...
 [img width=260]https://raw.githubusercontent.com/Rim-Of-Madness-Team/Rim-of-Madness---Vampires/master/About/Preview.png[/img]
 [hr]
 [b]Rim of Madness - Vampires
-Version: 1.19.0.2
+Version: 1.19.0.3
 Updated: 09-16-2018
-Description: [color=orange]Fixes issue with caravans being unable to calculate food.[/color]
+Description: [color=orange]Vampire frequency reduced to properly match settings. Fixed issue with tolerances generation. Fixed issue with JobGiver_PackFood.[/color]
 [hr]
 [b]Download now on...[/b]
 [url=https://www.patreon.com/posts/21427965]Patreon[/url]

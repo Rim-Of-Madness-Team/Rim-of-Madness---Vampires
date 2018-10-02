@@ -30,6 +30,7 @@ namespace Vampire
         public override void CompPostTick(ref float severityAdjustment)
         {
             base.CompPostTick(ref severityAdjustment);
+            var v = Pawn.VampComp();
             if (!activated)
             {
                 activated = true;
@@ -37,21 +38,36 @@ namespace Vampire
                 {
                     Pawn.health.hediffSet.hediffs.Remove(h);
                 }
-                Pawn.VampComp().CurrentForm = Props.animalToChangeInto;
-                Pawn.VampComp().CurFormGraphic = null;
-
+                v.CurrentForm = Props.animalToChangeInto;
+                v.CurFormGraphic = null;
+                
+                if (v.CurrentForm != null)
+                {
+                    if (v.CurrentForm.GetCompProperties<CompAnimated.CompProperties_Animated>() is
+                        CompAnimated.CompProperties_Animated Props)
+                    {
+                        Graphic curGraphic = v.CurFormGraphic;
+                        v.CurFormGraphic = CompAnimated.CompAnimated.ResolveCurGraphic(Pawn, Props, ref curGraphic,
+                            ref v.atCurIndex, ref v.atCurTicks, ref v.atDirty, false);
+                    }
+                    else
+                    {
+                        v.CurFormGraphic = v.CurrentForm.bodyGraphicData.Graphic;
+                    }
+                }
+                Pawn.Drawer.renderer.graphics.ResolveAllGraphics();
                 //Log.Message("CurrentForm set to " + this.Props.animalToChangeInto.label);
             }
             if (CompShouldRemove)
             {
-                Pawn.VampComp().CurrentForm = null;
+                v.CurrentForm = null;
             }
         }
 
         public override void CompExposeData()
         {
             base.CompExposeData();
-            Scribe_Values.Look(ref activated, "activated");
+            //Scribe_Values.Look(ref activated, "activated");
         }
     }
 }

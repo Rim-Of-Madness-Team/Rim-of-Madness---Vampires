@@ -83,7 +83,11 @@ namespace Vampire
 
         private static Graphic invisibleForm = null;
         
-        public static bool RenderVampire(PawnRenderer __instance, Vector3 rootLoc, Single angle, bool renderBody,
+        
+        //  typeof(Vector3), typeof(float), typeof(bool),
+        //  typeof(Rot4), typeof(Rot4), typeof(RotDrawMode),
+        //  typeof(bool), typeof(bool)
+        public static bool RenderVampire(PawnRenderer __instance, Vector3 rootLoc, float angle, bool renderBody,
             Rot4 bodyFacing, Rot4 headFacing, RotDrawMode bodyDrawType, bool portrait, bool headStump)
         {
             Quaternion quaternion = Quaternion.AngleAxis(angle, Vector3.up);

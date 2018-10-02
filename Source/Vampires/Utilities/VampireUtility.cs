@@ -49,7 +49,7 @@ namespace Vampire
 
         public static bool IsAndroid(this Pawn pawn)
         {
-            if (pawn != null && pawn?.def?.race?.hediffGiverSets?.FirstOrDefault(x => x.defName == "ChjAndroidStandard") != null)
+            if (pawn != null && pawn?.def?.race?.hediffGiverSets?.FirstOrDefault(x => x.defName == "ChjAndroidStandard" || x.defName == "AndroidStandardAtlas") != null)
                 return true;
             return false;
         }
