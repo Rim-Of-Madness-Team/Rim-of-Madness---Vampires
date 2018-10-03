@@ -12,6 +12,7 @@
 	  <drawSize>3.5</drawSize>
 	  <shaderType>TransparentPostLight</shaderType>
 	  <color>RGBA(1.0, 1.0, 1.0, 0.17)</color>
+	  <graphicClass>Graphic_Multi</graphicClass>
 	</bodyGraphicData>
   </Vampire.TransformationDef>  
 

@@ -1981,11 +1981,8 @@ namespace Vampire
                     __instance.CasterPawn.health.RemoveHediff(ht);
                     __instance.CasterPawn.VampComp().CurrentForm = null;
                     __instance.CasterPawn.VampComp().CurFormGraphic = null;
-                    __instance.CasterPawn.Drawer.renderer.graphics.nakedGraphic = null;
-                    __instance.CasterPawn.Drawer.renderer.graphics.headGraphic = null;
                     __instance.CasterPawn.Drawer.renderer.graphics.ResolveAllGraphics();
                 }
-
                 if (__instance.CasterPawn.health.hediffSet.hediffs.FirstOrDefault(x =>
                         x.TryGetComp<HediffComp_Hidden>() != null) is HediffWithComps htt &&
                     htt.TryGetComp<HediffComp_Hidden>() is HediffComp_Hidden hf && !hf.Props.canGiveDamage)
@@ -1995,11 +1992,9 @@ namespace Vampire
                     __instance.CasterPawn.VampComp().CurrentForm = null;
                     __instance.CasterPawn.VampComp().CurFormGraphic = null;
                     __instance.CasterPawn.Drawer.renderer.graphics.nakedGraphic = null;
-                    __instance.CasterPawn.Drawer.renderer.graphics.headGraphic = null;
                     __instance.CasterPawn.Drawer.renderer.graphics.ResolveAllGraphics();
                 }
             }
-
             return true;
         }
 
@@ -2043,40 +2038,27 @@ namespace Vampire
 
         public static void Vamp_ResolveAllGraphics(PawnGraphicSet __instance)
         {
-            if (__instance?.pawn?.VampComp() is CompVampire v && v.IsVampire)
+            if (__instance?.pawn?.VampComp() is CompVampire v && v.IsVampire && !v.Transformed)
             {
-                if (!v.Transformed)
+                if (v?.Bloodline?.nakedBodyGraphicsPath != "")
                 {
-                    if (v?.Bloodline?.nakedBodyGraphicsPath != "")
+                    Graphic newBodyGraphic = VampireGraphicUtility.GetNakedBodyGraphic(__instance.pawn,
+                        __instance.pawn.story.bodyType, ShaderDatabase.CutoutSkin, __instance.pawn.story.SkinColor);
+                    if (newBodyGraphic != null)
+                        __instance.nakedGraphic = newBodyGraphic;
+                }
+                if (v?.Bloodline?.headGraphicsPath != "")
+                {
+                    string headPath = VampireGraphicUtility.GetHeadGraphicPath(__instance.pawn);
+                    if (headPath != "")
                     {
-                        Graphic newBodyGraphic = VampireGraphicUtility.GetNakedBodyGraphic(__instance.pawn,
-                            __instance.pawn.story.bodyType, ShaderDatabase.CutoutSkin, __instance.pawn.story.SkinColor);
-                        if (newBodyGraphic != null)
-                            __instance.nakedGraphic = newBodyGraphic;
-                    }
-
-                    if (v?.Bloodline?.headGraphicsPath != "")
-                    {
-                        string headPath = VampireGraphicUtility.GetHeadGraphicPath(__instance.pawn);
-                        if (headPath != "")
-                        {
-                            Graphic newHeadGraphic = VampireGraphicUtility.GetVampireHead(__instance.pawn, headPath,
-                                __instance.pawn.story.SkinColor);
-                            if (newHeadGraphic != null)
-                                __instance.headGraphic = newHeadGraphic;
-                        }
+                        Graphic newHeadGraphic = VampireGraphicUtility.GetVampireHead(__instance.pawn, headPath,
+                            __instance.pawn.story.SkinColor);
+                        if (newHeadGraphic != null)
+                            __instance.headGraphic = newHeadGraphic;
                     }
                 }
-                else
-                {
-                    Log.Message("Rendering vampire...");
-                    __instance.nakedGraphic = v.CurFormGraphic;
-                    __instance.hairGraphic = GraphicDatabase.Get<Graphic_Single>("NullTex",
-                        ShaderDatabase.CutoutComplex, Vector2.one, Color.white);
-                    __instance.headGraphic = GraphicDatabase.Get<Graphic_Single>("NullTex",
-                        ShaderDatabase.CutoutComplex, Vector2.one, Color.white);
-                }
-                __instance.ResolveApparelGraphics(); 
+                __instance.ResolveApparelGraphics();
             }
         }
 

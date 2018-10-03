@@ -12,6 +12,7 @@
 	  <color>(110,95,82)</color>
 	  <drawSize>2.2</drawSize>
 	  <shaderType>CutoutComplex</shaderType>
+	  <graphicClass>Graphic_Multi</graphicClass>
 	</bodyGraphicData>
 	<comps>
 	  <li Class="CompAnimated.CompProperties_Animated">

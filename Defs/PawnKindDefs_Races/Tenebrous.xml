@@ -10,6 +10,7 @@
 	<bodyGraphicData>
 	  <texPath>Things/Pawn/Animal/Tenebrous/tenebrous</texPath>
 	  <drawSize>2.0</drawSize>
+	  <graphicClass>Graphic_Multi</graphicClass>
 	</bodyGraphicData>
   </Vampire.TransformationDef>  
 

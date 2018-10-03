@@ -90,9 +90,9 @@ namespace Vampire
         public static bool RenderVampire(PawnRenderer __instance, Vector3 rootLoc, float angle, bool renderBody,
             Rot4 bodyFacing, Rot4 headFacing, RotDrawMode bodyDrawType, bool portrait, bool headStump)
         {
-            Quaternion quaternion = Quaternion.AngleAxis(angle, Vector3.up);
+            Quaternion quat = Quaternion.AngleAxis(angle, Vector3.up);
             
-            Pawn p = Traverse.Create(__instance).Field("pawn").GetValue<Pawn>();
+             Pawn p = Traverse.Create(__instance).Field("pawn").GetValue<Pawn>();
             if (p?.Map?.GetComponent<MapComponent_HiddenTracker>()?.hiddenCharacters?.Contains(p) ?? false)
             {
                 //<texPath>Things/Pawn/Animal/Tenebrous/tenebrous</texPath>
@@ -100,13 +100,13 @@ namespace Vampire
                 if (VampireGraphicUtility.invisibleForm == null)
                 {
                     var graphicData = new GraphicData();
-                    graphicData.drawSize = new Vector2(2, 2);
+                    graphicData.drawSize = new Vector2(2,2);
                     graphicData.texPath = "Things/Pawn/Hidden/hidden";
                     VampireGraphicUtility.invisibleForm = graphicData.Graphic;
                 }
                 __instance.graphics.nakedGraphic = VampireGraphicUtility.invisibleForm;
                 return false;
-            }
+            }            
             if (p?.Map?.GetComponent<MapComponent_HiddenTracker>()?.toRemoveCharacters?.Contains(p) ?? false)
             {
                 __instance.graphics.nakedGraphic = null;
@@ -123,12 +123,10 @@ namespace Vampire
                     {
                         if (v.CurrentForm != null)
                         {
-                            if (v.CurrentForm.GetCompProperties<CompAnimated.CompProperties_Animated>() is
-                                CompAnimated.CompProperties_Animated Props)
+                            if (v.CurrentForm.GetCompProperties<CompAnimated.CompProperties_Animated>() is CompAnimated.CompProperties_Animated Props)
                             {
                                 Graphic curGraphic = v.CurFormGraphic;
-                                v.CurFormGraphic = CompAnimated.CompAnimated.ResolveCurGraphic(p, Props, ref curGraphic,
-                                    ref v.atCurIndex, ref v.atCurTicks, ref v.atDirty, false);
+                                v.CurFormGraphic = CompAnimated.CompAnimated.ResolveCurGraphic(p, Props, ref curGraphic, ref v.atCurIndex, ref v.atCurTicks, ref v.atDirty, false);
                             }
                             else
                             {
@@ -137,8 +135,7 @@ namespace Vampire
                         }
                         else
                         {
-                            v.CurFormGraphic = p.kindDef.lifeStages[p.ageTracker.CurLifeStageIndex].bodyGraphicData
-                                .Graphic; // v.CurrentForm.lifeStages[0].bodyGraphicData.Graphic;
+                            v.CurFormGraphic = p.kindDef.lifeStages[p.ageTracker.CurLifeStageIndex].bodyGraphicData.Graphic;// v.CurrentForm.lifeStages[0].bodyGraphicData.Graphic;
                         }
                         __instance.graphics.nakedGraphic = v.CurFormGraphic;
                         __instance.graphics.ResolveApparelGraphics();
@@ -148,8 +145,7 @@ namespace Vampire
                     {
                         Vector3 loc = rootLoc;
                         loc.y += 0.0046875f;
-                        if (bodyDrawType == RotDrawMode.Dessicated && !p.RaceProps.Humanlike &&
-                            __instance.graphics.dessicatedGraphic != null && !portrait)
+                        if (bodyDrawType == RotDrawMode.Dessicated && !p.RaceProps.Humanlike && __instance.graphics.dessicatedGraphic != null && !portrait)
                         {
                             __instance.graphics.dessicatedGraphic.Draw(loc, bodyFacing, p);
                         }
@@ -163,32 +159,29 @@ namespace Vampire
                                 Vector3 scaleVector = new Vector3(loc.x, loc.y, loc.z);
                                 if (portrait)
                                 {
-                                    scaleVector.x *=
-                                        1f + (1f - (portrait
-                                                  ? v.CurrentForm.bodyGraphicData.drawSize
-                                                  : v.CurrentForm.bodyGraphicData.drawSize)
-                                              .x);
-                                    scaleVector.z *=
-                                        1f + (1f - (portrait
-                                                  ? v.CurrentForm.bodyGraphicData.drawSize
-                                                  : v.CurrentForm.bodyGraphicData.drawSize)
-                                              .y);
+                                    scaleVector.x *= 1f + (1f - (portrait ?
+                                                                v.CurrentForm.bodyGraphicData.drawSize :
+                                                                v.CurrentForm.bodyGraphicData.drawSize)
+                                                            .x);
+                                    scaleVector.z *= 1f + (1f - (portrait ?
+                                                                    v.CurrentForm.bodyGraphicData.drawSize :
+                                                                    v.CurrentForm.bodyGraphicData.drawSize)
+                                                                .y);
                                 }
                                 else scaleVector = new Vector3(0, 0, 0);
-                                GenDraw.DrawMeshNowOrLater(mesh, loc + scaleVector, quaternion, damagedMat,
-                                    portrait);
+                                GenDraw.DrawMeshNowOrLater(mesh, loc + scaleVector, quat, damagedMat, portrait);
                                 loc.y += 0.0046875f;
                             }
                             if (bodyDrawType == RotDrawMode.Fresh)
                             {
                                 Vector3 drawLoc = rootLoc;
                                 drawLoc.y += 0.01875f;
-                                Traverse.Create(__instance).Field("woundOverlays").GetValue<PawnWoundDrawer>()
-                                    .RenderOverBody(drawLoc, mesh, quaternion, portrait);
+                                Traverse.Create(__instance).Field("woundOverlays").GetValue<PawnWoundDrawer>().RenderOverBody(drawLoc, mesh, quat, portrait);
                             }
                         }
                     }
                     return false;
+
                 }
                 else if (!v.Transformed && v.CurFormGraphic != null)
                 {

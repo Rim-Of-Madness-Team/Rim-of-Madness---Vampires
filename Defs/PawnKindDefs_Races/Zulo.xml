@@ -9,6 +9,7 @@
 	<bodyGraphicData>
 	  <texPath>Things/Pawn/Animal/Zulo/Zulo</texPath>
 	  <drawSize>3.05</drawSize>
+	  <graphicClass>Graphic_Multi</graphicClass>
 	</bodyGraphicData>
   </Vampire.TransformationDef>  
 
