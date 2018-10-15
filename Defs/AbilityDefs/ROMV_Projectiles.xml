@@ -2,7 +2,7 @@
 
 <Defs>
 
-<ThingDef Name="BaseBullet" Abstract="True">
+<ThingDef Name="InvisBaseBullet" Abstract="True">
   <category>Projectile</category>
   <tickerType>Normal</tickerType>
   <altitudeLayer>Projectile</altitudeLayer>
@@ -16,7 +16,7 @@
 </ThingDef>
 
 
-  <ThingDef ParentName="BaseBullet" Name="ROMV_FlyingObject">
+  <ThingDef ParentName="InvisBaseBullet" Name="ROMV_FlyingObject">
    <defName>ROMV_FlyingObject</defName>
    <thingClass>Vampire.FlyingObject</thingClass>
    <label>flying object</label>
@@ -33,7 +33,7 @@
  </ThingDef>
 
 
-<ThingDef ParentName="BaseBullet" Class="AbilityUser.ProjectileDef_Ability">
+<ThingDef ParentName="InvisBaseBullet" Class="AbilityUser.ProjectileDef_Ability">
  <defName>ROMV_DominateProjectile</defName>
  <thingClass>AbilityUser.Projectile_Ability</thingClass>
  <label>psionic blast</label>
@@ -49,7 +49,7 @@
  </projectile>
 </ThingDef>
 
-<ThingDef ParentName="BaseBullet" Class="AbilityUser.ProjectileDef_Ability">
+<ThingDef ParentName="InvisBaseBullet" Class="AbilityUser.ProjectileDef_Ability">
  <defName>ROMV_BloodProjectile_BloodBoil</defName>
  <thingClass>Vampire.Projectile_BloodBoil</thingClass>
  <label>blood boil projectile</label>
@@ -65,7 +65,7 @@
  </projectile>
 </ThingDef>
 
-<ThingDef ParentName="BaseBullet" Class="AbilityUser.ProjectileDef_Ability">
+<ThingDef ParentName="InvisBaseBullet" Class="AbilityUser.ProjectileDef_Ability">
  <defName>ROMV_BloodProjectile</defName>
  <thingClass>Vampire.Projectile_BloodStealer</thingClass>
  <label>blood projectile</label>
@@ -81,7 +81,7 @@
  </projectile>
 </ThingDef>
 
-<ThingDef ParentName="BaseBullet" Class="AbilityUser.ProjectileDef_Ability">
+<ThingDef ParentName="InvisBaseBullet" Class="AbilityUser.ProjectileDef_Ability">
  <defName>ROMV_BloodProjectile_Returner</defName>
  <thingClass>Vampire.Projectile_BloodReturner</thingClass>
  <label>blood projectile</label>

@@ -1,3 +1,7 @@
+1.19.0.5 (10-16-2018)
+========================
+Removes abstracts for BaseBullet, MoteBase, FoodBitBase, BaseMentalState, and AnimalKindBaseWolf.
+
 1.19.0.4 (10-03-2018)
 ========================
 Fixes issues with war form, zulo form, mist form, etc

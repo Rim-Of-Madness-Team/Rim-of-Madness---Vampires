@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
-  <MentalStateDef Abstract="True" Name="BaseMentalState">
-    <minTicksBeforeRecovery>10000</minTicksBeforeRecovery>
-    <recoveryMtbDays>0.3</recoveryMtbDays>
-  </MentalStateDef>
-
-  <!-- Mental breaks: extreme -->
-
   <MentalBreakDef>
     <defName>ROMV_VampireBeast</defName>
     <mentalState>ROMV_VampireBeast</mentalState>

@@ -27,34 +27,4 @@
     </graphicData>
   </ThingDef>
 
-  <!--=============== Bases ==============-->
-
-  <ThingDef Name="MoteBase" Abstract="True">
-    <thingClass>MoteThrown</thingClass>
-    <label>Mote</label>
-    <category>Mote</category>
-    <graphicData>
-      <graphicClass>Graphic_Mote</graphicClass>
-      <shaderType>Mote</shaderType>
-    </graphicData>
-    <altitudeLayer>MoteLow</altitudeLayer>
-    <tickerType>Normal</tickerType>
-    <useHitPoints>false</useHitPoints>
-    <isSaveable>false</isSaveable>
-    <rotatable>false</rotatable>
-  </ThingDef>
-
-  <ThingDef ParentName="MoteBase" Name="FoodBitBase" Abstract="True">
-    <graphicData>
-      <shaderType>Cutout</shaderType>
-    </graphicData>
-    <altitudeLayer>Projectile</altitudeLayer>
-    <mote>
-      <fadeInTime>0.08</fadeInTime>
-      <solidTime>0.4</solidTime>
-      <fadeOutTime>0.25</fadeOutTime>
-    </mote>
-  </ThingDef>
-
-
 </Defs>

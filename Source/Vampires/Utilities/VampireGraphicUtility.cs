@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Harmony;
 using RimWorld;
 using System.Collections.Generic;

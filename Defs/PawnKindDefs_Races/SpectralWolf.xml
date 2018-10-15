@@ -183,10 +183,4 @@
       </race>
     </ThingDef>
 
-    <PawnKindDef ParentName="AnimalKindBase" Name="AnimalKindBaseWolf" Abstract="True">
-      <combatPower>75</combatPower>
-       
-      <ecoSystemWeight>0.9</ecoSystemWeight>
-    </PawnKindDef>
-
 </Defs>
