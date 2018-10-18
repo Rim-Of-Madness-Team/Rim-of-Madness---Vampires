@@ -2,8 +2,8 @@
 <ModMetaData>
   <name>Rim of Madness - Vampires</name>
   <author>Jecrell</author>
-  <targetVersion>0.19.0</targetVersion>
-  <description>1.19.0.5 (10-16-2018)
+  <targetVersion>1.0.2059</targetVersion>
+  <description>1.20.0.0 (10-18-2018)
 
 Adds vampires to RimWorld.
 
@@ -24,6 +24,10 @@ Lumberjack, Shibby Says, TheJagermeister, Cory Bonifay, Kiya Nicoll, Matt Harris
 ========================
 Changelog
 ========================
+1.20.0.0 (10-18-2018)
+========================
+Initial reupload of Vampires for RimWorld 1.0.
+
 1.19.0.5 (10-16-2018)
 ========================
 Removes abstracts for BaseBullet, MoteBase, FoodBitBase, BaseMentalState, and AnimalKindBaseWolf.
