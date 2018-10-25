@@ -416,7 +416,7 @@ namespace Vampire
             harmony.Patch(AccessTools.Method(typeof(Dialog_DebugActionsMenu), "DoListingItems_MapTools"), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(DoListingItems_MapTools_Vamp)));
             //Log.Message("46");
-            //Adds blood extraction recipes to all living organisms
+            //Adds blood extraction/transfer recipes to all living organisms
             harmony.Patch(AccessTools.Method(typeof(ThingDef), "get_AllRecipes"), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(get_AllRecipes_BloodFeedable)));
             //Log.Message("47");
@@ -2481,6 +2481,21 @@ namespace Vampire
                         __result.Add(VampDefOf.ROMV_ExtractBloodVial);
                     if (!__result.Contains(VampDefOf.ROMV_ExtractBloodPack))
                         __result.Add(VampDefOf.ROMV_ExtractBloodPack);
+
+                    //Add blood transfer for humanlikes
+                    if (__instance?.race?.Humanlike ?? false)
+                    {
+
+                        if (!__result.Contains(VampDefOf.ROM_TransferBloodPack))
+                            __result.Add(VampDefOf.ROM_TransferBloodPack);
+                    }
+
+                    //Add blood transfer for animals
+                    if (__instance?.race?.Animal ?? false)
+                    {
+                        if (!__result.Contains(VampDefOf.ROM_TransferBloodPackAnimal))
+                            __result.Add(VampDefOf.ROM_TransferBloodPackAnimal);
+                    }
                 }
             }
         }

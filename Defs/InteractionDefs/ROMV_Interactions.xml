@@ -14,12 +14,12 @@
     <initiatorXpGainAmount>100</initiatorXpGainAmount>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->Tried to consume [other_nameShortIndef]'s soul.</li>
+        <li>r_logentry->Tried to consume [RECIPIENT_nameIndef]'s soul.</li>
       </rulesStrings>
     </logRulesInitiator>
     <logRulesRecipient>
       <rulesStrings>
-        <li>r_logentry->[other_nameShortIndef] tried to consume my soul.</li>
+        <li>r_logentry->[RECIPIENT_nameIndef] tried to consume my soul.</li>
       </rulesStrings>
     </logRulesRecipient>
   </InteractionDef>
@@ -53,12 +53,12 @@
     <initiatorXpGainAmount>30</initiatorXpGainAmount>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->Gave blood to [other_nameShortIndef].</li>
+        <li>r_logentry->Gave blood to [RECIPIENT_nameIndef].</li>
       </rulesStrings>
     </logRulesInitiator>
     <logRulesRecipient>
       <rulesStrings>
-        <li>r_logentry->Drank blood from [other_nameShortIndef].</li>
+        <li>r_logentry->Drank blood from [RECIPIENT_nameIndef].</li>
       </rulesStrings>
     </logRulesRecipient>
   </InteractionDef>
@@ -74,12 +74,12 @@
     <initiatorXpGainAmount>30</initiatorXpGainAmount>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->Gave blood to [other_nameShortIndef].</li>
+        <li>r_logentry->Gave blood to [RECIPIENT_nameIndef].</li>
       </rulesStrings>
     </logRulesInitiator>
     <logRulesRecipient>
       <rulesStrings>
-        <li>r_logentry->Drank blood from [other_nameShortIndef].</li>
+        <li>r_logentry->Drank blood from [RECIPIENT_nameIndef].</li>
       </rulesStrings>
     </logRulesRecipient>
   </InteractionDef>
@@ -125,12 +125,12 @@
     <initiatorXpGainAmount>30</initiatorXpGainAmount>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->Shared vampiric knowledge with [other_nameShortIndef].</li>
+        <li>r_logentry->Shared vampiric knowledge with [RECIPIENT_nameIndef].</li>
       </rulesStrings>
     </logRulesInitiator>
     <logRulesRecipient>
       <rulesStrings>
-        <li>r_logentry->Learned vampiric knowledge from [other_nameShortIndef].</li>
+        <li>r_logentry->Learned vampiric knowledge from [RECIPIENT_nameIndef].</li>
       </rulesStrings>
     </logRulesRecipient>
   </InteractionDef>

@@ -45,6 +45,7 @@ namespace Vampire
 
             if (DiablerieInteractionGiven) return;
             DiablerieInteractionGiven = true;
+            Find.LetterStack.ReceiveLetter("ROMV_AttemptedDiablerie".Translate(this.pawn), TranslatorFormattedStringExtensions.Translate("ROMV_VampireDiablerieAttemptedLetter", this.pawn, Victim, this.pawn.ProSubj().Named("PAWN_pronoun")), LetterDefOf.ThreatSmall);
             MoteMaker.MakeInteractionBubble(GetActor(), Victim, VampDefOf.ROMV_VampireDiablerieAttempt.interactionMote, VampDefOf.ROMV_VampireDiablerieAttempt.Symbol);
             if (this?.Victim?.needs?.mood?.thoughts?.memories is MemoryThoughtHandler m)
             {

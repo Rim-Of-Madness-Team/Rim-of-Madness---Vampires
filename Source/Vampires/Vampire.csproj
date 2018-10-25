@@ -241,6 +241,7 @@
     <Compile Include="Utilities\VampireGen.cs" />
     <Compile Include="Utilities\VampireThoughtUtility.cs" />
     <Compile Include="Utilities\VampireUtility.cs" />
+    <Compile Include="Workers\Recipe_TransferBlood.cs" />
     <Compile Include="Workers\SymbolResolver_VampireLair.cs" />
     <Compile Include="WorldComponent_VampireSettings.cs" />
     <Compile Include="WorldComponent_VampireTracker.cs" />

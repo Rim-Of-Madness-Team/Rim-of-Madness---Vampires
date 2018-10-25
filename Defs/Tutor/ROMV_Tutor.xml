@@ -7,7 +7,7 @@
     <defName>ROMV_VampDiablerie</defName>
     <label>Vampires: Diablerie</label>
     <priority>50</priority>
-    <helpText>Diablerie is when one vampire drains another vampire of not just all its vitae, but its very soul. If the victim had a lower generation than the attacker, the consumer will lower its generation to match the generation of the soul it devoured. This is the only way to further empower your vampires.</helpText>
+    <helpText>Diablerie is when one vampire drains another vampire of not just all its vitae, but its very soul. If the victim had a lower generation than the attacker, the consumer will lower its generation to match the generation of the soul it devoured. This is the only way to further empower your vampires.\nWarning. Vampires that are attacked in diablerie will bolster their souls and become hostile. They must be downed in combat to have their souls consumed.</helpText>
   </ConceptDef>
 
   <ConceptDef>

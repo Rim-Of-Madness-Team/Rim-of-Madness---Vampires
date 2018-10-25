@@ -126,14 +126,10 @@ namespace Vampire
                 lookTarget.health.AddHediff(addictionHediffDef, null, null);
                 if (PawnUtility.ShouldSendNotificationAbout(lookTarget))
                 {
-                    Find.LetterStack.ReceiveLetter("LetterLabelNewlyAddicted".Translate(new object[]
-                    {
-                        chemical.label
-                    }).CapitalizeFirst(), "LetterNewlyAddicted".Translate(new object[]
-                    {
-                        lookTarget.LabelShort,
-                        chemical.label
-                    }).AdjustedFor(lookTarget).CapitalizeFirst(), LetterDefOf.NegativeEvent, lookTarget, null);
+
+                    Find.LetterStack.ReceiveLetter("LetterLabelNewlyAddicted".Translate(chemical.label).CapitalizeFirst(), 
+                        "LetterNewlyAddicted".Translate(lookTarget.LabelShort, chemical.label, lookTarget.Named("PAWN"))
+                        .AdjustedFor(lookTarget, "PAWN").CapitalizeFirst(), LetterDefOf.NegativeEvent, lookTarget, null, null);
                 }
                 AddictionUtility.CheckDrugAddictionTeachOpportunity(lookTarget);
             }

@@ -51,6 +51,8 @@ namespace Vampire
 
         public static RecipeDef ROMV_ExtractBloodVial;
         public static RecipeDef ROMV_ExtractBloodPack;
+        public static RecipeDef ROM_TransferBloodPack;
+        public static RecipeDef ROM_TransferBloodPackAnimal;
 
         public static ThingDef ROMV_HideyHole;
         public static ThingDef ROMV_RoyalCoffin;

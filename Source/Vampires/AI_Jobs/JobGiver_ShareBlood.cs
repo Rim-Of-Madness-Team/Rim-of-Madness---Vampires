@@ -37,10 +37,21 @@ namespace Vampire
                 return 0f;
             }
             if (pawn.VampComp().Ghouls is List<Pawn> ghouls && !ghouls.NullOrEmpty() && 
-                ghouls.Any(ghoul => ghoul?.VampComp()?.ThrallData?.ShouldFeedBlood ?? false))
+                ghouls.Any(ghoul => ShouldGiveBloodNow(pawn, ghoul)))
                 return 9.5f;
             //Log.Message("0f");
             return 0f;
+        }
+
+        private static bool ShouldGiveBloodNow(Pawn vampire, Pawn ghoul)
+        {
+            if (ghoul?.VampComp()?.ThrallData?.ShouldFeedBlood == true &&
+                ghoul.MapHeld != null && ghoul.Spawned && vampire.Spawned &&
+                ghoul.MapHeld == vampire.MapHeld)
+            {
+                return true;
+            }
+            return false;
         }
 
         protected override Job TryGiveJob(Pawn pawn)

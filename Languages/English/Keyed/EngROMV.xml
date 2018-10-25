@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
 
+<!-- 10-26-18 -->
+<ROMV_VampireDiablerieAttemptedLetter>{0} attempted diablerie on {1}! [PAWN_pronoun] must now topple {1} in combat to continue the process.</ROMV_VampireDiablerieAttemptedLetter>
+
 <!-- 9-15-18 -->
 <ROMV_VampireSettingsButton>Open Vampire Settings</ROMV_VampireSettingsButton>
 <ROMV_VampireSettingsUnavailable>Vampire settings currently unavailable.\n\nPlease start a new game or load a game to edit vampire settings.</ROMV_VampireSettingsUnavailable>
