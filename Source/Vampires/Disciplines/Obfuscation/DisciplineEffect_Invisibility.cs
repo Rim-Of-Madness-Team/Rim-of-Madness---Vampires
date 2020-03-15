@@ -10,6 +10,7 @@ namespace Vampire
         {
             base.Effect(target);
             HealthUtility.AdjustSeverity(CasterPawn, VampDefOf.ROMV_InvisibilityHediff, 1.0f);
+            //HealthUtility.AdjustSeverity(CasterPawn, VampDefOf.ROMV_InvisibilityHediff, 1.0f);
         }
     }
 }

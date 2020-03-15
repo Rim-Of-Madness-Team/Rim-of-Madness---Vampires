@@ -18,7 +18,7 @@ namespace Vampire
                 int num = GenRadial.NumCellsInRadius(3.9f);
                 for (int i = 0; i < num; i++)
                 {
-                    FilthMaker.MakeFilth(hitThing.PositionHeld + GenRadial.RadialPattern[i], hitThing.MapHeld, ((Pawn)hitThing).RaceProps.BloodDef, ((Pawn)hitThing).LabelIndefinite());
+                    FilthMaker.TryMakeFilth(hitThing.PositionHeld + GenRadial.RadialPattern[i], hitThing.MapHeld, ((Pawn)hitThing).RaceProps.BloodDef, ((Pawn)hitThing).LabelIndefinite());
                 }
                 List<BodyPartRecord> parts = p.health.hediffSet.GetNotMissingParts().ToList().FindAll(x => x.depth == BodyPartDepth.Inside);
                 for (int j = 0; j < 4; j++)

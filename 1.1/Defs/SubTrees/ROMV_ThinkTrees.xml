@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!--============= Mental states (critical) ============-->
+
+  <ThinkTreeDef>
+    <defName>ROMV_VampireNeeds</defName>
+    <insertTag>Humanlike_PostMentalState</insertTag>
+	<insertPriority>55</insertPriority>
+    <thinkRoot Class="ThinkNode_PrioritySorter">
+	  <subNodes>
+	    <li Class="Vampire.JobGiver_GetBlood"/>
+		<li Class="Vampire.JobGiver_ShareBlood"/>
+	  </subNodes>
+    </thinkRoot>
+  </ThinkTreeDef>
+  
+  <ThinkTreeDef>
+    <defName>ROM_VampireBeastThinkTree</defName>
+    <insertTag>Humanlike_PostMentalState</insertTag>
+    <insertPriority>50</insertPriority>
+    <thinkRoot Class="ThinkNode_ConditionalMentalState">
+      <state>ROMV_VampireBeast</state>
+      <subNodes>
+        <li Class="ThinkNode_Priority">
+          <subNodes>
+            <li Class="Vampire.JobGiver_GetBlood"/>
+            <li Class="Vampire.JobGiver_SeekShelterFromSunlight"/>
+            <li Class="Vampire.JobGiver_VampireBeast"/>
+            <li Class="JecsTools.JobGiver_AIFirelessTrashColonyClose"/>
+            <li Class="JobGiver_WanderOwnRoom">
+              <maxDanger>Deadly</maxDanger>
+            </li>
+          </subNodes>
+        </li>
+      </subNodes>
+    </thinkRoot>
+  </ThinkTreeDef>
+
+  <ThinkTreeDef>
+    <defName>ROM_VampireRotschreckThinkTree</defName>
+    <insertTag>Humanlike_PostMentalState</insertTag>
+    <insertPriority>49</insertPriority>
+    <thinkRoot Class="ThinkNode_ConditionalMentalState">
+      <state>ROMV_Rotschreck</state>
+      <subNodes>
+        <li Class="ThinkNode_Priority">
+          <subNodes>
+            <li Class="Vampire.JobGiver_SeekShelterFromSunlight"/>
+            <li Class="JobGiver_WanderOwnRoom">
+              <maxDanger>Deadly</maxDanger>
+            </li>
+          </subNodes>
+        </li>
+      </subNodes>
+    </thinkRoot>
+  </ThinkTreeDef>
+
+</Defs>

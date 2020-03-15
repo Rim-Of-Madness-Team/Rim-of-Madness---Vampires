@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Vampire</RootNamespace>
     <AssemblyName>Vampire</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -17,10 +17,11 @@
     <DebugSymbols>false</DebugSymbols>
     <DebugType>none</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\Assemblies\</OutputPath>
+    <OutputPath>..\..\1.1\Assemblies\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,21 +30,15 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="0Harmony, Version=1.0.9.1, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\HarmonyLibrary\0Harmony.dll</HintPath>
-    </Reference>
     <Reference Include="0JecsTools">
       <HintPath>..\Dependencies\0JecsTools.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="AbilityUser">
       <HintPath>..\Dependencies\AbilityUser.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\..\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="BadHygiene">
@@ -54,16 +49,7 @@
       <HintPath>..\Dependencies\CompAnimated.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-    <Reference Include="UnityEngine">
-      <HintPath>..\..\..\..\RimWorldWin64_Data\Managed\UnityEngine.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AI_Jobs\JobDriver_BloodVomit.cs" />
@@ -75,6 +61,7 @@
     <Compile Include="Buildings\Building_CoffinSealed.cs" />
     <Compile Include="Buttons.cs" />
     <Compile Include="Components\CompAntiVampireWeapon.cs" />
+    <Compile Include="Components\CompAssignableToPawn_VampireBed.cs" />
     <Compile Include="Components\CompProperties_AntiVampireWeapon.cs" />
     <Compile Include="Components\MapComponent_HiddenTracker.cs" />
     <Compile Include="Components\ThrallData.cs" />
@@ -109,7 +96,24 @@
     <Compile Include="FlyingObject.cs" />
     <Compile Include="GenStep_VampireLair.cs" />
     <Compile Include="HandleVampireQuestComp.cs" />
+    <Compile Include="HarmonyPatches\HarmonyPatches_Menu.cs" />
+    <Compile Include="HarmonyPatches\HarmonyPatches_AI.cs" />
+    <Compile Include="HarmonyPatches\HarmonyPatches_Graves.cs" />
+    <Compile Include="HarmonyPatches\HarmonyPatches_Ingestion.cs" />
+    <Compile Include="HarmonyPatches\HarmonyPatches_Thoughts.cs" />
+    <Compile Include="HarmonyPatches\HarmonyPatches_Powers.cs" />
+    <Compile Include="HarmonyPatches\HarmonyPatches_Misc.cs" />
+    <Compile Include="HarmonyPatches\HarmonyPatches_Givers.cs" />
+    <Compile Include="HarmonyPatches\HarmonyPatches_Mods.cs" />
+    <Compile Include="HarmonyPatches\HarmonyPatches_Beds.cs" />
+    <Compile Include="HarmonyPatches\HarmonyPatches_Age.cs" />
+    <Compile Include="HarmonyPatches\HarmonyPatches_UI.cs" />
+    <Compile Include="HarmonyPatches\HarmonyPatches_Lovin.cs" />
+    <Compile Include="HarmonyPatches\HarmonyPatches_Pathing.cs" />
+    <Compile Include="HarmonyPatches\HarmonyPatches_Needs.cs" />
+    <Compile Include="HarmonyPatches\HarmonyPatches_Graphics.cs" />
     <Compile Include="HarmonyPatches\HarmonyPatches_HashTables.cs" />
+    <Compile Include="HarmonyPatches\HarmonyPatches_Royalty.cs" />
     <Compile Include="HarmonyPatches\VampHumanlikeOrders.cs" />
     <Compile Include="Hediffs\Gizmo_HediffShieldStatus.cs" />
     <Compile Include="Hediffs\HediffCompProperties_Hidden.cs" />
@@ -151,7 +155,6 @@
     <Compile Include="Hediffs\HediffCompProperties_AnimalForm.cs" />
     <Compile Include="Hediffs\HediffComp_AnimalForm.cs" />
     <Compile Include="Disciplines\Verb_UseAbilityPawnEffect.cs" />
-    <Compile Include="HarmonyPatches\HarmonyPatches_PathFixes.cs" />
     <Compile Include="Hediffs\HediffGhoul.cs" />
     <Compile Include="Hediffs\HediffVampirismGenerationBonus.cs" />
     <Compile Include="Hediffs\HediffVampirism_Gangrel.cs" />
@@ -202,6 +205,7 @@
     <Compile Include="VampAbility.cs" />
     <Compile Include="VampireCorpse.cs" />
     <Compile Include="VampireSettings.cs" />
+    <Compile Include="Workers\BloodExtractType.cs" />
     <Compile Include="Workers\EmbraceWorker.cs" />
     <Compile Include="HarmonyPatches\HarmonyPatches.cs" />
     <Compile Include="HarmonyPatches\HarmonyPatches_Caravan.cs" />
@@ -230,6 +234,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="Workers\PawnRelationWorker_Ghoul.cs" />
     <Compile Include="Workers\Recipe_ExtractBloodPack.cs" />
+    <Compile Include="Workers\Recipe_ExtractBloodWine.cs" />
     <Compile Include="Workers\Recipe_ExtractBloodVial.cs" />
     <Compile Include="Utilities\ResurrectedPawnUtility.cs" />
     <Compile Include="ScenPart_StartingVampires.cs" />
@@ -245,6 +250,14 @@
     <Compile Include="Workers\SymbolResolver_VampireLair.cs" />
     <Compile Include="WorldComponent_VampireSettings.cs" />
     <Compile Include="WorldComponent_VampireTracker.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Krafs.Rimworld.Ref">
+      <Version>1.1.2566</Version>
+    </PackageReference>
+    <PackageReference Include="Lib.Harmony">
+      <Version>2.0.0.8</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_Blood.label>Sangre</ROMV_Blood.label>
+  <ROMV_Blood.description>Indica los puntos de sangre de un organismo. Se recupera a una tasa de 1 por día. Cuando la barra está vacía, el organismo morirá.</ROMV_Blood.description>
+
+
+</LanguageData>

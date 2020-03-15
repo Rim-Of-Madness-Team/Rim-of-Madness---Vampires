@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+    <ThingDef>
+      <defName>ROMV_VampCorpse</defName>
+      <label>Corpse</label>
+      <description>A dead body.</description>
+      <category>Item</category>
+	  <thingClass>Vampire.VampireCorpse</thingClass>
+	  <selectable>true</selectable>
+	  <tickerType>Rare</tickerType>
+	  <altitudeLayer>ItemImportant</altitudeLayer>
+	  <scatterableOnMapGen>false</scatterableOnMapGen>
+		<statBases>
+		  <Beauty>-150</Beauty>
+		  <DeteriorationRate>2</DeteriorationRate>
+		  <Flammability>2</Flammability>
+		  <MaxHitPoints>2</MaxHitPoints>
+		  <Mass>60</Mass>
+		  <Nutrition>1</Nutrition>
+		</statBases>
+	  <alwaysHaulable>true</alwaysHaulable>
+	  <soundDrop>Corpse_Drop</soundDrop>
+	  <pathCost>15</pathCost>
+	  <socialPropernessMatters>false</socialPropernessMatters>
+	  <tradeability>None</tradeability>
+	  <inspectorTabs>
+        <li>ITab_Pawn_Health</li>
+        <li>Vampire.ITab_Pawn_NeedsCorpse</li>
+        <li>ITab_Pawn_Character</li>
+        <li>ITab_Pawn_Social</li>
+        <li>ITab_Pawn_Gear</li>
+        <li>ITab_Pawn_Log</li>
+    </inspectorTabs>
+	<recipes>
+	  <li>RemoveBodyPart</li>
+	</recipes>
+	<comps>
+	  <li Class="CompProperties_Rottable">
+	    <daysToRotStart>2.5</daysToRotStart>
+		<daysToDessicated>5</daysToDessicated>
+		<rotDamagePerDay>2</rotDamagePerDay>
+		<dessicatedDamagePerDay>0.7</dessicatedDamagePerDay>
+	  </li>
+	  <li Class="CompProperties_SpawnerFilth">
+	    <filthDef>Filth_CorpseBile</filthDef>
+		<spawnCountOnSpawn>0</spawnCountOnSpawn>
+		<spawnMtbHours>0</spawnMtbHours>
+		<spawnRadius>0.1</spawnRadius>
+		<spawnEveryDays>1</spawnEveryDays>
+		<requiredRotStage>Rotting</requiredRotStage>
+	  </li>
+	</comps>
+	<ingestible>
+	  <foodType>Corpse</foodType>
+	  <sourceDef>Human</sourceDef>
+	  <preferability>DesperateOnly</preferability>
+	  <maxNumToIngestAtOnce>1</maxNumToIngestAtOnce>
+	  <ingestEffect>EatMeat</ingestEffect>
+	  <ingestSound>RawMeat_Eat</ingestSound>
+	</ingestible>
+	<thingCategories>
+	  <li>CorpsesHumanlike</li>
+	</thingCategories>
+    </ThingDef>
+
+</Defs>

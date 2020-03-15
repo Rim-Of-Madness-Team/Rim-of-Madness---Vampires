@@ -1,0 +1,240 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3A4FB893-1148-4E16-B548-867647DF1724}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Vampire</RootNamespace>
+    <AssemblyName>Vampire</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Assemblies\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="0Harmony, Version=2.0.0.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lib.Harmony.2.0.0.8\lib\net472\0Harmony.dll</HintPath>
+    </Reference>
+    <Reference Include="0JecsTools">
+      <HintPath>..\Dependencies\0JecsTools.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="AbilityUser">
+      <HintPath>..\Dependencies\AbilityUser.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="BadHygiene">
+      <HintPath>..\Dependencies\BadHygiene.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="CompAnimated">
+      <HintPath>..\Dependencies\CompAnimated.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AI_Jobs\JobDriver_BloodVomit.cs" />
+    <Compile Include="AI_Jobs\JobDriver_FeedAndDestroy.cs" />
+    <Compile Include="AI_Jobs\JobDriver_FeedAndReturn.cs" />
+    <Compile Include="AI_Jobs\JobDriver_FeedSip.cs" />
+    <Compile Include="AI_Jobs\JobDriver_GhoulBloodBond.cs" />
+    <Compile Include="AI_Jobs\JobGiver_ShareBlood.cs" />
+    <Compile Include="Buildings\Building_CoffinSealed.cs" />
+    <Compile Include="Buttons.cs" />
+    <Compile Include="Components\CompAntiVampireWeapon.cs" />
+    <Compile Include="Components\CompProperties_AntiVampireWeapon.cs" />
+    <Compile Include="Components\MapComponent_HiddenTracker.cs" />
+    <Compile Include="Components\ThrallData.cs" />
+    <Compile Include="Components\TransformationDef.cs" />
+    <Compile Include="Defs\VampDefOfTwo.cs" />
+    <Compile Include="Defs\VitaeAbilityDef.cs" />
+    <Compile Include="Dialog_VampireSetup.cs" />
+    <Compile Include="Disciplines\Obfuscation\DisciplineEffect_Conceal.cs" />
+    <Compile Include="Disciplines\Obfuscation\DisciplineEffect_HiddenForce.cs" />
+    <Compile Include="Disciplines\Obfuscation\DisciplineEffect_Invisibility.cs" />
+    <Compile Include="Disciplines\Obfuscation\DisciplineEffect_Hide.cs" />
+    <Compile Include="Disciplines\Vampirism\DisciplineEffect_RegenerateLimb.cs" />
+    <Compile Include="Disciplines\Animalism\DisciplineEffect_Beckoning.cs" />
+    <Compile Include="Disciplines\Animalism\DisciplineEffect_Communion.cs" />
+    <Compile Include="Disciplines\Animalism\DisciplineEffect_NightwispRavens.cs" />
+    <Compile Include="Disciplines\Animalism\DisciplineEffect_SpectralWolf.cs" />
+    <Compile Include="Disciplines\Animalism\HediffCompProperties_TickGraphic.cs" />
+    <Compile Include="Disciplines\Animalism\HediffComp_TickGraphic.cs" />
+    <Compile Include="Disciplines\Animalism\PawnTemporary.cs" />
+    <Compile Include="Disciplines\Auspex\DisciplineEffect_CrocodileTongue.cs" />
+    <Compile Include="Disciplines\Auspex\DisciplineEffect_HeightenedSenses.cs" />
+    <Compile Include="Disciplines\Auspex\DisciplineEffect_ReadMind.cs" />
+    <Compile Include="Disciplines\Auspex\DisciplineEffect_RevealIllusions.cs" />
+    <Compile Include="Disciplines\Flight\DisciplineEffect_LongFlight.cs" />
+    <Compile Include="Disciplines\Thaumaturgy\Projectile_BloodBoil.cs" />
+    <Compile Include="Disciplines\Thaumaturgy\Projectile_BloodReturner.cs" />
+    <Compile Include="Disciplines\Thaumaturgy\Projectile_BloodStealer.cs" />
+    <Compile Include="Disciplines\Vampirism\DisciplineEffect_VampiricHealing.cs" />
+    <Compile Include="Disciplines\Vampirism\DisciplineEffect_VampiricHealingScars.cs" />
+    <Compile Include="Disciplines\Ventrue\DisciplineEffect_BloodLust.cs" />
+    <Compile Include="Disciplines\Ventrue\DisciplineEffect_CeaseFire.cs" />
+    <Compile Include="FlyingObject.cs" />
+    <Compile Include="GenStep_VampireLair.cs" />
+    <Compile Include="HandleVampireQuestComp.cs" />
+    <Compile Include="HarmonyPatches\HarmonyPatches_HashTables.cs" />
+    <Compile Include="HarmonyPatches\VampHumanlikeOrders.cs" />
+    <Compile Include="Hediffs\Gizmo_HediffShieldStatus.cs" />
+    <Compile Include="Hediffs\HediffCompProperties_Hidden.cs" />
+    <Compile Include="Hediffs\HediffComp_Hidden.cs" />
+    <Compile Include="Hediffs\HediffComp_ReadMind.cs" />
+    <Compile Include="Disciplines\Blood\DisciplineEffect_UnstoppableTide.cs" />
+    <Compile Include="Disciplines\Blood\DisciplineEffect_Hunger.cs" />
+    <Compile Include="Disciplines\Blood\DisciplineEffect_Purge.cs" />
+    <Compile Include="Disciplines\Blood\DisciplineEffect_StemTheTide.cs" />
+    <Compile Include="Disciplines\Dominate\DisciplineEffect_Mesmerise.cs" />
+    <Compile Include="Disciplines\Dominate\DisciplineEffect_Possession.cs" />
+    <Compile Include="Disciplines\Dominate\DisciplineEffect_Sleep.cs" />
+    <Compile Include="Disciplines\Dominate\DisciplineEffect_Suicide.cs" />
+    <Compile Include="Hediffs\HediffCompProperties_Possession.cs" />
+    <Compile Include="Hediffs\HediffComp_Possession.cs" />
+    <Compile Include="Disciplines\Flight\DisciplineEffect_ShortFlight.cs" />
+    <Compile Include="Disciplines\Flight\DisciplineEffect_SkyFall.cs" />
+    <Compile Include="Disciplines\Flight\DisciplineEffect_WingBuffet.cs" />
+    <Compile Include="Disciplines\Fortitude\PassiveEffect_DamageSoak.cs" />
+    <Compile Include="Disciplines\Obtenebration\DisciplineEffect_ArmOfTheAbyss.cs" />
+    <Compile Include="Disciplines\Obtenebration\DisciplineEffect_BlackMetamorphosis.cs" />
+    <Compile Include="Disciplines\Obtenebration\DisciplineEffect_EnterTheAbyss.cs" />
+    <Compile Include="Disciplines\Obtenebration\DisciplineEffect_TenebrousForm.cs" />
+    <Compile Include="Disciplines\Protean\DisciplineEffect_BatForm.cs" />
+    <Compile Include="Disciplines\Protean\DisciplineEffect_FeralClaws.cs" />
+    <Compile Include="Disciplines\Protean\DisciplineEffect_MistForm.cs" />
+    <Compile Include="Disciplines\Protean\DisciplineEffect_WarForm.cs" />
+    <Compile Include="Disciplines\Thaumaturgy\DisciplineEffect_BloodBoil.cs" />
+    <Compile Include="Disciplines\Thaumaturgy\DisciplineEffect_BloodSalvo.cs" />
+    <Compile Include="Disciplines\Thaumaturgy\DisciplineEffect_BloodShield.cs" />
+    <Compile Include="Disciplines\Thaumaturgy\DisciplineEffect_BloodStrike.cs" />
+    <Compile Include="Disciplines\Vicissitude\DisciplineEffect_CorruptForm.cs" />
+    <Compile Include="Disciplines\Vicissitude\DisciplineEffect_ShapeMonstrosity.cs" />
+    <Compile Include="Hediffs\HediffCompProperties_SkillOffset.cs" />
+    <Compile Include="Hediffs\HediffComp_Shield.cs" />
+    <Compile Include="Hediffs\HediffComp_SkillOffset.cs" />
+    <Compile Include="Disciplines\Vicissitude\DisciplineEffect_PerfectForm.cs" />
+    <Compile Include="Disciplines\Vicissitude\DisciplineEffect_ZuloForm.cs" />
+    <Compile Include="Hediffs\HediffCompProperties_AnimalForm.cs" />
+    <Compile Include="Hediffs\HediffComp_AnimalForm.cs" />
+    <Compile Include="Disciplines\Verb_UseAbilityPawnEffect.cs" />
+    <Compile Include="HarmonyPatches\HarmonyPatches_PathFixes.cs" />
+    <Compile Include="Hediffs\HediffGhoul.cs" />
+    <Compile Include="Hediffs\HediffVampirismGenerationBonus.cs" />
+    <Compile Include="Hediffs\HediffVampirism_Gangrel.cs" />
+    <Compile Include="Hediffs\HediffVampirism_Gargoyle.cs" />
+    <Compile Include="Hediffs\HediffVampirism_Nosferatu.cs" />
+    <Compile Include="Hediffs\HediffVampirism_VampGiver.cs" />
+    <Compile Include="Hediffs\HediffVampirism_Lasombre.cs" />
+    <Compile Include="Hediffs\HediffVampirism_Pijavica.cs" />
+    <Compile Include="Hediffs\HediffVampirism_Tremere.cs" />
+    <Compile Include="Hediffs\HediffVampirism_Tzimisce.cs" />
+    <Compile Include="Hediffs\HediffVampirism_Ventrue.cs" />
+    <Compile Include="Hediffs\Hediff_AddedPart_Fangs.cs" />
+    <Compile Include="IncidentWorker_QuestVampire.cs" />
+    <Compile Include="ITab_Pawn_NeedsCorpse.cs" />
+    <Compile Include="ModMain.cs" />
+    <Compile Include="PatchOperationModLoaded.cs" />
+    <Compile Include="VampireRecord.cs" />
+    <Compile Include="ScenPart_GameStartNight.cs" />
+    <Compile Include="ScenPart_LongerNights.cs" />
+    <Compile Include="UI\Alert_VampireInSunlight.cs" />
+    <Compile Include="UI\Alert_VampireStarving.cs" />
+    <Compile Include="Utilities\BloodBondUtility.cs" />
+    <Compile Include="Utilities\BloodFeedModeUtility.cs" />
+    <Compile Include="Utilities\BloodItemUtility.cs" />
+    <Compile Include="Defs\BloodType.cs" />
+    <Compile Include="Defs\BloodlineDef.cs" />
+    <Compile Include="Utilities\BloodPreferabilty.cs" />
+    <Compile Include="Utilities\BloodTypeUtility.cs" />
+    <Compile Include="Utilities\BloodUtility.cs" />
+    <Compile Include="Buildings\Building_Coffin.cs" />
+    <Compile Include="Buildings\Building_HideyHole.cs" />
+    <Compile Include="Components\CompBloodItem.cs" />
+    <Compile Include="Components\CompVampBed.cs" />
+    <Compile Include="Components\CompProperties_VampBed.cs" />
+    <Compile Include="Components\CompProperties_BloodItem.cs" />
+    <Compile Include="Components\CompVampire.cs" />
+    <Compile Include="Defs\DisciplineDef.cs" />
+    <Compile Include="UI\VampireCardUtility.cs" />
+    <Compile Include="Utilities\ExplosionUtility.cs" />
+    <Compile Include="Utilities\GhoulStringUtility.cs" />
+    <Compile Include="Utilities\GhoulUtility.cs" />
+    <Compile Include="Utilities\VampireBiteUtility.cs" />
+    <Compile Include="Utilities\VampireColorUtility.cs" />
+    <Compile Include="Utilities\VampireFactionUtility.cs" />
+    <Compile Include="Utilities\VampireGraphicUtility.cs" />
+    <Compile Include="Utilities\VampireWitnessUtility.cs" />
+    <Compile Include="Utilities\VampSunlightPathUtility.cs" />
+    <Compile Include="VampAbility.cs" />
+    <Compile Include="VampireCorpse.cs" />
+    <Compile Include="VampireSettings.cs" />
+    <Compile Include="Workers\EmbraceWorker.cs" />
+    <Compile Include="HarmonyPatches\HarmonyPatches.cs" />
+    <Compile Include="HarmonyPatches\HarmonyPatches_Caravan.cs" />
+    <Compile Include="HarmonyPatches\HarmonyPatches_DebugTools.cs" />
+    <Compile Include="Hediffs\HediffVampirism.cs" />
+    <Compile Include="Hediffs\HediffWithComps_BeastHunger.cs" />
+    <Compile Include="Hediffs\HediffWithComps_SunlightExposure.cs" />
+    <Compile Include="AI_Jobs\JobDriver_ConsumeBlood.cs" />
+    <Compile Include="AI_Jobs\JobDriver_Diablerie.cs" />
+    <Compile Include="AI_Jobs\JobDriver_DigAndHide.cs" />
+    <Compile Include="AI_Jobs\JobDriver_Embrace.cs" />
+    <Compile Include="AI_Jobs\JobDriver_EnterTorpor.cs" />
+    <Compile Include="AI_Jobs\JobDriver_Feed.cs" />
+    <Compile Include="AI_Jobs\JobGiver_GetBlood.cs" />
+    <Compile Include="AI_Jobs\JobGiver_SeekShelterFromSunlight.cs" />
+    <Compile Include="AI_Jobs\JobGiver_VampireBeast.cs" />
+    <Compile Include="AI_Jobs\MentalState_Rotschreck.cs" />
+    <Compile Include="AI_Jobs\MentalState_VampireBeast.cs" />
+    <Compile Include="Need_Blood.cs" />
+    <Compile Include="Workers\GenStep_AncientVampireCrypt.cs" />
+    <Compile Include="Workers\IncidentWorker_AncientVampireCrypt.cs" />
+    <Compile Include="Workers\InteractionWorker_Bonding.cs" />
+    <Compile Include="Workers\InteractionWorker_VampiricLore.cs" />
+    <Compile Include="Workers\PawnRelationWorker_Childe.cs" />
+    <Compile Include="Workers\PawnRelationWorker_Sire.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="packages.config" />
+    <None Include="Workers\PawnRelationWorker_Ghoul.cs" />
+    <Compile Include="Workers\Recipe_ExtractBloodPack.cs" />
+    <Compile Include="Workers\Recipe_ExtractBloodVial.cs" />
+    <Compile Include="Utilities\ResurrectedPawnUtility.cs" />
+    <Compile Include="ScenPart_StartingVampires.cs" />
+    <Compile Include="Defs\VampDefOf.cs" />
+    <Compile Include="Utilities\VampireRelationUtility.cs" />
+    <Compile Include="Discipline.cs" />
+    <Compile Include="SkillSheet.cs" />
+    <Compile Include="Utilities\VampireSkinColors.cs" />
+    <Compile Include="Utilities\VampireGen.cs" />
+    <Compile Include="Utilities\VampireThoughtUtility.cs" />
+    <Compile Include="Utilities\VampireUtility.cs" />
+    <Compile Include="Workers\Recipe_TransferBlood.cs" />
+    <Compile Include="Workers\SymbolResolver_VampireLair.cs" />
+    <Compile Include="WorldComponent_VampireSettings.cs" />
+    <Compile Include="WorldComponent_VampireTracker.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

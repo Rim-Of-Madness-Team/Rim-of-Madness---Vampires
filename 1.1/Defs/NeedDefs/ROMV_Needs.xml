@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <NeedDef>
+    <defName>ROMV_Blood</defName>
+    <needClass>Vampire.Need_Blood</needClass>
+    <label>Blood</label>
+    <description>Tracks the blood points of an organism. Regains at a rate of 1 per day. When the bar is empty, the organism will die.</description>
+    <showOnNeedList>true</showOnNeedList>
+    <minIntelligence>Animal</minIntelligence>
+    <baseLevel>1</baseLevel>
+    <seekerRisePerHour>0</seekerRisePerHour>
+    <seekerFallPerHour>0</seekerFallPerHour>
+    <listPriority>1000</listPriority>
+    <major>true</major>
+    <freezeWhileSleeping>true</freezeWhileSleeping>
+    <showForCaravanMembers>true</showForCaravanMembers>
+  </NeedDef>
+  
+    <NeedDef ParentName="DrugAddictionNeedBase">
+    <defName>ROMV_Chemical_Vitae</defName>
+    <needClass>Need_Chemical</needClass>
+    <label>Thirst for Vitae</label>
+    <description>One tasting of vampiric vitae is never enough, and now this individual needs to regularly consume vampiric blood to avoid violent withdrawal symptoms.</description>
+	<fallPerDay>0.1</fallPerDay>
+    <listPriority>50</listPriority>
+  </NeedDef>
+  
+</Defs>

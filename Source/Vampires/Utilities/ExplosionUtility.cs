@@ -35,7 +35,7 @@ namespace Vampire
                 explosion.applyDamageToExplosionCellsNeighbors = applyDamageToExplosionCellsNeighbors;
                 explosion.chanceToStartFire = chanceToStartFire;
                 explosion.damageFalloff = damageFalloff;
-                explosion.StartExplosion(explosionSound);
+                explosion.StartExplosion(explosionSound, null);
             }
         }
     }

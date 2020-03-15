@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_MistRace.label>Тень</ROMV_MistRace.label>
+  <ROMV_MistRace.description>Одушевленная тень.</ROMV_MistRace.description>
+  <!-- Use Leather From: Bear_Grizzly -->
+  <!-- Use Meat From: Bear_Grizzly -->
+  <ROMV_MistRace_Corpse.label>мёртвая тень</ROMV_MistRace_Corpse.label>
+  <ROMV_MistRace_Corpse.description>Мёртвая тень.</ROMV_MistRace_Corpse.description>
+
+
+</LanguageData>

@@ -1,3 +1,7 @@
+1.21.0.0 (03-15-2020)
+========================
+Adds Blood Wine, Royalty support, and a very exhaustive list of fixes.
+
 1.20.0.1 (10-26-2018)
 ========================
 Blood packs can now be transferred to pawns who need them. Fixed vitae addiction text. Fixed interaction text issues. Added extra diablerie warnings and information to conceptdefs.

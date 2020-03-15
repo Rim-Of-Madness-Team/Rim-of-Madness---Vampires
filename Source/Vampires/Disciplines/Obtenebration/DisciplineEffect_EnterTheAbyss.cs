@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using RimWorld;
+using UnityEngine;
 using Verse;
 
 namespace Vampire
@@ -11,12 +12,20 @@ namespace Vampire
             CasterPawn.Drawer.Notify_DebugAffected();
             if (TargetsAoE.FirstOrDefault(x => x is LocalTargetInfo y && y.Cell != default(IntVec3)) is LocalTargetInfo t)
             {
-                if (t.Cell.Standable(CasterPawn.MapHeld))
-                {
+                var destination = t.Cell;
+                
                     MoteMaker.ThrowText(CasterPawn.DrawPos, CasterPawn.Map, AbilityUser.StringsToTranslate.AU_CastSuccess);
-                    CasterPawn.Position = t.Cell;
-                    return;
-                }
+                    if (destination.IsValid)
+                    {
+                        CasterPawn.Position = destination;
+                        CasterPawn.stances.stunner.StunFor(new IntRange(5, 10).RandomInRange, CasterPawn, addBattleLog: false);
+                        CasterPawn.Notify_Teleported();
+                        
+                        //Cheap solution...
+                        this.Ability.CooldownTicksLeft = this.Ability.MaxCastingTicks;
+                        CasterPawn.BloodNeed().AdjustBlood(-3);
+                        return;
+                    }
                 MoteMaker.ThrowText(CasterPawn.DrawPos, CasterPawn.Map, AbilityUser.StringsToTranslate.AU_CastFailure);
             }
         }
@@ -27,18 +36,14 @@ namespace Vampire
             return true;
         }
 
-        protected override bool TryCastShot()
-        {
-            CasterPawn.jobs.EndCurrentJob(Verse.AI.JobCondition.InterruptForced);
-            Effect();
-            return base.TryCastShot();
-        }
-
         public override void PostCastShot(bool inResult, out bool outResult)
         {
-            CasterPawn.jobs.EndCurrentJob(Verse.AI.JobCondition.InterruptForced);
-            Effect();
-            outResult = true;
+            if (inResult)
+            {
+                Effect();
+                outResult = true;
+            }
+            outResult = inResult;
         }
     }
 }

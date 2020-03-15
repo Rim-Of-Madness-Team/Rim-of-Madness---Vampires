@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_ScenStrangeCargo.label>Вампиры - Странный груз</ROMV_ScenStrangeCargo.label>
+  <ROMV_ScenStrangeCargo.description>Вы пробуждаетесь после крушения, приземляясь на отдаленной планете на крае мира. Оглядевшись, вы видите себя и другого колониста. Между вами обоими есть запечатанный гроб.</ROMV_ScenStrangeCargo.description>
+  <ROMV_ScenStrangeCargo.scenario.name>Вампиры - Странный груз</ROMV_ScenStrangeCargo.scenario.name>
+  <ROMV_ScenStrangeCargo.scenario.summary>Стандартный опыт RimWorld - с одним вампиром.</ROMV_ScenStrangeCargo.scenario.summary>
+  <ROMV_ScenStrangeCargo.scenario.description>Вы пробуждаетесь после крушения, приземляясь на отдаленной планете на крае мира. Оглядевшись, вы видите себя и другого колониста. Между вами обоими есть запечатанный гроб.</ROMV_ScenStrangeCargo.scenario.description>
+  <ROMV_ScenStrangeCargo.scenario.parts.19.text>Пойманный врасплох во время импровизированной игры в настольную игру с вашим товарищем, вы были втянуты в аварийную спасательную капсулу. После падения, оглядевшись вы видете странный гроб, который лежит неповрежденным недалеко от других обломков. Он излучает ауру тайны.</ROMV_ScenStrangeCargo.scenario.parts.19.text>
+
+
+</LanguageData>

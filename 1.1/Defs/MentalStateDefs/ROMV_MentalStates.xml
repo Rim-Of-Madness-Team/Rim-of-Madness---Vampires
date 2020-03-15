@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <MentalBreakDef>
+    <defName>ROMV_VampireBeast</defName>
+    <mentalState>ROMV_VampireBeast</mentalState>
+    <baseCommonality>0.00001</baseCommonality>
+    <intensity>Extreme</intensity>
+  </MentalBreakDef>
+  <MentalStateDef ParentName="BaseMentalState">
+    <defName>ROMV_VampireBeast</defName>
+    <stateClass>Vampire.MentalState_VampireBeast</stateClass>
+    <label>The Beast</label>
+    <category>Aggro</category>
+    <moodRecoveryThought>Catharsis</moodRecoveryThought>
+    <blockNormalThoughts>true</blockNormalThoughts>
+    <nameColor>(0.9,0.2,0.5)</nameColor>
+    <beginLetterLabel>The Beast</beginLetterLabel>
+    <beginLetter>{0} has unleashed its inner-beast!</beginLetter>
+    <beginLetterDef>ThreatBig</beginLetterDef>
+    <minTicksBeforeRecovery>10000</minTicksBeforeRecovery>
+    <recoveryMtbDays>0.3</recoveryMtbDays>
+    <maxTicksBeforeRecovery>60000</maxTicksBeforeRecovery>
+    <recoveryMessage>{0}'s fury has come to an end.</recoveryMessage>
+    <baseInspectLine>Mental state: Beast</baseInspectLine>
+    <stateEffecter>Berserk</stateEffecter>
+    <tale>MentalStateBerserk</tale>
+    <recoverFromSleep>false</recoverFromSleep>
+    <unspawnedCanDo>false</unspawnedCanDo>
+  </MentalStateDef>
+
+    <MentalBreakDef>
+      <defName>ROMV_Rotschreck</defName>
+      <mentalState>ROMV_Rotschreck</mentalState>
+      <baseCommonality>0.00001</baseCommonality>
+      <intensity>Extreme</intensity>
+    </MentalBreakDef>
+    <MentalStateDef ParentName="BaseMentalState">
+      <defName>ROMV_Rotschreck</defName>
+      <stateClass>Vampire.MentalState_Rotschreck</stateClass>
+      <label>rötschreck</label>
+      <category>Aggro</category>
+      <moodRecoveryThought>Catharsis</moodRecoveryThought>
+      <blockNormalThoughts>true</blockNormalThoughts>
+      <nameColor>(0.9,0.2,0.5)</nameColor>
+      <beginLetterLabel>rotschreck</beginLetterLabel>
+      <beginLetter>{0} is fleeing in terror of the light!</beginLetter>
+      <beginLetterDef>ThreatBig</beginLetterDef>
+      <minTicksBeforeRecovery>60000</minTicksBeforeRecovery>
+      <recoveryMtbDays>1.0</recoveryMtbDays>
+      <maxTicksBeforeRecovery>60000</maxTicksBeforeRecovery>
+      <recoveryMessage>{0}'s fears have subsided.</recoveryMessage>
+      <baseInspectLine>Mental state: Rötschreck</baseInspectLine>
+      <stateEffecter>Berserk</stateEffecter>
+      <tale>MentalStateBerserk</tale>
+      <recoverFromSleep>true</recoverFromSleep>
+      <unspawnedCanDo>false</unspawnedCanDo>
+    </MentalStateDef>
+
+
+</Defs>

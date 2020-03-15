@@ -36,7 +36,7 @@ namespace Vampire
             defaultPriority = AlertPriority.Critical;
         }
 
-        public override string GetExplanation()
+        public override TaggedString GetExplanation()
         {
             StringBuilder stringBuilder = new StringBuilder();
             foreach (Pawn current in VampiresStarving)

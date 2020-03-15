@@ -14,7 +14,7 @@ namespace Vampire
 
         public VampAbility() : base() { }
         public VampAbility(CompAbilityUser abilityUser) : base(abilityUser) { this.abilityUser = abilityUser as CompVampire; }
-        public VampAbility(Pawn user, AbilityDef pdef) : base(user, pdef) { }
+        public VampAbility(Pawn user, AbilityUser.AbilityDef pdef) : base(user, pdef) { }
         public VampAbility(AbilityData data) : base(data) { }
 
         public override void PostAbilityAttempt()

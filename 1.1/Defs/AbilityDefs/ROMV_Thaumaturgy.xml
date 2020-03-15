@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<Defs>
+
+  <Vampire.DisciplineDef>
+    <defName>ROMV_Thaumaturgy</defName>
+    <label>Thaumaturgy</label>
+    <abilities>
+      <li>ROMV_Thaumaturgy_BloodStrike</li>
+      <li>ROMV_Thaumaturgy_BloodShield</li>
+      <li>ROMV_Thaumaturgy_BloodSalvo</li>
+      <li>ROMV_Thaumaturgy_BloodBoil</li>
+    </abilities>
+  </Vampire.DisciplineDef>
+
+  <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+    <defName>ROMV_Thaumaturgy_BloodStrike</defName>
+    <label>blood strike</label>
+    <bloodCost>1</bloodCost>
+    <uiIconPath>UI/Icons/Commands/Thaumaturgy_BloodStrike</uiIconPath>
+    <description>Launches a projectile of blood at the target, which can collect and return blood to the caster.</description>
+    <MainVerb Class="AbilityUser.VerbProperties_Ability">
+      <verbClass>Vampire.DisciplineEffect_BloodStrike</verbClass>
+      <hasStandardCommand>true</hasStandardCommand>
+      <defaultProjectile>ROMV_BloodProjectile</defaultProjectile>
+      <abilityDef>ROMV_Thaumaturgy_BloodStrike</abilityDef>
+      <isViolent>true</isViolent>
+      <warmupTime>1</warmupTime>
+      <SecondsToRecharge>20.0</SecondsToRecharge>
+      <range>24</range>
+      <burstShotCount>1</burstShotCount>
+      <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+      <soundCast>ROMV_AbilityCastSound_Thaumaturgy</soundCast>
+      <muzzleFlashScale>20</muzzleFlashScale>
+      <isPrimary>false</isPrimary>
+      <targetParams>
+        <canTargetLocations>false</canTargetLocations>
+        <canTargetPawns>true</canTargetPawns>
+        <canTargetBuildings>false</canTargetBuildings>
+        <canTargetItems>false</canTargetItems>
+        <canTargetSelf>false</canTargetSelf>
+      </targetParams>
+      <extraDamages>
+        <li>
+          <damage>14</damage>
+          <damageDef>Burn</damageDef>
+          <chance>1.0</chance>
+        </li>
+      </extraDamages>
+      <tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+      <tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+      <tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+      <tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+    </MainVerb>
+  </Vampire.VitaeAbilityDef>
+
+  <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+    <defName>ROMV_Thaumaturgy_BloodShield</defName>
+    <label>blood shield</label>
+    <bloodCost>1</bloodCost>
+    <uiIconPath>UI/Icons/Commands/Thaumaturgy_BloodShield</uiIconPath>
+    <description>Blood shields surround the caster and absorb several blows before dissipating.</description>
+    <MainVerb Class="AbilityUser.VerbProperties_Ability">
+      <verbClass>Vampire.DisciplineEffect_BloodShield</verbClass>
+      <hasStandardCommand>true</hasStandardCommand>
+      <defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+      <abilityDef>ROMV_Thaumaturgy_BloodShield</abilityDef>
+      <isViolent>true</isViolent>
+      <warmupTime>1</warmupTime>
+      <SecondsToRecharge>100.0</SecondsToRecharge>
+      <range>24</range>
+      <burstShotCount>1</burstShotCount>
+      <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+      <soundCast>ROMV_AbilityCastSound_Thaumaturgy</soundCast>
+      <muzzleFlashScale>20</muzzleFlashScale>
+      <isPrimary>false</isPrimary>
+      <AbilityTargetCategory>TargetSelf</AbilityTargetCategory>
+      <targetParams>
+        <canTargetLocations>false</canTargetLocations>
+        <canTargetPawns>false</canTargetPawns>
+        <canTargetBuildings>false</canTargetBuildings>
+        <canTargetItems>false</canTargetItems>
+        <canTargetSelf>true</canTargetSelf>
+      </targetParams>
+      <tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+      <tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+      <tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+      <tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+    </MainVerb>
+
+  </Vampire.VitaeAbilityDef>
+  <HediffDef ParentName="ROMV_VampBase">
+    <defName>ROMV_BloodShieldHediff</defName>
+    <label>blood shield (Thaumaturgy)</label>
+    <description>blood shield (Thaumaturgy)</description>
+    <comps>
+      <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>
+          <min>3000</min>
+          <max>3000</max>
+        </disappearsAfterTicks>
+      </li>
+      <li>
+        <compClass>Vampire.HediffComp_Shield</compClass>
+      </li>
+    </comps>
+  </HediffDef>
+
+
+
+  <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+    <defName>ROMV_Thaumaturgy_BloodSalvo</defName>
+    <label>blood salvo</label>
+    <bloodCost>2</bloodCost>
+    <uiIconPath>UI/Icons/Commands/Thaumaturgy_BloodSalvo</uiIconPath>
+    <description>Launches three projectiles of blood in an area of effect, which can collect and return blood to the caster.</description>
+    <MainVerb Class="AbilityUser.VerbProperties_Ability">
+      <verbClass>Vampire.DisciplineEffect_BloodSalvo</verbClass>
+      <hasStandardCommand>true</hasStandardCommand>
+      <defaultProjectile>ROMV_BloodProjectile</defaultProjectile>
+      <abilityDef>ROMV_Thaumaturgy_BloodSalvo</abilityDef>
+      <isViolent>true</isViolent>
+      <warmupTime>1</warmupTime>
+      <SecondsToRecharge>40.0</SecondsToRecharge>
+      <range>24</range>
+      <burstShotCount>1</burstShotCount>
+      <ticksBetweenBurstShots>15</ticksBetweenBurstShots>
+      <soundCast>ROMV_AbilityCastSound_Thaumaturgy</soundCast>
+      <muzzleFlashScale>20</muzzleFlashScale>
+      <isPrimary>false</isPrimary>
+      <AbilityTargetCategory>TargetAoE</AbilityTargetCategory>
+	  <mustHaveTarget>true</mustHaveTarget>
+      <TargetAoEProperties>
+        <targetClass>Pawn</targetClass>
+        <showRangeOnSelect>true</showRangeOnSelect>
+        <startsFromCaster>false</startsFromCaster>
+        <friendlyFire>false</friendlyFire>
+        <maxTargets>3</maxTargets>
+        <range>6</range>
+      </TargetAoEProperties>
+      <targetParams>
+        <canTargetLocations>true</canTargetLocations>
+        <canTargetPawns>true</canTargetPawns>
+        <canTargetBuildings>false</canTargetBuildings>
+        <canTargetItems>false</canTargetItems>
+        <canTargetSelf>false</canTargetSelf>
+      </targetParams>
+      <extraDamages>
+        <li>
+          <damage>14</damage>
+          <damageDef>Burn</damageDef>
+          <chance>1.0</chance>
+        </li>
+      </extraDamages>
+      <tooltipShowProjectileDamage>true</tooltipShowProjectileDamage>
+      <tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+      <tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+      <tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+    </MainVerb>
+  </Vampire.VitaeAbilityDef>
+
+  <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+    <defName>ROMV_Thaumaturgy_BloodBoil</defName>
+    <label>blood boil</label>
+    <bloodCost>3</bloodCost>
+    <uiIconPath>UI/Icons/Commands/Thaumaturgy_BloodBoil</uiIconPath>
+    <description>Makes the target's blood boil until they damage others in an explosion.</description>
+    <MainVerb Class="AbilityUser.VerbProperties_Ability">
+      <verbClass>Vampire.DisciplineEffect_BloodBoil</verbClass>
+      <hasStandardCommand>true</hasStandardCommand>
+      <defaultProjectile>ROMV_BloodProjectile_BloodBoil</defaultProjectile>
+      <abilityDef>ROMV_Thaumaturgy_BloodBoil</abilityDef>
+      <isViolent>true</isViolent>
+      <warmupTime>1</warmupTime>
+      <SecondsToRecharge>200.0</SecondsToRecharge>
+      <range>24</range>
+      <burstShotCount>1</burstShotCount>
+      <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+      <soundCast>ROMV_AbilityCastSound_Thaumaturgy</soundCast>
+      <muzzleFlashScale>20</muzzleFlashScale>
+      <isPrimary>false</isPrimary>
+      <targetParams>
+        <canTargetLocations>false</canTargetLocations>
+        <canTargetPawns>true</canTargetPawns>
+        <canTargetBuildings>false</canTargetBuildings>
+        <canTargetItems>false</canTargetItems>
+        <canTargetSelf>false</canTargetSelf>
+      </targetParams>
+      <tooltipShowProjectileDamage>true</tooltipShowProjectileDamage>
+      <tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+      <tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+      <tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+    </MainVerb>
+  </Vampire.VitaeAbilityDef>
+</Defs>

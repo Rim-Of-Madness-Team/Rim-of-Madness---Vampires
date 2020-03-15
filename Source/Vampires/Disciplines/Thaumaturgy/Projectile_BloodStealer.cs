@@ -18,7 +18,13 @@ namespace Vampire
                 {
                     Projectile_BloodReturner projectile =
                         (Projectile_BloodReturner)GenSpawn.Spawn(ThingDef.Named("ROMV_BloodProjectile_Returner"), hitThing.PositionHeld, hitThing.MapHeld);
-                    projectile.Launch(hitThing, origin.ToIntVec3(), origin.ToIntVec3(), ProjectileHitFlags.IntendedTarget);
+                    projectile.Launch(hitThing, Caster, Caster, ProjectileHitFlags.IntendedTarget);
+
+                    if (Caster is Pawn cP && cP.BloodNeed() is Need_Blood casterBn)
+                    {
+                        MoteMaker.ThrowText(cP.DrawPos, cP.Map, "+2");
+                        casterBn.AdjustBlood(2);
+                    }
                 }
             }
         }

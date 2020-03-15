@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using Verse;
 using RimWorld;
-using Harmony;
+using HarmonyLib;
 
 namespace Vampire
 {
@@ -101,12 +101,12 @@ namespace Vampire
 
         public string GetChanceOrMax()
         {
-            return this?.vampChance == 1.0f ? maxVampires.ToString() : "ROMV_ChanceOf".Translate(vampChance.ToStringPercent());
+            return this?.vampChance == 1.0f ? maxVampires.ToString() : ("ROMV_ChanceOf".Translate(vampChance.ToStringPercent())).RawText;
         }
 
         public string GetInCoffinsString()
         {
-            return (this?.spawnInCoffins ?? false) ? " " + "ROMV_StartInCoffins".Translate() : "";
+            return (this?.spawnInCoffins ?? false) ? " " + "ROMV_StartInCoffins".Translate().RawText : "";
         }
 
         public string GenRangeToString()
@@ -164,7 +164,7 @@ namespace Vampire
                 BloodlineDef def = randomBloodline ? PossibleBloodlines().RandomElement() : bloodline;
                 if (pawn.RaceProps.Humanlike && context == PawnGenerationContext.PlayerStarter)
                 {
-                    if (!pawn?.story?.WorkTagIsDisabled(WorkTags.Violent) ?? false)
+                    if (!pawn?.story?.DisabledWorkTagsBackstoryAndTraits.HasFlag(WorkTags.Violent) ?? false)
                     {
                         if (Rand.Value < vampChance && curVampires < maxVampires)
                         {

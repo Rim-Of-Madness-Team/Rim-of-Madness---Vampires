@@ -20,12 +20,12 @@ namespace Vampire
             {
                 return false;
             }
-            Site site = SiteMaker.MakeSite(SiteCoreDefOf.Nothing, SitePartDefOf.Outpost, tile,
+            Site site = SiteMaker.MakeSite(SitePartDefOf.Outpost, tile,
                 Find.FactionManager.FirstFactionOfDef(FactionDef.Named("ROMV_Sabbat")));
             site.Tile = tile;
             site.GetComponent<HandleVampireQuestComp>().StartQuest();
             Find.WorldObjects.Add(site);
-            base.SendStandardLetter(site, null, "Potato");
+            base.SendStandardLetter(parms, null);
             return true;
         }
 

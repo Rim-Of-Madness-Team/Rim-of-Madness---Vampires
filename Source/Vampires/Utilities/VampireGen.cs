@@ -143,8 +143,12 @@ namespace Vampire
             PawnGenerationRequest request = new PawnGenerationRequest(
                 DetermineKindDef(generation), faction, PawnGenerationContext.NonPlayer,
                 -1, true, false, false, false, true, true, 20f, false, true,
-                true, false, false, false, false, null, null, null, 18, null, null);
+                true, false, false, false, false, false, 0, null, 0, null, null, null, null, null, math, null, null);
             Pawn pawn = PawnGenerator.GeneratePawn(request);
+            if (DebugSettings.godMode)
+            {
+                Log.Message(pawn.Name + " Age:" + pawn.ageTracker.AgeNumberString + " Generation:" + generation);
+            }
             HarmonyPatches.VampireGenInProgress = false;
             
             if (firstVampire)
@@ -179,7 +183,7 @@ namespace Vampire
             AbilityUser.health.hediffSet.hediffs.RemoveAll(x => x.def == HediffDefOf.Frail);
             AbilityUser.health.hediffSet.hediffs.RemoveAll(x => x.def == HediffDefOf.Heatstroke);
             AbilityUser.health.hediffSet.hediffs.RemoveAll(x => x.def == HediffDefOf.Hypothermia);
-            AbilityUser.health.hediffSet.hediffs.RemoveAll(x => x.def == HediffDefOf.Hangover);
+            //AbilityUser.health.hediffSet.hediffs.RemoveAll(x => x.def == HediffDefOf.Hangover);
             AbilityUser.health.hediffSet.hediffs.RemoveAll(x => x.def == HediffDefOf.Plague);
             AbilityUser.health.hediffSet.hediffs.RemoveAll(x => x.def == HediffDefOf.Blindness);
             AbilityUser.health.hediffSet.hediffs.RemoveAll(x => x.def == HediffDefOf.Malaria);

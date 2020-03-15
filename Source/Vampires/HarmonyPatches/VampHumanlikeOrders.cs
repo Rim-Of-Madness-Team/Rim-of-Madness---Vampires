@@ -37,7 +37,7 @@ namespace Vampire
                         opts.Add(new FloatMenuOption("ROMV_Feed".Translate(new object[]
                         {
                                 victim.LabelCap
-                        }) + (curBloodVictim == 1 ? " " + "ROMV_LethalWarning".Translate() : ""), action, MenuOptionPriority.High, null, victim));
+                        }) + (curBloodVictim == 1 ? new TaggedString(" ") + "ROMV_LethalWarning".Translate() : new TaggedString("")), action, MenuOptionPriority.High, null, victim));
                         // SIP //////////////////////////
                         if (curBloodVictim > 1)
                         {
@@ -85,7 +85,9 @@ namespace Vampire
                                 job.count = 1;
                                 pawn.jobs.TryTakeOrderedJob(job);
                             };
-                            opts.Add(new FloatMenuOption("ROMV_GiveVitae".Translate() + (!victim.IsGhoul() ? " (" + "ROMV_CreateGhoul".Translate() + ")" : ""), actionThree, MenuOptionPriority.High, null, victim));
+                            opts.Add(new FloatMenuOption(
+                                "ROMV_GiveVitae".Translate() +
+                                (!victim.IsGhoul() ? new TaggedString(" (") + "ROMV_CreateGhoul".Translate() + ")" : new TaggedString("")), actionThree, MenuOptionPriority.High, null, victim));
                         }
 
                     }
@@ -112,7 +114,11 @@ namespace Vampire
                             job.playerForced = true;
                             pawn.jobs.TryTakeOrderedJob(job);
                         };
-                        string benefitWarning = (selVampComp.Generation <= victim.VampComp().Generation) ? " " + "ROMV_DiablerieNoBenefit".Translate() : "";
+                        string benefitWarning = 
+                            (selVampComp.Generation <= victim.VampComp().Generation) ?
+                                new TaggedString(" ") + "ROMV_DiablerieNoBenefit".Translate() 
+                                :
+                                new TaggedString("");
                         opts.Add(new FloatMenuOption("ROMV_Diablerie".Translate(new object[]
                         {
                                 victim.LabelCap

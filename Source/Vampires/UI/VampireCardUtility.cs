@@ -88,7 +88,7 @@ namespace Vampire
             CompVampire compVampire = pawn.GetComp<CompVampire>();
             if (compVampire != null && (compVampire.IsVampire || compVampire.IsGhoul))
             {
-                Rect rect7 = new Rect(CharacterCardUtility.PawnCardSize.x - 105f, 0f, 30f, 30f);
+                Rect rect7 = new Rect(CharacterCardUtility.BasePawnCardSize.x - 105f, 0f, 30f, 30f);
                 TooltipHandler.TipRegion(rect7, new TipSignal("ROMV_CharacterSheet".Translate()));
                 if (Widgets.ButtonImage(rect7, TexButton.ROMV_HumanIcon))
                 {
@@ -97,7 +97,7 @@ namespace Vampire
 
                 if (compVampire.IsVampire)
                 {
-                    Rect rectVampOptions = new Rect(CharacterCardUtility.PawnCardSize.x - 105f, 150f, 30f, 30f);
+                    Rect rectVampOptions = new Rect(CharacterCardUtility.BasePawnCardSize.x - 105f, 150f, 30f, 30f);
                     switch (compVampire.CurrentSunlightPolicy)
                     {
                         case SunlightPolicy.Relaxed:
@@ -139,12 +139,13 @@ namespace Vampire
                 //Widgets.DrawLineHorizontal(rect.x - 10, rectSkillsLabel.yMax + Padding, rect.width - 15f);
                     //---------------------------------------------------------------------
 
-                    Rect rectSkills = new Rect(rect.x, rectDesc.yMax - 30 + Padding, rectSkillsLabel.width, SkillsColumnHeight);
-                    Rect rectInfoPane = new Rect(rectSkills.x, rectSkills.y + Padding, SkillsColumnDivider, SkillsColumnHeight);
-                    Rect rectSkillsPane = new Rect(rectSkills.x + SkillsColumnDivider, rectSkills.y + Padding, rectSkills.width - SkillsColumnDivider, SkillsColumnHeight);
+                    Rect rectSkills = new Rect(rect.x, rectDesc.yMax - 42 + Padding, rectSkillsLabel.width, SkillsColumnHeight);
+                    Rect rectInfoPane = new Rect(rectSkills.x, rectSkills.y + Padding, rect.width * 0.9f, SkillsColumnHeight);
+                
+                    //Rect rectSkillsPane = new Rect(rectSkills.x + SkillsColumnDivider, rectSkills.y + Padding, rectSkills.width - SkillsColumnDivider, SkillsColumnHeight);
 
                     LevelPane(rectInfoPane, compVampire);
-                    InfoPane(rectSkillsPane, compVampire);
+                    //InfoPane(rectSkillsPane, compVampire);
 
                     // LEVEL ________________             |       
                     // ||||||||||||||||||||||             |       
@@ -152,9 +153,10 @@ namespace Vampire
                     //
 
                     float powersTextSize = Text.CalcSize("ROMV_Disciplines".Translate()).x;
-                    Rect rectPowersLabel = new Rect(rect.width / 2 - powersTextSize / 2, rectSkills.yMax + SectionOffset - 5, rect.width, HeaderSize);
+                    Rect rectPowersLabel = new Rect((rect.width / 2 - powersTextSize / 2) - 15f, rectSkills.yMax + SectionOffset - 5, rect.width, HeaderSize);
                     Text.Font = GameFont.Medium;
                     Widgets.Label(rectPowersLabel, "ROMV_Disciplines".Translate().CapitalizeFirst());
+                //                                   Disciplines
                     Text.Font = GameFont.Small;
 
                     //Powers
@@ -162,9 +164,9 @@ namespace Vampire
                     Widgets.DrawLineHorizontal(rect.x - 10, rectPowersLabel.yMax, rect.width - 15f);
                 //---------------------------------------------------------------------
                 float curY = rectPowersLabel.yMax;
-                var outRect = new Rect(rect.x + ButtonSize, curY + 3f, rect.width * 0.9f, (rectSkills.height * 4f) + 16f);
+                var outRect = new Rect(rect.x, curY + 3f, rect.width, (rectSkills.height * 4f) + 16f);
                 //rectSkills.width -= 10f;
-                var viewRect = new Rect(rect.x + ButtonSize, curY + 3f, (rect.width * 0.9f) - 16f, scrollViewHeight);//rectSkills.height * 4f);
+                var viewRect = new Rect(rect.x, curY + 3f, rect.width, scrollViewHeight);//rectSkills.height * 4f);
                 float scrollViewY = 0f;
                 Widgets.BeginScrollView(outRect, ref scrollPosition, viewRect, true);
                 if (compVampire.Sheet.Pawn == null)
@@ -177,7 +179,7 @@ namespace Vampire
                 }
                     for (int i = 0; i < compVampire.Sheet.Disciplines.Count; i++)
                     {
-                        Rect rectDisciplines = new Rect(rect.x + ButtonSize, curY, rectPowersLabel.width, ButtonSize + Padding);
+                        Rect rectDisciplines = new Rect(rect.x, curY, rectPowersLabel.width, ButtonSize + Padding);
                         PowersGUIHandler(rectDisciplines, compVampire, compVampire.Sheet.Disciplines[i]);
                         var y = ButtonSize + Padding * 2 + TextSize * 2;
                         curY += y;
@@ -195,14 +197,33 @@ namespace Vampire
         #region LevelPane
         public static void LevelPane(Rect inRect, CompVampire compVampire)
         {
-            Rect rectLevel = new Rect(inRect.x, inRect.y, inRect.width * 0.7f, TextSize);
+            Rect rectLevelBar = new Rect(inRect.x, inRect.y, inRect.width, HeaderSize * 0.6f);
+            DrawLevelBar(rectLevelBar, compVampire);
+
+            //rectPointsAvail.yMax + 3f
+            //[||||||||||||||||||||||||||||||||||||||||||||||||||||||||||]
+
+            string levelText = "ROMV_Level".Translate().CapitalizeFirst() + " " + compVampire.Level.ToString();
+            float levelTextLength = Text.CalcSize(levelText).x;
+            Rect rectLevel = new Rect(inRect.x + (inRect.width / 2) - (levelTextLength / 2), rectLevelBar.yMax + 3, inRect.width, TextSize);
+            Text.Font = GameFont.Tiny;
+            Widgets.Label(rectLevel, levelText);
             Text.Font = GameFont.Small;
-            Widgets.Label(rectLevel, "ROMV_Level".Translate().CapitalizeFirst() + " " + compVampire.Level.ToString());
+            //                           Level 1
+
+
+            string pointsAvailableText = compVampire.AbilityPoints + " " + "ROMV_PointsAvailable".Translate();
+            float pointsAvailableTextLength = Text.CalcSize(pointsAvailableText).x;
+            Rect rectPointsAvail = new Rect(inRect.x + (inRect.width / 2) - (pointsAvailableTextLength / 2), rectLevel.yMax, inRect.width, TextSize);
+            Text.Font = GameFont.Tiny;
+            Widgets.Label(rectPointsAvail, pointsAvailableText);
             Text.Font = GameFont.Small;
+
+            //0 points available
 
             if (DebugSettings.godMode)
             {
-                Rect rectDebugPlus = new Rect(rectLevel.xMax, inRect.y, inRect.width * 0.3f, TextSize);
+                Rect rectDebugPlus = new Rect(rectLevelBar.xMax - 30, rectLevelBar.yMin, inRect.width * 0.1f, TextSize);
                 if (Widgets.ButtonText(rectDebugPlus, "+"))
                 {
                     compVampire.Notify_LevelUp(false);
@@ -217,19 +238,8 @@ namespace Vampire
                 }
             }
 
-            //Level 0
+            
 
-            Rect rectPointsAvail = new Rect(inRect.x, rectLevel.yMax, inRect.width, TextSize);
-            Text.Font = GameFont.Tiny;
-            Widgets.Label(rectPointsAvail, compVampire.AbilityPoints + " " + "ROMV_PointsAvailable".Translate());
-            Text.Font = GameFont.Small;
-
-            //0 points available
-
-            Rect rectLevelBar = new Rect(rectPointsAvail.x, rectPointsAvail.yMax + 3f, inRect.width - 10f, HeaderSize * 0.6f);
-            DrawLevelBar(rectLevelBar, compVampire);
-
-            //[|||||||||||||]
         }
 
         public static string XPTipString(CompVampire compVampire)
@@ -260,7 +270,8 @@ namespace Vampire
             rect3 = new Rect(rect3.x, rect3.y, rect3.width, rect3.height - num2);
 
             Color colorToUse = new Color(1.0f, 0.91f, 0f);
-            Widgets.FillableBar(rect3, (float)compVampire.XPTillNextLevelPercent, SolidColorMaterials.NewSolidColorTexture(colorToUse), BaseContent.GreyTex, false);
+            Color colorToUseTwo = new Color(0.4f, 0.1f, 0.1f);
+            Widgets.FillableBar(rect3, (float)compVampire.XPTillNextLevelPercent, SolidColorMaterials.NewSolidColorTexture(colorToUse), SolidColorMaterials.NewSolidColorTexture(colorToUseTwo), false);
         }
         #endregion InfoPane
 
@@ -305,7 +316,7 @@ namespace Vampire
                     }
                     else if (Widgets.ButtonImage(buttonRect, abilityTex) && compVampire.AbilityUser.Faction == Faction.OfPlayer)
                     {
-                        if (compVampire.AbilityUser.story != null && compVampire.AbilityUser.story.WorkTagIsDisabled(WorkTags.Violent) && ability.MainVerb.isViolent)
+                        if (compVampire.AbilityUser.story != null && compVampire.AbilityUser.story.DisabledWorkTagsBackstoryAndTraits.HasFlag(WorkTags.Violent) && ability.MainVerb.isViolent)
                         {
                             Messages.Message("IsIncapableOfViolenceLower".Translate(new object[]
                             {
@@ -327,7 +338,7 @@ namespace Vampire
                         compVampire.AbilityPoints -= 1; //powerDef.abilityPoints;
                     }
 
-                    float drawXOffset = buttonXOffset - ButtonSize;
+                    float drawXOffset = buttonXOffset;
                     float modifier = 0f;
                     switch (count)
                     {

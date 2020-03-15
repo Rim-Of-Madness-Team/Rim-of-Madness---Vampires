@@ -17,6 +17,8 @@ namespace Vampire
         public Building_Bed Bed { get => bed; set => bed = value; }
         public CompProperties_VampBed Props => props as CompProperties_VampBed;
 
+        public bool VampiresOnly = true;
+
         public override void PostSpawnSetup(bool respawningAfterLoad)
         {
             base.PostSpawnSetup(respawningAfterLoad);
@@ -71,7 +73,7 @@ namespace Vampire
                 
                 //Remove and add characters to the bed.
                 if (bed == null || !bed.Spawned) return;
-                var bedPawns = bed?.AssignedPawns?.ToList();
+                var bedPawns = bed?.CompAssignableToPawn?.AssignedPawnsForReading?.ToList();
                 if (bedPawns == null) return;
                 AssignBedPawnsAsNeeded(g, bedPawns);
             }
@@ -105,35 +107,45 @@ namespace Vampire
         /// <param name="bedPawns"></param>
         private void AssignBedPawnsAsNeeded(Building_Grave g, List<Pawn> bedPawns)
         {
-            if (g.PositionHeld.GetFirstPawn(g.MapHeld) is Pawn p && !p.Awake())
+            //Log.Message("1");
+            if (g?.PositionHeld.GetFirstPawn(g.MapHeld) is Pawn p && !p.Awake())
             {
+
+                //Log.Message("2a");
                 if (bedPawns.Contains(p))
                     return;
                 else
                 {
-                    bed.TryAssignPawn(p);
-                    g.TryAssignPawn(p);
+
+                    //Log.Message("3a");
+                    bed.CompAssignableToPawn.TryAssignPawn(p);
                 }
             }
-            else
-            {
-                HashSet<Pawn> gravePawns = new HashSet<Pawn>(g.AssignedPawns);
-                HashSet<Pawn> bedPawnsSet = new HashSet<Pawn>(bedPawns);
-                if (gravePawns.SetEquals(bedPawnsSet)) return;
-                else if (gravePawns.Count() >= bedPawnsSet.Count())
-                {
-                    if (bedPawnsSet.Any())
-                        foreach (var bp in bedPawnsSet)
-                            bed.TryUnassignPawn(bp);
-                    foreach (var gp in gravePawns)
-                        bed.TryAssignPawn(gp);
-                }
-                else if (gravePawns.Count() < bedPawnsSet.Count() && harmonyPatchIsActiveForMultipleCharacters)
-                {
-                    foreach (var bp in bedPawnsSet)
-                        g.TryAssignPawn(bp);
-                }   
-            }
+            //else
+            //{
+            //    Log.Message("2b");
+            //    HashSet<Pawn> gravePawns = new HashSet<Pawn>(g.CompAssignableToPawn.AssignedPawnsForReading);
+            //    HashSet<Pawn> bedPawnsSet = new HashSet<Pawn>(bedPawns);
+
+            //    Log.Message("3b");
+
+            //    if (gravePawns.SetEquals(bedPawnsSet)) return;
+            //    else if (gravePawns.Count() >= 0)
+            //    {
+            //        if (bedPawnsSet.Count() >= 0)
+            //        {
+            //            foreach (var bp in bedPawnsSet)
+            //            {
+            //                bp?.ownership?.UnclaimBed();
+            //            }
+            //        }
+            //    }
+            //    else if (gravePawns.Count() < bedPawnsSet.Count() && harmonyPatchIsActiveForMultipleCharacters)
+            //    {
+            //        foreach (var bp in bedPawnsSet)
+            //            g.CompAssignableToPawn.TryAssignPawn(bp);
+            //    }   
+            //}
 
 //            if (g.AssignedPawns != null && g.AssignedPawns.Count() > 0)
 //            {

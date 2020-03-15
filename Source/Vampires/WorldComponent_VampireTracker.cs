@@ -34,6 +34,7 @@ namespace Vampire
         private List<Pawn> activeVampires = null;
         private List<Pawn> dormantVampires = null;
         private List<Pawn> tempVampires = new List<Pawn>();
+        public Dictionary<Pawn, List<RoyalTitle>> tempVampireTitles = new Dictionary<Pawn, List<RoyalTitle>>();
         public Dictionary<Pawn, int> recentVampires = new Dictionary<Pawn, int>();
         private Dictionary<VampireRecord, Pawn> worldVampires = new Dictionary<VampireRecord, Pawn>();
         

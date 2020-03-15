@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<Defs>
+
+  <Vampire.DisciplineDef>
+    <defName>ROMV_Obtenebration</defName>
+    <label>Obtenebration</label>
+    <abilities>
+      <li>ROMV_Obtenebration_ArmOfTheAbyss</li>
+      <li>ROMV_Obtenebration_BlackMetamorphosis</li>
+      <li>ROMV_Obtenebration_TenebrousForm</li>
+      <li>ROMV_Obtenebration_EnterTheAbyss</li>
+    </abilities>
+  </Vampire.DisciplineDef>
+
+  <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+    <defName>ROMV_Obtenebration_ArmOfTheAbyss</defName>
+    <label>arm of the abyss</label>
+    <bloodCost>1</bloodCost>
+    <uiIconPath>UI/Icons/Commands/Obtenebration_ArmOfTheAbyss</uiIconPath>
+    <description>Summons an abyssal tentacle to guard an area and attack passerbys.</description>
+    <MainVerb Class="AbilityUser.VerbProperties_Ability">
+      <verbClass>Vampire.DisciplineEffect_ArmOfTheAbyss</verbClass>
+      <hasStandardCommand>true</hasStandardCommand>
+      <defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+      <abilityDef>ROMV_Obtenebration_ArmOfTheAbyss</abilityDef>
+      <isViolent>true</isViolent>
+      <warmupTime>1</warmupTime>
+      <SecondsToRecharge>200.0</SecondsToRecharge>
+      <range>24</range>
+      <stopBurstWithoutLos>false</stopBurstWithoutLos>
+      <requireLineOfSight>false</requireLineOfSight>
+      <burstShotCount>1</burstShotCount>
+      <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+      <soundCast>ROMV_AbilityCastSound_Obtenebration</soundCast>
+      <muzzleFlashScale>20</muzzleFlashScale>
+      <isPrimary>false</isPrimary>
+      <targetParams>
+        <canTargetLocations>true</canTargetLocations>
+        <canTargetPawns>false</canTargetPawns>
+        <canTargetBuildings>false</canTargetBuildings>
+        <canTargetItems>false</canTargetItems>
+        <canTargetSelf>false</canTargetSelf>
+      </targetParams>
+      <tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+      <tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+      <tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+      <tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+    </MainVerb>
+  </Vampire.VitaeAbilityDef>
+
+  <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+    <defName>ROMV_Obtenebration_BlackMetamorphosis</defName>
+    <label>black metamorphosis</label>
+    <bloodCost>1</bloodCost>
+    <uiIconPath>UI/Icons/Commands/Obtenebration_BlackMetamorphosis</uiIconPath>
+    <description>Transforms the shadows into additional armor as well as improvements for your weapons.</description>
+    <MainVerb Class="AbilityUser.VerbProperties_Ability">
+      <verbClass>Vampire.DisciplineEffect_BlackMetamorphosis</verbClass>
+      <hasStandardCommand>true</hasStandardCommand>
+      <defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+      <abilityDef>ROMV_Obtenebration_BlackMetamorphosis</abilityDef>
+      <isViolent>false</isViolent>
+      <warmupTime>1</warmupTime>
+      <stopBurstWithoutLos>false</stopBurstWithoutLos>
+      <requireLineOfSight>false</requireLineOfSight>
+      <SecondsToRecharge>200.0</SecondsToRecharge>
+      <range>24</range>
+      <burstShotCount>1</burstShotCount>
+      <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+      <soundCast>ROMV_AbilityCastSound_Obtenebration</soundCast>
+      <muzzleFlashScale>20</muzzleFlashScale>
+      <isPrimary>false</isPrimary>
+      <AbilityTargetCategory>TargetSelf</AbilityTargetCategory>
+      <targetParams>
+        <canTargetLocations>false</canTargetLocations>
+        <canTargetPawns>false</canTargetPawns>
+        <canTargetBuildings>false</canTargetBuildings>
+        <canTargetItems>false</canTargetItems>
+        <canTargetSelf>true</canTargetSelf>
+      </targetParams>
+      <tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+      <tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+      <tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+      <tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+    </MainVerb>
+  </Vampire.VitaeAbilityDef>
+  <HediffDef ParentName="ROMV_VampBase">
+    <defName>ROMV_BlackMetamorphosisHediff</defName>
+    <label>black metamorphosis</label>
+    <description>black metamorphosis</description>
+    <comps>
+      <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>
+          <min>3000</min>
+          <max>3000</max>
+        </disappearsAfterTicks>
+      </li>
+      <li Class="JecsTools.HediffCompProperties_DamageSoak">
+        <damageToSoak>1</damageToSoak>
+      </li>
+    </comps>
+    <stages>
+      <li>
+        <capMods>
+          <li>
+            <capacity>Manipulation</capacity>
+            <offset>0.1</offset>
+          </li>
+        </capMods>
+      </li>
+    </stages>
+  </HediffDef>
+
+
+  <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+    <defName>ROMV_Obtenebration_TenebrousForm</defName>
+    <label>tenebrous form</label>
+    <bloodCost>2</bloodCost>
+    <uiIconPath>UI/Icons/Commands/Obtenebration_TenebrousForm</uiIconPath>
+    <description>Transforms the caster into an invulnerable black shadow that is immune to all damage except sunlight. The caster cannot damage targets with its shadow form.</description>
+    <MainVerb Class="AbilityUser.VerbProperties_Ability">
+      <verbClass>Vampire.DisciplineEffect_TenebrousForm</verbClass>
+      <hasStandardCommand>true</hasStandardCommand>
+      <defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+      <abilityDef>ROMV_Obtenebration_TenebrousForm</abilityDef>
+      <isViolent>false</isViolent>
+      <stopBurstWithoutLos>false</stopBurstWithoutLos>
+      <requireLineOfSight>false</requireLineOfSight>
+      <warmupTime>1</warmupTime>
+      <SecondsToRecharge>200.0</SecondsToRecharge>
+      <range>24</range>
+      <burstShotCount>1</burstShotCount>
+      <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+      <soundCast>ROMV_AbilityCastSound_Obtenebration</soundCast>
+      <muzzleFlashScale>20</muzzleFlashScale>
+      <isPrimary>false</isPrimary>
+      <AbilityTargetCategory>TargetSelf</AbilityTargetCategory>
+      <targetParams>
+        <canTargetLocations>false</canTargetLocations>
+        <canTargetPawns>false</canTargetPawns>
+        <canTargetBuildings>false</canTargetBuildings>
+        <canTargetItems>false</canTargetItems>
+        <canTargetSelf>true</canTargetSelf>
+      </targetParams>
+      <tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+      <tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+      <tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+      <tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+    </MainVerb>
+  </Vampire.VitaeAbilityDef>
+  <HediffDef ParentName="ROMV_VampBase">
+    <defName>ROMV_TenebrousFormHediff</defName>
+    <label>tenebrous form (Obtenebration)</label>
+    <description>tenebrous form (Obtenebration)</description>
+    <comps>
+      <li Class="Vampire.HediffCompProperties_AnimalForm">
+        <animalToChangeInto>ROMV_TenebrousKind</animalToChangeInto>
+        <immuneTodamage>true</immuneTodamage>
+        <canGiveDamage>false</canGiveDamage>
+        <disappearsAfterTicks>
+          <min>3000</min>
+          <max>3000</max>
+        </disappearsAfterTicks>
+      </li>
+    </comps>
+  </HediffDef>
+
+  <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+    <defName>ROMV_Obtenebration_EnterTheAbyss</defName>
+    <label>enter the abyss</label>
+    <bloodCost>3</bloodCost>
+    <uiIconPath>UI/Icons/Commands/Obtenebration_EnterTheAbyss</uiIconPath>
+    <description>Allows the caster to walk through the dark abyss and teleport anywhere on the map instantaneously.</description>
+    <MainVerb Class="AbilityUser.VerbProperties_Ability">
+      <verbClass>Vampire.DisciplineEffect_EnterTheAbyss</verbClass>
+      <hasStandardCommand>true</hasStandardCommand>
+      <defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+      <abilityDef>ROMV_Obtenebration_EnterTheAbyss</abilityDef>
+      <isViolent>false</isViolent>
+      <warmupTime>1</warmupTime>
+      <SecondsToRecharge>200.0</SecondsToRecharge>
+      <range>40</range>
+      <stopBurstWithoutLos>false</stopBurstWithoutLos>
+      <requireLineOfSight>false</requireLineOfSight>
+      <burstShotCount>1</burstShotCount>
+      <mustHaveTarget>false</mustHaveTarget>
+      <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+      <soundCast>ROMV_AbilityCastSound_Obtenebration</soundCast>
+      <muzzleFlashScale>20</muzzleFlashScale>
+      <isPrimary>false</isPrimary>
+      <targetParams>
+        <canTargetLocations>true</canTargetLocations>
+        <canTargetPawns>false</canTargetPawns>
+        <canTargetBuildings>false</canTargetBuildings>
+        <canTargetItems>false</canTargetItems>
+        <canTargetSelf>false</canTargetSelf>
+      </targetParams>
+      <tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+      <tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+      <tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+      <tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+    </MainVerb>
+  </Vampire.VitaeAbilityDef>
+
+</Defs>

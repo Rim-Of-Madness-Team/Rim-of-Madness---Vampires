@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_ScenStrangeCargo.label>Vampiros - Carga extraño</ROMV_ScenStrangeCargo.label>
+  <ROMV_ScenStrangeCargo.description>Te despiertas después de un aterrizaje forzoso en un planeta remoto. Mirando a tu alrededor, te ves a ti mismo y a otro colonista. Entre los dos hay un ataúd sellado.</ROMV_ScenStrangeCargo.description>
+  <ROMV_ScenStrangeCargo.scenario.name>Vampiros - Carga extraña</ROMV_ScenStrangeCargo.scenario.name>
+  <ROMV_ScenStrangeCargo.scenario.description>Te despiertas después de un aterrizaje forzoso en un planeta remoto. Mirando a tu alrededor, te ves a ti mismo y a otro colonista. Entre los dos hay un ataúd sellado.</ROMV_ScenStrangeCargo.scenario.description>
+  <ROMV_ScenStrangeCargo.scenario.summary>Experiencia estándar de RimWorld: con un solo vampiro</ROMV_ScenStrangeCargo.scenario.summary>
+  <ROMV_ScenStrangeCargo.scenario.parts.19.text>Mientras están fuera de guardia durante un improvisado juego de rol con tu compañero de tripulación, eres absorbido por una cápsula de escape de emergencia. Después del accidente, un extraño ataúd yace intacto, no lejos de los escombros. Irradia un aura misteriosa.</ROMV_ScenStrangeCargo.scenario.parts.19.text>
+
+
+</LanguageData>

@@ -36,8 +36,12 @@ namespace Vampire
                     s.AppendLine("ROMV_HI_Immunities".Translate());
                     if (!this.comps.NullOrEmpty())
                         foreach (HediffComp compProps in this.comps)
+                        {
                             if (compProps is JecsTools.HediffComp_DamageSoak dmgSoak)
                                 s.AppendLine(dmgSoak.CompTipStringExtra);
+                            if (compProps is JecsTools.HediffComp_ExtraMeleeDamages xDmg)
+                                s.AppendLine(xDmg.CompTipStringExtra);
+                        }
                 }
                 catch (NullReferenceException)
                 {

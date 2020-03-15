@@ -133,19 +133,27 @@ namespace Vampire
                                 {
                                     MoteMaker.ThrowText(actor.DrawPos, actor.Map, "XP +" + 15);
                                     v.XP += 15;
-                                }
-                                workLeft = BaseFeedTime;
-                                MoteMaker.MakeColonistActionOverlay(actor, ThingDefOf.Mote_ColonistAttacking);
-                                effect();
-                                if (victim != null && !victim.Dead && needsGrapple)
-                                {
-                                    if (!JecsTools.GrappleUtility.TryGrapple(actor, victim))
-                                    {
-                                        thisDriver.EndJobWith(JobCondition.Incompletable);
-                                    }
+                                    workLeft = BaseFeedTime;
+                                    MoteMaker.MakeColonistActionOverlay(actor, ThingDefOf.Mote_ColonistAttacking);
+
                                 }
 
-                                if (!stopCondition(actor, victim))
+                            effect();
+                            if (victim != null && !victim.Dead && needsGrapple)
+                            {
+                                int victimBonus = (victim.VampComp() is CompVampire victimVampComp) ? -victimVampComp.Generation + 14 : 0;
+                                int actorBonus = 0;
+                                if (actor?.VampComp() is CompVampire v2 && v2.IsVampire)
+                                {
+                                    actorBonus = -v2.Generation + 14;
+                                }
+                                if (!JecsTools.GrappleUtility.TryGrapple(actor, victim, actorBonus, victimBonus))
+                                {
+                                    thisDriver.EndJobWith(JobCondition.Incompletable);
+                                }
+                            }
+
+                            if (!stopCondition(actor, victim))
                                 {
                                     thisDriver.ReadyForNextToil();
                                     if (actor.IsVampire() && cleansWound) VampireBiteUtility.CleanBite(actor, victim);

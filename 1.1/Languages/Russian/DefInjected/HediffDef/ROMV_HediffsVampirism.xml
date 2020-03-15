@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROM_Vampirism.label>Вампиризм</ROM_Vampirism.label>
+
+  <ROM_VampirismRandom.label>Вампиризм (Случайный)</ROM_VampirismRandom.label>
+  <ROM_VampirismRandom.stages.0.label>Слабая кровь (Слабейшая)</ROM_VampirismRandom.stages.0.label>
+  <ROM_VampirismRandom.stages.1.label>10-13-е Поколение (Средняя)</ROM_VampirismRandom.stages.1.label>
+  <ROM_VampirismRandom.stages.2.label>7-9-е Поколение (Сильная)</ROM_VampirismRandom.stages.2.label>
+  <ROM_VampirismRandom.stages.3.label>5-6-е Поколение (Сверх сильная)</ROM_VampirismRandom.stages.3.label>
+
+  <ROM_VampirismTzimisce.label>Вампиризм (Цимисхи)</ROM_VampirismTzimisce.label>
+  <ROM_VampirismTzimisce.stages.0.label>Слабая кровь (Слабейшая)</ROM_VampirismTzimisce.stages.0.label>
+  <ROM_VampirismTzimisce.stages.1.label>10-13-е Поколение (Средняя)</ROM_VampirismTzimisce.stages.1.label>
+  <ROM_VampirismTzimisce.stages.2.label>7-9-е Поколение (Сильная)</ROM_VampirismTzimisce.stages.2.label>
+  <ROM_VampirismTzimisce.stages.3.label>5-6-е Поколение (Сверх сильная)</ROM_VampirismTzimisce.stages.3.label>
+
+  <ROM_VampirismLasombra.label>Вампиризм (Ласомбра)</ROM_VampirismLasombra.label>
+  <ROM_VampirismLasombra.stages.0.label>Слабая кровь (Слабейшая)</ROM_VampirismLasombra.stages.0.label>
+  <ROM_VampirismLasombra.stages.1.label>10-13-е Поколение (Средняя)</ROM_VampirismLasombra.stages.1.label>
+  <ROM_VampirismLasombra.stages.2.label>7-9-е Поколение (Сильная)</ROM_VampirismLasombra.stages.2.label>
+  <ROM_VampirismLasombra.stages.3.label>5-6-е Поколение (Сверх сильная)</ROM_VampirismLasombra.stages.3.label>
+
+  <ROM_VampirismTremere.label>Вампиризм (Тремер)</ROM_VampirismTremere.label>
+  <ROM_VampirismTremere.stages.0.label>Слабая кровь (Слабейшая)</ROM_VampirismTremere.stages.0.label>
+  <ROM_VampirismTremere.stages.1.label>10-13-е Поколение (Средняя)</ROM_VampirismTremere.stages.1.label>
+  <ROM_VampirismTremere.stages.2.label>7-9-е Поколение (Сильная)</ROM_VampirismTremere.stages.2.label>
+  <ROM_VampirismTremere.stages.3.label>5-6-е Поколение (Сверх сильная)</ROM_VampirismTremere.stages.3.label>
+
+  <ROM_VampirismPijavica.label>Вампиризм (Пиджавик)</ROM_VampirismPijavica.label>
+  <ROM_VampirismPijavica.stages.0.label>Слабая кровь (Слабейшая)</ROM_VampirismPijavica.stages.0.label>
+  <ROM_VampirismPijavica.stages.1.label>10-13-е Поколение (Средняя)</ROM_VampirismPijavica.stages.1.label>
+  <ROM_VampirismPijavica.stages.2.label>7-9-е Поколение (Сильная)</ROM_VampirismPijavica.stages.2.label>
+  <ROM_VampirismPijavica.stages.3.label>5-6-е Поколение (Сверх сильная)</ROM_VampirismPijavica.stages.3.label>
+
+  <ROM_VampirismGargoyle.label>Вампиризм (Горгульи)</ROM_VampirismGargoyle.label>
+  <ROM_VampirismGargoyle.stages.0.label>Слабая кровь (Слабейшая)</ROM_VampirismGargoyle.stages.0.label>
+  <ROM_VampirismGargoyle.stages.1.label>10-13-е Поколение (Средняя)</ROM_VampirismGargoyle.stages.1.label>
+  <ROM_VampirismGargoyle.stages.2.label>7-9-е Поколение (Сильная)</ROM_VampirismGargoyle.stages.2.label>
+  <ROM_VampirismGargoyle.stages.3.label>5-6-е Поколение (Сверх сильная)</ROM_VampirismGargoyle.stages.3.label>
+
+  <ROMV_TheBeast.label>Зверь</ROMV_TheBeast.label>
+  <ROMV_TheBeast.stages.0.label>начальный-скрытый</ROMV_TheBeast.stages.0.label>
+  <ROMV_TheBeast.stages.1.label>желание</ROMV_TheBeast.stages.1.label>
+  <ROMV_TheBeast.stages.2.label>голодный</ROMV_TheBeast.stages.2.label>
+  <ROMV_TheBeast.stages.3.label>голодающий</ROMV_TheBeast.stages.3.label>
+
+  <ROMV_SunExposure.label>Солнечный свет</ROMV_SunExposure.label>
+  <ROMV_SunExposure.stages.0.label>начальный-скрытый</ROMV_SunExposure.stages.0.label>
+  <ROMV_SunExposure.stages.1.label>начальный</ROMV_SunExposure.stages.1.label>
+  <ROMV_SunExposure.stages.2.label>незначительный</ROMV_SunExposure.stages.2.label>
+  <ROMV_SunExposure.stages.3.label>серьёзный</ROMV_SunExposure.stages.3.label>
+
+
+</LanguageData>

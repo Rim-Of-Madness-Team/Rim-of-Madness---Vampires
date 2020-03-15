@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_Protean_BatForm.label>forma de murcielago</ROMV_Protean_BatForm.label>
+  <ROMV_Protean_BatForm.description>Conviértete en uno de los niños de la noche y gana su habilidad para volar a gran velocidad.</ROMV_Protean_BatForm.description>
+
+  <ROMV_Protean_FeralClaws.label>garras salvajes</ROMV_Protean_FeralClaws.label>
+  <ROMV_Protean_FeralClaws.description>Las uñas del vampiro se convierten en garras largas y temibles, capaces de desgarrar huesos y carne por igual.</ROMV_Protean_FeralClaws.description>
+
+  <ROMV_Protean_MistForm.label>forma de niebla</ROMV_Protean_MistForm.label>
+  <ROMV_Protean_MistForm.description>Este poder permite a un Vástago transformar su cuerpo entero en una neblina fina y fría, tanto inmune al daño como incapaz de administrarlo.</ROMV_Protean_MistForm.description>
+
+  <ROMV_Protean_WarForm.label>forma de guerra</ROMV_Protean_WarForm.label>
+  <ROMV_Protean_WarForm.description>Asume una apariencia colosal adecuada para luchar contra una horda enemiga.</ROMV_Protean_WarForm.description>
+
+
+</LanguageData>

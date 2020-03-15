@@ -29,14 +29,10 @@ namespace Vampire
             }
             else
             {
-                //LongEventHandler.ExecuteWhenFinished(delegate
-                //{
                 SoundDef def = SoundDef.Named("FireBurning");
                 SoundInfo info = SoundInfo.InMap(new TargetInfo(pawn.Position, pawn.Map), MaintenanceType.PerTick);
                 info.volumeFactor *= 2;
-                //this.sustainer = def.TrySpawnSustainer(info); //SustainerAggregatorUtility.AggregateOrSpawnSustainerFor(this, def, info);
                 sustainer = SustainerAggregatorUtility.AggregateOrSpawnSustainerFor(this, def, info);
-                //});
             }
 
             if (sunBurningEffect != null)

@@ -5,6 +5,7 @@ using RimWorld;
 using Verse;
 using UnityEngine;
 using AbilityUser;
+using Verse.Sound;
 
 namespace Vampire
 {
@@ -59,34 +60,46 @@ namespace Vampire
         public bool BurnedToAshes { get => burnedToAshes;
             set
             {
-                if (value == true)
-                {
-                    if (InnerPawn is Pawn p)
-                    {
-                        List<BodyPartRecord> parts = p.health.hediffSet.GetNotMissingParts().ToList();
-                        foreach (BodyPartRecord rec in parts)
-                        {
-                            if (p.health.hediffSet.PartIsMissing(rec))
-                            {
-                                continue;
-                            }
-                            HediffDef hediffDefFromDamage = HealthUtility.GetHediffDefFromDamage(DamageDefOf.Burn, p, rec);
-                            Hediff_Injury hediff_Injury = (Hediff_Injury)HediffMaker.MakeHediff(hediffDefFromDamage, p);
-                            hediff_Injury.Part = rec;
-                            hediff_Injury.source = null;
-                            hediff_Injury.sourceBodyPartGroup = null;
-                            hediff_Injury.sourceHediffDef = null;
-                            hediff_Injury.Severity = 999999;
-                            p.health.AddHediff(hediff_Injury, null, new DamageInfo?(new DamageInfo(DamageDefOf.Burn, 999999, 1f, -1, null, rec)));
-                        }
-                    }
-                }
+                //if (value == true)
+                //{
+                //    if (InnerPawn is Pawn p)
+                //    {
+                //        List<BodyPartRecord> parts = p.health.hediffSet.GetNotMissingParts().ToList();
+                //        foreach (BodyPartRecord rec in parts)
+                //        {
+                //            if (p.health.hediffSet.PartIsMissing(rec))
+                //            {
+                //                continue;
+                //            }
+                //            HediffDef hediffDefFromDamage = HealthUtility.GetHediffDefFromDamage(DamageDefOf.Burn, p, rec);
+                //            Hediff_Injury hediff_Injury = (Hediff_Injury)HediffMaker.MakeHediff(hediffDefFromDamage, p);
+                //            hediff_Injury.Part = rec;
+                //            hediff_Injury.source = null;
+                //            hediff_Injury.sourceBodyPartGroup = null;
+                //            hediff_Injury.sourceHediffDef = null;
+                //            hediff_Injury.Severity = 999999;
+                //            p.health.AddHediff(hediff_Injury, null, new DamageInfo?(new DamageInfo(DamageDefOf.Burn, 999999, 1f, -1, null, rec)));
+                //        }
+                //    }
+                //}
                 burnedToAshes = value;
+                if (value == true && InnerPawn?.royalty is Pawn_RoyaltyTracker pRoyalty && !Diableried)
+                {
+                    HarmonyPatches.keepTitles = false;
+                    pRoyalty.Notify_PawnKilled();
+                    HarmonyPatches.keepTitles = true;
+                }
             }
         }
 
         private bool diableried = false;
-        public bool Diableried { get => diableried; set => diableried = value; }
+        public bool Diableried { get => diableried; 
+            set 
+            { 
+                diableried = value;
+
+            } 
+        }
         
 
         private Graphic ashesCache = null;
@@ -111,7 +124,7 @@ namespace Vampire
             {
                 if (Diableried)
                     return "ROMV_SoullessHuskOf".Translate(base.Label);
-                return burnedToAshes ? "ROMV_AshesOf".Translate(base.Label) : base.Label;
+                return burnedToAshes ? "ROMV_AshesOf".Translate(base.Label) : new TaggedString(base.Label);
             }
         }
 
@@ -185,6 +198,34 @@ namespace Vampire
             }
         }
 
+        int corpseBurnCount = 0;
+        public override void TickRare()
+        {
+            base.TickRare();
+
+            if (!this.Spawned || this.MapHeld == null)
+            {
+                return;
+            }
+
+            if (this.BurnedToAshes)
+            {
+                return;
+            }
+
+            IntVec3 curVec = this.PositionHeld;
+            if (curVec.Roofed(this.MapHeld) || !VampireUtility.IsDaylight(this.MapHeld))
+            {
+                return;
+            }
+
+            MoteMaker.ThrowSmoke(DrawPos, Map, 1f);
+            MoteMaker.ThrowFireGlow(PositionHeld, Map, 1f);
+            if (corpseBurnCount > 10)
+                BurnedToAshes = true;
+            corpseBurnCount++;
+
+        }
         // Token: 0x060047A3 RID: 18339 RVA: 0x002079C4 File Offset: 0x00205DC4
         public override void ExposeData()
         {

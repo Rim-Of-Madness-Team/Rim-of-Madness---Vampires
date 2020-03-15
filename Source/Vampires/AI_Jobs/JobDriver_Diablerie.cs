@@ -38,14 +38,12 @@ namespace Vampire
             BloodVictim.TransferBloodTo(1, BloodFeeder, false);
             if (!Victim.InAggroMentalState)
             {
-                Victim.mindState.mentalStateHandler.TryStartMentalState(MentalStateDefOf.Berserk, "ROMV_AttemptedDiablerie".Translate(this.pawn), false, false, null);
-//                Victim.mindState.mentalStateHandler.TryStartMentalState(VampDefOf.MurderousRage,
-//                    "ROMV_AttemptedDiablerie".Translate(), false, false, GetActor());
+                Victim.mindState.mentalStateHandler.TryStartMentalState(MentalStateDefOf.Berserk, "ROMV_AttemptedDiablerie".Translate(this.pawn.Named("PAWN")), false, false, null);
             }
 
             if (DiablerieInteractionGiven) return;
             DiablerieInteractionGiven = true;
-            Find.LetterStack.ReceiveLetter("ROMV_AttemptedDiablerie".Translate(this.pawn), TranslatorFormattedStringExtensions.Translate("ROMV_VampireDiablerieAttemptedLetter", this.pawn, Victim, this.pawn.ProSubj().Named("PAWN_pronoun")), LetterDefOf.ThreatSmall);
+            Find.LetterStack.ReceiveLetter("ROMV_AttemptedDiablerie".Translate(this.pawn.Named("PAWN")), "ROMV_VampireDiablerieAttemptedLetter".Translate(this.pawn.Named("PAWN"), Victim.Named("VICTIM")), LetterDefOf.ThreatSmall, pawn);
             MoteMaker.MakeInteractionBubble(GetActor(), Victim, VampDefOf.ROMV_VampireDiablerieAttempt.interactionMote, VampDefOf.ROMV_VampireDiablerieAttempt.Symbol);
             if (this?.Victim?.needs?.mood?.thoughts?.memories is MemoryThoughtHandler m)
             {
@@ -77,7 +75,10 @@ namespace Vampire
                 initAction = delegate ()
                 {
                     Pawn p = (Pawn)TargetA;
-                    if (!p.Dead) p.Kill(null);
+                    if (!p.Dead) 
+                    {
+                        p.Kill(null);
+                    };
                     job.SetTarget(TargetIndex.A, p.Corpse);
                     pawn.Reserve(TargetA, job);
                 }

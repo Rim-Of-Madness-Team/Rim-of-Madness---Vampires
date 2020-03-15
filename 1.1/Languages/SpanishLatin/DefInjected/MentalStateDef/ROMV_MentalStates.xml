@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Mental breaks: extreme -->
+
+  <ROMV_VampireBeast.label>La Bestia</ROMV_VampireBeast.label>
+  <ROMV_VampireBeast.beginLetterLabel>La Bestia</ROMV_VampireBeast.beginLetterLabel>
+  <ROMV_VampireBeast.beginLetter>{0} ha desatado su bestia interior!</ROMV_VampireBeast.beginLetter>
+  <ROMV_VampireBeast.recoveryMessage>La furia de {0} ha llegado a su fin.</ROMV_VampireBeast.recoveryMessage>
+  <ROMV_VampireBeast.baseInspectLine>Estado mental: Bestia</ROMV_VampireBeast.baseInspectLine>
+
+  <ROMV_Rotschreck.label>rötschreck</ROMV_Rotschreck.label>
+  <ROMV_Rotschreck.beginLetterLabel>rotschreck</ROMV_Rotschreck.beginLetterLabel>
+  <ROMV_Rotschreck.beginLetter>{0} huye aterrado de la luz!</ROMV_Rotschreck.beginLetter>
+  <ROMV_Rotschreck.recoveryMessage>Los temores de {0} han disminuido.</ROMV_Rotschreck.recoveryMessage>
+  <ROMV_Rotschreck.baseInspectLine>Estado mental: Rötschreck</ROMV_Rotschreck.baseInspectLine>
+
+
+</LanguageData>

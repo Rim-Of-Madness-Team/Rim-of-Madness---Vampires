@@ -98,7 +98,7 @@ namespace Vampire
             {
                 if (victim.Faction == witness.Faction)
                 {
-                    if (!witness.story.WorkTagIsDisabled(WorkTags.Violent))
+                    if (!witness.story.DisabledWorkTagsBackstoryAndTraits.HasFlag(WorkTags.Violent))
                         return CrimeReaction.MoodVisitorFlee;
                     return CrimeReaction.MoodVisitorAggro;
                 }

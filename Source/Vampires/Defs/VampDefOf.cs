@@ -51,6 +51,7 @@ namespace Vampire
 
         public static RecipeDef ROMV_ExtractBloodVial;
         public static RecipeDef ROMV_ExtractBloodPack;
+        public static RecipeDef ROMV_ExtractBloodWine;
         public static RecipeDef ROM_TransferBloodPack;
         public static RecipeDef ROM_TransferBloodPackAnimal;
 
@@ -67,6 +68,11 @@ namespace Vampire
         public static ThingDef BloodPack_LowBlood;
         public static ThingDef BloodPack_AverageBlood;
         public static ThingDef BloodPack_HighBlood;
+
+        public static ThingDef BloodWine_LowBlood;
+        public static ThingDef BloodWine_AverageBlood;
+        public static ThingDef BloodWine_HighBlood;
+        public static ThingDef BloodWine_Special;
 
         public static ThoughtDef ROMV_MyBloodHarvested;
         public static ThoughtDef ROMV_KnowGuestBloodHarvested;

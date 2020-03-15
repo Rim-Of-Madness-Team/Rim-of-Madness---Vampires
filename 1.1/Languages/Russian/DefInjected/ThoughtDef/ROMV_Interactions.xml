@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Random social interactions -->
+
+  <ROMV_VampireDiablerieAttemptThought.stages.0.label>неудавшиеся диаблери на мне</ROMV_VampireDiablerieAttemptThought.stages.0.label>
+  <ROMV_VampireDiablerieAttemptThought.stages.0.description>Один МОНСТР пытался поглотить мою душу!</ROMV_VampireDiablerieAttemptThought.stages.0.description>
+
+  <ROMV_BloodBondSocialBoost.stages.0.label>выпил их кровь</ROMV_BloodBondSocialBoost.stages.0.label>
+  <ROMV_BloodBondEnslavement.stages.0.label>кровная связь</ROMV_BloodBondEnslavement.stages.0.label>
+
+  <ROMV_VampireLoreThought.stages.0.label>приобретенные знания вампиров</ROMV_VampireLoreThought.stages.0.label>
+  <ROMV_VampireLoreThought.stages.0.description>Я уже чувствую себя более опытным. Интересно, какие еще могут быть секреты?</ROMV_VampireLoreThought.stages.0.description>
+
+
+</LanguageData>

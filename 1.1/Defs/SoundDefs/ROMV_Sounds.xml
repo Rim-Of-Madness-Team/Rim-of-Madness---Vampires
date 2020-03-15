@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <SoundDef>
+    <defName>ROMV_AbilityCastSound_Dominate</defName>
+    <context>MapOnly</context>
+    <eventNames />
+    <maxSimultaneous>1</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>UI/CastDominate</clipPath>
+          </li>
+        </grains>
+        <volumeRange>
+          <min>25</min>
+          <max>25</max>
+        </volumeRange>
+        <pitchRange>
+          <min>1</min>
+          <max>1</max>
+        </pitchRange>
+      </li>
+    </subSounds>
+  </SoundDef>
+
+    <SoundDef>
+      <defName>ROMV_AbilityCastSound_Protean</defName>
+      <context>MapOnly</context>
+      <eventNames />
+      <maxSimultaneous>1</maxSimultaneous>
+      <subSounds>
+        <li>
+          <grains>
+            <li Class="AudioGrain_Clip">
+              <clipPath>UI/CastProtean</clipPath>
+            </li>
+          </grains>
+          <volumeRange>
+            <min>25</min>
+            <max>25</max>
+          </volumeRange>
+          <pitchRange>
+            <min>1</min>
+            <max>1</max>
+          </pitchRange>
+        </li>
+      </subSounds>
+    </SoundDef>
+
+    <SoundDef>
+      <defName>ROMV_AbilityCastSound_Vicissitude</defName>
+      <context>MapOnly</context>
+      <eventNames />
+      <maxSimultaneous>1</maxSimultaneous>
+      <subSounds>
+        <li>
+          <grains>
+            <li Class="AudioGrain_Clip">
+              <clipPath>UI/CastVicissitude</clipPath>
+            </li>
+          </grains>
+          <volumeRange>
+            <min>25</min>
+            <max>25</max>
+          </volumeRange>
+          <pitchRange>
+            <min>1</min>
+            <max>1</max>
+          </pitchRange>
+        </li>
+      </subSounds>
+    </SoundDef>
+
+    <SoundDef>
+      <defName>ROMV_AbilityCastSound_Animalism</defName>
+      <context>MapOnly</context>
+      <eventNames />
+      <maxSimultaneous>1</maxSimultaneous>
+      <subSounds>
+        <li>
+          <grains>
+            <li Class="AudioGrain_Clip">
+              <clipPath>UI/CastAnimalism</clipPath>
+            </li>
+          </grains>
+          <volumeRange>
+            <min>25</min>
+            <max>25</max>
+          </volumeRange>
+          <pitchRange>
+            <min>1</min>
+            <max>1</max>
+          </pitchRange>
+        </li>
+      </subSounds>
+    </SoundDef>
+
+<SoundDef>
+  <defName>ROMV_AbilityCastSound_Auspex</defName>
+  <context>MapOnly</context>
+  <eventNames />
+  <maxSimultaneous>1</maxSimultaneous>
+  <subSounds>
+    <li>
+      <grains>
+        <li Class="AudioGrain_Clip">
+          <clipPath>UI/CastAuspex</clipPath>
+        </li>
+      </grains>
+      <volumeRange>
+        <min>25</min>
+        <max>25</max>
+      </volumeRange>
+      <pitchRange>
+        <min>1</min>
+        <max>1</max>
+      </pitchRange>
+    </li>
+  </subSounds>
+</SoundDef>
+
+<SoundDef>
+  <defName>ROMV_AbilityCastSound_Blood</defName>
+  <context>MapOnly</context>
+  <eventNames />
+  <maxSimultaneous>1</maxSimultaneous>
+  <subSounds>
+    <li>
+      <grains>
+        <li Class="AudioGrain_Clip">
+          <clipPath>UI/CastBlood</clipPath>
+        </li>
+      </grains>
+      <volumeRange>
+        <min>25</min>
+        <max>25</max>
+      </volumeRange>
+      <pitchRange>
+        <min>1</min>
+        <max>1</max>
+      </pitchRange>
+    </li>
+  </subSounds>
+</SoundDef>
+
+
+<SoundDef>
+  <defName>ROMV_AbilityCastSound_Obtenebration</defName>
+  <context>MapOnly</context>
+  <eventNames />
+  <maxSimultaneous>1</maxSimultaneous>
+  <subSounds>
+    <li>
+      <grains>
+        <li Class="AudioGrain_Clip">
+          <clipPath>UI/CastObtenebration</clipPath>
+        </li>
+      </grains>
+      <volumeRange>
+        <min>25</min>
+        <max>25</max>
+      </volumeRange>
+      <pitchRange>
+        <min>1</min>
+        <max>1</max>
+      </pitchRange>
+    </li>
+  </subSounds>
+</SoundDef>
+
+<SoundDef>
+  <defName>ROMV_AbilityCastSound_Thaumaturgy</defName>
+  <context>MapOnly</context>
+  <eventNames />
+  <maxSimultaneous>1</maxSimultaneous>
+  <subSounds>
+    <li>
+      <grains>
+        <li Class="AudioGrain_Clip">
+          <clipPath>UI/CastThaumaturgy</clipPath>
+        </li>
+      </grains>
+      <volumeRange>
+        <min>25</min>
+        <max>25</max>
+      </volumeRange>
+      <pitchRange>
+        <min>1</min>
+        <max>1</max>
+      </pitchRange>
+    </li>
+  </subSounds>
+</SoundDef>
+
+
+<SoundDef>
+  <defName>ROMV_AbilityCastSound_Flight</defName>
+  <context>MapOnly</context>
+  <eventNames />
+  <maxSimultaneous>1</maxSimultaneous>
+  <subSounds>
+    <li>
+      <grains>
+        <li Class="AudioGrain_Clip">
+          <clipPath>UI/CastFlight</clipPath>
+        </li>
+      </grains>
+      <volumeRange>
+        <min>25</min>
+        <max>25</max>
+      </volumeRange>
+      <pitchRange>
+        <min>1</min>
+        <max>1</max>
+      </pitchRange>
+    </li>
+  </subSounds>
+</SoundDef>
+
+</Defs>

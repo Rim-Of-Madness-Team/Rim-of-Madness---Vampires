@@ -66,11 +66,11 @@ namespace Vampire
             {
                 return false;
             }
-            Site site = SiteMaker.MakeSite(SiteCoreDefOf.Nothing, DefDatabase<SitePartDef>.GetNamed("ROMV_AncientVampireCrypt"), tile,
+            Site site = SiteMaker.MakeSite(DefDatabase<SitePartDef>.GetNamed("ROMV_AncientVampireCrypt"), tile,
                 Find.FactionManager.FirstFactionOfDef(FactionDef.Named("ROMV_LegendaryVampires")));
             site.GetComponent<DefeatAllEnemiesQuestComp>().StartQuest(Faction.OfPlayer, 8, GenerateRewards());
             Find.WorldObjects.Add(site);
-            base.SendStandardLetter(site);
+            base.SendStandardLetter(parms, null);
             return true;
         }
 
@@ -78,7 +78,7 @@ namespace Vampire
         {
             ThingSetMakerParams parms = default(ThingSetMakerParams);
             parms.techLevel = TechLevel.Medieval; //new TechLevel?(alliedFaction.def.techLevel);
-            return ThingSetMakerDefOf.Reward_StandardByDropPod.root.Generate(parms);
+            return ThingSetMakerDefOf.Reward_ItemsStandard.root.Generate(parms);
         }
 
 //        private bool TryFindFactions(out Faction alliedFaction, out Faction enemyFaction)

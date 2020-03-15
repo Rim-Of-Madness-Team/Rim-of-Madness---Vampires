@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_Blood.label>Кровь</ROMV_Blood.label>
+  <ROMV_Blood.description>Отслеживает количество крови в организме. Восстанавливается со скоростью 1 в день. Когда полоса опустеет, организм умрет.</ROMV_Blood.description>
+
+  <ROMV_Chemical_Vitae.label>жажда витэ</ROMV_Chemical_Vitae.label>
+  <ROMV_Chemical_Vitae.description>Одной дегустации витэ вампиров никогда не бывает достаточно, и теперь этому человеку необходимо регулярно потреблять кровь вампиров, чтобы избежать симптомов синдрома отмены.</ROMV_Chemical_Vitae.description>
+
+
+</LanguageData>

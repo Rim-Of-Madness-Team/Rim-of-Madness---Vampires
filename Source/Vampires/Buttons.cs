@@ -7,6 +7,7 @@ namespace Vampire
     public static class TexButton
     {
         //VampireIcon
+        public static readonly Texture2D ROMV_VampiresOnly = ContentFinder<Texture2D>.Get("UI/Icons/VampiresOnly");
         public static readonly Texture2D ROMV_VampireIcon = ContentFinder<Texture2D>.Get("UI/VampireIcon");
         public static readonly Texture2D ROMV_NullTex = ContentFinder<Texture2D>.Get("NullTex");
         public static readonly Texture2D ROMV_GhoulIcon = ContentFinder<Texture2D>.Get("UI/GhoulIcon");

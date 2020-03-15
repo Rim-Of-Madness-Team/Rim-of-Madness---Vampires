@@ -19,7 +19,7 @@ namespace Vampire
                     List<Thing> temp = new List<Thing>(things);
                     foreach (Thing t in temp)
                     {
-                        if (t.def.defName == "FilthBlood")
+                        if (t.def.defName == "Filth_Blood")
                         {
                             CasterPawn.BloodNeed().AdjustBlood(1);
                             t.Destroy();

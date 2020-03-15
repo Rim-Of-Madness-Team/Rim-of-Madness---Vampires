@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_BatRace.label>Летучая мышь</ROMV_BatRace.label>
+  <ROMV_BatRace.description>До рассвета эпохи генетического редактирования это животное, когда-то считалось единственным известным млекопитающим, способным летать.</ROMV_BatRace.description>
+  <!-- Leather Amount: 0 -->
+  <ROMV_BatRace_Meat.label>Мясо летучей мыши</ROMV_BatRace_Meat.label>
+  <ROMV_BatRace_Meat.description>Мясо летучей мыши.</ROMV_BatRace_Meat.description>
+  <ROMV_BatRace_Corpse.label>труп летучей мыши</ROMV_BatRace_Corpse.label>
+  <ROMV_BatRace_Corpse.description>Мёртвая летучая мышь.</ROMV_BatRace_Corpse.description>
+
+
+</LanguageData>

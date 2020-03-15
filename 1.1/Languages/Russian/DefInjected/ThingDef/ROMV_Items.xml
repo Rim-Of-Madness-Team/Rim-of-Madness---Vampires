@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- ██████   █████   ██████ ██   ██ ███████
+  ██   ██ ██   ██ ██      ██  ██  ██
+  ██████  ███████ ██      █████   ███████
+  ██      ██   ██ ██      ██  ██       ██
+  ██      ██   ██  ██████ ██   ██ ███████ -->
+
+  <BloodPack_Animal.label>Пакет крови (животного)</BloodPack_Animal.label>
+  <BloodPack_Animal.description>Собранная для потребления кровь животного. (1 пункт крови)</BloodPack_Animal.description>
+  <BloodPack_Animal.ingestible.ingestCommandString>Выпить {0}</BloodPack_Animal.ingestible.ingestCommandString>
+  <BloodPack_Animal.ingestible.ingestReportString>Пьет {0}</BloodPack_Animal.ingestible.ingestReportString>
+
+  <BloodPack_LowBlood.label>Пакет крови (низшая кровь)</BloodPack_LowBlood.label>
+  <BloodPack_LowBlood.description>Низкая кровь или кровь, которая не соответствует более высоким королевским стандартам (проститутки, рабы, бездомные или больные), собранная в небольшой пакет. (3 пункта крови)</BloodPack_LowBlood.description>
+  <BloodPack_LowBlood.ingestible.ingestCommandString>Выпить {0}</BloodPack_LowBlood.ingestible.ingestCommandString>
+  <BloodPack_LowBlood.ingestible.ingestReportString>Пьет {0}</BloodPack_LowBlood.ingestible.ingestReportString>
+
+  <BloodPack_AverageBlood.label>Пакет крови (обычная)</BloodPack_AverageBlood.label>
+  <BloodPack_AverageBlood.description>Кровь, которая не слишком выдающаяся для сурового вампира или слишком низкого класса для потребления более высокими членами общества вампиров. (3 пункта крови)</BloodPack_AverageBlood.description>
+  <BloodPack_AverageBlood.ingestible.ingestCommandString>Выпить {0}</BloodPack_AverageBlood.ingestible.ingestCommandString>
+  <BloodPack_AverageBlood.ingestible.ingestReportString>Пьет {0}</BloodPack_AverageBlood.ingestible.ingestReportString>
+
+  <BloodPack_HighBlood.label>Пакет крови (высшая кровь)</BloodPack_HighBlood.label>
+  <BloodPack_HighBlood.description>Высшая кровь или кровь, подходящая для королевских вампиров (кровь аристократов, богатых людей или из мира утопии), хранится в пакете. (2 пункта крови)</BloodPack_HighBlood.description>
+  <BloodPack_HighBlood.ingestible.ingestCommandString>Выпить {0}</BloodPack_HighBlood.ingestible.ingestCommandString>
+  <BloodPack_HighBlood.ingestible.ingestReportString>Пьет {0}</BloodPack_HighBlood.ingestible.ingestReportString>
+
+
+  <!-- ██    ██ ██  █████  ██      ███████
+  ██    ██ ██ ██   ██ ██      ██
+  ██    ██ ██ ███████ ██      ███████
+   ██  ██  ██ ██   ██ ██           ██
+    ████   ██ ██   ██ ███████ ███████ -->
+
+  <BloodVial_LowBlood.label>Флакон крови (низшая)</BloodVial_LowBlood.label>
+  <BloodVial_LowBlood.description>Низкая кровь или кровь, которая не соответствует более высоким королевским стандартам (проститутки, рабы, бездомные или больные), собранная в небольшой флакон. (1 пункт крови)</BloodVial_LowBlood.description>
+  <BloodVial_LowBlood.ingestible.ingestCommandString>Выпить {0}</BloodVial_LowBlood.ingestible.ingestCommandString>
+  <BloodVial_LowBlood.ingestible.ingestReportString>Пьет {0}</BloodVial_LowBlood.ingestible.ingestReportString>
+
+  <BloodVial_AverageBlood.label>Флакон крови (обычная)</BloodVial_AverageBlood.label>
+  <BloodVial_AverageBlood.description>Кровь, которая не слишком выдающаяся для сурового вампира или слишком низкого класса для потребления более высокими членами общества вампиров. (1 пункт крови)</BloodVial_AverageBlood.description>
+  <BloodVial_AverageBlood.ingestible.ingestCommandString>Выпить {0}</BloodVial_AverageBlood.ingestible.ingestCommandString>
+  <BloodVial_AverageBlood.ingestible.ingestReportString>Пьет {0}</BloodVial_AverageBlood.ingestible.ingestReportString>
+
+  <BloodVial_HighBlood.label>Флакон крови (высшая кровь)</BloodVial_HighBlood.label>
+  <BloodVial_HighBlood.description>Высшая кровь или кровь, подходящая для королевских вампиров (кровь аристократов, богатых людей или из мира утопии), хранится во флаконе.</BloodVial_HighBlood.description>
+  <BloodVial_HighBlood.ingestible.ingestCommandString>Выпить {0}</BloodVial_HighBlood.ingestible.ingestCommandString>
+  <BloodVial_HighBlood.ingestible.ingestReportString>Пьет {0}</BloodVial_HighBlood.ingestible.ingestReportString>
+
+  <BloodVial_Special.label>Флакон крови (специальная)</BloodVial_Special.label>
+  <BloodVial_Special.description>Специальная кровь, возможно, полученная из мифических существ, хранится во флаконе.</BloodVial_Special.description>
+  <BloodVial_Special.ingestible.ingestCommandString>Выпить {0}</BloodVial_Special.ingestible.ingestCommandString>
+  <BloodVial_Special.ingestible.ingestReportString>Пьет {0}</BloodVial_Special.ingestible.ingestReportString>
+
+
+</LanguageData>

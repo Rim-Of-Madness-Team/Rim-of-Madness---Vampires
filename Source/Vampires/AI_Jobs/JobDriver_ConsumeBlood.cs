@@ -255,6 +255,14 @@ namespace Vampire
                         }
                     }
                 }
+                if (thing?.def?.ingestible?.outcomeDoers is List<IngestionOutcomeDoer> doers && doers?.Count > 0)
+                {
+                    foreach (var doer in doers)
+                    {
+                        doer.DoIngestionOutcome(ingester, thing);
+                    }
+                }
+
                 int num2 = thing?.TryGetComp<CompBloodItem>()?.Props?.bloodPoints ?? 1;
                 if (!ingester.Dead)
                 {

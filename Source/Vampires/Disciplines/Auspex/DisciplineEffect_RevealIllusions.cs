@@ -16,8 +16,14 @@ namespace Vampire
                     List<HediffDef> defsToCheck = new List<HediffDef>()
                     {
                         VampDefOf.ROMV_CorruptFormHediff_Arms, VampDefOf.ROMV_CorruptFormHediff_Legs,
-                        VampDefOf.ROMV_CorruptFormHediff_Sight, VampDefOf.ROMV_PossessionHediff
+                        VampDefOf.ROMV_CorruptFormHediff_Sight, VampDefOf.ROMV_PossessionHediff,
+                        VampDefOf.ROMV_HideHediff, HediffDef.Named("ROMV_InvisibilityHediff"),
+                        HediffDef.Named("ROMV_HiddenForceHediff")
                     };
+                    if (ModLister.RoyaltyInstalled)
+                    {
+                        defsToCheck.Add(HediffDef.Named("PsychicInvisibility"));
+                    }
                     if (p?.health?.hediffSet?.hediffs is List<Hediff> hList)
                     {
                         foreach (Hediff h in hList)

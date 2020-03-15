@@ -43,7 +43,9 @@ namespace Vampire
 
         private void DoEffect()
         {
+            bloodCarried++;
             BloodVictim.TransferBloodTo(1, Master.BloodNeed());
+            MoteMaker.ThrowText(Master.DrawPos, Master.Map, "+1 Blood");
         }
 
         public override string GetReport()

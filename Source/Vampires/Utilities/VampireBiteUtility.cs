@@ -23,12 +23,44 @@ namespace Vampire
                 if (neckPart == null) neckPart = victim.health.hediffSet.GetNotMissingParts().RandomElement();
                 if (neckPart != null)
                 {
+                    //Make the sound and mote
                     GenClamor.DoClamor(actor, 10f, ClamorDefOf.Harm);
                     actor.Drawer.Notify_MeleeAttackOn(victim);
-                    victim.TakeDamage(new DamageInfo(dmgDef, (int)(dmgAmount * BITEFACTOR), 0.5f, -1, actor, neckPart));
+
+                    //Create the battle log entry
                     BattleLogEntry_MeleeCombat battleLogEntry_MeleeCombat = new BattleLogEntry_MeleeCombat(dmgRules, true,
-                        actor, victim, ImplementOwnerTypeDefOf.Bodypart, dmgLabel);
+                        actor, victim, ImplementOwnerTypeDefOf.Hediff, dmgLabel);
+                    battleLogEntry_MeleeCombat.def = LogEntryDefOf.MeleeAttack;
+
+                    //Apply the melee damage
+                    DamageWorker.DamageResult damageResult = new DamageWorker.DamageResult();
+                    damageResult = victim.TakeDamage(new DamageInfo(dmgDef, (int)(dmgAmount * BITEFACTOR), 0.5f, -1, actor, neckPart));
+                    damageResult.AssociateWithLog(battleLogEntry_MeleeCombat);
+
+                    //Add to the battle log
                     Find.BattleLog.Add(battleLogEntry_MeleeCombat);
+
+                    //Transfer any alcohol
+                    bool addHediff = false;
+                    if (victim?.health?.hediffSet?.GetHediffs<Hediff_Alcohol>()?.FirstOrDefault(x => x.def == HediffDefOf.AlcoholHigh) is Hediff victimAlcohol)
+                    {
+                        Hediff actorAlcohol;
+                        if (actor?.health?.hediffSet?.GetHediffs<Hediff_Alcohol>()?.FirstOrDefault(x => x.def == HediffDefOf.AlcoholHigh) is Hediff findActorAlcohol)
+                        {
+                            actorAlcohol = findActorAlcohol;
+                        }
+                        else
+                        {
+                            addHediff = true;
+                            actorAlcohol = HediffMaker.MakeHediff(HediffDefOf.AlcoholHigh, actor, null);
+                        }
+                        actorAlcohol.Severity += victimAlcohol.Severity;
+
+                        if (addHediff)
+                            actor.health.AddHediff(actorAlcohol);
+
+                        victim.health.RemoveHediff(victimAlcohol);
+                    }
                 }
             }
              

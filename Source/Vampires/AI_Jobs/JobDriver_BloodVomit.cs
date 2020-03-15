@@ -50,7 +50,7 @@ namespace Vampire
                     int curTicks = ticksLeft;
                     if (curTicks % 150 == 149)
                     {
-                        FilthMaker.MakeFilth(pawn.CurJob.targetA.Cell, pawn.Map, ThingDefOf.Filth_Blood, pawn.LabelIndefinite());
+                        FilthMaker.TryMakeFilth(pawn.CurJob.targetA.Cell, pawn.Map, ThingDefOf.Filth_Blood, pawn.LabelIndefinite());
                         if (pawn.BloodNeed() is Need_Blood n && n.CurBloodPoints > 0)
                         {
                             n.AdjustBlood(-1);

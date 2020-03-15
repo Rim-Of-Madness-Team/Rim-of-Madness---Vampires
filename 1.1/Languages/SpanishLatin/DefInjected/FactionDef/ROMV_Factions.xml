@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_LegendaryVampires.label>dormant</ROMV_LegendaryVampires.label>
+  <ROMV_LegendaryVampires.description>Familia legendaria, vampiros que llevan el poder de moldear o destruir el mundo.</ROMV_LegendaryVampires.description>
+  <ROMV_LegendaryVampires.pawnsPlural>dormant</ROMV_LegendaryVampires.pawnsPlural>
+  <ROMV_LegendaryVampires.fixedName>el inframundo</ROMV_LegendaryVampires.fixedName>
+
+  <ROMV_Camarilla.label>camarilla</ROMV_Camarilla.label>
+  <ROMV_Camarilla.description>La Camarilla es la más grande de las sectas vampíricas, una organización informal que aparentemente representa y protege a todos los vampiros. Su objetivo es mantener el status quo de la sociedad de los parentescos; como tal, gran
+       parte de su estructura y tradiciones reflejan la de la sociedad Cainita en la Europa feudal en la Edad Media, y la pone en desacuerdo con la agenda del Sabbat y los Anarch, que buscan derrocar a la sociedad de los parentescos.</ROMV_Camarilla.description>
+  <ROMV_Camarilla.pawnsPlural>forasteros</ROMV_Camarilla.pawnsPlural>
+  <ROMV_Camarilla.fixedName>camarilla</ROMV_Camarilla.fixedName>
+  <ROMV_Camarilla.leaderTitle>príncipe</ROMV_Camarilla.leaderTitle>
+
+  <ROMV_Anarch.label>anarch</ROMV_Anarch.label>
+  <ROMV_Anarch.description>Los Anarch son vampiros que rechazan el status quo de la sociedad Cainita. La organización de anarquistas resultante se llama Movimiento Anarch.</ROMV_Anarch.description>
+  <ROMV_Anarch.pawnsPlural>anarchs</ROMV_Anarch.pawnsPlural>
+  <ROMV_Anarch.fixedName>movimientos anarch</ROMV_Anarch.fixedName>
+  <ROMV_Anarch.leaderTitle>barón</ROMV_Anarch.leaderTitle>
+
+  <ROMV_Sabbat.label>sabbat</ROMV_Sabbat.label>
+  <ROMV_Sabbat.description>El Sabbat es una organización laxa de Cainitas que rechazan las Tradiciones. A diferencia de la Camarilla, el Sabbat cree en los Antediluvianos y en Caine. También conocida como la Espada de Caine, ya que creen que serán el ejército
+        que Caine usará para destruir a los Antediluvianos una vez que Gehenna llegue.</ROMV_Sabbat.description>
+  <ROMV_Sabbat.pawnsPlural>sabbat</ROMV_Sabbat.pawnsPlural>
+  <ROMV_Sabbat.leaderTitle>jefe</ROMV_Sabbat.leaderTitle>
+
+
+</LanguageData>

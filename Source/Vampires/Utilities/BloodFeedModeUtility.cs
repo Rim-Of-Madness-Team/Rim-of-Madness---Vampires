@@ -70,7 +70,7 @@ namespace Vampire
                 case PreferredFeedMode.None:
                     return PreferredFeedMode.AnimalNonLethal;
                 case PreferredFeedMode.AnimalNonLethal:
-                    if (pawn.story != null && pawn.story.WorkTagIsDisabled(WorkTags.Violent))
+                    if (pawn.story != null && pawn.story.DisabledWorkTagsBackstoryAndTraits.HasFlag(WorkTags.Violent))
                     {
                         return PreferredFeedMode.HumanoidNonLethal;
                     }
@@ -78,7 +78,7 @@ namespace Vampire
                 case PreferredFeedMode.AnimalLethal:
                     return PreferredFeedMode.HumanoidNonLethal;
                 case PreferredFeedMode.HumanoidNonLethal:
-                    if (pawn.story != null && pawn.story.WorkTagIsDisabled(WorkTags.Violent))
+                    if (pawn.story != null && pawn.story.DisabledWorkTagsBackstoryAndTraits.HasFlag(WorkTags.Violent))
                     {
                         return PreferredFeedMode.None;
                     }

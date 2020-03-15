@@ -22,7 +22,7 @@ namespace Vampire
 
         public override bool IsViolationOnPawn(Pawn pawn, BodyPartRecord part, Faction billDoerFaction)
         {
-            if (BloodItemUtility.ExtractionWillKill(pawn))
+            if (BloodItemUtility.ExtractionWillKill(pawn, BloodExtractType.Vial))
             {
                 Messages.Message("ROMV_DeadlyOperation".Translate(pawn.Label), MessageTypeDefOf.NegativeEvent);
             }
@@ -51,7 +51,7 @@ namespace Vampire
                     billDoer,
                     pawn
                 });
-                BloodItemUtility.SpawnBloodFromExtraction(pawn);
+                BloodItemUtility.SpawnBloodFromExtraction(pawn, BloodExtractType.Vial);
             }
              pawn.TakeDamage(new DamageInfo(DamageDefOf.Cut, 1, 1f, -1f, null, part));
             int badGoodwillAmt = -3;
@@ -75,7 +75,7 @@ namespace Vampire
 
         public override string GetLabelWhenUsedOn(Pawn pawn, BodyPartRecord part)
         {
-            return recipe.LabelCap + " (" + BloodTypeUtility.BloodType(pawn).GetLabel() + ")" + ((BloodItemUtility.ExtractionWillKill(pawn)) ? " (" + "ROMV_DeadlyOperationShort".Translate() + ")"  : "");
+            return recipe.LabelCap + " (" + BloodTypeUtility.BloodType(pawn).GetLabel() + ")" + ((BloodItemUtility.ExtractionWillKill(pawn, BloodExtractType.Vial)) ? " (" + ("ROMV_DeadlyOperationShort".Translate()).RawText + ")"  : "");
         }
     }
 }

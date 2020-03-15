@@ -5,43 +5,122 @@ namespace Vampire
     public static class BloodItemUtility
     {
         public static readonly int AMT_BLOODPACK = 3;
+        public static readonly int AMT_BLOODWINE = 1;
         public static readonly int AMT_BLOODVIAL = 1;
 
-        public static bool ExtractionWillKill(Pawn extractee, bool isBloodPack = false)
+        public static bool ExtractionWillKill(Pawn extractee, BloodExtractType bloodExtractType)
         {
-            int amt = isBloodPack ? AMT_BLOODPACK : AMT_BLOODVIAL;
+            int amt = 0;
+            switch (bloodExtractType)
+            {
+                case BloodExtractType.Vial:
+                    amt = AMT_BLOODVIAL;
+                    break;
+                case BloodExtractType.Wine:
+                    amt = AMT_BLOODWINE;
+                    break;
+                case BloodExtractType.Pack:
+                    amt = AMT_BLOODPACK;
+                    break;
+                default:
+                    break;
+            }
             if (extractee?.BloodNeed() is Need_Blood bn && (bn.CurBloodPoints <= amt || bn.DrainingIsDeadly))
                 return true;
             return false;
         }
 
-        public static Thing SpawnBloodFromExtraction(Pawn extractee, bool isBloodPack = false)
+        public static Thing SpawnBloodFromExtraction(Pawn extractee, BloodExtractType bloodExtractType)
         {
             BloodType type = BloodTypeUtility.BloodType(extractee);
             Thing result = null;
             switch (type)
             {
                 case BloodType.Animal:
-                    result = (Thing)ThingMaker.MakeThing(isBloodPack ? VampDefOf.BloodPack_Animal : null);
+                    switch (bloodExtractType)
+                    {
+                        case BloodExtractType.Vial:
+                        case BloodExtractType.Pack:
+                        case BloodExtractType.Wine:
+                            result = (Thing)ThingMaker.MakeThing(VampDefOf.BloodPack_Animal);
+                            break;
+                    }
                     break;
                 case BloodType.LowBlood:
-                    result = (Thing)ThingMaker.MakeThing(isBloodPack ? VampDefOf.BloodPack_LowBlood : VampDefOf.BloodVial_LowBlood);
+                    switch (bloodExtractType)
+                    {
+                        case BloodExtractType.Vial:
+                            result = (Thing)ThingMaker.MakeThing(VampDefOf.BloodVial_LowBlood);
+                            break;
+                        case BloodExtractType.Pack:
+                            result = (Thing)ThingMaker.MakeThing(VampDefOf.BloodPack_LowBlood);
+                            break;
+                        case BloodExtractType.Wine:
+                            result = (Thing)ThingMaker.MakeThing(VampDefOf.BloodWine_LowBlood);
+                            break;
+                    }
                     break;
                 case BloodType.AverageBlood:
-                    result = (Thing)ThingMaker.MakeThing(isBloodPack ? VampDefOf.BloodPack_AverageBlood : VampDefOf.BloodPack_AverageBlood);
+                    switch (bloodExtractType)
+                    {
+                        case BloodExtractType.Vial:
+                            result = (Thing)ThingMaker.MakeThing(VampDefOf.BloodVial_AverageBlood);
+                            break;
+                        case BloodExtractType.Pack:
+                            result = (Thing)ThingMaker.MakeThing(VampDefOf.BloodPack_AverageBlood);
+                            break;
+                        case BloodExtractType.Wine:
+                            result = (Thing)ThingMaker.MakeThing(VampDefOf.BloodWine_AverageBlood);
+                            break;
+                    }
                     break;
                 case BloodType.HighBlood:
-                    result = (Thing)ThingMaker.MakeThing(isBloodPack ? VampDefOf.BloodPack_HighBlood : VampDefOf.BloodVial_HighBlood);
+                    switch (bloodExtractType)
+                    {
+                        case BloodExtractType.Vial:
+                            result = (Thing)ThingMaker.MakeThing(VampDefOf.BloodVial_HighBlood);
+                            break;
+                        case BloodExtractType.Pack:
+                            result = (Thing)ThingMaker.MakeThing(VampDefOf.BloodPack_HighBlood);
+                            break;
+                        case BloodExtractType.Wine:
+                            result = (Thing)ThingMaker.MakeThing(VampDefOf.BloodWine_HighBlood);
+                            break;
+                    }
                     break;
                 case BloodType.Special:
-                    result = (Thing)ThingMaker.MakeThing(isBloodPack ? null : VampDefOf.BloodVial_Special);
+                    switch (bloodExtractType)
+                    {
+                        case BloodExtractType.Vial:
+                        case BloodExtractType.Pack:
+                            result = (Thing)ThingMaker.MakeThing(VampDefOf.BloodVial_Special);
+                            break;
+                        case BloodExtractType.Wine:
+                            result = (Thing)ThingMaker.MakeThing(VampDefOf.BloodWine_Special);
+                            break;
+                    }
                     break;
             }
             if (result != null)
             {
                 result.stackCount = 1;
                 GenPlace.TryPlaceThing(result, extractee.PositionHeld, extractee.Map, ThingPlaceMode.Near);
-                extractee.BloodNeed().AdjustBlood(isBloodPack ? -AMT_BLOODPACK : -AMT_BLOODVIAL);
+
+                int bloodAdjustAmount = 0;
+                switch (bloodExtractType)
+                {
+                    case BloodExtractType.Vial:
+                        bloodAdjustAmount = -AMT_BLOODVIAL;
+                        break;
+                    case BloodExtractType.Wine:
+                        bloodAdjustAmount = -AMT_BLOODWINE;
+                        break;
+                    case BloodExtractType.Pack:
+                        bloodAdjustAmount = -AMT_BLOODPACK;
+                        break;
+                }
+                
+                extractee.BloodNeed().AdjustBlood(bloodAdjustAmount);
             }
             return result;
         }

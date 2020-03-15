@@ -327,11 +327,11 @@ namespace Vampire
                     {
                         for (var i = 0; i < vdd.Count; i++)
                         {
-                            var vitaeAbilityDef = vdd[i];
-                            if (AbilityData.Powers.FirstOrDefault(x => x.Def.defName == vitaeAbilityDef.defName) ==
+                            var VitaeAbilityDef = vdd[i];
+                            if (AbilityData.Powers.FirstOrDefault(x => x.Def.defName == VitaeAbilityDef.defName) ==
                                 null)
                             {
-                                AddPawnAbility(vitaeAbilityDef);
+                                AddPawnAbility(VitaeAbilityDef);
                             }
                         }
                     }
@@ -607,12 +607,11 @@ namespace Vampire
         public void Notify_Embraced(CompVampire sireComp)
         {
             InitializeVampirism(sireComp.AbilityUser, sireComp.Bloodline, sireComp.Generation + 1);
-            Messages.Message("ROMV_EmbracedSuccessfully".Translate(new object[]
-            {
-                AbilityUser.LabelShort,
-                sireComp.AbilityUser.LabelShort,
-                sireComp.Bloodline.LabelCap
-            }), MessageTypeDefOf.PositiveEvent);
+            Messages.Message("ROMV_EmbracedSuccessfully".Translate(
+                AbilityUser.Named("PAWN"),
+                sireComp.AbilityUser.Named("SIRE"),
+                sireComp.Bloodline.Named("BLOODLINE")
+            ), MessageTypeDefOf.PositiveEvent);
         }
 
         public void Notify_Diablerie(CompVampire victim)
@@ -624,6 +623,19 @@ namespace Vampire
             }), MessageTypeDefOf.PositiveEvent);
             Generation = Math.Min(Generation, victim.Generation);
             Souls.Add(victim.AbilityUser);
+
+            //If Royalty is installed, take over their titles
+            if (victim?.Pawn?.royalty is Pawn_RoyaltyTracker pRoyalty)
+            {
+                if (pRoyalty?.AllTitlesForReading?.FirstOrDefault() != null)
+                {
+                    foreach (var title in pRoyalty.AllTitlesForReading)
+                    {
+                        AbilityUser.royalty.SetTitle(title.faction, title.def, false, false, true);
+                    }
+                }
+            }
+
             VampireThoughtUtility.GiveThoughtsForDiablerie(AbilityUser);
         }
 
