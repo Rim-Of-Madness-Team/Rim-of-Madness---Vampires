@@ -22,7 +22,8 @@ namespace Vampire
     {
         Relaxed = 0,
         Restricted = 1,
-        NoAI = 2
+        NoAI = 2,
+        DebugDisableSun = 3
     }
     
     public class CompVampire : CompAbilityUser
