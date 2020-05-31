@@ -21,7 +21,7 @@ namespace Vampire
             {
                 if (!vampComp.IsVampire)
                     RecoverFromState();
-                if (vampBlood.IsFull)
+                if (vampBlood.ShouldRecoverFromBeast)
                     RecoverFromState();
             }
         }
