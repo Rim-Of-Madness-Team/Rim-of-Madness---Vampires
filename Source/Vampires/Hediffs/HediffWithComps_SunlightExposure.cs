@@ -17,6 +17,7 @@ namespace Vampire
         {
             base.Tick();
 
+            if (pawn.VampComp().CurrentSunlightPolicy == SunlightPolicy.DebugDisableSun)   return; 
             if (pawn == null && pawn?.Corpse?.InnerPawn == null)
             {
                 return;
