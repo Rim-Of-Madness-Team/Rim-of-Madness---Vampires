@@ -130,6 +130,8 @@ namespace Vampire
         // RimWorld.ForbidUtility
         public static void Vamp_IsForbidden(IntVec3 c, Pawn pawn, ref bool __result)
         {
+            
+            if(pawn.VampComp().CurrentSunlightPolicy == SunlightPolicy.DebugDisableSun){__result = false; return;}
             if (pawn.IsVampire() &&
                 (pawn.VampComp().CurrentSunlightPolicy != SunlightPolicy.NoAI && VampireUtility.IsDaylight(pawn)) &&
                 !c.Roofed(pawn.Map))
