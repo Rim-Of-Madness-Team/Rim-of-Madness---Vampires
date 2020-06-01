@@ -118,6 +118,13 @@ namespace Vampire
                             TooltipHandler.TipRegion(rectVampOptions, new TipSignal("ROMV_SP_NoAI".Translate()));
                             if (Widgets.ButtonImage(rectVampOptions, TexButton.ROMV_SunlightPolicyNoAI))
                             {
+                                compVampire.CurrentSunlightPolicy = SunlightPolicy.DebugDisableSun;
+                            }
+                            break;
+                        case SunlightPolicy.DebugDisableSun:
+                            TooltipHandler.TipRegion(rectVampOptions, new TipSignal("ROMV_SP_NoAI".Translate()));
+                            if (Widgets.ButtonImage(rectVampOptions, TexButton.ROMV_SunlightPolicyNoAI))
+                            {
                                 compVampire.CurrentSunlightPolicy = SunlightPolicy.Relaxed;
                             }
                             break;
