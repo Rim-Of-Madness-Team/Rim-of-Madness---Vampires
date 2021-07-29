@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<Defs>
+
+  <Vampire.DisciplineDef>
+    <defName>ROMV_Dominate</defName>
+    <label>Dominate</label>
+    <abilities>
+      <li>ROMV_Dominate_Mesmerise</li>
+      <li>ROMV_Dominate_Sleep</li>
+      <li>ROMV_Dominate_Suicide</li>
+      <li>ROMV_Dominate_Possession</li>
+    </abilities>
+  </Vampire.DisciplineDef>
+
+  <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+   <defName>ROMV_Dominate_Mesmerise</defName>
+   <label>mesmerise</label>
+   <bloodCost>1</bloodCost>
+   <uiIconPath>UI/Icons/Commands/Dominate_Mesmerise</uiIconPath>
+   <description>Temporarily stun and clears a target's mental state.</description>
+   <MainVerb Class="AbilityUser.VerbProperties_Ability">
+     <verbClass>Vampire.DisciplineEffect_Mesmerise</verbClass>
+     <hasStandardCommand>true</hasStandardCommand>
+     <defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+     <abilityDef>ROMV_Dominate_Mesmerise</abilityDef>
+     <isViolent>false</isViolent>
+     <warmupTime>1</warmupTime>
+     <SecondsToRecharge>200.0</SecondsToRecharge>
+     <range>24</range>
+     <burstShotCount>1</burstShotCount>
+     <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+     <soundCast>ROMV_AbilityCastSound_Dominate</soundCast>
+     <muzzleFlashScale>20</muzzleFlashScale>
+     <isPrimary>false</isPrimary>
+     <targetParams>
+       <canTargetPawns>true</canTargetPawns>
+       <canTargetBuildings>false</canTargetBuildings>
+       <canTargetItems>false</canTargetItems>
+       <canTargetSelf>false</canTargetSelf>
+     </targetParams>
+     <tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+     <tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+     <tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+     <tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+     <extraDamages>
+       <li>
+         <damage>20</damage>
+         <damageDef>Stun</damageDef>
+         <chance>1.0</chance>
+       </li>
+     </extraDamages>
+   </MainVerb>
+ </Vampire.VitaeAbilityDef>
+
+ <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+  <defName>ROMV_Dominate_Sleep</defName>
+  <label>sleep</label>
+  <bloodCost>1</bloodCost>
+  <uiIconPath>UI/Icons/Commands/Dominate_Sleep</uiIconPath>
+  <description>The target will fall asleep for about 20 seconds or longer, becoming completely incapacitated.</description>
+  <MainVerb Class="AbilityUser.VerbProperties_Ability">
+    <verbClass>Vampire.DisciplineEffect_Sleep</verbClass>
+    <hasStandardCommand>true</hasStandardCommand>
+    <defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+    <abilityDef>ROMV_Dominate_Mesmerise</abilityDef>
+    <isViolent>false</isViolent>
+    <warmupTime>1</warmupTime>
+    <SecondsToRecharge>200.0</SecondsToRecharge>
+    <range>24</range>
+    <burstShotCount>1</burstShotCount>
+    <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+    <soundCast>ROMV_AbilityCastSound_Dominate</soundCast>
+    <muzzleFlashScale>20</muzzleFlashScale>
+    <isPrimary>false</isPrimary>
+    <targetParams>
+      <canTargetPawns>true</canTargetPawns>
+      <canTargetBuildings>false</canTargetBuildings>
+      <canTargetItems>false</canTargetItems>
+      <canTargetSelf>false</canTargetSelf>
+    </targetParams>
+    <tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+    <tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+    <tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+    <tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+  </MainVerb>
+</Vampire.VitaeAbilityDef>
+  <HediffDef ParentName="ROMV_VampBase">
+    <defName>ROMV_SleepHediff</defName>
+    <label>sleep (deep trance)</label>
+	<description>sleep (deep trance)</description>
+    <comps>
+      <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>
+          <min>1200</min>
+          <max>1200</max>
+        </disappearsAfterTicks>
+      </li>
+    </comps>
+    <stages>
+      <li>
+        <capMods>
+          <li>
+            <capacity>Consciousness</capacity>
+            <setMax>0.1</setMax>
+          </li>
+        </capMods>
+      </li>
+    </stages>
+  </HediffDef>
+
+
+    <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+     <defName>ROMV_Dominate_Suicide</defName>
+     <label>suicide</label>
+     <bloodCost>2</bloodCost>
+     <uiIconPath>UI/Icons/Commands/Dominate_Suicide</uiIconPath>
+     <description>You impose your will on the victim to suffer a fatal fit.</description>
+     <MainVerb Class="AbilityUser.VerbProperties_Ability">
+       <verbClass>Vampire.DisciplineEffect_Suicide</verbClass>
+       <hasStandardCommand>true</hasStandardCommand>
+       <defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+       <abilityDef>ROMV_Dominate_Suicide</abilityDef>
+       <isViolent>true</isViolent>
+       <warmupTime>1</warmupTime>
+       <SecondsToRecharge>200.0</SecondsToRecharge>
+       <range>24</range>
+       <burstShotCount>1</burstShotCount>
+       <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+       <soundCast>ROMV_AbilityCastSound_Dominate</soundCast>
+       <muzzleFlashScale>20</muzzleFlashScale>
+       <isPrimary>false</isPrimary>
+       <targetParams>
+         <canTargetPawns>true</canTargetPawns>
+         <canTargetBuildings>false</canTargetBuildings>
+         <canTargetItems>false</canTargetItems>
+         <canTargetSelf>false</canTargetSelf>
+       </targetParams>
+       <tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+       <tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+       <tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+       <tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+     </MainVerb>
+   </Vampire.VitaeAbilityDef>
+
+   <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+    <defName>ROMV_Dominate_Possession</defName>
+    <label>possession</label>
+    <bloodCost>3</bloodCost>
+    <uiIconPath>UI/Icons/Commands/Dominate_Possession</uiIconPath>
+    <description>The victim will temporarily join your side, until it eventually dies of cardiac arrest.</description>
+    <MainVerb Class="AbilityUser.VerbProperties_Ability">
+      <verbClass>Vampire.DisciplineEffect_Possession</verbClass>
+      <hasStandardCommand>true</hasStandardCommand>
+      <defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+      <abilityDef>ROMV_Dominate_Possession</abilityDef>
+      <isViolent>true</isViolent>
+      <warmupTime>1</warmupTime>
+      <SecondsToRecharge>200.0</SecondsToRecharge>
+      <range>24</range>
+      <burstShotCount>1</burstShotCount>
+      <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+      <soundCast>ROMV_AbilityCastSound_Dominate</soundCast>
+      <muzzleFlashScale>20</muzzleFlashScale>
+      <isPrimary>false</isPrimary>
+      <targetParams>
+        <canTargetPawns>true</canTargetPawns>
+        <canTargetBuildings>false</canTargetBuildings>
+        <canTargetItems>false</canTargetItems>
+        <canTargetSelf>false</canTargetSelf>
+      </targetParams>
+      <tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+      <tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+      <tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+      <tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+    </MainVerb>
+  </Vampire.VitaeAbilityDef>
+  <HediffDef ParentName="ROMV_VampBase">
+    <defName>ROMV_PossessionHediff</defName>
+    <label>possessed</label>
+	<description>possessed</description>
+    <comps>
+      <li Class="Vampire.HediffCompProperties_Possession">
+        <disappearsAfterTicks>
+          <min>3000</min>
+          <max>3000</max>
+        </disappearsAfterTicks>
+      </li>
+    </comps>
+  </HediffDef>
+
+
+</Defs>

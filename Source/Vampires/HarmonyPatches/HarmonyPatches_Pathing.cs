@@ -82,7 +82,7 @@ namespace Vampire
                         return;
                     }
                 }
-                __result = CellFinder.RandomClosewalkCellNearNotForbidden(pawn.Position, map, 4, pawn);
+                __result = CellFinder.RandomClosewalkCellNearNotForbidden(pawn, 4);
                 return;
                 //return CellFinder.RandomClosewalkCellNearNotForbidden(pawn.Position, map, 4, pawn);
             }

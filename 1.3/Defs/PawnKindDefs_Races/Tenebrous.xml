@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+
+  <Vampire.TransformationDef>
+    <defName>ROMV_TenebrousKind</defName>
+    <label>shadow</label>
+    <baseBodySize>1.0</baseBodySize>
+    <baseHealthScale>1.0</baseHealthScale>
+	<bodyGraphicData>
+	  <texPath>Things/Pawn/Animal/Tenebrous/tenebrous</texPath>
+	  <drawSize>2.0</drawSize>
+	  <graphicClass>Graphic_Multi</graphicClass>
+	</bodyGraphicData>
+  </Vampire.TransformationDef>  
+
+</Defs>

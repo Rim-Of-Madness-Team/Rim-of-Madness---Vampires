@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_Dominate_Mesmerise.label>hipnotizar</ROMV_Dominate_Mesmerise.label>
+  <ROMV_Dominate_Mesmerise.description>Aturde y aclara temporalmente el estado mental de un objetivo.</ROMV_Dominate_Mesmerise.description>
+
+  <ROMV_Dominate_Sleep.label>dormir</ROMV_Dominate_Sleep.label>
+  <ROMV_Dominate_Sleep.description>El objetivo se dormirá durante aproximadamente 20 segundos o más, quedando completamente incapacitado.</ROMV_Dominate_Sleep.description>
+
+  <ROMV_Dominate_Suicide.label>suicidio</ROMV_Dominate_Suicide.label>
+  <ROMV_Dominate_Suicide.description>Impone su voluntad a la víctima para sufrir un ataque fatal.</ROMV_Dominate_Suicide.description>
+
+  <ROMV_Dominate_Possession.label>posesión</ROMV_Dominate_Possession.label>
+  <ROMV_Dominate_Possession.description>La víctima se unirá temporalmente a su lado, hasta que finalmente muera de un paro cardíaco.</ROMV_Dominate_Possession.description>
+
+
+</LanguageData>

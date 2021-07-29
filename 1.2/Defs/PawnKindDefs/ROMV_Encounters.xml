@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <PawnKindDef Name="ROMV_EncounterBase" Abstract="True">
+    <race>Human</race>
+    <defaultFactionType>ROMV_Sabbat</defaultFactionType>
+    <baseRecruitDifficulty>0.65</baseRecruitDifficulty>
+    <chemicalAddictionChance>0.0</chemicalAddictionChance>
+    <backstoryCryptosleepCommonality>0.0</backstoryCryptosleepCommonality>
+    <invNutrition>0.0</invNutrition>
+    <apparelTags>
+      <li>Tribal</li>
+    </apparelTags>
+  </PawnKindDef>
+
+  <PawnKindDef ParentName="ROMV_EncounterBase">
+    <defName>ROMV_BondedMortalKind</defName>
+    <label>bonded mortal</label>
+    <combatPower>30</combatPower>
+    <invNutrition>0</invNutrition>
+    <gearHealthRange>
+      <min>0.2</min>
+      <max>0.6</max>
+    </gearHealthRange>
+    <itemQuality>Shoddy</itemQuality>
+    <apparelMoney>
+      <min>90</min>
+      <max>280</max>
+    </apparelMoney>
+    <apparelAllowHeadgearChance>0.2</apparelAllowHeadgearChance>
+    <weaponMoney>
+      <min>60</min>
+      <max>200</max>
+    </weaponMoney>
+    <weaponTags>
+		<li>NeolithicMeleeBasic</li>
+    </weaponTags>
+    <techHediffsMoney>
+      <min>0</min>
+      <max>35</max>
+    </techHediffsMoney>
+    <techHediffsTags>
+      <li>Poor</li>
+    </techHediffsTags>
+    <techHediffsChance>0.1</techHediffsChance>
+    <inventoryOptions>
+      <skipChance>0.9</skipChance>
+      <subOptionsChooseOne>
+        <li>
+          <thingDef>Silver</thingDef>
+          <countRange>
+            <min>30</min>
+            <max>70</max>
+          </countRange>
+        </li>
+        <li>
+          <thingDef>MedicineIndustrial</thingDef>
+          <countRange>
+            <min>1</min>
+            <max>1</max>
+          </countRange>
+        </li>
+      </subOptionsChooseOne>
+    </inventoryOptions>
+  </PawnKindDef>
+
+  <PawnKindDef ParentName="ROMV_EncounterBase">
+    <defName>ROMV_LesserGhoulKind</defName>
+    <label>lesser ghoul</label>
+    <race>Human</race>
+    <combatPower>100</combatPower>
+    <maxGenerationAge>50</maxGenerationAge>
+    <gearHealthRange>
+      <min>0.4</min>
+      <max>1.5</max>
+    </gearHealthRange>
+    <apparelMoney>
+      <min>500</min>
+      <max>1100</max>
+    </apparelMoney>
+    <apparelTags>
+      <li>IndustrialBasic</li><li>IndustrialAdvanced</li>
+    </apparelTags>
+    <apparelAllowHeadgearChance>0.7</apparelAllowHeadgearChance>
+    <weaponMoney>
+      <min>450</min>
+      <max>600</max>
+    </weaponMoney>
+    <weaponTags>
+		<li>NeolithicMeleeBasic</li>
+    </weaponTags>
+    <techHediffsMoney>
+      <min>0</min>
+      <max>35</max>
+    </techHediffsMoney>
+    <techHediffsTags>
+      <li>Poor</li>
+    </techHediffsTags>
+    <techHediffsChance>0.1</techHediffsChance>
+    <inventoryOptions>
+      <skipChance>0.8</skipChance>
+      <subOptionsChooseOne>
+        <li>
+          <thingDef>Silver</thingDef>
+          <countRange>
+            <min>40</min>
+            <max>80</max>
+          </countRange>
+        </li>
+        <li>
+          <thingDef>MedicineIndustrial</thingDef>
+          <countRange>
+            <min>1</min>
+            <max>1</max>
+          </countRange>
+        </li>
+      </subOptionsChooseOne>
+    </inventoryOptions>
+  </PawnKindDef>
+  
+  <PawnKindDef Abstract="True" Name="ROMV_EncounterNormalBase" ParentName="ROMV_EncounterBase">
+    <itemQuality>Normal</itemQuality>
+	<combatPower>210</combatPower>
+    <maxGenerationAge>45</maxGenerationAge>
+    <gearHealthRange>
+      <min>0.8</min>
+      <max>3.5</max>
+    </gearHealthRange>
+    <apparelTags>
+      <li>Tribal</li>
+    </apparelTags>
+    <apparelMoney>
+      <min>2500</min>
+      <max>4200</max>
+    </apparelMoney>
+    <apparelAllowHeadgearChance>0.9</apparelAllowHeadgearChance>
+    <weaponMoney>
+      <min>1600</min>
+      <max>2000</max>
+    </weaponMoney>
+    <weaponTags>
+		<li>NeolithicMeleeBasic</li>
+    </weaponTags>
+    <techHediffsMoney>
+      <min>2000</min>
+      <max>3000</max>
+    </techHediffsMoney>
+    <combatEnhancingDrugsChance>0.0</combatEnhancingDrugsChance>
+    <techHediffsTags>
+      <li>Advanced</li>
+    </techHediffsTags>
+    <techHediffsChance>0.08</techHediffsChance>
+    <inventoryOptions>
+      <skipChance>0.8</skipChance>
+      <subOptionsChooseOne>
+        <li>
+          <thingDef>Silver</thingDef>
+          <countRange>
+            <min>120</min>
+            <max>480</max>
+          </countRange>
+        </li>
+        <li>
+          <thingDef>MedicineIndustrial</thingDef>
+          <countRange>
+            <min>1</min>
+            <max>2</max>
+          </countRange>
+        </li>
+      </subOptionsChooseOne>
+    </inventoryOptions>
+  </PawnKindDef>
+  
+  <PawnKindDef ParentName="ROMV_EncounterNormalBase">
+    <defName>ROMV_GhoulKind</defName>
+    <label>ghoul</label>
+    <labelPlural>ghouls</labelPlural>
+  </PawnKindDef>
+    
+  <PawnKindDef ParentName="ROMV_EncounterNormalBase">
+    <defName>ROMV_ThinbloodVampireKind</defName>
+    <label>thinblood vampire</label>
+    <labelPlural>thinblood vampires</labelPlural>
+  </PawnKindDef>
+  
+  <PawnKindDef ParentName="ROMV_EncounterNormalBase">
+    <defName>ROMV_LesserVampireKind</defName>
+    <label>lesser vampire</label>
+    <labelPlural>lesser vampires</labelPlural>
+  </PawnKindDef>
+  
+  <PawnKindDef ParentName="ROMV_EncounterNormalBase">
+    <defName>ROMV_VampireKind</defName>
+    <label>vampire</label>
+    <labelPlural>vampires</labelPlural>
+  </PawnKindDef>
+  
+  <PawnKindDef ParentName="ROMV_EncounterNormalBase">
+    <defName>ROMV_GreaterVampireKind</defName>
+    <label>greater vampire</label>
+    <labelPlural>greater vampires</labelPlural>
+  </PawnKindDef>
+  
+  <PawnKindDef ParentName="ROMV_EncounterNormalBase">
+    <defName>ROMV_AncientVampireKind</defName>
+    <label>ancient vampire</label>
+    <labelPlural>ancient vampires</labelPlural>
+  </PawnKindDef>
+  
+  <PawnKindDef ParentName="ROMV_EncounterNormalBase">
+    <defName>ROMV_FirstVampireKind</defName>
+    <label>first vampire</label>
+    <labelPlural>first vampires</labelPlural>
+  </PawnKindDef>
+  
+  <PawnKindDef ParentName="ROMV_EncounterNormalBase">
+    <defName>ROMV_PrinceVampireKind</defName>
+    <label>prince</label>
+	<labelFemale>princess</labelFemale>
+    <labelPlural>princes</labelPlural>
+    <labelFemalePlural>princesses</labelFemalePlural>
+    <factionLeader>true</factionLeader>
+  </PawnKindDef>
+
+</Defs>

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_Blood_Hunger.label>Голодающий</ROMV_Blood_Hunger.label>
+  <ROMV_Blood_Hunger.description>Позволяет вампиру потреблять кровь из земли неподалеку.</ROMV_Blood_Hunger.description>
+
+  <ROMV_Blood_Purge.label>Очищение</ROMV_Blood_Purge.label>
+  <ROMV_Blood_Purge.description>Заставляет цель вырвать часть крови на землю.</ROMV_Blood_Purge.description>
+
+  <ROMV_Blood_StemTheTide.label>Остановить поток</ROMV_Blood_StemTheTide.label>
+  <ROMV_Blood_StemTheTide.description>Останавливает потерю крови.</ROMV_Blood_StemTheTide.description>
+
+  <ROMV_Blood_UnstoppableTide.label>Неостанавливаемый поток</ROMV_Blood_UnstoppableTide.label>
+  <ROMV_Blood_UnstoppableTide.description>Разрывает часть тела цели, выпуская плавающую массу крови, кожи, костей, которой можно питаться.</ROMV_Blood_UnstoppableTide.description>
+
+
+</LanguageData>

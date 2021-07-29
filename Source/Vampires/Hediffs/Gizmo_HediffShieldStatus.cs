@@ -14,7 +14,7 @@ namespace Vampire
 
         public override float GetWidth(float maxWidth) => 140f;
 
-        public override GizmoResult GizmoOnGUI(Vector2 topLeft, float maxWidth)
+        public override GizmoResult GizmoOnGUI(Vector2 topLeft, float maxWidth, GizmoRenderParms parms)
         {
             Rect rect = new Rect(topLeft.x, topLeft.y, GetWidth(maxWidth), 75f);
             Rect rect2 = rect.ContractedBy(6f);

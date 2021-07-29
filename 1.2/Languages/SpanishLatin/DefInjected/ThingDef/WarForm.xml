@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_WarFormRace.label>Forma de Guerra</ROMV_WarFormRace.label>
+  <ROMV_WarFormRace.description>.</ROMV_WarFormRace.description>
+  <!-- Use Leather From: Bear_Grizzly -->
+  <!-- Use Meat From: Bear_Grizzly -->
+  <ROMV_WarFormRace_Corpse.label>Cadáver de Forma de Guerra</ROMV_WarFormRace_Corpse.label>
+  <ROMV_WarFormRace_Corpse.description>Cadáver de Forma de Guerra</ROMV_WarFormRace_Corpse.description>
+
+
+</LanguageData>

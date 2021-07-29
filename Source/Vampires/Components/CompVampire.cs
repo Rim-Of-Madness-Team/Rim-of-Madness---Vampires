@@ -1,4 +1,5 @@
-﻿using System;
+﻿// ReSharper disable All
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -24,7 +25,7 @@ namespace Vampire
         Restricted = 1,
         NoAI = 2
     }
-    
+
     public class CompVampire : CompAbilityUser
     {
         #region Variables
@@ -63,7 +64,7 @@ namespace Vampire
             get => ghouls ?? (ghouls = new List<Pawn>());
             set => ghouls = value;
         }
-        
+
         public SunlightPolicy CurrentSunlightPolicy
         {
             get => curSunlightPolicy;
@@ -129,7 +130,7 @@ namespace Vampire
             }
         }
 
-        public float XPTillNextLevelPercent => (float) (xp - XPLastLevel) / (float) (XPTillNextLevel - XPLastLevel);
+        public float XPTillNextLevelPercent => (float)(xp - XPLastLevel) / (float)(XPTillNextLevel - XPLastLevel);
         public int XPTillNextLevel => ((level + 1) * 600) * ((IsGhoul) ? 2 : 1);
 
         public int AbilityPoints
@@ -148,7 +149,7 @@ namespace Vampire
 
         private Graphic curFormGraphic = null;
         private bool beenGhoulBefore = false;
-        
+
         public bool BeenGhoulBefore
         {
             get => beenGhoulBefore;
@@ -262,7 +263,7 @@ namespace Vampire
 
         public bool IsGhoul =>
             !IsVampire && (AbilityUser?.health?.hediffSet?.HasHediff(VampDefOf.ROM_GhoulHediff) ?? false);
-        
+
         public bool InSunlight
         {
             get
@@ -361,7 +362,7 @@ namespace Vampire
             {
                 AddPawnAbility(VampDefOf.ROMV_VampiricHealing);
             }
-            
+
             //Vampiric Scar Healing
             if (this?.AbilityData.Powers?.FirstOrDefault(x =>
                     x.Def is VitaeAbilityDef vDef && vDef == VampDefOf.ROMV_VampiricHealingScars) == null)
@@ -392,22 +393,22 @@ namespace Vampire
             if (!beenGhoulBefore)
             {
                 this.Level = 0;
-                beenGhoulBefore = true;   
+                beenGhoulBefore = true;
             }
-            
+
             //If no domitor exists, generate a random lower level vampire.
             if (newDomitor == null)
                 newDomitor = VampireGen.GenerateVampire(Rand.Range(7, 13), VampireUtility.RandBloodline, null, null);
-            
+
             //The domitor must be a vampire. The ghoul must not be a vampire.
             if (!newDomitor.IsVampire() || this.Pawn.IsVampire())
                 return;
-            
+
             //The ghoul cannot already be a ghoul.
             var hediff = this.Pawn.health.hediffSet.GetFirstHediffOfDef(VampDefOf.ROM_GhoulHediff, false);
             if (hediff != null)
                 return;
-            
+
             //Create the ghoul hediff.
             var ghoulHediff = (HediffGhoul)HediffMaker.MakeHediff(VampDefOf.ROM_GhoulHediff, this.Pawn);
             ghoulHediff.domitor = newDomitor;
@@ -415,10 +416,10 @@ namespace Vampire
             ghoulHediff.ghoulPower = GhoulUtility.GetGhoulPower(this.Pawn, newDomitor);
             ghoulHediff.ghoulType = (isRevenant) ? GhoulType.Revenant : GhoulType.Standard;
             this.Pawn.health.AddHediff(ghoulHediff, null, null);
-            
+
             //Adjust the bond.
             AdjustBondWithRegnant(newDomitor, 1, true);
-            
+
             //Remove memories of harm. We're friends now! It's alright ghoul-guy.
             VampireBiteUtility.TryRemoveHarmedMemory(newDomitor, this.Pawn);
 
@@ -458,6 +459,7 @@ namespace Vampire
             bool firstVampire = false)
         {
             //Log.Message("Init");
+            //Log.Message($"Initialised vampirism ({Pawn?.Name} gen {newGeneration} blood {newBloodline})", true);
             VampireGen.RemoveMortalHediffs(AbilityUser);
             VampireGen.TryGiveVampirismHediff(AbilityUser, newGeneration, newBloodline, newSire, firstVampire);
             if (!firstVampire)
@@ -485,63 +487,49 @@ namespace Vampire
                 AbilityUser.story.hairDef = DefDatabase<HairDef>.GetNamed("Shaved");
             if (this?.AbilityUser?.playerSettings != null)
                 AbilityUser.playerSettings.hostilityResponse = HostilityResponseMode.Attack;
-            
+
             //Prevents enemy vampires from spawning in with low vitae and hunting the players' characters.
             //Legendary vampires, however, will spawn hungry.
-            if (this.Blood != null && 
+            if (this.Blood != null &&
                 this.AbilityUser.Faction != Faction.OfPlayerSilentFail &&
                 this.AbilityUser.Faction != Find.FactionManager.FirstFactionOfDef(VampDefOf.ROMV_LegendaryVampires))
                 this.Blood.CurBloodPoints = this.Blood.MaxBloodPoints;
-            
-            
+
+
             Find.World.GetComponent<WorldComponent_VampireTracker>().AddVampire(AbilityUser, newSire, bloodline, generation, AbilityUser.ageTracker.AgeBiologicalYearsFloat);
         }
 
 
 
-        private bool? pawnKindDefIsVampire = null;
+        private bool vampirismTriedToBeInialized = false;
         public override void CompTick()
         {
-            if (pawnKindDefIsVampire == null)
+            if (!vampirismTriedToBeInialized)
             {
-                pawnKindDefIsVampire = false;
-                if (Pawn.kindDef.defName == "ROMV_ThinbloodVampireKind")
+                //Log.Message($"Name={Pawn?.Name} Pawn.kindDef.defName={Pawn?.kindDef?.defName} pawnKindDefIsVampire == {pawnKindDefIsVampire}", true);
+                vampirismTriedToBeInialized = true;
+                if (!IsVampire)
                 {
-                    InitializeVampirism(null, VampireUtility.RandBloodline, Rand.Range(14, 15));
-                    pawnKindDefIsVampire = true;
-                }
-                else if (Pawn.kindDef.defName == "ROMV_LesserVampireKind")
-                {
-                    InitializeVampirism(null, VampireUtility.RandBloodline, Rand.Range(12, 13));
-                    pawnKindDefIsVampire = true;
-                }
-                else if (Pawn.kindDef.defName == "ROMV_VampireKind")
-                {
-                    InitializeVampirism(null, VampireUtility.RandBloodline, Rand.Range(9, 11));
-                    pawnKindDefIsVampire = true;
-                }
-                else if (Pawn.kindDef.defName == "ROMV_GreaterVampireKind")
-                {
-                    InitializeVampirism(null, VampireUtility.RandBloodline, Rand.Range(7, 8));
-                    pawnKindDefIsVampire = true;
-                }
-                else if (Pawn.kindDef.defName == "ROMV_AncientVampireKind")
-                {
-                    InitializeVampirism(null, VampireUtility.RandBloodline, Rand.Range(3, 6));
-                    pawnKindDefIsVampire = true;
-                }
-                else if (Pawn.kindDef.defName == "ROMV_VampireKind")
-                {
-                    InitializeVampirism(null, VampireUtility.RandBloodline, Rand.Range(3, 6));
-                    pawnKindDefIsVampire = true;
+                    if (Pawn.kindDef.defName == "ROMV_ThinbloodVampireKind")
+                        InitializeVampirism(null, VampireUtility.RandBloodline, Rand.Range(14, 15));
+                    else if (Pawn.kindDef.defName == "ROMV_LesserVampireKind")
+                        InitializeVampirism(null, VampireUtility.RandBloodline, Rand.Range(12, 13));
+                    else if (Pawn.kindDef.defName == "ROMV_VampireKind")
+                        InitializeVampirism(null, VampireUtility.RandBloodline, Rand.Range(9, 11));
+                    else if (Pawn.kindDef.defName == "ROMV_GreaterVampireKind")
+                        InitializeVampirism(null, VampireUtility.RandBloodline, Rand.Range(7, 8));
+                    else if (Pawn.kindDef.defName == "ROMV_AncientVampireKind")
+                        InitializeVampirism(null, VampireUtility.RandBloodline, Rand.Range(3, 6));
+                    else if (Pawn.kindDef.defName == "ROMV_VampireKind")
+                        InitializeVampirism(null, VampireUtility.RandBloodline, Rand.Range(3, 6));
                 }
             }
-            
+
             base.CompTick();
-            
+
             if (!IsVampire)
             {
-                return;                
+                return;
             }
 
             SunlightWatcherTick();
@@ -581,7 +569,7 @@ namespace Vampire
                     if (p.Spawned && VampireUtility.IsDaylight(m) && !i.Roofed(m))
                     {
                         ThinkNode_JobGiver thinkNodeJobGiver =
-                            (ThinkNode_JobGiver) Activator.CreateInstance(typeof(JobGiver_SeekShelterFromSunlight));
+                            (ThinkNode_JobGiver)Activator.CreateInstance(typeof(JobGiver_SeekShelterFromSunlight));
                         thinkNodeJobGiver.ResolveReferences();
                         ThinkResult thinkResult = thinkNodeJobGiver.TryIssueJobPackage(p, default(JobIssueParams));
                         if (thinkResult.Job is Job j && j.IsSunlightSafeFor(p))
@@ -655,7 +643,7 @@ namespace Vampire
             {
                 yield break;
             }
-            
+
             for (int i = 0; i < AbilityData.AllPowers.Count; i++)
             {
                 if (AbilityData.AllPowers[i] is VampAbility p && p.ShouldShowGizmo() &&
@@ -665,9 +653,9 @@ namespace Vampire
             {
                 if (!(this.AbilityUser?.health?.summaryHealth?.SummaryHealthPercent > 0.99f))
                 {
-                    
+
                     VitaeAbilityDef bloodHeal = DefDatabase<VitaeAbilityDef>.GetNamedSilentFail("ROMV_VampiricHealing");
-                
+
                     yield return new Command_Action()
                     {
                         defaultLabel = bloodHeal.label,
@@ -704,7 +692,7 @@ namespace Vampire
                                 BloodPool.CurGhoulVitaePoints -= bloodRegen.bloodCost;
                             else
                                 BloodPool.AdjustBlood(-bloodRegen.bloodCost);
-                        
+
                             VampireUtility.RegenerateRandomPart(AbilityUser);
                         },
                         disabled = (AbilityUser.IsGhoul()) ? BloodPool.CurGhoulVitaePoints <= 0 : BloodPool.CurBloodPoints <= 0
@@ -725,15 +713,14 @@ namespace Vampire
             Scribe_Values.Look(ref curSunlightPolicy, "curSunlightPolicy", SunlightPolicy.Restricted);
             Scribe_References.Look(ref sire, "sire");
             Scribe_Collections.Look(ref souls, "souls", LookMode.Reference);
-            Scribe_Deep.Look(ref sheet, "sheet", new object[] {AbilityUser});
-            Scribe_Deep.Look(ref thrallData, "thrallData", new object[] {AbilityUser});
+            Scribe_Deep.Look(ref sheet, "sheet", new object[] { AbilityUser });
+            Scribe_Deep.Look(ref thrallData, "thrallData", new object[] { AbilityUser });
             base.PostExposeData();
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
                 AbilityData.Powers.Clear();
                 if ((AbilityUser.IsVampire() || AbilityUser.IsGhoul()) && (AbilityData.Powers == null || AbilityData.Powers.NullOrEmpty()))
                 {
-
                     Notify_UpdateAbilities();
                 }
             }

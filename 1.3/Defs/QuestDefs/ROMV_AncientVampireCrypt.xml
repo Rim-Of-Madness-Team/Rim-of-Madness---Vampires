@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<IncidentDef>
+		<defName>ROMV_QuestAncientVampireCrypt</defName>
+		<label>ancient vampire crypt</label>
+		<category>Misc</category>
+    <targetTags>
+      <li>World</li>
+    </targetTags>
+		<workerClass>Vampire.IncidentWorker_AncientVampireCrypt</workerClass>
+		<letterLabel>ancient vampire crypt</letterLabel>
+		<letterText>A magnificently powerful vampire's tomb has been discovered. Dare we confront the creature?</letterText>
+		<letterDef>PositiveEvent</letterDef>
+		<baseChance>1.3</baseChance>
+		<minRefireDays>20</minRefireDays>
+		<chanceFactorByPopulationCurve>
+			<points>
+				<li>(3,0)</li>
+				<li>(5,1)</li>
+			</points>
+		</chanceFactorByPopulationCurve>
+	</IncidentDef>
+
+  <SitePartDef>
+    <defName>ROMV_AncientVampireCrypt</defName>
+    <label>ancient vampire crypt</label>
+    <description>The resting place of a great and powerful vampire.</description>
+		<siteTexture>World/WorldObjects/Sites/Outpost</siteTexture>
+    <expandingIconTexture>World/AncientVampireCrypt</expandingIconTexture>
+    <applyFactionColorToSiteTexture>false</applyFactionColorToSiteTexture>
+    <showFactionInInspectString>false</showFactionInInspectString>
+    
+    <requiresFaction>false</requiresFaction>
+    <tags>
+      <li>AncientVampireCrypt</li>
+    </tags>
+  </SitePartDef>
+
+  <GenStepDef>
+    <defName>ROMV_AncientVampireCrypt</defName>
+    <linkWithSite>ROMV_AncientVampireCrypt</linkWithSite>
+    <order>742</order>
+    <genStep Class="Vampire.GenStep_AncientVampireCrypt"/>
+  </GenStepDef>
+
+</Defs>

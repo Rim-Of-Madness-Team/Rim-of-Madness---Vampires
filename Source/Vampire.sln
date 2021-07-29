@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26228.12
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31424.327
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vampire", "Vampires\Vampire.csproj", "{3A4FB893-1148-4E16-B548-867647DF1724}"
 EndProject
@@ -9,14 +9,20 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+		RW1.3|Any CPU = RW1.3|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3A4FB893-1148-4E16-B548-867647DF1724}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3A4FB893-1148-4E16-B548-867647DF1724}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A4FB893-1148-4E16-B548-867647DF1724}.Debug|Any CPU.ActiveCfg = RW1.2|Any CPU
+		{3A4FB893-1148-4E16-B548-867647DF1724}.Debug|Any CPU.Build.0 = RW1.2|Any CPU
 		{3A4FB893-1148-4E16-B548-867647DF1724}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A4FB893-1148-4E16-B548-867647DF1724}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A4FB893-1148-4E16-B548-867647DF1724}.RW1.3|Any CPU.ActiveCfg = RW1.3|Any CPU
+		{3A4FB893-1148-4E16-B548-867647DF1724}.RW1.3|Any CPU.Build.0 = RW1.3|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DFC17A79-6190-4CCA-9366-375E55519942}
 	EndGlobalSection
 EndGlobal

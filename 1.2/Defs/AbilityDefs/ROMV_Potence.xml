@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<Defs>
+
+  <Vampire.DisciplineDef>
+    <defName>ROMV_Potence</defName>
+    <label>Potence</label>
+    <abilities>
+      <li>ROMV_PotenceI</li>
+      <li>ROMV_PotenceII</li>
+      <li>ROMV_PotenceIII</li>
+      <li>ROMV_PotenceIV</li>
+    </abilities>
+    <tags>
+	  <li>Physical</li>
+	</tags>
+  </Vampire.DisciplineDef>
+
+  <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+    <defName>ROMV_PotenceI</defName>
+    <label>potence I</label>
+    <uiIconPath>UI/Icons/Commands/PotenceI</uiIconPath>
+    <description>Passively boosts melee skill by 3 per level and manipulation by 10% per level.</description>
+    <MainVerb Class="AbilityUser.VerbProperties_Ability">
+      <verbClass>Vampire.DisciplineEffect_EnterTheAbyss</verbClass>
+      <hasStandardCommand>false</hasStandardCommand>
+      <defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+      <abilityDef>ROMV_Obtenebration_EnterTheAbyss</abilityDef>
+      <isViolent>false</isViolent>
+      <warmupTime>1</warmupTime>
+      <SecondsToRecharge>200.0</SecondsToRecharge>
+      <range>99</range>
+      <burstShotCount>1</burstShotCount>
+      <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+      <soundCast>ROMV_AbilityCastSound_Obtenebration</soundCast>
+      <muzzleFlashScale>20</muzzleFlashScale>
+      <isPrimary>false</isPrimary>
+      <targetParams>
+        <canTargetLocations>true</canTargetLocations>
+        <canTargetPawns>false</canTargetPawns>
+        <canTargetBuildings>false</canTargetBuildings>
+        <canTargetItems>false</canTargetItems>
+        <canTargetSelf>false</canTargetSelf>
+      </targetParams>
+      <tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+      <tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+      <tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+      <tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+    </MainVerb>
+    <PassiveProps>
+      <worker>AbilityUser.PassiveEffectWorker</worker>
+      <hediffs>
+        <li>ROMV_PotenceIHediff</li>
+      </hediffs>
+    </PassiveProps>
+  </Vampire.VitaeAbilityDef>
+  <HediffDef ParentName="ROMV_VampBase">
+    <defName>ROMV_PotenceIHediff</defName>
+    <label>supernatural strength (Potence I)</label>
+    <description>supernatural strength (Potence I)</description>
+    <comps>
+      <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>
+          <min>3000</min>
+          <max>3000</max>
+        </disappearsAfterTicks>
+      </li>
+      <li Class="Vampire.HediffCompProperties_SkillOffset">
+        <skillDef>Melee</skillDef>
+        <offset>3</offset>
+      </li>	  
+    </comps>
+    <stages>
+      <li>
+        <capMods>
+          <li>
+            <capacity>Manipulation</capacity>
+            <offset>0.1</offset>
+          </li>
+        </capMods>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+    <defName>ROMV_PotenceII</defName>
+    <label>potence II</label>
+    <uiIconPath>UI/Icons/Commands/PotenceII</uiIconPath>
+    <description>Passively boosts melee skill by 3 per level and manipulation by 10% per level.</description>
+    <MainVerb Class="AbilityUser.VerbProperties_Ability">
+      <verbClass>Vampire.DisciplineEffect_EnterTheAbyss</verbClass>
+      <hasStandardCommand>false</hasStandardCommand>
+      <defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+      <abilityDef>ROMV_Obtenebration_EnterTheAbyss</abilityDef>
+      <isViolent>false</isViolent>
+      <warmupTime>1</warmupTime>
+      <SecondsToRecharge>200.0</SecondsToRecharge>
+      <range>99</range>
+      <burstShotCount>1</burstShotCount>
+      <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+      <soundCast>ROMV_AbilityCastSound_Obtenebration</soundCast>
+      <muzzleFlashScale>20</muzzleFlashScale>
+      <isPrimary>false</isPrimary>
+      <targetParams>
+        <canTargetLocations>true</canTargetLocations>
+        <canTargetPawns>false</canTargetPawns>
+        <canTargetBuildings>false</canTargetBuildings>
+        <canTargetItems>false</canTargetItems>
+        <canTargetSelf>false</canTargetSelf>
+      </targetParams>
+      <tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+      <tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+      <tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+      <tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+    </MainVerb>
+    <PassiveProps>
+      <worker>AbilityUser.PassiveEffectWorker</worker>
+      <hediffs>
+        <li>ROMV_PotenceIIHediff</li>
+      </hediffs>
+    </PassiveProps>
+  </Vampire.VitaeAbilityDef>
+  <HediffDef ParentName="ROMV_VampBase">
+    <defName>ROMV_PotenceIIHediff</defName>
+    <label>supernatural strength (Potence II)</label>
+    <description>supernatural strength (Potence II)</description>
+    <comps>
+      <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>
+          <min>3000</min>
+          <max>3000</max>
+        </disappearsAfterTicks>
+      </li>
+      <li Class="Vampire.HediffCompProperties_SkillOffset">
+        <skillDef>Melee</skillDef>
+        <offset>3</offset>
+      </li>	  	  
+    </comps>
+    <stages>
+      <li>
+        <capMods>
+          <li>
+            <capacity>Manipulation</capacity>
+            <offset>0.1</offset>
+          </li>
+        </capMods>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+    <defName>ROMV_PotenceIII</defName>
+    <label>potence III</label>
+    <uiIconPath>UI/Icons/Commands/PotenceIII</uiIconPath>
+    <description>Passively boosts melee skill by 3 per level and manipulation by 10% per level.</description>
+    <MainVerb Class="AbilityUser.VerbProperties_Ability">
+      <verbClass>Vampire.DisciplineEffect_EnterTheAbyss</verbClass>
+      <hasStandardCommand>false</hasStandardCommand>
+      <defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+      <abilityDef>ROMV_Obtenebration_EnterTheAbyss</abilityDef>
+      <isViolent>false</isViolent>
+      <warmupTime>1</warmupTime>
+      <SecondsToRecharge>200.0</SecondsToRecharge>
+      <range>1</range>
+      <burstShotCount>1</burstShotCount>
+      <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+      <soundCast>ROMV_AbilityCastSound_Obtenebration</soundCast>
+      <muzzleFlashScale>20</muzzleFlashScale>
+      <isPrimary>false</isPrimary>
+      <targetParams>
+        <canTargetLocations>true</canTargetLocations>
+        <canTargetPawns>false</canTargetPawns>
+        <canTargetBuildings>false</canTargetBuildings>
+        <canTargetItems>false</canTargetItems>
+        <canTargetSelf>false</canTargetSelf>
+      </targetParams>
+      <tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+      <tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+      <tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+      <tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+    </MainVerb>
+    <PassiveProps>
+      <worker>AbilityUser.PassiveEffectWorker</worker>
+      <hediffs>
+        <li>ROMV_PotenceIIIHediff</li>
+      </hediffs>
+    </PassiveProps>
+  </Vampire.VitaeAbilityDef>
+  <HediffDef ParentName="ROMV_VampBase">
+    <defName>ROMV_PotenceIIIHediff</defName>
+    <label>supernatural strength (Potence III)</label>
+    <description>supernatural strength (Potence III)</description>
+    <comps>
+      <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>
+          <min>3000</min>
+          <max>3000</max>
+        </disappearsAfterTicks>
+      </li>	  
+      <li Class="Vampire.HediffCompProperties_SkillOffset">
+        <skillDef>Melee</skillDef>
+        <offset>3</offset>
+      </li>	  
+	  </comps>
+    <stages>
+      <li>
+        <capMods>
+          <li>
+            <capacity>Manipulation</capacity>
+            <offset>0.1</offset>
+          </li>
+        </capMods>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+    <defName>ROMV_PotenceIV</defName>
+    <label>potence IV</label>
+    <uiIconPath>UI/Icons/Commands/PotenceIV</uiIconPath>
+    <description>Passively boosts melee skill by 3 per level and manipulation by 10% per level.</description>
+    <MainVerb Class="AbilityUser.VerbProperties_Ability">
+      <verbClass>Vampire.DisciplineEffect_EnterTheAbyss</verbClass>
+      <hasStandardCommand>False</hasStandardCommand>
+      <defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+      <abilityDef>ROMV_Obtenebration_EnterTheAbyss</abilityDef>
+      <isViolent>false</isViolent>
+      <warmupTime>1</warmupTime>
+      <SecondsToRecharge>200.0</SecondsToRecharge>
+      <range>99</range>
+      <burstShotCount>1</burstShotCount>
+      <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+      <soundCast>ROMV_AbilityCastSound_Obtenebration</soundCast>
+      <muzzleFlashScale>20</muzzleFlashScale>
+      <isPrimary>false</isPrimary>
+      <targetParams>
+        <canTargetLocations>true</canTargetLocations>
+        <canTargetPawns>false</canTargetPawns>
+        <canTargetBuildings>false</canTargetBuildings>
+        <canTargetItems>false</canTargetItems>
+        <canTargetSelf>false</canTargetSelf>
+      </targetParams>
+      <tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+      <tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+      <tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+      <tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+    </MainVerb>
+    <PassiveProps>
+      <worker>AbilityUser.PassiveEffectWorker</worker>
+      <hediffs>
+        <li>ROMV_PotenceIVHediff</li>
+      </hediffs>
+    </PassiveProps>
+  </Vampire.VitaeAbilityDef>
+  <HediffDef ParentName="ROMV_VampBase">
+    <defName>ROMV_PotenceIVHediff</defName>
+    <label>supernatural strength (Potence IV)</label>
+    <description>supernatural strength (Potence IV)</description>
+    <comps>
+      <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>
+          <min>3000</min>
+          <max>3000</max>
+        </disappearsAfterTicks>
+      </li>
+      <li Class="Vampire.HediffCompProperties_SkillOffset">
+        <skillDef>Melee</skillDef>
+        <offset>3</offset>
+      </li>	  
+      <li Class="JecsTools.HediffCompProperties_Knockback">
+        <knockbackChance>0.8</knockbackChance>
+		<stunChance>0.2</stunChance>
+		<stunTicks>60</stunTicks>
+		<knockDistance>
+		  <min>2</min>
+		  <max>3</max>
+		</knockDistance>
+		<explosiveKnockback>true</explosiveKnockback>
+		<explosionDmg>Stun</explosionDmg>
+      </li>
+      <li Class="JecsTools.HediffCompProperties_ExtraMeleeDamages">
+	    <ExtraDamages>
+		  <li>
+		    <def>Blunt</def>
+		    <amount>5</amount>
+		  </li>
+		</ExtraDamages>
+      </li>	  
+    </comps>
+    <stages>
+      <li>
+        <capMods>
+          <li>
+            <capacity>Manipulation</capacity>
+            <offset>0.1</offset>
+          </li>
+        </capMods>
+      </li>
+    </stages>
+  </HediffDef>
+</Defs>

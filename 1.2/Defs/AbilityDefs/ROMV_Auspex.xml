@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<Defs>
+
+  <Vampire.DisciplineDef>
+    <defName>ROMV_Auspex</defName>
+    <label>Auspex</label>
+    <abilities>
+      <li>ROMV_Auspex_HeightenedSenses</li>
+      <li>ROMV_Auspex_CrocodileTongue</li>
+      <li>ROMV_Auspex_RevealIllusions</li>
+      <li>ROMV_Auspex_ReadMind</li>
+    </abilities>
+	<tags>
+	  <li>Sensory</li>
+	</tags>
+  </Vampire.DisciplineDef>
+
+  <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+   <defName>ROMV_Auspex_HeightenedSenses</defName>
+   <label>heightened senses</label>
+   <bloodCost>1</bloodCost>
+   <uiIconPath>UI/Icons/Commands/Auspex_HeightenedSenses</uiIconPath>
+   <description>Temporarily improves senses and ranged weapon skill.</description>
+   <MainVerb Class="AbilityUser.VerbProperties_Ability">
+     <verbClass>Vampire.DisciplineEffect_HeightenedSenses</verbClass>
+     <hasStandardCommand>true</hasStandardCommand>
+     <defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+     <abilityDef>ROMV_Auspex_HeightenedSenses</abilityDef>
+     <isViolent>false</isViolent>
+     <warmupTime>1</warmupTime>
+     <SecondsToRecharge>200.0</SecondsToRecharge>
+     <range>24</range>
+	 <stopBurstWithoutLos>false</stopBurstWithoutLos>
+     <burstShotCount>1</burstShotCount>
+     <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+     <soundCast>ROMV_AbilityCastSound_Auspex</soundCast>
+     <muzzleFlashScale>20</muzzleFlashScale>
+     <isPrimary>false</isPrimary>
+     <AbilityTargetCategory>TargetSelf</AbilityTargetCategory>
+     <targetParams>
+       <canTargetLocations>false</canTargetLocations>
+       <canTargetPawns>false</canTargetPawns>
+       <canTargetBuildings>false</canTargetBuildings>
+       <canTargetItems>false</canTargetItems>
+       <canTargetSelf>true</canTargetSelf>
+     </targetParams>
+     <tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+     <tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+     <tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+     <tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+   </MainVerb>
+ </Vampire.VitaeAbilityDef>
+ <HediffDef ParentName="ROMV_VampBase">
+   <defName>ROMV_HeightenedSensesHediff</defName>
+   <label>heightened senses (Auspex)</label>
+   <description>heightened senses (Auspex)</description>
+   <comps>
+     <li Class="HediffCompProperties_Disappears">
+       <disappearsAfterTicks>
+         <min>3000</min>
+         <max>3000</max>
+       </disappearsAfterTicks>
+     </li>
+     <li Class="Vampire.HediffCompProperties_SkillOffset">
+       <skillDef>Shooting</skillDef>
+       <offset>5</offset>
+     </li>
+   </comps>
+   <stages>
+     <li>
+       <capMods>
+         <li>
+           <capacity>Sight</capacity>
+           <offset>0.15</offset>
+         </li>
+         <li>
+           <capacity>Hearing</capacity>
+           <offset>0.15</offset>
+         </li>
+       </capMods>
+     </li>
+   </stages>
+ </HediffDef>
+
+
+   <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+    <defName>ROMV_Auspex_CrocodileTongue</defName>
+    <label>crocodile tongue</label>
+    <bloodCost>1</bloodCost>
+    <uiIconPath>UI/Icons/Commands/Auspex_CrocodileTongue</uiIconPath>
+    <description>Grants a temporary bonus to social skills and bartering.</description>
+    <MainVerb Class="AbilityUser.VerbProperties_Ability">
+      <verbClass>Vampire.DisciplineEffect_CrocodileTongue</verbClass>
+      <hasStandardCommand>true</hasStandardCommand>
+      <defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+      <abilityDef>ROMV_Auspex_CrocodileTongue</abilityDef>
+      <isViolent>false</isViolent>
+      <warmupTime>1</warmupTime>
+      <SecondsToRecharge>200.0</SecondsToRecharge>
+	 <stopBurstWithoutLos>false</stopBurstWithoutLos>
+      <range>24</range>
+      <burstShotCount>1</burstShotCount>
+      <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+      <soundCast>ROMV_AbilityCastSound_Auspex</soundCast>
+      <muzzleFlashScale>20</muzzleFlashScale>
+      <isPrimary>false</isPrimary>
+      <AbilityTargetCategory>TargetSelf</AbilityTargetCategory>
+      <targetParams>
+        <canTargetLocations>false</canTargetLocations>
+        <canTargetPawns>false</canTargetPawns>
+        <canTargetBuildings>false</canTargetBuildings>
+        <canTargetItems>false</canTargetItems>
+        <canTargetSelf>true</canTargetSelf>
+      </targetParams>
+      <tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+      <tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+      <tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+      <tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+    </MainVerb>
+  </Vampire.VitaeAbilityDef>
+  <HediffDef ParentName="ROMV_VampBase">
+    <defName>ROMV_CrocodileTongueHediff</defName>
+    <label>crocodile tongue (Auspex)</label>
+	<description>crocodile tongue (Auspex)</description>
+    <comps>
+      <li Class="Vampire.HediffCompProperties_SkillOffset">
+        <skillDef>Social</skillDef>
+        <offset>5</offset>
+      </li>
+      <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>
+          <min>3000</min>
+          <max>3000</max>
+        </disappearsAfterTicks>
+      </li>
+    </comps>
+  </HediffDef>
+
+  <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+   <defName>ROMV_Auspex_RevealIllusions</defName>
+   <label>reveal illusions</label>
+   <bloodCost>2</bloodCost>
+   <uiIconPath>UI/Icons/Commands/Auspex_RevealIllusions</uiIconPath>
+   <description>Reveals illusions, dispells afflictions, or reveals hidden locations on the map.</description>
+   <MainVerb Class="AbilityUser.VerbProperties_Ability">
+     <verbClass>Vampire.DisciplineEffect_RevealIllusions</verbClass>
+     <hasStandardCommand>true</hasStandardCommand>
+     <defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+     <abilityDef>ROMV_Auspex_RevealIllusions</abilityDef>
+     <isViolent>false</isViolent>
+     <warmupTime>1</warmupTime>
+     <SecondsToRecharge>200.0</SecondsToRecharge>
+     <range>24</range>
+     <burstShotCount>1</burstShotCount>
+	 <stopBurstWithoutLos>false</stopBurstWithoutLos>
+     <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+     <soundCast>ROMV_AbilityCastSound_Auspex</soundCast>
+     <muzzleFlashScale>20</muzzleFlashScale>
+     <isPrimary>false</isPrimary>
+     <targetParams>
+       <canTargetLocations>true</canTargetLocations>
+       <canTargetPawns>true</canTargetPawns>
+       <canTargetBuildings>false</canTargetBuildings>
+       <canTargetItems>false</canTargetItems>
+       <canTargetSelf>true</canTargetSelf>
+     </targetParams>
+     <tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+     <tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+     <tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+     <tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+   </MainVerb>
+ </Vampire.VitaeAbilityDef>
+
+
+   <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+    <defName>ROMV_Auspex_ReadMind</defName>
+    <label>read mind</label>
+    <bloodCost>3</bloodCost>
+    <uiIconPath>UI/Icons/Commands/Auspex_ReadMind</uiIconPath>
+    <description>Reads the targets mind, finds out their next move, and prevents them from harming the caster using normal means.</description>
+    <MainVerb Class="AbilityUser.VerbProperties_Ability">
+      <verbClass>Vampire.DisciplineEffect_ReadMind</verbClass>
+      <hasStandardCommand>true</hasStandardCommand>
+      <defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+      <abilityDef>ROMV_Auspex_ReadMind</abilityDef>
+      <isViolent>false</isViolent>
+      <warmupTime>1</warmupTime>
+      <SecondsToRecharge>200.0</SecondsToRecharge>
+	  <stopBurstWithoutLos>false</stopBurstWithoutLos>
+      <range>24</range>
+      <burstShotCount>1</burstShotCount>
+      <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+      <soundCast>ROMV_AbilityCastSound_Auspex</soundCast>
+      <muzzleFlashScale>20</muzzleFlashScale>
+      <isPrimary>false</isPrimary>
+      <targetParams>
+        <canTargetLocations>false</canTargetLocations>
+        <canTargetPawns>true</canTargetPawns>
+        <canTargetBuildings>false</canTargetBuildings>
+        <canTargetItems>false</canTargetItems>
+        <canTargetSelf>false</canTargetSelf>
+      </targetParams>
+      <tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+      <tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+      <tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+      <tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+    </MainVerb>
+  </Vampire.VitaeAbilityDef>
+  <HediffDef ParentName="ROMV_VampBase">
+    <defName>ROMV_MindReadingHediff</defName>
+    <label>reading mind (Auspex)</label>
+	<description>reading mind (Auspex)</description>
+    <comps>
+      <li>
+        <compClass>Vampire.HediffComp_ReadMind</compClass>
+      </li>
+      <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>
+          <min>3000</min>
+          <max>3000</max>
+        </disappearsAfterTicks>
+      </li>
+    </comps>
+  </HediffDef>
+
+</Defs>

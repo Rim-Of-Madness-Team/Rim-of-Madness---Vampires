@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+
+  <ScenPartDef>
+    <defName>ROMV_StartAtNight</defName>
+    <label>start at night</label>
+    <category>StartingImportant</category>
+    <scenPartClass>Vampire.ScenPart_GameStartNight</scenPartClass>
+    <maxUses>1</maxUses>
+  </ScenPartDef>
+
+  <ScenPartDef>
+    <defName>ROMV_LongerNights</defName>
+    <label>longer nights</label>
+    <category>StartingImportant</category>
+    <scenPartClass>Vampire.ScenPart_LongerNights</scenPartClass>
+    <maxUses>1</maxUses>
+  </ScenPartDef>
+  
+  <ScenPartDef>
+    <defName>ROMV_VampirismChanceStarting</defName>
+    <label>starting vampirism</label>
+    <scenPartClass>Vampire.ScenPart_StartingVampires</scenPartClass>
+    <category>PlayerPawnModifier</category>
+    <selectionWeight>0.5</selectionWeight>
+    <summaryPriority>456</summaryPriority>
+  </ScenPartDef>
+
+</Defs>

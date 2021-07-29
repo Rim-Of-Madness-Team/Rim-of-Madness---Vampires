@@ -124,7 +124,9 @@ namespace Vampire
 
         public static void Vamp_HasJobOnCell(Pawn pawn, IntVec3 c, ref bool __result)
         {
-            if (!(pawn.MapHeld is Map m) || !pawn.IsVampire() || !c.IsValid || !c.InBounds(m)) return;
+            if (!pawn.IsVampire()) return;
+            if (pawn.VampComp().CurrentSunlightPolicy == SunlightPolicy.NoAI) return;
+            if (!(pawn.MapHeld is Map m) || !c.IsValid || !c.InBounds(m)) return;
             if (pawn.Drafted || c.IsSunlightSafeFor(pawn)) return;
             __result = false;
         }

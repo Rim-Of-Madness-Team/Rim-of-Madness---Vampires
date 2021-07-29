@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_Flight_LightWeight.label>peso liviano</ROMV_Flight_LightWeight.label>
+  <ROMV_Flight_LightWeight.description>Aumenta pasivamente la capacidad de carga y reduce el peso del lanzador para permitir el vuelo.</ROMV_Flight_LightWeight.description>
+
+  <ROMV_Flight_WingBuffet.label>bufe de ala</ROMV_Flight_WingBuffet.label>
+  <ROMV_Flight_WingBuffet.description>Intenta derribar (aturdir) a un objetivo temporalmente mediante el uso de una aleta de ala de fuerza completa en el objetivo.</ROMV_Flight_WingBuffet.description>
+
+  <ROMV_Flight_ShortFlight.label>vuelo corto</ROMV_Flight_ShortFlight.label>
+  <ROMV_Flight_ShortFlight.description>Permite que tu personaje vuele en el mapa actualmente visible a un destino seleccionado.</ROMV_Flight_ShortFlight.description>
+
+  <ROMV_Flight_SkyFall.label>caída del cielo</ROMV_Flight_SkyFall.label>
+  <ROMV_Flight_SkyFall.description>Recoge y lleva a un personaje en lo alto del cielo y lo deja caer al suelo para un daño contundente masivo.</ROMV_Flight_SkyFall.description>
+
+  <ROMV_Flight_LongFlight.label>vuelo largo</ROMV_Flight_LongFlight.label>
+  <ROMV_Flight_LongFlight.description>Permite al taumaturgo volar a una ubicación en el mapa del mundo.</ROMV_Flight_LongFlight.description>
+
+
+</LanguageData>

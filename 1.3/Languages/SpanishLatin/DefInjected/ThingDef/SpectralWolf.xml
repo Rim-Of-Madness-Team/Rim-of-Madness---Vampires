@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_WolfSpectralRace.label>lobo espectral</ROMV_WolfSpectralRace.label>
+  <ROMV_WolfSpectralRace.description>Este rostro temible envía escalofríos por la columna, ya que este lobo parece no ser de este mundo.</ROMV_WolfSpectralRace.description>
+  <!-- Use Leather From: Bear_Grizzly -->
+  <!-- Use Meat From: Bear_Grizzly -->
+  <ROMV_WolfSpectralRace_Corpse.label>cadáver de lobo espectral</ROMV_WolfSpectralRace_Corpse.label>
+  <ROMV_WolfSpectralRace_Corpse.description>cadáver de lobo espectral</ROMV_WolfSpectralRace_Corpse.description>
+
+
+</LanguageData>

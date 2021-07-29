@@ -9,7 +9,7 @@ namespace Vampire
         {
             base.Effect(target);
             HealthUtility.AdjustSeverity(target, VampDefOf.ROMV_SleepHediff, 1.0f);
-            MoteMaker.ThrowMetaIcon(target.Position, target.Map, ThingDefOf.Mote_SleepZ);
+            FleckMaker.ThrowMetaIcon(target.Position, target.Map, FleckDefOf.SleepZ);
         }
     }
 }

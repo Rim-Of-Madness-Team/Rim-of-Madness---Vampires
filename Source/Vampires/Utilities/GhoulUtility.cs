@@ -65,7 +65,7 @@ namespace Vampire
             PawnGenerationRequest request = new PawnGenerationRequest(
                 PawnKindDefOf.SpaceRefugee, Faction.OfAncients, PawnGenerationContext.NonPlayer,
                 -1, false, false, false, false, true, true, 20f, false, true,
-                true, false, false, false, false, false, 0, null, 0, null, null, null, null, null);
+                true, false, false, false, false, false, 0, 0, null, 0, null, null, null, null, null);
             Pawn pawn = PawnGenerator.GeneratePawn(request);
             pawn.story.hairColor = PawnHairColors.RandomHairColor(pawn.story.SkinColor, 20);
             if (!bloodline.allowsHair)

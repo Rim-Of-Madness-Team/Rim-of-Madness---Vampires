@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_BloodMistKind.label>Niebla de Sangre</ROMV_BloodMistKind.label>
+  <ROMV_BloodMistKind.labelPlural>Nieblas de Sangre</ROMV_BloodMistKind.labelPlural>
+  <ROMV_BloodMistKind.labelMale>Niebla de Sangre masculina</ROMV_BloodMistKind.labelMale>
+  <ROMV_BloodMistKind.labelMalePlural>Nieblas de Sangre masculina</ROMV_BloodMistKind.labelMalePlural>
+  <ROMV_BloodMistKind.labelFemale>Niebla de Sangre femenina</ROMV_BloodMistKind.labelFemale>
+  <ROMV_BloodMistKind.labelFemalePlural>Nieblas de Sangre femenina</ROMV_BloodMistKind.labelFemalePlural>
+  <ROMV_BloodMistKind.lifeStages.0.label>Niebla de Sangre</ROMV_BloodMistKind.lifeStages.0.label>
+  <ROMV_BloodMistKind.lifeStages.0.labelPlural>Nieblas de Sangre</ROMV_BloodMistKind.lifeStages.0.labelPlural>
+  <ROMV_BloodMistKind.lifeStages.0.labelMale>Niebla de Sangre masculina</ROMV_BloodMistKind.lifeStages.0.labelMale>
+  <ROMV_BloodMistKind.lifeStages.0.labelMalePlural>Nieblas de Sangre masculina</ROMV_BloodMistKind.lifeStages.0.labelMalePlural>
+  <ROMV_BloodMistKind.lifeStages.0.labelFemale>Niebla de Sangre femenina</ROMV_BloodMistKind.lifeStages.0.labelFemale>
+  <ROMV_BloodMistKind.lifeStages.0.labelFemalePlural>Nieblas de Sangre femenina</ROMV_BloodMistKind.lifeStages.0.labelFemalePlural>
+  <ROMV_BloodMistKind.lifeStages.1.label>Niebla de Sangre</ROMV_BloodMistKind.lifeStages.1.label>
+  <ROMV_BloodMistKind.lifeStages.1.labelPlural>Nieblas de Sangre</ROMV_BloodMistKind.lifeStages.1.labelPlural>
+  <ROMV_BloodMistKind.lifeStages.1.labelMale>Niebla de Sangre masculina</ROMV_BloodMistKind.lifeStages.1.labelMale>
+  <ROMV_BloodMistKind.lifeStages.1.labelMalePlural>Nieblas de Sangre masculina</ROMV_BloodMistKind.lifeStages.1.labelMalePlural>
+  <ROMV_BloodMistKind.lifeStages.1.labelFemale>Niebla de Sangre femenina</ROMV_BloodMistKind.lifeStages.1.labelFemale>
+  <ROMV_BloodMistKind.lifeStages.1.labelFemalePlural>Nieblas de Sangre femenina</ROMV_BloodMistKind.lifeStages.1.labelFemalePlural>
+  <ROMV_BloodMistKind.lifeStages.2.label>Niebla de Sangre</ROMV_BloodMistKind.lifeStages.2.label>
+  <ROMV_BloodMistKind.lifeStages.2.labelPlural>Nieblas de Sangre</ROMV_BloodMistKind.lifeStages.2.labelPlural>
+  <ROMV_BloodMistKind.lifeStages.2.labelMale>Niebla de Sangre masculina</ROMV_BloodMistKind.lifeStages.2.labelMale>
+  <ROMV_BloodMistKind.lifeStages.2.labelMalePlural>Nieblas de Sangre masculina</ROMV_BloodMistKind.lifeStages.2.labelMalePlural>
+  <ROMV_BloodMistKind.lifeStages.2.labelFemale>Niebla de Sangre femenina</ROMV_BloodMistKind.lifeStages.2.labelFemale>
+  <ROMV_BloodMistKind.lifeStages.2.labelFemalePlural>Nieblas de Sangre femenina</ROMV_BloodMistKind.lifeStages.2.labelFemalePlural>
+
+
+</LanguageData>

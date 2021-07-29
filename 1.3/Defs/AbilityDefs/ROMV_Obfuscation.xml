@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<Vampire.DisciplineDef>
+		<defName>ROMV_Obfuscation</defName>
+		<label>Obfuscation</label>
+		<abilities>
+			<li>ROMV_Obfuscation_Hide</li>
+			<li>ROMV_Obfuscation_Invisibility</li>
+			<li>ROMV_Obfuscation_ConcealOther</li>
+			<li>ROMV_Obfuscation_HiddenForce</li>
+		</abilities>
+	</Vampire.DisciplineDef>
+
+	<Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+		<defName>ROMV_Obfuscation_Hide</defName>
+		<label>hide</label>
+		<bloodCost>1</bloodCost>
+		<uiIconPath>UI/Icons/Commands/Obfuscation_Hide</uiIconPath>
+		<description>As long as they remain motionless, the vampire will be hidden from sight.</description>
+		<MainVerb Class="AbilityUser.VerbProperties_Ability">
+			<verbClass>Vampire.DisciplineEffect_Hide</verbClass>
+			<hasStandardCommand>true</hasStandardCommand>
+			<defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+			<abilityDef>ROMV_Obfuscation_Hide</abilityDef>
+			<isViolent>false</isViolent>
+			<warmupTime>1</warmupTime>
+			<SecondsToRecharge>200.0</SecondsToRecharge>
+			<range>24</range>
+			<burstShotCount>1</burstShotCount>
+			<ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+			<soundCast>ROMV_AbilityCastSound_Protean</soundCast>
+			<muzzleFlashScale>20</muzzleFlashScale>
+			<isPrimary>false</isPrimary>
+			<AbilityTargetCategory>TargetSelf</AbilityTargetCategory>
+			<targetParams>
+				<canTargetPawns>false</canTargetPawns>
+				<canTargetBuildings>false</canTargetBuildings>
+				<canTargetItems>false</canTargetItems>
+				<canTargetSelf>true</canTargetSelf>
+			</targetParams>
+			<tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+			<tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+			<tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+			<tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+		</MainVerb>
+	</Vampire.VitaeAbilityDef>
+	<HediffDef ParentName="ROMV_VampBase">
+		<defName>ROMV_HideHediff</defName>
+		<label>hide (Obfuscation)</label>
+		<description>hide (Obfuscation)</description>
+		<comps>
+			<li Class="Vampire.HediffCompProperties_Hidden">
+				<immuneTodamage>false</immuneTodamage>
+				<canGiveDamage>false</canGiveDamage>
+				<canMove>false</canMove>
+				<disappearsAfterTicks>
+					<min>99999996</min>
+					<max>99999999</max>
+				</disappearsAfterTicks>
+			</li>
+		</comps>
+	</HediffDef>
+	
+	<Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+		<defName>ROMV_Obfuscation_Invisibility</defName>
+		<label>invisibility</label>
+		<bloodCost>2</bloodCost>
+		<uiIconPath>UI/Icons/Commands/Obfuscation_Invisibility</uiIconPath>
+		<description>Allows unhindered invisible movement for 24 seconds. Attacks will end the effect. Attacks that break invisibility add a 50% sneak attack damage bonus.</description>
+		<MainVerb Class="AbilityUser.VerbProperties_Ability">
+			<verbClass>Vampire.DisciplineEffect_Invisibility</verbClass>
+			<hasStandardCommand>true</hasStandardCommand>
+			<defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+			<abilityDef>ROMV_Obfuscation_Invisibility</abilityDef>
+			<isViolent>false</isViolent>
+			<warmupTime>1</warmupTime>
+			<SecondsToRecharge>200.0</SecondsToRecharge>
+			<range>24</range>
+			<burstShotCount>1</burstShotCount>
+			<ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+			<soundCast>ROMV_AbilityCastSound_Protean</soundCast>
+			<muzzleFlashScale>20</muzzleFlashScale>
+			<isPrimary>false</isPrimary>
+			<AbilityTargetCategory>TargetSelf</AbilityTargetCategory>
+			<targetParams>
+				<canTargetPawns>false</canTargetPawns>
+				<canTargetBuildings>false</canTargetBuildings>
+				<canTargetItems>false</canTargetItems>
+				<canTargetSelf>true</canTargetSelf>
+			</targetParams>
+			<tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+			<tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+			<tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+			<tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+		</MainVerb>
+	</Vampire.VitaeAbilityDef>
+	<HediffDef ParentName="ROMV_VampBase">
+		<defName>ROMV_InvisibilityHediff</defName>
+		<label>invisibility (Obfuscation)</label>
+		<description>invisibility (Obfuscation)</description>
+		<comps>
+			<li Class="Vampire.HediffCompProperties_Hidden">
+				<immuneTodamage>false</immuneTodamage>
+				<canGiveDamage>false</canGiveDamage>
+				<canMove>true</canMove>
+				<damageFactor>1.5</damageFactor>
+				<disappearsAfterTicks>
+					<min>3000</min>
+					<max>3000</max>
+				</disappearsAfterTicks>
+			</li>
+		</comps>
+	</HediffDef>
+	
+
+  <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+    <defName>ROMV_Obfuscation_ConcealOther</defName>
+    <label>conceal other</label>
+    <bloodCost>1</bloodCost>
+    <uiIconPath>UI/Icons/Commands/Obfuscation_InvisibleOther</uiIconPath>
+    <description>Grants another character the invisibility effect.</description>
+    <MainVerb Class="AbilityUser.VerbProperties_Ability">
+      <verbClass>Vampire.DisciplineEffect_Conceal</verbClass>
+      <hasStandardCommand>true</hasStandardCommand>
+      <defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+      <abilityDef>ROMV_Obfuscation_ConcealOther</abilityDef>
+      <isViolent>false</isViolent>
+      <warmupTime>1</warmupTime>
+      <SecondsToRecharge>10.0</SecondsToRecharge>
+      <range>2</range>
+      <burstShotCount>1</burstShotCount>
+      <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+      <soundCast>ROMV_AbilityCastSound_Vicissitude</soundCast>
+      <muzzleFlashScale>20</muzzleFlashScale>
+      <isPrimary>false</isPrimary>
+      <targetParams>
+        <canTargetPawns>true</canTargetPawns>
+        <canTargetBuildings>false</canTargetBuildings>
+        <canTargetItems>false</canTargetItems>
+        <canTargetSelf>false</canTargetSelf>
+      </targetParams>
+      <tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+      <tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+      <tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+      <tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+    </MainVerb>
+  </Vampire.VitaeAbilityDef>
+  
+  
+	<Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+		<defName>ROMV_Obfuscation_HiddenForce</defName>
+		<label>hidden force</label>
+		<bloodCost>2</bloodCost>
+		<uiIconPath>UI/Icons/Commands/Obfuscation_UnseenForce</uiIconPath>
+		<description>Allows fast invisible movement for 26 seconds. Attacks will end the effect. Attacks that break hidden force add a 300% sneak attack damage bonus.</description>
+		<MainVerb Class="AbilityUser.VerbProperties_Ability">
+			<verbClass>Vampire.DisciplineEffect_HiddenForce</verbClass>
+			<hasStandardCommand>true</hasStandardCommand>
+			<defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+			<abilityDef>ROMV_Obfuscation_HiddenForce</abilityDef>
+			<isViolent>false</isViolent>
+			<warmupTime>1</warmupTime>
+			<SecondsToRecharge>200.0</SecondsToRecharge>
+			<range>24</range>
+			<burstShotCount>1</burstShotCount>
+			<ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+			<soundCast>ROMV_AbilityCastSound_Protean</soundCast>
+			<muzzleFlashScale>20</muzzleFlashScale>
+			<isPrimary>false</isPrimary>
+			<AbilityTargetCategory>TargetSelf</AbilityTargetCategory>
+			<targetParams>
+				<canTargetPawns>false</canTargetPawns>
+				<canTargetBuildings>false</canTargetBuildings>
+				<canTargetItems>false</canTargetItems>
+				<canTargetSelf>true</canTargetSelf>
+			</targetParams>
+			<tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+			<tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+			<tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+			<tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+		</MainVerb>
+	</Vampire.VitaeAbilityDef>
+	<HediffDef ParentName="ROMV_VampBase">
+		<defName>ROMV_HiddenForceHediff</defName>
+		<label>hidden force (Obfuscation)</label>
+		<description>hidden force (Obfuscation)</description>
+		<comps>
+			<li Class="Vampire.HediffCompProperties_Hidden">
+				<immuneTodamage>false</immuneTodamage>
+				<canGiveDamage>false</canGiveDamage>
+				<canMove>true</canMove>
+				<damageFactor>3.0</damageFactor>
+				<disappearsAfterTicks>
+					<min>3000</min>
+					<max>3000</max>
+				</disappearsAfterTicks>
+			</li>
+		</comps>
+    <stages>
+      <li>
+        <capMods> 	  
+          <li>
+            <capacity>Moving</capacity>
+            <offset>0.15</offset>
+          </li>
+		 </capMods>
+	  </li>
+	</stages>
+	</HediffDef>
+  
+</Defs>

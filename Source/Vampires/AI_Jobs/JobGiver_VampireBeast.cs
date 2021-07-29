@@ -61,7 +61,8 @@ namespace Vampire
                         return MeleeAttackJob(thing);
                         //}
                     }
-                    IntVec3 loc = pawnPath.LastCellBeforeBlockerOrFinalCell(pawn.MapHeld);
+                    IntVec3 loc;
+                    pawnPath.TryFindLastCellBeforeBlockingDoor(pawn, out loc);
                     IntVec3 randomCell = CellFinder.RandomRegionNear(loc.GetRegion(pawn.Map), 9, TraverseParms.For(pawn)).RandomCell;
                     if (randomCell == pawn.PositionHeld)
                     {

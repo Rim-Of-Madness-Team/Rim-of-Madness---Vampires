@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Blood drain-related deaths -->
+
+  <ROMV_WitnessedVampireFeeding.stages.0.label>засвидетельствовал кормление вампира</ROMV_WitnessedVampireFeeding.stages.0.label>
+  <ROMV_WitnessedVampireFeeding.stages.0.description>Разве он просто сосал шею этого парня?</ROMV_WitnessedVampireFeeding.stages.0.description>
+
+  <ROMV_WitnessedVampireFeedingVisitor.stages.0.label>засвидетельствовал кормление вампира</ROMV_WitnessedVampireFeedingVisitor.stages.0.label>
+  <ROMV_WitnessedVampireFeedingVisitor.stages.0.description>Кто-то должен положить конец этим вещам.</ROMV_WitnessedVampireFeedingVisitor.stages.0.description>
+
+  <ROMV_WitnessedVampireEmbrace.stages.0.label>свидетель распространения вампиризма</ROMV_WitnessedVampireEmbrace.stages.0.label>
+  <ROMV_WitnessedVampireEmbrace.stages.0.description>Этот человек был жив раньше. Затем он умер. Теперь он... другой. Это нереально.</ROMV_WitnessedVampireEmbrace.stages.0.description>
+
+  <ROMV_WitnessedVampireEmbraceVisitor.stages.0.label>свидетель распространения вампиризма</ROMV_WitnessedVampireEmbraceVisitor.stages.0.label>
+  <ROMV_WitnessedVampireEmbraceVisitor.stages.0.description>Эти существа - мерзость. Мне было бы приятно, если бы их уничтожили.</ROMV_WitnessedVampireEmbraceVisitor.stages.0.description>
+
+  <ROMV_WitnessedVampireDiablerie.stages.0.label>свидетель потребления душ</ROMV_WitnessedVampireDiablerie.stages.0.label>
+  <ROMV_WitnessedVampireDiablerie.stages.0.description>Что выходит из их тел?!</ROMV_WitnessedVampireDiablerie.stages.0.description>
+
+  <ROMV_WitnessedVampireDiablerieVisitor.stages.0.label>свидетель потребления душ</ROMV_WitnessedVampireDiablerieVisitor.stages.0.label>
+  <ROMV_WitnessedVampireDiablerieVisitor.stages.0.description>Доказательство того, что эти вещи должны быть уничтожены.</ROMV_WitnessedVampireDiablerieVisitor.stages.0.description>
+
+
+</LanguageData>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<!-- Added body parts -->
+
+	<HediffDef Name="ROMV_AddedBodyPartBase" Abstract="True">
+		<hediffClass>Hediff_AddedPart</hediffClass>
+		<defaultLabelColor>(0.6, 0.5, 0.9)</defaultLabelColor>
+	</HediffDef>
+
+
+	<HediffDef Name="ROMV_TransformedBodyPartBase" Abstract="True">
+		<hediffClass>JecsTools.Hediff_TransformedPart</hediffClass>
+		<defaultLabelColor>(0.6, 0.5, 0.9)</defaultLabelColor>
+		<isBad>false</isBad>
+	</HediffDef>
+
+
+	<HediffDef ParentName="ROMV_AddedBodyPartBase">
+		<defName>ROMV_Fangs</defName>
+		<label>fangs</label>
+		<description>fangs</description>
+		<hediffClass>Vampire.Hediff_AddedPart_Fangs</hediffClass>
+		<addedPartProps>
+			<solid>true</solid>
+			<partEfficiency>1.2</partEfficiency>
+		</addedPartProps>
+		<scenarioCanAdd>false</scenarioCanAdd>
+		<comps>
+			<li Class="HediffCompProperties_VerbGiver">
+				<tools>
+					<li>
+						<label>fangs</label>
+						<capacities>
+							<li>Bite</li>
+						</capacities>
+						<power>9</power>
+						<cooldownTime>1.65</cooldownTime>
+						<chanceFactor>0.1</chanceFactor>
+					</li>
+				</tools>
+			</li>
+		</comps>
+	</HediffDef>
+
+	<HediffDef ParentName="ROMV_TransformedBodyPartBase">
+		<defName>ROMV_FeralClaw</defName>
+		<label>feral claws (Protean)</label>
+		<description>feral claws (Protean)</description>
+		<comps>
+			<li Class="HediffCompProperties_VerbGiver">
+				<tools>
+					<li>
+						<label>feral claw</label>
+						<capacities>
+							<li>Blunt</li>
+						</capacities>
+						<power>14</power>
+						<cooldownTime>1.65</cooldownTime>
+					</li>
+				</tools>
+			</li>
+			<li Class="HediffCompProperties_Disappears">
+				<disappearsAfterTicks>
+					<min>7500</min>
+					<max>7500</max>
+				</disappearsAfterTicks>
+			</li>
+		</comps>
+		<addedPartProps>
+			<isGoodWeapon>true</isGoodWeapon>
+			 
+			<solid>true</solid>
+			<partEfficiency>1.0</partEfficiency>
+		</addedPartProps>
+	</HediffDef>
+
+</Defs>

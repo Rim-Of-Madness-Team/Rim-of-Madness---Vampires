@@ -219,8 +219,8 @@ namespace Vampire
                 return;
             }
 
-            MoteMaker.ThrowSmoke(DrawPos, Map, 1f);
-            MoteMaker.ThrowFireGlow(PositionHeld, Map, 1f);
+            FleckMaker.ThrowSmoke(DrawPos, Map, 1f);
+            FleckMaker.ThrowFireGlow(PositionHeld.ToVector3(), Map, 1f);
             if (corpseBurnCount > 10)
                 BurnedToAshes = true;
             corpseBurnCount++;

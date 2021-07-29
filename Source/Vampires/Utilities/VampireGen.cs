@@ -143,7 +143,7 @@ namespace Vampire
             PawnGenerationRequest request = new PawnGenerationRequest(
                 DetermineKindDef(generation), faction, PawnGenerationContext.NonPlayer,
                 -1, true, false, false, false, true, true, 20f, false, true,
-                true, false, false, false, false, false, 0, null, 0, null, null, null, null, null, math, null, null);
+                true, false, false, false, false, false, 0, 0, null, 0, null, null, null, null, null, math, null, null);
             Pawn pawn = PawnGenerator.GeneratePawn(request);
             if (DebugSettings.godMode)
             {

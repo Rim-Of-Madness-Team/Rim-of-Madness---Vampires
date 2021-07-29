@@ -33,7 +33,7 @@ namespace Vampire
             {
                 if (pawn.VampComp() is CompVampire v && v.IsVampire && v.Bloodline.headGraphicsPath != "")
                 {
-                    if (GraphicDatabaseHeadRecords.GetHeadNamed(pawn.story.HeadGraphicPath, pawn.story.SkinColor) is
+                    if (GraphicDatabaseHeadRecords.GetHeadNamed(pawn.story.HeadGraphicPath, pawn.story.SkinColor, true) is
                         Graphic giggity)
                     {
                         string

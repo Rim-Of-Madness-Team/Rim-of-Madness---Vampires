@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_BloodMistRace.label>Niebla de Sangre</ROMV_BloodMistRace.label>
+  <ROMV_BloodMistRace.description>Nube de sangre que fluye a través del aire como una sombra.</ROMV_BloodMistRace.description>
+  <!-- Use Leather From: Bear_Grizzly -->
+  <!-- Use Meat From: Bear_Grizzly -->
+  <ROMV_BloodMistRace_Corpse.label>cadáver de niebla de sangre</ROMV_BloodMistRace_Corpse.label>
+  <ROMV_BloodMistRace_Corpse.description>cadáver de niebla de sangre</ROMV_BloodMistRace_Corpse.description>
+
+
+</LanguageData>

@@ -1,16 +1,14 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Manifest>
-  <identifier>RoM-Vampires</identifier>
-  <version>1.21.0.0</version>
+  <identifier>RimOfMadness-Vampires</identifier>
+  <version>1.22.0.1</version>
   <dependencies>
-    <li>JecsTools</li>
+    <li>jecrell.jecstools</li>
   </dependencies>
-  <incompatibleWith />
-  <loadBefore />
   <loadAfter>
-    <li>HugsLib</li>
-    <li>JecsTools</li>
+    <li>jecrell.jecstools</li>
+    <li>Dubwise.DubsBadHygiene</li>
   </loadAfter>
-  <manifestUri>https://raw.githubusercontent.com/Rim-Of-Madness-Team/Rim-of-Madness---Vampires/master/About/Manifest.xml</manifestUri>
-  <downloadUri>https://github.com/Rim-Of-Madness-Team/Rim-of-Madness---Vampires/releases</downloadUri>
+  <manifestUri>https://raw.githubusercontent.com/ZeroKato/rof-vampires/master/About/Manifest.xml</manifestUri>
+  <downloadUri>https://github.com/ZeroKato/rof-vampires/releases/latest</downloadUri>
 </Manifest>

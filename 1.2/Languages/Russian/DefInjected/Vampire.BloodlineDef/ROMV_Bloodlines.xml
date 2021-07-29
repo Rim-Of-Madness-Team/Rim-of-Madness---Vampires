@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_Caine.label>Первый вампир</ROMV_Caine.label>
+  <ROMV_Caine.description>Еще нет</ROMV_Caine.description>
+
+  <ROMV_TheThree.label>Дети Каина</ROMV_TheThree.label>
+  <ROMV_TheThree.description>Еще нет</ROMV_TheThree.description>
+
+  <ROMV_ClanTzimize.label>Цимисхи</ROMV_ClanTzimize.label>
+  <ROMV_ClanTzimize.description>Клан Цимисхи - настоящие социопаты, которые бросили человечество в пользу своих собственных междоусобиц. Можно было бы склониться к тому, чтобы считать их мерзкими убийцами и поистине проклятыми, и в этом случае они, вероятно согласятся.</ROMV_ClanTzimize.description>
+
+  <ROMV_ClanTremere.label>Тремер</ROMV_ClanTremere.label>
+  <ROMV_ClanTremere.description>Клан Тремер широко пользуется уважением как ученые и первопроходцы, маги крови. Хотя их слава хорошо известна, но их строгая цепочка командования и аура секретности часто вызывают подозрения среди других сородичей.</ROMV_ClanTremere.description>
+
+  <ROMV_ClanLasombra.label>Ласомбра</ROMV_ClanLasombra.label>
+  <ROMV_ClanLasombra.description>Клан Ласомбра рассматриваются как лидеры и мистики Бездны, сама тень. Использование силы теней, безжалостной тактики и применение социального дарвинизма позволило им контролировать смертное общество на протяжении большей части досовременной истории.</ROMV_ClanLasombra.description>
+
+  <ROMV_ClanPijavica.label>Пиджавик</ROMV_ClanPijavica.label>
+  <ROMV_ClanPijavica.description>Клан Пиджавика, паразиты, они ходят в симуклярах, созданных из собственной зловонной крови. Полагается, что они давно изгнаны из мира, эти пиявки выжили, прятались среди сородичей, охотясь на других вампиров, а также смертных.</ROMV_ClanPijavica.description>
+
+  <ROMV_ClanGargoyle.label>Гаргульи</ROMV_ClanGargoyle.label>
+  <ROMV_ClanGargoyle.description>Гаргульи - не настоящий клан, а род, созданный из магии крови Клана Тремера. Их рабы, Гаргульи обладают крыльями, способны летать и затвердевать, но страдают от чудовищного внешнего вида.</ROMV_ClanGargoyle.description>
+
+
+</LanguageData>

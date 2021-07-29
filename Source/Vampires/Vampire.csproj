@@ -13,11 +13,11 @@
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'RW1.2|AnyCPU' ">
     <DebugSymbols>false</DebugSymbols>
     <DebugType>none</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\1.1\Assemblies\</OutputPath>
+    <OutputPath>..\..\1.2\Assemblies\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -32,21 +32,28 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'RW1.3|AnyCPU'">
+    <OutputPath>..\..\1.3\Assemblies\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="0JecsTools">
-      <HintPath>..\Dependencies\0JecsTools.dll</HintPath>
+      <HintPath>..\..\..\JecsTools\1.3\Assemblies\0JecsTools.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="AbilityUser">
-      <HintPath>..\Dependencies\AbilityUser.dll</HintPath>
+      <HintPath>..\..\..\JecsTools\1.3\Assemblies\AbilityUser.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="BadHygiene">
-      <HintPath>..\Dependencies\BadHygiene.dll</HintPath>
+      <HintPath>..\..\..\..\BadHygiene.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="CompAnimated">
-      <HintPath>..\Dependencies\CompAnimated.dll</HintPath>
+      <HintPath>..\..\..\JecsTools\1.3\Assemblies\CompAnimated.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation" />
@@ -96,6 +103,7 @@
     <Compile Include="FlyingObject.cs" />
     <Compile Include="GenStep_VampireLair.cs" />
     <Compile Include="HandleVampireQuestComp.cs" />
+    <Compile Include="HarmonyPatches\HarmonyPatches_Fixes.cs" />
     <Compile Include="HarmonyPatches\HarmonyPatches_Menu.cs" />
     <Compile Include="HarmonyPatches\HarmonyPatches_AI.cs" />
     <Compile Include="HarmonyPatches\HarmonyPatches_Graves.cs" />
@@ -253,10 +261,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Krafs.Rimworld.Ref">
-      <Version>1.1.2566</Version>
+      <Version>1.3.3074</Version>
     </PackageReference>
     <PackageReference Include="Lib.Harmony">
-      <Version>2.0.0.8</Version>
+      <Version>2.1.1</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

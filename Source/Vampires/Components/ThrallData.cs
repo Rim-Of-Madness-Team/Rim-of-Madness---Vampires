@@ -150,7 +150,7 @@ namespace Vampire
                     throw new ArgumentOutOfRangeException();
             }
             if (intDef == null) return;
-            MoteMaker.MakeInteractionBubble(this.regnant, this.pawn, intDef.interactionMote, intDef.Symbol);
+            MoteMaker.MakeInteractionBubble(this.regnant, this.pawn, intDef.interactionMote, intDef.GetSymbol());
             if (this?.pawn?.needs?.mood?.thoughts?.memories is MemoryThoughtHandler m)
             {
                 m.TryGainMemory(intDef.recipientThought, regnant);

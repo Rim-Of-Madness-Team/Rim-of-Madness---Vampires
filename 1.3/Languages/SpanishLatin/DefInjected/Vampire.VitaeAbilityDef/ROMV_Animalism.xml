@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_Animalism_Beckoning.label>Llamando</ROMV_Animalism_Beckoning.label>
+  <ROMV_Animalism_Beckoning.description>Invoca un paquete de animales salvajes para venir a tu colonia.</ROMV_Animalism_Beckoning.description>
+
+  <ROMV_Animalism_NightwispRavens.label>cuervos nightwisp</ROMV_Animalism_NightwispRavens.label>
+  <ROMV_Animalism_NightwispRavens.description>Los cuervos incapacitan a la víctima por un corto tiempo. Cualquier acción tomada contra la víctima dispersará al rebaño y terminará el efecto prematuramente.</ROMV_Animalism_NightwispRavens.description>
+
+  <ROMV_Animalism_SpectralWolf.label>lobo espectral</ROMV_Animalism_SpectralWolf.label>
+  <ROMV_Animalism_SpectralWolf.description>Un lobo espectral se materializa, ataca al objetivo y luego regresa al éter.</ROMV_Animalism_SpectralWolf.description>
+
+  <ROMV_Animalism_Communion.label>comunión</ROMV_Animalism_Communion.label>
+  <ROMV_Animalism_Communion.description>Tres murciélagos fantasmagóricos buscan objetivos, drenan su sangre y luego entregan la sangre a su amo.</ROMV_Animalism_Communion.description>
+
+
+</LanguageData>

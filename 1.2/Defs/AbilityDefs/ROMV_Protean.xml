@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<Defs>
+
+	<Vampire.DisciplineDef>
+		<defName>ROMV_Protean</defName>
+		<label>Protean</label>
+		<abilities>
+			<li>ROMV_Protean_BatForm</li>
+			<li>ROMV_Protean_FeralClaws</li>
+			<li>ROMV_Protean_MistForm</li>
+			<li>ROMV_Protean_WarForm</li>
+		</abilities>
+	</Vampire.DisciplineDef>
+
+
+	<Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+		<defName>ROMV_Protean_BatForm</defName>
+		<label>bat form</label>
+		<bloodCost>1</bloodCost>
+		<uiIconPath>UI/Icons/Commands/Protean_BatForm</uiIconPath>
+		<description>Become one of the children of the night, and gain its ability to fly with great speed.</description>
+		<MainVerb Class="AbilityUser.VerbProperties_Ability">
+			<verbClass>Vampire.DisciplineEffect_BatForm</verbClass>
+			<hasStandardCommand>true</hasStandardCommand>
+			<defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+			<abilityDef>ROMV_Protean_BatForm</abilityDef>
+			<isViolent>false</isViolent>
+			<warmupTime>1</warmupTime>
+			<SecondsToRecharge>200.0</SecondsToRecharge>
+			<range>24</range>
+			<burstShotCount>1</burstShotCount>
+			<ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+			<soundCast>ROMV_AbilityCastSound_Protean</soundCast>
+			<muzzleFlashScale>20</muzzleFlashScale>
+			<isPrimary>false</isPrimary>
+			<AbilityTargetCategory>TargetSelf</AbilityTargetCategory>
+			<targetParams>
+				<canTargetPawns>false</canTargetPawns>
+				<canTargetBuildings>false</canTargetBuildings>
+				<canTargetItems>false</canTargetItems>
+				<canTargetSelf>true</canTargetSelf>
+			</targetParams>
+			<tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+			<tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+			<tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+			<tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+		</MainVerb>
+	</Vampire.VitaeAbilityDef>
+	<HediffDef ParentName="ROMV_VampBase">
+		<defName>ROMV_BatFormHediff</defName>
+		<label>bat form (Protean)</label>
+		<description>bat form (Protean)</description>
+		<comps>
+			<li Class="Vampire.HediffCompProperties_AnimalForm">
+				<animalToChangeInto>ROMV_BatKind</animalToChangeInto>
+				<disappearsAfterTicks>
+					<min>3000</min>
+					<max>3000</max>
+				</disappearsAfterTicks>
+			</li>
+		</comps>
+	</HediffDef>
+
+	<Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+		<defName>ROMV_Protean_FeralClaws</defName>
+		<label>feral claws</label>
+		<bloodCost>1</bloodCost>
+
+		<uiIconPath>UI/Icons/Commands/Protean_FeralClaws</uiIconPath>
+		<description>The vampire’s nails grow into long, fearsome talons, capable of rending bone and flesh alike.</description>
+		<MainVerb Class="AbilityUser.VerbProperties_Ability">
+			<verbClass>Vampire.DisciplineEffect_FeralClaws</verbClass>
+			<hasStandardCommand>true</hasStandardCommand>
+			<defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+			<abilityDef>ROMV_Protean_FeralClaws</abilityDef>
+			<isViolent>false</isViolent>
+			<warmupTime>1</warmupTime>
+			<SecondsToRecharge>200.0</SecondsToRecharge>
+			<range>24</range>
+			<burstShotCount>1</burstShotCount>
+			<ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+			<soundCast>ROMV_AbilityCastSound_Protean</soundCast>
+			<muzzleFlashScale>20</muzzleFlashScale>
+			<isPrimary>false</isPrimary>
+			<AbilityTargetCategory>TargetSelf</AbilityTargetCategory>
+			<targetParams>
+				<canTargetPawns>false</canTargetPawns>
+				<canTargetBuildings>false</canTargetBuildings>
+				<canTargetItems>false</canTargetItems>
+				<canTargetSelf>true</canTargetSelf>
+			</targetParams>
+			<tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+			<tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+			<tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+			<tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+		</MainVerb>
+	</Vampire.VitaeAbilityDef>
+
+	<Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+		<defName>ROMV_Protean_MistForm</defName>
+		<label>mist form</label>
+		<bloodCost>2</bloodCost>
+		<uiIconPath>UI/Icons/Commands/Protean_MistForm</uiIconPath>
+		<description>This power enables a Kindred to transform his entire body into a fine, chilling mist, both immune to damage and unable to give it.</description>
+		<MainVerb Class="AbilityUser.VerbProperties_Ability">
+			<verbClass>Vampire.DisciplineEffect_MistForm</verbClass>
+			<hasStandardCommand>true</hasStandardCommand>
+			<defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+			<abilityDef>ROMV_Protean_MistForm</abilityDef>
+			<isViolent>false</isViolent>
+			<warmupTime>1</warmupTime>
+			<SecondsToRecharge>200.0</SecondsToRecharge>
+			<range>24</range>
+			<burstShotCount>1</burstShotCount>
+			<ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+			<soundCast>ROMV_AbilityCastSound_Protean</soundCast>
+			<muzzleFlashScale>20</muzzleFlashScale>
+			<isPrimary>false</isPrimary>
+			<AbilityTargetCategory>TargetSelf</AbilityTargetCategory>
+			<targetParams>
+				<canTargetPawns>false</canTargetPawns>
+				<canTargetBuildings>false</canTargetBuildings>
+				<canTargetItems>false</canTargetItems>
+				<canTargetSelf>true</canTargetSelf>
+			</targetParams>
+			<tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+			<tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+			<tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+			<tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+		</MainVerb>
+	</Vampire.VitaeAbilityDef>
+	<HediffDef ParentName="ROMV_VampBase">
+		<defName>ROMV_MistFormHediff</defName>
+		<label>mist form (Protean)</label>
+		<description>mist form (Protean)</description>
+		<comps>
+			<li Class="Vampire.HediffCompProperties_AnimalForm">
+				<animalToChangeInto>ROMV_MistKind</animalToChangeInto>
+				<immuneTodamage>true</immuneTodamage>
+				<canGiveDamage>false</canGiveDamage>
+				<disappearsAfterTicks>
+					<min>3000</min>
+					<max>3000</max>
+				</disappearsAfterTicks>
+			</li>
+		</comps>
+	</HediffDef>
+
+	<Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+		<defName>ROMV_Protean_WarForm</defName>
+		<label>war form</label>
+		<bloodCost>3</bloodCost>
+		<uiIconPath>UI/Icons/Commands/Protean_WarForm</uiIconPath>
+		<description>You assume a colossal visage suitable for fighting an enemy horde.</description>
+		<MainVerb Class="AbilityUser.VerbProperties_Ability">
+			<verbClass>Vampire.DisciplineEffect_WarForm</verbClass>
+			<hasStandardCommand>true</hasStandardCommand>
+			<defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+			<abilityDef>ROMV_Protean_WarForm</abilityDef>
+			<isViolent>false</isViolent>
+			<warmupTime>1</warmupTime>
+			<SecondsToRecharge>200.0</SecondsToRecharge>
+			<range>24</range>
+			<burstShotCount>1</burstShotCount>
+			<ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+			<soundCast>ROMV_AbilityCastSound_Protean</soundCast>
+			<muzzleFlashScale>20</muzzleFlashScale>
+			<isPrimary>false</isPrimary>
+			<AbilityTargetCategory>TargetSelf</AbilityTargetCategory>
+			<targetParams>
+				<canTargetPawns>false</canTargetPawns>
+				<canTargetBuildings>false</canTargetBuildings>
+				<canTargetItems>false</canTargetItems>
+				<canTargetSelf>true</canTargetSelf>
+			</targetParams>
+			<tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+			<tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+			<tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+			<tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+		</MainVerb>
+	</Vampire.VitaeAbilityDef>
+	<HediffDef ParentName="ROMV_VampBase">
+		<defName>ROMV_WarFormHediff</defName>
+		<label>war form (Protean)</label>
+		<description>war form (Protean)</description>
+		<comps>
+			<li Class="Vampire.HediffCompProperties_AnimalForm">
+				<animalToChangeInto>ROMV_WarFormKind</animalToChangeInto>
+				<disappearsAfterTicks>
+					<min>3000</min>
+					<max>3000</max>
+				</disappearsAfterTicks>
+			</li>
+		</comps>
+	</HediffDef>
+
+</Defs>

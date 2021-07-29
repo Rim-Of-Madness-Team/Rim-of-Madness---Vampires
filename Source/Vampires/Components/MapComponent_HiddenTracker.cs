@@ -27,7 +27,7 @@ namespace Vampire
                 p.Drawer.renderer.graphics.nakedGraphic = null;
                 p.Drawer.renderer.graphics.ResolveAllGraphics();
                 toRemoveCharacters.Add(p);
-                MoteMaker.ThrowAirPuffUp(p.PositionHeld.ToVector3(), p.MapHeld);
+                FleckMaker.ThrowAirPuffUp(p.PositionHeld.ToVector3(), p.MapHeld);
             }
             
         }

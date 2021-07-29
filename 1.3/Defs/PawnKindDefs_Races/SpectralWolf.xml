@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <ThingDef ParentName="ROMV_ThingBaseWolf">
+    <defName>ROMV_WolfSpectralRace</defName>
+    <label>spectral wolf</label>
+    <description>This fearsome visage sends chills down one's spine, as this wolf appears to be not of this world.</description>
+    <race>
+      <baseBodySize>3.0</baseBodySize>
+      <useMeatFrom>Bear_Grizzly</useMeatFrom>
+      <useLeatherFrom>Bear_Grizzly</useLeatherFrom>
+    </race>
+  </ThingDef>
+
+  <PawnKindDef ParentName="AnimalKindBase" Name="ROMV_AnimalKindBaseWolf" Abstract="True">
+    <combatPower>175</combatPower>
+    <canArriveManhunter>false</canArriveManhunter>
+     
+    <ecoSystemWeight>0.0</ecoSystemWeight>
+  </PawnKindDef>
+
+  <PawnKindDef ParentName="ROMV_AnimalKindBaseWolf">
+    <defName>ROMV_WolfSpectral</defName>
+    <label>spectral wolf</label>
+    <labelPlural>spectral wolves</labelPlural>
+    <race>ROMV_WolfSpectralRace</race>
+    <lifeStages>
+      <li>
+        <label>spectral wolf puppy</label>
+        <labelPlural>spectral wolf puppies</labelPlural>
+        <bodyGraphicData>
+          <texPath>Things/Pawn/Animal/SpectralWolf/SpectralWolf</texPath>
+          <drawSize>2.05</drawSize>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Wolf_Timber/Dessicated_Wolf_Timber</texPath>
+          <drawSize>1</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+      <li>
+        <bodyGraphicData>
+          <texPath>Things/Pawn/Animal/SpectralWolf/SpectralWolf</texPath>
+          <drawSize>2.5</drawSize>
+          <shadowData>
+            <volume>(0.25, 0.3, 0.25)</volume>
+            <offset>(0,0,-0.15)</offset>
+          </shadowData>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Wolf_Timber/Dessicated_Wolf_Timber</texPath>
+          <drawSize>1.5</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+      <li>
+        <bodyGraphicData>
+          <texPath>Things/Pawn/Animal/SpectralWolf/SpectralWolf</texPath>
+          <drawSize>2.95</drawSize>
+          <shadowData>
+            <volume>(0.3, 0.4, 0.3)</volume>
+            <offset>(0,0,-0.15)</offset>
+          </shadowData>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Wolf_Timber/Dessicated_Wolf_Timber</texPath>
+          <drawSize>1.95</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+    </lifeStages>
+  </PawnKindDef>
+
+
+    <!-- ========================== Wolves ================================= -->
+
+    <ThingDef Name="ROMV_ThingBaseWolf" ParentName="AnimalThingBase" Abstract="True">
+      <thingClass>Vampire.PawnTemporary</thingClass>
+      <statBases>
+        <MoveSpeed>8.25</MoveSpeed>
+        <ComfyTemperatureMin>-50</ComfyTemperatureMin>
+        <MarketValue>0</MarketValue>
+      </statBases>
+      <verbs>
+        <li>
+          <verbClass>Verb_MeleeAttackDamage</verbClass>
+          <defaultCooldownTime>1.3</defaultCooldownTime>
+          <meleeDamageBaseAmount>13</meleeDamageBaseAmount>
+          <meleeDamageDef>Scratch</meleeDamageDef>
+          <linkedBodyPartsGroup>FrontLeftPaw</linkedBodyPartsGroup>
+          <surpriseAttack>
+            <extraMeleeDamages>
+              <li>
+                <def>Stun</def>
+                <amount>20</amount>
+              </li>
+            </extraMeleeDamages>
+          </surpriseAttack>
+        </li>
+        <li>
+          <verbClass>Verb_MeleeAttackDamage</verbClass>
+          <defaultCooldownTime>1.3</defaultCooldownTime>
+          <meleeDamageBaseAmount>13</meleeDamageBaseAmount>
+          <meleeDamageDef>Scratch</meleeDamageDef>
+          <linkedBodyPartsGroup>FrontRightPaw</linkedBodyPartsGroup>
+          <surpriseAttack>
+            <extraMeleeDamages>
+              <li>
+                <def>Stun</def>
+                <amount>20</amount>
+              </li>
+            </extraMeleeDamages>
+          </surpriseAttack>
+        </li>
+        <li>
+          <verbClass>Verb_MeleeAttackDamage</verbClass>
+          <defaultCooldownTime>1.6</defaultCooldownTime>
+          <meleeDamageBaseAmount>15</meleeDamageBaseAmount>
+          <meleeDamageDef>Bite</meleeDamageDef>
+          <linkedBodyPartsGroup>Teeth</linkedBodyPartsGroup>
+          <surpriseAttack>
+            <extraMeleeDamages>
+              <li>
+                <def>Stun</def>
+                <amount>20</amount>
+              </li>
+            </extraMeleeDamages>
+          </surpriseAttack>
+        </li>
+        <li>
+          <verbClass>Verb_MeleeAttackDamage</verbClass>
+          <defaultCooldownTime>1.35</defaultCooldownTime>
+          <meleeDamageBaseAmount>8</meleeDamageBaseAmount>
+          <meleeDamageDef>Blunt</meleeDamageDef>
+          <linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+        </li>
+      </verbs>
+      <race>
+        <thinkTreeMain>ROMV_TemporaryPawnAI</thinkTreeMain>
+        <thinkTreeConstant>ROMV_TemporaryPawnAI_Constant</thinkTreeConstant>
+        <body>QuadrupedAnimalWithPawsAndTail</body>
+        <predator>true</predator>
+        <petness>0</petness>
+        <baseBodySize>0.85</baseBodySize>
+        <baseHungerRate>0.18</baseHungerRate>
+        <baseHealthScale>0.99</baseHealthScale>
+        <foodType>CarnivoreAnimal</foodType>
+        <gestationPeriodDays>22.5</gestationPeriodDays>
+        <nameOnTameChance>1</nameOnTameChance>
+        <trainability>Advanced</trainability>
+        <wildness>1.0</wildness>
+        <nuzzleMtbHours>120</nuzzleMtbHours>
+        <manhunterOnDamageChance>1</manhunterOnDamageChance>
+        <manhunterOnTameFailChance>0.018</manhunterOnTameFailChance>
+        <litterSizeCurve>
+          <points>
+            <li>(0.5, 0)</li>
+            <li>(1, 1)</li>
+            <li>(2, 1.7)</li>
+            <li>(3, 0.7)</li>
+            <li>(3.5, 0)</li>
+          </points>
+        </litterSizeCurve>
+        <lifeExpectancy>12</lifeExpectancy>
+        <lifeStageAges>
+          <li>
+            <def>AnimalBaby</def>
+            <minAge>0</minAge>
+          </li>
+          <li>
+            <def>AnimalJuvenile</def>
+            <minAge>0.2</minAge>
+          </li>
+          <li>
+            <def>AnimalAdult</def>
+            <minAge>0.45</minAge>
+            <soundWounded>Pawn_Dog_Injured</soundWounded>
+            <soundDeath>Pawn_Dog_Death</soundDeath>
+            <soundCall>Pawn_Dog_Call</soundCall>
+            <soundAngry>Pawn_Dog_Angry</soundAngry>
+          </li>
+        </lifeStageAges>
+        <soundMeleeHitPawn>Pawn_Melee_SmallScratch_HitPawn</soundMeleeHitPawn>
+        <soundMeleeHitBuilding>Pawn_Melee_SmallScratch_HitBuilding</soundMeleeHitBuilding>
+        <soundMeleeMiss>Pawn_Melee_SmallScratch_Miss</soundMeleeMiss>
+      </race>
+    </ThingDef>
+
+</Defs>

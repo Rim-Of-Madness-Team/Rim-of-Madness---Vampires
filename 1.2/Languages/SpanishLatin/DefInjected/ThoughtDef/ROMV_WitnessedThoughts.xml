@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Blood drain-related deaths -->
+
+  <ROMV_WitnessedVampireFeeding.stages.0.label>testigo de la alimentación vampiro</ROMV_WitnessedVampireFeeding.stages.0.label>
+  <ROMV_WitnessedVampireFeeding.stages.0.description>¿Acaban de chuparle el cuello a esa persona?</ROMV_WitnessedVampireFeeding.stages.0.description>
+
+  <ROMV_WitnessedVampireFeedingVisitor.stages.0.label>testigo de la alimentación vampiro</ROMV_WitnessedVampireFeedingVisitor.stages.0.label>
+  <ROMV_WitnessedVampireFeedingVisitor.stages.0.description>Alguien debería poner fin a estas cosas.</ROMV_WitnessedVampireFeedingVisitor.stages.0.description>
+
+  <ROMV_WitnessedVampireEmbrace.stages.0.label>testigo de la propagación del vampirismo</ROMV_WitnessedVampireEmbrace.stages.0.label>
+  <ROMV_WitnessedVampireEmbrace.stages.0.description>Esa persona estaba viva antes. Luego murieron. Ahora son ... diferentes. Esto es irreal.</ROMV_WitnessedVampireEmbrace.stages.0.description>
+
+  <ROMV_WitnessedVampireEmbraceVisitor.stages.0.label>testigo de la propagación del vampirismo</ROMV_WitnessedVampireEmbraceVisitor.stages.0.label>
+  <ROMV_WitnessedVampireEmbraceVisitor.stages.0.description>Estas criaturas son abominaciones. Me gustaría verlos destruidos.</ROMV_WitnessedVampireEmbraceVisitor.stages.0.description>
+
+  <ROMV_WitnessedVampireDiablerie.stages.0.label>atestiguando las almas siendo consumidas</ROMV_WitnessedVampireDiablerie.stages.0.label>
+  <ROMV_WitnessedVampireDiablerie.stages.0.description>¡¿Qué fue eso que salió de su cuerpo?!</ROMV_WitnessedVampireDiablerie.stages.0.description>
+
+  <ROMV_WitnessedVampireDiablerieVisitor.stages.0.label>atestiguando las almas siendo consumidas</ROMV_WitnessedVampireDiablerieVisitor.stages.0.label>
+  <ROMV_WitnessedVampireDiablerieVisitor.stages.0.description>Prueba de que estas cosas deberían ser destruidas.</ROMV_WitnessedVampireDiablerieVisitor.stages.0.description>
+
+
+</LanguageData>

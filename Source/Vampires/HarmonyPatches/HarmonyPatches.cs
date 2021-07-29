@@ -60,6 +60,8 @@ namespace Vampire
             HarmonyPatches_Mods(harmony);
 
             HarmonyPatches_Royalty(harmony);
+
+            HarmonyPatches_Fixes(harmony);
         }    
 
 

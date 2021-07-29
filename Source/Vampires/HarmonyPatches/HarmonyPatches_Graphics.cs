@@ -170,7 +170,7 @@ namespace Vampire
                             {
                                 Vector3 drawLoc = rootLoc;
                                 drawLoc.y += 0.01875f;
-                                Traverse.Create(__instance).Field("woundOverlays").GetValue<PawnWoundDrawer>().RenderOverBody(drawLoc, mesh, quat, portrait);
+                                Traverse.Create(__instance).Field("woundOverlays").GetValue<PawnWoundDrawer>().RenderOverBody(drawLoc, mesh, quat, portrait, BodyTypeDef.WoundLayer.Body, bodyFacing);
                             }
                         }
                     }

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <HediffDef>
+    <defName>ROMV_VitaeHigh</defName>
+    <hediffClass>HediffWithComps</hediffClass>
+    <label>vitae euphoria</label>
+    <labelNoun>a vitae high</labelNoun>
+    <description>a vitae high</description>
+    <defaultLabelColor>(1,0,0.5)</defaultLabelColor>
+    <scenarioCanAdd>true</scenarioCanAdd>
+    <maxSeverity>1.0</maxSeverity>
+    <isBad>false</isBad>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-2.5</severityPerDay>
+      </li>
+    </comps>
+      <stages>
+        <li>
+          <painFactor>0.7</painFactor>
+          <capMods>
+            <li>
+              <capacity>Sight</capacity>
+              <offset>0.15</offset>
+            </li>
+            <li>
+              <capacity>Hearing</capacity>
+              <offset>0.15</offset>
+            </li>
+            <li>
+              <capacity>Moving</capacity>
+              <offset>0.05</offset>
+            </li>
+          </capMods>
+        </li>
+      </stages>
+  </HediffDef>
+
+  <ThoughtDef>
+	<defName>ROMV_IDrankVitae</defName>
+	<workerClass>ThoughtWorker_Hediff</workerClass>
+	<hediff>ROMV_VitaeHigh</hediff>
+	<validWhileDespawned>true</validWhileDespawned>
+	<stages>
+		<li>
+			<label>drank vitae</label>
+			<description>That was incredible. Everything feels better now. I... I must have more.</description>
+			<baseMoodEffect>12</baseMoodEffect>
+		</li>
+	</stages>
+  </ThoughtDef>
+
+  <ChemicalDef>
+    <defName>ROMV_VitaeChemical</defName>
+    <label>vitae</label>
+    <addictionHediff>ROMV_VitaeAddiction</addictionHediff>
+    <toleranceHediff>ROMV_VitaeTolerance</toleranceHediff>
+    <onGeneratedAddictedToleranceChance>0.8</onGeneratedAddictedToleranceChance>
+    <onGeneratedAddictedEvents>
+      <li>
+        <hediff>ChemicalDamageSevere</hediff>
+        <chance>0.15</chance>
+        <partsToAffect>
+          <li>Heart</li>
+        </partsToAffect>
+      </li>
+    </onGeneratedAddictedEvents>
+  </ChemicalDef>
+  
+
+
+  <HediffDef ParentName="DrugToleranceBase">
+    <defName>ROMV_VitaeTolerance</defName>
+    <label>vitae tolerance</label>
+    <description>vitae tolerance</description>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-0.015</severityPerDay>
+      </li>
+      <li Class="HediffCompProperties_DrugEffectFactor">
+        <chemical>ROMV_VitaeChemical</chemical>
+      </li>
+    </comps>
+		<hediffGivers>
+			<li Class="HediffGiver_RandomDrugEffect">
+				<hediff>ChemicalDamageSevere</hediff>
+				<minSeverity>0.50</minSeverity>
+				<baseMtbDays>120</baseMtbDays>
+				<partsToAffect>
+					<li>Heart</li>
+				</partsToAffect>
+			</li>
+		</hediffGivers>
+  </HediffDef>
+  
+  <HediffDef ParentName="AddictionBase">
+    <defName>ROMV_VitaeAddiction</defName>
+    <hediffClass>Hediff_Addiction</hediffClass>
+    <label>vitae addiction</label>
+    <description>vitae addiction</description>
+    <causesNeed>ROMV_Chemical_Vitae</causesNeed>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-0.0333</severityPerDay>
+      </li>
+    </comps>
+    <stages>
+      <li>
+      </li>
+      <li>
+        <label>withdrawal</label>
+        <socialFightChanceFactor>5.0</socialFightChanceFactor>
+        <mentalStateGivers>
+		  <li>
+			<mentalState>Binging_DrugExtreme</mentalState>
+			<mtbDays>40</mtbDays>
+		  </li>
+          <li>
+            <mentalState>Berserk</mentalState>
+            <mtbDays>10</mtbDays>
+          </li>
+        </mentalStateGivers>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <ThoughtDef>
+    <defName>ROMV_VitaeWithdrawal</defName>
+    <workerClass>ThoughtWorker_Hediff</workerClass>
+    <hediff>ROMV_VitaeAddiction</hediff>
+    <validWhileDespawned>true</validWhileDespawned>
+    <stages>
+      <li>
+        <visible>false</visible>
+      </li>
+      <li>
+        <label>vitae withdrawal</label>
+        <description>It's like the world has lost its colors. I hate this. I want to scream.</description>
+        <baseMoodEffect>-38</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+  
+</Defs>

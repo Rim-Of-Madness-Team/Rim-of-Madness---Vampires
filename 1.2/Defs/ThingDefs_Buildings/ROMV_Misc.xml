@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+
+    <ThingDef ParentName="BuildingBase">
+      <defName>ROMV_HideyHole</defName>
+      <label>odd dirt patch</label>
+	  <thingCategories />
+      <thingClass>Vampire.Building_HideyHole</thingClass>
+      <graphicData>
+        <texPath>Things/Building/Misc/DirtPile</texPath>
+        <graphicClass>Graphic_Single</graphicClass>
+        <drawSize>(3,4)</drawSize>
+      </graphicData>
+      <constructEffect>ConstructDirt</constructEffect>
+      <altitudeLayer>FloorEmplacement</altitudeLayer>
+      <useHitPoints>false</useHitPoints>
+      <description>This patch seems out of place.</description>
+      <size>(1,2)</size>
+      <tickerType>Rare</tickerType>
+      <canOverlapZones>false</canOverlapZones>
+      <statBases>
+        <WorkToBuild>650</WorkToBuild>
+      </statBases>
+      <passability>PassThroughOnly</passability>
+      <building>
+  			<ai_chillDestination>false</ai_chillDestination>
+        <isInert>true</isInert>
+        <fullGraveGraphicData>
+  				<texPath>Things/Building/Misc/DirtPile</texPath>
+  				<graphicClass>Graphic_Single</graphicClass>
+  				<drawSize>(3,4)</drawSize>
+  			</fullGraveGraphicData>
+        <fixedStorageSettings>
+          <filter>
+            <categories>
+              <li>Corpses</li>
+            </categories>
+          </filter>
+        </fixedStorageSettings>
+        <defaultStorageSettings>
+          <filter>
+            <categories>
+              <li>CorpsesHumanlike</li>
+            </categories>
+          </filter>
+        </defaultStorageSettings>
+      </building>
+      <inspectorTabs>
+        <li>ITab_Storage</li>
+      </inspectorTabs>
+      <terrainAffordanceNeeded>Diggable</terrainAffordanceNeeded>
+    </ThingDef>
+	
+</Defs>

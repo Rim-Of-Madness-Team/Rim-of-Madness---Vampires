@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!-- New as of 5-7-18 -->
+  
+  <Vampire.BloodlineDef>
+    <defName>ROMV_ClanVentrue</defName>
+    <label>Ventrue</label>
+    <description>Clan Venture are the ruling class, the nobility, aristocracy, company CEOs, wealthy individuals, politicians, assorted royalty. They ruled in life, and they rule in undeath as well.</description>
+    <fangsHediff>ROMV_Fangs</fangsHediff>
+    <bloodlineHediff/>
+    <embraceWorker>Vampire.EmbraceWorker</embraceWorker>
+    <disciplines>
+      <li>ROMV_Presence</li>
+      <li>ROMV_Dominate</li>
+      <li>ROMV_Fortitude</li>
+    </disciplines>
+  </Vampire.BloodlineDef>
+  
+  <Vampire.BloodlineDef>
+    <defName>ROMV_ClanGangrel</defName>
+    <label>Gangrel</label>
+    <description>Clan Gangrel are nomadic with closer ties to the animal aspect of the Beast. They are known for their rebellious nature and quick tempers.</description>
+    <fangsHediff>ROMV_Fangs</fangsHediff>
+    <bloodlineHediff/>
+    <embraceWorker>Vampire.EmbraceWorker</embraceWorker>
+    <disciplines>
+      <li>ROMV_Protean</li>
+      <li>ROMV_Animalism</li>
+      <li>ROMV_Fortitude</li>
+    </disciplines>
+  </Vampire.BloodlineDef>
+  
+  <Vampire.BloodlineDef>
+    <defName>ROMV_ClanNosferatu</defName>
+    <label>Nosferatu</label>
+    <description>Clan Nosferatu are easily recognizable as monstrous vampires from their appearances. They must hide to survive in the masquerade, as their very visage betrays their identities.</description>
+    <fangsHediff>ROMV_Fangs</fangsHediff>
+    <bloodlineHediff/>
+    <embraceWorker>Vampire.EmbraceWorker</embraceWorker>
+    <allowsHair>False</allowsHair>
+    <disciplines>
+      <li>ROMV_Obfuscation</li>
+      <li>ROMV_Animalism</li>
+      <li>ROMV_Potence</li>
+    </disciplines>
+    <headGraphicsPath>Things/Pawn/Nosferatu/Heads/</headGraphicsPath>
+  </Vampire.BloodlineDef>
+
+  <!-- Previous defs -->
+
+  <Vampire.BloodlineDef>
+    <defName>ROMV_Caine</defName>
+    <label>First Vampire</label>
+    <description>None yet</description>
+    <bloodlineHediff/>
+    <scenarioCanAdd>false</scenarioCanAdd>
+    <fangsHediff>ROMV_Fangs</fangsHediff>
+    <embraceWorker>Vampire.EmbraceWorker</embraceWorker>
+    <disciplines>
+      <li>ROMV_Animalism</li>
+      <li>ROMV_Auspex</li>  
+	  <li>ROMV_BloodDiscipline</li>
+      <li>ROMV_Dominate</li>    
+	  <li>ROMV_Flight</li>
+      <li>ROMV_Fortitude</li>
+      <li>ROMV_Obfuscation</li>
+	  <li>ROMV_Obtenebration</li>
+      <li>ROMV_Potence</li>
+      <li>ROMV_Presence</li>
+      <li>ROMV_Protean</li>  
+	  <li>ROMV_Thaumaturgy</li>
+	  <li>ROMV_Vicissitude</li>
+    </disciplines>
+  </Vampire.BloodlineDef>
+
+  <Vampire.BloodlineDef>
+    <defName>ROMV_TheThree</defName>
+    <label>Children of Caine</label>
+    <description>None yet</description>
+    <bloodlineHediff/>
+    <scenarioCanAdd>false</scenarioCanAdd>
+    <fangsHediff>ROMV_Fangs</fangsHediff>
+    <embraceWorker>Vampire.EmbraceWorker</embraceWorker>
+    <disciplines>
+      <li>ROMV_Animalism</li>
+      <li>ROMV_Auspex</li>  
+	  <li>ROMV_BloodDiscipline</li>
+      <li>ROMV_Dominate</li>    
+	  <li>ROMV_Flight</li>
+      <li>ROMV_Fortitude</li>
+      <li>ROMV_Obfuscation</li>
+	  <li>ROMV_Obtenebration</li>
+      <li>ROMV_Potence</li>
+      <li>ROMV_Presence</li>
+      <li>ROMV_Protean</li>  
+	  <li>ROMV_Thaumaturgy</li>
+	  <li>ROMV_Vicissitude</li>
+    </disciplines>
+  </Vampire.BloodlineDef>
+  
+
+  <Vampire.BloodlineDef>
+    <defName>ROMV_ClanTzimize</defName>
+    <label>Tzimisce</label>
+    <description>Clan Tzimisce are true sociopaths that have abandoned humanity in favor of their own reviled pursuits. One might be inclined to consider them abominations, murderers, and truly damned, in which case they'd likely agree.</description>
+    <fangsHediff>ROMV_Fangs</fangsHediff>
+    <bloodlineHediff/>
+    <embraceWorker>Vampire.EmbraceWorker</embraceWorker>
+    <disciplines>
+      <li>ROMV_Vicissitude</li>
+      <li>ROMV_Animalism</li>
+      <li>ROMV_Auspex</li>
+    </disciplines>
+  </Vampire.BloodlineDef>
+
+  <Vampire.BloodlineDef>
+    <defName>ROMV_ClanTremere</defName>
+    <label>Tremere</label>
+    <description>Clan Tremere is widely respected as the scholars and pioneers of blood magic. Though their renown is well known, their strict chain of command and aura of secrecy often raise suspicions among other kindred.</description>
+    <fangsHediff>ROMV_Fangs</fangsHediff>
+    <bloodlineHediff/>
+    <embraceWorker>Vampire.EmbraceWorker</embraceWorker>
+    <disciplines>
+      <li>ROMV_Thaumaturgy</li>
+      <li>ROMV_Dominate</li>
+      <li>ROMV_Auspex</li>
+    </disciplines>
+  </Vampire.BloodlineDef>
+
+  <Vampire.BloodlineDef>
+    <defName>ROMV_ClanLasombra</defName>
+    <label>Lasombra</label>
+    <description>Clan Lasombra is seen as leaders and mystics of The Abyss, shadow itself. Harnessing the power of shadows, utilizing ruthless tactics, and applying social Darwinism has allowed for them to control mortal society for much of pre-modern history.</description>
+    <fangsHediff>ROMV_Fangs</fangsHediff>
+    <bloodlineHediff/>
+    <embraceWorker>Vampire.EmbraceWorker</embraceWorker>
+    <disciplines>
+      <li>ROMV_Obtenebration</li>
+      <li>ROMV_Dominate</li>
+      <li>ROMV_Potence</li>
+    </disciplines>
+  </Vampire.BloodlineDef>
+
+  <Vampire.BloodlineDef>
+    <defName>ROMV_ClanPijavica</defName>
+    <label>Pijavica</label>
+    <description>Clan Pijavica, the Parasites, they walk in simulacrums crafted from their own fetid blood. Believed to be long expunged from the world, these leeches have survived hiding among the kindred, hunting other vampires as well as mortals.</description>
+    <fangsHediff>ROMV_Fangs</fangsHediff>
+    <bloodlineHediff/>
+    <embraceWorker>Vampire.EmbraceWorker</embraceWorker>
+    <disciplines>
+      <li>ROMV_BloodDiscipline</li>
+      <li>ROMV_Protean</li>
+      <li>ROMV_Fortitude</li>
+    </disciplines>
+    <canFeedOnVampires>true</canFeedOnVampires>
+  </Vampire.BloodlineDef>
+
+  <Vampire.BloodlineDef>
+    <defName>ROMV_ClanGargoyle</defName>
+    <label>Gargoyle</label>
+    <description>The Gargoyles are not a true clan, but a bloodline crafted from the blood magic of Clan Tremere. Forged as their guardians, Gargoyles possess wings capable of flight and hardened skin, yet suffer monstrous appearances.</description>
+    <fangsHediff>ROMV_Fangs</fangsHediff>
+    <bloodlineHediff/>
+    <allowsHair>False</allowsHair>
+    <embraceWorker>Vampire.EmbraceWorker</embraceWorker>
+    <disciplines>
+      <li>ROMV_Flight</li>
+      <li>ROMV_Protean</li>
+      <li>ROMV_Fortitude</li>
+    </disciplines>
+    <nakedBodyGraphicsPath>Things/Pawn/Gargoyles/Bodies/</nakedBodyGraphicsPath>
+    <headGraphicsPath>Things/Pawn/Gargoyles/Heads/</headGraphicsPath>
+    <!-- custom skincolors for bloodlines must always have 6 -->
+    <skinColors>
+      <li>(0.66,0.66,0.66)</li>
+      <li>(0.53,0.53,0.53)</li>
+      <li>(0.63,0.53,0.53)</li>
+      <li>(0.53,0.63,0.53)</li>
+      <li>(0.53,0.53,0.63)</li>
+      <li>(0.5,0.5,0.5)</li>
+    </skinColors>
+  </Vampire.BloodlineDef>
+
+</Defs>

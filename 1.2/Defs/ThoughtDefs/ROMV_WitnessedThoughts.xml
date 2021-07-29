@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+<!-- Blood drain-related deaths -->
+    <ThoughtDef Name="ROMV_WitnessThought" Abstract="True">
+	  <showBubble>true</showBubble>
+	  <icon>Things/Mote/ThoughtSymbol/jecrellScared</icon>
+	  <thoughtClass>Thought_MemoryObservation</thoughtClass>
+	  <durationDays>0.25</durationDays>
+	  <stackedEffectMultiplier>0.5</stackedEffectMultiplier>
+	  <stackLimit>3</stackLimit>
+	  <nullifyingTraits>
+		<li>Psychopath</li>
+		<li>Bloodlust</li>
+		<li>Cannibal</li>
+	  </nullifyingTraits>
+	</ThoughtDef>
+
+	<ThoughtDef ParentName="ROMV_WitnessThought">
+		<defName>ROMV_WitnessedVampireFeeding</defName>
+		<durationDays>3</durationDays>
+		<stackLimit>5</stackLimit>
+		<stages>
+			<li>
+				<label>witnessed feeding vampire</label>
+				<description>Did they just suck that guy's neck?</description>
+				<baseMoodEffect>-2</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<ThoughtDef ParentName="ROMV_WitnessThought">
+		<defName>ROMV_WitnessedVampireFeedingVisitor</defName>
+		<durationDays>3</durationDays>
+		<stackLimit>5</stackLimit>
+		<stages>
+			<li>
+				<label>witnessed feeding vampire</label>
+				<description>Someone should put an end to these things.</description>
+				<baseMoodEffect>-5</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	
+	<ThoughtDef ParentName="ROMV_WitnessThought">
+		<defName>ROMV_WitnessedVampireEmbrace</defName>
+		<durationDays>3</durationDays>
+		<stackLimit>5</stackLimit>
+		<stages>
+			<li>
+				<label>witnessed vampirism spread</label>
+				<description>That person was alive before. Then they died. Now they're... different. This is unreal.</description>
+				<baseMoodEffect>-5</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	
+	<ThoughtDef ParentName="ROMV_WitnessThought">
+		<defName>ROMV_WitnessedVampireEmbraceVisitor</defName>
+		<durationDays>3</durationDays>
+		<stackLimit>5</stackLimit>
+		<stages>
+			<li>
+				<label>witnessed vampirism spread</label>
+				<description>These creatures are abominations. It would please me to see them destroyed.</description>
+				<baseMoodEffect>-10</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	
+	
+	<ThoughtDef ParentName="ROMV_WitnessThought">
+		<defName>ROMV_WitnessedVampireDiablerie</defName>
+		<durationDays>3</durationDays>
+		<stackLimit>5</stackLimit>
+		<stages>
+			<li>
+				<label>witnessed consuming souls</label>
+				<description>What was that coming out of their body?!</description>
+				<baseMoodEffect>-10</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	
+	
+	<ThoughtDef ParentName="ROMV_WitnessThought">
+		<defName>ROMV_WitnessedVampireDiablerieVisitor</defName>
+		<durationDays>3</durationDays>
+		<stackLimit>5</stackLimit>
+		<stages>
+			<li>
+				<label>witnessed consuming souls</label>
+				<description>Proof that these things should be destroyed.</description>
+				<baseMoodEffect>-15</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+</Defs>

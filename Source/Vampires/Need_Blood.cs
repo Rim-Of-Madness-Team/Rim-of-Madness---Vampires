@@ -420,7 +420,7 @@ namespace Vampire
 
         }
 
-        public override void DrawOnGUI(Rect rect, int maxThresholdMarkers = Int32.MaxValue, float customMargin = -1f, bool drawArrows = true, bool doTooltip = true)
+        public override void DrawOnGUI(Rect rect, int maxThresholdMarkers = int.MaxValue, float customMargin = -1, bool drawArrows = true, bool doTooltip = true, Rect? rectForTooltip = null)
         {
             if (threshPercents == null)
             {
@@ -450,7 +450,7 @@ namespace Vampire
                 v.IsVampire)
                 BloodFeedModeUtility.DrawFeedModeButton(new Vector2(rect.width - 20f, 5f), pawn);
 
-            
+
             if (CurGhoulVitaePoints > 0)
             {
                 DrawBar(rect.TopHalf(), maxThresholdMarkers, -1f, drawArrows, BarType.GhoulTopHalf);
@@ -458,10 +458,11 @@ namespace Vampire
             }
             else
                 DrawBar(rect, maxThresholdMarkers, customMargin, drawArrows);
-            
-            
+
+
             Text.Font = GameFont.Small;
         }
+
 
         // RimWorld.Need
         private void DrawBarThreshold(Rect barRect, float threshPct)

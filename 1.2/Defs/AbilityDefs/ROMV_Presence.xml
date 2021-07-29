@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<Defs>
+
+  <Vampire.DisciplineDef>
+    <defName>ROMV_Presence</defName>
+    <label>Presence</label>
+    <abilities>
+      <li>ROMV_PresenceI</li>
+      <li>ROMV_PresenceII</li>
+      <li>ROMV_PresenceIII</li>
+      <li>ROMV_PresenceIV</li>
+    </abilities>
+	<extraAbilities>
+	  <li>
+	    <level>3</level>
+		<def>ROMV_Presence_BloodLust</def>
+	  </li>
+	  <li>
+	    <level>3</level>
+		<def>ROMV_Presence_CeaseFire</def>
+	  </li>
+	</extraAbilities>
+  </Vampire.DisciplineDef>
+
+  <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+    <defName>ROMV_PresenceI</defName>
+    <label>Presence I</label>
+    <uiIconPath>UI/Icons/Commands/PresenceI</uiIconPath>
+    <description>Permanent +3 social bonus for each level in presence. Enemies nearby increase their attack cooldown by 5%.</description>
+    <MainVerb Class="AbilityUser.VerbProperties_Ability">
+      <verbClass>Vampire.DisciplineEffect_EnterTheAbyss</verbClass>
+      <hasStandardCommand>false</hasStandardCommand>
+      <defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+      <abilityDef>ROMV_Obtenebration_EnterTheAbyss</abilityDef>
+      <isViolent>false</isViolent>
+      <warmupTime>1</warmupTime>
+      <SecondsToRecharge>200.0</SecondsToRecharge>
+      <range>99</range>
+      <burstShotCount>1</burstShotCount>
+      <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+      <soundCast>ROMV_AbilityCastSound_Obtenebration</soundCast>
+      <muzzleFlashScale>20</muzzleFlashScale>
+      <isPrimary>false</isPrimary>
+      <targetParams>
+        <canTargetLocations>true</canTargetLocations>
+        <canTargetPawns>false</canTargetPawns>
+        <canTargetBuildings>false</canTargetBuildings>
+        <canTargetItems>false</canTargetItems>
+        <canTargetSelf>false</canTargetSelf>
+      </targetParams>
+      <tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+      <tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+      <tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+      <tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+    </MainVerb>
+    <PassiveProps>
+      <worker>AbilityUser.PassiveEffectWorker</worker>
+      <hediffs>
+        <li>ROMV_PresenceIHediff</li>
+      </hediffs>
+    </PassiveProps>
+  </Vampire.VitaeAbilityDef>
+  <HediffDef ParentName="ROMV_VampBase">
+    <defName>ROMV_PresenceIHediff</defName>
+    <label>supernatural attraction (Presence I)</label>
+    <description>supernatural attraction (Presence I)</description>
+    <comps>
+      <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>
+          <min>3000</min>
+          <max>3000</max>
+        </disappearsAfterTicks>
+      </li>
+      <li Class="Vampire.HediffCompProperties_SkillOffset">
+        <skillDef>Social</skillDef>
+        <offset>3</offset>
+      </li>	  
+    </comps>
+  </HediffDef>
+  <HediffDef ParentName="ROMV_VampBase">
+    <defName>ROMV_PresenceICooldownHediff</defName>
+    <label>charmed (Presence I)</label>
+    <description>charmed (Presence I)</description>
+    <comps>
+      <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>
+          <min>13000</min>
+          <max>13000</max>
+        </disappearsAfterTicks>
+      </li>
+    </comps>
+    <stages>
+	  <li>
+	  <statOffsets>
+	    <RangedWeapon_Cooldown>0.05</RangedWeapon_Cooldown>
+		<MeleeWeapon_CooldownMultiplier>0.05</MeleeWeapon_CooldownMultiplier>
+	  </statOffsets>
+	  </li>
+	</stages>
+  </HediffDef>
+
+  <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+    <defName>ROMV_PresenceII</defName>
+    <label>Presence II</label>
+    <uiIconPath>UI/Icons/Commands/PresenceII</uiIconPath>
+    <description>Permanent +3 social bonus for each level in presence. Enemies nearby increase their attack cooldown by 10%.</description>
+    <MainVerb Class="AbilityUser.VerbProperties_Ability">
+      <verbClass>Vampire.DisciplineEffect_EnterTheAbyss</verbClass>
+      <hasStandardCommand>false</hasStandardCommand>
+      <defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+      <abilityDef>ROMV_Obtenebration_EnterTheAbyss</abilityDef>
+      <isViolent>false</isViolent>
+      <warmupTime>1</warmupTime>
+      <SecondsToRecharge>200.0</SecondsToRecharge>
+      <range>99</range>
+      <burstShotCount>1</burstShotCount>
+      <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+      <soundCast>ROMV_AbilityCastSound_Obtenebration</soundCast>
+      <muzzleFlashScale>20</muzzleFlashScale>
+      <isPrimary>false</isPrimary>
+      <targetParams>
+        <canTargetLocations>true</canTargetLocations>
+        <canTargetPawns>false</canTargetPawns>
+        <canTargetBuildings>false</canTargetBuildings>
+        <canTargetItems>false</canTargetItems>
+        <canTargetSelf>false</canTargetSelf>
+      </targetParams>
+      <tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+      <tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+      <tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+      <tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+    </MainVerb>
+    <PassiveProps>
+      <worker>AbilityUser.PassiveEffectWorker</worker>
+      <hediffs>
+        <li>ROMV_PresenceIIHediff</li>
+      </hediffs>
+    </PassiveProps>
+  </Vampire.VitaeAbilityDef>
+  <HediffDef ParentName="ROMV_VampBase">
+    <defName>ROMV_PresenceIIHediff</defName>
+    <label>supernatural attraction (Presence II)</label>
+    <description>supernatural attraction (Presence II)</description>
+    <comps>
+      <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>
+          <min>3000</min>
+          <max>3000</max>
+        </disappearsAfterTicks>
+      </li>
+      <li Class="Vampire.HediffCompProperties_SkillOffset">
+        <skillDef>Social</skillDef>
+        <offset>3</offset>
+      </li>	  	  
+    </comps>
+  </HediffDef>
+  <HediffDef ParentName="ROMV_VampBase">
+    <defName>ROMV_PresenceIICooldownHediff</defName>
+    <label>charmed (Presence II)</label>
+    <description>charmed (Presence II)</description>
+    <comps>
+      <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>
+          <min>13000</min>
+          <max>13000</max>
+        </disappearsAfterTicks>
+      </li>
+
+    </comps>	
+    <stages>
+	  <li>
+	    <statOffsets>
+	      <RangedWeapon_Cooldown>0.1</RangedWeapon_Cooldown>
+		  <MeleeWeapon_CooldownMultiplier>0.1</MeleeWeapon_CooldownMultiplier>
+	    </statOffsets>
+	  </li>
+	</stages>
+  </HediffDef>
+
+
+  <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+    <defName>ROMV_PresenceIII</defName>
+    <label>Presence III</label>
+    <uiIconPath>UI/Icons/Commands/PresenceIII</uiIconPath>
+    <description>Permanent +3 social bonus for each level in presence. Enemies nearby increase their attack cooldown by 12%. Adds "peace talks" dialog option.</description>
+    <MainVerb Class="AbilityUser.VerbProperties_Ability">
+      <verbClass>Vampire.DisciplineEffect_EnterTheAbyss</verbClass>
+      <hasStandardCommand>false</hasStandardCommand>
+      <defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+      <abilityDef>ROMV_Obtenebration_EnterTheAbyss</abilityDef>
+      <isViolent>false</isViolent>
+      <warmupTime>1</warmupTime>
+      <SecondsToRecharge>200.0</SecondsToRecharge>
+      <range>1</range>
+      <burstShotCount>1</burstShotCount>
+      <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+      <soundCast>ROMV_AbilityCastSound_Obtenebration</soundCast>
+      <muzzleFlashScale>20</muzzleFlashScale>
+      <isPrimary>false</isPrimary>
+      <targetParams>
+        <canTargetLocations>true</canTargetLocations>
+        <canTargetPawns>false</canTargetPawns>
+        <canTargetBuildings>false</canTargetBuildings>
+        <canTargetItems>false</canTargetItems>
+        <canTargetSelf>false</canTargetSelf>
+      </targetParams>
+      <tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+      <tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+      <tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+      <tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+    </MainVerb>
+    <PassiveProps>
+      <worker>AbilityUser.PassiveEffectWorker</worker>
+      <hediffs>
+        <li>ROMV_PresenceIIIHediff</li>
+      </hediffs>
+    </PassiveProps>
+  </Vampire.VitaeAbilityDef>
+  <HediffDef ParentName="ROMV_VampBase">
+    <defName>ROMV_PresenceIIIHediff</defName>
+    <label>supernatural attraction (Presence III)</label>
+    <description>supernatural attraction (Presence III)</description>
+    <comps>
+      <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>
+          <min>3000</min>
+          <max>3000</max>
+        </disappearsAfterTicks>
+      </li>	  
+      <li Class="Vampire.HediffCompProperties_SkillOffset">
+        <skillDef>Social</skillDef>
+        <offset>3</offset>
+      </li>	  
+	  </comps>
+  </HediffDef> 
+  <HediffDef ParentName="ROMV_VampBase">
+    <defName>ROMV_PresenceIIICooldownHediff</defName>
+    <label>charmed (Presence III)</label>
+    <description>charmed (Presence III)</description>
+    <comps>
+      <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>
+          <min>13000</min>
+          <max>13000</max>
+        </disappearsAfterTicks>
+      </li>
+    </comps>
+    <stages>
+	  <li>
+	    <statOffsets>
+	      <RangedWeapon_Cooldown>0.12</RangedWeapon_Cooldown>
+		  <MeleeWeapon_CooldownMultiplier>0.12</MeleeWeapon_CooldownMultiplier>
+	    </statOffsets>
+	  </li>
+	</stages>
+  </HediffDef>
+
+
+  <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+    <defName>ROMV_PresenceIV</defName>
+    <label>Presence IV</label>
+    <uiIconPath>UI/Icons/Commands/PresenceIV</uiIconPath>
+    <description>Permanent +3 social bonus for each level in presence. Enemies nearby increase their attack cooldown by 15%. Adds "peace talks" dialog option. Adds two once per year abilities:\n\n- Cease fire - immediately halts a faction raid and sends them home.\n-Bloodlust - rally your colony into an enraged horde capable of ignoring their wounds (lasts 4 in-game hours).</description>
+    <MainVerb Class="AbilityUser.VerbProperties_Ability">
+      <verbClass>Vampire.DisciplineEffect_EnterTheAbyss</verbClass>
+      <hasStandardCommand>False</hasStandardCommand>
+      <defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+      <abilityDef>ROMV_Obtenebration_EnterTheAbyss</abilityDef>
+      <isViolent>false</isViolent>
+      <warmupTime>1</warmupTime>
+      <SecondsToRecharge>200.0</SecondsToRecharge>
+      <range>99</range>
+      <burstShotCount>1</burstShotCount>
+      <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+      <soundCast>ROMV_AbilityCastSound_Obtenebration</soundCast>
+      <muzzleFlashScale>20</muzzleFlashScale>
+      <isPrimary>false</isPrimary>
+      <targetParams>
+        <canTargetLocations>true</canTargetLocations>
+        <canTargetPawns>false</canTargetPawns>
+        <canTargetBuildings>false</canTargetBuildings>
+        <canTargetItems>false</canTargetItems>
+        <canTargetSelf>false</canTargetSelf>
+      </targetParams>
+      <tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+      <tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+      <tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+      <tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+    </MainVerb>
+    <PassiveProps>
+      <worker>AbilityUser.PassiveEffectWorker</worker>
+      <hediffs>
+        <li>ROMV_PresenceIVHediff</li>
+      </hediffs>
+    </PassiveProps>
+  </Vampire.VitaeAbilityDef>
+  <HediffDef ParentName="ROMV_VampBase">
+    <defName>ROMV_PresenceIVHediff</defName>
+    <label>supernatural attraction (Presence IV)</label>
+    <description>supernatural attraction (Presence IV)</description>
+    <comps>
+      <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>
+          <min>3000</min>
+          <max>3000</max>
+        </disappearsAfterTicks>
+      </li>
+      <li Class="Vampire.HediffCompProperties_SkillOffset">
+        <skillDef>Social</skillDef>
+        <offset>3</offset>
+      </li>
+	</comps>
+  </HediffDef>
+  <HediffDef ParentName="ROMV_VampBase">
+    <defName>ROMV_PresenceIVCooldownHediff</defName>
+    <label>charmed (Presence IV)</label>
+    <description>charmed (Presence IV)</description>
+    <comps>
+      <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>
+          <min>13000</min>
+          <max>13000</max>
+        </disappearsAfterTicks>
+      </li>
+    </comps>
+    <stages>
+	  <li>
+	    <statOffsets>
+	      <RangedWeapon_Cooldown>0.15</RangedWeapon_Cooldown>
+	      <MeleeWeapon_CooldownMultiplier>0.15</MeleeWeapon_CooldownMultiplier>
+	    </statOffsets>
+	  </li>
+	</stages>
+  </HediffDef>
+  
+  <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+    <defName>ROMV_Presence_BloodLust</defName>
+    <label>bloodlust</label>
+    <bloodCost>1</bloodCost>
+    <uiIconPath>UI/Icons/Commands/Presence_Bloodlust</uiIconPath>
+    <description>Once per week ability.\n\nGrants all colonists on the same map with Bloodlust, a 66% pain reduction for 6 hours.</description>
+    <MainVerb Class="AbilityUser.VerbProperties_Ability">
+      <verbClass>Vampire.DisciplineEffect_BloodLust</verbClass>
+      <hasStandardCommand>true</hasStandardCommand>
+      <defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+      <abilityDef>ROMV_Presence_BloodLust</abilityDef>
+      <isViolent>false</isViolent>
+      <warmupTime>1</warmupTime>
+      <SecondsToRecharge>7000.0</SecondsToRecharge>
+      <range>24</range>
+      <burstShotCount>1</burstShotCount>
+	 <stopBurstWithoutLos>false</stopBurstWithoutLos>
+      <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+      <soundCast>ROMV_AbilityCastSound_Blood</soundCast>
+      <muzzleFlashScale>20</muzzleFlashScale>
+      <isPrimary>false</isPrimary>
+      <AbilityTargetCategory>TargetSelf</AbilityTargetCategory>
+      <targetParams>
+        <canTargetLocations>false</canTargetLocations>
+        <canTargetPawns>false</canTargetPawns>
+        <canTargetBuildings>false</canTargetBuildings>
+        <canTargetItems>false</canTargetItems>
+        <canTargetSelf>true</canTargetSelf>
+      </targetParams>
+      <tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+      <tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+      <tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+      <tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+    </MainVerb>
+  </Vampire.VitaeAbilityDef>
+  <HediffDef ParentName="ROMV_VampBase">
+    <defName>ROMV_Presence_BloodLustHediff</defName>
+    <label>bloodlust</label>
+    <description>bloodlust</description>
+    <displayWound>false</displayWound>
+	<comps>
+      <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>
+          <min>7500</min>
+          <max>7500</max>
+        </disappearsAfterTicks>
+      </li>	
+    </comps>	
+	<stages>
+      <li>
+	    <label>Presence IV</label>
+        <painFactor>0.66</painFactor>
+      </li>
+    </stages>
+  </HediffDef>
+  
+  
+  <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+    <defName>ROMV_Presence_CeaseFire</defName>
+    <label>ceasefire</label>
+    <bloodCost>1</bloodCost>
+    <uiIconPath>UI/Icons/Commands/Presence_CeaseFire</uiIconPath>
+    <description>Once per week ability.\n\nForces all opposing forces to flee the map.</description>
+    <MainVerb Class="AbilityUser.VerbProperties_Ability">
+      <verbClass>Vampire.DisciplineEffect_CeaseFire</verbClass>
+      <hasStandardCommand>true</hasStandardCommand>
+      <defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+      <abilityDef>ROMV_Presence_CeaseFire</abilityDef>
+      <isViolent>false</isViolent>
+      <warmupTime>1</warmupTime>
+      <SecondsToRecharge>7000.0</SecondsToRecharge>
+      <range>24</range>
+      <burstShotCount>1</burstShotCount>
+	 <stopBurstWithoutLos>false</stopBurstWithoutLos>
+      <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+      <soundCast>ROMV_AbilityCastSound_Blood</soundCast>
+      <muzzleFlashScale>20</muzzleFlashScale>
+      <isPrimary>false</isPrimary>
+      <AbilityTargetCategory>TargetSelf</AbilityTargetCategory>
+      <targetParams>
+        <canTargetLocations>false</canTargetLocations>
+        <canTargetPawns>false</canTargetPawns>
+        <canTargetBuildings>false</canTargetBuildings>
+        <canTargetItems>false</canTargetItems>
+        <canTargetSelf>true</canTargetSelf>
+      </targetParams>
+      <tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+      <tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+      <tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+      <tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+    </MainVerb>
+  </Vampire.VitaeAbilityDef>
+  
+</Defs>

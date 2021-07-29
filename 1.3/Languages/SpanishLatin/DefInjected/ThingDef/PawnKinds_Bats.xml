@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_BatRace.label>murciélago</ROMV_BatRace.label>
+  <ROMV_BatRace.description>Antes del comienzo de la era de la edición genética, este animal fue considerado el único mamífero conocido capaz de volar.</ROMV_BatRace.description>
+  <!-- Leather Amount: 0 -->
+  <ROMV_BatRace_Meat.label>carne de murciélago</ROMV_BatRace_Meat.label>
+  <ROMV_BatRace_Meat.description>carne de murciélago</ROMV_BatRace_Meat.description>
+  <ROMV_BatRace_Corpse.label>cadáver de murciélago</ROMV_BatRace_Corpse.label>
+  <ROMV_BatRace_Corpse.description>cadáver de murciélago</ROMV_BatRace_Corpse.description>
+
+
+</LanguageData>

@@ -161,11 +161,11 @@ namespace Vampire
             impactAngleVect = Vector3Utility.HorizontalVectorFromAngle(dinfo.Angle);
             Vector3 loc = Pawn.TrueCenter() + impactAngleVect.RotatedBy(180f) * 0.5f;
             float num = Mathf.Min(10f, 2f + (float)dinfo.Amount / 10f);
-            MoteMaker.MakeStaticMote(loc, Pawn.Map, ThingDefOf.Mote_ExplosionFlash, num);
+            FleckMaker.Static(loc, Pawn.Map, FleckDefOf.ExplosionFlash, num);
             int num2 = (int)num;
             for (int i = 0; i < num2; i++)
             {
-                MoteMaker.ThrowDustPuff(loc, Pawn.Map, Rand.Range(0.8f, 1.2f));
+                FleckMaker.ThrowDustPuff(loc, Pawn.Map, Rand.Range(0.8f, 1.2f));
             }
             lastAbsorbDamageTick = Find.TickManager.TicksGame;
             KeepDisplaying();
@@ -179,11 +179,11 @@ namespace Vampire
         private void Break()
         {
             SoundDefOf.EnergyShield_Broken.PlayOneShot(new TargetInfo(Pawn.Position, Pawn.Map));
-            MoteMaker.MakeStaticMote(Pawn.TrueCenter(), Pawn.Map, ThingDefOf.Mote_ExplosionFlash, 12f);
+            FleckMaker.Static(Pawn.TrueCenter(), Pawn.Map, FleckDefOf.ExplosionFlash, 12f);
             for (int i = 0; i < 6; i++)
             {
                 Vector3 loc = Pawn.TrueCenter() + Vector3Utility.HorizontalVectorFromAngle((float)Rand.Range(0, 360)) * Rand.Range(0.3f, 0.6f);
-                MoteMaker.ThrowDustPuff(loc, Pawn.Map, Rand.Range(0.8f, 1.2f));
+                FleckMaker.ThrowDustPuff(loc, Pawn.Map, Rand.Range(0.8f, 1.2f));
             }
             energy = 0f;
             ticksToReset = StartingTicksToReset;
@@ -194,7 +194,7 @@ namespace Vampire
             if (Pawn.Spawned)
             {
                 SoundDefOf.EnergyShield_Reset.PlayOneShot(new TargetInfo(Pawn.Position, Pawn.Map));
-                MoteMaker.ThrowLightningGlow(Pawn.TrueCenter(), Pawn.Map, 3f);
+                FleckMaker.ThrowLightningGlow(Pawn.TrueCenter(), Pawn.Map, 3f);
             }
             ticksToReset = -1;
             energy = EnergyOnReset;

@@ -202,7 +202,7 @@ namespace Vampire
                                 witness.jobs.StartJob(new Job(JobDefOf.FleeAndCower, fleeLoc));
                                 if (witness.Faction != null && !witness.Faction.HostileTo(criminal.Faction))
                                 {
-                                    witness.Faction.TrySetRelationKind(criminal.Faction, FactionRelationKind.Hostile);
+                                    witness.Faction.RelationWith(criminal.Faction).baseGoodwill = -100;
                                 }
                             }
                             break;
@@ -216,7 +216,7 @@ namespace Vampire
                                 witness.jobs.StartJob(new Job(JobDefOf.AttackMelee, criminal));
                                 if (witness.Faction != null && !witness.Faction.HostileTo(criminal.Faction))
                                 {
-                                    witness.Faction.TrySetRelationKind(criminal.Faction, FactionRelationKind.Hostile);
+                                    witness.Faction.RelationWith(criminal.Faction).baseGoodwill = -100;
                                 }
                             }
                             break;

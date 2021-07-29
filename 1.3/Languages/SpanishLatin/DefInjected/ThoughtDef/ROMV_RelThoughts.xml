@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Sire Thoughts -->
+
+  <MySireDestroyed.stages.0.label>mi señor {0} fue destruido</MySireDestroyed.stages.0.label>
+  <MySireDestroyed.stages.0.description>Mi señor fue destruido. Se ha ido para siempre.</MySireDestroyed.stages.0.description>
+
+  <DestroyedMySire.stages.0.label>destruyo mi señor</DestroyedMySire.stages.0.label>
+
+  <SoldMyBloodBondedOne.stages.0.label>unido por sangre vendido</SoldMyBloodBondedOne.stages.0.label>
+  <SoldMyBloodBondedOne.stages.0.labelSocial>vendieron mi unión por sangre</SoldMyBloodBondedOne.stages.0.labelSocial>
+  <SoldMyBloodBondedOne.stages.0.description>Alguien que fue unido conmigo via sangre fue vendido.</SoldMyBloodBondedOne.stages.0.description>
+
+
+  <!-- Childe Thoughts -->
+
+  <MyChildeDestroyed.stages.0.label>mi joven {0} fue destruido</MyChildeDestroyed.stages.0.label>
+  <MyChildeDestroyed.stages.0.description>mi joven fue destruido. Se ha ido para siempre.</MyChildeDestroyed.stages.0.description>
+
+  <DestroyedMyChilde.stages.0.label>destruyo mi joven</DestroyedMyChilde.stages.0.label>
+
+
+</LanguageData>

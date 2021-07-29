@@ -96,8 +96,20 @@ namespace Vampire
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(VampiresDontHaveDrugSchedules)), null);
             //Log.Message("87");
 
+            // Patch PawnCapacitiesHandler.CapableOf to ignore lungs on vampires
+            harmony.Patch(AccessTools.Method(typeof(PawnCapacitiesHandler),
+                nameof(PawnCapacitiesHandler.CapableOf)),
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(VampiresDontNeedLungs)), null);
 
-
+            // Attempt to patch DeathRattle's AddCustomHediffs method
+            try
+            {
+                harmony.Patch(AccessTools.Method(AccessTools.TypeByName("DeathRattle.Harmony.ShouldBeDeadFromRequiredCapacityPatch"), "AddCustomHediffs"),
+                    new HarmonyMethod(typeof(HarmonyPatches), nameof(VampiresDontNeedLungsDeathRattle)), null);
+            }
+            catch 
+            {
+            }
         }
 
 
@@ -365,9 +377,26 @@ namespace Vampire
 
         }
 
+        // Exit early is pawn is a vampire and we're checking Breathing.
+        public static bool VampiresDontNeedLungs(PawnCapacityDef capacity, ref bool __result, Pawn ___pawn)
+        {
+            if (capacity == PawnCapacityDefOf.Breathing && ___pawn.IsVampire())
+            {
+                __result = true;
+                return false;
+            }
+            return true;
+        }
 
-
-
+        // Exit early is pawn is a vampire and we're checking Breathing.
+        public static bool VampiresDontNeedLungsDeathRattle(PawnCapacityDef pawnCapacityDef, ref bool __result, Pawn pawn)
+        {
+            if (pawnCapacityDef == PawnCapacityDefOf.Breathing && pawn.IsVampire())
+            {
+                __result = true;
+                return false;
+            }
+            return true;
+        }
     }
-
 }
