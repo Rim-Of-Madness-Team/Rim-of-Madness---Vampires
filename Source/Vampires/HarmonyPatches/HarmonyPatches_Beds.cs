@@ -19,7 +19,7 @@ namespace Vampire
             // BEDS
             ///////////////////////////////////////////////////////////////////////////
             //Add overrides to methods if CompVampBed is active.
-            harmony.Patch(AccessTools.Method(typeof(Building), "Draw"),
+            harmony.Patch(AccessTools.Method(typeof(ThingWithComps), "Draw"),
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Draw_VampBed)), null);
             //Log.Message("13");
             harmony.Patch(AccessTools.Method(typeof(Building_Casket), "Accepts"),
@@ -47,7 +47,7 @@ namespace Vampire
         }
 
 
-        public static bool Draw_VampBed(Building __instance)
+        public static bool Draw_VampBed(ThingWithComps __instance)
         {
             if (__instance is Building_Casket casket)
             {
@@ -166,11 +166,9 @@ namespace Vampire
             return true;
         }
 
-
         //RestUtility
         public static void Vamp_IsValidBedFor(Thing bedThing, Pawn sleeper, Pawn traveler,
-            bool sleeperWillBePrisoner, bool checkSocialProperness, bool allowMedBedEvenIfSetToNoCare,
-            bool ignoreOtherReservations, ref bool __result)
+            bool checkSocialProperness, bool allowMedBedEvenIfSetToNoCare, bool ignoreOtherReservations, GuestStatus? guestStatus, ref bool __result)
         {
             if (sleeper != null && !sleeper.IsVampire() && bedThing.IsVampireBed())
             {

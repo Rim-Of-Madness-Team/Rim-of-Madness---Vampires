@@ -11,6 +11,8 @@
     <apparelTags>
       <li>Tribal</li>
     </apparelTags>
+    <initialWillRange>12~14</initialWillRange>
+    <initialResistanceRange>15~70</initialResistanceRange>
   </PawnKindDef>
 
   <PawnKindDef ParentName="ROMV_EncounterBase">
@@ -187,30 +189,41 @@
     <defName>ROMV_LesserVampireKind</defName>
     <label>lesser vampire</label>
     <labelPlural>lesser vampires</labelPlural>
+    <initialWillRange>14~18</initialWillRange>
+    <initialResistanceRange>30~70</initialResistanceRange>
   </PawnKindDef>
   
   <PawnKindDef ParentName="ROMV_EncounterNormalBase">
     <defName>ROMV_VampireKind</defName>
     <label>vampire</label>
     <labelPlural>vampires</labelPlural>
+    <initialWillRange>18~24</initialWillRange>
+    <initialResistanceRange>50~100</initialResistanceRange>
   </PawnKindDef>
   
   <PawnKindDef ParentName="ROMV_EncounterNormalBase">
     <defName>ROMV_GreaterVampireKind</defName>
     <label>greater vampire</label>
     <labelPlural>greater vampires</labelPlural>
+    <initialWillRange>30~50</initialWillRange>
+    <initialResistanceRange>70~140</initialResistanceRange>
   </PawnKindDef>
   
   <PawnKindDef ParentName="ROMV_EncounterNormalBase">
     <defName>ROMV_AncientVampireKind</defName>
     <label>ancient vampire</label>
     <labelPlural>ancient vampires</labelPlural>
+    <initialWillRange>100~150</initialWillRange>
+    <initialResistanceRange>200~400</initialResistanceRange>
   </PawnKindDef>
   
   <PawnKindDef ParentName="ROMV_EncounterNormalBase">
     <defName>ROMV_FirstVampireKind</defName>
     <label>first vampire</label>
     <labelPlural>first vampires</labelPlural>
+    
+    <initialWillRange>998~999</initialWillRange>
+    <initialResistanceRange>998~999</initialResistanceRange>
   </PawnKindDef>
   
   <PawnKindDef ParentName="ROMV_EncounterNormalBase">
@@ -220,6 +233,8 @@
     <labelPlural>princes</labelPlural>
     <labelFemalePlural>princesses</labelFemalePlural>
     <factionLeader>true</factionLeader>
+    <initialWillRange>30~50</initialWillRange>
+    <initialResistanceRange>70~140</initialResistanceRange>
   </PawnKindDef>
 
 </Defs>

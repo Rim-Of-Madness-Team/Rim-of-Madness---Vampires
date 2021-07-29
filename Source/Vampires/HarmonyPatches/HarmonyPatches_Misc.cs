@@ -33,7 +33,7 @@ namespace Vampire
 
 
 
-            ////Log.Message("71");
+            //Log.Message("71");
             //Allows skill adjustments
             harmony.Patch(AccessTools.Method(typeof(SkillRecord), "get_Level"), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(VampLevel)));
@@ -126,10 +126,9 @@ namespace Vampire
             return Mathf.Min(a, map.mapTemperature.OutdoorTemp);
         }
 
-
         public static void BestAttackTarget(IAttackTargetSearcher searcher, TargetScanFlags flags,
             Predicate<Thing> validator, float minDist, float maxDist,
-            IntVec3 locus, float maxTravelRadiusFromLocus, bool canBash, ref IAttackTarget __result)
+            IntVec3 locus, float maxTravelRadiusFromLocus, bool canBashDoors, bool canTakeTargetsCloserThanEffectiveMinRange, ref IAttackTarget __result)
         {
             if (searcher?.Thing is Pawn pSearch && __result?.Thing is Pawn p && p.IsVampire() &&
                 p.VampComp().Sheet.Disciplines.FirstOrDefault(x => x.Def.defName == "ROMV_Presence") is Discipline d)

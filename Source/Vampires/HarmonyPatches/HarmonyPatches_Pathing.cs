@@ -35,10 +35,10 @@ namespace Vampire
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(TryGiveJob_DrugGiver_Vampire)), null);
             //Log.Message("10");
             harmony.Patch(
-                AccessTools.Method(typeof(ReachabilityUtility), "CanReach",
+                AccessTools.Method(typeof(Verse.ReachabilityUtility), "CanReach",
                     new Type[]
                     {
-                        typeof(Pawn), typeof(LocalTargetInfo), typeof(PathEndMode), typeof(Danger), typeof(bool),
+                        typeof(Pawn), typeof(LocalTargetInfo), typeof(PathEndMode), typeof(Danger), typeof(bool), typeof(bool),
                         typeof(TraverseMode)
                     }), null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(CanReach_Vampire)));
@@ -47,13 +47,13 @@ namespace Vampire
                 AccessTools.Method(typeof(ForbidUtility), "IsForbidden", new Type[] { typeof(IntVec3), typeof(Pawn) }),
                 null,
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_IsForbidden)));
-            ////Log.Message("12");
+            //Log.Message("12");
 
         }
 
 
         // Verse.ReachabilityUtility
-        public static void CanReach_Vampire(ref bool __result, Pawn pawn, LocalTargetInfo dest, PathEndMode peMode, Danger maxDanger, bool canBash = false, TraverseMode mode = TraverseMode.ByPawn)
+        public static void CanReach_Vampire(ref bool __result, Pawn pawn, LocalTargetInfo dest, PathEndMode peMode, Danger maxDanger, bool canBashDoors = false, bool canBashFences = false, TraverseMode mode = TraverseMode.ByPawn)
         {
             var inBeastMentalState = pawn?.MentalStateDef == DefDatabase<MentalStateDef>.GetNamed("ROMV_VampireBeast");
             var inRestrictedSunlightAIMode = pawn?.VampComp()?.CurrentSunlightPolicy == SunlightPolicy.Restricted;

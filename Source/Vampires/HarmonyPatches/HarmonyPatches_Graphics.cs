@@ -59,10 +59,10 @@ namespace Vampire
 
                         new[]
                         {
-                            typeof(Vector3), typeof(float), typeof(bool), typeof(Rot4), typeof(Rot4), typeof(RotDrawMode),
-                            typeof(bool), typeof(bool), typeof(bool)
+                            typeof(Vector3), typeof(float), typeof(bool), typeof(Rot4), typeof(RotDrawMode), typeof(PawnRenderFlags)
                         }), new HarmonyMethod(typeof(HarmonyPatches),
                 nameof(RenderVampire)), null);
+
 
             //Log.Message("27a");
             //Vampires do not make breath motes
@@ -76,13 +76,9 @@ namespace Vampire
         }
 
 
-        
 
-        //  typeof(Vector3), typeof(float), typeof(bool),
-        //  typeof(Rot4), typeof(Rot4), typeof(RotDrawMode),
-        //  typeof(bool), typeof(bool)
         public static bool RenderVampire(PawnRenderer __instance, Vector3 rootLoc, float angle, bool renderBody,
-            Rot4 bodyFacing, Rot4 headFacing, RotDrawMode bodyDrawType, bool portrait, bool headStump)
+            Rot4 bodyFacing, RotDrawMode bodyDrawType, PawnRenderFlags flags)
         {
             Quaternion quat = Quaternion.AngleAxis(angle, Vector3.up);
 
@@ -139,7 +135,7 @@ namespace Vampire
                     {
                         Vector3 loc = rootLoc;
                         loc.y += 0.0046875f;
-                        if (bodyDrawType == RotDrawMode.Dessicated && !p.RaceProps.Humanlike && __instance.graphics.dessicatedGraphic != null && !portrait)
+                        if (bodyDrawType == RotDrawMode.Dessicated && !p.RaceProps.Humanlike && __instance.graphics.dessicatedGraphic != null && !flags.HasFlag(PawnRenderFlags.Portrait))
                         {
                             __instance.graphics.dessicatedGraphic.Draw(loc, bodyFacing, p);
                         }
@@ -151,26 +147,26 @@ namespace Vampire
                             {
                                 Material damagedMat = __instance.graphics.flasher.GetDamagedMat(list[i]);
                                 Vector3 scaleVector = new Vector3(loc.x, loc.y, loc.z);
-                                if (portrait)
+                                if (flags.HasFlag(PawnRenderFlags.Portrait))
                                 {
-                                    scaleVector.x *= 1f + (1f - (portrait ?
+                                    scaleVector.x *= 1f + (1f - (flags.HasFlag(PawnRenderFlags.Portrait) ?
                                                                 v.CurrentForm.bodyGraphicData.drawSize :
                                                                 v.CurrentForm.bodyGraphicData.drawSize)
                                                             .x);
-                                    scaleVector.z *= 1f + (1f - (portrait ?
+                                    scaleVector.z *= 1f + (1f - (flags.HasFlag(PawnRenderFlags.Portrait) ?
                                                                     v.CurrentForm.bodyGraphicData.drawSize :
                                                                     v.CurrentForm.bodyGraphicData.drawSize)
                                                                 .y);
                                 }
                                 else scaleVector = new Vector3(0, 0, 0);
-                                GenDraw.DrawMeshNowOrLater(mesh, loc + scaleVector, quat, damagedMat, portrait);
+                                GenDraw.DrawMeshNowOrLater(mesh, loc + scaleVector, quat, damagedMat, flags.HasFlag(PawnRenderFlags.Portrait));
                                 loc.y += 0.0046875f;
                             }
                             if (bodyDrawType == RotDrawMode.Fresh)
                             {
                                 Vector3 drawLoc = rootLoc;
                                 drawLoc.y += 0.01875f;
-                                Traverse.Create(__instance).Field("woundOverlays").GetValue<PawnWoundDrawer>().RenderOverBody(drawLoc, mesh, quat, portrait, BodyTypeDef.WoundLayer.Body, bodyFacing);
+                                Traverse.Create(__instance).Field("woundOverlays").GetValue<PawnWoundDrawer>().RenderOverBody(drawLoc, mesh, quat, flags.HasFlag(PawnRenderFlags.Portrait), BodyTypeDef.WoundLayer.Body, bodyFacing);
                             }
                         }
                     }
@@ -298,7 +294,7 @@ namespace Vampire
         }
 
         //PawnGraphicSet.MatsBodyBaseAt
-        public static bool Vamp_MatsBodyBaseAt(PawnGraphicSet __instance, Rot4 facing, RotDrawMode bodyCondition, ref List<Material> __result)
+        public static bool Vamp_MatsBodyBaseAt(PawnGraphicSet __instance, Rot4 facing, RotDrawMode bodyCondition, bool drawClothes, ref List<Material> __result)
         {
             if (__instance.nakedGraphic != null) return true;
             if (__instance.pawn.IsVampire() && __instance?.pawn?.VampComp()?.CurrentForm != null)
