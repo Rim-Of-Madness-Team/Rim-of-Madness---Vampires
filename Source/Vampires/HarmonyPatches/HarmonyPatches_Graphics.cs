@@ -159,14 +159,19 @@ namespace Vampire
                                                                 .y);
                                 }
                                 else scaleVector = new Vector3(0, 0, 0);
-                                GenDraw.DrawMeshNowOrLater(mesh, loc + scaleVector, quat, damagedMat, flags.HasFlag(PawnRenderFlags.Portrait));
+                                GenDraw.DrawMeshNowOrLater(mesh, loc + scaleVector, quat, damagedMat, flags.FlagSet(PawnRenderFlags.DrawNow));
+                                    //HasFlag(PawnRenderFlags.Portrait));
+
+                                //GenDraw.DrawMeshNowOrLater(mesh, Matrix4x4.TRS(loc + scaleVector, quat, Vector3.one), damagedMat, flags.FlagSet(PawnRenderFlags.DrawNow));
+
                                 loc.y += 0.0046875f;
                             }
                             if (bodyDrawType == RotDrawMode.Fresh)
                             {
                                 Vector3 drawLoc = rootLoc;
                                 drawLoc.y += 0.01875f;
-                                Traverse.Create(__instance).Field("woundOverlays").GetValue<PawnWoundDrawer>().RenderOverBody(drawLoc, mesh, quat, flags.HasFlag(PawnRenderFlags.Portrait), BodyTypeDef.WoundLayer.Body, bodyFacing);
+                                Traverse.Create(__instance).Field("woundOverlays").GetValue<PawnWoundDrawer>().RenderOverBody(drawLoc, mesh, quat, flags.FlagSet(PawnRenderFlags.DrawNow), BodyTypeDef.WoundLayer.Body, bodyFacing);
+                                //Traverse.Create(__instance).Field("woundOverlays").GetValue<PawnWoundDrawer>().RenderOverBody(drawLoc, mesh, quat, flags.HasFlag(PawnRenderFlags.Portrait), BodyTypeDef.WoundLayer.Body, bodyFacing);
                             }
                         }
                     }

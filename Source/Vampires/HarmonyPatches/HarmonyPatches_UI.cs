@@ -46,7 +46,11 @@ namespace Vampire
                 bool flag = randomizeCallback != null;
                 if (!flag && pawn.IsColonist && !pawn.health.Dead)
                 {
-                    Rect rect7 = new Rect(CharacterCardUtility.BasePawnCardSize.x - 140f, 14f, 30f, 30f);
+                    bool guilty = pawn.guilt.IsGuilty;
+                    bool royalty = pawn.royalty.AllTitlesForReading.Count > 0;
+                    int distance = (guilty) ? 174 : 140;
+                    distance += (royalty) ? 34 : 0;
+                    Rect rect7 = new Rect(CharacterCardUtility.BasePawnCardSize.x - distance, 14f, 30f, 30f);
                     TooltipHandler.TipRegion(rect7,
                         new TipSignal(
                             (pawn.IsGhoul()) ? "ROMV_GhoulSheet".Translate() : "ROMV_VampireSheet".Translate()));
