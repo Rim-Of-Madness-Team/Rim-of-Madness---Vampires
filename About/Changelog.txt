@@ -1,3 +1,7 @@
+1.23.0.1 (08-04-2021)
+========================
+Monument Markers with Sarcophagi inside will no longer fail to complete being built.
+
 1.23.0.0 (07-29-2021)
 ========================
 Added support for RimWorld 1.3. Renounce title and execute no longer block the Vampirism icon.

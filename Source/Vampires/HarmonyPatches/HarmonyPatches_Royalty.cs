@@ -34,7 +34,60 @@ namespace Vampire
             harmony.Patch(AccessTools.Method(typeof(JoyGiver_SocialRelax), "TryFindIngestibleToNurse"), null, 
                 new HarmonyMethod(typeof(HarmonyPatches), nameof(VampsCanDrinkBloodWineNotHumans)));
 
+            //Allow the monument maker to have sarcophagus and coffins by fixing the sleeping spot error
+            harmony.Patch(AccessTools.Property(typeof(MonumentMarker), nameof(MonumentMarker.FirstDisallowedBuilding)).GetGetMethod(), null,
+                new HarmonyMethod(typeof(HarmonyPatches), nameof(VampExceptionsForMonumentMarkers)));
+
+
         }
+        public static void VampExceptionsForMonumentMarkers(MonumentMarker __instance, ref Thing __result)
+        {
+            if (__result?.def?.defName == "ROMV_SarcophagusBed")
+            {
+                //Log.ErrorOnce("VampExceptionTriggered", 828676);
+                if (!__instance.Spawned)
+                {
+                    __result = null;
+                    return;
+                }
+                List<SketchTerrain> terrain = __instance.sketch.Terrain;
+                for (int i = 0; i < terrain.Count; i++)
+                {
+                    var tmpAllowedBuildings = (List<ThingDef>)AccessTools.Field(typeof(MonumentMarker), "tmpAllowedBuildings").GetValue(__instance);
+                    tmpAllowedBuildings.Clear();
+                    SketchThing sketchThing;
+                    List<SketchThing> list;
+                    __instance.sketch.ThingsAt(terrain[i].pos, out sketchThing, out list);
+
+                    //Add sarcophagus sleep spot
+                    tmpAllowedBuildings.Add(__result.def);
+
+                    if (sketchThing != null)
+                    {
+                        tmpAllowedBuildings.Add(sketchThing.def);
+                    }
+                    if (list != null)
+                    {
+                        for (int j = 0; j < list.Count; j++)
+                        {
+                            tmpAllowedBuildings.Add(list[j].def);
+                        }
+                    }
+                    List<Thing> thingList = (terrain[i].pos + __instance.Position).GetThingList(__instance.Map);
+                    for (int k = 0; k < thingList.Count; k++)
+                    {
+                        if (thingList[k].def.IsBuildingArtificial && !thingList[k].def.IsBlueprint && !thingList[k].def.IsFrame && !tmpAllowedBuildings.Contains(thingList[k].def))
+                        {
+                            __result = thingList[k];
+                            return;
+                        }
+                    }
+                }
+                __result = null;
+                return;
+            }
+        }
+
 
 
         //JoyGiver_SocialRelax.TryFindIngestibleToNurse
