@@ -28,7 +28,7 @@
     <li>jecrell.jecstools</li>
     <li>Dubwise.DubsBadHygiene</li>
   </loadAfter>
-  <description>1.23.0.1 (08-04-2021)
+  <description>1.23.0.2 (08-09-2021)
 
 Adds vampires to RimWorld.
 
@@ -49,6 +49,10 @@ Michael Cailler, Jigsawjohn , Daniel Schott, Penelope Charli Whitman, Jerome Gon
 ========================
 Changelog
 ========================
+1.23.0.2 (08-09-2021)
+========================
+Small fix to prevent red errors relating to Advanced Animal Framework
+
 1.23.0.1 (08-04-2021)
 ========================
 Monument Markers with Sarcophagi inside will no longer fail to complete being built.

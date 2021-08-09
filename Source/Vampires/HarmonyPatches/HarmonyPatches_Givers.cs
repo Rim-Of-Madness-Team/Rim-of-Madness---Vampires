@@ -27,6 +27,9 @@ namespace Vampire
                          x.GetName().Name != "NewAnimalSubproducts" &&
                          x.GetName().Name != "NewHatcher" &&
                          x.GetName().Name != "SmurfeRims" &&
+                         x.GetName().Name != "AnimalJobs" && // added to stop errors with Advanced Animal Framework
+                         x.GetName().Name != "AnimalVehicles" && // added to stop errors with Advanced Animal Framework
+                         x.GetName().Name != "AnimalWeaponFramework" && // added to stop errors with Advanced Animal Framework
                          x.GetName().Name != "Bugs")
                                    from assemblyType in domainAssembly.GetTypes()
                                    where typeof(ThinkNode_JobGiver).IsAssignableFrom(assemblyType)
@@ -61,6 +64,9 @@ namespace Vampire
                          x.GetName().Name != "NewAnimalSubproducts" &&
                          x.GetName().Name != "NewHatcher" &&
                          x.GetName().Name != "SmurfeRims" &&
+                         x.GetName().Name != "AnimalJobs" && // added to stop errors with Advanced Animal Framework
+                         x.GetName().Name != "AnimalVehicles" && // added to stop errors with Advanced Animal Framework
+                         x.GetName().Name != "AnimalWeaponFramework" && // added to stop errors with Advanced Animal Framework
                          x.GetName().Name != "Bugs")
                                    from assemblyType in domainAssembly.GetTypes()
                                    where typeof(JoyGiver).IsAssignableFrom(assemblyType)
@@ -95,6 +101,9 @@ namespace Vampire
                          x.GetName().Name != "NewAnimalSubproducts" &&
                          x.GetName().Name != "NewHatcher" &&
                          x.GetName().Name != "SmurfeRims" &&
+                         x.GetName().Name != "AnimalJobs" && // added to stop errors with Advanced Animal Framework
+                         x.GetName().Name != "AnimalVehicles" && // added to stop errors with Advanced Animal Framework
+                         x.GetName().Name != "AnimalWeaponFramework" && // added to stop errors with Advanced Animal Framework
                          x.GetName().Name != "Bugs")
                                     from assemblyType in domainAssembly.GetTypes()
                                     where typeof(WorkGiver).IsAssignableFrom(assemblyType)
