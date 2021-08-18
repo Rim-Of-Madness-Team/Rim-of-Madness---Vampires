@@ -49,7 +49,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="BadHygiene">
-      <HintPath>..\..\..\..\BadHygiene.dll</HintPath>
+      <HintPath>..\..\..\BadHygiene.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="CompAnimated">
@@ -73,6 +73,7 @@
     <Compile Include="Components\MapComponent_HiddenTracker.cs" />
     <Compile Include="Components\ThrallData.cs" />
     <Compile Include="Components\TransformationDef.cs" />
+    <Compile Include="Defs\BloodNeedExceptions.cs" />
     <Compile Include="Defs\VampDefOfTwo.cs" />
     <Compile Include="Defs\VitaeAbilityDef.cs" />
     <Compile Include="Dialog_VampireSetup.cs" />

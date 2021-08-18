@@ -62,10 +62,25 @@ namespace Vampire
 
                 string typeString = p.GetType().ToString();
                 //////Log.Message(typeString);
-                if (p.GetType().ToString() == "ProjectJedi.PawnGhost")
+                ///
+                if (DefDatabase<BloodNeedExceptions>.GetNamedSilentFail("ExceptionsList") is Vampire.BloodNeedExceptions exceptionList)
                 {
-                    __result = false;
-                    return;
+                    foreach (string s in exceptionList.thingClasses)
+                    {
+                        if (p?.GetType()?.ToString() == s)
+                        {
+                            __result = false;
+                            return;
+                        }
+                    }
+                    foreach (ThingDef d in exceptionList.raceThingDefs)
+                    {
+                        if (p?.def == d)
+                        {
+                            __result = false;
+                            return;
+                        }
+                    }
                 }
             }
         }
