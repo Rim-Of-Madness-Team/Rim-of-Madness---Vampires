@@ -50,7 +50,8 @@ namespace Vampire
                     int curTicks = ticksLeft;
                     if (curTicks % 150 == 149)
                     {
-                        FilthMaker.TryMakeFilth(pawn.CurJob.targetA.Cell, pawn.Map, ThingDefOf.Filth_Blood, pawn.LabelIndefinite());
+                        Pawn sourcePawn = pawn?.VampComp()?.MostRecentVictim != null ? pawn.VampComp()?.MostRecentVictim : pawn;
+                        FilthMaker.TryMakeFilth(pawn.CurJob.targetA.Cell, pawn.Map, BloodUtility.GetBloodFilthDef(sourcePawn), sourcePawn.LabelIndefinite());
                         if (pawn.BloodNeed() is Need_Blood n && n.CurBloodPoints > 0)
                         {
                             n.AdjustBlood(-1);
@@ -72,7 +73,10 @@ namespace Vampire
                 }
             };
             to.defaultCompleteMode = ToilCompleteMode.Never;
-            to.WithEffect(DefDatabase<EffecterDef>.GetNamed("ROMV_BloodVomit"), TargetIndex.A);
+            if (pawn?.VampComp()?.MostRecentVictim != null && pawn?.VampComp()?.MostRecentVictim?.IsCoolantUser() == true)
+                to.WithEffect(DefDatabase<EffecterDef>.GetNamed("ROMV_CoolantVomit"), TargetIndex.A);
+            else
+                to.WithEffect(DefDatabase<EffecterDef>.GetNamed("ROMV_BloodVomit"), TargetIndex.A);
             to.PlaySustainerOrSound(() => SoundDef.Named("Vomit"));
             yield return to;
         }

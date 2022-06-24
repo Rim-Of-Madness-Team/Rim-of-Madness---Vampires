@@ -32,13 +32,13 @@ namespace Vampire
                     billDoer,
                     pawn
                 });
-                pawn.health.hediffSet.hediffs.RemoveAll(x => x.def == HediffDefOf.BloodLoss);
+                pawn.health.hediffSet.hediffs.RemoveAll(x => x.def == BloodUtility.GetBloodLossDef(pawn));
             }
         }
 
         private Hediff GetBloodLoss(Pawn pawn)
         {
-            return pawn?.health?.hediffSet?.hediffs?.FirstOrDefault(x => x.def == HediffDefOf.BloodLoss);
+            return pawn?.health?.hediffSet?.hediffs?.FirstOrDefault(x => x.def == BloodUtility.GetBloodLossDef(pawn));
         }
     }
 }

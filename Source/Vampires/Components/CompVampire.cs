@@ -31,6 +31,7 @@ namespace Vampire
         #region Variables
 
         private Pawn sire = null;
+        private Pawn mostRecentVictim = null;
         private List<Pawn> childer = null;
         private List<Pawn> ghouls = null;
         private List<Pawn> souls = new List<Pawn>();
@@ -178,6 +179,12 @@ namespace Vampire
         {
             get => sire;
             set => sire = value;
+        }
+
+        public Pawn MostRecentVictim
+        {
+            get => mostRecentVictim;
+            set => mostRecentVictim = value;
         }
 
         public ThrallData ThrallData
@@ -704,6 +711,7 @@ namespace Vampire
 
         public override void PostExposeData()
         {
+            Scribe_References.Look(ref sire, "sire");
             Scribe_Defs.Look(ref bloodline, "bloodline");
             Scribe_Values.Look(ref beenGhoulBefore, "beenGhoulBefore", false);
             Scribe_Values.Look(ref generation, "generation");
@@ -711,7 +719,7 @@ namespace Vampire
             Scribe_Values.Look(ref xp, "xp");
             Scribe_Values.Look(ref abilityPoints, "abilityPoints");
             Scribe_Values.Look(ref curSunlightPolicy, "curSunlightPolicy", SunlightPolicy.Restricted);
-            Scribe_References.Look(ref sire, "sire");
+
             Scribe_Collections.Look(ref souls, "souls", LookMode.Reference);
             Scribe_Deep.Look(ref sheet, "sheet", new object[] { AbilityUser });
             Scribe_Deep.Look(ref thrallData, "thrallData", new object[] { AbilityUser });

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <Vampire.CoolantUsers>
+    <defName>ROMV_CoolantUsers</defName>
+    <label>Users of coolant instead of Blood Meter in Needs Menu</label>
+    <description>Put Thing Classes and Race Defs (ThingDefs) for things that you want to have coolant meters instead of blood in the Needs menu.</description>
+    <!--
+    <raceThingDefs>
+      <li>Example</li>
+    </raceThingDefs>    
+    -->
+    <hediffGiverDefs>
+      <li>ChjAndroidStandard</li>
+      <li>AndroidStandardAtlas</li>
+      <li>MechanicalStandard</li>
+      <li>MechanentStandard</li>
+      <li>PersonaStandard</li>
+    </hediffGiverDefs>
+  </Vampire.CoolantUsers>
+
+</Defs>

@@ -39,6 +39,7 @@ namespace Vampire
 
         private void DoEffect()
         {
+            pawn.VampComp().MostRecentVictim = Victim;
             BloodVictim.TransferBloodTo(1, Master.BloodNeed());
             if (Victim.health.hediffSet.GetNotMissingParts().ToList().FindAll(x => x.depth == BodyPartDepth.Inside) is List<BodyPartRecord> parts)
             {

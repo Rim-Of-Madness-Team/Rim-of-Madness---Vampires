@@ -3,10 +3,10 @@
 ==============================
 
 Rim of Madness - Vampires Update
-v1.23.0.1 (08-04-2021)
+v1.24.0.0 (06-24-2022)
 ====================
 
-Monument Markers with Sarcophagi inside will no longer fail to complete being built.
+Added support for VexedTree's mods (Robots and Skeletons). Coolant vomit filth added. Chance changed to 95% chance for coolant vomit for non-coolant using creatures. Added patch and edit support. A list of coolant users is available in the Defs folder
 --------------------
 
 Download now on...
@@ -25,9 +25,9 @@ Discuss the mod on...
 [img width=260]https://raw.githubusercontent.com/Rim-Of-Madness-Team/Rim-of-Madness---Vampires/master/About/Preview.png[/img]
 [hr]
 [b]Rim of Madness - Vampires
-Version: 1.23.0.1
-Updated: 08-04-2021
-Description: [color=orange]Monument Markers with Sarcophagi inside will no longer fail to complete being built.[/color]
+Version: 1.24.0.0
+Updated: 06-24-2022
+Description: [color=orange]Added support for VexedTree's mods (Robots and Skeletons). Coolant vomit filth added. Chance changed to 95% chance for coolant vomit for non-coolant using creatures. Added patch and edit support. A list of coolant users is available in the Defs folder[/color]
 [hr]
 [b]Download now on...[/b]
 [url=https://www.patreon.com/posts/22142186]Patreon[/url]

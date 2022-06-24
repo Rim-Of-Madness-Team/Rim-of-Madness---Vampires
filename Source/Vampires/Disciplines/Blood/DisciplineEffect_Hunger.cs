@@ -10,6 +10,7 @@ namespace Vampire
         {
             CasterPawn.Drawer.Notify_DebugAffected();
             MoteMaker.ThrowText(CasterPawn.DrawPos, CasterPawn.Map, AbilityUser.StringsToTranslate.AU_CastSuccess);
+            bool coolantUser = VampireUtility.IsCoolantUser(CasterPawn);
             int num = GenRadial.NumCellsInRadius(3.9f);
             for (int i = 0; i < num; i++)
             {
@@ -18,7 +19,12 @@ namespace Vampire
                 {
                     List<Thing> temp = new List<Thing>(things);
                     foreach (Thing t in temp)
-                    {
+                    { 
+                        if (coolantUser && t.def.defName == "ROMV_Filth_Coolant" )
+                        {
+                            CasterPawn.BloodNeed().AdjustBlood(1);
+                            t.Destroy();
+                        }
                         if (t.def.defName == "Filth_Blood")
                         {
                             CasterPawn.BloodNeed().AdjustBlood(1);

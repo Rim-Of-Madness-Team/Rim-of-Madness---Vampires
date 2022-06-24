@@ -55,7 +55,7 @@ namespace Vampire
             get
             {
                 return CurBloodPoints <= 2 ||
-                       pawn?.health?.hediffSet?.hediffs?.FirstOrDefault(x => x.def == HediffDefOf.BloodLoss) is Hediff
+                       pawn?.health?.hediffSet?.hediffs?.FirstOrDefault(x => x.def == BloodUtility.GetBloodLossDef(pawn)) is Hediff
                            bloodLoss && bloodLoss.CurStageIndex > 2;
             }
         }
@@ -227,7 +227,7 @@ namespace Vampire
             if (!pawn.IsVampire() && CurBloodPoints < prevBloodPoints)
             {
                 int diff = prevBloodPoints - CurBloodPoints;
-                HealthUtility.AdjustSeverity(pawn, HediffDefOf.BloodLoss, diff * PercPerPoint);
+                BloodUtility.ApplyBloodLoss(pawn, diff * PercPerPoint);
             }
 
             if (CurBloodPoints == 0)
@@ -254,7 +254,7 @@ namespace Vampire
 
             if (!pawn.IsVampire())
             {
-                HealthUtility.AdjustSeverity(pawn, HediffDefOf.BloodLoss, 999f);
+                BloodUtility.ApplyBloodLoss(pawn, 999f);
                 if (!pawn.Dead) pawn.Kill(null);
             }
         }
@@ -311,7 +311,7 @@ namespace Vampire
                     else if (!pawn.Dead)
                     {
 
-                        HealthUtility.AdjustSeverity(pawn, HediffDefOf.BloodLoss, 1f);
+                        BloodUtility.ApplyBloodLoss(pawn, 1f);
                         pawn.Kill(null);
                     }
                 }
@@ -355,26 +355,26 @@ namespace Vampire
         }
 
         public string GetGhoulVitaeLabel() => 
-            pawn.IsAndroid() ? "ROMV_AndroidCoolantVitae".Translate() : "ROMV_Vitae".Translate();
+            pawn.IsCoolantUser() ? "ROMV_CoolantVitae".Translate() : "ROMV_Vitae".Translate();
 
         public string GetVitaeLabel() => 
-            pawn.IsVampire() ? "ROMV_AndroidCoolantVitae".Translate() : "ROMV_AndroidCoolant".Translate();
+            pawn.IsVampire() ? "ROMV_CoolantVitae".Translate() : "ROMV_AndroidCoolant".Translate();
 
         public string GetLabel(bool ghoul = false)
         {
             if (ghoul)
             {
-                if (pawn.IsAndroid())
-                    return "ROMV_AndroidCoolant" + " & " + "ROMV_AndroidCoolantVitae".Translate();
+                if (pawn.IsCoolantUser())
+                    return "ROMV_Coolant" + " & " + "ROMV_CoolantVitae".Translate();
                 return LabelCap + " & " +  "ROMV_Vitae".Translate();
             }
             bool isVampire = pawn.IsVampire();
             /// CHJEES ANDROIDS ///////////////////////////////////////////////////////
-            if (pawn.IsAndroid())
+            if (pawn.IsCoolantUser())
             {
                 if (isVampire)
-                    return "ROMV_AndroidCoolantVitae".Translate();
-                return "ROMV_AndroidCoolant".Translate();
+                    return "ROMV_CoolantVitae".Translate();
+                return "ROMV_Coolant".Translate();
             }
             ///////////////////////////////////////////////////////////////////////////
             if (isVampire)
@@ -390,11 +390,11 @@ namespace Vampire
             }
             bool isVampire = pawn.IsVampire();
             /// CHJEES ANDROIDS ///////////////////////////////////////////////////////
-            if (pawn.IsAndroid())
+            if (pawn.IsCoolantUser())
             {
                 if (isVampire)
-                    return "ROMV_AndroidCoolantVitaeDesc".Translate();
-                return "ROMV_AndroidCoolantDesc".Translate();
+                    return "ROMV_CoolantVitaeDesc".Translate();
+                return "ROMV_CoolantDesc".Translate();
             }
             ///////////////////////////////////////////////////////////////////////////
             if (isVampire)
@@ -407,7 +407,7 @@ namespace Vampire
             if (ghoulVitae)
                 return VampireUtility.ColorVitae;
             bool isVampire = pawn.IsVampire();
-            if (pawn.IsAndroid())
+            if (pawn.IsCoolantUser())
             {
                 if (isVampire)
                     return VampireUtility.ColorAndroidCoolantVitae;

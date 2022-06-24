@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
 
+
+<!-- 6-24-22 -->
+<ROMV_Coolant>Coolant</ROMV_Coolant>
+<ROMV_CoolantVitae>Simulacrae</ROMV_CoolantVitae>
+<ROMV_CoolantVitaeDesc>After attempting to process newly input coolant and strangely receiving drops of vampire blood, this unit's systems have synthesized a variant of vitae to allow for continued processing and system functionality.</ROMV_CoolantVitaeDesc>
+<ROMV_CoolantDesc>Without coolant, this unit will cease to function. Curiously, this behaves very similarly to blood. Organic Vampires that attempt to feed on coolant, however, may have a hard time keeping it down.</ROMV_CoolantDesc>
+
+
 <!-- 3-9-20-->
 <ROMV_VampiresOnly>Vampires only</ROMV_VampiresOnly>
 <ROMV_VampiresOnlyDesc>Only vampires can utilize this bed.</ROMV_VampiresOnlyDesc>

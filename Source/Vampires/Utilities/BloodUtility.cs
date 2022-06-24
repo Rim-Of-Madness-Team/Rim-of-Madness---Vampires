@@ -9,6 +9,30 @@ namespace Vampire
 {
     public static class BloodUtility
     {
+        public static ThingDef GetBloodFilthDef(Pawn pawn)
+        {
+            if (pawn == null)
+                return ThingDefOf.Filth_Blood;
+            if (VampireUtility.IsCoolantUser(pawn))
+                return ThingDef.Named("ROMV_Filth_Coolant");
+            return ThingDefOf.Filth_Blood;
+            
+        }
+
+        public static Def GetBloodLossDef(Pawn pawn)
+        {
+            if (VampireUtility.IsCoolantUser(pawn))
+                return DefDatabase<HediffDef>.GetNamedSilentFail("ROMV_CoolantLoss");
+            return HediffDefOf.BloodLoss;
+        }
+
+        public static void ApplyBloodLoss(Pawn pawn, float amount)
+        {
+            if (VampireUtility.IsCoolantUser(pawn))
+                HealthUtility.AdjustSeverity(pawn, DefDatabase<HediffDef>.GetNamedSilentFail("ROMV_CoolantLoss"), amount);
+            else
+                HealthUtility.AdjustSeverity(pawn, HediffDefOf.BloodLoss, amount);
+        }
 
         // RimWorld.FoodUtility
         public static bool TryFindBestBloodSourceFor(Pawn getter, Pawn eater, bool desperate, out Thing bloodSource, out ThingDef bloodDef, bool canUseInventory = true, bool allowForbidden = false)

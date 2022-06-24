@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
-  <!-- New as of 5-7-18 -->
-  
   <Vampire.BloodNeedExceptions>
     <defName>ExceptionsList</defName>
     <label>Exceptions List for Blood Meter in Needs Menu</label>

@@ -35,6 +35,7 @@ namespace Vampire
         
         private void DoEffect()
         {
+            pawn.VampComp().MostRecentVictim = Victim;
             BloodVictim.TransferBloodTo(1, BloodFeeder, false);
             if (!Victim.InAggroMentalState)
             {

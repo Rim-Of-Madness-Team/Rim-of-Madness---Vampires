@@ -11,7 +11,7 @@ namespace Vampire
     {
         private float workLeft = -1f;
         public static float BaseFeedTime = 320f;
-        public static float BaseCoolantThrowupChance = 0.25f;
+        public static float BaseCoolantThrowupChance = 0.95f;
 
         protected Pawn Victim => job.targetA.Thing as Pawn;
         protected CompVampire CompVictim => Victim.GetComp<CompVampire>();
@@ -23,11 +23,14 @@ namespace Vampire
 
         public virtual void DoEffect()
         {
+            if (BloodFeeder == null || Victim == null || BloodVictim == null) return;
+
             BloodVictim.TransferBloodTo(1, BloodFeeder);
-            if (Victim.IsAndroid() && !pawn.IsAndroid())
+            if (Victim.IsCoolantUser() && !pawn.IsCoolantUser())
             {
                 if (Rand.Value <= BaseCoolantThrowupChance)
                 {
+                    pawn.VampComp().MostRecentVictim = Victim;
                     EndJobWith(JobCondition.Incompletable);
                     pawn.jobs.StartJob(new Job(JobDefOf.Vomit, pawn.PositionHeld));
                 }

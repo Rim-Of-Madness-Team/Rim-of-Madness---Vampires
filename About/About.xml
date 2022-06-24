@@ -28,7 +28,7 @@
     <li>jecrell.jecstools</li>
     <li>Dubwise.DubsBadHygiene</li>
   </loadAfter>
-  <description>1.23.1.0 (08-17-2021)
+  <description>1.24.0.0 (06-24-2022)
 
 Adds vampires to RimWorld.
 
@@ -44,11 +44,15 @@ Avilable languages: English, Spanish (by Daru), and Russian (by kr33man)
 Thank you to my Patrons for supporting me in my efforts. Without you, none of this would be possible.
 
 These are the most excellent rim dwellers who support me: 
-Michael Cailler, Jigsawjohn , Daniel Schott, Penelope Charli Whitman, Jerome Gonschorek, Genaeve , RainerWingel , Lea Stannard, David Silberstein, 수현 남, Matt Harris, Kiya Nicoll, Paul Fenwick, Matthew Isom, Elodie , Михаил Юрченко, Charlie Garnham, Populous25 , Landon Cash, Marcus Sireanu, Maaxar , logan sheppard-organ, TinyATuin, Don Homer, Sharp Spook, roxxploxx , Dan Jones, Kaz, Justin Andres, Alex Mederer, Justin , iknowdude00, E_T , Alexander , Ken Birdwell, Michael Cailler, Jigsawjohn , Daniel Schott, Penelope Charli Whitman, Jerome Gonschorek, Genaeve , RainerWingel , Lea Stannard, David Silberstein, 수현 남, Matt Harris, Kiya Nicoll, Paul Fenwick, Matthew Isom, Elodie , Михаил Юрченко, Charlie Garnham, Populous25 , Landon Cash, Marcus Sireanu, Maaxar , logan sheppard-organ, TinyATuin, Don Homer, Sharp Spook, roxxploxx , Dan Jones, Kaz, Justin Andres, Alex Mederer, Justin , iknowdude00, E_T , Alexander , Ken Birdwell
+Michael Fisher, Storm D Bain, Luke Salinas, WonkyWoo WeebHoo, Daniel Schott, RainerWingel , Lea Stannard, David Silberstein, Matt Harris, Kiya Nicoll, Paul Fenwick, Elodie , Genaeve , David Turner, Populous25 , Matthew Isom, Charlie Garnham, TinyATuin, Michael Cailler, Jimes Tooper, Landon Cash, Sharp Spook, Don Homer, roxxploxx , Alex Mederer, Justin Andres, Dan Jones, Kaz, Michael Whitehead, iknowdude00, Alexander , Ken Birdwell, Michael Fisher, Storm D Bain, Luke Salinas, WonkyWoo WeebHoo, Daniel Schott, RainerWingel , Lea Stannard, David Silberstein, Matt Harris, Kiya Nicoll, Paul Fenwick, Elodie , Genaeve , David Turner, Populous25 , Matthew Isom, Charlie Garnham, TinyATuin, Michael Cailler, Jimes Tooper, Landon Cash, Sharp Spook, Don Homer, roxxploxx , Alex Mederer, Justin Andres, Dan Jones, Kaz, Michael Whitehead, iknowdude00, Alexander , Ken Birdwell
 
 ========================
 Changelog
 ========================
+1.24.0.0 (06-24-2022)
+========================
+Added support for VexedTree's mods (Robots and Skeletons). Coolant vomit filth added. Chance changed to 95% chance for coolant vomit for non-coolant using creatures. Added patch and edit support. A list of coolant users is available in the Defs folder
+
 1.23.1.0 (08-17-2021)
 ========================
 Added an exceptions xml file for controlling what races do not provide blood

@@ -47,12 +47,32 @@ namespace Vampire
                    pawn.health.hediffSet.HasHediff(VampDefOf.ROM_VampirismTzimisce);
         }
 
-        public static bool IsAndroid(this Pawn pawn)
+        public static bool IsCoolantUser(this Pawn pawn)
         {
-            if (pawn != null && pawn?.def?.race?.hediffGiverSets?.FirstOrDefault(x => x.defName == "ChjAndroidStandard" || x.defName == "AndroidStandardAtlas") != null)
-                return true;
+            if (DefDatabase<CoolantUsers>.GetNamedSilentFail("ROMV_CoolantUsers") is Vampire.CoolantUsers coolantUsers)
+            {
+                if (coolantUsers.hediffGiverDefs != null)
+                {
+                    foreach (var defString in coolantUsers.hediffGiverDefs)
+                    {
+                        if (pawn != null && pawn?.def?.race?.hediffGiverSets?.FirstOrDefault(x => x.defName == defString) != null)
+                            return true;
+                    }
+                }
+
+                if (coolantUsers.raceThingDefs != null)
+                {
+                    foreach (var raceDef in coolantUsers.raceThingDefs)
+                    {
+                        if (pawn != null && pawn?.def?.defName == raceDef)
+                            return true;
+                    }
+                }
+
+            }
             return false;
         }
+
 
         public static CompVampire VampComp(this Pawn pawn)
         {

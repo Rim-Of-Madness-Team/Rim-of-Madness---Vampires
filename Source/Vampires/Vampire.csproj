@@ -73,6 +73,7 @@
     <Compile Include="Components\MapComponent_HiddenTracker.cs" />
     <Compile Include="Components\ThrallData.cs" />
     <Compile Include="Components\TransformationDef.cs" />
+    <Compile Include="Defs\CoolantUsers.cs" />
     <Compile Include="Defs\BloodNeedExceptions.cs" />
     <Compile Include="Defs\VampDefOfTwo.cs" />
     <Compile Include="Defs\VitaeAbilityDef.cs" />
