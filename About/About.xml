@@ -28,7 +28,7 @@
     <li>jecrell.jecstools</li>
     <li>Dubwise.DubsBadHygiene</li>
   </loadAfter>
-  <description>1.24.0.0 (06-24-2022)
+  <description>1.24.0.1 (06-24-2022)
 
 Adds vampires to RimWorld.
 
@@ -49,6 +49,10 @@ Michael Fisher, Storm D Bain, Luke Salinas, WonkyWoo WeebHoo, Daniel Schott, Rai
 ========================
 Changelog
 ========================
+1.24.0.1 (06-24-2022)
+========================
+Merged change on GitHub created by Caez. This should assure non-vampires are not running additional logic checks.
+
 1.24.0.0 (06-24-2022)
 ========================
 Added support for VexedTree's mods (Robots and Skeletons). Coolant vomit filth added. Chance changed to 95% chance for coolant vomit for non-coolant using creatures. Added patch and edit support. A list of coolant users is available in the Defs folder

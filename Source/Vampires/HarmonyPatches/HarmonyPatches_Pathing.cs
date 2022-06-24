@@ -55,7 +55,9 @@ namespace Vampire
         // Verse.ReachabilityUtility
         public static void CanReach_Vampire(ref bool __result, Pawn pawn, LocalTargetInfo dest, PathEndMode peMode, Danger maxDanger, bool canBashDoors = false, bool canBashFences = false, TraverseMode mode = TraverseMode.ByPawn)
         {
-            if !(__result && pawn.IsVampire()) return;
+            if (!(__result && pawn.IsVampire())) 
+                return;
+
             var inBeastMentalState = pawn?.MentalStateDef == DefDatabase<MentalStateDef>.GetNamed("ROMV_VampireBeast");
             var inRestrictedSunlightAIMode = pawn?.VampComp()?.CurrentSunlightPolicy == SunlightPolicy.Restricted;
             var isDaylight = VampireUtility.IsDaylight(pawn);

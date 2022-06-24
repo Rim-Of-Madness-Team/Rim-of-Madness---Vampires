@@ -3,10 +3,10 @@
 ==============================
 
 Rim of Madness - Vampires Update
-v1.24.0.0 (06-24-2022)
+v1.24.0.1 (06-24-2022)
 ====================
 
-Added support for VexedTree's mods (Robots and Skeletons). Coolant vomit filth added. Chance changed to 95% chance for coolant vomit for non-coolant using creatures. Added patch and edit support. A list of coolant users is available in the Defs folder
+Merged change on GitHub created by Caez. This should assure non-vampires are not running additional logic checks.
 --------------------
 
 Download now on...
@@ -25,9 +25,9 @@ Discuss the mod on...
 [img width=260]https://raw.githubusercontent.com/Rim-Of-Madness-Team/Rim-of-Madness---Vampires/master/About/Preview.png[/img]
 [hr]
 [b]Rim of Madness - Vampires
-Version: 1.24.0.0
+Version: 1.24.0.1
 Updated: 06-24-2022
-Description: [color=orange]Added support for VexedTree's mods (Robots and Skeletons). Coolant vomit filth added. Chance changed to 95% chance for coolant vomit for non-coolant using creatures. Added patch and edit support. A list of coolant users is available in the Defs folder[/color]
+Description: [color=orange]Merged change on GitHub created by Caez. This should assure non-vampires are not running additional logic checks.[/color]
 [hr]
 [b]Download now on...[/b]
 [url=https://www.patreon.com/posts/22142186]Patreon[/url]
