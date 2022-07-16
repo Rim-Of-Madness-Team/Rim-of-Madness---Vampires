@@ -152,7 +152,7 @@ namespace Vampire
                                     if (Rand.Value < 0.8f)
                                     {
                                         Pawn pawnToFillWith = PawnGenerator.GeneratePawn(pawnKindDef, faction);
-                                        if (pawnToFillWith.IsVampire())
+                                        if (pawnToFillWith.IsVampire(true))
                                         {
                                             pawnToFillWith.Destroy();
                                             return;

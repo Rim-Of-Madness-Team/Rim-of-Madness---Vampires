@@ -31,7 +31,7 @@ namespace Vampire
         // RimWorld.ThoughtWorker_WantToSleepWithSpouseOrLover
         public static void Vamp_FineSleepingAlone(Pawn p, ref ThoughtState __result)
         {
-            if (p != null && p.IsVampire())
+            if (p != null && p.IsVampire(true))
                 __result = false;
         }
 
@@ -39,7 +39,7 @@ namespace Vampire
         // RimWorld.LovePartnerRelationUtility
         public static bool Vamp_LovinFoodFix(Pawn pawn, Pawn partner, ref float __result)
         {
-            if (pawn.IsVampire() || partner.IsVampire())
+            if (pawn.IsVampire(true) || partner.IsVampire(true))
             {
                 if (pawn.Dead || partner.Dead)
                 {

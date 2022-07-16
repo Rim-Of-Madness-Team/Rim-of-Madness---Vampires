@@ -93,7 +93,7 @@ namespace Vampire
                                 }
                             }
                         }
-                        if (actor.IsVampire())
+                        if (actor.IsVampire(true))
                             VampireBiteUtility.MakeNew(actor, victim);
                         victim.stances.stunner.StunFor((int)BaseFeedTime, actor);
                     }
@@ -159,7 +159,7 @@ namespace Vampire
                             if (!stopCondition(actor, victim))
                                 {
                                     thisDriver.ReadyForNextToil();
-                                    if (actor.IsVampire() && cleansWound) VampireBiteUtility.CleanBite(actor, victim);
+                                    if (actor.IsVampire(true) && cleansWound) VampireBiteUtility.CleanBite(actor, victim);
                                 }
                                 else
                                 {

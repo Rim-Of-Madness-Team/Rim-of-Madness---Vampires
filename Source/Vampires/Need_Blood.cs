@@ -104,8 +104,6 @@ namespace Vampire
         {
             PawnKindDef def = p.kindDef;
             int result = def.RaceProps.baseBodySize < 1f ? 1 : 2;
-            if (def == PawnKindDef.Named("Rat")) return 1;
-            if (def == PawnKindDefOf.Thrumbo) return 10;
             if (def?.RaceProps?.trainability == TrainabilityDefOf.Advanced)
                 result += 1;
             return result;
@@ -115,16 +113,21 @@ namespace Vampire
         {
             get
             {
+
+                if (VampireSettings.GetBloodPointOverride(pawn.def) is int overrideResult && overrideResult != -1)
+                    return overrideResult;
+
                 int result = 7;
+                
                 if (IsAnimal)
-                {
                     result = MaxBloodPointsForAnimal(pawn);
-                }
-                if (CompVampire != null && CompVampire.IsVampire)
+
+                if (pawn.IsVampire(true))
                 {
                     int gen = CompVampire.Generation;
                     result = gen > 7 ? 10 + Math.Abs(gen - 13) : 10 * Math.Abs(gen - 9);
                 }
+                
                 return result;
             }
         }
@@ -224,7 +227,7 @@ namespace Vampire
             CurBloodPoints = Mathf.Clamp(CurBloodPoints + amt, 0, MaxBloodPoints);
             CurLevelPercentage = CurBloodPoints * PercPerPoint;
 
-            if (!pawn.IsVampire() && CurBloodPoints < prevBloodPoints)
+            if (!pawn.IsVampire(true) && CurBloodPoints < prevBloodPoints)
             {
                 int diff = prevBloodPoints - CurBloodPoints;
                 BloodUtility.ApplyBloodLoss(pawn, diff * PercPerPoint);
@@ -244,7 +247,7 @@ namespace Vampire
                 {
                     if (pawn.Spawned && !pawn.Downed)
                     {
-                        if (pawn.IsVampire())
+                        if (pawn.IsVampire(true))
                             Messages.Message("ROMV_BloodDepletedVamp".Translate(pawn.LabelCap), MessageTypeDefOf.NeutralEvent);
                         else
                             Messages.Message("ROMV_BloodDepleted".Translate(pawn.LabelCap), MessageTypeDefOf.NegativeEvent);   
@@ -252,7 +255,7 @@ namespace Vampire
                 }
             }
 
-            if (!pawn.IsVampire())
+            if (!pawn.IsVampire(true))
             {
                 BloodUtility.ApplyBloodLoss(pawn, 999f);
                 if (!pawn.Dead) pawn.Kill(null);
@@ -358,7 +361,7 @@ namespace Vampire
             pawn.IsCoolantUser() ? "ROMV_CoolantVitae".Translate() : "ROMV_Vitae".Translate();
 
         public string GetVitaeLabel() => 
-            pawn.IsVampire() ? "ROMV_CoolantVitae".Translate() : "ROMV_AndroidCoolant".Translate();
+            pawn.IsVampire(true) ? "ROMV_CoolantVitae".Translate() : "ROMV_AndroidCoolant".Translate();
 
         public string GetLabel(bool ghoul = false)
         {
@@ -368,7 +371,7 @@ namespace Vampire
                     return "ROMV_Coolant" + " & " + "ROMV_CoolantVitae".Translate();
                 return LabelCap + " & " +  "ROMV_Vitae".Translate();
             }
-            bool isVampire = pawn.IsVampire();
+            bool isVampire = pawn.IsVampire(true);
             /// CHJEES ANDROIDS ///////////////////////////////////////////////////////
             if (pawn.IsCoolantUser())
             {
@@ -388,7 +391,7 @@ namespace Vampire
             {
                 return GetGhoulVitaeLabelAndPoints() + "ROMV_GhoulVitaeDesc".Translate();
             }
-            bool isVampire = pawn.IsVampire();
+            bool isVampire = pawn.IsVampire(true);
             /// CHJEES ANDROIDS ///////////////////////////////////////////////////////
             if (pawn.IsCoolantUser())
             {
@@ -406,7 +409,7 @@ namespace Vampire
         {
             if (ghoulVitae)
                 return VampireUtility.ColorVitae;
-            bool isVampire = pawn.IsVampire();
+            bool isVampire = pawn.IsVampire(true);
             if (pawn.IsCoolantUser())
             {
                 if (isVampire)
@@ -519,7 +522,7 @@ namespace Vampire
             rect3 = new Rect(rect3.x + num3, rect3.y, rect3.width - num3 * 2f, rect3.height - num2);
             Color
                 colorToUse =
-                    GetColorToUse(barType == BarType.GhoulBottomHalf); //(this.pawn?.IsVampire() ?? false) ? new Color(0.65f, 0.008f, 0.008f) : new Color(0.73f, 0.02f, 0.02f);
+                    GetColorToUse(barType == BarType.GhoulBottomHalf); //(this.pawn?.IsVampire(true) ?? false) ? new Color(0.65f, 0.008f, 0.008f) : new Color(0.73f, 0.02f, 0.02f);
             Widgets.FillableBar(rect3, (barType == BarType.GhoulBottomHalf)? CurGhoulVitaePercentage : CurLevelPercentage, SolidColorMaterials.NewSolidColorTexture(colorToUse));
             //Widgets.FillableBar(rect3, this.CurLevelPercentage);
             if (drawArrows)

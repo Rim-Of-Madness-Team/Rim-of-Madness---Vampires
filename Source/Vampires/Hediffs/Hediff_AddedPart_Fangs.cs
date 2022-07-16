@@ -14,7 +14,7 @@ namespace Vampire
         {
             get
             {
-                if (pawn.IsVampire())
+                if (pawn.IsVampire(true))
                     return false;
                 return true;
             }
@@ -26,7 +26,7 @@ namespace Vampire
         /// </summary>
         public override void PostRemoved()
         {           
-            if (!pawn.IsVampire())
+            if (!pawn.IsVampire(true))
                 pawn.health.RestorePart(Part, this, false);
 
             base.PostRemoved();

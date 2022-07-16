@@ -69,7 +69,8 @@ namespace Vampire
         // Verse.Pawn_InventoryTracker
         private static bool Vamp_BloodItemsDontSpawnForNormies(Pawn_InventoryTracker __instance, Thing item)
         {
-            if (__instance?.pawn?.IsVampire() == false)
+
+            if (__instance?.pawn?.IsVampire(true) == false)
             {
                 if (item?.def?.thingCategories?.Contains(VampDefOfTwo.ROMV_Blood) ?? false)
                 {
@@ -85,7 +86,7 @@ namespace Vampire
         public static bool ActivateOn_Vampire(Lord lord, TriggerSignal signal, ref bool __result)
         {
             if (lord?.ownedPawns == null || lord?.ownedPawns?.Count == 0) return true;
-            if (!(lord?.ownedPawns?.Any(x => x.IsVampire() || x.Dead || x.RaceProps.IsMechanoid) ?? false)) return true;
+            if (!(lord?.ownedPawns?.Any(x => x.IsVampire(true) || x.Dead || x.RaceProps.IsMechanoid) ?? false)) return true;
             if (signal.type == TriggerSignalType.Tick)
             {
                 for (int i = 0; i < lord?.ownedPawns?.Count; i++)
@@ -107,7 +108,7 @@ namespace Vampire
         public static void Vamp_WardensDontFeedVamps(Pawn_GuestTracker __instance, ref bool __result)
         {
             Pawn pawn = (Pawn)AccessTools.Field(typeof(Pawn_GuestTracker), "pawn").GetValue(__instance);
-            if (pawn.IsVampire())
+            if (pawn.IsVampire(true))
             {
                 __result = false;
             }
@@ -117,7 +118,7 @@ namespace Vampire
         // RimWorld.GatheringsUtility
         public static bool Vamp_GuestFix(Pawn p, ref bool __result)
         {
-            if (p.IsVampire())
+            if (p.IsVampire(true))
             {
                 __result = !p.Downed && p?.health?.hediffSet?.BleedRateTotal <= 0f &&
                            p?.needs?.rest?.CurCategory < RestCategory.Exhausted &&
@@ -134,7 +135,7 @@ namespace Vampire
         //{
         public static bool Vamp_DontEatAtTheParty(Pawn pawn, ref Job __result)
         {
-            if (pawn.IsVampire())
+            if (pawn.IsVampire(true))
             {
                 __result = null;
                 return false;
@@ -157,7 +158,7 @@ namespace Vampire
         // RimWorld.SickPawnVisitUtility
         public static bool Vamp_CanVisit(ref bool __result, Pawn pawn, Pawn sick, JoyCategory maxPatientJoy)
         {
-            if (sick.IsVampire())
+            if (sick.IsVampire(true))
             {
                 __result = sick.IsColonist && !sick.Dead && pawn != sick && sick.InBed() && sick.Awake() &&
                            !sick.IsForbidden(pawn) && sick.needs.joy != null &&
@@ -174,7 +175,7 @@ namespace Vampire
         // RimWorld.JobGiver_Binge
         public static void Vamp_DontBinge(Pawn pawn, ref Job __result)
         {
-            if (pawn.IsVampire())
+            if (pawn.IsVampire(true))
             {
                 __result = null;
             }
@@ -184,7 +185,7 @@ namespace Vampire
         // RimWorld.JobDriver_Skygaze
         public static void Vamp_QuitWatchingSunrisesAlreadyJeez(JobDriver_Skygaze __instance, ref string __result)
         {
-            if (__instance.pawn is Pawn p && p.IsVampire())
+            if (__instance.pawn is Pawn p && p.IsVampire(true))
             {
                 if (GenLocalDate.DayPercent(p) < 0.5f)
                 {
@@ -232,7 +233,7 @@ namespace Vampire
         public static void Vamp_EndCurrentJob(Pawn_JobTracker __instance, JobCondition condition, bool startNewJob)
         {
             Pawn pawn = (Pawn)AccessTools.Field(typeof(Pawn_JobTracker), "pawn").GetValue(__instance);
-            if (pawn.IsVampire())
+            if (pawn.IsVampire(true))
             {
                 if (__instance.curJob != null && __instance.curDriver.pawn.GetPosture() != PawnPosture.Standing &&
                     !pawn.Downed &&

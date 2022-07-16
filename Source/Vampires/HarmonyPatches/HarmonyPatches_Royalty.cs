@@ -93,7 +93,7 @@ namespace Vampire
         //JoyGiver_SocialRelax.TryFindIngestibleToNurse
         public static void VampsCanDrinkBloodWineNotHumans(JoyGiver_SocialRelax __instance, IntVec3 center, Pawn ingester, ref Thing ingestible, ref bool __result)
         {
-            if (ingester.IsVampire() || ingestible?.def?.graphicData?.texPath != "Things/Item/Resource/BloodWine")
+            if (ingester.IsVampire(true) || ingestible?.def?.graphicData?.texPath != "Things/Item/Resource/BloodWine")
                 return;
 
             Thing newIngestible = null;
@@ -154,7 +154,7 @@ namespace Vampire
         // RimWorld.FoodUtility
         public static bool Vamp_RoyaltyConsumeBloodToo(ThingDef food, Pawn p, bool allowIfStarving, ref bool __result)
         {
-            if (!p.IsVampire())
+            if (!p.IsVampire(true))
                 return true;
 
             if (food.thingCategories.FirstOrDefault(x => x.defName == "ROMV_Blood") != null)
@@ -190,7 +190,7 @@ namespace Vampire
         public static bool Vamp_RestoreTitlesWhenResurrected(Pawn_RoyaltyTracker __instance)
         {
             var pawn = (Pawn)AccessTools.Field(typeof(Pawn_RoyaltyTracker), "pawn").GetValue(__instance);
-            if (pawn.IsVampire())
+            if (pawn.IsVampire(true))
             {
 
                 var dict = Find.World.GetComponent<WorldComponent_VampireTracker>().tempVampireTitles;
@@ -213,7 +213,7 @@ namespace Vampire
         public static bool Vamp_KeepTitlesWhileDead(Pawn_RoyaltyTracker __instance)
         {
             var pawn = (Pawn)AccessTools.Field(typeof(Pawn_RoyaltyTracker), "pawn").GetValue(__instance);
-            if (pawn.IsVampire() && keepTitles)
+            if (pawn.IsVampire(true) && keepTitles)
             {
                 //If no royalty exists, why bother?
                 if (pawn?.royalty?.AllTitlesForReading?.FirstOrDefault() == null)

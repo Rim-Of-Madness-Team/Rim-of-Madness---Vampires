@@ -93,7 +93,7 @@ namespace Vampire
             if (this.AbilityDef == null) 
                 return false;
             var o = this.Pawn;
-            if (o != null && (!o.IsVampire() && !o.IsGhoul()))
+            if (o != null && (!o.IsVampire(true) && !o.IsGhoul()))
                 return false;
             if (this.AbilityDef == VampDefOf.ROMV_RegenerateLimb)
             {
@@ -117,7 +117,7 @@ namespace Vampire
                 reason = "";
                 if (Def != null && Def is VitaeAbilityDef vampDef)
                 {
-                    if (Pawn.IsVampire())
+                    if (Pawn.IsVampire(true))
                     {
                         if (Pawn.BloodNeed().CurBloodPoints < vampDef.bloodCost)
                         {

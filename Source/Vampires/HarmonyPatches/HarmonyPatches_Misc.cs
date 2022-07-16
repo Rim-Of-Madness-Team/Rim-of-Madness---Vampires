@@ -130,7 +130,7 @@ namespace Vampire
             Predicate<Thing> validator, float minDist, float maxDist,
             IntVec3 locus, float maxTravelRadiusFromLocus, bool canBashDoors, bool canTakeTargetsCloserThanEffectiveMinRange, ref IAttackTarget __result)
         {
-            if (searcher?.Thing is Pawn pSearch && __result?.Thing is Pawn p && p.IsVampire() &&
+            if (searcher?.Thing is Pawn pSearch && __result?.Thing is Pawn p && p.IsVampire(true) &&
                 p.VampComp().Sheet.Disciplines.FirstOrDefault(x => x.Def.defName == "ROMV_Presence") is Discipline d)
             {
                 HediffDef defToApply = null;
@@ -185,7 +185,7 @@ namespace Vampire
         public static void Vamp_DontGenerateVampsInDaylight(Scenario __instance, Pawn pawn,
             PawnGenerationContext context)
         {
-            if (!pawn.IsVampire())
+            if (!pawn.IsVampire(true))
                 return;
 
             Map currentMap = Find.CurrentMap;
@@ -228,11 +228,9 @@ namespace Vampire
         public static void Vamp_CelestialSunGlowPercent(float latitude, int dayOfYear, float dayPercent,
             ref float __result)
         {
-            if (Find.Scenario?.AllParts?.FirstOrDefault(x => x.def.scenPartClass == typeof(ScenPart_LongerNights)) is
-                ScenPart_LongerNights p)
+            if (VampireSettings.IsScenPartLongerNightsLoaded())
             {
-                //////Log.Message("Sun glow adjusted");
-                __result = Mathf.Clamp01(__result - p.nightsLength);
+                __result = Mathf.Clamp01(__result - VampireSettings.Get.scenPartLongerNightsLength);
             }
 
             if (VampireSettings.Get.sunDimming > 0f)
@@ -247,12 +245,12 @@ namespace Vampire
         {
             if (__result.culpritsTargets?.Count() > 0)
             {
-                var vamps = __result.culpritsTargets.Where(x => x.Thing is Pawn y && y.IsVampire());
+                var vamps = __result.culpritsTargets.Where(x => x.Thing is Pawn y && y.IsVampire(true));
                 if (vamps?.Count() > 0)
                 {
                     var p = vamps.First().Thing;
                     float num = AlertNeedWarmClothes_LowestTemperatureComing(p.MapHeld);
-                    var colonists = new List<Pawn>(p.MapHeld.mapPawns.FreeColonistsSpawned.Where(x => !x.IsVampire()));
+                    var colonists = new List<Pawn>(p.MapHeld.mapPawns.FreeColonistsSpawned.Where(x => !x.IsVampire(true)));
                     if (!colonists.NullOrEmpty())
                     {
                         foreach (Pawn pawn in colonists)
@@ -310,7 +308,7 @@ namespace Vampire
         // RimWorld.StatPart_Glow
         public static void VampiresAlwaysWorkHard(Thing t, ref float __result) //FactorFromGlow
         {
-            if (t is Pawn p && p.IsVampire())
+            if (t is Pawn p && p.IsVampire(true))
                 __result = 1.0f;
         }
 
@@ -328,7 +326,7 @@ namespace Vampire
 
             foreach (var startingPawn in startingPawns)
             {
-                if (startingPawn.IsVampire())
+                if (startingPawn.IsVampire(true))
                 {
                     if (HarmonyPatches.VampGuestCache.ContainsKey(startingPawn))
                     {
@@ -346,7 +344,7 @@ namespace Vampire
         //PawnAddictionHediffsGenerator
         public static bool GenerateAddictionsAndTolerancesFor_PreFix(Pawn pawn)
         {
-            if (pawn.IsVampire())
+            if (pawn.IsVampire(true))
                 return false;
             return true;
         }
@@ -355,7 +353,7 @@ namespace Vampire
         //JobGiver_PackFood.TryGiveJob
         public static bool VampsDontPackFood(Pawn pawn, ref Job __result)
         {
-            if (pawn.IsVampire())
+            if (pawn.IsVampire(true))
             {
                 __result = null;
                 return false;
@@ -366,7 +364,7 @@ namespace Vampire
         //Pawn_DrugPolicyTracker.ShouldTryToTakeScheduledNow
         public static bool VampiresDontHaveDrugSchedules(Pawn_DrugPolicyTracker __instance, ThingDef ingestible, ref bool __result)
         {
-            if (__instance?.pawn?.IsVampire() == true)
+            if (__instance?.pawn?.IsVampire(true) == true)
             {
                 __result = false;
                 return false;
@@ -379,7 +377,7 @@ namespace Vampire
         // Exit early is pawn is a vampire and we're checking Breathing.
         public static bool VampiresDontNeedLungs(PawnCapacityDef capacity, ref bool __result, Pawn ___pawn)
         {
-            if (capacity == PawnCapacityDefOf.Breathing && ___pawn.IsVampire())
+            if (capacity == PawnCapacityDefOf.Breathing && ___pawn.IsVampire(true))
             {
                 __result = true;
                 return false;
@@ -390,7 +388,7 @@ namespace Vampire
         // Exit early is pawn is a vampire and we're checking Breathing.
         public static bool VampiresDontNeedLungsDeathRattle(PawnCapacityDef pawnCapacityDef, ref bool __result, Pawn pawn)
         {
-            if (pawnCapacityDef == PawnCapacityDefOf.Breathing && pawn.IsVampire())
+            if (pawnCapacityDef == PawnCapacityDefOf.Breathing && pawn.IsVampire(true))
             {
                 __result = true;
                 return false;

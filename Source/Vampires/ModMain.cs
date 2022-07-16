@@ -16,10 +16,28 @@ namespace Vampire
         {
             if (Find.World?.GetComponent<WorldComponent_VampireSettings>() is WorldComponent_VampireSettings modSettings)
             {
-                if (Widgets.ButtonText(new Rect(inRect.x, inRect.y, inRect.width * 0.25f, inRect.height * 0.15f), "ROMV_VampireSettingsButton".Translate()))
+                float fColWidth = inRect.width * 0.25f;
+                float fRowHeight = inRect.height * 0.08f;
+                int rowCount = 1;
+                int colCount = 1;
+
+                //World setting dialog box
+                Rect rDialogButton = new Rect(inRect.x, inRect.y, fColWidth * colCount, fRowHeight);
+                if (Widgets.ButtonText(rDialogButton, "ROMV_VampireSettingsButton".Translate()))
                 {
                     Find.WindowStack.Add(new Dialog_VampireSetup());
                 }
+                rowCount++;
+
+                // Allow vampire AI toggle box
+                Rect rAIToggle = new Rect(rDialogButton.x, rDialogButton.y + (fRowHeight * rowCount), fColWidth * colCount, fRowHeight);
+                Rect rAIToggleLeft = rAIToggle.LeftPart(0.666f).Rounded();
+                Rect rAIToggleRight = rAIToggle.RightPart(0.333f).Rounded();
+                Text.Anchor = TextAnchor.MiddleRight;
+                Widgets.Label(rAIToggleLeft, "ROMV_VampireAIToggle".Translate());
+                Text.Anchor = TextAnchor.UpperLeft;
+                Widgets.CheckboxLabeled(rAIToggleRight, "", ref VampireSettings.Get.aiToggle);
+                rowCount++;
             }
             else
             {

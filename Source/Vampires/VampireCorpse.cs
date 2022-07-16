@@ -83,6 +83,16 @@ namespace Vampire
                 //    }
                 //}
                 burnedToAshes = value;
+                if (value == true)
+                {
+                    if (DefDatabase<HistoryEventDef>.GetNamedSilentFail("ROMV_VampireDied") is HistoryEventDef def)
+                    {
+                        Find.HistoryEventsManager.RecordEvent(
+                            new HistoryEvent(
+                                def, InnerPawn.Named(HistoryEventArgsNames.Doer)
+                            ), true);
+                    }
+                }
                 if (value == true && InnerPawn?.royalty is Pawn_RoyaltyTracker pRoyalty && !Diableried)
                 {
                     HarmonyPatches.keepTitles = false;

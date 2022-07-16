@@ -15,7 +15,7 @@ namespace Vampire
 #pragma warning restore 169
 
 
-        //public override void Draw()
+        //        public override void Draw()
 
         //public override bool Accepts(Thing thing)
 
@@ -79,7 +79,7 @@ namespace Vampire
             }
 
             var p = Corpse?.InnerPawn ?? (Pawn)(innerContainer.FirstOrDefault()) ?? null;
-            if ((p?.IsVampire() ?? false) || (p?.HasVampireHediffs() ?? false))
+            if ((p?.IsVampire(true) ?? false) || (p?.HasVampireHediffs() ?? false))
             {
                 foreach (Gizmo y in HarmonyPatches.GraveGizmoGetter(p, this))
                     yield return y;
@@ -110,7 +110,7 @@ namespace Vampire
                         command_Toggle.isActive = (() => vbed.Bed.ForPrisoners);
                         command_Toggle.toggleAction = delegate
                         {
-                            AccessTools.Method(typeof(Building_Bed), "ToggleForPrisonersByInterface").Invoke(vbed.Bed, null);
+                            AccessTools.Method(typeof(Building_Bed), "SetBedOwnerTypeByInterface").Invoke(vbed.Bed, new object[] { vbed.Bed.ForPrisoners ? BedOwnerType.Colonist : BedOwnerType.Prisoner });
                         };
                         if (!((bool)(AccessTools.Method(typeof(Building_Bed), "RoomCanBePrisonCell").Invoke(vbed.Bed, new object[] { this.GetRoom() }))) && !vbed.Bed.ForPrisoners)
                         {

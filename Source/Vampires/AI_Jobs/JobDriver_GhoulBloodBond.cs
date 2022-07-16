@@ -72,7 +72,7 @@ namespace Vampire
                                 return;
                             }
                         }
-                        if (newDomitor.IsVampire())
+                        if (newDomitor.IsVampire(true))
                             //VampireBiteUtility.MakeNew(GetActor(), GetActor()); //Actor opens their own wound.
                         victim.stances.stunner.StunFor((int)BaseFeedTime, newDomitor);
                     }

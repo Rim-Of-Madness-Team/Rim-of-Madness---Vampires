@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Verse;
+using static Vampire.VampireTracker;
 
 namespace Vampire
 {
@@ -95,30 +96,40 @@ namespace Vampire
                     HarmonyPatches.isSwitched = false;
                 }
 
+                if (DebugSettings.godMode)
+                {
+                    Rect rect8 = new Rect(CharacterCardUtility.BasePawnCardSize.x - 70f, 0f, 30f, 30f);
+                    TooltipHandler.TipRegion(rect8, new TipSignal("ROMV_ChangeVampireSettings".Translate()));
+                    if (Widgets.ButtonImage(rect8, TexButton.ROMV_VampireSettingsIcon))
+                    {
+                        Find.WindowStack.Add(new Dialog_VampireCharacterSetup(pawn, false, true));
+                    }
+                }
+
                 if (compVampire.IsVampire)
                 {
                     Rect rectVampOptions = new Rect(CharacterCardUtility.BasePawnCardSize.x - 105f, 150f, 30f, 30f);
-                    switch (compVampire.CurrentSunlightPolicy)
+                    switch (VampireTracker.GetSunlightPolicy(pawn))
                     {
                         case SunlightPolicy.Relaxed:
                             TooltipHandler.TipRegion(rectVampOptions, new TipSignal("ROMV_SP_Relaxed".Translate()));
                             if (Widgets.ButtonImage(rectVampOptions, TexButton.ROMV_SunlightPolicyRelaxed))
                             {
-                                compVampire.CurrentSunlightPolicy = SunlightPolicy.Restricted;
+                                VampireTracker.SetSunlightPolicy(pawn, SunlightPolicy.Restricted);
                             }
                             break;
                         case SunlightPolicy.Restricted:
                             TooltipHandler.TipRegion(rectVampOptions, new TipSignal("ROMV_SP_Restricted".Translate()));
                             if (Widgets.ButtonImage(rectVampOptions, TexButton.ROMV_SunlightPolicyRestricted))
                             {
-                                compVampire.CurrentSunlightPolicy = SunlightPolicy.NoAI;
+                                VampireTracker.SetSunlightPolicy(pawn, SunlightPolicy.NoAI);
                             }
                             break;
                         case SunlightPolicy.NoAI:
                             TooltipHandler.TipRegion(rectVampOptions, new TipSignal("ROMV_SP_NoAI".Translate()));
                             if (Widgets.ButtonImage(rectVampOptions, TexButton.ROMV_SunlightPolicyNoAI))
                             {
-                                compVampire.CurrentSunlightPolicy = SunlightPolicy.Relaxed;
+                                VampireTracker.SetSunlightPolicy(pawn, SunlightPolicy.Relaxed);
                             }
                             break;
                     }
@@ -130,16 +141,32 @@ namespace Vampire
                 Text.Font = GameFont.Medium;
                 Widgets.Label(rectSkillsLabel, pawn.Name.ToStringFull);
                 Text.Font = GameFont.Small;
-                string label = (compVampire.IsGhoul) ? GhoulUtility.MainDesc(pawn)  : VampireUtility.MainDesc(pawn);
-                Rect rectDesc = new Rect(0f, 45f, rect.width, 60f);
-                Widgets.Label(rectDesc, label);
+                //string label = (compVampire.IsGhoul) ? GhoulUtility.MainDesc(pawn)  : VampireUtility.MainDesc(pawn);
+                float currentY = 0f;
+                if (!compVampire.IsGhoul)
+                {
+                    Rect rBloodlineDesc = new Rect(0f, 45f, rect.width * 0.3f, 30f);
+                    Rect rGenerationDesc = new Rect((rect.width * 0.3f) + 8f, 45f, rect.width * 0.3f, 30f);
+                    TooltipHandler.TipRegion(rBloodlineDesc, new TipSignal(VampireStringUtility.GetVampireTooltip(compVampire.Bloodline, compVampire.Generation)));
+                    TooltipHandler.TipRegion(rGenerationDesc, new TipSignal(VampireStringUtility.GetGenerationDescription(compVampire.Generation)));
+                    Widgets.Label(rBloodlineDesc, "ROMV_Bloodline".Translate() + ": " + compVampire.Bloodline.LabelCap);
+                    Widgets.Label(rGenerationDesc, "ROMV_Generation".Translate() + ": " + compVampire.Generation);
+                    currentY = rGenerationDesc.yMax;
+                }
+                else
+                {
+                    Rect rectDesc = new Rect(0f, 45f, rect.width, 60f);
+                    Widgets.Label(rectDesc, GhoulUtility.MainDesc(pawn));
+                    currentY = rectDesc.yMax;
+                }
+                currentY += 36f;
 
                 //                               Skills
 
                 //Widgets.DrawLineHorizontal(rect.x - 10, rectSkillsLabel.yMax + Padding, rect.width - 15f);
-                    //---------------------------------------------------------------------
+                //---------------------------------------------------------------------
 
-                    Rect rectSkills = new Rect(rect.x, rectDesc.yMax - 42 + Padding, rectSkillsLabel.width, SkillsColumnHeight);
+                Rect rectSkills = new Rect(rect.x, currentY - 42 + Padding, rectSkillsLabel.width, SkillsColumnHeight);
                     Rect rectInfoPane = new Rect(rectSkills.x, rectSkills.y + Padding, rect.width * 0.9f, SkillsColumnHeight);
                 
                     //Rect rectSkillsPane = new Rect(rectSkills.x + SkillsColumnDivider, rectSkills.y + Padding, rectSkills.width - SkillsColumnDivider, SkillsColumnHeight);

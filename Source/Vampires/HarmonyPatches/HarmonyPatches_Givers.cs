@@ -9,6 +9,7 @@ using RimWorld;
 using UnityEngine;
 using Verse;
 using Verse.AI;
+using static Vampire.VampireTracker;
 
 namespace Vampire
 {
@@ -133,10 +134,14 @@ namespace Vampire
 
         public static void Vamp_HasJobOnCell(Pawn pawn, IntVec3 c, ref bool __result)
         {
-            if (!pawn.IsVampire()) return;
-            if (pawn.VampComp().CurrentSunlightPolicy == SunlightPolicy.NoAI) return;
+            if (pawn == null) return;
+            if (!pawn.IsVampire(true)) return;
+            if (!VampireSettings.Get.aiToggle) return;
+
+            if (VampireTracker.GetSunlightPolicy(pawn) == SunlightPolicy.NoAI) return;
             if (!(pawn.MapHeld is Map m) || !c.IsValid || !c.InBounds(m)) return;
             if (pawn.Drafted || c.IsSunlightSafeFor(pawn)) return;
+
             __result = false;
         }
 
@@ -145,18 +150,19 @@ namespace Vampire
 
         public static void TryGiveJob_VampireGeneral(Pawn pawn, ref Job __result)
         {
-            if (__result != null && pawn.IsVampire())
-            {
-                if (__result.def == JobDefOf.Ingest)
-                {
-                    __result = null;
-                    return;
-                }
+            if (pawn == null) return;
+            if (!pawn.IsVampire(true)) return;
+            if (!VampireSettings.Get.aiToggle) return;
 
-                if (!pawn.Drafted && __result.def != JobDefOf.Wait_Wander && __result.def != JobDefOf.GotoWander &&
-                    !__result.playerForced && !__result.IsSunlightSafeFor(pawn))
-                    __result = null;
+            if (__result?.def == JobDefOf.Ingest)
+            {
+                __result = null;
+                return;
             }
+
+            if (!pawn.Drafted && __result?.def != JobDefOf.Wait_Wander && __result?.def != JobDefOf.GotoWander &&
+                __result?.playerForced == false && __result?.IsSunlightSafeFor(pawn) == false)
+                __result = null;
         }
 
 

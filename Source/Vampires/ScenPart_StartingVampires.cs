@@ -111,7 +111,7 @@ namespace Vampire
 
         public string GenRangeToString()
         {
-            return HediffVampirism.AddOrdinal(this?.generationRange.min ?? 10) + "-" + HediffVampirism.AddOrdinal(this?.generationRange.max ?? 15) ?? "";
+            return VampireStringUtility.AddOrdinal(this?.generationRange.min ?? 10) + "-" + VampireStringUtility.AddOrdinal(this?.generationRange.max ?? 15) ?? "";
         }
 
         public override void Randomize()

@@ -113,13 +113,13 @@ namespace Vampire
         {
             if (__instance?.Corpse is Corpse c && c.InnerPawn is Pawn p)
             {
-                if (p.Faction == Faction.OfPlayer && p.IsVampire())
+                if (p.Faction == Faction.OfPlayer && p.IsVampire(true))
                     __result = __result.Concat(GraveGizmoGetter(p, __instance));
             }
 
             if (__instance?.ContainedThing is Pawn q)
             {
-                if (q.Faction == Faction.OfPlayer && q.IsVampire())
+                if (q.Faction == Faction.OfPlayer && q.IsVampire(true))
                     __result = __result.Concat(GraveGizmoGetter(q, __instance));
             }
         }
@@ -129,7 +129,7 @@ namespace Vampire
         public static bool Vamp_MakeCorpse(Pawn __instance, Building_Grave assignedGrave, bool inBed, float bedRotation,
             ref Corpse __result)
         {
-            if (__instance.IsVampire())
+            if (__instance.IsVampire(true))
             {
                 if (__instance.holdingOwner != null)
                 {
@@ -168,7 +168,7 @@ namespace Vampire
         public static void Vamp_SleepyDuringDaylight(Need_Rest __instance)
         {
             Pawn pawn = (Pawn)AccessTools.Field(typeof(Need_Rest), "pawn").GetValue(__instance);
-            if (pawn != null && pawn.IsVampire())
+            if (pawn != null && pawn.IsVampire(true))
             {
                 if (VampireUtility.IsDaylight(pawn))
                 {
@@ -190,7 +190,7 @@ namespace Vampire
                 return;
             }
 
-            if (actor.IsVampire())
+            if (actor.IsVampire(true))
             {
                 actor.needs.mood.thoughts.memories.RemoveMemoriesOfDef(ThoughtDefOf.SleptInCold);
                 actor.needs.mood.thoughts.memories.RemoveMemoriesOfDef(ThoughtDefOf.SleptInHeat);

@@ -124,7 +124,7 @@ namespace Vampire
                 {
                     HashSet<Pawn> pawns = new HashSet<Pawn>(maps[i].mapPawns.FreeColonistsSpawned);
                     List<Pawn> Patients = new List<Pawn>();
-                    if (pawns != null && pawns.Count > 0 && pawns.FirstOrDefault(x => x.IsVampire()) != null)
+                    if (pawns != null && pawns.Count > 0 && pawns.FirstOrDefault(x => x.IsVampire(true)) != null)
                     {
                         if (pawns.FirstOrDefault(x =>
                                 !x.Downed && x.workSettings != null &&
@@ -132,7 +132,7 @@ namespace Vampire
                         {
                             foreach (Pawn p2 in pawns)
                             {
-                                if (p2.IsVampire())
+                                if (p2.IsVampire(true))
                                 {
                                     if (HealthAIUtility.ShouldBeTendedNowByPlayer(p2))
                                         Patients.Add(p2);
@@ -163,7 +163,7 @@ namespace Vampire
         // RimWorld.HealthCardUtility
         public static void Vamp_GetPawnCapacityTip(Pawn pawn, PawnCapacityDef capacity, ref string __result)
         {
-            if (pawn.IsVampire() &&
+            if (pawn.IsVampire(true) &&
                 (
                     capacity == PawnCapacityDefOf.Breathing ||
                     capacity == PawnCapacityDefOf.BloodPumping ||
@@ -185,7 +185,7 @@ namespace Vampire
         // RimWorld.HealthCardUtility
         public static void GetEfficiencyLabel(ref Pair<string, Color> __result, Pawn pawn, PawnCapacityDef activity)
         {
-            if (pawn.IsVampire() &&
+            if (pawn.IsVampire(true) &&
                 (
                     activity == PawnCapacityDefOf.Breathing ||
                     activity == PawnCapacityDefOf.BloodPumping ||
@@ -204,7 +204,7 @@ namespace Vampire
             if (__instance is Need_Rest)
             {
                 Pawn pawn = (Pawn)AccessTools.Field(typeof(Need), "pawn").GetValue(__instance);
-                if (pawn != null && pawn.IsVampire())
+                if (pawn != null && pawn.IsVampire(true))
                 {
                     StringBuilder s = new StringBuilder();
                     s.Append(__result);

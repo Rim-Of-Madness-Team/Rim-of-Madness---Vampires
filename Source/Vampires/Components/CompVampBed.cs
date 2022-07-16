@@ -34,7 +34,7 @@ namespace Vampire
         {
             //return base.CompFloatMenuOptions(selPawn);
 
-            if ((selPawn?.IsVampire() ?? false) && parent is Building_Grave g && !g.HasCorpse)
+            if ((selPawn?.IsVampire(true) ?? false) && parent is Building_Grave g && !g.HasCorpse)
             {
                 yield return new FloatMenuOption("ROMV_EnterTorpor".Translate(new object[]
                 {

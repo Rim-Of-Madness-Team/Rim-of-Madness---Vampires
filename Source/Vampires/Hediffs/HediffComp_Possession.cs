@@ -11,7 +11,7 @@ namespace Vampire
         public void ActivateEffect(Pawn activator)
         {
             string text = Pawn.LabelIndefinite();
-            if (Pawn.IsVampire())
+            if (Pawn.IsVampire(true))
             {
                 Messages.Message("ROMV_CannotPossessVamps".Translate(), MessageTypeDefOf.RejectInput);
                 return;

@@ -17,14 +17,14 @@ namespace Vampire
             Func <Vector3, Pawn, Thing, List<FloatMenuOption>> feedFunc = delegate (Vector3 clickPos, Pawn pawn, Thing curThing)
             {
                 List<FloatMenuOption> opts = new List<FloatMenuOption>();
-                bool pawnIsVampire = pawn.IsVampire();
+                bool pawnIsVampire = pawn.IsVampire(true);
                 if (pawnIsVampire && curThing is Pawn victim && victim != pawn && !victim.RaceProps.IsMechanoid)
                 {
 
                     CompVampire selVampComp = pawn.GetComp<CompVampire>();
                     int curBloodVictim = victim?.BloodNeed()?.CurBloodPoints ?? 0;
                     int curBloodActor = pawn?.BloodNeed()?.CurBloodPoints ?? 0;
-                    bool victimIsVampire = victim.IsVampire();
+                    bool victimIsVampire = victim.IsVampire(true);
                     // FEED //////////////////////////
                     if (!victimIsVampire || (selVampComp?.Bloodline?.canFeedOnVampires ?? false))
                     {

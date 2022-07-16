@@ -9,6 +9,8 @@ using RimWorld.Planet;
 using UnityEngine;
 using Verse.AI;
 using Random = UnityEngine.Random;
+using System.Collections;
+using static Vampire.VampireTracker;
 
 namespace Vampire
 {
@@ -30,13 +32,18 @@ namespace Vampire
         private bool finalConfiguationSet = false;
         private bool worldLoaded = false;
         private bool debugPrinted = false;
+        public bool vampiresLoaded = false;
         private Pawn firstVampire;
         private List<Pawn> activeVampires = null;
         private List<Pawn> dormantVampires = null;
         private List<Pawn> tempVampires = new List<Pawn>();
+        private List<Pawn> tmpSunlightPolicyVampires = new List<Pawn>();
+        private List<SunlightPolicy> tmpSunlightPolicies = new List<SunlightPolicy>();
         public Dictionary<Pawn, List<RoyalTitle>> tempVampireTitles = new Dictionary<Pawn, List<RoyalTitle>>();
         public Dictionary<Pawn, int> recentVampires = new Dictionary<Pawn, int>();
         private Dictionary<VampireRecord, Pawn> worldVampires = new Dictionary<VampireRecord, Pawn>();
+        public Dictionary<Pawn,SunlightPolicy> sunlightPolicies = new Dictionary<Pawn,SunlightPolicy>();
+        public HashSet<Pawn> vampireList = new HashSet<Pawn>();
         
         public Pawn FirstVampire
         {
@@ -147,7 +154,7 @@ namespace Vampire
                                 "ROMV_PowerfulVampireDesc".Translate(new object[]
                                 {
                                     key.LabelShort,
-                                    HediffVampirism.AddOrdinal(generation.Value),
+                                    VampireStringUtility.AddOrdinal(generation.Value),
                                 }), LetterDefOf.ThreatSmall, key, null);
                     }
                 }
@@ -156,6 +163,27 @@ namespace Vampire
             //Rarer tick check
             if (Find.TickManager.TicksGame % 100 == 0)
             {
+                //First spawn check
+                if (!vampiresLoaded)
+                {
+                    vampiresLoaded = true;
+                    foreach (Map map in Find.Maps)
+                    {
+                        foreach (Pawn spawnedPawn in map.mapPawns.AllPawns)
+                        {
+                            if (spawnedPawn.IsVampire(false))
+                            {
+                                VampireTracker.AddVampire(spawnedPawn);
+                                if (!sunlightPolicies.ContainsKey(spawnedPawn))
+                                {
+                                    VampireTracker.SetSunlightPolicy(spawnedPawn,SunlightPolicy.Restricted);
+                                }
+                            }
+                        }
+                    }
+                }
+
+
                 if (!VampireSettings.Get.settingsWindowSeen)
                 {
                     VampireSettings.Get.settingsWindowSeen = true;
@@ -185,7 +213,7 @@ namespace Vampire
                     foreach (var pawn in recentVampiresKeys)
                     {
                         stringBuilder.AppendLine("    " + pawn.Name.ToStringShort + " (" +
-                                                 HediffVampirism.AddOrdinal(pawn.VampComp().Generation) + ")");
+                                                 VampireStringUtility.AddOrdinal(pawn.VampComp().Generation) + ")");
                     }
                     string vampList = "ROMV_VampiresArrivalDesc".Translate(stringBuilder.ToString());
                     Find.LetterStack.ReceiveLetter("ROMV_VampiresArrivalLabel".Translate(), vampList,
@@ -343,6 +371,7 @@ namespace Vampire
             Scribe_References.Look(ref firstVampire, "firstVampire");
             Scribe_Collections.Look(ref dormantVampires, "dormantVampires", LookMode.Deep);
             Scribe_Collections.Look(ref activeVampires, "activeVampires", LookMode.Deep);
+            Scribe_Collections.Look(ref sunlightPolicies, "sunlightPolicies", LookMode.Reference, LookMode.Value, ref tmpSunlightPolicyVampires, ref tmpSunlightPolicies);
         }
 
         public void AddVampire(Pawn pawn, Pawn sire, BloodlineDef bloodline, int generation, float? age)

@@ -116,7 +116,7 @@ namespace Vampire
                 return false;
             
             //Vampires are only upset by diablerie
-            if (witness.IsVampire() && crime != VampDefOf.ROMV_Diablerie)
+            if (witness.IsVampire(true) && crime != VampDefOf.ROMV_Diablerie)
                 return false;
 
             //Don't test animals
@@ -149,7 +149,7 @@ namespace Vampire
 
         public static void HandleWitnessesOf(JobDef crime, Pawn criminal, Pawn victim)
         {
-            if (!criminal.IsVampire())
+            if (!criminal.IsVampire(true))
             {
                 return;
             }

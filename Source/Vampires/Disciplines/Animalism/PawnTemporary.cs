@@ -44,7 +44,7 @@ namespace Vampire
                             jobs.StopAll();
                             jobs.TryTakeOrderedJob(newJob);
                         }
-                        else if (Master.Map.mapPawns.AllPawnsSpawned.FirstOrDefault(x => x.Faction != null && x != Master && !x.IsVampire() && x.RaceProps.Humanlike &&
+                        else if (Master.Map.mapPawns.AllPawnsSpawned.FirstOrDefault(x => x.Faction != null && x != Master && !x.IsVampire(true) && x.RaceProps.Humanlike &&
                         this.CanReserve(x)) is Pawn tTwo)
                         {
                             Job newJob = new Job(VampDefOf.ROMV_FeedAndReturn, tTwo, Master);
@@ -68,7 +68,7 @@ namespace Vampire
                             jobs.StartJob(newJob, JobCondition.InterruptForced);
                             //jobs.TryTakeOrderedJob(newJob);
                         }
-                        else if (Master.Map.mapPawns.AllPawnsSpawned.FirstOrDefault(x => x.Faction != null && x != Master && !x.IsVampire() && x.RaceProps.Humanlike && 
+                        else if (Master.Map.mapPawns.AllPawnsSpawned.FirstOrDefault(x => x.Faction != null && x != Master && !x.IsVampire(true) && x.RaceProps.Humanlike && 
                         this.CanReserve(x)) is Pawn tTwo)
                         {
                             Job newJob = new Job(VampDefOf.ROMV_FeedAndDestroy, tTwo, Master);
@@ -98,7 +98,7 @@ namespace Vampire
                             jobs.StartJob(newJob, JobCondition.InterruptForced);
                             //jobs.TryTakeOrderedJob(newJob);
                         }
-                        else if (Master.Map.mapPawns.AllPawnsSpawned.FirstOrDefault(x => x.Faction != null && x != Master && !x.IsVampire() && 
+                        else if (Master.Map.mapPawns.AllPawnsSpawned.FirstOrDefault(x => x.Faction != null && x != Master && !x.IsVampire(true) && 
                         x.RaceProps.Humanlike && 
                         this.CanReserve(x)) is Pawn tTwo)
                         {
@@ -122,7 +122,7 @@ namespace Vampire
                             Job newJob = new Job(VampDefOf.ROMV_FeedAndDestroy, target, Master);
                             jobs.TryTakeOrderedJob(newJob);
                         }
-                        else if (Master.Map.mapPawns.AllPawnsSpawned.FirstOrDefault(x => x.Faction != null && x != Master && !x.IsVampire() && x.RaceProps.Humanlike &&
+                        else if (Master.Map.mapPawns.AllPawnsSpawned.FirstOrDefault(x => x.Faction != null && x != Master && !x.IsVampire(true) && x.RaceProps.Humanlike &&
                         this.CanReserve(x)) is Pawn tTwo)
                         {
                             Job newJob = new Job(VampDefOf.ROMV_FeedAndDestroy, tTwo, Master);

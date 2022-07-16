@@ -94,7 +94,7 @@ namespace Vampire
                 var thrallData = pawn?.VampComp()?.ThrallData;
                 if (thrallData == null)
                     return s.ToString();
-                s.AppendLine("ROMV_HI_GhoulDomitor".Translate(domitor?.LabelCap + " (" + HediffVampirism.AddOrdinal(domitor?.VampComp().Generation ?? -1) + ")" ?? "Unknown"));
+                s.AppendLine("ROMV_HI_GhoulDomitor".Translate(domitor?.LabelCap + " (" + VampireStringUtility.AddOrdinal(domitor?.VampComp().Generation ?? -1) + ")" ?? "Unknown"));
                 s.AppendLine("ROMV_HI_Bloodline".Translate(domitor?.VampComp()?.Bloodline.LabelCap ?? this?.bloodline?.label ?? "Unknown"));
                 if (thrallData.BondStage is BondStage bondStage)
                 {

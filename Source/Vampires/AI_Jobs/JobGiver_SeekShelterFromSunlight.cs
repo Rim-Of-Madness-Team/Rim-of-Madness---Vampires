@@ -8,44 +8,42 @@ namespace Vampire
     public class JobGiver_SeekShelterFromSunlight : ThinkNode_JobGiver
     {
 
-        protected IntRange ticksBetweenWandersRange = new IntRange(20, 100);
-
-        protected LocomotionUrgency locomotionUrgency = LocomotionUrgency.Walk;
-
-        protected Danger maxDanger = Danger.None;
-
-        protected float wanderRadius = 7.5f;
-
-        protected virtual IntVec3 GetExactWanderDest(Pawn pawn)
+        //        public override float GetPriority(Pawn pawn)
+        //        {
+        //            Log.Message("VampJobPriority");
+        //
+        //            if (pawn.VampComp() is CompVampire v && v.IsVampire &&
+        //            GenLocalDate.HourInteger(pawn) >= 6 && GenLocalDate.HourInteger(pawn) <= 17 &&
+        //            !pawn.PositionHeld.Roofed(pawn.MapHeld))
+        //            {
+        //                return 9.5f;
+        //            }
+        //            return 0f;
+        //        }
+        public override float GetPriority(Pawn pawn)
         {
-            IntVec3 wanderRoot = pawn.PositionHeld;
-            return RCellFinder.RandomWanderDestFor(pawn, wanderRoot, wanderRadius,
-                (p, loc, root) => loc.Roofed(p.MapHeld), PawnUtility.ResolveMaxDanger(pawn, maxDanger));
+            return 1;
         }
-
-//        public override float GetPriority(Pawn pawn)
-//        {
-//            Log.Message("VampJobPriority");
-//
-//            if (pawn.VampComp() is CompVampire v && v.IsVampire &&
-//            GenLocalDate.HourInteger(pawn) >= 6 && GenLocalDate.HourInteger(pawn) <= 17 &&
-//            !pawn.PositionHeld.Roofed(pawn.MapHeld))
-//            {
-//                return 9.5f;
-//            }
-//            return 0f;
-//        }
 
         protected override Job TryGiveJob(Pawn pawn)
         {
             try
             {
-                if (pawn.MapHeld is Map map && pawn.PositionHeld is IntVec3 pos && pos.IsValid && 
-                    !pos.Roofed(map) && VampireUtility.IsForcedDarknessConditionInactive(map))
+                if (pawn?.CurJobDef?.defName != "VampDefOf.ROMV_GotoSafety")
                 {
-                    if (VampSunlightPathUtility.GetSunlightPathJob(pawn) is Job j)
-                        return j;   
+                    if (pawn.MapHeld is Map map && pawn.PositionHeld is IntVec3 pos && pos.IsValid &&
+                        !pos.Roofed(map) && VampireUtility.IsForcedDarknessConditionInactive(map))
+                    {
+                        if (VampSunlightPathUtility.GetSunlightPathJob(pawn, false) is Job j)
+                            return j;
+                    }
+                    if (pawn?.MentalStateDef?.defName == "ROMV_Rotschreck")
+                    {
+                        if (VampSunlightPathUtility.GetSunlightPathJob(pawn, true) is Job j)
+                            return j;
+                    }
                 }
+
             }
             catch (Exception e)
             {

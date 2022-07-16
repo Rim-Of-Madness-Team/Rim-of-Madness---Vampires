@@ -45,7 +45,7 @@ namespace Vampire
         public static void Vamp_TheyDontDislikeDarkness(Pawn p, ref ThoughtState __result)
         {
             bool temp = __result.Active;
-            __result = temp && !p.IsVampire();
+            __result = temp && !p.IsVampire(true);
         }
 
 
@@ -53,7 +53,7 @@ namespace Vampire
         // RimWorld.ThoughtWorker_CabinFever
         public static void Vamp_NoCabinFever(Pawn p, ref ThoughtState __result)
         {
-            if (p.IsVampire())
+            if (p.IsVampire(true))
                 __result = ThoughtState.Inactive;
         }
 
@@ -62,7 +62,7 @@ namespace Vampire
         //ThoughtWorker_Hot
         public static void Vamp_IgnoreHotAndCold(Pawn p, ref ThoughtState __result)
         {
-            if (p != null && p.IsVampire())
+            if (p != null && p.IsVampire(true))
             {
                 __result = ThoughtState.Inactive;
             }

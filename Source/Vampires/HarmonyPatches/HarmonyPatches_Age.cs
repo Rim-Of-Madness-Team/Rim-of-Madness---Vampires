@@ -42,7 +42,7 @@ namespace Vampire
         {
             Pawn p = Traverse.Create(__instance).Field("pawn").GetValue<Pawn>();
 
-            if (p.RaceProps.Humanlike && (p.IsVampire() || p.IsGhoul()) && PawnUtility.ShouldSendNotificationAbout(p))
+            if (p.RaceProps.Humanlike && (p.IsVampire(true) || p.IsGhoul()) && PawnUtility.ShouldSendNotificationAbout(p))
             {
                 Find.LetterStack.ReceiveLetter("LetterLabelBirthday".Translate(), "ROMV_VampireBirthday".Translate(
                     new object[]
@@ -60,7 +60,7 @@ namespace Vampire
         // RimWorld.AgeInjuryUtility
         public static bool Vamp_GenerateRandomOldAgeInjuries(Pawn pawn, bool tryNotToKillPawn)
         {
-            if (VampireGenInProgress || pawn.IsVampire() || pawn.IsGhoul())
+            if (VampireGenInProgress || pawn.IsVampire(true) || pawn.IsGhoul())
             {
                 return false;
             }
@@ -73,7 +73,7 @@ namespace Vampire
         //HediffGiver_RandomAgeCurved
         public static bool VampsDontHaveHeartAttacks(Pawn pawn, Hediff cause)
         {
-            if (pawn.IsVampire())
+            if (pawn.IsVampire(true))
                 return false;
             return true;
         }

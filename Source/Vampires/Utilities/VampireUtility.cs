@@ -28,11 +28,16 @@ namespace Vampire
             return false;
         }
         
-        public static bool IsVampire(this Pawn pawn)
+        public static bool IsVampire(this Pawn pawn, bool aiCheck)
         {
-            if (pawn != null && pawn?.TryGetComp<CompVampire>() is CompVampire v && v.IsVampire)
-                return true;
-            return false;
+            if (!aiCheck)
+            {
+                if (pawn != null && pawn?.TryGetComp<CompVampire>() is CompVampire v && v.IsVampire)
+                    return true;
+                return false;
+            }
+
+            return VampireTracker.IsVampire(pawn);
         }
         
         public static bool HasVampireHediffs(this Pawn pawn)
@@ -73,6 +78,56 @@ namespace Vampire
             return false;
         }
 
+        internal static void RemoveVampirism(Pawn pawn, bool showMoteText = false, bool showMessages = false)
+        {
+            if (pawn != null)
+            {
+                if (pawn.IsVampire(false))
+                {
+                    if (pawn.health.hediffSet.GetFirstHediffOfDef(VampDefOf.ROM_Vampirism) is HediffVampirism vampirism)
+                    {
+                        pawn.health.RemoveHediff(vampirism);
+                    }
+                    if (pawn?.health?.hediffSet?.GetHediffs<Hediff_AddedPart>()?.First() is Hediff_AddedPart_Fangs fangs)
+                    {
+                        BodyPartRecord rec = fangs.Part;
+                        pawn.health.RemoveHediff(fangs);
+                        pawn.health.RestorePart(rec);
+                    }
+                    if (pawn.BloodNeed() is Need_Blood needBlood)
+                    {
+                        if (needBlood.CurBloodPoints >= needBlood.MaxBloodPoints)
+                            needBlood.CurBloodPoints = needBlood.MaxBloodPoints;
+                    }
+                    if (pawn.health.hediffSet.GetFirstHediffOfDef(VampDefOf.ROMV_SunExposure) is Hediff sunExposure)
+                    {
+                        pawn.health.RemoveHediff(sunExposure);
+                    }
+
+                    if (pawn.health.hediffSet.GetFirstHediffOfDef(VampDefOf.ROMV_TheBeast) is Hediff beast)
+                    {
+                        pawn.health.RemoveHediff(beast);
+                    }
+                    VampireTracker.RemoveVampire(pawn);
+
+
+
+                    pawn.Drawer.Notify_DebugAffected();
+                    if (showMoteText)
+                        MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, "ROMV_NoLongerAVampire".Translate(pawn.LabelShort));
+                    if (showMessages)
+                        Messages.Message("ROMV_NoLongerAVampire".Translate(pawn.LabelCap), MessageTypeDefOf.TaskCompletion);
+                }
+                else
+                {
+                    if (showMoteText)
+                        MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, "ROMV_WasNotAVampire".Translate(pawn.LabelShort));
+                    if (showMessages)
+                        Messages.Message("ROMV_WasNotAVampire".Translate(pawn.LabelCap), MessageTypeDefOf.RejectInput);
+                }
+
+            }
+        }
 
         public static CompVampire VampComp(this Pawn pawn)
         {
@@ -100,46 +155,40 @@ namespace Vampire
 
         public static bool BloodMoonConditionActive(Map m)
         {
-            try
-            {
-                if (DefDatabase<GameConditionDef>.GetNamedSilentFail("HPLovecraft_BloodMoon") is GameConditionDef def)
-                    return m.gameConditionManager.ConditionIsActive(def);
-            }
-            catch
-            {
-            }
+            if (DefDatabase<GameConditionDef>.GetNamedSilentFail("HPLovecraft_BloodMoon") != null)
+                return m.gameConditionManager.ConditionIsActive(GameConditionDef.Named("HPLovecraft_BloodMoon"));
             return false;
         }
 
         //Checks for sunrise conditions.
         public static bool IsSunRisingOrDaylight(this Pawn p)
         {
-            return p != null && p.Spawned && p?.MapHeld != null && p.MapHeld is Map m && IsSunRisingOrDaylight(m);
+            return IsSunRisingOrDaylight(p.MapHeld);
         }
         
-        private static Dictionary<Map, float> lastSunlightChecks = new Dictionary<Map, float>();
+        //private static Dictionary<Map, float> lastSunlightChecks = new Dictionary<Map, float>();
 
         //Sunrise is very dangerous to be out.
         public static bool IsSunRisingOrDaylight(Map m)
         {
             //If it's daylight, it's not safe.
-            var curSunlight = GenCelestial.CurCelestialSunGlow(m);
-            if (GenCelestial.IsDaytime(curSunlight)) return true;
+            if (GenCelestial.IsDaytime(GenCelestial.CurCelestialSunGlow(m))) return true;
+            if (GenCelestial.CurCelestialSunGlow(m) > 0.01f) return true;
 
-            if (curSunlight > 0.01f)
-            {
-                var lastSunlight = 0f;
-                if (!lastSunlightChecks.ContainsKey(m))
-                {
-                    lastSunlightChecks.Add(m, curSunlight);
-                    lastSunlight = curSunlight;
-                }
-                else
-                {
-                    lastSunlight = lastSunlightChecks[m];
-                }
-                return curSunlight > lastSunlight;
-            }
+            //if (curSunlight > 0.01f)
+            //{
+            //    var lastSunlight = 0f;
+            //    if (!lastSunlightChecks.ContainsKey(m))
+            //    {
+            //        lastSunlightChecks.Add(m, curSunlight);
+            //        lastSunlight = curSunlight;
+            //    }
+            //    else
+            //    {
+            //        lastSunlight = lastSunlightChecks[m];
+            //    }
+            //    return curSunlight > lastSunlight;
+            //}
             return false;
         }
 
@@ -147,7 +196,7 @@ namespace Vampire
         {
             string text = "ROMV_VampireDesc".Translate(new object[]
             {
-                HediffVampirism.AddOrdinal(pawn.VampComp().Generation),
+                VampireStringUtility.AddOrdinal(pawn.VampComp().Generation),
                 pawn.VampComp().Bloodline.LabelCap
             });
             return text.CapitalizeFirst();
@@ -239,7 +288,7 @@ namespace Vampire
         /// <param name="pawn"></param>
         public static void AdjustTimeTables(Pawn pawn)
         {
-            if (pawn.IsVampire() && pawn.timetable is Pawn_TimetableTracker t)
+            if (pawn.IsVampire(false) && pawn.timetable is Pawn_TimetableTracker t)
             {
                 t.times = new List<TimeAssignmentDef>(24);
                 for (int i = 0; i < 24; i++)
@@ -280,7 +329,7 @@ namespace Vampire
         public static int GrapplerModifier(Pawn grappler)
         {
             int result = 0;
-            if (grappler.IsVampire())
+            if (grappler.IsVampire(true))
             {
                 result += 20 - grappler.VampComp().Generation;
             }
@@ -341,6 +390,7 @@ namespace Vampire
             return VampDefOfTwo.ROM_Generations_Thinblood;
             
         }
+
 
     }
 }

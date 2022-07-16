@@ -333,7 +333,7 @@ namespace Vampire
                     if (VampireUtility.IsDaylight(victim) && !victim.PositionHeld.Roofed(victim.Map))
                         return false;
 
-                    if (victim.IsVampire())
+                    if (victim.IsVampire(true))
                         return false;
 
 

@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!--
+      ::::::::::: ::::::::   ::::::::  :::    ::: :::::::::: :::::::: 
+         :+:    :+:    :+: :+:    :+: :+:    :+: :+:       :+:    :+: 
+        +:+    +:+        +:+        +:+    +:+ +:+       +:+         
+       +#+    +#++:++#++ +#++:++#++ +#+    +:+ +#++:++#  +#++:++#++   
+      +#+           +#+        +#+ +#+    +#+ +#+              +#+    
+     #+#    #+#    #+# #+#    #+# #+#    #+# #+#       #+#    #+#     
+########### ########   ########   ########  ########## ########       
+  -->
+  
+  <IssueDef>
+    <defName>ROMV_Vampirism</defName>
+    <label>vampirism</label>
+    <iconPath>UI/VampireIcon</iconPath>
+  </IssueDef>
+
+<!--
+
+      :::    ::: ::::::::::: :::::::: ::::::::::: ::::::::  :::::::::  :::   ::: 
+     :+:    :+:     :+:    :+:    :+:    :+:    :+:    :+: :+:    :+: :+:   :+:  
+    +:+    +:+     +:+    +:+           +:+    +:+    +:+ +:+    +:+  +:+ +:+    
+   +#++:++#++     +#+    +#++:++#++    +#+    +#+    +:+ +#++:++#:    +#++:      
+  +#+    +#+     +#+           +#+    +#+    +#+    +#+ +#+    +#+    +#+        
+ #+#    #+#     #+#    #+#    #+#    #+#    #+#    #+# #+#    #+#    #+#         
+###    ### ########### ########     ###     ########  ###    ###    ###          
+                                                                                 
+      :::::::::: :::     ::: :::::::::: ::::    ::: :::::::::::                  
+     :+:        :+:     :+: :+:        :+:+:   :+:     :+:                       
+    +:+        +:+     +:+ +:+        :+:+:+  +:+     +:+                        
+   +#++:++#   +#+     +:+ +#++:++#   +#+ +:+ +#+     +#+                         
+  +#+         +#+   +#+  +#+        +#+  +#+#+#     +#+                          
+ #+#          #+#+#+#   #+#        #+#   #+#+#     #+#                           
+##########     ###     ########## ###    ####     ###                            
+
+-->
+
+  <HistoryEventDef>
+    <defName>ROMV_NewVampireColonist</defName>
+    <label>new vampire</label>
+  </HistoryEventDef>
+
+  <HistoryEventDef>
+    <defName>ROMV_VampireDied</defName>
+    <label>vampire died</label>
+  </HistoryEventDef>
+
+  <!-- 
+
+      :::::::::  :::::::::  :::::::::: ::::::::  :::::::::: ::::::::: ::::::::::: :::::::: 
+     :+:    :+: :+:    :+: :+:       :+:    :+: :+:        :+:    :+:    :+:    :+:    :+: 
+    +:+    +:+ +:+    +:+ +:+       +:+        +:+        +:+    +:+    +:+    +:+         
+   +#++:++#+  +#++:++#:  +#++:++#  +#+        +#++:++#   +#++:++#+     +#+    +#++:++#++   
+  +#+        +#+    +#+ +#+       +#+        +#+        +#+           +#+           +#+    
+ #+#        #+#    #+# #+#       #+#    #+# #+#        #+#           #+#    #+#    #+#     
+###        ###    ### ########## ########  ########## ###           ###     ########       
+
+   -->
+
+  <PreceptDef>
+    <defName>ROMV_Vampirism_Abhorrent</defName>
+    <issue>ROMV_Vampirism</issue>
+    <label>masquerade</label>
+    <description>Vampirism is awful.</description>
+    <impact>Low</impact>
+    <displayOrderInIssue>40</displayOrderInIssue>
+    <displayOrderInImpact>1000</displayOrderInImpact>
+    <defaultSelectionWeight>1</defaultSelectionWeight>
+    <!--
+    <conflictingMemes>
+      <li>Raider</li>
+    </conflictingMemes>
+    <associatedMemes>
+      <li>Guilty</li>
+      <li>Individualist</li>
+    </associatedMemes>
+    -->
+    <comps>
+      <!-- We can't suffer to have these creatures here of all places -->
+      <li Class="PreceptComp_SituationalThought">
+        <thought>ROMV_Vampirism_Abhorrent_VampiresInColony</thought>
+        <description>Each vampire in colony</description>
+      </li>      
+
+      <!-- A vampire has died? Excellent -->
+      <li Class="PreceptComp_KnowsMemoryThought">
+        <eventDef>ROMV_VampireDied</eventDef>
+        <thought>ROMV_VampireDied_Know_Honorable</thought>
+        <onlyForNonSlaves>true</onlyForNonSlaves>
+      </li>
+
+      <!-- New vampire colonists? Detestable -->
+      <li Class="PreceptComp_KnowsMemoryThought">
+        <eventDef>ROMV_NewVampireColonist</eventDef>
+        <thought>ROMV_NewVampireColonist_Know_Abhorrent</thought>
+      </li>
+
+    </comps>
+  </PreceptDef>
+
+  <PreceptDef>
+    <defName>ROMV_Vampirism_Acceptable</defName>
+    <issue>ROMV_Vampirism</issue>
+    <label>acceptable</label>
+    <description>Vampirism is treated as natural without respect nor hatred.</description>
+    <impact>Low</impact>
+    <displayOrderInIssue>10</displayOrderInIssue>
+    <defaultSelectionWeight>0</defaultSelectionWeight>
+    <!--
+    <approvesOfSlavery>true</approvesOfSlavery>
+    -->
+  </PreceptDef>
+
+  <PreceptDef>
+    <defName>ROMV_Vampirism_Honorable</defName>
+    <issue>ROMV_Vampirism</issue>
+    <label>honorable</label>
+    <description>Vampires should be honored and respected.</description>
+    <impact>High</impact>
+    <displayOrderInIssue>0</displayOrderInIssue>
+    <displayOrderInImpact>1000</displayOrderInImpact>
+    <defaultSelectionWeight>0</defaultSelectionWeight>
+    <!--
+    <associatedMemes>
+      <li>Supremacist</li>
+      <li>Collectivist</li>
+      <li>PainIsVirtue</li>
+    </associatedMemes>
+    <conflictingMemes>
+      <li>Guilty</li>
+      <li>Individualist</li>
+    </conflictingMemes>
+    -->
+    <comps>
+      <li Class="PreceptComp_SituationalThought">
+        <thought>ROMV_NeedVampirism</thought>
+      </li>
+
+      <li Class="PreceptComp_SituationalThought">
+        <thought>ROMV_Vampirism_Honorable_VampiresInColony</thought>
+        <description>Each vampire in colony</description>
+      </li>
+
+      <li Class="PreceptComp_SituationalThought">
+        <thought>ROMV_Vampirism_Honorable_NoVampiresInColony</thought>
+      </li>
+
+      <!-- A vampire has died? Horrible -->
+      <li Class="PreceptComp_KnowsMemoryThought">
+        <eventDef>ROMV_VampireDied</eventDef>
+        <thought>ROMV_VampireDied_Know_Horrible</thought>
+        <onlyForNonSlaves>true</onlyForNonSlaves>
+      </li>
+
+
+      <!-- New vampire colonists? Celebrate! -->
+      <li Class="PreceptComp_KnowsMemoryThought">
+        <eventDef>ROMV_NewVampireColonist</eventDef>
+        <thought>ROMV_NewVampireColonist_Know_Honorable</thought>
+      </li>
+
+
+    </comps>
+    <!--
+    <approvesOfSlavery>true</approvesOfSlavery>
+    -->
+  </PreceptDef>
+  
+  <!-- 
+
+  ::::::::::: :::    :::  ::::::::  :::    :::  ::::::::  :::    ::: ::::::::::: :::::::: 
+     :+:     :+:    :+: :+:    :+: :+:    :+: :+:    :+: :+:    :+:     :+:    :+:    :+: 
+    +:+     +:+    +:+ +:+    +:+ +:+    +:+ +:+        +:+    +:+     +:+    +:+         
+   +#+     +#++:++#++ +#+    +:+ +#+    +:+ :#:        +#++:++#++     +#+    +#++:++#++   
+  +#+     +#+    +#+ +#+    +#+ +#+    +#+ +#+   +#+# +#+    +#+     +#+           +#+    
+ #+#     #+#    #+# #+#    #+# #+#    #+# #+#    #+# #+#    #+#     #+#    #+#    #+#     
+###     ###    ###  ########   ########   ########  ###    ###     ###     ########       
+
+   -->
+
+<!-- ========= -->
+<!-- ABHORRANT -->
+<!-- ========= -->
+
+  <ThoughtDef>
+    <defName>ROMV_Vampirism_Abhorrent_VampiresInColony</defName>
+    <thoughtClass>Vampire.Thought_Situational_Precept_VampiresInColony</thoughtClass>
+    <workerClass>Vampire.ThoughtWorker_Precept_VampiresInColony</workerClass>
+    <doNotApplyToQuestLodgers>true</doNotApplyToQuestLodgers>
+    <stages>
+      <li>
+        <label>vampires in colony</label>
+        <description>Vampires share our soil!</description>
+        <baseMoodEffect>-3</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>ROMV_NewVampireColonist_Know_Abhorrent</defName>
+    <thoughtClass>Thought_MemorySocial</thoughtClass>
+    <durationDays>15</durationDays>
+    <stackLimit>100</stackLimit>
+    <stackLimitForSameOtherPawn>3</stackLimitForSameOtherPawn>
+    <stages>
+      <li>
+        <label>vampire joined colony</label>
+        <baseOpinionOffset>-20</baseOpinionOffset>
+      </li>
+    </stages>
+  </ThoughtDef>
+  
+  <ThoughtDef>
+    <defName>ROMV_NewVampireColonist_Know_Abhorrent_Mood</defName>
+    <thoughtClass>Thought_Memory</thoughtClass>
+    <durationDays>6</durationDays>
+    <stackLimit>5</stackLimit>
+    <stackedEffectMultiplier>0.75</stackedEffectMultiplier>
+    <doNotApplyToQuestLodgers>true</doNotApplyToQuestLodgers>
+    <stages>
+      <li>
+        <label>vampire joined colony</label>
+        <description>A vampire has joined the colony. This goes against our ways!</description>
+        <baseMoodEffect>-10</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>ROMV_VampireDied_Know_Honorable</defName>
+    <thoughtClass>Thought_MemorySocial</thoughtClass>
+    <durationDays>25</durationDays>
+    <stackLimit>100</stackLimit>
+    <stackLimitForSameOtherPawn>3</stackLimitForSameOtherPawn>
+    <stages>
+      <li>
+        <label>a vampire has died</label>
+        <baseOpinionOffset>10</baseOpinionOffset>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>ROMV_VampireDied_Know_Honorable_Mood</defName>
+    <thoughtClass>Thought_Memory</thoughtClass>
+    <durationDays>6</durationDays>
+    <stackLimit>5</stackLimit>
+    <stackedEffectMultiplier>0.75</stackedEffectMultiplier>
+    <stages>
+      <li>
+        <label>a vampire has died</label>
+        <description>A vampire has died! This should be celebrated.</description>
+        <baseMoodEffect>2</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+
+
+
+<!-- ========= -->
+<!-- HONORABLE -->
+<!-- ========= -->
+
+  <ThoughtDef>
+    <defName>ROMV_NeedVampirism</defName>
+    <thoughtClass>Thought_Situational</thoughtClass>
+    <workerClass>Vampire.ThoughtWorker_NeedVampirism</workerClass>
+    <validWhileDespawned>true</validWhileDespawned>
+    <minExpectation>Moderate</minExpectation>
+    <doNotApplyToQuestLodgers>true</doNotApplyToQuestLodgers>
+    <stages>
+      <li>
+        <label>want vampirism</label>
+        <description>I want to be a vampire. I want to be an immortal -- a gifted yet gruesome hunter of the night -- and not one of the hunted prey.</description>
+        <baseMoodEffect>-6</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>ROMV_Vampirism_Honorable_VampiresInColony</defName>
+    <thoughtClass>Vampire.Thought_Situational_Precept_VampiresInColony</thoughtClass>
+    <workerClass>Vampire.ThoughtWorker_Precept_VampiresInColony</workerClass>
+    <stages>
+      <li>
+        <label>vampires in colony</label>
+        <description>We've got vampires. It means we're on the right path.</description>
+        <baseMoodEffect>1</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>ROMV_Vampirism_Honorable_NoVampiresInColony</defName>
+    <workerClass>Vampire.ThoughtWorker_Precept_NoVampiresInColony</workerClass>
+    <doNotApplyToQuestLodgers>true</doNotApplyToQuestLodgers>
+    <minExpectation>Low</minExpectation>
+    <stages>
+      <li>
+        <label>no vampires in colony</label>
+        <description>Without vampires, nobody will respect us.</description>
+        <baseMoodEffect>-2</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>ROMV_VampireDied_Know_Horrible</defName>
+    <thoughtClass>Thought_MemorySocial</thoughtClass>
+    <durationDays>15</durationDays>
+    <stackLimit>100</stackLimit>
+    <stackLimitForSameOtherPawn>3</stackLimitForSameOtherPawn>
+    <stages>
+      <li>
+        <label>a vampire has died</label>
+        <baseOpinionOffset>-20</baseOpinionOffset>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>ROMV_VampireDied_Know_Horrible_Mood</defName>
+    <thoughtClass>Thought_Memory</thoughtClass>
+    <durationDays>6</durationDays>
+    <stackLimit>5</stackLimit>
+    <stackedEffectMultiplier>0.75</stackedEffectMultiplier>
+    <doNotApplyToQuestLodgers>true</doNotApplyToQuestLodgers>
+    <stages>
+      <li>
+        <label>a vampire has died</label>
+        <description>A vampire has died. We are without its glory.</description>
+        <baseMoodEffect>-10</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>ROMV_NewVampireColonist_Know_Honorable</defName>
+    <thoughtClass>Thought_MemorySocial</thoughtClass>
+    <durationDays>15</durationDays>
+    <stackLimit>100</stackLimit>
+    <stackLimitForSameOtherPawn>3</stackLimitForSameOtherPawn>
+    <stages>
+      <li>
+        <label>vampire joined colony</label>
+        <baseOpinionOffset>10</baseOpinionOffset>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>ROMV_NewVampireColonist_Know_Honorable_Mood</defName>
+    <thoughtClass>Thought_Memory</thoughtClass>
+    <durationDays>6</durationDays>
+    <stackLimit>5</stackLimit>
+    <stackedEffectMultiplier>0.75</stackedEffectMultiplier>
+    <stages>
+      <li>
+        <label>vampire joined colony</label>
+        <description>We have a new vampire among us!</description>
+        <baseMoodEffect>2</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+
+</Defs>

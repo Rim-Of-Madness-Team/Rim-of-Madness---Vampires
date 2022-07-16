@@ -16,50 +16,75 @@ namespace Vampire
         }
 
 		public static bool VampCanMeditateNow(ref bool __result, Pawn pawn) {
-			bool flag = pawn.IsVampire();
-			bool result;
-			if (flag) {
-				bool flag2 = pawn.needs.rest != null && pawn.needs.rest.CurCategory >= RestCategory.VeryTired;
-				if (flag2) {
+			//Log.Message("0");
+			if (pawn == null)
+				return true;
+			//Log.Message("0.5");
+
+			var resultBool = true;
+
+			if (pawn.IsVampire(true))
+			{
+				//Log.Message("1");
+
+				if (pawn?.needs?.rest != null && pawn?.needs?.rest?.CurCategory >= RestCategory.VeryTired)
+				{
 					__result = false;
-					result = false;
-				} else {
-					bool starving = pawn.needs.TryGetNeed<Need_Blood>().Starving;
-					if (starving) {
+					resultBool = false;
+
+					//Log.Message("2");
+				}
+				else
+				{
+					if (pawn?.needs?.TryGetNeed<Need_Blood>() is Need_Blood need && need.Starving)
+					{
 						__result = false;
-						result = false;
-					} else {
-						bool flag3 = !pawn.Awake();
-						if (flag3) {
+						resultBool = false;
+
+						//Log.Message("3");
+					}
+					else
+					{
+						if (!pawn.Awake())
+						{
 							__result = false;
-							result = false;
-						} else {
-							bool flag4 = pawn.health.hediffSet.BleedRateTotal <= 0f;
-							if (flag4) {
-								bool flag5 = HealthAIUtility.ShouldSeekMedicalRest(pawn);
-								if (flag5) {
+							resultBool = false;
+
+							//Log.Message("4");
+						}
+						else
+						{
+							if (pawn?.health?.hediffSet?.BleedRateTotal <= 0f)
+							{
+								if (HealthAIUtility.ShouldSeekMedicalRest(pawn))
+								{
 									Pawn_TimetableTracker timetable = pawn.timetable;
-									bool flag6 = ((timetable != null) ? timetable.CurrentAssignment : null) != TimeAssignmentDefOf.Meditate;
-									if (flag6) {
+									if (((timetable != null) ? timetable.CurrentAssignment : null) != TimeAssignmentDefOf.Meditate)
+									{
 										__result = false;
-										return false;
+										resultBool = false;
+										//Log.Message("5");
 									}
 								}
-								bool flag7 = !HealthAIUtility.ShouldSeekMedicalRestUrgent(pawn);
-								if (flag7) {
+								if (!HealthAIUtility.ShouldSeekMedicalRestUrgent(pawn))
+								{
 									__result = true;
-									return false;
+									resultBool = false;
+
+									//Log.Message("6");
 								}
 							}
 							__result = false;
-							result = false;
+							resultBool = false;
+
+							//Log.Message("7");
 						}
 					}
 				}
-			} else {
-				result = true;
 			}
-			return result;
+
+			//Log.Message("8");
+			return resultBool;
 		}
 	}
 }

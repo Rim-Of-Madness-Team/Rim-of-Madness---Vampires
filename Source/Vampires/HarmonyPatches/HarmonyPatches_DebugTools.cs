@@ -23,7 +23,7 @@ namespace Vampire
         {
             if (pawn != null)
             {
-                if (!pawn.IsVampire())
+                if (!pawn.IsVampire(false))
                 {
                     pawn.health.AddHediff(VampDefOf.ROM_Vampirism, null, null);
                     pawn.Drawer.Notify_DebugAffected();
@@ -40,8 +40,9 @@ namespace Vampire
             if (pawn != null)
             {
                 //pawn.health.AddHediff(VampDefOf.ROM_Vampirism, null, null);
-                Find.WindowStack.Add(new Dialog_DebugOptionListLister(Options_Bloodlines(pawn)));
-                //DebugTools.curTool = null;
+                Find.WindowStack.Add(new Dialog_VampireCharacterSetup(pawn, false, true));
+                //Find.WindowStack.Add(new Dialog_DebugOptionListLister(Options_Bloodlines(pawn)));
+                DebugTools.curTool = null;
             }
         }
 
@@ -49,26 +50,7 @@ namespace Vampire
         [DebugAction("Vampirism", "Remove Vampirism", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap)]
         public static void DebugCommand_RemoveVampirism(Pawn pawn)
         {
-            if (pawn != null)
-            {
-                if (pawn.IsVampire())
-                {
-                    if (pawn.health.hediffSet.GetFirstHediffOfDef(VampDefOf.ROM_Vampirism) is HediffVampirism vampirism)
-                    {
-                        pawn.health.RemoveHediff(vampirism);
-                    }
-                    if (pawn?.health?.hediffSet?.GetHediffs<Hediff_AddedPart>()?.First() is Hediff_AddedPart_Fangs fangs)
-                    {
-                        BodyPartRecord rec = fangs.Part;
-                        pawn.health.RemoveHediff(fangs);
-                        pawn.health.RestorePart(rec);
-                    }
-                    pawn.Drawer.Notify_DebugAffected();
-                    MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, pawn.LabelShort + " is no longer a vampire");
-                }
-                else
-                    Messages.Message(pawn.LabelCap + " is already a vampire.", MessageTypeDefOf.RejectInput);
-            }
+            VampireUtility.RemoveVampirism(pawn, true, true);
         }
 
 
@@ -141,7 +123,8 @@ namespace Vampire
             {
                 list.Add(new DebugMenuOption(current.LabelCap, DebugMenuOptionMode.Action, delegate
                 {
-                    Find.WindowStack.Add(new Dialog_DebugOptionListLister(Options_Generation(p, current)));
+                    Find.WindowStack.Add(new Dialog_DebugOptionListLister(Options_Generation
+                        (p, current)));
 
                 }));
             }

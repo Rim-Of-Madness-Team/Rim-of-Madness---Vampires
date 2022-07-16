@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
 using RimWorld;
@@ -22,6 +23,44 @@ namespace Vampire
 
         public static WorldComponent_VampireSettings Get => Find.World.GetComponent<WorldComponent_VampireSettings>();
 
+        public static bool IsScenPartLongerNightsLoaded()
+        {
+            if (Get.scenPartLongerNightsFirstCheck == false)
+            {
+                Get.scenPartLongerNightsFirstCheck = true;
+                if (Find.Scenario?.AllParts?.FirstOrDefault(x => x.def.scenPartClass == typeof(ScenPart_LongerNights)) is
+                        ScenPart_LongerNights p)
+                {
+                    Get.scenPartLongerNightsLength = p.nightsLength;
+                    Get.scenPartLongerNights = true;
+                }
+            }
+            return Get.scenPartLongerNights;
+        }
+
+        public static int GetBloodPointOverride(ThingDef def)
+        {
+            //Initial GetBloodPoints check
+            if (Get.bloodPointRulesFirstCheck == false)
+            {
+                Get.bloodPointRulesFirstCheck = true;
+                Get.bloodPointRules = new Dictionary<ThingDef, int>();
+                if (DefDatabase<BloodPointCountRules>.GetNamedSilentFail("BloodPointCountRules") is BloodPointCountRules r)
+                {
+                    foreach (BloodPointCountRule rule in r.rules)
+                    {
+                        if (ThingDef.Named(rule.def) is ThingDef t)
+                            Get.bloodPointRules.Add(t, rule.blood);
+                    }
+                }
+            }
+
+            //Use the BloodPointCountRules
+            if (Get.bloodPointRules.ContainsKey(def) == true)
+                return Get.bloodPointRules[def];
+            
+            return -1;
+        }
     }
 
     public enum GameMode
@@ -30,5 +69,10 @@ namespace Vampire
         EventsOnly = 1,
         Standard = 2,
         Custom = 3
+    }
+    public enum AIMode
+    {
+        Enabled = 1,
+        Disabled = 0
     }
 }

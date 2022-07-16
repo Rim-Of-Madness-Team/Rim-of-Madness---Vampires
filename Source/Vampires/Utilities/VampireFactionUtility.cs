@@ -62,12 +62,25 @@ namespace Vampire
             return false;
         }
 
-/*        public static BloodlineDef GetAppropriateBloodline(this Faction fac)
+
+        /// <summary>
+        /// Returns number of vampires in faction.
+        /// </summary>
+        public static int GetVampiresInFactionCount(Faction faction)
         {
-            if (fac?.def?.defName == "ROMV_Sabbat")
+            if (faction == null)
+                return 0;
+
+            int num = 0;
+            using (List<Pawn>.Enumerator enumerator = PawnsFinder.AllMaps_SpawnedPawnsInFaction(faction).GetEnumerator())
             {
-                
+                while (enumerator.MoveNext())
+                {
+                    if (enumerator.Current.IsVampire(true))
+                        num++;
+                }
             }
-        }*/
+            return num;
+        }
     }
 }

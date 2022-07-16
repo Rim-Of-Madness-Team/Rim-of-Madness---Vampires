@@ -4,6 +4,7 @@ using System.Linq;
 using RimWorld;
 using Verse;
 using Verse.AI;
+using static Vampire.VampireTracker;
 
 namespace Vampire
 {
@@ -15,7 +16,7 @@ namespace Vampire
         
         public static Dictionary<Pawn, int> LastCheckedHashTable = new Dictionary<Pawn, int>();
         //Simple table to prevent overchecking.
-        
+
         /// <summary>
         /*
             No overriding path is made if...
@@ -41,20 +42,26 @@ namespace Vampire
         ///</summary>
         /// <param name="pawn"></param>
         /// <returns></returns>
-        public static Job GetSunlightPathJob(Pawn pawn)
+        public static Job GetSunlightPathJob(Pawn pawn, bool inDanger = false)
         {
-            if (pawn.IsVampire() && pawn.VampComp() is CompVampire vampComp)
+            if (VampireSettings.Get.aiToggle && pawn.IsVampire(true))
             {
+                if (VampireTracker.GetSunlightPolicy(pawn) == SunlightPolicy.NoAI)
+                    return null;
+
+                Job surviveJob;
+
+                if (inDanger)
+                    if (TryGoingToSafePoint(pawn, out surviveJob))
+                        return surviveJob;
+
                 if (pawn.Drafted)
                     return null;
 //                if (pawn.pather != null && pawn.pather.Destination != null && pawn.pather.Destination.IsSunlightSafeFor(pawn))
 //                    return null;
-                if (vampComp.CurrentSunlightPolicy == SunlightPolicy.NoAI)
-                    return null;
                 
                 if (pawn.GetRoom() is Room room && room.PsychologicallyOutdoors)
                 {
-                    Job surviveJob;
                     SunlightDanger curDanger = DetermineSunlightDangerFor(pawn);
                     //if (Find.TickManager.TicksGame % 100 == 0)
                         //Log.Message(curDanger.ToString());
@@ -279,7 +286,7 @@ namespace Vampire
         {
             if (job != null)
             {
-                if (Find.TickManager.TicksGame % 100 == 0)
+                if (Find.TickManager.TicksGame % 250 == 0)
                 {
                     visibleMapHasRoof = (Find.CurrentMap is Map m && m.AllCells.Any(x => x.Roofed(m)));
                 }
@@ -369,17 +376,8 @@ namespace Vampire
                 }
                 return true;
             }
-       
-            PawnPath path = pawn.MapHeld.pathFinder.FindPath(pawn.PositionHeld, dest, pawn);
-            IntVec3 curVec;
-            int cellsInSunlight = 0;
-            while (path.NodesLeftCount > 1)
-            {
-                curVec = path.ConsumeNextNode();
-                if (!curVec.Roofed(pawn.MapHeld))
-                    cellsInSunlight++;
-            }
-            path.Dispose();
+ 
+            int cellsInSunlight = (int)IntVec3Utility.DistanceTo(pawn.PositionHeld, dest);
             if (cellsInSunlight > 0)
             {
                 int sunExpTicks = 0;

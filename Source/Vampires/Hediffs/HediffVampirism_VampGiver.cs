@@ -28,7 +28,7 @@ namespace Vampire
             set { generation = value; }
         }
 
-        public override string LabelInBrackets => "ROMV_HI_Generation".Translate(HediffVampirism.AddOrdinal(Generation));
+        public override string LabelInBrackets => "ROMV_HI_Generation".Translate(VampireStringUtility.AddOrdinal(Generation));
 
         public override string TipStringExtra
         {

@@ -100,7 +100,7 @@ namespace Vampire
             if (p?.Map?.GetComponent<MapComponent_HiddenTracker>()?.toRemoveCharacters?.Contains(p) ?? false)
             {
                 __instance.graphics.nakedGraphic = null;
-                if (p.IsVampire() && p.VampComp() is CompVampire vampCompy)
+                if (p.IsVampire(true) && p.VampComp() is CompVampire vampCompy)
                     vampCompy.atDirty = true;
                 p?.Map?.GetComponent<MapComponent_HiddenTracker>()?.toRemoveCharacters.Remove(p);
                 //return false;
@@ -192,7 +192,7 @@ namespace Vampire
         public static bool get_SkinColor_Vamp(Pawn_StoryTracker __instance, ref Color __result)
         {
             Pawn p = Traverse.Create(__instance).Field("pawn").GetValue<Pawn>();
-            if (p.IsVampire())
+            if (p.IsVampire(true))
             {
                 __result = VampireSkinColors.GetVampireSkinColor(p,
                     Traverse.Create(__instance).Field("melanin").GetValue<float>());
@@ -290,7 +290,7 @@ namespace Vampire
         public static bool Vamp_NoBreathingMote(PawnBreathMoteMaker __instance)
         {
             Pawn pawn = (Pawn)AccessTools.Field(typeof(PawnBreathMoteMaker), "pawn").GetValue(__instance);
-            if (pawn.IsVampire())
+            if (pawn.IsVampire(true))
             {
                 return false;
             }
@@ -302,7 +302,7 @@ namespace Vampire
         public static bool Vamp_MatsBodyBaseAt(PawnGraphicSet __instance, Rot4 facing, RotDrawMode bodyCondition, bool drawClothes, ref List<Material> __result)
         {
             if (__instance.nakedGraphic != null) return true;
-            if (__instance.pawn.IsVampire() && __instance?.pawn?.VampComp()?.CurrentForm != null)
+            if (__instance.pawn.IsVampire(true) && __instance?.pawn?.VampComp()?.CurrentForm != null)
             {
                 __instance.nakedGraphic = __instance.pawn.VampComp().CurrentForm.bodyGraphicData.Graphic;
                 return true;

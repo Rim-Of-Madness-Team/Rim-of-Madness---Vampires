@@ -8,6 +8,7 @@ using RimWorld;
 using UnityEngine;
 using Verse;
 using Verse.AI;
+using static Vampire.VampireTracker;
 
 namespace Vampire
 {
@@ -19,9 +20,11 @@ namespace Vampire
             //////////////////////////////////////////////////////////////////////////////
             //The wander handler now makes vampires wander indoors (for their safety).
             //            harmony.Patch(AccessTools.Method(typeof(RimWorld.RCellFinder), "CanWanderToCell"), null,
-            //                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_DontWanderStupid)));            
-            harmony.Patch(AccessTools.Method(typeof(PawnUtility), "KnownDangerAt"), null,
-            new HarmonyMethod(typeof(HarmonyPatches), nameof(KnownDangerAt_Vamp)));
+            //                new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_DontWanderStupid)));
+            //                
+            //Known Danger At causes large issues
+            //harmony.Patch(AccessTools.Method(typeof(PawnUtility), "KnownDangerAt"), null,
+            //new HarmonyMethod(typeof(HarmonyPatches), nameof(KnownDangerAt_Vamp)));
             //Log.Message("07");
             harmony.Patch(
                 AccessTools.Method(typeof(JoyUtility), "EnjoyableOutsideNow",
@@ -55,11 +58,17 @@ namespace Vampire
         // Verse.ReachabilityUtility
         public static void CanReach_Vampire(ref bool __result, Pawn pawn, LocalTargetInfo dest, PathEndMode peMode, Danger maxDanger, bool canBashDoors = false, bool canBashFences = false, TraverseMode mode = TraverseMode.ByPawn)
         {
-            if (!(__result && pawn.IsVampire())) 
+            if (VampireSettings.Get.aiToggle == false)
+                return;
+
+            if (!(__result && pawn.IsVampire(true))) 
+                return;
+
+            if (VampireTracker.GetSunlightPolicy(pawn) == SunlightPolicy.NoAI)
                 return;
 
             var inBeastMentalState = pawn?.MentalStateDef == DefDatabase<MentalStateDef>.GetNamed("ROMV_VampireBeast");
-            var inRestrictedSunlightAIMode = pawn?.VampComp()?.CurrentSunlightPolicy == SunlightPolicy.Restricted;
+            var inRestrictedSunlightAIMode = VampireTracker.GetSunlightPolicy(pawn) == SunlightPolicy.Restricted;
             var isDaylight = VampireUtility.IsDaylight(pawn);
             var isPlayerCharacter = pawn?.Faction == Faction.OfPlayerSilentFail;
             var isNotDrafted = !pawn?.Drafted ?? false;
@@ -71,7 +80,7 @@ namespace Vampire
         //JobGiver_GetRest 
         public static void FindGroundSleepSpotFor_Vampire(Pawn pawn, ref IntVec3 __result)
         {
-            if (pawn.IsVampire() && VampireUtility.IsDaylight(pawn))
+            if (pawn.IsVampire(true) && VampireUtility.IsDaylight(pawn))
             {
                 Map map = pawn.Map;
                 for (int i = 0; i < 2; i++)
@@ -93,7 +102,7 @@ namespace Vampire
         // RimWorld.JoyUtility
         public static void EnjoyableOutsideNow_Vampire(Pawn pawn, ref bool __result, StringBuilder outFailReason = null)
         {
-            if (pawn.IsVampire() && pawn.IsSunRisingOrDaylight())
+            if (pawn.IsVampire(true) && pawn.IsSunRisingOrDaylight())
             {
                 __result = false;
             }
@@ -102,7 +111,7 @@ namespace Vampire
         // RimWorld.PawnUtility
         public static void KnownDangerAt_Vamp(IntVec3 c, Pawn forPawn, ref bool __result)
         {
-            if (forPawn.IsVampire() && forPawn.MapHeld != null && forPawn.IsSunRisingOrDaylight() && !c.Roofed(forPawn.MapHeld))
+            if (forPawn.MapHeld != null && forPawn.IsVampire(true) && forPawn.InMentalState && forPawn.IsSunRisingOrDaylight() && !c.Roofed(forPawn.MapHeld))
             {
                 __result = true;
                 return;
@@ -111,7 +120,7 @@ namespace Vampire
 
         //        public static void Vamp_DontWanderStupid(IntVec3 c, Pawn pawn, IntVec3 root, Func<Pawn, IntVec3, bool> validator, int tryIndex, Danger maxDanger, ref bool __result)
         //        {
-        //            if (__result && pawn != null && pawn.IsVampire() && pawn.Spawned && !c.Roofed(pawn.Map) &&
+        //            if (__result && pawn != null && pawn.IsVampire(true) && pawn.Spawned && !c.Roofed(pawn.Map) &&
         //                pawn.Map != null && pawn.IsSunRising())
         //                __result = false;
         //        }
@@ -120,7 +129,7 @@ namespace Vampire
 
         public static bool TryGiveJob_DrugGiver_Vampire(Pawn pawn, ref Job __result)
         {
-            if (pawn.IsVampire())
+            if (pawn.IsVampire(true))
             {
                 __result = null;
                 return false;
@@ -132,8 +141,15 @@ namespace Vampire
         // RimWorld.ForbidUtility
         public static void Vamp_IsForbidden(IntVec3 c, Pawn pawn, ref bool __result)
         {
-            if (pawn.IsVampire() &&
-                (pawn.VampComp().CurrentSunlightPolicy != SunlightPolicy.NoAI && VampireUtility.IsDaylight(pawn)) &&
+            if (pawn?.MapHeld == null) return;
+
+            if (
+                pawn.IsVampire(true) &&
+                (
+                VampireSettings.Get.aiToggle == true &&
+                VampireTracker.GetSunlightPolicy(pawn) != SunlightPolicy.NoAI &&
+                VampireUtility.IsDaylight(pawn)
+                ) &&
                 !c.Roofed(pawn.Map))
                 __result = true;
         }

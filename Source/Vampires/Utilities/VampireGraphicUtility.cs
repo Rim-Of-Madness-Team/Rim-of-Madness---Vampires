@@ -12,6 +12,23 @@ namespace Vampire
     public static class VampireGraphicUtility
     {
 
+
+        // Token: 0x040039BC RID: 14780
+        public static readonly Color SheetColorNormal = new Color(0.6313726f, 0.8352941f, 0.7058824f);
+        // Token: 0x040039BD RID: 14781
+        public static readonly Color SheetColorRoyal = new Color(0.67058825f, 0.9137255f, 0.74509805f);
+        // Token: 0x040039BE RID: 14782
+        public static readonly Color SheetColorForPrisoner = new Color(1f, 0.7176471f, 0.12941177f);
+        // Token: 0x040039BF RID: 14783
+        public static readonly Color SheetColorMedical = new Color(0.3882353f, 0.62352943f, 0.8862745f);
+        // Token: 0x040039C0 RID: 14784
+        public static readonly Color SheetColorMedicalForPrisoner = new Color(0.654902f, 0.3764706f, 0.15294118f);
+        // Token: 0x040039C1 RID: 14785
+        public static readonly Color SheetColorForSlave = new Color32(252, 244, 3, byte.MaxValue);
+        // Token: 0x040039C2 RID: 14786
+        public static readonly Color SheetColorMedicalForSlave = new Color32(153, 148, 0, byte.MaxValue);
+
+
         public static Graphic invisibleForm = null;
 
 

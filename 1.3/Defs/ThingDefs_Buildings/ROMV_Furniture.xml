@@ -453,10 +453,9 @@
     <statBases>
       <WorkToBuild>0</WorkToBuild>
       <Beauty>0</Beauty>
-      <BedRestEffectiveness>0.85</BedRestEffectiveness>
-      <Comfort>0.70</Comfort>
+      <BedRestEffectiveness>0.9</BedRestEffectiveness>
+      <Comfort>0.75</Comfort>
       <ImmunityGainSpeedFactor>1.0</ImmunityGainSpeedFactor>
-	  <SurgerySuccessChanceFactor>1</SurgerySuccessChanceFactor>	  
     </statBases>
 		<scatterableOnMapGen>false</scatterableOnMapGen>
     <useHitPoints>False</useHitPoints>

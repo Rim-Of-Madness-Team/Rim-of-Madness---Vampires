@@ -240,7 +240,7 @@ namespace Vampire
         // Verse.Hediff_Injury
         public static void get_VampBleedRate(Hediff_Injury __instance, ref float __result)
         {
-            if (__instance.pawn is Pawn p && p.IsVampire())
+            if (__instance.pawn is Pawn p && p.IsVampire(true))
             {
                 __result = 0f;
             }
@@ -263,7 +263,7 @@ namespace Vampire
         // Verse.Verb_Shoot
         public static bool Vamp_TryCastShot(Verb_Shoot __instance, ref bool __result)
         {
-            if (__instance?.CasterPawn is Pawn p && p.IsVampire())
+            if (__instance?.CasterPawn is Pawn p && p.IsVampire(true))
             {
                 if (__instance.CasterPawn.health.hediffSet.hediffs.FirstOrDefault(x =>
                         x.TryGetComp<HediffComp_AnimalForm>() != null) is HediffWithComps ht &&

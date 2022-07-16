@@ -34,8 +34,8 @@ namespace Vampire
             if (!initiator.IsColonist || !recipient.IsColonist) return 0f;
 
             //The initiator must be a vampire.
-            if (!initiator.IsVampire()) return 0f;
-            if (!recipient.IsGhoul() && !recipient.IsVampire()) return 0f;
+            if (!initiator.IsVampire(true)) return 0f;
+            if (!recipient.IsGhoul() && !recipient.IsVampire(true)) return 0f;
 
             //If they are sleeping, don't do this.
             if (initiator.jobs.curDriver.asleep) return 0f;

@@ -73,7 +73,7 @@ namespace Vampire
         // RimWorld.Dialog_FormCaravan
         public static void CheckForErrors_Vampires(List<Pawn> pawns, ref bool __result)
         {
-            if (pawns.Any(x => x.IsVampire() && pawns.Any(y => ((y?.RaceProps?.Humanlike ?? false) && !y.IsVampire()))))
+            if (pawns.Any(x => x.IsVampire(true) && pawns.Any(y => ((y?.RaceProps?.Humanlike ?? false) && !y.IsVampire(true)))))
             {
                 Messages.Message("ROMV_Caravan_WarningMixedWithVampires".Translate(), MessageTypeDefOf.RejectInput);
                 __result = false;
@@ -84,8 +84,8 @@ namespace Vampire
         //Caravan
         public static bool get_Resting_Vampires(Caravan __instance, ref bool __result)
         {
-            int countNonVampHumanoids = __instance.PawnsListForReading.Count(x => !x.NonHumanlikeOrWildMan() && !x.IsVampire());
-            int countVampHumanoids = __instance.PawnsListForReading.Count(x => !x.NonHumanlikeOrWildMan() && x.IsVampire());
+            int countNonVampHumanoids = __instance.PawnsListForReading.Count(x => !x.NonHumanlikeOrWildMan() && !x.IsVampire(true));
+            int countVampHumanoids = __instance.PawnsListForReading.Count(x => !x.NonHumanlikeOrWildMan() && x.IsVampire(true));
 
             //In a mixed caravan, pawns can travel during the day.
             if (countNonVampHumanoids >= countVampHumanoids)
@@ -111,8 +111,8 @@ namespace Vampire
             {
                 caravanTransferrables = new List<TransferableOneWay>();
                 caravanTransferrables.AddRange(transferables.FindAll(x =>
-                    x.HasAnyThing && x.AnyThing is Pawn y && y.IsVampire()));
-                transferables.RemoveAll(x => x.HasAnyThing && x.AnyThing is Pawn y && y.IsVampire());
+                    x.HasAnyThing && x.AnyThing is Pawn y && y.IsVampire(true)));
+                transferables.RemoveAll(x => x.HasAnyThing && x.AnyThing is Pawn y && y.IsVampire(true));
             }
         }
 
@@ -141,8 +141,8 @@ namespace Vampire
             if (!pawns.NullOrEmpty())
             {
                 caravanVampires = new List<Pawn>();
-                caravanVampires.AddRange(pawns.FindAll(x => x.IsVampire()));
-                pawns.RemoveAll(x => x.IsVampire());
+                caravanVampires.AddRange(pawns.FindAll(x => x.IsVampire(true)));
+                pawns.RemoveAll(x => x.IsVampire(true));
             }
         }
 

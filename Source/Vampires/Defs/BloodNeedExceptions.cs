@@ -8,6 +8,6 @@ namespace Vampire
     public class BloodNeedExceptions : Def
     {
         public List<string> thingClasses = null;
-        public List<ThingDef> raceThingDefs = null;
+        public List<string> raceThingDefs = null;
     }
 }

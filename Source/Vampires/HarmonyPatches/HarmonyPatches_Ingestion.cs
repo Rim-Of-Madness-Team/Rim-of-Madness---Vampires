@@ -59,7 +59,7 @@ namespace Vampire
         public static bool INeverDrink___Wine(IntVec3 center, Pawn ingester, out Thing ingestible, ref bool __result)
         {
             ingestible = null;
-            if (ingester.IsVampire())
+            if (ingester.IsVampire(true))
             {
                 __result = false;
                 return false;
@@ -72,7 +72,7 @@ namespace Vampire
         // RimWorld.FoodUtility
         public static bool Vamp_WillIngestStackCountOf(Pawn ingester, ThingDef def, ref int __result)
         {
-            if (ingester.IsVampire())
+            if (ingester.IsVampire(true))
             {
                 __result = Mathf.Min(def.ingestible.maxNumToIngestAtOnce, 1);
                 return false;
@@ -86,7 +86,7 @@ namespace Vampire
         // RimWorld.Toils_Ingest    
         public static bool VampiresDontIngestFood(Pawn ingester, TargetIndex ingestibleInd, ref Toil __result)
         {
-            if (!ingester.IsVampire())
+            if (!ingester.IsVampire(true))
                 return true;
             if (ingester.jobs.curJob.GetTarget(ingestibleInd).Thing.def.graphicData.texPath == "Things/Item/Resource/BloodWine")
                 return true;
@@ -113,7 +113,7 @@ namespace Vampire
 
         public static bool WhoNeeds___Titles(ThingDef food, Pawn p, bool allowIfStarving, ref bool __result)
         {
-            if (p.IsVampire())
+            if (p.IsVampire(true))
             {
                 __result = false;
                 return false;
@@ -126,7 +126,7 @@ namespace Vampire
         // RimWorld.FoodUtility.WillEat (Thing)
         public static bool WillEat_Nothing(Pawn p, Thing food, Pawn getter, bool careIfNotAcceptableForTitle, ref bool __result)
         {
-            if (p.IsVampire())
+            if (p.IsVampire(true))
             {
                 if (food?.TryGetComp<CompBloodItem>() is CompBloodItem c)
                 {
@@ -143,7 +143,7 @@ namespace Vampire
         // RimWorld.FoodUtility.WillEat (ThingDef)
         public static bool WillEat_NothingDef(Pawn p, ThingDef food, Pawn getter, bool careIfNotAcceptableForTitle, ref bool __result)
         {
-            if (p.IsVampire())
+            if (p.IsVampire(true))
             {
                 if (food?.GetCompProperties<CompProperties_BloodItem>() is CompProperties_BloodItem c)
                 {
@@ -162,7 +162,7 @@ namespace Vampire
         {
             IntVec3 c = IntVec3.FromVector3(clickPos);
             CompVampire selVampComp = pawn.VampComp();
-            bool pawnIsVampire = pawn.IsVampire();
+            bool pawnIsVampire = pawn.IsVampire(true);
             if (selVampComp != null && pawnIsVampire)
             {
                 //Hide food consumption from menus.
@@ -269,7 +269,7 @@ namespace Vampire
         // JobGiver_IdleJoy
         public static void Vamps_DontDoIdleDrugs(JobGiver_IdleJoy __instance, Pawn pawn, ref Job __result)
         {
-            if (pawn.IsVampire() && __result is Job j && j.def == JobDefOf.Ingest &&
+            if (pawn.IsVampire(true) && __result is Job j && j.def == JobDefOf.Ingest &&
                 j.targetA.Thing is ThingWithComps t && t.def.IsDrug && t.def.graphicData.texPath != "Things/Item/Resource/BloodWine")
                 __result = null;
         }
@@ -278,7 +278,7 @@ namespace Vampire
         public static void Vamps_DontWantGuestFood(Pawn_GuestTracker __instance, ref bool __result)
         {
             Pawn pawn = (Pawn)AccessTools.Field(typeof(Pawn_GuestTracker), "pawn").GetValue(__instance);
-            if (pawn != null && pawn.IsVampire())
+            if (pawn != null && pawn.IsVampire(true))
             {
                 __result = false;
             }

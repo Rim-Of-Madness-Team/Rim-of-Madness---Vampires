@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
 
+<!-- 7-15-22 -->
+    <!-- Character Settings Screen -->
+<ROMV_ChangeVampireSettings>Change vampire settings (bloodline, generation, etc)</ROMV_ChangeVampireSettings>
+<ROMV_VampireCharacterSettings>Vampire Character Settings</ROMV_VampireCharacterSettings>
+<ROMV_Bloodline>Bloodline</ROMV_Bloodline>
+<ROMV_ChooseBloodlineForPawn>Choose the bloodline for {0}</ROMV_ChooseBloodlineForPawn>
+<ROMV_Generation>Generation</ROMV_Generation>
+<ROMV_ChooseGenerationForPawn>Select the generation of your vampire. The lower the generation, the closer they are to the first vampire and are more powerful. Recommended starting generations between 13 through 10.</ROMV_ChooseGenerationForPawn>
+<ROMV_RandomGeneration>Random generation</ROMV_RandomGeneration>
+<ROMV_RandomGenerationDesc>If enabled and a vampire bloodline is selected, this will apply a random generation value to your vampire between {0} and {1}</ROMV_RandomGenerationDesc>
+<ROMV_NoBloodline>No bloodline</ROMV_NoBloodline>
+<ROMV_RandomBloodline>Random bloodline</ROMV_RandomBloodline>
+<ROMV_RandomBloodlineDesc>Chooses a random bloodline for your vampire</ROMV_RandomBloodlineDesc>
+<ROMV_NoBloodlineDesc>Do not give vampirism or remove vampirism if currently a vampire.</ROMV_NoBloodlineDesc>
+<ROMV_NoLongerAVampire>{0} is no longer a vampire</ROMV_NoLongerAVampire>
+<ROMV_WasNotAVampire>{0} was not a vampire</ROMV_WasNotAVampire>
+
+    <!-- Settings Screen -->
+<ROMV_VampireAIToggle>Toggle Vampire AI</ROMV_VampireAIToggle>
+<ROMV_VampireSettingsApplied>Vampire settings applied</ROMV_VampireSettingsApplied>
+<ROMV_VampireAIDisabled>Vampire AI disabled</ROMV_VampireAIDisabled>
+<ROMV_VampireAIEnabled>Vampire AI enabled</ROMV_VampireAIEnabled>
 
 <!-- 6-24-22 -->
 <ROMV_Coolant>Coolant</ROMV_Coolant>

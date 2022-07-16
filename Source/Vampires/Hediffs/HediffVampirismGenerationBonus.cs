@@ -14,7 +14,7 @@ namespace Vampire
             {
                 if (pawn.VampComp().Generation != -1)
                 {
-                    return base.LabelBase + " (" + "ROMV_HI_Generation".Translate(HediffVampirism.AddOrdinal(pawn.VampComp().Generation)) + ")";
+                    return base.LabelBase + " (" + "ROMV_HI_Generation".Translate(VampireStringUtility.AddOrdinal(pawn.VampComp().Generation)) + ")";
                 }
                 return base.LabelBase;
             }

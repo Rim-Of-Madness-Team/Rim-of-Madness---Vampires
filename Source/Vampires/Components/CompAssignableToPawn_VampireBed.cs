@@ -18,7 +18,7 @@ namespace Vampire
             {
                 if (coffin.TryGetComp<CompVampBed>() is CompVampBed vbed)
                 {
-                    if (!pawn.IsVampire() && vbed.VampiresOnly)
+                    if (!pawn.IsVampire(true) && vbed.VampiresOnly)
                         return AcceptanceReport.WasRejected;
                     return AcceptanceReport.WasAccepted;
                 }

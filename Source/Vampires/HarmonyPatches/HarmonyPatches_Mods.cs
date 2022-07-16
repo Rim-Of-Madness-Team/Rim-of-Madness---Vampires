@@ -54,7 +54,7 @@ namespace Vampire
         private static bool Vamp_NoBladderNeed(Pawn_NeedsTracker __instance, NeedDef nd, ref bool __result)
         {
             Pawn pawn = (Pawn)AccessTools.Field(typeof(Pawn_NeedsTracker), "pawn").GetValue(__instance);
-            if (pawn.IsVampire())
+            if (pawn.IsVampire(true))
             {
                 if (nd.defName == "Bladder")
                 {
@@ -74,7 +74,7 @@ namespace Vampire
 
         private static bool Vamp_NoBladderNeedDoubleUp(Pawn pawn, ref Job __result)
         {
-            if (!pawn.IsVampire()) return true;
+            if (!pawn.IsVampire(true)) return true;
             __result = null;
             return false;
         }
@@ -82,7 +82,7 @@ namespace Vampire
         // DubsBadHygiene.dubUtils
         public static void Vamp_StopThePoopStorm(Pawn pawn, ref bool __result)
         {
-            if (pawn.IsVampire())
+            if (pawn.IsVampire(true))
             {
                 __result = true;
             }
@@ -94,7 +94,7 @@ namespace Vampire
         private static void Vamp_FullBladder(Pawn_NeedsTracker __instance, ref float __result)
         {
             Pawn pawn = (Pawn)AccessTools.Field(typeof(Pawn_NeedsTracker), "pawn").GetValue(__instance);
-            if (pawn.IsVampire())
+            if (pawn.IsVampire(true))
             {
                 __result = 1.0f;
             }
@@ -104,7 +104,7 @@ namespace Vampire
         // RimWorld.ForbidUtility
         public static void Vamp_StopThePoopStorm(IntVec3 c, Pawn pawn, ref bool __result)
         {
-            if (pawn.IsVampire() && VampireUtility.IsDaylight(pawn) && !c.Roofed(pawn.Map))
+            if (pawn.IsVampire(true) && VampireUtility.IsDaylight(pawn) && !c.Roofed(pawn.Map))
                 __result = true;
         }
 

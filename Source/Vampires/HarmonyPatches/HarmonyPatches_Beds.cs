@@ -66,7 +66,7 @@ namespace Vampire
         {
             if (__instance.GetComps<CompVampBed>() is CompVampBed b)
             {
-                if (!__instance.HasAnyContents && thing is Pawn p && p.IsVampire())
+                if (!__instance.HasAnyContents && thing is Pawn p && p.IsVampire(true))
                 {
                     __result = true;
                     return false;
@@ -117,7 +117,7 @@ namespace Vampire
         {
             if (__instance.GetComps<CompVampBed>() is CompVampBed b)
             {
-                if (selPawn?.IsVampire() ?? false)
+                if (selPawn?.IsVampire(true) ?? false)
                 {
                     __result = __result.Concat(new[]
                     {
@@ -158,7 +158,7 @@ namespace Vampire
         public static bool Vamp_BedsForTheUndead(Pawn_Ownership __instance, Building_Bed newBed)
         {
             Pawn pawn = (Pawn)AccessTools.Field(typeof(Pawn_Ownership), "pawn").GetValue(__instance);
-            if (pawn != null && !pawn.IsVampire() && newBed.IsVampireBed())
+            if (pawn != null && !pawn.IsVampire(true) && newBed.IsVampireBed())
             {
                 return false;
             }
@@ -170,7 +170,7 @@ namespace Vampire
         public static void Vamp_IsValidBedFor(Thing bedThing, Pawn sleeper, Pawn traveler,
             bool checkSocialProperness, bool allowMedBedEvenIfSetToNoCare, bool ignoreOtherReservations, GuestStatus? guestStatus, ref bool __result)
         {
-            if (sleeper != null && !sleeper.IsVampire() && bedThing.IsVampireBed())
+            if (sleeper != null && !sleeper.IsVampire(true) && bedThing.IsVampireBed())
             {
                 __result = false;
             }

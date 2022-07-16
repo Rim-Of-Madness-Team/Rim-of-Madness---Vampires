@@ -73,9 +73,9 @@ namespace Vampire
                             return;
                         }
                     }
-                    foreach (ThingDef d in exceptionList.raceThingDefs)
+                    foreach (string d in exceptionList.raceThingDefs)
                     {
-                        if (p?.def == d)
+                        if (p?.def.defName == d)
                         {
                             __result = false;
                             return;
@@ -103,7 +103,7 @@ namespace Vampire
         //public class JobDriver_Vomit : JobDriver
         public static bool MakeNewToils_VampVomit(JobDriver_Vomit __instance, ref IEnumerable<Toil> __result)
         {
-            if (__instance.pawn.IsVampire())
+            if (__instance.pawn.IsVampire(true))
             {
                 Toil to = new Toil()
                 {
@@ -189,7 +189,7 @@ namespace Vampire
         //protected override Job TryGiveJob(Pawn pawn)
         public static bool INeverDrink___Juice(Pawn pawn, ref Job __result)
         {
-            if (pawn.IsVampire() && __result != null && __result.def == JobDefOf.Ingest)
+            if (pawn.IsVampire(true) && __result != null && __result.def == JobDefOf.Ingest)
             {
                 __result = null;
                 return false;

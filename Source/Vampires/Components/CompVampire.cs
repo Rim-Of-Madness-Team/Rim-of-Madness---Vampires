@@ -7,6 +7,7 @@ using RimWorld;
 using Verse;
 using AbilityUser;
 using Verse.AI;
+using static Vampire.VampireTracker;
 
 namespace Vampire
 {
@@ -19,12 +20,6 @@ namespace Vampire
         FinalDeath = 4
     }
 
-    public enum SunlightPolicy : int
-    {
-        Relaxed = 0,
-        Restricted = 1,
-        NoAI = 2
-    }
 
     public class CompVampire : CompAbilityUser
     {
@@ -44,7 +39,7 @@ namespace Vampire
         private int xp = 0;
         private int abilityPoints = 0;
         private TransformationDef currentForm = null;
-        private SunlightPolicy curSunlightPolicy = SunlightPolicy.Restricted;
+        private SunlightPolicy curSunlightPolicy = SunlightPolicy.Restricted; //This is dummy code no longer used. Kept for save file purposes.
 
         public int ticksToLearnXP = -1;
         private int vampLastHomeCheck = -1;
@@ -66,11 +61,11 @@ namespace Vampire
             set => ghouls = value;
         }
 
-        public SunlightPolicy CurrentSunlightPolicy
-        {
-            get => curSunlightPolicy;
-            set => curSunlightPolicy = value;
-        }
+        //public SunlightPolicy CurrentSunlightPolicy
+        //{
+        //    get => curSunlightPolicy;
+        //    set => curSunlightPolicy = value;
+        //}
 
         public int VampLastHomeCheck
         {
@@ -323,7 +318,7 @@ namespace Vampire
 
         public void Notify_UpdateAbilities()
         {
-            if (!AbilityUser.IsVampire() && !AbilityUser.IsGhoul())
+            if (!AbilityUser.IsVampire(false) && !AbilityUser.IsGhoul())
                 return;
 
             //Disciplines Skill Sheet
@@ -408,7 +403,7 @@ namespace Vampire
                 newDomitor = VampireGen.GenerateVampire(Rand.Range(7, 13), VampireUtility.RandBloodline, null, null);
 
             //The domitor must be a vampire. The ghoul must not be a vampire.
-            if (!newDomitor.IsVampire() || this.Pawn.IsVampire())
+            if (!newDomitor.IsVampire(false) || this.Pawn.IsVampire(false))
                 return;
 
             //The ghoul cannot already be a ghoul.
@@ -440,7 +435,7 @@ namespace Vampire
         /// <param name="showMessages"></param>
         public void AdjustBondWithRegnant(Pawn regnant, int value, bool showMessages = true)
         {
-            if (!regnant.IsVampire())
+            if (!regnant.IsVampire(false))
                 return;
             if (this.thrallData == null && value < 0)
                 return;
@@ -465,6 +460,7 @@ namespace Vampire
         public void InitializeVampirism(Pawn newSire, BloodlineDef newBloodline = null, int newGeneration = -1,
             bool firstVampire = false)
         {
+
             //Log.Message("Init");
             //Log.Message($"Initialised vampirism ({Pawn?.Name} gen {newGeneration} blood {newBloodline})", true);
             VampireGen.RemoveMortalHediffs(AbilityUser);
@@ -502,6 +498,16 @@ namespace Vampire
                 this.AbilityUser.Faction != Find.FactionManager.FirstFactionOfDef(VampDefOf.ROMV_LegendaryVampires))
                 this.Blood.CurBloodPoints = this.Blood.MaxBloodPoints;
 
+            VampireTracker.AddVampire(AbilityUser);
+
+
+            if (DefDatabase<HistoryEventDef>.GetNamedSilentFail("ROMV_NewVampireColonist") is HistoryEventDef def)
+            {
+                Find.HistoryEventsManager.RecordEvent(
+                    new HistoryEvent(
+                        def, AbilityUser.Named(HistoryEventArgsNames.Doer)
+                    ), true);
+            }
 
             Find.World.GetComponent<WorldComponent_VampireTracker>().AddVampire(AbilityUser, newSire, bloodline, generation, AbilityUser.ageTracker.AgeBiologicalYearsFloat);
         }
@@ -561,18 +567,22 @@ namespace Vampire
 
         public void SunlightWatcherTick()
         {
-            if (Find.TickManager.TicksGame % 60 == 0)
+
+            if (VampireSettings.Get.aiToggle && Find.TickManager.TicksGame % 250 == 0 && 
+                  VampireTracker.GetSunlightPolicy(Pawn) != SunlightPolicy.NoAI)
             {
                 try
                 {
                     //Log.Message("SunlightWatcher");
                     Pawn p = Pawn;
+                    if (p.IsAlreadyDoingSunlightPathJob())
+                        return;
+
                     Map m = p.MapHeld;
                     IntVec3 i = p.PositionHeld;
                     if (p.ParentHolder.IsEnclosingContainer())
                         return;
-                    if (p.IsAlreadyDoingSunlightPathJob())
-                        return;
+
                     if (p.Spawned && VampireUtility.IsDaylight(m) && !i.Roofed(m))
                     {
                         ThinkNode_JobGiver thinkNodeJobGiver =
@@ -656,7 +666,7 @@ namespace Vampire
                 if (AbilityData.AllPowers[i] is VampAbility p && p.ShouldShowGizmo() &&
                     p.AbilityDef.MainVerb.hasStandardCommand && p.AbilityDef.bloodCost != 0) yield return p.GetGizmo();
             }
-            if (AbilityUser.Downed && (AbilityUser.IsVampire() || AbilityUser.IsGhoul()))
+            if (AbilityUser.Downed && (AbilityUser.IsVampire(false) || AbilityUser.IsGhoul()))
             {
                 if (!(this.AbilityUser?.health?.summaryHealth?.SummaryHealthPercent > 0.99f))
                 {
@@ -727,7 +737,7 @@ namespace Vampire
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
                 AbilityData.Powers.Clear();
-                if ((AbilityUser.IsVampire() || AbilityUser.IsGhoul()) && (AbilityData.Powers == null || AbilityData.Powers.NullOrEmpty()))
+                if ((AbilityUser.IsVampire(false) || AbilityUser.IsGhoul()) && (AbilityData.Powers == null || AbilityData.Powers.NullOrEmpty()))
                 {
                     Notify_UpdateAbilities();
                 }

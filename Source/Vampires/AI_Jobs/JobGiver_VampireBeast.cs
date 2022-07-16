@@ -99,7 +99,7 @@ namespace Vampire
 
         private Pawn FindPawnTarget(Pawn pawn)
         {
-            return (Pawn)AttackTargetFinder.BestAttackTarget(pawn, TargetScanFlags.NeedReachable, (Thing x) => x is Pawn p && p.Spawned && !p.Dead && p?.BloodNeed()?.CurBloodPoints > 0 && !p.IsVampire() && (p.PositionHeld.Roofed(p.Map) || !VampireUtility.IsDaylight(p)), 0f, 9999f, default(IntVec3), 3.40282347E+38f, true);
+            return (Pawn)AttackTargetFinder.BestAttackTarget(pawn, TargetScanFlags.NeedReachable, (Thing x) => x is Pawn p && p.Spawned && !p.Dead && p?.BloodNeed()?.CurBloodPoints > 0 && !p.IsVampire(true) && (p.PositionHeld.Roofed(p.Map) || !VampireUtility.IsDaylight(p)), 0f, 9999f, default(IntVec3), 3.40282347E+38f, true);
         }
 
         private Building FindTurretTarget(Pawn pawn)

@@ -125,6 +125,16 @@ namespace Vampire
         public static BloodlineDef ROMV_ClanVentrue;
         public static BloodlineDef ROMV_ClanGangrel;
 
+        public static HediffDef ROM_Generations_Caine; //Gen 1
+        public static HediffDef ROM_Generations_TheThree; //Gen 2
+        public static HediffDef ROM_Generations_Antediluvian; //Gen 3
+        public static HediffDef ROM_Generations_Methuselah; //Gen 4 - 5
+        public static HediffDef ROM_Generations_Elder; //Gen 6-8
+        public static HediffDef ROM_Generations_Ancillae; //Gen 9-10
+        public static HediffDef ROM_Generations_Neonate; //Gen 11-13
+        public static HediffDef ROM_Generations_Thinblood; //Gen 14 and up
+
+
         public static JobDef ROMV_Feed;
         public static JobDef ROMV_Sip;
         public static JobDef ROMV_FeedAndReturn;

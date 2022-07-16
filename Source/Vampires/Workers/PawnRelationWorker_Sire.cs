@@ -7,7 +7,7 @@ namespace Vampire
     {
         public override bool InRelation(Pawn me, Pawn other)
         {
-            if (me.IsVampire() && other.IsVampire())
+            if (me.IsVampire(true) && other.IsVampire(true))
             {
                 CompVampire compVamp = other.GetComp<CompVampire>();
                 return me.IsChildeOf(other);

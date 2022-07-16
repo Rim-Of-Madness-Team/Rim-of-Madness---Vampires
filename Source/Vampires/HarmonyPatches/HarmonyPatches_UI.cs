@@ -41,7 +41,7 @@ namespace Vampire
         public static void Vamp_DrawCharacterCard(Rect rect, Pawn pawn, Action randomizeCallback,
             Rect creationRect = default(Rect))
         {
-            if (pawn.IsVampire() || pawn.IsGhoul())
+            if (pawn.IsVampire(true) || pawn.IsGhoul())
             {
                 bool flag = randomizeCallback != null;
                 if (!flag && pawn.IsColonist && !pawn.health.Dead)
@@ -68,7 +68,7 @@ namespace Vampire
         {
             Pawn p = (Pawn)AccessTools.Method(typeof(ITab_Pawn_Character), "get_PawnToShowInfoAbout")
                 .Invoke(__instance, null);
-            if (p.IsVampire() || p.IsGhoul())
+            if (p.IsVampire(true) || p.IsGhoul())
             {
                 Rect rect = new Rect(17f, 17f, CharacterCardUtility.BasePawnCardSize.x,
                     CharacterCardUtility.BasePawnCardSize.y);
