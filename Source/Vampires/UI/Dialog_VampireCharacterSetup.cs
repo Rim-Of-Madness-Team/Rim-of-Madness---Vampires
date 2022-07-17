@@ -107,11 +107,20 @@ namespace Vampire
                 (
                     inRect.x,
                     currentY,
-                    inRect.width,
+                    inRect.width * 0.6f,
                     30f
                 );
             Text.Font = GameFont.Tiny;
             Widgets.Label(bloodlineDescRect, "ROMV_ChooseBloodlineForPawn".Translate(vampirePawn.LabelCap));
+            //Character icon
+            Rect characterRect = new Rect
+                (
+                    inRect.width * 0.6f,
+                    currentY,
+                    inRect.width * 0.3f,
+                    30f
+                );
+            Widgets.ThingIcon(characterRect, vampirePawn, 1f, null);
             currentY = bloodlineDescRect.yMax;
             currentY += spacing;
 
@@ -221,7 +230,10 @@ namespace Vampire
                         30f
                     );
 
-                TooltipHandler.TipRegion(randomGenerationToggleRect, new TipSignal("ROMV_RandomGenerationDesc".Translate()));
+                TooltipHandler.TipRegion(randomGenerationToggleRect, new TipSignal("ROMV_RandomGenerationDesc".Translate(
+                    GetGenerationRange(chosenBloodline, randomBloodline, debugMode).min.ToString(),
+                    GetGenerationRange(chosenBloodline, randomBloodline, debugMode).max.ToString()
+                    )));
                 Widgets.CheckboxLabeled
                     (
                         randomGenerationToggleRect,
@@ -267,7 +279,7 @@ namespace Vampire
             Rect acceptButton = new Rect
                 (
                     18,
-                    currentY,
+                    (inRect.yMax - 34) - spacing,
                     90,
                     34
                 );
@@ -305,7 +317,7 @@ namespace Vampire
             Rect resetButton = new Rect
             (
                 (inRect.width * 0.333f)+ 9f,
-                currentY,
+                (inRect.yMax - 34) - spacing,
                 90,
                 34
             );
@@ -320,7 +332,7 @@ namespace Vampire
             Rect cancelButton = new Rect
             (
                 (inRect.width * 0.666f),
-                currentY,
+                (inRect.yMax - 34) - spacing,
                 90,
                 34
             );

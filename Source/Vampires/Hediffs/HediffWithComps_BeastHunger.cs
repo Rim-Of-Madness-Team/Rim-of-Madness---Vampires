@@ -9,6 +9,7 @@ namespace Vampire
         private int checkRate = 240;
         public int ticksRemaining = GenDate.TicksPerHour;
         public static MentalStateDef MentalState_VampireBeast = DefDatabase<MentalStateDef>.GetNamed("ROMV_VampireBeast");
+        private bool sentLetter = false;
 
         public override void Tick()
         {
@@ -21,6 +22,11 @@ namespace Vampire
                     if (CurStageIndex == 3 && pawn.MentalStateDef != MentalState_VampireBeast)
                     {
                         pawn.mindState.mentalStateHandler.TryStartMentalState(MentalState_VampireBeast, null, true);
+                        if (!sentLetter)
+                        {
+                            sentLetter = true;
+                            Find.LetterStack.ReceiveLetter("ROMV_TheBeast".Translate(), "ROMV_TheBeastDesc".Translate(pawn?.Label), VampDefOf.ROMV_FrenzyMessage, pawn);
+                        }
                     }
 
                     if (pB.CurLevelPercentage < 0.3f)

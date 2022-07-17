@@ -6,6 +6,12 @@ namespace Vampire
     [DefOf]
     public static class VampDefOf
     {
+        public static LetterDef ROMV_StandardMessage;
+        public static LetterDef ROMV_GoodMessage;
+        public static LetterDef ROMV_BadMessage;
+        public static LetterDef ROMV_FrenzyMessage;
+        public static LetterDef ROMV_LevelUpMessage;
+
         public static NeedDef ROMV_Blood;
 
         public static HediffDef ROM_Vampirism; //Vampires have no inner organs.

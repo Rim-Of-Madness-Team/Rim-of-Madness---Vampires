@@ -188,6 +188,7 @@
     <Compile Include="ITab_Pawn_NeedsCorpse.cs" />
     <Compile Include="ModMain.cs" />
     <Compile Include="PatchOperationModLoaded.cs" />
+    <Compile Include="UI\VampLevelUpLetter.cs" />
     <Compile Include="Utilities\VampireStringUtility.cs" />
     <Compile Include="VampireRecord.cs" />
     <Compile Include="ScenPart_GameStartNight.cs" />

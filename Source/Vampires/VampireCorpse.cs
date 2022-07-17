@@ -92,6 +92,8 @@ namespace Vampire
                                 def, InnerPawn.Named(HistoryEventArgsNames.Doer)
                             ), true);
                     }
+
+                    Find.LetterStack.ReceiveLetter("ROMV_FinalDeath".Translate(), "ROMV_FinalDeathDesc".Translate(InnerPawn.Label), VampDefOf.ROMV_BadMessage, this);
                 }
                 if (value == true && InnerPawn?.royalty is Pawn_RoyaltyTracker pRoyalty && !Diableried)
                 {
@@ -202,6 +204,7 @@ namespace Vampire
                         HealthUtility.AdjustSeverity(AbilityUser, VampDefOf.ROMV_TheBeast, 1.0f);
                         MentalStateDef MentalState_VampireBeast = DefDatabase<MentalStateDef>.GetNamed("ROMV_VampireBeast");
                         AbilityUser.mindState.mentalStateHandler.TryStartMentalState(MentalState_VampireBeast, null, true);
+                        Find.LetterStack.ReceiveLetter("ROMV_TheBeast".Translate(), "ROMV_TheBeastDesc".Translate(InnerPawn.Label), VampDefOf.ROMV_FrenzyMessage, this);
                     },
                     disabled = false
                 };

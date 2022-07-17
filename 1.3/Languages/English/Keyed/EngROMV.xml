@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
 
-<!-- 7-15-22 -->
+<!-- 7-17-22 -->
+<ROMV_TheBeast>Frenzy</ROMV_TheBeast>
+<ROMV_TheBeastDesc>{0} has lost control of their mind and has unleashed their inner beast and will not rest until they are satiated with fresh blood.</ROMV_TheBeastDesc>
+<ROMV_LevelUpShort>Level up</ROMV_LevelUpShort>
+<ROMV_NewVampire>New Vampire</ROMV_NewVampire>
+<ROMV_DiablerieSuccess>Diablerie</ROMV_DiablerieSuccess>
+<ROMV_LostGhoulPowersTitle>Powers Lost</ROMV_LostGhoulPowersTitle>
+<ROMV_FinalDeath>Final Death</ROMV_FinalDeath>
+<ROMV_FinalDeathDesc>{0} has experienced final death and their physical form has been destroyed.</ROMV_FinalDeathDesc>
+<ROMV_LevelUpMoreInfo> Open their character bio tab and select the vampire/ghoul icon to add to their disciplines.</ROMV_LevelUpMoreInfo>
+<ROMV_OpenCharacterCard>Open vampire character bio screen</ROMV_OpenCharacterCard>
+
     <!-- Character Settings Screen -->
 <ROMV_ChangeVampireSettings>Change vampire settings (bloodline, generation, etc)</ROMV_ChangeVampireSettings>
 <ROMV_VampireCharacterSettings>Vampire Character Settings</ROMV_VampireCharacterSettings>
@@ -207,7 +218,7 @@
 
 <!-- Messages -->
 <ROMV_Caravan_WarningMixedWithVampires>Load vampires in caskets first or send an all-vampire caravan.</ROMV_Caravan_WarningMixedWithVampires>
-<ROMV_EmbracedSuccessfully>{PAWN_labelShort} has become a vampire, childe of {SIRE_labelShort} of {BLOODLINE_labelCap} blood.</ROMV_EmbracedSuccessfully>
+<ROMV_EmbracedSuccessfully>{0} has become a vampire, childe of {1} of {2} blood.</ROMV_EmbracedSuccessfully>
 <ROMV_DiablerieSuccessfully>{0} has consumed {1}'s soul.</ROMV_DiablerieSuccessfully>
 <ROMV_BloodDepletedVamp>{0}'s vitae has nearly run dry. Feed soon or the beast will surface.</ROMV_BloodDepletedVamp>
 <ROMV_BloodDepleted>{0}/'s blood has run dry.</ROMV_BloodDepleted>

@@ -40,7 +40,10 @@ namespace Vampire
             if (pawn != null)
             {
                 //pawn.health.AddHediff(VampDefOf.ROM_Vampirism, null, null);
-                Find.WindowStack.Add(new Dialog_VampireCharacterSetup(pawn, false, true));
+                Find.WindowStack.Add(new Dialog_VampireCharacterSetup(pawn, false, true) 
+                {
+                    forcePause = true
+                });
                 //Find.WindowStack.Add(new Dialog_DebugOptionListLister(Options_Bloodlines(pawn)));
                 DebugTools.curTool = null;
             }

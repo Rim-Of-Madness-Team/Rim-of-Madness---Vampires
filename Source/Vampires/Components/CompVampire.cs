@@ -306,9 +306,16 @@ namespace Vampire
             Level++;
             if (sendNotification && (IsVampire || IsGhoul) && AbilityUser != null && AbilityUser.Spawned &&
                 AbilityUser.Faction == Faction.OfPlayerSilentFail)
-                Messages.Message((IsVampire) ? "ROMV_LevelUp".Translate(AbilityUser) : "ROMV_LevelUpGhoul".Translate(AbilityUser),
+            {
+                string contents = (IsVampire) ? "ROMV_LevelUp".Translate(AbilityUser) : "ROMV_LevelUpGhoul".Translate(AbilityUser);
+                string contentsLetter = ((IsVampire) ? "ROMV_LevelUp".Translate(AbilityUser) : "ROMV_LevelUpGhoul".Translate(AbilityUser)) +
+                    " " + "ROMV_LevelUpMoreInfo".Translate();
+                Messages.Message(contents,
                     new RimWorld.Planet.GlobalTargetInfo(AbilityUser),
                     DefDatabase<MessageTypeDef>.GetNamed("ROMV_VampireNotifaction"));
+                Find.LetterStack.ReceiveLetter("ROMV_LevelUpShort".Translate(), contentsLetter, VampDefOf.ROMV_LevelUpMessage,AbilityUser);
+            }
+
         }
 
         public void Notify_ResetAbilities()
@@ -612,20 +619,25 @@ namespace Vampire
         public void Notify_Embraced(CompVampire sireComp)
         {
             InitializeVampirism(sireComp.AbilityUser, sireComp.Bloodline, sireComp.Generation + 1);
-            Messages.Message("ROMV_EmbracedSuccessfully".Translate(
-                AbilityUser.Named("PAWN"),
-                sireComp.AbilityUser.Named("SIRE"),
-                sireComp.Bloodline.Named("BLOODLINE")
-            ), MessageTypeDefOf.PositiveEvent);
+            string contents = "ROMV_EmbracedSuccessfully".Translate(
+                AbilityUser.LabelShort,
+                Sire.LabelShort,
+                sireComp.Bloodline.LabelCap);
+            Messages.Message(contents, MessageTypeDefOf.SilentInput);
+            LookTargets targets = sireComp?.AbilityUser == null ? new LookTargets(AbilityUser) : new LookTargets(new List<Pawn> { AbilityUser, sireComp.AbilityUser });
+            Find.LetterStack.ReceiveLetter("ROMV_NewVampire".Translate(), contents, VampDefOf.ROMV_GoodMessage, targets);
         }
 
         public void Notify_Diablerie(CompVampire victim)
         {
-            Messages.Message("ROMV_DiablerieSuccessfully".Translate(new object[]
+            string contents = "ROMV_DiablerieSuccessfully".Translate(new object[]
             {
                 AbilityUser.LabelShort,
                 victim.AbilityUser.LabelShort
-            }), MessageTypeDefOf.PositiveEvent);
+            });
+            Messages.Message(contents, MessageTypeDefOf.SilentInput);
+            Find.LetterStack.ReceiveLetter("ROMV_DiablerieSuccess".Translate(), contents, VampDefOf.ROMV_GoodMessage, AbilityUser);
+
             Generation = Math.Min(Generation, victim.Generation);
             Souls.Add(victim.AbilityUser);
 
@@ -748,8 +760,10 @@ namespace Vampire
 
         public void Notify_DeGhouled()
         {
-            Messages.Message("ROMV_LostGhoulPowers".Translate(this.AbilityUser).AdjustedFor(this.AbilityUser), MessageTypeDefOf.NegativeEvent);
             this.ThrallData = null;
+            string contents = "ROMV_LostGhoulPowers".Translate(this.AbilityUser).AdjustedFor(this.AbilityUser);
+            Messages.Message(contents, MessageTypeDefOf.SilentInput);
+            Find.LetterStack.ReceiveLetter("ROMV_LostGhoulPowersTitle".Translate(), contents, VampDefOf.ROMV_GoodMessage, AbilityUser);
         }
     }
 }

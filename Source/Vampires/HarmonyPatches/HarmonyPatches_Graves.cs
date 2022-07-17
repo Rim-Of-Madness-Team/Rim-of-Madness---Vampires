@@ -101,6 +101,8 @@ namespace Vampire
                             DefDatabase<MentalStateDef>.GetNamed("ROMV_VampireBeast");
                         AbilityUser.mindState.mentalStateHandler.TryStartMentalState(MentalState_VampireBeast, null,
                             true);
+                        Find.LetterStack.ReceiveLetter("ROMV_TheBeast".Translate(), "ROMV_TheBeastDesc".Translate(AbilityUser.Label), VampDefOf.ROMV_FrenzyMessage, AbilityUser);
+
 
                     },
                     disabled = (AbilityUser?.BloodNeed()?.CurBloodPoints ?? 0) < 0
