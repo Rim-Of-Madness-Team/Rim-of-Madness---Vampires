@@ -145,12 +145,13 @@ namespace Vampire
                 float currentY = 0f;
                 if (!compVampire.IsGhoul)
                 {
-                    Rect rBloodlineDesc = new Rect(0f, 45f, rect.width * 0.3f, 30f);
-                    Rect rGenerationDesc = new Rect((rect.width * 0.3f) + 8f, 45f, rect.width * 0.3f, 30f);
+                    float bloodlineWidth = (compVampire.Bloodline.LabelCap + " " + "ROMV_Bloodline".Translate()).ToString().GetWidthCached();
+                    Rect rBloodlineDesc = new Rect(0f, 45f, bloodlineWidth, 30f);
+                    Rect rGenerationDesc = new Rect(bloodlineWidth, 45f, rect.width * 0.3f, 30f);
                     TooltipHandler.TipRegion(rBloodlineDesc, new TipSignal(VampireStringUtility.GetVampireTooltip(compVampire.Bloodline, compVampire.Generation)));
                     TooltipHandler.TipRegion(rGenerationDesc, new TipSignal(VampireStringUtility.GetGenerationDescription(compVampire.Generation)));
-                    Widgets.Label(rBloodlineDesc, "ROMV_Bloodline".Translate() + ": " + compVampire.Bloodline.LabelCap);
-                    Widgets.Label(rGenerationDesc, "ROMV_Generation".Translate() + ": " + compVampire.Generation);
+                    Widgets.Label(rBloodlineDesc, compVampire.Bloodline.LabelCap + " " + "ROMV_Bloodline".Translate());
+                    Widgets.Label(rGenerationDesc, ", " + VampireStringUtility.AddOrdinal(compVampire.Generation) + " " + "ROMV_Generation".Translate());
                     currentY = rGenerationDesc.yMax;
                 }
                 else
@@ -191,7 +192,7 @@ namespace Vampire
                     Widgets.DrawLineHorizontal(rect.x - 10, rectPowersLabel.yMax, rect.width - 15f);
                 //---------------------------------------------------------------------
                 float curY = rectPowersLabel.yMax;
-                var outRect = new Rect(rect.x, curY + 3f, rect.width, (rectSkills.height * 4f) + 16f);
+                var outRect = new Rect(rect.x, curY + 3f, rect.width - 16f, (rectSkills.height * 3.8f) + 16f);
                 //rectSkills.width -= 10f;
                 var viewRect = new Rect(rect.x, curY + 3f, rect.width, scrollViewHeight);//rectSkills.height * 4f);
                 float scrollViewY = 0f;
@@ -212,6 +213,7 @@ namespace Vampire
                         curY += y;
                         scrollViewY += y;
                     }
+                outRect.height = scrollViewY;
                 if (Event.current.type == EventType.Layout)
                 {
                     scrollViewHeight = scrollViewY + (ButtonSize + Padding * 2 + TextSize * 2) + 30f;

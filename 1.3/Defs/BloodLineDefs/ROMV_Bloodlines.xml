@@ -52,7 +52,7 @@
   <Vampire.BloodlineDef>
     <defName>ROMV_Caine</defName>
     <label>First Vampire</label>
-    <description>None yet</description>
+    <description>The first vampire may be a myth, however, should it prove real -- the powers and abilities of the this being would be outside of the ability of the storyteller.</description>
     <bloodlineHediff/>
     <scenarioCanAdd>false</scenarioCanAdd>
     <fangsHediff>ROMV_Fangs</fangsHediff>
@@ -76,8 +76,8 @@
 
   <Vampire.BloodlineDef>
     <defName>ROMV_TheThree</defName>
-    <label>Children of Caine</label>
-    <description>None yet</description>
+    <label>Child of the First</label>
+    <description>Supposedly destroyed in ancient history, the first embraced among the kindred from the first vampire possess unknown power.</description>
     <bloodlineHediff/>
     <scenarioCanAdd>false</scenarioCanAdd>
     <fangsHediff>ROMV_Fangs</fangsHediff>

@@ -76,6 +76,16 @@ namespace Vampire
         {
             float currentY = 0f;
 
+            //Character icon
+            Rect characterRect = new Rect
+                (
+                    inRect.x + spacing,
+                    currentY + spacing,
+                    48f,
+                    48f
+                );
+            Widgets.ThingIcon(characterRect, vampirePawn, 1f, null);
+
             //Header
             Text.Font = GameFont.Medium;
             Rect headerRect = new Rect
@@ -112,15 +122,6 @@ namespace Vampire
                 );
             Text.Font = GameFont.Tiny;
             Widgets.Label(bloodlineDescRect, "ROMV_ChooseBloodlineForPawn".Translate(vampirePawn.LabelCap));
-            //Character icon
-            Rect characterRect = new Rect
-                (
-                    inRect.width * 0.6f,
-                    currentY,
-                    inRect.width * 0.3f,
-                    30f
-                );
-            Widgets.ThingIcon(characterRect, vampirePawn, 1f, null);
             currentY = bloodlineDescRect.yMax;
             currentY += spacing;
 
@@ -298,10 +299,17 @@ namespace Vampire
                                 chosenGeneration = GetGenerationRange(chosenBloodline, randomBloodline, debugMode).RandomInRange;
                             
                             vComp.Generation = chosenGeneration;
+
+                            if (originalBloodline != null && chosenBloodline != originalBloodline)
+                            {
+                                vComp.Sheet.ResetDisciplines();
+                                vComp.Sheet.InitializeDisciplines();
+                            }
                         }
                         else
                         {
                             vComp.InitializeVampirism(null, chosenBloodline, chosenGeneration, chosenGeneration == 1);
+
                         }
                     }
                 }

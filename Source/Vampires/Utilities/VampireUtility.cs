@@ -109,7 +109,7 @@ namespace Vampire
                         pawn.health.RemoveHediff(beast);
                     }
                     VampireTracker.RemoveVampire(pawn);
-
+                        
 
 
                     pawn.Drawer.Notify_DebugAffected();

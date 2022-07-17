@@ -44,20 +44,27 @@ namespace Vampire
 
         public static bool IsVampire(Pawn pawn)
         {
-            if (!Get.vampiresLoaded)
+            try
             {
-                return pawn.IsVampire(false);
-            }
+                if (!Get.vampiresLoaded)
+                {
+                    return pawn.IsVampire(false);
+                }
 
-            if (Get?.vampireList?.Contains(pawn) == true)
-                return true;
-            return false;
+                if (Get?.vampireList?.Contains(pawn) == true)
+                    return true;
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public static void AddVampire(Pawn pawn)
         {
             Get.vampireList.Add(pawn);
-            Log.Message("Added " + pawn.Label);
+            //Log.Message("Added " + pawn.Label);
         }
         public static void RemoveVampire(Pawn pawn)
         {

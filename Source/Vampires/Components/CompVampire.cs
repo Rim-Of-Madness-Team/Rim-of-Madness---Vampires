@@ -618,7 +618,15 @@ namespace Vampire
 
         public void Notify_Embraced(CompVampire sireComp)
         {
-            InitializeVampirism(sireComp.AbilityUser, sireComp.Bloodline, sireComp.Generation + 1);
+            BloodlineDef targetBloodline = sireComp.bloodline;
+            //The first vampire has the children
+            if (sireComp.Bloodline == VampDefOf.ROMV_Caine)
+                targetBloodline = VampDefOf.ROMV_TheThree;
+            //The children have the bloodlines
+            if (sireComp.Bloodline == VampDefOf.ROMV_TheThree)
+                targetBloodline = VampireUtility.RandBloodline;
+
+            InitializeVampirism(sireComp.AbilityUser, targetBloodline, sireComp.Generation + 1);
             string contents = "ROMV_EmbracedSuccessfully".Translate(
                 AbilityUser.LabelShort,
                 Sire.LabelShort,
