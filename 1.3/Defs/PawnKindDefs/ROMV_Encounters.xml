@@ -221,9 +221,24 @@
     <defName>ROMV_FirstVampireKind</defName>
     <label>first vampire</label>
     <labelPlural>first vampires</labelPlural>
-    
     <initialWillRange>998~999</initialWillRange>
     <initialResistanceRange>998~999</initialResistanceRange>
+    <apparelRequired>
+      <li>Apparel_Pants</li>
+      <li>Apparel_BasicShirt</li>
+    </apparelRequired>
+    <itemQuality>Legendary</itemQuality>
+    <forceWeaponQuality>Legendary</forceWeaponQuality>
+    <weaponTags>
+		  <li>MedievalMeleeAdvanced</li>
+    </weaponTags>
+    <backstoryFilters>
+      <li>
+        <categories>
+          <li>ROMV_Caine</li>
+        </categories>
+      </li>
+    </backstoryFilters>
   </PawnKindDef>
   
   <PawnKindDef ParentName="ROMV_EncounterNormalBase">

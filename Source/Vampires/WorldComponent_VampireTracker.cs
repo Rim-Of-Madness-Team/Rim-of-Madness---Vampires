@@ -55,6 +55,10 @@ namespace Vampire
                 }
                 return firstVampire;
             }
+            set
+            {
+                firstVampire = value;
+            }
         }
         public List<Pawn> HigherGenVampires
         {

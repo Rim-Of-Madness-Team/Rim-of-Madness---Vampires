@@ -6,6 +6,9 @@ namespace Vampire
     [DefOf]
     public static class VampDefOf
     {
+        public static JecsTools.BackstoryDef ROMV_CaineChild;
+        public static JecsTools.BackstoryDef ROMV_CaineAdult;
+
         public static LetterDef ROMV_StandardMessage;
         public static LetterDef ROMV_GoodMessage;
         public static LetterDef ROMV_BadMessage;

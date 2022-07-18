@@ -10,8 +10,8 @@ namespace Vampire
     static partial class HarmonyPatches
     {
         // Verse.Dialog_DebugActionsMenu
-        [DebugAction("Vampirism", "Spawn Vampire (Random)", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap)]
-        public static void DebugCommand_SpawnVampire(Pawn p)
+        [DebugAction("Vampirism", "Spawn Vampire (Random)", actionType = DebugActionType.ToolMap, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        public static void DebugCommand_SpawnVampire()
         {
             Pawn randomVampire =
             VampireGen.GenerateVampire(VampireGen.RandHigherGeneration, VampireUtility.RandBloodline, null);
@@ -112,6 +112,15 @@ namespace Vampire
                         pawn.Drawer.Notify_DebugAffected();
                         MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, "+100 XP");
                 }
+        }
+
+        // Verse.Dialog_DebugActionsMenu
+        [DebugAction("Vampirism", "Spawn Caine (First Vampire)", actionType = DebugActionType.ToolMap, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        public static void DebugCommand_SpawnFirstVampire()
+        {
+            Pawn caine = VampireTracker.Get.FirstVampire;
+            GenSpawn.Spawn(caine, UI.MouseCell(), Find.CurrentMap);
+            caine.mindState.mentalStateHandler.TryStartMentalState(MentalStateDefOf.ManhunterPermanent, null, true);
         }
 
         // Verse.DebugTools_Health

@@ -139,11 +139,49 @@ namespace Vampire
             Faction faction = vampFaction != null ? vampFaction :
                               generation < 7 ? Find.FactionManager.FirstFactionOfDef(VampDefOf.ROMV_LegendaryVampires) : VampireUtility.RandVampFaction;
             
+            
+
             HarmonyPatches.VampireGenInProgress = true;
             PawnGenerationRequest request = new PawnGenerationRequest(
-                DetermineKindDef(generation), faction, PawnGenerationContext.NonPlayer,
-                -1, true, false, false, false, true, true, 20f, false, true,
-                true, false, false, false, false, false, 0, 0, null, 0, null, null, null, null, null, math, null, null);
+                kind: DetermineKindDef(generation),
+                faction: faction,
+                context: PawnGenerationContext.NonPlayer,
+                tile: -1,
+                forceGenerateNewPawn: true,
+                newborn: false,
+                allowDead: false,
+                allowDowned: false,
+                canGeneratePawnRelations: generation > 7,
+                mustBeCapableOfViolence: true,
+                colonistRelationChanceFactor: generation > 7 ? 20f : 0f,
+                forceAddFreeWarmLayerIfNeeded: false,
+                allowGay: true,
+                allowFood: false, //Why would they have it?
+                allowAddictions: false,
+                inhabitant: false,
+                certainlyBeenInCryptosleep: false,
+                forceRedressWorldPawnIfFormerColonist: false,
+                worldPawnFactionDoesntMatter: false,
+                biocodeWeaponChance: 0,
+                biocodeApparelChance: 0,
+                extraPawnForExtraRelationChance: null,
+                relationWithExtraPawnChanceFactor: 0,
+                validatorPreGear: null,
+                validatorPostGear: null,
+                forcedTraits: null,
+                prohibitedTraits: null,
+                minChanceToRedressWorldPawn: null,
+                fixedBiologicalAge: math,
+                fixedChronologicalAge: null,
+                fixedGender: null,
+                fixedMelanin: null,
+                fixedLastName: null,
+                fixedIdeo: null,
+                forceNoIdeo: false,
+                forceNoBackstory: false,
+                forbidAnyTitle: false
+            );
+
             Pawn pawn = PawnGenerator.GeneratePawn(request);
             if (DebugSettings.godMode)
             {

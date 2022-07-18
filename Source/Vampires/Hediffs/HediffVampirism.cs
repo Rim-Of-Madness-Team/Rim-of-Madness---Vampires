@@ -19,14 +19,13 @@ namespace Vampire
         public override void PostTick()
         {
             base.PostTick();
-            if (!(pawn.VampComp() is CompVampire v)) return;
+            if (!(pawn?.VampComp() is CompVampire v)) return;
             if (!initialized)
             {
                 initialized = true;
 
-                if (!firstVampire)
+                if (!firstVampire && pawn != VampireTracker.Get.FirstVampire)
                 {
-
                     if (sire == null)
                         sire = VampireRelationUtility.FindSireFor(pawn, bloodline, generation).VampComp();
                     if (generation < 0)
@@ -37,7 +36,10 @@ namespace Vampire
 
                 if (v.IsVampire && v.Sire == null)
                 {
-                    v.InitializeVampirism(sire?.AbilityUser ?? null, bloodline, generation, firstVampire);
+                    if (pawn == VampireTracker.Get.FirstVampire || firstVampire)
+                        v.InitializeVampirism(null, VampDefOf.ROMV_Caine, 1, true);
+                    else
+                        v.InitializeVampirism(sire?.AbilityUser ?? null, bloodline, generation, firstVampire);
                 }
                 pawn.Drawer.renderer.graphics.ResolveAllGraphics();
             }
