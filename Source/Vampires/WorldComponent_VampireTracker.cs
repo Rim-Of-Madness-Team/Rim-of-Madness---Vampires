@@ -42,9 +42,28 @@ namespace Vampire
         public Dictionary<Pawn, List<RoyalTitle>> tempVampireTitles = new Dictionary<Pawn, List<RoyalTitle>>();
         public Dictionary<Pawn, int> recentVampires = new Dictionary<Pawn, int>();
         private Dictionary<VampireRecord, Pawn> worldVampires = new Dictionary<VampireRecord, Pawn>();
-        public Dictionary<Pawn,SunlightPolicy> sunlightPolicies = new Dictionary<Pawn,SunlightPolicy>();
-        public HashSet<Pawn> vampireList = new HashSet<Pawn>();
+        private Dictionary<Pawn,SunlightPolicy> sunlightPolicies = new Dictionary<Pawn,SunlightPolicy>();
+        private HashSet<Pawn> vampireList = new HashSet<Pawn>();
         
+        public Dictionary<Pawn,SunlightPolicy> SunlightPolicies
+        { 
+            get 
+            { 
+                if (sunlightPolicies == null)
+                    sunlightPolicies = new Dictionary<Pawn,SunlightPolicy>();
+                return sunlightPolicies; 
+            } 
+        }
+
+        public HashSet<Pawn> VampireList
+        {
+            get { 
+                if (vampireList == null)
+                    vampireList = new HashSet<Pawn>();
+                return vampireList;
+            }
+        }
+
         public Pawn FirstVampire
         {
             get
@@ -165,7 +184,7 @@ namespace Vampire
             }
             
             //Rarer tick check
-            if (Find.TickManager.TicksGame % 100 == 0)
+            if (Find.TickManager.TicksGame > 500)
             {
                 //First spawn check
                 if (!vampiresLoaded)

@@ -1,3 +1,7 @@
+1.25.0.1 (07-20-2022)
+========================
+Fixed issue where vampire bio pages would sometimes not load on older saves prior to the previous 1.25 release.
+
 1.25.0.0 (07-17-2022)
 ========================
 Significantly reduces slowdowns. Adds notification letters for Vampire events and level ups. New vampire settings menu added when God Mode is enabled on character sheet. Added Spawn Caine button and fixed early generation embrace.

@@ -17,26 +17,26 @@ namespace Vampire
             NoAI = 2
         }
 
-        public static WorldComponent_VampireTracker Get => Find.World.GetComponent<WorldComponent_VampireTracker>();
+        public static WorldComponent_VampireTracker Get => Find.World?.GetComponent<WorldComponent_VampireTracker>();
 
         public static SunlightPolicy GetSunlightPolicy(Pawn pawn)
         { 
-            if (Get?.sunlightPolicies.ContainsKey(pawn) == true)
+            if (Get?.SunlightPolicies.ContainsKey(pawn) == true)
             {
-                return Get.sunlightPolicies[pawn];
+                return Get.SunlightPolicies[pawn];
             }
             return SunlightPolicy.NoAI;
         }
 
         public static void SetSunlightPolicy(Pawn pawn, SunlightPolicy sunlightPolicy)
         {
-            if (Get?.sunlightPolicies?.ContainsKey(pawn) == true)
+            if (Get?.SunlightPolicies?.ContainsKey(pawn) == true)
             {
-                Get.sunlightPolicies[pawn] = sunlightPolicy;
+                Get.SunlightPolicies[pawn] = sunlightPolicy;
             }
             else
             {
-                Get.sunlightPolicies.Add(pawn, sunlightPolicy);
+                Get.SunlightPolicies.Add(pawn, sunlightPolicy);
             }
         }
 
@@ -44,32 +44,30 @@ namespace Vampire
 
         public static bool IsVampire(Pawn pawn)
         {
-            try
-            {
-                if (!Get.vampiresLoaded)
-                {
-                    return pawn.IsVampire(false);
-                }
+            if (pawn == null)
+                return false;
 
-                if (Get?.vampireList?.Contains(pawn) == true)
-                    return true;
-                return false;
-            }
-            catch
+
+            if (Find.World?.GetComponent<WorldComponent_VampireTracker>() == null || !Get.vampiresLoaded)
             {
-                return false;
+                return pawn.IsVampire(false);
             }
+
+            if (Get?.VampireList?.FirstOrDefault(x => x == pawn) != null)
+                return true;
+            return false;
+            
         }
 
         public static void AddVampire(Pawn pawn)
         {
-            Get.vampireList.Add(pawn);
+            Get.VampireList.Add(pawn);
             //Log.Message("Added " + pawn.Label);
         }
         public static void RemoveVampire(Pawn pawn)
         {
-            if (Get?.vampireList?.Contains(pawn) == true)
-                Get.vampireList.Remove(pawn);
+            if (Get?.VampireList?.Contains(pawn) == true)
+                Get.VampireList.Remove(pawn);
         }
     }
 }

@@ -3,33 +3,10 @@
 ==============================
 
 Rim of Madness - Vampires Update
-v1.25.0.0 (07-17-2022)
+v1.25.0.1 (07-20-2022)
 ====================
 
-Significantly reduces slowdowns. 
-Adds notification letters for Vampire events and level ups. New vampire settings menu added when God Mode is enabled on character sheet. Added Spawn Caine button and fixed early generation embrace.
-
-Full change log for 1.25.0.0
-- Greatly reduced latency caused by vampire pathing
-- Added disable AI button to vampire settings window
-- Created new GUI menu for individual pawn vampire settings (bloodline, generation, etc). First Vampire and Child of the First options are available if generation is set to 1 or 2 in the new settings screen.
-- Updated vampire character screen to now have hover over tooltips to give more information on bloodlines and generations
-- Added vampire settings button to vampire character screens when god mode is enabled
-- Replaced debug tool/button for giving vampirism with settings to use the new vampire pawn settings window
-- Fixed debug menu tool/button "Remove vampirism"
-- Fixed debug menu tool/button "Spawn vampire"
-- Added Spawn Caine debug tool/button to spawn the first vampire for your vampires game. In newer saves, Caine will spawn with clothes and backstories
-- Further cleaned up vampire skill sheet menu
-- Vampire character cards now have tooltips when hovering over bloodline or generation to give more information to the player
-- Added descriptions to Caine and Child of the First's bloodlines
-- Caine and Child of the First now embrace properly.
-- Added additional sounds and letter notifications for the following events:
-  -  Beast frenzy
-  -  Final death (from sunlight)
-  -  Diablerie
-  -  Embrace
-- Added a level up letter that also adds in the ability to quickly jump to a character's vampire/ghoul leveling screen for player's convenience
-
+Fixed issue where vampire bio pages would sometimes not load on older saves prior to the previous 1.25 release.
 --------------------
 
 Download now on...
@@ -48,9 +25,9 @@ Discuss the mod on...
 [img width=260]https://raw.githubusercontent.com/Rim-Of-Madness-Team/Rim-of-Madness---Vampires/master/About/Preview.png[/img]
 [hr]
 [b]Rim of Madness - Vampires
-Version: 1.25.0.0
-Updated: 07-17-2022
-Description: [color=orange]Significantly reduces slowdowns. Adds notification letters for Vampire events and level ups. New vampire settings menu added when God Mode is enabled on character sheet. Added Spawn Caine button and fixed early generation embrace.[/color]
+Version: 1.25.0.1
+Updated: 07-20-2022
+Description: [color=orange]Fixed issue where vampire bio pages would sometimes not load on older saves prior to the previous 1.25 release.[/color]
 [hr]
 [b]Download now on...[/b]
 [url=https://www.patreon.com/posts/rim-of-madness-1-54281813]Patreon[/url]
