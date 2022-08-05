@@ -51,10 +51,6 @@
           <shaderType>TransparentPostLight</shaderType>
           <color>RGBA(1.0, 1.0, 1.0, 0.17)</color>
         </bodyGraphicData>
-        <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
-          <drawSize>1</drawSize>
-        </dessicatedBodyGraphicData>
       </li>
       <li>
         <bodyGraphicData>
@@ -67,10 +63,6 @@
             <offset>(0,0,-0.15)</offset>
           </shadowData>
         </bodyGraphicData>
-        <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
-          <drawSize>1.5</drawSize>
-        </dessicatedBodyGraphicData>
       </li>
       <li>
         <bodyGraphicData>
@@ -83,10 +75,6 @@
             <offset>(0,0,-0.15)</offset>
           </shadowData>
         </bodyGraphicData>
-        <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
-          <drawSize>1.95</drawSize>
-        </dessicatedBodyGraphicData>
       </li>
     </lifeStages>
   </PawnKindDef>

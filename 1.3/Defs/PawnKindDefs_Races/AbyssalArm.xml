@@ -33,10 +33,6 @@
 					<texPath>Things/Pawn/Animal/AbyssalArm/spoonshortage_AbyssalArm</texPath>
 					<drawSize>2.0</drawSize>
 				</bodyGraphicData>
-				<dessicatedBodyGraphicData>
-					<texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
-					<drawSize>1</drawSize>
-				</dessicatedBodyGraphicData>
 			</li>
 			<li>
 				<bodyGraphicData>
@@ -47,10 +43,6 @@
 						<offset>(0,0,-0.15)</offset>
 					</shadowData>
 				</bodyGraphicData>
-				<dessicatedBodyGraphicData>
-					<texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
-					<drawSize>1.5</drawSize>
-				</dessicatedBodyGraphicData>
 			</li>
 			<li>
 				<bodyGraphicData>

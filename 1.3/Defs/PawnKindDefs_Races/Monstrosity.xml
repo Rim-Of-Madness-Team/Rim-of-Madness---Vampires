@@ -32,10 +32,6 @@
 					<texPath>Things/Pawn/Animal/MonstrosityA/MonstrosityA</texPath>
 					<drawSize>1.05</drawSize>
 				</bodyGraphicData>
-				<dessicatedBodyGraphicData>
-					<texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
-					<drawSize>1</drawSize>
-				</dessicatedBodyGraphicData>
 			</li>
 			<li>
 				<bodyGraphicData>
@@ -46,10 +42,6 @@
 						<offset>(0,0,-0.15)</offset>
 					</shadowData>
 				</bodyGraphicData>
-				<dessicatedBodyGraphicData>
-					<texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
-					<drawSize>1.5</drawSize>
-				</dessicatedBodyGraphicData>
 			</li>
 			<li>
 				<bodyGraphicData>
@@ -60,10 +52,6 @@
 						<offset>(0,0,-0.15)</offset>
 					</shadowData>
 				</bodyGraphicData>
-				<dessicatedBodyGraphicData>
-					<texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
-					<drawSize>1.95</drawSize>
-				</dessicatedBodyGraphicData>
 			</li>
 		</lifeStages>
 	</PawnKindDef>
