@@ -2,9 +2,13 @@
 <LanguageData>
 
     <!-- Settings Screen -->
-    <!-- 8-7-2022-->
+    <!-- 8-8-2022-->
 <ROMV_VampireSlumberToggle>Forced daylight slumber</ROMV_VampireSlumberToggle>
+<ROMV_VampireSlumberToggleTooltip>If enabled, vampires will forcefully have their rest drained during daylight hours to 10% until the skies darken once again. During darkness, they will have 100% of their rest need satisfied. If disabled, the rest need will not be manipulated to force vampires to slumber during the daylight hours.</ROMV_VampireSlumberToggleTooltip>
+
 <ROMV_VampireSunlightDamageToggle>Damage from sunlight</ROMV_VampireSunlightDamageToggle>
+<ROMV_VampireSunlightDamageToggleTooltip>If enabled, vampires will build up sunrise exposure when exposed to sunlight. Sunlight exposure will result in a vampire's true death and final demise unless they seek shelter. If disabled, vampires are undamaged by sunlight exposure.</ROMV_VampireSunlightDamageToggleTooltip>
+
 
 <!-- 7-17-22 -->
 <ROMV_TheBeast>Frenzy</ROMV_TheBeast>

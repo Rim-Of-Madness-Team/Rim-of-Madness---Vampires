@@ -28,7 +28,7 @@
     <li>jecrell.jecstools</li>
     <li>Dubwise.DubsBadHygiene</li>
   </loadAfter>
-  <description>1.26.0.0 (08-07-2022)
+  <description>1.27.0.0 (08-08-2022)
 
 Adds vampires to RimWorld.
 
@@ -49,6 +49,10 @@ Michael Fisher, Storm D Bain, Luke Salinas, WonkyWoo WeebHoo, Daniel Schott, Rai
 ========================
 Changelog
 ========================
+1.27.0.0 (08-08-2022)
+========================
+Meditation has been fixed. Vampire fangs now are added hediffs on tongues due to an underlying RimWorld issue that removes tongues if jaws are modified. Existing saves will have fangs moved to the new position. New settings for sun damage and rest added
+
 1.26.0.0 (08-07-2022)
 ========================
 Added setting options in the mod settings menu to disable sunlight damage and disable forced daytime slumber

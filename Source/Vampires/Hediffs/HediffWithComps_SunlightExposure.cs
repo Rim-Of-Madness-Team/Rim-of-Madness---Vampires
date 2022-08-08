@@ -47,8 +47,11 @@ namespace Vampire
             }
             if (Find.TickManager.TicksGame % checkRate == 0)
             {
-                if (pawn?.PositionHeld is IntVec3 pos && pos != default(IntVec3) && pos.Roofed(pawn?.MapHeld ?? Find.CurrentMap) == false &&
-                    VampireUtility.IsDaylight(pawn))
+                if (
+                    VampireSettings.Get.damageToggle && //Damage in sunlight enabled
+                    pawn?.PositionHeld is IntVec3 pos && pos != default(IntVec3) && //Position exists
+                    pos.Roofed(pawn?.MapHeld ?? Find.CurrentMap) == false && //Position has no roofing
+                    VampireUtility.IsDaylight(pawn)) //In daylight
                 {
                     if (sunBurningEffect == null)
                     {
@@ -61,7 +64,7 @@ namespace Vampire
 
                     if (CurStageIndex > 1)
                     {
-                        Burn();
+                        Burn(); //Time to burn
                     }
                     Severity += 0.017f;
                 }
