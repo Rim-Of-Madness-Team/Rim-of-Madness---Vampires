@@ -28,7 +28,7 @@
     <li>jecrell.jecstools</li>
     <li>Dubwise.DubsBadHygiene</li>
   </loadAfter>
-  <description>1.25.0.1 (07-20-2022)
+  <description>1.26.0.0 (08-07-2022)
 
 Adds vampires to RimWorld.
 
@@ -49,6 +49,10 @@ Michael Fisher, Storm D Bain, Luke Salinas, WonkyWoo WeebHoo, Daniel Schott, Rai
 ========================
 Changelog
 ========================
+1.26.0.0 (08-07-2022)
+========================
+Added setting options in the mod settings menu to disable sunlight damage and disable forced daytime slumber
+
 1.25.0.1 (07-20-2022)
 ========================
 Fixed issue where vampire bio pages would sometimes not load on older saves prior to the previous 1.25 release.

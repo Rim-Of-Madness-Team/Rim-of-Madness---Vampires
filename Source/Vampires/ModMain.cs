@@ -38,6 +38,26 @@ namespace Vampire
                 Text.Anchor = TextAnchor.UpperLeft;
                 Widgets.CheckboxLabeled(rAIToggleRight, "", ref VampireSettings.Get.aiToggle);
                 rowCount++;
+
+                // Forced vampire slumber during daylight
+                Rect rSlumberToggle = new Rect(rDialogButton.x, rDialogButton.y + (fRowHeight * rowCount), fColWidth * colCount, fRowHeight);
+                Rect rSlumberToggleLeft = rSlumberToggle.LeftPart(0.666f).Rounded();
+                Rect rSlumberToggleRight = rSlumberToggle.RightPart(0.333f).Rounded();
+                Text.Anchor = TextAnchor.MiddleRight;
+                Widgets.Label(rSlumberToggleLeft, "ROMV_VampireSlumberToggle".Translate());
+                Text.Anchor = TextAnchor.UpperLeft;
+                Widgets.CheckboxLabeled(rSlumberToggleRight, "", ref VampireSettings.Get.slumberToggle);
+                rowCount++;
+
+                // Daylight damage
+                Rect rDamageToggle = new Rect(rDialogButton.x, rDialogButton.y + (fRowHeight * rowCount), fColWidth * colCount, fRowHeight);
+                Rect rDamageToggleLeft = rDamageToggle.LeftPart(0.666f).Rounded();
+                Rect rDamageToggleRight = rDamageToggle.RightPart(0.333f).Rounded();
+                Text.Anchor = TextAnchor.MiddleRight;
+                Widgets.Label(rDamageToggleLeft, "ROMV_VampireSunlightDamageToggle".Translate());
+                Text.Anchor = TextAnchor.UpperLeft;
+                Widgets.CheckboxLabeled(rDamageToggleRight, "", ref VampireSettings.Get.damageToggle);
+                rowCount++;
             }
             else
             {

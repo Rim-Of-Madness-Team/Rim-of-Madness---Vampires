@@ -9,6 +9,8 @@ namespace Vampire
     {
         public GameMode mode = GameMode.Disabled;
         public bool aiToggle = true;
+        public bool slumberToggle = true;
+        public bool damageToggle = true;
         public float spawnPct = 0.0f;
         public int lowestActiveVampGen = 7;
         public bool eventsEnabled = false;
@@ -76,7 +78,9 @@ namespace Vampire
         {
             base.ExposeData();
             Scribe_Values.Look(ref mode, "mode");
-            Scribe_Values.Look(ref aiToggle, "aiToggle");
+            Scribe_Values.Look(ref aiToggle, "aiToggle",true);
+            Scribe_Values.Look(ref slumberToggle, "slumberToggle",true);
+            Scribe_Values.Look(ref damageToggle, "aiToggle",true);
             Scribe_Values.Look(ref spawnPct, "spawnPct", 0f);
             Scribe_Values.Look(ref lowestActiveVampGen, "lowestActiveVampGen", 7);
             Scribe_Values.Look(ref eventsEnabled, "eventsEnabled");

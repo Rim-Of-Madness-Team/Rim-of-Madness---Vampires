@@ -21,6 +21,7 @@ namespace Vampire
         public static HediffDef ROM_GhoulHediff;
         public static HediffDef ROMV_SunExposure;
         public static HediffDef ROMV_Fangs;
+        //public static HediffDef ROMV_VampireTongue;
         public static HediffDef ROMV_TheBeast;
 
         public static VitaeAbilityDef ROMV_RegenerateLimb;

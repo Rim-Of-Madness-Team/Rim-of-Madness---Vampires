@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using System.Linq;
 using Verse;
 
 namespace Vampire
@@ -14,6 +15,21 @@ namespace Vampire
         {
             get
             {
+                if (this.Part?.def?.defName == "Jaw")
+                {
+                    if (this.pawn != null)
+                    {
+                        //Restore the tongue
+                        if (pawn?.health?.hediffSet?.GetMissingPartsCommonAncestors().FirstOrDefault(x => x.Part?.def?.defName == "Tongue") is Hediff_MissingPart missingTongue)
+                        {
+                            pawn.health.RestorePart(missingTongue.Part);
+                        }
+
+                        //Readd the fangs and the tongue
+                        VampireGen.AddFangsHediff(this.pawn);
+                    }
+                    return true;
+                }
                 if (pawn.IsVampire(true))
                     return false;
                 return true;
@@ -23,10 +39,11 @@ namespace Vampire
         /// <summary>
         /// If raiders show up with fangs, and the fangs are removed by the 'ShouldRemove' check,
         /// so we should also give them back their jaws.
+        /// 8/7/22 -- we should probably give everyone back their jaws
         /// </summary>
         public override void PostRemoved()
         {           
-            if (!pawn.IsVampire(true))
+            //if (!pawn.IsVampire(true))
                 pawn.health.RestorePart(Part, this, false);
 
             base.PostRemoved();

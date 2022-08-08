@@ -169,16 +169,19 @@ namespace Vampire
         // RimWorld.Need_Rest
         public static void Vamp_SleepyDuringDaylight(Need_Rest __instance)
         {
-            Pawn pawn = (Pawn)AccessTools.Field(typeof(Need_Rest), "pawn").GetValue(__instance);
-            if (pawn != null && pawn.IsVampire(true))
+            if (VampireSettings.Get.slumberToggle)
             {
-                if (VampireUtility.IsDaylight(pawn))
+                Pawn pawn = (Pawn)AccessTools.Field(typeof(Need_Rest), "pawn").GetValue(__instance);
+                if (pawn != null && pawn.IsVampire(true))
                 {
-                    __instance.CurLevel = Mathf.Min(0.1f, __instance.CurLevel);
-                }
-                else
-                {
-                    __instance.CurLevel = 1.0f;
+                    if (VampireUtility.IsDaylight(pawn))
+                    {
+                        __instance.CurLevel = Mathf.Min(0.1f, __instance.CurLevel);
+                    }
+                    else
+                    {
+                        __instance.CurLevel = 1.0f;
+                    }
                 }
             }
         }

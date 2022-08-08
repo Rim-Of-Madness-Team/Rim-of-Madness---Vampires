@@ -45,6 +45,8 @@ namespace Vampire
         private int vampLastHomeCheck = -1;
         private IntVec3? vampLastHomePoint = null;
 
+        private bool fangCheck = false;
+
         /// Storing variables for Animal Transformations
         public int atCurIndex = 0;
 
@@ -556,6 +558,12 @@ namespace Vampire
             if (Transformed && atCurTicks != -1 && Find.TickManager.TicksGame > atCurTicks)
             {
                 atDirty = true;
+            }
+
+            if (fangCheck == false && Find.TickManager.TicksGame % 250 == 0)
+            {
+                fangCheck = true;
+                VampireGen.AddFangsHediff(Pawn);
             }
         }
 

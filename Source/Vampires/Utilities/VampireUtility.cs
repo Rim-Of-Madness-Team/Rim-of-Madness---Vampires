@@ -268,7 +268,9 @@ namespace Vampire
             if (target.health != null)
             {
                 target.health.RestorePart(part);
-                if (part?.def == BodyPartDefOf.Jaw)
+
+
+                if (part?.def == DefDatabase<BodyPartDef>.GetNamedSilentFail("Tongue"))
                 {
                     target.health.AddHediff(target.VampComp().Bloodline.fangsHediff, part, null);
                 }
@@ -314,7 +316,7 @@ namespace Vampire
         /// <param name="pawn"></param>
         public static void MakeSleepy(Pawn pawn)
         {
-            if (pawn?.VampComp() is CompVampire v && pawn?.needs?.rest is Need_Rest r)
+            if (VampireSettings.Get.slumberToggle && pawn?.VampComp() is CompVampire v && pawn?.needs?.rest is Need_Rest r)
             {
                 r.CurLevelPercentage = 0.05f;
             }

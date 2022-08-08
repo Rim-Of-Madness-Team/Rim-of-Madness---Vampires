@@ -14,11 +14,10 @@
 		<isBad>false</isBad>
 	</HediffDef>
 
-
 	<HediffDef ParentName="ROMV_AddedBodyPartBase">
 		<defName>ROMV_Fangs</defName>
-		<label>fangs</label>
-		<description>fangs</description>
+		<label>tongue and fangs</label>
+		<description>The fangs of a vampire and a tongue that hides bites with a lick.</description>
 		<hediffClass>Vampire.Hediff_AddedPart_Fangs</hediffClass>
 		<addedPartProps>
 			<solid>true</solid>

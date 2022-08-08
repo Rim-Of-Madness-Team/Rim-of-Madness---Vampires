@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
 
+    <!-- Settings Screen -->
+    <!-- 8-7-2022-->
+<ROMV_VampireSlumberToggle>Forced daylight slumber</ROMV_VampireSlumberToggle>
+<ROMV_VampireSunlightDamageToggle>Damage from sunlight</ROMV_VampireSunlightDamageToggle>
+
 <!-- 7-17-22 -->
 <ROMV_TheBeast>Frenzy</ROMV_TheBeast>
 <ROMV_TheBeastDesc>{0} has lost control of their mind and has unleashed their inner beast and will not rest until they are satiated with fresh blood.</ROMV_TheBeastDesc>

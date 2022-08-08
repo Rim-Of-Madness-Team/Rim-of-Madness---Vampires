@@ -81,12 +81,19 @@ namespace Vampire
 
         public static void AddFangsHediff(Pawn pawn)
         {
-                BodyPartRecord bpR = pawn.health?.hediffSet?.GetNotMissingParts().FirstOrDefault(x => x.def == BodyPartDefOf.Jaw);
-                if (bpR == null || pawn?.VampComp()?.Bloodline?.fangsHediff == null) return;
-                pawn.health.RestorePart(bpR);
-                pawn.health.AddHediff(pawn.VampComp().Bloodline.fangsHediff, bpR, null);
-            
+            BodyPartRecord tongue = pawn.RaceProps.body.GetPartsWithDef(DefDatabase<BodyPartDef>.GetNamed("Tongue")).FirstOrDefault();
+            pawn.health.RestorePart(tongue);
+            pawn.health.AddHediff(pawn.VampComp().Bloodline.fangsHediff, tongue, null);
         }
+
+        //public static void AddTongueHediff(Pawn pawn)
+        //{
+        //    BodyPartRecord bpR = pawn.health?.hediffSet?.GetNotMissingParts().FirstOrDefault(x => x.def == DefDatabase<BodyPartDef>.GetNamedSilentFail("Tongue"));
+        //    if (bpR == null) return;
+        //    pawn.health.RestorePart(bpR);
+        //    pawn.health.AddHediff(VampDefOf.ROMV_VampireTongue, bpR, null);
+
+        //}
 
         public static void AddBloodlineHediff(Pawn pawn)
         {
@@ -101,6 +108,7 @@ namespace Vampire
             try
             {
                 AddFangsHediff(pawn);
+                //AddTongueHediff(pawn);
                 AddBloodlineHediff(pawn);
             }
             catch (Exception e)

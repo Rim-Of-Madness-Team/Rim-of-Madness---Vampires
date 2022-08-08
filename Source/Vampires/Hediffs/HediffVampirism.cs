@@ -45,8 +45,11 @@ namespace Vampire
             }
 
             if (Find.TickManager.TicksGame % 60 != 0) return;
-            if (v.InSunlight)
+
+            if (VampireSettings.Get.damageToggle && v.InSunlight)
                 HealthUtility.AdjustSeverity(pawn, VampDefOf.ROMV_SunExposure, 0.001f);
+
+
             if (v.BloodPool?.CurLevelPercentage < 0.3f)
                 HealthUtility.AdjustSeverity(pawn, VampDefOf.ROMV_TheBeast, 0.001f);
             
