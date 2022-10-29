@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<Defs>
+
+  <Vampire.DisciplineDef>
+    <defName>ROMV_Fortitude</defName>
+    <label>Fortitude</label>
+    <abilities>
+      <li>ROMV_FortitudeI</li>
+      <li>ROMV_FortitudeII</li>
+      <li>ROMV_FortitudeIII</li>
+      <li>ROMV_FortitudeIV</li>
+    </abilities>
+	<tags>
+	  <li>Physical</li>
+	</tags>	
+  </Vampire.DisciplineDef>
+
+  <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+    <defName>ROMV_FortitudeI</defName>
+    <label>fortitude I</label>
+    <uiIconPath>UI/Icons/Commands/FortitudeI</uiIconPath>
+    <description>Guarantees shrugging off 1 point of damage from attacks.</description>
+    <MainVerb Class="AbilityUser.VerbProperties_Ability">
+      <verbClass>Vampire.DisciplineEffect_EnterTheAbyss</verbClass>
+      <hasStandardCommand>false</hasStandardCommand>
+      <defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+      <abilityDef>ROMV_Obtenebration_EnterTheAbyss</abilityDef>
+      <isViolent>false</isViolent>
+      <warmupTime>1</warmupTime>
+      <SecondsToRecharge>200.0</SecondsToRecharge>
+      <range>99</range>
+      <burstShotCount>1</burstShotCount>
+      <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+      <soundCast>ROMV_AbilityCastSound_Obtenebration</soundCast>
+      <muzzleFlashScale>20</muzzleFlashScale>
+      <isPrimary>false</isPrimary>
+      <targetParams>
+        <canTargetLocations>true</canTargetLocations>
+        <canTargetPawns>false</canTargetPawns>
+        <canTargetBuildings>false</canTargetBuildings>
+        <canTargetItems>false</canTargetItems>
+        <canTargetSelf>false</canTargetSelf>
+      </targetParams>
+      <tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+      <tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+      <tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+      <tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+    </MainVerb>
+    <PassiveProps>
+      <worker>AbilityUser.PassiveEffectWorker</worker>
+      <hediffs>
+        <li>ROMV_FortitudeIHediff</li>
+      </hediffs>
+    </PassiveProps>
+  </Vampire.VitaeAbilityDef>
+  <HediffDef ParentName="ROMV_VampBase">
+    <defName>ROMV_FortitudeIHediff</defName>
+    <label>fortitude I (damage soak)</label>
+    <description>fortitude I (damage soak)</description>
+    <comps>
+      <li Class="JecsTools.HediffCompProperties_DamageSoak">
+        <damageToSoak>1</damageToSoak>
+      </li>
+	  <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>
+          <min>3000</min>
+          <max>3000</max>
+        </disappearsAfterTicks>
+      </li>
+    </comps>
+  </HediffDef>
+
+  <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+    <defName>ROMV_FortitudeII</defName>
+    <label>fortitude II</label>
+    <uiIconPath>UI/Icons/Commands/FortitudeII</uiIconPath>
+    <description>Guarantees shrugging off 2 point of damage from attacks.</description>
+    <MainVerb Class="AbilityUser.VerbProperties_Ability">
+      <verbClass>Vampire.DisciplineEffect_EnterTheAbyss</verbClass>
+      <hasStandardCommand>false</hasStandardCommand>
+      <defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+      <abilityDef>ROMV_Obtenebration_EnterTheAbyss</abilityDef>
+      <isViolent>false</isViolent>
+      <warmupTime>1</warmupTime>
+      <SecondsToRecharge>200.0</SecondsToRecharge>
+      <range>99</range>
+      <burstShotCount>1</burstShotCount>
+      <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+      <soundCast>ROMV_AbilityCastSound_Obtenebration</soundCast>
+      <muzzleFlashScale>20</muzzleFlashScale>
+      <isPrimary>false</isPrimary>
+      <targetParams>
+        <canTargetLocations>true</canTargetLocations>
+        <canTargetPawns>false</canTargetPawns>
+        <canTargetBuildings>false</canTargetBuildings>
+        <canTargetItems>false</canTargetItems>
+        <canTargetSelf>false</canTargetSelf>
+      </targetParams>
+      <tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+      <tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+      <tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+      <tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+    </MainVerb>
+    <PassiveProps>
+      <worker>AbilityUser.PassiveEffectWorker</worker>
+
+      <hediffs>
+        <li>ROMV_FortitudeIIHediff</li>
+      </hediffs>
+    </PassiveProps>
+  </Vampire.VitaeAbilityDef>
+  <HediffDef ParentName="ROMV_VampBase">
+    <defName>ROMV_FortitudeIIHediff</defName>
+    <label>fortitude II (damage soak)</label>
+    <description>fortitude II (damage soak)</description>
+    <comps>
+      <li Class="JecsTools.HediffCompProperties_DamageSoak">
+        <damageToSoak>1</damageToSoak>
+      </li>
+	  <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>
+          <min>3000</min>
+          <max>3000</max>
+        </disappearsAfterTicks>
+      </li>
+    </comps>
+  </HediffDef>
+
+  <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+    <defName>ROMV_FortitudeIII</defName>
+    <label>fortitude III</label>
+    <uiIconPath>UI/Icons/Commands/FortitudeIII</uiIconPath>
+    <description>Guarantees shrugging off 3 point of damage from attacks.</description>
+    <MainVerb Class="AbilityUser.VerbProperties_Ability">
+      <verbClass>Vampire.DisciplineEffect_EnterTheAbyss</verbClass>
+      <hasStandardCommand>false</hasStandardCommand>
+      <defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+      <abilityDef>ROMV_Obtenebration_EnterTheAbyss</abilityDef>
+      <isViolent>false</isViolent>
+      <warmupTime>1</warmupTime>
+      <SecondsToRecharge>200.0</SecondsToRecharge>
+      <range>99</range>
+      <burstShotCount>1</burstShotCount>
+      <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+      <soundCast>ROMV_AbilityCastSound_Obtenebration</soundCast>
+      <muzzleFlashScale>20</muzzleFlashScale>
+      <isPrimary>false</isPrimary>
+      <targetParams>
+        <canTargetLocations>true</canTargetLocations>
+        <canTargetPawns>false</canTargetPawns>
+        <canTargetBuildings>false</canTargetBuildings>
+        <canTargetItems>false</canTargetItems>
+        <canTargetSelf>false</canTargetSelf>
+      </targetParams>
+      <tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+      <tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+      <tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+      <tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+    </MainVerb>
+    <PassiveProps>
+      <worker>AbilityUser.PassiveEffectWorker</worker>
+      <hediffs>
+        <li>ROMV_FortitudeIIIHediff</li>
+      </hediffs>
+    </PassiveProps>
+  </Vampire.VitaeAbilityDef>
+  <HediffDef ParentName="ROMV_VampBase">
+    <defName>ROMV_FortitudeIIIHediff</defName>
+    <label>fortitude III (damage soak)</label>
+    <description>fortitude III (damage soak)</description>
+    <comps>
+      <li Class="JecsTools.HediffCompProperties_DamageSoak">
+        <damageToSoak>1</damageToSoak>
+      </li>
+	  
+	  <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>
+          <min>3000</min>
+          <max>3000</max>
+        </disappearsAfterTicks>
+      </li>
+    </comps>
+  </HediffDef>
+
+  <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+    <defName>ROMV_FortitudeIV</defName>
+    <label>fortitude IV</label>
+    <uiIconPath>UI/Icons/Commands/FortitudeIV</uiIconPath>
+    <description>Guarantees shrugging off 4 point of damage from attacks.</description>
+    <MainVerb Class="AbilityUser.VerbProperties_Ability">
+      <verbClass>Vampire.DisciplineEffect_EnterTheAbyss</verbClass>
+      <hasStandardCommand>false</hasStandardCommand>
+      <defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+      <abilityDef>ROMV_Obtenebration_EnterTheAbyss</abilityDef>
+      <isViolent>false</isViolent>
+      <warmupTime>1</warmupTime>
+      <SecondsToRecharge>200.0</SecondsToRecharge>
+      <range>99</range>
+      <burstShotCount>1</burstShotCount>
+      <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+      <soundCast>ROMV_AbilityCastSound_Obtenebration</soundCast>
+      <muzzleFlashScale>20</muzzleFlashScale>
+      <isPrimary>false</isPrimary>
+      <targetParams>
+        <canTargetLocations>true</canTargetLocations>
+        <canTargetPawns>false</canTargetPawns>
+        <canTargetBuildings>false</canTargetBuildings>
+        <canTargetItems>false</canTargetItems>
+        <canTargetSelf>false</canTargetSelf>
+      </targetParams>
+      <tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+      <tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+      <tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+      <tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+    </MainVerb>
+    <PassiveProps>
+      <worker>AbilityUser.PassiveEffectWorker</worker>
+      <hediffs>
+        <li>ROMV_FortitudeIVHediff</li>
+      </hediffs>
+    </PassiveProps>
+  </Vampire.VitaeAbilityDef>
+  <HediffDef ParentName="ROMV_VampBase">
+    <defName>ROMV_FortitudeIVHediff</defName>
+    <label>fortitude IV (damage soak)</label>
+    <description>fortitude IV (damage soak)</description>
+    <comps>
+      <li Class="JecsTools.HediffCompProperties_DamageSoak">
+        <damageToSoak>1</damageToSoak>
+      </li>
+	  
+	  <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>
+          <min>3000</min>
+          <max>3000</max>
+        </disappearsAfterTicks>
+      </li>
+    </comps>
+  </HediffDef>
+
+</Defs>

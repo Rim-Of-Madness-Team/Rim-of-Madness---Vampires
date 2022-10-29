@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_FortitudeI.label>Стойкость I</ROMV_FortitudeI.label>
+  <ROMV_FortitudeI.description>Гарантировано отбрасывает 1 пункт урона от атак.</ROMV_FortitudeI.description>
+
+  <ROMV_FortitudeII.label>Стойкость II</ROMV_FortitudeII.label>
+  <ROMV_FortitudeII.description>Гарантировано отбрасывает 2 пункта урона от атак.</ROMV_FortitudeII.description>
+
+  <ROMV_FortitudeIII.label>Стойкость III</ROMV_FortitudeIII.label>
+  <ROMV_FortitudeIII.description>Гарантировано отбрасывает 3 пункта урона от атак.</ROMV_FortitudeIII.description>
+
+  <ROMV_FortitudeIV.label>Стойкость IV</ROMV_FortitudeIV.label>
+  <ROMV_FortitudeIV.description>Гарантировано отбрасывает 4 пункта урона от атак.</ROMV_FortitudeIV.description>
+
+
+</LanguageData>

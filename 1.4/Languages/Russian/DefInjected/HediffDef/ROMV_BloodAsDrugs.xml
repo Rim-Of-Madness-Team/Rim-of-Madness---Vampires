@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_VitaeHigh.label>эйфория от витэ</ROMV_VitaeHigh.label>
+  <ROMV_VitaeHigh.labelNoun>на витэ</ROMV_VitaeHigh.labelNoun>
+
+  <ROMV_VitaeTolerance.label>толерантность к витэ</ROMV_VitaeTolerance.label>
+  <ROMV_VitaeTolerance.stages.0.label>малая</ROMV_VitaeTolerance.stages.0.label>
+  <ROMV_VitaeTolerance.stages.1.label>малая</ROMV_VitaeTolerance.stages.1.label>
+  <ROMV_VitaeTolerance.stages.2.label>большая</ROMV_VitaeTolerance.stages.2.label>
+  <ROMV_VitaeTolerance.stages.3.label>массивная</ROMV_VitaeTolerance.stages.3.label>
+
+  <ROMV_VitaeAddiction.label>зависимость от витэ</ROMV_VitaeAddiction.label>
+  <ROMV_VitaeAddiction.stages.1.label>ломка</ROMV_VitaeAddiction.stages.1.label>
+
+
+</LanguageData>

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_MonstrosityRace.label>Monstruosidad</ROMV_MonstrosityRace.label>
+  <ROMV_MonstrosityRace.description>Una monstruosidad de carne y hueso alterados.</ROMV_MonstrosityRace.description>
+  <!-- Use Leather From: Bear_Grizzly -->
+  <!-- Use Meat From: Bear_Grizzly -->
+  <ROMV_MonstrosityRace_Corpse.label>cadáver de monstruosidad</ROMV_MonstrosityRace_Corpse.label>
+  <ROMV_MonstrosityRace_Corpse.description>cadáver de monstruosidad</ROMV_MonstrosityRace_Corpse.description>
+
+
+</LanguageData>

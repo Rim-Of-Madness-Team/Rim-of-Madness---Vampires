@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_Caine.label>Primer Vampiro</ROMV_Caine.label>
+  <ROMV_Caine.description>Primera sangre de los vampiros.</ROMV_Caine.description>
+
+  <ROMV_TheThree.label>Hijos de los Caine</ROMV_TheThree.label>
+  <ROMV_TheThree.description>Descendientes de los Caine aterrorizan a muchos con sus maneras de ser, pero llevan con honor el nombre de Caine</ROMV_TheThree.description>
+
+  <ROMV_ClanTzimize.label>Tzimisce</ROMV_ClanTzimize.label>
+  <ROMV_ClanTzimize.description>Los Clan Tzimisce son verdaderos sociópatas que han abandonado a la humanidad en favor de sus propias actividades vilipendiadas. Uno podría estar inclinado a considerarlos abominaciones, asesinos, y verdaderamente malditos, en cuyo caso probablemente estarían de acuerdo.</ROMV_ClanTzimize.description>
+
+  <ROMV_ClanTremere.label>Tremere</ROMV_ClanTremere.label>
+  <ROMV_ClanTremere.description>El Clan Tremere es ampliamente respetado como eruditos y pioneros de la magia de sangre. Aunque su fama es bien conocida, su estricta cadena de mando y su aura de secreto a menudo levantan sospechas entre otros parientes.</ROMV_ClanTremere.description>
+
+  <ROMV_ClanLasombra.label>Lasombra</ROMV_ClanLasombra.label>
+  <ROMV_ClanLasombra.description>El Clan Lasombra es visto como los líderes y místicos de El Abismo, la sombra misma. Aprovechar el poder de las sombras, utilizar tácticas despiadadas y aplicar el darwinismo social les ha permitido controlar la sociedad mortal durante gran parte de la historia premoderna.</ROMV_ClanLasombra.description>
+
+  <ROMV_ClanPijavica.label>Pijavica</ROMV_ClanPijavica.label>
+  <ROMV_ClanPijavica.description>Clan Pijavica, los Parásitos, caminan en multitud elaborados con su propia sangre fétida. Se cree que fueron expurgados del mundo por mucho tiempo, estas sanguijuelas han sobrevivido escondiéndose entre la parentela, cazando otros vampiros además de mortales.</ROMV_ClanPijavica.description>
+
+  <ROMV_ClanGargoyle.label>Gargoyle</ROMV_ClanGargoyle.label>
+  <ROMV_ClanGargoyle.description>Las Gárgolas no son un verdadero clan, sino un linaje creado a partir de la magia de sangre del Clan Tremere. Forjados como sus guardianes, las gárgolas poseen alas capaces de huir y endurecer la piel, sin embargo, sufren apariencias monstruosas.</ROMV_ClanGargoyle.description>
+
+
+</LanguageData>

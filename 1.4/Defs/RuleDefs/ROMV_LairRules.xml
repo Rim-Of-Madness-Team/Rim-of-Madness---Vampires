@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <RuleDef>
+    <defName>ROMV_FactionBase</defName>
+    <symbol>vampireLair</symbol>
+    <resolvers>
+      <li Class="Vampire.SymbolResolver_VampireLair">
+        <minRectSize>(12, 12)</minRectSize>
+      </li>
+    </resolvers>
+  </RuleDef>
+
+</Defs>

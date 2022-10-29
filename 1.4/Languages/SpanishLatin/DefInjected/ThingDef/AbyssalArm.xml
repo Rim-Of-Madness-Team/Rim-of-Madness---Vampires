@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_AbyssalArmRace.label>brazo abisal</ROMV_AbyssalArmRace.label>
+  <ROMV_AbyssalArmRace.description>Un enorme tentáculo oscuro que se extiende desde el abismo.</ROMV_AbyssalArmRace.description>
+  <!-- Use Leather From: Bear_Grizzly -->
+  <!-- Use Meat From: Bear_Grizzly -->
+  <ROMV_AbyssalArmRace_Corpse.label>cadáver del brazo abisal</ROMV_AbyssalArmRace_Corpse.label>
+  <ROMV_AbyssalArmRace_Corpse.description>cadáver del brazo abisal</ROMV_AbyssalArmRace_Corpse.description>
+
+
+</LanguageData>

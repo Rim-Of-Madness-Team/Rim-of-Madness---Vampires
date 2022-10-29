@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <RulePackDef>
+    <defName>ROMV_BiteCleaned</defName>
+    <include>
+      <li>Transition_Include</li>
+    </include>
+    <rulePack>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] [cleaned] [SUBJECT_definite]'s [bitemark].</li>
+
+		<li>cleaned->cleaned</li>
+		<li>cleaned->licked clean</li>
+		<li>cleaned->licked away</li>
+		<li>cleaned->covered up</li>
+		
+		<li>bitemark->bite mark</li>
+		<li>bitemark->bite evidence</li>
+		<li>bitemark->fang prints</li>
+      </rulesStrings>
+    </rulePack>
+  </RulePackDef>
+  
+</Defs>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<!-- Misc -->
+
+	  <JobDef>
+		<defName>ROMV_GotoSafety</defName>
+		<driverClass>JobDriver_Goto</driverClass>
+		<reportString>moving.</reportString>
+	</JobDef>
+
+	
+  <JobDef>
+    <defName>ROMV_DigAndHide</defName>
+    <driverClass>Vampire.JobDriver_DigAndHide</driverClass>
+    <reportString>desperately digging a hole.</reportString>
+  </JobDef>
+
+  <JobDef>
+    <defName>ROMV_Feed</defName>
+    <driverClass>Vampire.JobDriver_Feed</driverClass>
+    <reportString>feeding on TargetA.</reportString>
+  </JobDef>
+
+    <JobDef>
+      <defName>ROMV_Sip</defName>
+      <driverClass>Vampire.JobDriver_FeedSip</driverClass>
+      <reportString>feeding on TargetA.</reportString>
+    </JobDef>
+
+  <JobDef>
+    <defName>ROMV_FeedAndReturn</defName>
+    <driverClass>Vampire.JobDriver_FeedAndReturn</driverClass>
+    <reportString>stealing blood from TargetA.</reportString>
+  </JobDef>
+
+  <JobDef>
+    <defName>ROMV_BloodVomit</defName>
+    <driverClass>Vampire.JobDriver_BloodVomit</driverClass>
+    <reportString>vomitting.</reportString>
+  </JobDef>
+
+  <JobDef>
+    <defName>ROMV_FeedAndDestroy</defName>
+    <driverClass>Vampire.JobDriver_FeedAndDestroy</driverClass>
+    <reportString>consuming TargetA.</reportString>
+  </JobDef>
+
+
+  <JobDef>
+    <defName>ROMV_FeedVampire</defName>
+    <driverClass>Vampire.JobDriver_Feed</driverClass>
+    <reportString>sipping TargetA's vitae.</reportString>
+  </JobDef>
+
+  <JobDef>
+    <defName>ROMV_Diablerie</defName>
+    <driverClass>Vampire.JobDriver_Diablerie</driverClass>
+    <reportString>attempting to consume TargetA's soul.</reportString>
+  </JobDef>
+
+  <JobDef>
+		<defName>ROMV_ConsumeBlood</defName>
+		<driverClass>Vampire.JobDriver_ConsumeBlood</driverClass>
+		<reportString>consuming TargetA.</reportString>
+  </JobDef>
+
+
+  <JobDef>
+    <defName>ROMV_Embrace</defName>
+    <driverClass>Vampire.JobDriver_Embrace</driverClass>
+    <reportString>embracing TargetA.</reportString>
+  </JobDef>
+  
+  
+  <JobDef>
+    <defName>ROMV_GhoulBloodBond</defName>
+    <driverClass>Vampire.JobDriver_GhoulBloodBond</driverClass>
+    <reportString>feeding vitae to TargetA.</reportString>
+  </JobDef>
+
+
+  <JobDef>
+    <defName>ROMV_EnterTorpor</defName>
+    <driverClass>Vampire.JobDriver_EnterTorpor</driverClass>
+    <reportString>entering torpor state.</reportString>
+  </JobDef>
+
+
+</Defs>

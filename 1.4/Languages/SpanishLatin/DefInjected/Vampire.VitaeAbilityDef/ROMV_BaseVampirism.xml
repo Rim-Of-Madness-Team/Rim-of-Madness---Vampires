@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_VampiricAwaken.label>Despertar</ROMV_VampiricAwaken.label>
+  <ROMV_VampiricAwaken.description>Utiliza un punto de sangre para sacar al vampiro de un estado de letargo, donde una vez más pueden unirse al mundo en estado de no-muerto.</ROMV_VampiricAwaken.description>
+
+  <ROMV_VampiricResurrection.label>resurrección instantánea</ROMV_VampiricResurrection.label>
+  <ROMV_VampiricResurrection.description>Empuja toda la vitae restante para reanimar el tejido muerto, restaurando al vampiro a la no-muerte.\n\n¡TENER CUIDADO! Esto desatará su bestia interna hasta que sus cuerpos estén completamente saciados con sangre.</ROMV_VampiricResurrection.description>
+
+  <ROMV_VampiricHealing.label>curación vampírica</ROMV_VampiricHealing.label>
+  <ROMV_VampiricHealing.description>Restaura parte dañada mediante el uso de vitae.</ROMV_VampiricHealing.description>
+
+  <ROMV_RegenerateLimb.label>regenerar la extremidad</ROMV_RegenerateLimb.label>
+  <ROMV_RegenerateLimb.description>Restaura una extremidad o parte del cuerpo perdida en combate.</ROMV_RegenerateLimb.description>
+
+
+</LanguageData>

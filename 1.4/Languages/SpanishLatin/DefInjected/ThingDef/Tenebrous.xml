@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_TenebrousRace.label>sombra</ROMV_TenebrousRace.label>
+  <ROMV_TenebrousRace.description>Una sombra reanimada.</ROMV_TenebrousRace.description>
+  <!-- Use Leather From: Bear_Grizzly -->
+  <!-- Use Meat From: Bear_Grizzly -->
+  <ROMV_TenebrousRace_Corpse.label>cadáver de sombra</ROMV_TenebrousRace_Corpse.label>
+  <ROMV_TenebrousRace_Corpse.description>cadáver de sombra</ROMV_TenebrousRace_Corpse.description>
+
+
+</LanguageData>

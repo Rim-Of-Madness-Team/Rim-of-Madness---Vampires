@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+<JecsTools.BackstoryDef>
+  <defName>ROMV_CaineChild</defName>
+  <baseDesc>And Cain talked with Abel his brother: and it came to pass, when they were in the field, that Cain rose up against Abel his brother, and slew him. - Genesis 4:8</baseDesc>
+  <bodyTypeGlobal>Hulk</bodyTypeGlobal>
+  <bodyTypeMale>Hulk</bodyTypeMale>
+  <bodyTypeFemale>Female</bodyTypeFemale>
+  <title>Kinslayer</title>
+  <titleFemale>Kinslayer</titleFemale>
+  <titleShort>Kinslayer</titleShort>
+  <titleShortFemale>Kinslayer</titleShortFemale>
+  <slot>Childhood</slot>
+  <maleCommonality>1</maleCommonality>
+  <femaleCommonality>0</femaleCommonality>
+  <spawnCategories>
+     <li>ROMV_Caine</li>
+  </spawnCategories>
+</JecsTools.BackstoryDef>
+
+<JecsTools.BackstoryDef>
+  <defName>ROMV_CaineAdult</defName>
+  <baseDesc>And the LORD said unto him, Therefore whosoever slayeth Cain, vengeance shall be taken on him sevenfold. And the LORD set a mark upon Cain, lest any finding him should kill him. - Genesis 4:15</baseDesc>
+  <bodyTypeGlobal>Hulk</bodyTypeGlobal>
+  <bodyTypeMale>Hulk</bodyTypeMale>
+  <bodyTypeFemale>Female</bodyTypeFemale>
+  <title>Marked</title>
+  <titleFemale>Marked</titleFemale>
+  <titleShort>Marked</titleShort>
+  <titleShortFemale>Marked</titleShortFemale>
+  <slot>Adulthood</slot>
+  <maleCommonality>1</maleCommonality>
+  <femaleCommonality>0</femaleCommonality>
+  <spawnCategories>
+     <li>ROMV_Caine</li>
+  </spawnCategories>
+</JecsTools.BackstoryDef>
+
+</Defs>

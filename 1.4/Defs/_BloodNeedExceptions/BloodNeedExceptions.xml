@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <Vampire.BloodNeedExceptions>
+    <defName>ExceptionsList</defName>
+    <label>Exceptions List for Blood Meter in Needs Menu</label>
+    <description>Put Thing Classes and Race Defs (ThingDefs) for things that you do not want to have blood meters in this exception list definition.</description>
+	<thingClasses>
+		<li>ProjectJedi.PawnGhost</li> <!-- Ghosts should not bleed. -->
+	</thingClasses>
+    <raceThingDefs>
+      <li>Mech_Centipede</li>
+      <li>Mech_Lancer</li>
+      <li>Mech_Scyther</li>
+      <li>Mech_Pikeman</li>
+      <li>Mech_Termite</li>
+      <li>Megascarab</li>
+      <li>Spelopede</li>
+      <li>Megaspider</li>
+      <li>SoSHologramRace</li>
+    </raceThingDefs>
+  </Vampire.BloodNeedExceptions>
+
+</Defs>

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_PerfectFormHediff.label>Идеальная форма (Изменчивость)</ROMV_PerfectFormHediff.label>
+
+  <ROMV_CorruptFormHediff_Sight.label>Свободные мешки из кожи</ROMV_CorruptFormHediff_Sight.label>
+  <ROMV_CorruptFormHediff_Sight.comps.0.labelTendedWell>зашиты</ROMV_CorruptFormHediff_Sight.comps.0.labelTendedWell>
+  <ROMV_CorruptFormHediff_Sight.comps.0.labelTendedWellInner>зашиты</ROMV_CorruptFormHediff_Sight.comps.0.labelTendedWellInner>
+  <ROMV_CorruptFormHediff_Sight.injuryProps.destroyedLabel>Потерянно из-за искажения</ROMV_CorruptFormHediff_Sight.injuryProps.destroyedLabel>
+
+  <ROMV_CorruptFormHediff_Legs.label>Расщеплены кости и плоть</ROMV_CorruptFormHediff_Legs.label>
+  <ROMV_CorruptFormHediff_Legs.comps.0.labelTendedWell>Перевязано</ROMV_CorruptFormHediff_Legs.comps.0.labelTendedWell>
+  <ROMV_CorruptFormHediff_Legs.comps.0.labelTendedWellInner>Перевязано</ROMV_CorruptFormHediff_Legs.comps.0.labelTendedWellInner>
+  <ROMV_CorruptFormHediff_Legs.injuryProps.destroyedLabel>Потерянно из-за искажения</ROMV_CorruptFormHediff_Legs.injuryProps.destroyedLabel>
+
+  <ROMV_CorruptFormHediff_Arms.label>Порваны связки</ROMV_CorruptFormHediff_Arms.label>
+  <ROMV_CorruptFormHediff_Arms.comps.0.labelTendedWell>Перевязано</ROMV_CorruptFormHediff_Arms.comps.0.labelTendedWell>
+  <ROMV_CorruptFormHediff_Arms.comps.0.labelTendedWellInner>Перевязано</ROMV_CorruptFormHediff_Arms.comps.0.labelTendedWellInner>
+  <ROMV_CorruptFormHediff_Arms.injuryProps.destroyedLabel>Потерянно из-за искажения</ROMV_CorruptFormHediff_Arms.injuryProps.destroyedLabel>
+
+  <ROMV_ZuloFormHediff.label>Форма зуло (Изменчивость)</ROMV_ZuloFormHediff.label>
+
+
+</LanguageData>

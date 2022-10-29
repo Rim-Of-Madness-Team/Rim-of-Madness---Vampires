@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_Vicissitude_PerfectForm.label>forma perfecta</ROMV_Vicissitude_PerfectForm.label>
+  <ROMV_Vicissitude_PerfectForm.description>Moldeando la carne como el masa, esta habilidad reestructura tu forma por un tiempo para que parezca más atractiva.</ROMV_Vicissitude_PerfectForm.description>
+
+  <ROMV_Vicissitude_CorruptForm.label>forma corrompida</ROMV_Vicissitude_CorruptForm.label>
+  <ROMV_Vicissitude_CorruptForm.description>Moldeando la carne como el masa, esta habilidad reestructura la forma de otro, paralizándolos.</ROMV_Vicissitude_CorruptForm.description>
+
+  <ROMV_Vicissitude_ShapeMonstrosity.label>forma monstruosidad</ROMV_Vicissitude_ShapeMonstrosity.label>
+  <ROMV_Vicissitude_ShapeMonstrosity.description>Moldeando la carne como el masa, esta habilidad reestructura una criatura doméstica.</ROMV_Vicissitude_ShapeMonstrosity.description>
+
+  <ROMV_Vicissitude_BecomeZulo.label>forma zulo</ROMV_Vicissitude_BecomeZulo.label>
+  <ROMV_Vicissitude_BecomeZulo.description>El Zulo es una monstruosidad quitinosa salpicada de espuelas óseas y cuernos, que a menudo incorpora otras variaciones menores del propio diseño del Demonio en su forma.</ROMV_Vicissitude_BecomeZulo.description>
+
+
+</LanguageData>

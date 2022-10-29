@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Beds -->
+
+  <ROMV_SimpleCoffin.label>Ataúd</ROMV_SimpleCoffin.label>
+  <ROMV_SimpleCoffin.description>Un receptáculo funerario para los muertos.</ROMV_SimpleCoffin.description>
+  <ROMV_SimpleCoffin_Blueprint.label>Ataúd (plano)</ROMV_SimpleCoffin_Blueprint.label>
+  <ROMV_SimpleCoffin_Blueprint_Install.label>Ataúd (plano)</ROMV_SimpleCoffin_Blueprint_Install.label>
+  <ROMV_SimpleCoffin_Frame.label>Ataúd (plano)</ROMV_SimpleCoffin_Frame.label>
+
+  <ROMV_SimpleCoffinBed.label>lugar para dormir</ROMV_SimpleCoffinBed.label>
+  <ROMV_SimpleCoffinBed.description>Señala un lugar en el suelo donde las personas deberían dormir. Incómodo.</ROMV_SimpleCoffinBed.description>
+
+  <ROMV_RoyalCoffin.label>Ataúd Real</ROMV_RoyalCoffin.label>
+  <ROMV_RoyalCoffin.description>Un lujoso y funerario sepulcro adornado para los muertos muy honrados.</ROMV_RoyalCoffin.description>
+  <ROMV_RoyalCoffin_Blueprint.label>Ataúd Real(plano)</ROMV_RoyalCoffin_Blueprint.label>
+  <ROMV_RoyalCoffin_Blueprint_Install.label>Ataúd Real(plano)</ROMV_RoyalCoffin_Blueprint_Install.label>
+  <ROMV_RoyalCoffin_Frame.label>Ataúd Real(plano)</ROMV_RoyalCoffin_Frame.label>
+
+  <ROMV_RoyalCoffinBed.label>lugar para dormir</ROMV_RoyalCoffinBed.label>
+  <ROMV_RoyalCoffinBed.description>Señala un lugar en el suelo donde las personas deberían dormir. Incómodo.</ROMV_RoyalCoffinBed.description>
+
+  <ROMV_SarcophagusBed.label>lugar para dormir</ROMV_SarcophagusBed.label>
+  <ROMV_SarcophagusBed.description>Señala un lugar en el suelo donde las personas deberían dormir. Incómodo.</ROMV_SarcophagusBed.description>
+
+
+</LanguageData>

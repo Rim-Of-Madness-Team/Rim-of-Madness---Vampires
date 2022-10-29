@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!-- spouse / lover -->
+
+  <PawnRelationDef>
+    <workerClass>Vampire.PawnRelationWorker_Sire</workerClass>
+    <defName>ROMV_Sire</defName>
+    <label>sire</label>
+    <importance>195</importance>
+    <diedThought>MySireDestroyed</diedThought>
+    <killedThought>DestroyedMySire</killedThought>
+    <soldThoughts><li>SoldMyBloodBondedOne</li></soldThoughts>
+    <opinionOffset>40</opinionOffset>
+    <generationChanceFactor>0</generationChanceFactor>
+    <romanceChanceFactor>0.5</romanceChanceFactor>
+    <incestOpinionOffset>0</incestOpinionOffset>
+    <implied>false</implied>
+    <familyByBloodRelation>true</familyByBloodRelation>
+  </PawnRelationDef>
+
+  <PawnRelationDef>
+    <workerClass>Vampire.PawnRelationWorker_Childe</workerClass>
+    <defName>ROMV_Childe</defName>
+    <label>childe</label>
+    <importance>190</importance>
+    <diedThought>MyChildeDestroyed</diedThought>
+    <killedThought>DestroyedMyChilde</killedThought>
+    <soldThoughts><li>SoldMyBloodBondedOne</li></soldThoughts>
+    <opinionOffset>10</opinionOffset>
+    <generationChanceFactor>0</generationChanceFactor>
+    <romanceChanceFactor>0.03</romanceChanceFactor>
+    <incestOpinionOffset>0</incestOpinionOffset>
+    <implied>false</implied>
+    <familyByBloodRelation>true</familyByBloodRelation>
+  </PawnRelationDef>
+
+</Defs>

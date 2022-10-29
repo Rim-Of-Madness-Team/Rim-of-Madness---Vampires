@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_Obtenebration_ArmOfTheAbyss.label>Руки бездны</ROMV_Obtenebration_ArmOfTheAbyss.label>
+  <ROMV_Obtenebration_ArmOfTheAbyss.description>Призыв абиссального щупальца, которое охраняет область и атакует прохожих.</ROMV_Obtenebration_ArmOfTheAbyss.description>
+
+  <ROMV_Obtenebration_BlackMetamorphosis.label>Черный метаморфоз</ROMV_Obtenebration_BlackMetamorphosis.label>
+  <ROMV_Obtenebration_BlackMetamorphosis.description>Превращает тени в дополнительную броню, а также улучшает ваше оружие.</ROMV_Obtenebration_BlackMetamorphosis.description>
+
+  <ROMV_Obtenebration_TenebrousForm.label>Форма мрака</ROMV_Obtenebration_TenebrousForm.label>
+  <ROMV_Obtenebration_TenebrousForm.description>Превращает заклинателя в неуязвимую черную тень, которая невосприимчива к любому повреждению, кроме солнечного света. Заклинатель не может атаковать цели в своей теневой форме.</ROMV_Obtenebration_TenebrousForm.description>
+
+  <ROMV_Obtenebration_EnterTheAbyss.label>Войти в бездну</ROMV_Obtenebration_EnterTheAbyss.label>
+  <ROMV_Obtenebration_EnterTheAbyss.description>Позволяет заклинателю пройти через темную бездну и телепортироваться в любую точку карты мгновенно.</ROMV_Obtenebration_EnterTheAbyss.description>
+
+
+</LanguageData>

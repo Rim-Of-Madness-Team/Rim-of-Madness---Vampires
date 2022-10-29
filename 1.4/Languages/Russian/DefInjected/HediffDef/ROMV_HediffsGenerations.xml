@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROM_Generations_Caine.label>Первый Вампир, Первый Убийца</ROM_Generations_Caine.label>
+  <ROM_Generations_TheThree.label>Дитя Каина</ROM_Generations_TheThree.label>
+
+
+  <!-- Generation III -->
+
+  <ROM_Generations_Antediluvian.label>патриарх</ROM_Generations_Antediluvian.label>
+
+
+  <!-- Generation V -->
+
+  <ROM_Generations_Methuselah.label>мафусаил</ROM_Generations_Methuselah.label>
+
+
+  <!-- Generation VIII -->
+
+  <ROM_Generations_Elder.label>старейшина</ROM_Generations_Elder.label>
+
+
+  <!-- Generation X -->
+
+  <ROM_Generations_Ancillae.label>ансилл</ROM_Generations_Ancillae.label>
+
+
+  <!-- Generation XIII -->
+
+  <ROM_Generations_Neonate.label>неонат</ROM_Generations_Neonate.label>
+
+
+  <!-- Generation 14 Up -->
+
+  <ROM_Generations_Thinblood.label>тонкая кровь</ROM_Generations_Thinblood.label>
+
+
+</LanguageData>

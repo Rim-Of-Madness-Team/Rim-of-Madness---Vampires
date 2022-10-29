@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Help: XPath Syntax: https://www.w3schools.com/xml/xpath_syntax.asp
+-->
+<Patch>
+	<!--Fangs-->
+	<Operation Class="PatchOperationSequence">
+		<success>Always</success>
+		<operations>
+			<!--This ensures the patch will only be applied IF combat extended is loaded-->
+			<!--TODO: Move to JecsTools?-->
+			<li Class="Vampire.PatchOperationModLoaded">
+				<modName>Combat Extended</modName>
+			</li>
+			<li Class="PatchOperationReplace">
+				<xpath>*/HediffDef[defName="ROMV_Fangs"]/comps/li[@Class="HediffCompProperties_VerbGiver"]/tools</xpath>
+				<value>
+					<tools>
+						<li Class="CombatExtended.ToolCE">
+							<capacities>
+								<li>Bite</li>
+							</capacities>
+							<power>9</power>
+							<linkedBodyPartsGroup>Teeth</linkedBodyPartsGroup>
+							<cooldownTime>1.65</cooldownTime>
+							<armorPenetration>0.15</armorPenetration>
+						</li>
+					</tools>
+				</value>
+			</li>
+		</operations>
+	</Operation>
+
+	<!--Feral Claws-->
+	<Operation Class="PatchOperationSequence">
+		<success>Always</success>
+		<operations>
+			<!--This ensures the patch will only be applied IF combat extended is loaded-->
+			<li Class="Vampire.PatchOperationModLoaded">
+				<modName>Combat Extended</modName>
+			</li>
+			<li Class="PatchOperationReplace">
+				<xpath>*/HediffDef[defName="ROMV_FeralClaw"]/comps/li[@Class="HediffCompProperties_VerbGiver"]/tools</xpath>
+				<value>
+					<tools>
+						<li Class="CombatExtended.ToolCE">
+							<label>feral claw</label>
+							<capacities>
+								<li>Stab</li>
+							</capacities>
+							<power>14</power>
+							<linkedBodyPartsGroup>Hands</linkedBodyPartsGroup>
+							<cooldownTime>1.65</cooldownTime>
+							<armorPenetration>0.25</armorPenetration>
+						</li>
+					</tools>
+				</value>
+			</li>
+		</operations>
+	</Operation>
+
+	<!--Abyssal Arm-->
+	<Operation Class="PatchOperationSequence">
+		<success>Always</success>
+		<operations>
+			<!--This ensures the patch will only be applied IF combat extended is loaded-->
+			<li Class="Vampire.PatchOperationModLoaded">
+				<modName>Combat Extended</modName>
+			</li>
+			<li Class="PatchOperationReplace">
+				<xpath>*/ThingDef[@Name="ROMV_ThingBaseAbyssalArm"]/tools</xpath>
+				<value>
+					<tools>
+						<li Class="CombatExtended.ToolCE">
+							<label>tentacle</label>
+							<capacities>
+								<li>Blunt</li>
+							</capacities>
+							<cooldownTime>1.0</cooldownTime>
+							<power>9</power>
+							<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+							<surpriseAttack>
+								<extraMeleeDamages>
+									<li>
+										<def>Stun</def>
+										<amount>20</amount>
+									</li>
+								</extraMeleeDamages>
+							</surpriseAttack>
+							<armorPenetration>0.2</armorPenetration>
+						</li>
+					</tools>
+				</value>
+			</li>
+		</operations>
+	</Operation>
+
+	<!--Blood Mist-->
+	<Operation Class="PatchOperationSequence">
+		<success>Always</success>
+		<operations>
+			<!--This ensures the patch will only be applied IF combat extended is loaded-->
+			<li Class="Vampire.PatchOperationModLoaded">
+				<modName>Combat Extended</modName>
+			</li>
+			<li Class="PatchOperationReplace">
+				<xpath>*/ThingDef[@Name="ROMV_ThingBaseBloodMist"]/tools</xpath>
+				<value>
+					<tools>
+						<li Class="CombatExtended.ToolCE">
+							<label>viscera</label>
+							<cooldownTime>1.0</cooldownTime>
+							<power>9</power>
+							<capacities>
+								<li>Scratch</li>
+							</capacities>
+							<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+							<surpriseAttack>
+								<extraMeleeDamages>
+									<li>
+										<def>Stun</def>
+										<amount>20</amount>
+									</li>
+								</extraMeleeDamages>
+							</surpriseAttack>
+							<armorPenetration>0.5</armorPenetration>
+							<!--Very high value as it's a liquid... I guess? Maybe I just want this to be OP-->
+						</li>
+					</tools>
+				</value>
+			</li>
+		</operations>
+	</Operation>
+
+	<!--Monstrosity-->
+	<Operation Class="PatchOperationSequence">
+		<success>Always</success>
+		<operations>
+			<!--This ensures the patch will only be applied IF combat extended is loaded-->
+			<li Class="Vampire.PatchOperationModLoaded">
+				<modName>Combat Extended</modName>
+			</li>
+			<li Class="PatchOperationReplace">
+				<xpath>*/ThingDef[@Name="ROMV_ThingBaseMonstrosity"]/tools</xpath>
+				<value>
+					<tools>
+						<li Class="CombatExtended.ToolCE">
+							<cooldownTime>1.0</cooldownTime>
+							<power>7</power>
+							<capacities>
+								<li>Scratch</li>
+							</capacities>
+							<linkedBodyPartsGroup>FrontLeftPaw</linkedBodyPartsGroup>
+							<surpriseAttack>
+								<extraMeleeDamages>
+									<li>
+										<def>Stun</def>
+										<amount>20</amount>
+									</li>
+								</extraMeleeDamages>
+							</surpriseAttack>
+							<armorPenetration>0.15</armorPenetration>
+						</li>
+						<li Class="CombatExtended.ToolCE">
+							<cooldownTime>1.0</cooldownTime>
+							<power>7</power>
+							<capacities>
+								<li>Scratch</li>
+							</capacities>
+							<linkedBodyPartsGroup>FrontRightPaw</linkedBodyPartsGroup>
+							<surpriseAttack>
+								<extraMeleeDamages>
+									<li>
+										<def>Stun</def>
+										<amount>20</amount>
+									</li>
+								</extraMeleeDamages>
+							</surpriseAttack>
+							<armorPenetration>0.15</armorPenetration>
+						</li>
+						<li Class="CombatExtended.ToolCE">
+							<cooldownTime>1.3</cooldownTime>
+							<power>7</power>
+							<capacities>
+								<li>Bite</li>
+							</capacities>
+							<linkedBodyPartsGroup>Teeth</linkedBodyPartsGroup>
+							<surpriseAttack>
+								<extraMeleeDamages>
+									<li>
+										<def>Stun</def>
+										<amount>20</amount>
+									</li>
+								</extraMeleeDamages>
+							</surpriseAttack>
+							<armorPenetration>0.15</armorPenetration>
+						</li>
+						<li Class="CombatExtended.ToolCE">
+							<label>head</label>
+							<cooldownTime>1.1</cooldownTime>
+							<power>3</power>
+							<capacities>
+								<li>Blunt</li>
+							</capacities>
+							<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+							<chanceFactor>0.01</chanceFactor>
+							<armorPenetration>0.05</armorPenetration>
+						</li>
+					</tools>
+				</value>
+			</li>
+		</operations>
+	</Operation>
+</Patch>

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Beds -->
+
+  <ROMV_SimpleCoffin.label>гроб</ROMV_SimpleCoffin.label>
+  <ROMV_SimpleCoffin.description>Погребальное вместилище для мертвых.</ROMV_SimpleCoffin.description>
+  <ROMV_SimpleCoffin_Blueprint.label>гроб (проект)</ROMV_SimpleCoffin_Blueprint.label>
+  <ROMV_SimpleCoffin_Blueprint_Install.label>гроб (проект)</ROMV_SimpleCoffin_Blueprint_Install.label>
+  <ROMV_SimpleCoffin_Frame.label>гроб (постройка)</ROMV_SimpleCoffin_Frame.label>
+
+  <ROMV_RoyalCoffin.label>Роскошный гроб</ROMV_RoyalCoffin.label>
+  <ROMV_RoyalCoffin.description>Роскошно украшенное погребальное вместилище для весьма почитаемых мертвецов.</ROMV_RoyalCoffin.description>
+  <ROMV_RoyalCoffin_Blueprint.label>Роскошный гроб (проект)</ROMV_RoyalCoffin_Blueprint.label>
+  <ROMV_RoyalCoffin_Blueprint_Install.label>Роскошный гроб (проект)</ROMV_RoyalCoffin_Blueprint_Install.label>
+  <ROMV_RoyalCoffin_Frame.label>Роскошный гроб (постройка)</ROMV_RoyalCoffin_Frame.label>
+
+  <ROMV_RoyalCoffinDouble.label>двойной роскошный гроб</ROMV_RoyalCoffinDouble.label>
+  <ROMV_RoyalCoffinDouble.description>Роскошно украшенное погребальное вместилище для весьма почитаемых мертвецов. Модифицировано, чтобы пара могла отдыхать вместе. (Пока баганое. Не используйте это.)</ROMV_RoyalCoffinDouble.description>
+  <ROMV_RoyalCoffinDouble_Blueprint_Install.label>двойной роскошный гроб (проект)</ROMV_RoyalCoffinDouble_Blueprint_Install.label>
+
+  <ROMV_SarcophagusBed.label>спальное место</ROMV_SarcophagusBed.label>
+  <ROMV_SarcophagusBed.description>Определяет место на земле, где люди должны спать. Не удобно.</ROMV_SarcophagusBed.description>
+
+  <ROMV_SimpleCoffinBed.label>спальное место</ROMV_SimpleCoffinBed.label>
+  <ROMV_SimpleCoffinBed.description>Определяет место на земле, где люди должны спать. Не удобно.</ROMV_SimpleCoffinBed.description>
+
+  <ROMV_RoyalCoffinBed.label>спальное место</ROMV_RoyalCoffinBed.label>
+  <ROMV_RoyalCoffinBed.description>Определяет место на земле, где люди должны спать. Не удобно.</ROMV_RoyalCoffinBed.description>
+
+  <ROMV_RoyalCoffinDoubleBed.label>спальное место</ROMV_RoyalCoffinDoubleBed.label>
+  <ROMV_RoyalCoffinDoubleBed.description>Определяет место на земле, где люди должны спать.</ROMV_RoyalCoffinDoubleBed.description>
+
+
+</LanguageData>

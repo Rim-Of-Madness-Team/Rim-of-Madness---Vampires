@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Misc -->
+
+  <ROMV_GotoSafety.reportString>перемещается.</ROMV_GotoSafety.reportString>
+  <ROMV_DigAndHide.reportString>отчаянно копает дыру.</ROMV_DigAndHide.reportString>
+  <ROMV_Feed.reportString>Питается TargetA.</ROMV_Feed.reportString>
+  <ROMV_Sip.reportString>Питается TargetA.</ROMV_Sip.reportString>
+  <ROMV_FeedAndReturn.reportString>Ворует кровь у TargetA.</ROMV_FeedAndReturn.reportString>
+  <ROMV_BloodVomit.reportString>Блюет.</ROMV_BloodVomit.reportString>
+  <ROMV_FeedAndDestroy.reportString>Потребляет TarjetA.</ROMV_FeedAndDestroy.reportString>
+  <ROMV_FeedVampire.reportString>Потягивает витэ TargetA.</ROMV_FeedVampire.reportString>
+  <ROMV_Diablerie.reportString>Пытается поглотить душу TargetA.</ROMV_Diablerie.reportString>
+  <ROMV_ConsumeBlood.reportString>Потребляет TarjetA.</ROMV_ConsumeBlood.reportString>
+  <ROMV_Embrace.reportString>Обхватывает TargetA.</ROMV_Embrace.reportString>
+  <ROMV_GhoulBloodBond.reportString>питается витэ TargetA.</ROMV_GhoulBloodBond.reportString>
+  <ROMV_EnterTorpor.reportString>входит в состояние оцепенения.</ROMV_EnterTorpor.reportString>
+
+
+</LanguageData>

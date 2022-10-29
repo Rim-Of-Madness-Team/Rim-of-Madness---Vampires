@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+
+  <Vampire.TransformationDef>
+    <defName>ROMV_BatKind</defName>
+    <label>Bat Form</label>
+    <baseBodySize>0.22</baseBodySize>
+    <baseHealthScale>0.33</baseHealthScale>
+	<bodyGraphicData>
+	  <texPath>Things/Pawn/Animal/BatVampire/Draegon1993BatVampireA</texPath>
+	  <color>(110,95,82)</color>
+	  <drawSize>2.2</drawSize>
+	  <shaderType>CutoutComplex</shaderType>
+	  <graphicClass>Graphic_Multi</graphicClass>
+	</bodyGraphicData>
+	<comps>
+	  <li Class="CompAnimated.CompProperties_Animated">
+	    <movingFrames>
+		  <li>
+            <texPath>Things/Pawn/Animal/BatVampire/Draegon1993BatVampireA</texPath>
+            <color>(110,95,82)</color>
+            <drawSize>2.2</drawSize>
+            <shaderType>CutoutComplex</shaderType>
+		    <graphicClass>Graphic_Multi</graphicClass>
+		  </li>
+		  <li>
+            <texPath>Things/Pawn/Animal/BatVampire/Draegon1993BatVampireB</texPath>
+            <color>(110,95,82)</color>
+            <drawSize>2.2</drawSize>
+            <shaderType>CutoutComplex</shaderType>
+		    <graphicClass>Graphic_Multi</graphicClass>
+		  </li>
+		</movingFrames>
+		<stillFrames>
+		  <li>
+            <texPath>Things/Pawn/Animal/BatVampire/Draegon1993BatVampire_Sitting</texPath>
+            <color>(110,95,82)</color>
+            <drawSize>2.2</drawSize>
+            <shaderType>CutoutComplex</shaderType>
+		    <graphicClass>Graphic_Multi</graphicClass>
+		  </li>
+		</stillFrames>
+		<sound/>
+		<secondsBetweenFrames>0.15</secondsBetweenFrames>
+	  </li>
+	</comps>
+  </Vampire.TransformationDef>  
+
+  <ThingDef ParentName="AnimalThingBase">
+    <defName>ROMV_BatRace</defName>
+    <label>bat</label>
+    <description>Before the dawn of the genetic editing age, this animal was once considered the only known mammal capable of flight.</description>
+    <statBases>
+      <MoveSpeed>2.1</MoveSpeed>
+      <ComfyTemperatureMin>0</ComfyTemperatureMin>
+      <MarketValue>75</MarketValue>
+      <LeatherAmount>15</LeatherAmount>
+    </statBases>
+	<comps>
+	  <li Class="CompAnimated.CompProperties_Animated">
+	    <movingFrames>
+		  <li>
+            <texPath>Things/Pawn/Animal/BatVampire/Draegon1993BatVampireA</texPath>
+            <color>(110,95,82)</color>
+            <drawSize>2.2</drawSize>
+            <shaderType>CutoutComplex</shaderType>
+		    <graphicClass>Graphic_Multi</graphicClass>
+		  </li>
+		  <li>
+            <texPath>Things/Pawn/Animal/BatVampire/Draegon1993BatVampireB</texPath>
+            <color>(110,95,82)</color>
+            <drawSize>2.2</drawSize>
+            <shaderType>CutoutComplex</shaderType>
+		    <graphicClass>Graphic_Multi</graphicClass>
+		  </li>
+		</movingFrames>
+		<stillFrames>
+		  <li>
+            <texPath>Things/Pawn/Animal/BatVampire/Draegon1993BatVampire_Sitting</texPath>
+            <color>(110,95,82)</color>
+            <drawSize>2.2</drawSize>
+            <shaderType>CutoutComplex</shaderType>
+		    <graphicClass>Graphic_Multi</graphicClass>
+		  </li>
+		</stillFrames>
+		<sound/>
+		<secondsBetweenFrames>0.15</secondsBetweenFrames>
+	  </li>
+	</comps>
+    <verbs>
+      <li>
+        <verbClass>Verb_MeleeAttackDamage</verbClass>
+        <defaultCooldownTime>1.65</defaultCooldownTime>
+        <meleeDamageBaseAmount>3</meleeDamageBaseAmount>
+        <meleeDamageDef>Bite</meleeDamageDef>
+        <linkedBodyPartsGroup>Teeth</linkedBodyPartsGroup>
+      </li>
+      <li>
+        <verbClass>Verb_MeleeAttackDamage</verbClass>
+        <defaultCooldownTime>1.65</defaultCooldownTime>
+        <meleeDamageBaseAmount>1</meleeDamageBaseAmount>
+        <meleeDamageDef>Blunt</meleeDamageDef>
+        <linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+      </li>
+    </verbs>
+    <race>
+      <body>ROMV_BatBody</body>
+      <baseHungerRate>0.35</baseHungerRate>
+      <baseBodySize>0.22</baseBodySize>
+      <baseHealthScale>0.35</baseHealthScale>
+      <foodType>VegetarianRoughAnimal</foodType>
+      <trainability>Advanced</trainability>
+      <wildness>0.75</wildness>
+	  <leatherDef>Leather_Light</leatherDef>
+      <nuzzleMtbHours>120</nuzzleMtbHours>
+      <gestationPeriodDays>14</gestationPeriodDays>
+      <litterSizeCurve>
+        <points>
+          <li>(0.5, 0)</li>
+          <li>(1, 1)</li>
+          <li>(3, 1)</li>
+          <li>(3.5, 0)</li>
+        </points>
+      </litterSizeCurve>
+      <lifeExpectancy>12</lifeExpectancy>
+      <lifeStageAges>
+        <li>
+          <def>AnimalBaby</def>
+          <minAge>0</minAge>
+        </li>
+        <li>
+          <def>AnimalJuvenile</def>
+          <minAge>0.2</minAge>
+        </li>
+        <li>
+          <def>AnimalAdult</def>
+          <minAge>0.4</minAge>
+          <soundWounded>Pawn_Alphabeaver_Wounded</soundWounded>
+          <soundDeath>Pawn_Alphabeaver_Death</soundDeath>
+          <soundCall>Pawn_Alphabeaver_Call</soundCall>
+          <soundAngry>Pawn_Alphabeaver_Angry</soundAngry>
+        </li>
+      </lifeStageAges>
+      <soundMeleeHitPawn>Pawn_Melee_SmallScratch_HitPawn</soundMeleeHitPawn>
+      <soundMeleeHitBuilding>Pawn_Melee_SmallScratch_HitBuilding</soundMeleeHitBuilding>
+      <soundMeleeMiss>Pawn_Melee_SmallScratch_Miss</soundMeleeMiss>
+    </race>
+    <tradeTags>
+      <li>AnimalUncommon</li>
+    </tradeTags>
+  </ThingDef>
+
+  <PawnKindDef ParentName="AnimalKindBase">
+    <defName>ROMV_BatKind</defName>
+    <label>bat</label>
+    <race>ROMV_BatRace</race>
+    <combatPower>25</combatPower>
+    <ecoSystemWeight>0.25</ecoSystemWeight>
+     
+    <lifeStages>
+      <li>
+        <bodyGraphicData>
+          <texPath>Things/Pawn/Animal/BatVampire/Draegon1993BatVampireA</texPath>
+          <color>(110,95,82)</color>
+          <drawSize>2.2</drawSize>
+          <shaderType>CutoutComplex</shaderType>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Chicken/Dessicated_Chicken</texPath>
+          <drawSize>2.2</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+      <li>
+        <bodyGraphicData>
+          <texPath>Things/Pawn/Animal/BatVampire/Draegon1993BatVampireA</texPath>
+          <color>(110,95,82)</color>
+          <drawSize>2.2</drawSize>
+          <shaderType>CutoutComplex</shaderType>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Chicken/Dessicated_Chicken</texPath>
+          <drawSize>2.2</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+      <li>
+        <bodyGraphicData>
+          <texPath>Things/Pawn/Animal/BatVampire/Draegon1993BatVampireA</texPath>
+          <color>(110,95,82)</color>
+          <drawSize>2.2</drawSize>
+          <shaderType>CutoutComplex</shaderType>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Chicken/Dessicated_Chicken</texPath>
+          <drawSize>2.2</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+    </lifeStages>
+  </PawnKindDef>
+
+</Defs>

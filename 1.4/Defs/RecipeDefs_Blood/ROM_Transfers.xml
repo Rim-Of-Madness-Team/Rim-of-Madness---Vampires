@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <RecipeDef ParentName="ROMV_SurgeryFlesh">
+    <defName>ROM_TransferBloodPack</defName>
+    <label>transfer blood pack</label>
+    <description>Transfer a blood pack.</description>
+    <workerClass>Vampire.Recipe_TransferBlood</workerClass>
+    <jobString>Transferring blood.</jobString>
+    <workAmount>2500</workAmount>
+    <hideBodyPartNames>true</hideBodyPartNames>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>BloodPack_HighBlood</li>
+            <li>BloodPack_AverageBlood</li>
+            <li>BloodPack_LowBlood</li>
+          </thingDefs>
+        </filter>
+        <count>1</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+        <thingDefs>
+        <li>BloodPack_HighBlood</li>
+        <li>BloodPack_AverageBlood</li>
+        <li>BloodPack_LowBlood</li>
+        </thingDefs>
+    </fixedIngredientFilter>
+  </RecipeDef>
+
+  <RecipeDef ParentName="ROMV_SurgeryFlesh">
+    <defName>ROM_TransferBloodPackAnimal</defName>
+    <label>transfer blood pack</label>
+    <description>Transfer a blood pack.</description>
+    <workerClass>Vampire.Recipe_TransferBlood</workerClass>
+    <jobString>Transferring blood.</jobString>
+    <workAmount>2500</workAmount>
+    <hideBodyPartNames>true</hideBodyPartNames>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>BloodPack_Animal</li>
+          </thingDefs>
+        </filter>
+        <count>1</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+        <thingDefs>
+        <li>BloodPack_Animal</li>
+        </thingDefs>
+    </fixedIngredientFilter>
+  </RecipeDef>
+
+</Defs>

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Sire Thoughts -->
+
+  <MySireDestroyed.stages.0.label>Мой отец {0} был уничтожен</MySireDestroyed.stages.0.label>
+  <MySireDestroyed.stages.0.description>Мой отец был уничтожен. Он ушел навсегда.</MySireDestroyed.stages.0.description>
+
+  <DestroyedMySire.stages.0.label>Уничтожил своего отца</DestroyedMySire.stages.0.label>
+
+  <SoldMyBloodBondedOne.stages.0.label>Продал узы крови</SoldMyBloodBondedOne.stages.0.label>
+  <SoldMyBloodBondedOne.stages.0.labelSocial>Продал свои узы крови</SoldMyBloodBondedOne.stages.0.labelSocial>
+  <SoldMyBloodBondedOne.stages.0.description>Тот, кто привязан ко мне, был продан торговцу.</SoldMyBloodBondedOne.stages.0.description>
+
+
+  <!-- Childe Thoughts -->
+
+  <MyChildeDestroyed.stages.0.label>Моё дитя {0} было уничтожено</MyChildeDestroyed.stages.0.label>
+  <MyChildeDestroyed.stages.0.description>Моё дитя {0} было уничтожено. Он ушел навсегда.</MyChildeDestroyed.stages.0.description>
+
+  <DestroyedMyChilde.stages.0.label>Уничтожил своё дитя</DestroyedMyChilde.stages.0.label>
+
+
+</LanguageData>

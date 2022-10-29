@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<Defs>
+
+  <Vampire.DisciplineDef>
+    <defName>ROMV_Animalism</defName>
+    <label>Animalism</label>
+    <abilities>
+      <li>ROMV_Animalism_Beckoning</li>
+      <li>ROMV_Animalism_NightwispRavens</li>
+      <li>ROMV_Animalism_SpectralWolf</li>
+      <li>ROMV_Animalism_Communion</li>
+    </abilities>
+  </Vampire.DisciplineDef>
+
+  <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+   <defName>ROMV_Animalism_Beckoning</defName>
+   <label>beckoning</label>
+   <bloodCost>1</bloodCost>
+   <uiIconPath>UI/Icons/Commands/Animalism_Beckoning</uiIconPath>
+   <description>Summon a pack of wild animals to come to your colony.</description>
+   <MainVerb Class="AbilityUser.VerbProperties_Ability">
+     <verbClass>Vampire.DisciplineEffect_Beckoning</verbClass>
+     <hasStandardCommand>true</hasStandardCommand>
+     <defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+     <abilityDef>ROMV_Animalism_Beckoning</abilityDef>
+     <isViolent>false</isViolent>
+	 <stopBurstWithoutLos>false</stopBurstWithoutLos>
+     <warmupTime>1</warmupTime>
+     <SecondsToRecharge>300.0</SecondsToRecharge>
+     <range>24</range>
+     <burstShotCount>1</burstShotCount>
+     <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+     <soundCast>ROMV_AbilityCastSound_Animalism</soundCast>
+     <muzzleFlashScale>20</muzzleFlashScale>
+     <isPrimary>false</isPrimary>
+     <AbilityTargetCategory>TargetSelf</AbilityTargetCategory>
+     <targetParams>
+       <canTargetLocations>false</canTargetLocations>
+       <canTargetPawns>false</canTargetPawns>
+       <canTargetBuildings>false</canTargetBuildings>
+       <canTargetItems>false</canTargetItems>
+       <canTargetSelf>true</canTargetSelf>
+     </targetParams>
+     <tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+     <tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+     <tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+     <tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+   </MainVerb>
+ </Vampire.VitaeAbilityDef>
+
+  <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+   <defName>ROMV_Animalism_NightwispRavens</defName>
+   <label>nightwisp ravens</label>
+   <bloodCost>1</bloodCost>
+   <uiIconPath>UI/Icons/Commands/Animalism_NightwispRavens</uiIconPath>
+   <description>Ravens incapacitate the victim for a short time. Any action taken against the victim will disperse the flock and end the effect prematurely.</description>
+   <MainVerb Class="AbilityUser.VerbProperties_Ability">
+     <verbClass>Vampire.DisciplineEffect_NightwispRavens</verbClass>
+     <hasStandardCommand>true</hasStandardCommand>
+     <defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+     <abilityDef>ROMV_Animalism_NightwispRavens</abilityDef>
+     <isViolent>false</isViolent>
+     <warmupTime>1</warmupTime>
+     <SecondsToRecharge>15.0</SecondsToRecharge>
+     <range>24</range>
+     <burstShotCount>1</burstShotCount>
+     <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+     <soundCast>ROMV_AbilityCastSound_Animalism</soundCast>
+     <muzzleFlashScale>20</muzzleFlashScale>
+     <isPrimary>false</isPrimary>
+     <targetParams>
+       <canTargetPawns>true</canTargetPawns>
+       <canTargetBuildings>false</canTargetBuildings>
+       <canTargetItems>false</canTargetItems>
+       <canTargetSelf>false</canTargetSelf>
+     </targetParams>
+     <tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+     <tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+     <tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+     <tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+     <extraDamages>
+       <li>
+         <damage>30</damage>
+         <damageDef>Stun</damageDef>
+         <chance>1.0</chance>
+       </li>
+     </extraDamages>
+   </MainVerb>
+ </Vampire.VitaeAbilityDef>
+ <HediffDef ParentName="ROMV_VampBase">
+   <defName>ROMV_NightwispRavens</defName>
+   <label>nightwisp ravens</label>
+   <description>nightwisp ravens</description>
+   <comps>
+     <li Class="Vampire.HediffCompProperties_TickGraphic">
+       <cycleRate>10</cycleRate>
+       <cycleGraphics>
+         <li>
+          <texPath>Things/TickGraphics/Ravens/Ravens_A</texPath>
+   				<graphicClass>Graphic_Single</graphicClass>
+   				<drawSize>(2,2)</drawSize>
+         </li>
+         <li>
+           <texPath>Things/TickGraphics/Ravens/Ravens_B</texPath>
+           <graphicClass>Graphic_Single</graphicClass>
+           <drawSize>(2,2)</drawSize>
+         </li>
+         <li>
+           <texPath>Things/TickGraphics/Ravens/Ravens_C</texPath>
+           <graphicClass>Graphic_Single</graphicClass>
+           <drawSize>(2,2)</drawSize>
+         </li>
+         <li>
+           <texPath>Things/TickGraphics/Ravens/Ravens_D</texPath>
+           <graphicClass>Graphic_Single</graphicClass>
+           <drawSize>(2,2)</drawSize>
+         </li>
+       </cycleGraphics>
+     </li>
+     <li Class="HediffCompProperties_Disappears">
+       <disappearsAfterTicks>
+         <min>600</min>
+         <max>600</max>
+       </disappearsAfterTicks>
+     </li>
+   </comps>
+ </HediffDef>
+
+ <Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+  <defName>ROMV_Animalism_SpectralWolf</defName>
+  <label>spectral wolf</label>
+  <bloodCost>2</bloodCost>
+  <uiIconPath>UI/Icons/Commands/Animalism_SpectralWolf</uiIconPath>
+  <description>A spectral wolf materializes, attacks the target, and then returns to the ether.</description>
+  <MainVerb Class="AbilityUser.VerbProperties_Ability">
+    <verbClass>Vampire.DisciplineEffect_SpectralWolf</verbClass>
+    <hasStandardCommand>true</hasStandardCommand>
+    <defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+    <abilityDef>ROMV_Animalism_SpectralWolf</abilityDef>
+    <isViolent>false</isViolent>
+    <warmupTime>1</warmupTime>
+    <SecondsToRecharge>200.0</SecondsToRecharge>
+    <range>24</range>
+    <burstShotCount>1</burstShotCount>
+    <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+    <soundCast>ROMV_AbilityCastSound_Animalism</soundCast>
+    <muzzleFlashScale>20</muzzleFlashScale>
+    <isPrimary>false</isPrimary>
+    <targetParams>
+      <canTargetLocations>true</canTargetLocations>
+      <canTargetPawns>false</canTargetPawns>
+      <canTargetBuildings>false</canTargetBuildings>
+      <canTargetItems>false</canTargetItems>
+      <canTargetSelf>false</canTargetSelf>
+    </targetParams>
+    <tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+    <tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+    <tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+    <tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+  </MainVerb>
+</Vampire.VitaeAbilityDef>
+
+<Vampire.VitaeAbilityDef ParentName="BaseVampAbility">
+ <defName>ROMV_Animalism_Communion</defName>
+ <label>communion</label>
+ <bloodCost>3</bloodCost>
+ <uiIconPath>UI/Icons/Commands/Animalism_Communion</uiIconPath>
+ <description>Three ghostly bats seek out targets, draining their blood, then deliver the blood to their master.</description>
+ <MainVerb Class="AbilityUser.VerbProperties_Ability">
+   <verbClass>Vampire.DisciplineEffect_Communion</verbClass>
+   <hasStandardCommand>true</hasStandardCommand>
+   <defaultProjectile>ROMV_DominateProjectile</defaultProjectile>
+   <abilityDef>ROMV_Animalism_Communion</abilityDef>
+   <isViolent>false</isViolent>
+   <warmupTime>1</warmupTime>
+   <SecondsToRecharge>200.0</SecondsToRecharge>
+   <range>24</range>
+   <burstShotCount>1</burstShotCount>
+   <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+   <soundCast>ROMV_AbilityCastSound_Animalism</soundCast>
+   <muzzleFlashScale>20</muzzleFlashScale>
+   <isPrimary>false</isPrimary>
+   <targetParams>
+     <canTargetLocations>true</canTargetLocations>
+     <canTargetPawns>false</canTargetPawns>
+     <canTargetBuildings>false</canTargetBuildings>
+     <canTargetItems>false</canTargetItems>
+     <canTargetSelf>false</canTargetSelf>
+   </targetParams>
+   <tooltipShowProjectileDamage>false</tooltipShowProjectileDamage>
+   <tooltipShowExtraDamages>false</tooltipShowExtraDamages>
+   <tooltipShowHediffsToApply>false</tooltipShowHediffsToApply>
+   <tooltipShowMentalStatesToApply>false</tooltipShowMentalStatesToApply>
+ </MainVerb>
+</Vampire.VitaeAbilityDef>
+
+</Defs>

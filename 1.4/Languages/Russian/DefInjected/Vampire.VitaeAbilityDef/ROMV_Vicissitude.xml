@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_Vicissitude_PerfectForm.label>Идеальная форма</ROMV_Vicissitude_PerfectForm.label>
+  <ROMV_Vicissitude_PerfectForm.description>Формируя плоть, эта способность реструктуризует вашу форму на время, делая её более привлекательной.</ROMV_Vicissitude_PerfectForm.description>
+
+  <ROMV_Vicissitude_CorruptForm.label>Искаженная форма</ROMV_Vicissitude_CorruptForm.label>
+  <ROMV_Vicissitude_CorruptForm.description>Формируя плоть, эта способность реструктуризует чужую форму, нанося ей вред.</ROMV_Vicissitude_CorruptForm.description>
+
+  <ROMV_Vicissitude_ShapeMonstrosity.label>Облик чудовища</ROMV_Vicissitude_ShapeMonstrosity.label>
+  <ROMV_Vicissitude_ShapeMonstrosity.description>Формируя плоть, эта способность реструктуризует внутреннее существо.</ROMV_Vicissitude_ShapeMonstrosity.description>
+
+  <ROMV_Vicissitude_BecomeZulo.label>Форма зуло</ROMV_Vicissitude_BecomeZulo.label>
+  <ROMV_Vicissitude_BecomeZulo.description>Зуло - хитиновое чудовище, усеянное костными отростками и рогами, часто включающее другие незначительные вариации собственного дизайна Дьявола в его форму.</ROMV_Vicissitude_BecomeZulo.description>
+
+
+</LanguageData>

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Added body parts -->
+
+  <ROMV_Fangs.label>Клыки</ROMV_Fangs.label>
+  <ROMV_Fangs.comps.0.tools.0.label>Клыки</ROMV_Fangs.comps.0.tools.0.label>
+
+  <ROMV_FeralClaw.label>Когти зверя (Превращение)</ROMV_FeralClaw.label>
+  <ROMV_FeralClaw.comps.0.tools.0.label>когти зверя</ROMV_FeralClaw.comps.0.tools.0.label>
+
+
+</LanguageData>

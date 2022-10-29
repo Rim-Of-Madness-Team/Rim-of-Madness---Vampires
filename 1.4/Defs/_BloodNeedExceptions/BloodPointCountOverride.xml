@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <Vampire.BloodPointCountRules>
+    <defName>BloodPointCountRules</defName>
+    <label>Overrides blood points for the following creatures.</label>
+    <rules>
+      <li>
+        <def>Rat</def>
+        <blood>1</blood>
+      </li>
+      <li>
+        <def>Thrumbo</def>
+        <blood>10</blood>
+      </li>
+    </rules>
+  </Vampire.BloodPointCountRules>
+
+</Defs>
