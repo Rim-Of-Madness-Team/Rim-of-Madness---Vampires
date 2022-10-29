@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- ██████   █████   ██████ ██   ██ ███████
+  ██   ██ ██   ██ ██      ██  ██  ██
+  ██████  ███████ ██      █████   ███████
+  ██      ██   ██ ██      ██  ██       ██
+  ██      ██   ██  ██████ ██   ██ ███████ -->
+
+  <BloodPack_Animal.label>paquete de sangre (animal)</BloodPack_Animal.label>
+  <BloodPack_Animal.description>Sangre animal recogida para el consumo. (1 punto de sangre)</BloodPack_Animal.description>
+  <BloodPack_Animal.ingestible.ingestCommandString>Beber {0}</BloodPack_Animal.ingestible.ingestCommandString>
+  <BloodPack_Animal.ingestible.ingestReportString>Bebiendo {0}.</BloodPack_Animal.ingestible.ingestReportString>
+
+  <BloodPack_LowBlood.label>paquete de sangre (sangre débil)</BloodPack_LowBlood.label>
+  <BloodPack_LowBlood.description>Sangre débil, o sangre que no cumple con los estándares reales más altos (prostitutas, esclavos, personas sin hogar o enfermos), recolectada en un frasco pequeño. (3 puntos de sangre)</BloodPack_LowBlood.description>
+  <BloodPack_LowBlood.ingestible.ingestCommandString>Beber {0}</BloodPack_LowBlood.ingestible.ingestCommandString>
+  <BloodPack_LowBlood.ingestible.ingestReportString>Bebiendo {0}.</BloodPack_LowBlood.ingestible.ingestReportString>
+
+  <BloodPack_AverageBlood.label>paquete de sangre (sangre común)</BloodPack_AverageBlood.label>
+  <BloodPack_AverageBlood.description>Sangre que no es demasiado sobresaliente para el vampiro resistente ni demasiado baja para el consumo de los miembros más altos de la sociedad de vampiros. (3 puntos de sangre)</BloodPack_AverageBlood.description>
+  <BloodPack_AverageBlood.ingestible.ingestCommandString>Beber {0}</BloodPack_AverageBlood.ingestible.ingestCommandString>
+  <BloodPack_AverageBlood.ingestible.ingestReportString>Bebiendo {0}.</BloodPack_AverageBlood.ingestible.ingestReportString>
+
+  <BloodPack_HighBlood.label>paquete de sangre (sangre noble)</BloodPack_HighBlood.label>
+  <BloodPack_HighBlood.description>Sangre noble, o sangre adecuada para vampiros regios (la sangre de aristócratas, individuos adinerados o residentes de brillo), almacenados en un paquete. (3 puntos de sangre)</BloodPack_HighBlood.description>
+  <BloodPack_HighBlood.ingestible.ingestCommandString>Beber {0}</BloodPack_HighBlood.ingestible.ingestCommandString>
+  <BloodPack_HighBlood.ingestible.ingestReportString>Bebiendo {0}.</BloodPack_HighBlood.ingestible.ingestReportString>
+
+
+  <!-- ██    ██ ██  █████  ██      ███████
+  ██    ██ ██ ██   ██ ██      ██
+  ██    ██ ██ ███████ ██      ███████
+   ██  ██  ██ ██   ██ ██           ██
+    ████   ██ ██   ██ ███████ ███████ -->
+
+  <BloodVial_LowBlood.label>vial de sangre (sangre débil)</BloodVial_LowBlood.label>
+  <BloodVial_LowBlood.description>Sangre débil, o sangre que no cumple con los estándares reales más elevados, recogida en un vial pequeño. (1 punto de sangre)</BloodVial_LowBlood.description>
+  <BloodVial_LowBlood.ingestible.ingestCommandString>Beber {0}</BloodVial_LowBlood.ingestible.ingestCommandString>
+  <BloodVial_LowBlood.ingestible.ingestReportString>Bebiendo {0}.</BloodVial_LowBlood.ingestible.ingestReportString>
+
+  <BloodVial_AverageBlood.label>vial de sangre (sangre común)</BloodVial_AverageBlood.label>
+  <BloodVial_AverageBlood.description>Sangre que no es demasiado sobresaliente para el vampiro resistente ni demasiado baja para el consumo de los miembros más altos de la sociedad de vampiros. (1 punto de sangre)</BloodVial_AverageBlood.description>
+  <BloodVial_AverageBlood.ingestible.ingestCommandString>Beber {0}</BloodVial_AverageBlood.ingestible.ingestCommandString>
+  <BloodVial_AverageBlood.ingestible.ingestReportString>Bebiendo {0}.</BloodVial_AverageBlood.ingestible.ingestReportString>
+
+  <BloodVial_HighBlood.label>vial de sangre (sangre noble)</BloodVial_HighBlood.label>
+  <BloodVial_HighBlood.description>Sangre noble, o sangre adecuada para vampiros regios (la sangre de aristócratas, individuos adinerados o residentes de brillo), almacenada en un vial.</BloodVial_HighBlood.description>
+  <BloodVial_HighBlood.ingestible.ingestCommandString>Beber {0}</BloodVial_HighBlood.ingestible.ingestCommandString>
+  <BloodVial_HighBlood.ingestible.ingestReportString>Bebiendo {0}.</BloodVial_HighBlood.ingestible.ingestReportString>
+
+  <BloodVial_Special.label>vial de sangre (sangre especial)</BloodVial_Special.label>
+  <BloodVial_Special.description>Sangre especial, posiblemente obtenida de criaturas míticas, almacenada en un vial.</BloodVial_Special.description>
+  <BloodVial_Special.ingestible.ingestCommandString>Beber {0}</BloodVial_Special.ingestible.ingestCommandString>
+  <BloodVial_Special.ingestible.ingestReportString>Bebiendo {0}.</BloodVial_Special.ingestible.ingestReportString>
+
+
+</LanguageData>

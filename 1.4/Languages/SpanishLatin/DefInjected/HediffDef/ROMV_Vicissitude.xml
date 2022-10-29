@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_PerfectFormHediff.label>forma perfecta (Vicisitud)</ROMV_PerfectFormHediff.label>
+
+  <ROMV_CorruptFormHediff_Sight.label>bolsas sueltas de piel</ROMV_CorruptFormHediff_Sight.label>
+  <ROMV_CorruptFormHediff_Sight.comps.0.labelTendedWell>remendado</ROMV_CorruptFormHediff_Sight.comps.0.labelTendedWell>
+  <ROMV_CorruptFormHediff_Sight.comps.0.labelTendedWellInner>remendado</ROMV_CorruptFormHediff_Sight.comps.0.labelTendedWellInner>
+  <ROMV_CorruptFormHediff_Sight.injuryProps.destroyedLabel>Perdido por la corrupción</ROMV_CorruptFormHediff_Sight.injuryProps.destroyedLabel>
+
+  <ROMV_CorruptFormHediff_Legs.label>separar-hueso y carne</ROMV_CorruptFormHediff_Legs.label>
+  <ROMV_CorruptFormHediff_Legs.comps.0.labelTendedWell>tendido</ROMV_CorruptFormHediff_Legs.comps.0.labelTendedWell>
+  <ROMV_CorruptFormHediff_Legs.comps.0.labelTendedWellInner>atendido</ROMV_CorruptFormHediff_Legs.comps.0.labelTendedWellInner>
+  <ROMV_CorruptFormHediff_Legs.injuryProps.destroyedLabel>Perdido por la corrupción</ROMV_CorruptFormHediff_Legs.injuryProps.destroyedLabel>
+
+  <ROMV_CorruptFormHediff_Arms.label>ligamento roto</ROMV_CorruptFormHediff_Arms.label>
+  <ROMV_CorruptFormHediff_Arms.comps.0.labelTendedWell>atendido</ROMV_CorruptFormHediff_Arms.comps.0.labelTendedWell>
+  <ROMV_CorruptFormHediff_Arms.comps.0.labelTendedWellInner>atendido</ROMV_CorruptFormHediff_Arms.comps.0.labelTendedWellInner>
+  <ROMV_CorruptFormHediff_Arms.injuryProps.destroyedLabel>Perdido por la corrupción</ROMV_CorruptFormHediff_Arms.injuryProps.destroyedLabel>
+
+  <ROMV_ZuloFormHediff.label>forma Zulo (Vicisitud)</ROMV_ZuloFormHediff.label>
+
+
+</LanguageData>

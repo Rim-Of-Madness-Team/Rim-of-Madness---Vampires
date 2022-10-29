@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_VampiricAwaken.label>пробуждение</ROMV_VampiricAwaken.label>
+  <ROMV_VampiricAwaken.description>Использует один пункт крови, чтобы вывести вампира из состояния оцепенения, где он может снова присоединиться к миру нежити.</ROMV_VampiricAwaken.description>
+
+  <ROMV_VampiricResurrection.label>воскрешение</ROMV_VampiricResurrection.label>
+  <ROMV_VampiricResurrection.description>Отдаёт все оставшиеся витэ, чтобы реанимировать мертвую ткань, восстанавливая вампира до нежити. Осторожно! Это выпустит их внутреннее животное, пока они не насытятся кровью.</ROMV_VampiricResurrection.description>
+
+  <ROMV_VampiricHealing.label>Вампирическое исцеление</ROMV_VampiricHealing.label>
+  <ROMV_VampiricHealing.description>Восстанавливает поврежденную плоть, используя витэ.</ROMV_VampiricHealing.description>
+
+  <ROMV_VampiricHealingScars.label>лечить шрамы</ROMV_VampiricHealingScars.label>
+  <ROMV_VampiricHealingScars.description>Восстанавливает поврежденную плоть, используя витэ.</ROMV_VampiricHealingScars.description>
+
+  <ROMV_RegenerateLimb.label>Регенерировать конечность</ROMV_RegenerateLimb.label>
+  <ROMV_RegenerateLimb.description>Восстанавливает конечность или часть тела, потерянную в бою.</ROMV_RegenerateLimb.description>
+
+
+</LanguageData>

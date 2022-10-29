@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_BloodMistRace.label>Кровавый туман</ROMV_BloodMistRace.label>
+  <ROMV_BloodMistRace.description>Пульсирующее кровяное существо, которое течет по воздуху подобно тени.</ROMV_BloodMistRace.description>
+  <ROMV_BloodMistRace.tools.0.label>внутренности</ROMV_BloodMistRace.tools.0.label>
+  <!-- Use Leather From: Bear_Grizzly -->
+  <!-- Use Meat From: Bear_Grizzly -->
+  <ROMV_BloodMistRace_Corpse.label>мёртвый кровавый туман</ROMV_BloodMistRace_Corpse.label>
+  <ROMV_BloodMistRace_Corpse.description>Мёртвый кровавый туман.</ROMV_BloodMistRace_Corpse.description>
+
+
+</LanguageData>

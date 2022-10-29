@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_ZuloRace.label>Zulo</ROMV_ZuloRace.label>
+  <ROMV_ZuloRace.description>Un Zulo de carne y hueso alterados.</ROMV_ZuloRace.description>
+  <!-- Use Leather From: Bear_Grizzly -->
+  <!-- Use Meat From: Bear_Grizzly -->
+  <ROMV_ZuloRace_Corpse.label>Cadáver de Zulo</ROMV_ZuloRace_Corpse.label>
+  <ROMV_ZuloRace_Corpse.description>Cadáver de Zulo</ROMV_ZuloRace_Corpse.description>
+
+
+</LanguageData>

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Misc -->
+
+  <ROMV_DigAndHide.reportString>desesperadamente cavando un hueco.</ROMV_DigAndHide.reportString>
+  <ROMV_Feed.reportString>alimentándose de TargetA.</ROMV_Feed.reportString>
+  <ROMV_Sip.reportString>alimentándose de TargetA.</ROMV_Sip.reportString>
+  <ROMV_FeedAndReturn.reportString>robando sangre a TargetA.</ROMV_FeedAndReturn.reportString>
+  <ROMV_BloodVomit.reportString>vomitando.</ROMV_BloodVomit.reportString>
+  <ROMV_FeedAndDestroy.reportString>consumiendo TargetA.</ROMV_FeedAndDestroy.reportString>
+  <ROMV_FeedVampire.reportString>tomando la vitae de TargetA.</ROMV_FeedVampire.reportString>
+  <ROMV_Diablerie.reportString>intentando de consumir el alma de TargetA.</ROMV_Diablerie.reportString>
+  <ROMV_ConsumeBlood.reportString>consumiendo TargetA.</ROMV_ConsumeBlood.reportString>
+  <ROMV_Embrace.reportString>abrazando TargetA.</ROMV_Embrace.reportString>
+  <ROMV_EnterTorpor.reportString>comenzando estado de letargo.</ROMV_EnterTorpor.reportString>
+
+
+</LanguageData>

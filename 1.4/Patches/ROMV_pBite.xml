@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Help: XPath Syntax: https://www.w3schools.com/xml/xpath_syntax.asp
+-->
+<Patch>
+
+	<!-- Patch in the ability for Humans to bite in combat. -->
+	<Operation Class="PatchOperationSequence">
+		<success>Always</success>
+		<operations>
+			<li Class="PatchOperationTest">
+				<xpath>*/ThingDef[defName='Human']/tools</xpath>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>*/ThingDef[defName='Human']/tools</xpath>
+				<order>Append</order>
+				<value>
+					<li>
+						<capacities>
+							<li>Bite</li>
+						</capacities>
+						<power>3</power>
+						<cooldownTime>1.65</cooldownTime>
+						<linkedBodyPartsGroup>Teeth</linkedBodyPartsGroup>
+					</li>
+				</value>
+			</li>
+		</operations>
+	</Operation>
+</Patch>

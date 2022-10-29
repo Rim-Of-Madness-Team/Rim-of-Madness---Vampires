@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+<!-- Sire Thoughts -->
+  <ThoughtDef ParentName="DeathMemoryFamily">
+    <defName>MySireDestroyed</defName>
+    <stages>
+      <li>
+        <label>my sire {0} was destroyed</label>
+        <description>My sire was destroyed. They're gone forever.</description>
+        <baseMoodEffect>-8</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>DestroyedMySire</defName>
+    <thoughtClass>Thought_MemorySocial</thoughtClass>
+    <durationDays>80.0</durationDays>
+    <stackLimit>300</stackLimit>
+    <stackLimitForSameOtherPawn>10</stackLimitForSameOtherPawn>
+    <stages>
+      <li>
+        <label>destroyed my sire</label>
+        <baseOpinionOffset>-80</baseOpinionOffset>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>SoldMyBloodBondedOne</defName>
+    <thoughtClass>Thought_MemorySocial</thoughtClass>
+    <durationDays>20.0</durationDays>
+    <stackLimit>10</stackLimit>
+    <stackLimitForSameOtherPawn>2</stackLimitForSameOtherPawn>
+    <stages>
+      <li>
+        <label>blood-bonded sold</label>
+        <labelSocial>sold my blood-bonded</labelSocial>
+        <description>Someone who is blood-bound to me was sold to a trader.</description>
+        <baseOpinionOffset>-10</baseOpinionOffset>
+        <baseMoodEffect>-10</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+<!-- Childe Thoughts -->
+  <ThoughtDef ParentName="DeathMemoryFamily">
+    <defName>MyChildeDestroyed</defName>
+    <stages>
+      <li>
+        <label>my childe {0} was destroyed</label>
+        <description>My childe was destroyed. They're gone forever.</description>
+        <baseMoodEffect>-8</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>DestroyedMyChilde</defName>
+    <thoughtClass>Thought_MemorySocial</thoughtClass>
+    <durationDays>80.0</durationDays>
+    <stackLimit>300</stackLimit>
+    <stackLimitForSameOtherPawn>10</stackLimitForSameOtherPawn>
+    <stages>
+      <li>
+        <label>destroyed my childe</label>
+        <baseOpinionOffset>-80</baseOpinionOffset>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+</Defs>

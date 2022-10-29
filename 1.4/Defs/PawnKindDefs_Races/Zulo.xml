@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <Vampire.TransformationDef>
+    <defName>ROMV_ZuloKind</defName>
+	<label>Zulo Form</label>
+	<baseBodySize>2.0</baseBodySize>
+    <baseHealthScale>3.0</baseHealthScale>	
+	<bodyGraphicData>
+	  <texPath>Things/Pawn/Animal/Zulo/Zulo</texPath>
+	  <drawSize>3.05</drawSize>
+	  <graphicClass>Graphic_Multi</graphicClass>
+	</bodyGraphicData>
+  </Vampire.TransformationDef>  
+
+</Defs>

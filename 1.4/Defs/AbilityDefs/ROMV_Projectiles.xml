@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<Defs>
+
+<ThingDef Name="InvisBaseBullet" Abstract="True">
+  <category>Projectile</category>
+  <tickerType>Normal</tickerType>
+  <altitudeLayer>Projectile</altitudeLayer>
+  <thingClass>Bullet</thingClass>
+  <label>bullet</label>
+  <useHitPoints>False</useHitPoints>
+  <neverMultiSelect>True</neverMultiSelect>
+  <graphicData>
+    <shaderType>Transparent</shaderType>
+  </graphicData>
+</ThingDef>
+
+
+  <ThingDef ParentName="InvisBaseBullet" Name="ROMV_FlyingObject">
+   <defName>ROMV_FlyingObject</defName>
+   <thingClass>Vampire.FlyingObject</thingClass>
+   <label>flying object</label>
+   <graphicData>
+		<texPath>NullTex</texPath>
+		<graphicClass>Graphic_Single</graphicClass>
+	</graphicData>
+   <projectile>
+		<flyOverhead>true</flyOverhead>
+		<damageDef>Stun</damageDef>
+		<damageAmountBase>0</damageAmountBase>
+		<speed>10</speed>
+   </projectile>
+ </ThingDef>
+
+
+<ThingDef ParentName="InvisBaseBullet" Class="AbilityUser.ProjectileDef_Ability">
+ <defName>ROMV_DominateProjectile</defName>
+ <thingClass>AbilityUser.Projectile_Ability</thingClass>
+ <label>psionic blast</label>
+ <graphicData>
+  <texPath>NullTex</texPath>
+  <graphicClass>Graphic_Single</graphicClass>
+</graphicData>
+ <projectile>
+  <flyOverhead>true</flyOverhead>
+  <damageDef>Bite</damageDef>
+  <damageAmountBase>0</damageAmountBase>
+  <speed>9999</speed>
+ </projectile>
+</ThingDef>
+
+<ThingDef ParentName="InvisBaseBullet" Class="AbilityUser.ProjectileDef_Ability">
+ <defName>ROMV_BloodProjectile_BloodBoil</defName>
+ <thingClass>Vampire.Projectile_BloodBoil</thingClass>
+ <label>blood boil projectile</label>
+ <graphicData>
+  <texPath>Projectiles/BloodStrike</texPath>
+  <graphicClass>Graphic_Single</graphicClass>
+</graphicData>
+ <projectile>
+  <flyOverhead>true</flyOverhead>
+  <damageDef>Burn</damageDef>
+  <damageAmountBase>22</damageAmountBase>
+  <speed>30</speed>
+ </projectile>
+</ThingDef>
+
+<ThingDef ParentName="InvisBaseBullet" Class="AbilityUser.ProjectileDef_Ability">
+ <defName>ROMV_BloodProjectile</defName>
+ <thingClass>Vampire.Projectile_BloodStealer</thingClass>
+ <label>blood projectile</label>
+ <graphicData>
+  <texPath>Projectiles/BloodStrike</texPath>
+  <graphicClass>Graphic_Single</graphicClass>
+</graphicData>
+ <projectile>
+  <flyOverhead>true</flyOverhead>
+  <damageDef>Bite</damageDef>
+  <damageAmountBase>14</damageAmountBase>
+  <speed>30</speed>
+ </projectile>
+</ThingDef>
+
+<ThingDef ParentName="InvisBaseBullet" Class="AbilityUser.ProjectileDef_Ability">
+ <defName>ROMV_BloodProjectile_Returner</defName>
+ <thingClass>Vampire.Projectile_BloodReturner</thingClass>
+ <label>blood projectile</label>
+ <graphicData>
+  <texPath>Projectiles/BloodStrike</texPath>
+  <graphicClass>Graphic_Single</graphicClass>
+</graphicData>
+ <projectile>
+  <flyOverhead>true</flyOverhead>
+  <damageDef>Bite</damageDef>
+  <damageAmountBase>0</damageAmountBase>
+  <speed>30</speed>
+ </projectile>
+</ThingDef>
+
+</Defs>

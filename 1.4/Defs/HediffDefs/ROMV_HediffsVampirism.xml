@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <HediffDef ParentName="ROMV_VampBase">
+    <defName>ROM_Vampirism</defName>
+    <hediffClass>Vampire.HediffVampirism</hediffClass>
+    <label>vampirism</label>
+    <description>vampirism</description>
+    <scenarioCanAdd>false</scenarioCanAdd>
+  </HediffDef>
+  
+  <HediffDef ParentName="ROMV_VampGiver">
+    <defName>ROM_VampirismRandom</defName>
+    <label>vampirism (Random)</label>
+    <description>vampirism (Random)</description>
+    <scenarioCanAdd>true</scenarioCanAdd>
+  </HediffDef>
+
+  <HediffDef ParentName="ROMV_VampGiver">
+    <defName>ROM_VampirismTzimisce</defName>
+    <hediffClass>Vampire.HediffVampirism_Tzimisce</hediffClass>
+    <label>vampirism (Tzimisce)</label>
+    <description>vampirism (Tzimisce)</description>
+    <scenarioCanAdd>true</scenarioCanAdd>
+  </HediffDef>
+
+  <HediffDef ParentName="ROMV_VampGiver">
+    <defName>ROM_VampirismLasombra</defName>
+    <hediffClass>Vampire.HediffVampirism_Lasombra</hediffClass>
+    <label>vampirism (Lasombra)</label>
+    <description>vampirism (Lasombra)</description>
+    <scenarioCanAdd>true</scenarioCanAdd>
+  </HediffDef>
+
+  <HediffDef ParentName="ROMV_VampGiver">
+    <defName>ROM_VampirismTremere</defName>
+    <hediffClass>Vampire.HediffVampirism_Tremere</hediffClass>
+    <label>vampirism (Tremere)</label>
+    <description>vampirism (Tremere)</description>
+    <scenarioCanAdd>true</scenarioCanAdd>
+  </HediffDef>
+
+  <HediffDef ParentName="ROMV_VampGiver">
+    <defName>ROM_VampirismPijavica</defName>
+    <hediffClass>Vampire.HediffVampirism_Pijavica</hediffClass>
+    <label>vampirism (Pijavica)</label>
+    <description>vampirism (Pijavica)</description>
+    <scenarioCanAdd>true</scenarioCanAdd>
+  </HediffDef>
+
+  <HediffDef ParentName="ROMV_VampGiver">
+    <defName>ROM_VampirismGargoyle</defName>
+    <hediffClass>Vampire.HediffVampirism_Gargoyle</hediffClass>
+    <label>vampirism (Gargoyle)</label>
+    <description>vampirism (Gargoyle)</description>
+    <scenarioCanAdd>true</scenarioCanAdd>
+  </HediffDef>
+
+  <HediffDef ParentName="ROMV_VampGiver">
+    <defName>ROM_VampirismVentrue</defName>
+    <hediffClass>Vampire.HediffVampirism_Ventrue</hediffClass>
+    <label>vampirism (Ventrue)</label>
+    <description>vampirism (Ventrue)</description>
+    <scenarioCanAdd>true</scenarioCanAdd>
+  </HediffDef>
+
+  <HediffDef ParentName="ROMV_VampGiver">
+    <defName>ROM_VampirismGangrel</defName>
+    <hediffClass>Vampire.HediffVampirism_Gangrel</hediffClass>
+    <label>vampirism (Gangrel)</label>
+    <description>vampirism (Gangrel)</description>
+    <scenarioCanAdd>true</scenarioCanAdd>
+  </HediffDef>
+  
+  <HediffDef ParentName="ROMV_VampGiver">
+    <defName>ROM_VampirismNosferatu</defName>
+    <hediffClass>Vampire.HediffVampirism_Nosferatu</hediffClass>
+    <label>vampirism (Nosferatu)</label>
+    <description>vampirism (Nosferatu)</description>
+    <scenarioCanAdd>true</scenarioCanAdd>
+  </HediffDef>
+
+  <HediffDef Name="ROMV_VampGiver" ParentName="ROMV_VampBase" Abstract="True">
+    <hediffClass>Vampire.HediffVampirism_VampGiver</hediffClass>
+    <initialSeverity>0.5</initialSeverity>
+    <comps>
+      <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>
+          <min>200</min>
+          <max>200</max>
+        </disappearsAfterTicks>
+      </li>
+    </comps>
+    <stages>
+      <li>
+        <label>Thinblooded (Weakest)</label>
+        <minSeverity>0.25</minSeverity>
+      </li>
+      <li>
+        <label>10-13th Generation (Average)</label>
+        <minSeverity>0.5</minSeverity>
+      </li>
+      <li>
+        <label>7th-9th Generation (Powerful)</label>
+        <minSeverity>0.7</minSeverity>
+      </li>
+      <li>
+        <label>5th-6th Generation (Overpowered)</label>
+        <minSeverity>1</minSeverity>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <HediffDef Name="ROMV_VampBase" Abstract="True">
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.6, 0.5, 0.9)</defaultLabelColor>
+    <initialSeverity>0.001</initialSeverity>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>ROMV_TheBeast</defName>
+    <description>The Beast</description>
+    <hediffClass>Vampire.HediffWithComps_BeastHunger</hediffClass>
+    <defaultLabelColor>(0.8, 0.3, 0.8)</defaultLabelColor>
+    <label>the beast</label>
+    <stages>
+      <li>
+        <label>cravings</label>
+      </li>
+      <li>
+        <label>hungry</label>
+        <minSeverity>0.2</minSeverity>
+      </li>
+      <li>
+        <label>starving</label>
+        <minSeverity>0.35</minSeverity>
+        <painOffset>-0.1</painOffset>
+        <capMods>
+          <li>
+            <capacity>Moving</capacity>
+            <offset>0.1</offset>
+          </li>
+          <li>
+            <capacity>Consciousness</capacity>
+            <offset>0.1</offset>
+          </li>
+          <li>
+            <capacity>Manipulation</capacity>
+            <offset>0.1</offset>
+          </li>
+          <li>
+            <capacity>Eating</capacity>
+            <offset>0.1</offset>
+          </li>
+        </capMods>
+      </li>
+      <li>
+        <label>unleashed</label>
+        <minSeverity>0.62</minSeverity>
+        <painOffset>-0.9</painOffset>
+        <capMods>
+          <li>
+            <capacity>Moving</capacity>
+            <offset>3.0</offset>
+          </li>
+          <li>
+            <capacity>Consciousness</capacity>
+            <offset>3.0</offset>
+          </li>
+          <li>
+            <capacity>Manipulation</capacity>
+            <offset>3.0</offset>
+          </li>
+          <li>
+            <capacity>Eating</capacity>
+            <offset>3.0</offset>
+          </li>
+        </capMods>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>ROMV_SunExposure</defName>
+    <hediffClass>Vampire.HediffWithComps_SunlightExposure</hediffClass>
+    <defaultLabelColor>(0.8, 0.8, 0.35)</defaultLabelColor>
+    <label>sunlight exposure</label>
+    <description>sunlight exposure</description>
+    <lethalSeverity>1</lethalSeverity>
+    <stages>
+      <li>
+        <label>initial</label>
+        <capMods>
+          <li>
+            <capacity>Consciousness</capacity>
+            <offset>-0.05</offset>
+          </li>
+        </capMods>
+      </li>
+      <li>
+        <label>minor</label>
+        <minSeverity>0.2</minSeverity>
+        <capMods>
+          <li>
+            <capacity>Moving</capacity>
+            <offset>-0.1</offset>
+          </li>
+          <li>
+            <capacity>Consciousness</capacity>
+            <offset>-0.10</offset>
+          </li>
+        </capMods>
+      </li>
+      <li>
+        <label>serious</label>
+        <minSeverity>0.35</minSeverity>
+        <painOffset>0.15</painOffset>
+        <capMods>
+          <li>
+            <capacity>Moving</capacity>
+            <offset>-0.3</offset>
+          </li>
+          <li>
+            <capacity>Consciousness</capacity>
+            <offset>-0.20</offset>
+          </li>
+        </capMods>
+      </li>
+      <li>
+        <label>extreme</label>
+        <minSeverity>0.62</minSeverity>
+        <lifeThreatening>true</lifeThreatening>
+        <painOffset>0.30</painOffset>
+        <capMods>
+          <li>
+            <capacity>Consciousness</capacity>
+            <setMax>0.1</setMax>
+          </li>
+        </capMods>
+      </li>
+    </stages>
+  </HediffDef>
+
+</Defs>

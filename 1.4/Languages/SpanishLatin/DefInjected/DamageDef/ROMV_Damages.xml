@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Surgical cut: Makes it possible to remove inner organs without harming outer body parts -->
+
+  <ROMV_Drain.label>drenar</ROMV_Drain.label>
+  <ROMV_Drain.deathMessage>{0} ha sido drenado.</ROMV_Drain.deathMessage>
+
+
+</LanguageData>

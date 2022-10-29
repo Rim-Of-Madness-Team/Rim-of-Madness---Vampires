@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_WolfSpectralRace.label>Спектральный волк</ROMV_WolfSpectralRace.label>
+  <ROMV_WolfSpectralRace.description>Это страшное существо от вида которого озноб по спине, так как этот волк, кажется, не в этом мире.</ROMV_WolfSpectralRace.description>
+  <!-- Use Leather From: Bear_Grizzly -->
+  <!-- Use Meat From: Bear_Grizzly -->
+  <ROMV_WolfSpectralRace_Corpse.label>труп спектрального волка</ROMV_WolfSpectralRace_Corpse.label>
+  <ROMV_WolfSpectralRace_Corpse.description>Мёртвый спектральный волк.</ROMV_WolfSpectralRace_Corpse.description>
+
+
+</LanguageData>

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <Vampire.TransformationDef>
+    <defName>ROMV_WarFormKind</defName>
+	<label>War Form</label>
+    <baseBodySize>3.0</baseBodySize>
+    <baseHealthScale>3.0</baseHealthScale>
+	<bodyGraphicData>
+	  <texPath>Things/Pawn/Animal/WarForm/WarForm</texPath>
+	  <drawSize>3.05</drawSize>
+	  <shaderType>CutoutComplex</shaderType>
+	  <graphicClass>Graphic_Multi</graphicClass>
+	</bodyGraphicData>
+  </Vampire.TransformationDef>  
+
+</Defs>

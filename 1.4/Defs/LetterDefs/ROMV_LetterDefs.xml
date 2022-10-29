@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <LetterDef>
+    <defName>ROMV_StandardMessage</defName>
+    <color>(129, 0, 0)</color>
+    <flashColor>(36, 151, 115)</flashColor>
+    <flashInterval>32</flashInterval>
+  </LetterDef>
+
+  <LetterDef>
+    <defName>ROMV_LevelUpMessage</defName>
+    <color>(129, 0, 0)</color>
+    <flashColor>(36, 151, 115)</flashColor>
+    <flashInterval>32</flashInterval>
+    <letterClass>Vampire.VampLevelUpLetter</letterClass>
+  </LetterDef>
+
+  <LetterDef>
+    <defName>ROMV_GoodMessage</defName>
+    <color>(129, 0, 0)</color>
+    <flashColor>(36, 151, 115)</flashColor>
+    <flashInterval>32</flashInterval>
+    <arriveSound>ROMV_GoodSound</arriveSound>
+  </LetterDef>
+
+  <LetterDef>
+    <defName>ROMV_BadMessage</defName>
+    <color>(129, 0, 0)</color>
+    <flashColor>(36, 151, 115)</flashColor>
+    <flashInterval>32</flashInterval>
+    <arriveSound>ROMV_BadSound</arriveSound>
+  </LetterDef>
+
+  <LetterDef>
+    <defName>ROMV_FrenzyMessage</defName>
+    <color>(129, 0, 0)</color>
+    <flashColor>(36, 151, 115)</flashColor>
+    <flashInterval>32</flashInterval>
+    <arriveSound>ROMV_FrenzySound</arriveSound>
+  </LetterDef>
+
+</Defs>

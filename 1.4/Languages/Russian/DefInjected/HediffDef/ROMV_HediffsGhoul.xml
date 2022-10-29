@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROM_GhoulHediff.label>гуль</ROM_GhoulHediff.label>
+  <ROM_GhoulHediff.stages.0.label>несвязанный</ROM_GhoulHediff.stages.0.label>
+  <ROM_GhoulHediff.stages.1.label>связан</ROM_GhoulHediff.stages.1.label>
+  <ROM_GhoulHediff.stages.2.label>связан старой кровью</ROM_GhoulHediff.stages.2.label>
+  <ROM_GhoulHediff.stages.3.label>связан древней кровью</ROM_GhoulHediff.stages.3.label>
+  <ROM_GhoulHediff.stages.4.label>связан сильной кровью</ROM_GhoulHediff.stages.4.label>
+
+
+</LanguageData>

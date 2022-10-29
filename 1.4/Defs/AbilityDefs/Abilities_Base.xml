@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<Defs>
+
+  <AbilityUser.AbilityDef Name="BaseVampAbility" Abstract="True">
+    <abilityClass>Vampire.VampAbility</abilityClass>
+    <uiIconPath>UI/Glow_Corrupt</uiIconPath>
+  </AbilityUser.AbilityDef>
+
+
+</Defs>

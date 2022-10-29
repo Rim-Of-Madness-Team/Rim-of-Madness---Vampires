@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+<!-- 1/13/17 -->
+
+  <ConceptDef>
+    <defName>ROMV_VampDiablerie</defName>
+    <label>Vampires: Diablerie</label>
+    <priority>50</priority>
+    <helpText>Diablerie is when one vampire drains another vampire of not just all its vitae, but its very soul. If the victim had a lower generation than the attacker, the consumer will lower its generation to match the generation of the soul it devoured. This is the only way to further empower your vampires.\nWarning. Vampires that are attacked in diablerie will bolster their souls and become hostile. They must be downed in combat to have their souls consumed.</helpText>
+  </ConceptDef>
+
+  <ConceptDef>
+    <defName>ROMV_VampGenerations</defName>
+    <label>Vampires: Generations</label>
+    <priority>50</priority>
+    <helpText>Vampires have a long and sordid history that extends back to the very first vampire. Generations represent how far removed a vampire is from the first vampire. The higher the number, the less powerful the vampiric curse. The only way to lower one's generation and become more powerful is to commit Diablerie.</helpText>
+  </ConceptDef>
+  
+
+<!-- 12/26/17 -->
+
+  <ConceptDef>
+    <defName>ROMV_GhoulsBloodBond</defName>
+    <label>Vampires: Blood Bond</label>
+    <priority>50</priority>
+    <helpText>If a drinker tastes vitae from the same vampire on three seperate nights, they will become blood bonded to the vampire. They become absolutely loyal to their regnant (master), and they become immune to domination powers from other vampires. If a vampire does not feed them any vitae over a season, they will lose their bond.</helpText>
+  </ConceptDef>
+  
+  <ConceptDef>
+    <defName>ROMV_Ghouls</defName>
+    <label>Vampires: Ghouls</label>
+    <priority>50</priority>
+    <helpText>Ghouls are mortals that possess both blood and vampiric vitae. Once given vitae from a domitor (master), they can resist damage and can learn vampiric abilities. After a few seasons without vitae, Ghouls enter withdrawal and lose their abilities. Beware -- Ghouls without vitae become quite violent.</helpText>
+  </ConceptDef>  
+
+  <ConceptDef>
+    <defName>ROMV_Vampirism</defName>
+    <label>Vampires: Vampirism</label>
+    <priority>50</priority>
+    <helpText>Vampirism occurs from an infusion of cursed blood into the recently deceased. A vampire is immune to the ravages of time and disease, and possesses physical and supernatural capabilities beyond mortal men known as ‘disciplines’. However, they are also afflicted by an unnatural hunger for the blood of the living, and burn to ashes from the touch of sunlight. Those afflicted with vampirism stalk the night as the only natural predator of humanity.</helpText>
+  </ConceptDef>  
+  
+  <ConceptDef>
+    <defName>ROMV_Vitae</defName>
+    <label>Vampires: Vitae</label>
+    <priority>50</priority>
+    <helpText>Corrupted by its exposure to the vampire’s curse, vitae is what blood becomes inside the vampiric body. Vitae is the fuel of vampiric powers, and it allows vampires to continue to animate their corpses. Vampires can hold a greater capacity of vitae in their body than would physically be possible, as the measure of vitae is in the power it holds, not its liquid volume.</helpText>
+  </ConceptDef>  
+    
+  <ConceptDef>
+    <defName>ROMV_Bloodlines</defName>
+    <label>Vampires: Bloodlines</label>
+    <priority>50</priority>
+    <helpText>Though vampirism shares several features among the kindred, over time the curse has evolved, resulting in distinct bloodlines. These bloodlines possess different vampiric disciplines, benefits, drawbacks, and tend to form social cultures distinct from one another.</helpText>
+  </ConceptDef>  
+  
+  <ConceptDef>
+    <defName>ROMV_Disciplines</defName>
+    <label>Vampires: Disciplines</label>
+    <priority>50</priority>
+    <helpText>Disciplines are the supernatural abilities of the vampire. Different bloodlines have invented or mastered different disciplines over the ages, but all are potent tools, making even a shovelhead capable of only a single discipline a devastating threat to any living creature.</helpText>
+  </ConceptDef>  
+  
+  <ConceptDef>
+    <defName>ROMV_BloodPoints</defName>
+    <label>Vampires: Blood Points</label>
+    <priority>50</priority>
+    <helpText>All living creatures have blood pools, be they large or small. Having more blood does not necessarily mean that the victim will satiate a hungry vampire. if the creature’s blood is of good quality, then the vampire will take more sustenance from it. Conversely, if the blood is of poor quality, more will be required. This concept is represented with simple units, hereafter referred simply as blood points.</helpText>
+  </ConceptDef>  
+    
+  <ConceptDef>
+    <defName>ROMV_BloodPacks</defName>
+    <label>Vampires: Blood Packs</label>
+    <priority>50</priority>
+    <helpText>Vitae can be medically extracted from a mortal one or three points at a time. One point will fit in a flask, and three points will only fit in a blood bag. If a vampire drinks from these, they will regain vitae as though feeding from a human.</helpText>
+  </ConceptDef>  
+     
+  <ConceptDef>
+    <defName>ROMV_TheEmbrace</defName>
+    <label>Vampires: The Embrace</label>
+    <priority>50</priority>
+    <helpText>The Embrace is how vampires create neonates, or new vampires, spreading their curse. A vampire begins by feeding on a mortal, draining them until their veins run dry. Upon their death, the sire will give its own vitae to the remains. Once fed, the corpse is reanimated as a vampire.</helpText>
+  </ConceptDef>  
+  
+  <ConceptDef>
+    <defName>ROMV_TheBeast</defName>
+    <label>Vampires: The Beast</label>
+    <priority>50</priority>
+    <helpText>Every vampire holds a predatory instinct in check within them. When the vampire has little vitae in their body (less than 25%), this violent persona takes control, directing them to feed until they are sated without regard for human life.</helpText>
+  </ConceptDef>  
+  
+  <ConceptDef>
+    <defName>ROMV_Rotschreck</defName>
+    <label>Vampires: Rötschreck</label>
+    <priority>50</priority>
+    <helpText>Rötschreck, or the red fear, is a blind panic that results from sunlight or fire. If a vampire is out in the sun for too long it will flee to any available shade in desperation, as the rays of the sun will set it ablaze.</helpText>
+  </ConceptDef>  
+</Defs>

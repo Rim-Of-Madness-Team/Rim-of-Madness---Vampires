@@ -3,10 +3,10 @@
 ==============================
 
 Rim of Madness - Vampires Update
-v1.25.0.1 (07-20-2022)
+v1.27.0.0 (08-08-2022)
 ====================
 
-Fixed issue where vampire bio pages would sometimes not load on older saves prior to the previous 1.25 release.
+Meditation has been fixed. Vampire fangs now are added hediffs on tongues due to an underlying RimWorld issue that removes tongues if jaws are modified. Existing saves will have fangs moved to the new position. New settings for sun damage and rest added
 --------------------
 
 Download now on...
@@ -25,9 +25,9 @@ Discuss the mod on...
 [img width=260]https://raw.githubusercontent.com/Rim-Of-Madness-Team/Rim-of-Madness---Vampires/master/About/Preview.png[/img]
 [hr]
 [b]Rim of Madness - Vampires
-Version: 1.25.0.1
-Updated: 07-20-2022
-Description: [color=orange]Fixed issue where vampire bio pages would sometimes not load on older saves prior to the previous 1.25 release.[/color]
+Version: 1.27.0.0
+Updated: 08-08-2022
+Description: [color=orange]Meditation has been fixed. Vampire fangs now are added hediffs on tongues due to an underlying RimWorld issue that removes tongues if jaws are modified. Existing saves will have fangs moved to the new position. New settings for sun damage and rest added[/color]
 [hr]
 [b]Download now on...[/b]
 [url=https://www.patreon.com/posts/rim-of-madness-1-54281813]Patreon[/url]

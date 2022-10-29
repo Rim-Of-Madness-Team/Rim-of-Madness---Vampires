@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Mental breaks: extreme -->
+
+  <ROMV_VampireBeast.label>Зверь</ROMV_VampireBeast.label>
+  <ROMV_VampireBeast.beginLetter>{0} выпустил своего внутреннего зверя!</ROMV_VampireBeast.beginLetter>
+  <ROMV_VampireBeast.beginLetterLabel>Зверь</ROMV_VampireBeast.beginLetterLabel>
+  <ROMV_VampireBeast.recoveryMessage>Ярость {0} подошла к концу.</ROMV_VampireBeast.recoveryMessage>
+  <ROMV_VampireBeast.baseInspectLine>Психическое состояние: Зверь</ROMV_VampireBeast.baseInspectLine>
+
+  <ROMV_Rotschreck.label>Красный страх</ROMV_Rotschreck.label>
+  <ROMV_Rotschreck.beginLetter>{0} в ужасе убегает от света!</ROMV_Rotschreck.beginLetter>
+  <ROMV_Rotschreck.beginLetterLabel>Красный страх</ROMV_Rotschreck.beginLetterLabel>
+  <ROMV_Rotschreck.recoveryMessage>Страх {0} утихает.</ROMV_Rotschreck.recoveryMessage>
+  <ROMV_Rotschreck.baseInspectLine>Психическое состояние: Красный страх</ROMV_Rotschreck.baseInspectLine>
+
+
+</LanguageData>

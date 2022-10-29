@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- spouse / lover -->
+
+  <ROMV_Sire.label>Отец</ROMV_Sire.label>
+  <ROMV_Sire.labelFemale>сир</ROMV_Sire.labelFemale>
+
+  <ROMV_Childe.label>Дитя</ROMV_Childe.label>
+  <ROMV_Childe.labelFemale>дитя</ROMV_Childe.labelFemale>
+
+
+</LanguageData>

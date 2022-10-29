@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_Auspex_HeightenedSenses.label>sentidos intensificados</ROMV_Auspex_HeightenedSenses.label>
+  <ROMV_Auspex_HeightenedSenses.description>Mejora temporalmente los sentidos y la habilidad de arma a distancia.</ROMV_Auspex_HeightenedSenses.description>
+
+  <ROMV_Auspex_CrocodileTongue.label>lengua de cocodrilo</ROMV_Auspex_CrocodileTongue.label>
+  <ROMV_Auspex_CrocodileTongue.description>Concede una bonificación temporal a las habilidades sociales y el trueque.</ROMV_Auspex_CrocodileTongue.description>
+
+  <ROMV_Auspex_RevealIllusions.label>revelar ilusiones</ROMV_Auspex_RevealIllusions.label>
+  <ROMV_Auspex_RevealIllusions.description>Revela ilusiones, disipa las aflicciones o revela ubicaciones ocultas en el mapa.</ROMV_Auspex_RevealIllusions.description>
+
+  <ROMV_Auspex_ReadMind.label>leer la mente</ROMV_Auspex_ReadMind.label>
+  <ROMV_Auspex_ReadMind.description>Lee la mente de los objetivos, descubre su siguiente movimiento y evita que dañen al taumaturgo usando medios normales.</ROMV_Auspex_ReadMind.description>
+
+
+</LanguageData>

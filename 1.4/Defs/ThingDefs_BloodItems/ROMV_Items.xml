@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <ThingDef ParentName="ResourceBase" Name="ROMV_BloodItem" Abstract="true">
+	<techLevel>Medieval</techLevel>
+    <soundInteract>Standard_Drop</soundInteract>
+    <soundDrop>Standard_Drop</soundDrop>
+    <socialPropernessMatters>false</socialPropernessMatters>
+    <thingCategories>
+      <li>ROMV_Blood</li>
+    </thingCategories>
+    <statBases>
+      <MaxHitPoints>60</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+      <DeteriorationRate>8</DeteriorationRate>
+    </statBases>
+    <ingestible>
+      <preferability>DesperateOnly</preferability>
+      <foodType>Processed</foodType>
+      <joy>0.10</joy>
+      <joyKind>Gluttonous</joyKind>
+      <maxNumToIngestAtOnce>1</maxNumToIngestAtOnce>
+      <ingestSound>Ingest_Beer</ingestSound>
+      <ingestCommandString>Drink {0}</ingestCommandString>
+      <ingestReportString>Drinking {0}.</ingestReportString>
+    </ingestible>
+  </ThingDef>
+
+  <ThingDef ParentName="ROMV_BloodItem" Name="ROMV_BloodVial" Abstract="true">
+    <graphicData>
+      <texPath>Things/Item/Resource/BloodVial</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MarketValue>30</MarketValue>
+      <Mass>0.075</Mass>
+	  <Nutrition>0.1</Nutrition>
+    </statBases>
+    <stackLimit>10</stackLimit>
+  </ThingDef>
+
+  <ThingDef ParentName="ROMV_BloodItem" Name="ROMV_BloodPack" Abstract="true">
+    <graphicData>
+      <texPath>Things/Item/Resource/BloodPack</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MarketValue>60</MarketValue>
+      <Mass>0.145</Mass>
+	  <Nutrition>0.2</Nutrition>
+    </statBases>
+    <stackLimit>5</stackLimit>
+  </ThingDef>
+
+  <ThingDef ParentName="ROMV_BloodItem" Name="ROMV_BloodWine" Abstract="true">
+      <descriptionHyperlinks>
+      <HediffDef>AlcoholHigh</HediffDef>
+      <HediffDef>AlcoholTolerance</HediffDef>
+      <HediffDef>Hangover</HediffDef>
+      <HediffDef>AlcoholAddiction</HediffDef>
+      <HediffDef>Cirrhosis</HediffDef>
+      <HediffDef>ChemicalDamageModerate</HediffDef>
+    </descriptionHyperlinks>
+    <equippedAngleOffset>-150</equippedAngleOffset>
+    <rotatable>false</rotatable>
+    <graphicData>
+      <texPath>Things/Item/Resource/BloodWine</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MarketValue>60</MarketValue>
+      <Mass>0.1</Mass>
+	  <Nutrition>0.15</Nutrition>
+    </statBases>
+    <stackLimit>24</stackLimit>
+
+    <tools>
+      <li>
+        <label>glass</label>
+        <capacities>
+          <li>Poke</li>
+        </capacities>
+        <power>9</power>
+        <cooldownTime>2</cooldownTime>
+      </li>
+    </tools>
+  </ThingDef>
+
+  
+  <ThingCategoryDef>
+    <defName>ROMV_Blood</defName>
+    <label>blood packs</label>
+    <parent>Items</parent>
+    <resourceReadoutRoot>true</resourceReadoutRoot>
+    <iconPath>UI/Icons/ThingCategories/ROM_Blood</iconPath>
+  </ThingCategoryDef>
+  
+  <!--
+  ██████   █████   ██████ ██   ██ ███████
+  ██   ██ ██   ██ ██      ██  ██  ██
+  ██████  ███████ ██      █████   ███████
+  ██      ██   ██ ██      ██  ██       ██
+  ██      ██   ██  ██████ ██   ██ ███████
+-->
+
+
+
+  <ThingDef ParentName="ROMV_BloodPack">
+    <defName>BloodPack_Animal</defName>
+    <label>blood pack (animal)</label>
+    <description>Animal blood collected for consumption. (1 blood point)</description>
+	<statBases>
+      <MaxHitPoints>60</MaxHitPoints>
+      <MarketValue>10</MarketValue>
+      <Mass>0.145</Mass>
+      <Flammability>1.0</Flammability>
+      <DeteriorationRate>8</DeteriorationRate>
+    </statBases>
+    <comps>
+      <li Class="Vampire.CompProperties_BloodItem">
+        <bloodType>Animal</bloodType>
+        <bloodPoints>1</bloodPoints>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="ROMV_BloodPack">
+    <defName>BloodPack_LowBlood</defName>
+    <label>blood pack (lowblood)</label>
+    <description>Lowblood, or blood that doesn't meet higher regal standards (prostitutes, slaves, homeless, or the sickly), collected in a small vial. (3 blood points)</description>
+    <comps>
+      <li Class="Vampire.CompProperties_BloodItem">
+        <bloodType>LowBlood</bloodType>
+        <bloodPoints>3</bloodPoints>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="ROMV_BloodPack">
+    <defName>BloodPack_AverageBlood</defName>
+    <label>blood pack (average)</label>
+    <description>Blood that is neither too outstanding for the rugged vamp nor too low-class for consumption by higher members of vampire society. (3 blood points)</description>
+    <comps>
+      <li Class="Vampire.CompProperties_BloodItem">
+        <bloodType>AverageBlood</bloodType>
+        <bloodPoints>3</bloodPoints>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="ROMV_BloodPack">
+    <defName>BloodPack_HighBlood</defName>
+    <label>blood pack (highblood)</label>
+    <description>Highblood, or blood suitable for regal vampires (the blood of aristocrats, wealthy individuals, or gliterworlders), stored in a pack. (3 blood points)</description>
+    <comps>
+      <li Class="Vampire.CompProperties_BloodItem">
+        <bloodType>HighBlood</bloodType>
+        <bloodPoints>3</bloodPoints>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <!--
+  ██    ██ ██  █████  ██      ███████
+  ██    ██ ██ ██   ██ ██      ██
+  ██    ██ ██ ███████ ██      ███████
+   ██  ██  ██ ██   ██ ██           ██
+    ████   ██ ██   ██ ███████ ███████
+  -->
+
+  <ThingDef ParentName="ROMV_BloodVial">
+    <defName>BloodVial_LowBlood</defName>
+    <label>blood vial (low)</label>
+    <description>Lowblood, or blood that doesn't meet higher regal standards, collected in a small vial. (1 blood point)</description>
+    <comps>
+      <li Class="Vampire.CompProperties_BloodItem">
+        <bloodType>LowBlood</bloodType>
+        <bloodPoints>1</bloodPoints>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="ROMV_BloodVial">
+    <defName>BloodVial_AverageBlood</defName>
+    <label>blood vial (average)</label>
+    <description>Blood that is neither too outstanding for the rugged vamp nor too low-class for consumption by higher members of vampire society. (1 blood point)</description>
+    <comps>
+      <li Class="Vampire.CompProperties_BloodItem">
+        <bloodType>AverageBlood</bloodType>
+        <bloodPoints>1</bloodPoints>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="ROMV_BloodVial">
+    <defName>BloodVial_HighBlood</defName>
+    <label>blood vial (highblood)</label>
+    <description>Highblood, or blood suitable for regal vampires (the blood of aristocrats, wealthy individuals, or gliterworlders), stored in a vial.</description>
+    <comps>
+      <li Class="Vampire.CompProperties_BloodItem">
+        <bloodType>HighBlood</bloodType>
+        <bloodPoints>1</bloodPoints>
+      </li>
+    </comps>
+  </ThingDef>
+
+
+    <ThingDef ParentName="ROMV_BloodVial">
+      <defName>BloodVial_Special</defName>
+      <label>blood vial (special)</label>
+      <description>Special blood, possibly procured from mythical creatures, stored in a vial.</description>
+      <comps>
+        <li Class="Vampire.CompProperties_BloodItem">
+          <bloodType>Special</bloodType>
+          <bloodPoints>1</bloodPoints>
+        </li>
+      </comps>
+    </ThingDef>
+
+<!-- 
+ ▄▄▄▄    ██▓     ▒█████   ▒█████  ▓█████▄     █     █░ ██▓ ███▄    █ ▓█████ 
+▓█████▄ ▓██▒    ▒██▒  ██▒▒██▒  ██▒▒██▀ ██▌   ▓█░ █ ░█░▓██▒ ██ ▀█   █ ▓█   ▀ 
+▒██▒ ▄██▒██░    ▒██░  ██▒▒██░  ██▒░██   █▌   ▒█░ █ ░█ ▒██▒▓██  ▀█ ██▒▒███   
+▒██░█▀  ▒██░    ▒██   ██░▒██   ██░░▓█▄   ▌   ░█░ █ ░█ ░██░▓██▒  ▐▌██▒▒▓█  ▄ 
+░▓█  ▀█▓░██████▒░ ████▓▒░░ ████▓▒░░▒████▓    ░░██▒██▓ ░██░▒██░   ▓██░░▒████▒
+░▒▓███▀▒░ ▒░▓  ░░ ▒░▒░▒░ ░ ▒░▒░▒░  ▒▒▓  ▒    ░ ▓░▒ ▒  ░▓  ░ ▒░   ▒ ▒ ░░ ▒░ ░
+▒░▒   ░ ░ ░ ▒  ░  ░ ▒ ▒░   ░ ▒ ▒░  ░ ▒  ▒      ▒ ░ ░   ▒ ░░ ░░   ░ ▒░ ░ ░  ░
+ ░    ░   ░ ░   ░ ░ ░ ▒  ░ ░ ░ ▒   ░ ░  ░      ░   ░   ▒ ░   ░   ░ ░    ░   
+ ░          ░  ░    ░ ░      ░ ░     ░           ░     ░           ░    ░  ░  
+-->
+
+  <ThingDef ParentName="ROMV_BloodWine">
+    <defName>BloodWine_LowBlood</defName>
+    <label>blood wine (low)</label>
+    <description>Lowblood, or blood that doesn't meet higher regal standards, collected from an inebriated pawn. (1 blood point)</description>
+        <ingestible>
+      <foodType>Fluid, Processed, Liquor</foodType>
+      <joyKind>Chemical</joyKind>
+      <joy>0.17</joy>
+      <nurseable>true</nurseable>
+      <drugCategory>Social</drugCategory>
+      <ingestSound>Ingest_Beer</ingestSound>
+      <ingestHoldOffsetStanding>
+        <northDefault>
+          <offset>(0.18,0,0)</offset>
+        </northDefault>
+      </ingestHoldOffsetStanding>
+      <ingestCommandString>Drink {0}</ingestCommandString>
+      <ingestReportString>Drinking {0}.</ingestReportString>
+      <chairSearchRadius>25</chairSearchRadius>
+      <outcomeDoers>
+        <li Class="IngestionOutcomeDoer_GiveHediff">
+          <hediffDef>AlcoholHigh</hediffDef>
+          <severity>0.3</severity>
+          <toleranceChemical>Alcohol</toleranceChemical>
+        </li>
+        <li Class="IngestionOutcomeDoer_GiveHediff">
+          <hediffDef>AlcoholTolerance</hediffDef>
+          <severity>0.016</severity>
+          <divideByBodySize>true</divideByBodySize>
+        </li>
+      </outcomeDoers>
+    </ingestible>
+    <comps>
+      <li Class="Vampire.CompProperties_BloodItem">
+        <bloodType>LowBlood</bloodType>
+        <bloodPoints>1</bloodPoints>
+      </li>
+      <li Class="CompProperties_Drug">
+        <chemical>Alcohol</chemical>
+        <addictiveness>0.010</addictiveness>
+        <minToleranceToAddict>0.25</minToleranceToAddict>
+        <existingAddictionSeverityOffset>0.20</existingAddictionSeverityOffset>
+        <needLevelOffset>1</needLevelOffset>
+        <listOrder>10</listOrder>
+      </li>
+      <li>
+        <compClass>CompEquippable</compClass>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="ROMV_BloodWine">
+    <defName>BloodWine_AverageBlood</defName>
+    <label>blood wine (average)</label>
+    <description>Blood that is neither too outstanding for the rugged vamp nor too low-class for consumption by higher members of vampire society, collected from an inebriated pawn. (1 blood point)</description>
+        <ingestible>
+      <foodType>Fluid, Processed, Liquor</foodType>
+      <joyKind>Chemical</joyKind>
+      <joy>0.17</joy>
+      <nurseable>true</nurseable>
+      <drugCategory>Social</drugCategory>
+      <ingestSound>Ingest_Beer</ingestSound>
+      <ingestHoldOffsetStanding>
+        <northDefault>
+          <offset>(0.18,0,0)</offset>
+        </northDefault>
+      </ingestHoldOffsetStanding>
+      <ingestCommandString>Drink {0}</ingestCommandString>
+      <ingestReportString>Drinking {0}.</ingestReportString>
+      <chairSearchRadius>25</chairSearchRadius>
+      <outcomeDoers>
+        <li Class="IngestionOutcomeDoer_GiveHediff">
+          <hediffDef>AlcoholHigh</hediffDef>
+          <severity>0.3</severity>
+          <toleranceChemical>Alcohol</toleranceChemical>
+        </li>
+        <li Class="IngestionOutcomeDoer_GiveHediff">
+          <hediffDef>AlcoholTolerance</hediffDef>
+          <severity>0.016</severity>
+          <divideByBodySize>true</divideByBodySize>
+        </li>
+      </outcomeDoers>
+    </ingestible>
+    <comps>
+      <li Class="Vampire.CompProperties_BloodItem">
+        <bloodType>AverageBlood</bloodType>
+        <bloodPoints>1</bloodPoints>
+      </li>
+      <li Class="CompProperties_Drug">
+        <chemical>Alcohol</chemical>
+        <addictiveness>0.010</addictiveness>
+        <minToleranceToAddict>0.25</minToleranceToAddict>
+        <existingAddictionSeverityOffset>0.20</existingAddictionSeverityOffset>
+        <needLevelOffset>1</needLevelOffset>
+        <listOrder>10</listOrder>
+      </li>
+      <li>
+        <compClass>CompEquippable</compClass>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="ROMV_BloodWine">
+    <defName>BloodWine_HighBlood</defName>
+    <label>blood wine (highblood)</label>
+    <description>Highblood, or blood suitable for regal vampires (the blood of aristocrats, wealthy individuals, or gliterworlders), collected from an inebriated pawn. (1 blood point)</description>
+        <ingestible>
+      <foodType>Fluid, Processed, Liquor</foodType>
+      <joyKind>Chemical</joyKind>
+      <joy>0.17</joy>
+      <nurseable>true</nurseable>
+      <drugCategory>Social</drugCategory>
+      <ingestSound>Ingest_Beer</ingestSound>
+      <ingestHoldOffsetStanding>
+        <northDefault>
+          <offset>(0.18,0,0)</offset>
+        </northDefault>
+      </ingestHoldOffsetStanding>
+      <ingestCommandString>Drink {0}</ingestCommandString>
+      <ingestReportString>Drinking {0}.</ingestReportString>
+      <chairSearchRadius>25</chairSearchRadius>
+      <outcomeDoers>
+        <li Class="IngestionOutcomeDoer_GiveHediff">
+          <hediffDef>AlcoholHigh</hediffDef>
+          <severity>0.3</severity>
+          <toleranceChemical>Alcohol</toleranceChemical>
+        </li>
+        <li Class="IngestionOutcomeDoer_GiveHediff">
+          <hediffDef>AlcoholTolerance</hediffDef>
+          <severity>0.016</severity>
+          <divideByBodySize>true</divideByBodySize>
+        </li>
+      </outcomeDoers>
+    </ingestible>
+    <comps>
+      <li Class="Vampire.CompProperties_BloodItem">
+        <bloodType>HighBlood</bloodType>
+        <bloodPoints>1</bloodPoints>
+      </li>
+      <li Class="CompProperties_Drug">
+        <chemical>Alcohol</chemical>
+        <addictiveness>0.010</addictiveness>
+        <minToleranceToAddict>0.25</minToleranceToAddict>
+        <existingAddictionSeverityOffset>0.20</existingAddictionSeverityOffset>
+        <needLevelOffset>1</needLevelOffset>
+        <listOrder>10</listOrder>
+      </li>
+      <li>
+        <compClass>CompEquippable</compClass>
+      </li>
+    </comps>
+  </ThingDef>
+
+
+    <ThingDef ParentName="ROMV_BloodWine">
+      <defName>BloodWine_Special</defName>
+      <label>blood wine (special)</label>
+      <description>Special blood, possibly procured from mythical creatures, collected from an inebriated pawn.</description>
+          <ingestible>
+      <foodType>Fluid, Processed, Liquor</foodType>
+      <joyKind>Chemical</joyKind>
+      <joy>0.17</joy>
+      <nurseable>true</nurseable>
+      <drugCategory>Social</drugCategory>
+      <ingestSound>Ingest_Beer</ingestSound>
+      <ingestHoldOffsetStanding>
+        <northDefault>
+          <offset>(0.18,0,0)</offset>
+        </northDefault>
+      </ingestHoldOffsetStanding>
+      <ingestCommandString>Drink {0}</ingestCommandString>
+      <ingestReportString>Drinking {0}.</ingestReportString>
+      <chairSearchRadius>25</chairSearchRadius>
+      <outcomeDoers>
+        <li Class="IngestionOutcomeDoer_GiveHediff">
+          <hediffDef>AlcoholHigh</hediffDef>
+          <severity>0.3</severity>
+          <toleranceChemical>Alcohol</toleranceChemical>
+        </li>
+        <li Class="IngestionOutcomeDoer_GiveHediff">
+          <hediffDef>AlcoholTolerance</hediffDef>
+          <severity>0.016</severity>
+          <divideByBodySize>true</divideByBodySize>
+        </li>
+      </outcomeDoers>
+    </ingestible>
+      <comps>
+        <li Class="Vampire.CompProperties_BloodItem">
+          <bloodType>Special</bloodType>
+          <bloodPoints>1</bloodPoints>
+        </li>
+      <li Class="CompProperties_Drug">
+        <chemical>Alcohol</chemical>
+        <addictiveness>0.010</addictiveness>
+        <minToleranceToAddict>0.25</minToleranceToAddict>
+        <existingAddictionSeverityOffset>0.20</existingAddictionSeverityOffset>
+        <needLevelOffset>1</needLevelOffset>
+        <listOrder>10</listOrder>
+      </li>
+      <li>
+        <compClass>CompEquippable</compClass>
+      </li>
+      </comps>
+    </ThingDef>
+
+
+
+</Defs>

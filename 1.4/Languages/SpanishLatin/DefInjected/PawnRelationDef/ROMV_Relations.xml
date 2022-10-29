@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- spouse / lover -->
+
+  <ROMV_Sire.label>señor</ROMV_Sire.label>
+  <ROMV_Sire.labelFemale>señora</ROMV_Sire.labelFemale>
+
+  <ROMV_Childe.label>joven</ROMV_Childe.label>
+  <ROMV_Childe.labelFemale>joven</ROMV_Childe.labelFemale>
+
+
+</LanguageData>

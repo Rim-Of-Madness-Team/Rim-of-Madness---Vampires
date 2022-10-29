@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+<!-- Blood drain-related deaths -->
+
+
+
+	<ThoughtDef>
+		<defName>ROMV_IConsumedASoul</defName>
+		<durationDays>3</durationDays>
+		<stackLimit>5</stackLimit>
+		<stages>
+			<li>
+				<label>consumed a soul</label>
+				<description>I have never felt more alive!</description>
+				<baseMoodEffect>30</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	
+		<ThoughtDef>
+		<defName>ROMV_ITastedASoul</defName>
+		<durationDays>3</durationDays>
+		<stackLimit>5</stackLimit>
+		<stages>
+			<li>
+				<label>tasted a soul</label>
+				<description>Truly a divine flavor!</description>
+				<baseMoodEffect>8</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<ThoughtDef>
+		<defName>ROMV_IGaveTheKiss</defName>
+		<durationDays>3</durationDays>
+		<stackLimit>1</stackLimit>
+		<stages>
+			<li>
+				<label>drank fresh blood</label>
+				<description>How fulfilling.</description>
+				<baseMoodEffect>10</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<ThoughtDef>
+		<defName>ROMV_IWasBittenByAVampire</defName>
+		<durationDays>0.2</durationDays>
+		<stackLimit>1</stackLimit>
+		<stages>
+			<li>
+				<label>bitten by vampire</label>
+				<description>Wow! What a rush!</description>
+				<baseMoodEffect>12</baseMoodEffect>
+			</li>
+			<li>
+				<label>bitten by the master</label>
+				<description>I gave my blood to the master.</description>
+				<baseMoodEffect>16</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	
+
+
+	  <ThoughtDef ParentName="DeathMemory">
+	    <defName>ROMV_KnowGuestDiedOfBloodLoss</defName>
+	    <durationDays>6</durationDays>
+	    <nullifyingTraits>
+	      <li>Psychopath</li>
+	      <li>Bloodlust</li>
+	    </nullifyingTraits>
+	    <stages>
+				<li>
+					<label>justified exsanguination</label>
+					<description>A guilty prisoner or guest was drained of blood. It seemed justified, but still a brutal way to go.</description>
+					<baseMoodEffect>-3</baseMoodEffect>
+				</li>
+	      <li>
+	        <label>someone drained to death</label>
+	        <!-- died because of organ harvesting -->
+	        <description>A prisoner or guest died because the colony emptied all their blood out of their body. It's horrible.</description>
+	        <baseMoodEffect>-8</baseMoodEffect>
+	      </li>
+	    </stages>
+	  </ThoughtDef>
+
+	  <ThoughtDef ParentName="DeathMemory">
+	    <defName>ROMV_KnowColonistDiedOfBloodLoss</defName>
+	    <durationDays>6</durationDays>
+	    <stackLimit>5</stackLimit>
+	    <nullifyingTraits>
+	      <li>Psychopath</li>
+	    </nullifyingTraits>
+	    <stages>
+				<li>
+					<label>justified exsanguination</label>
+					<description>A colonist was drained of blood. It seemed justified, but still a brutal way to go.</description>
+					<baseMoodEffect>-3</baseMoodEffect>
+				</li>
+	      <li>
+	        <label>colonist drained to death</label>
+	        <!-- died because of organ harvesting -->
+	        <description>A colonist died because the colony emptied all their blood out of their body. It's horrible.</description>
+	        <baseMoodEffect>-8</baseMoodEffect>
+	      </li>
+	    </stages>
+	  </ThoughtDef>
+
+<!-- Blood Harvesting -->
+
+	<ThoughtDef>
+		<defName>ROMV_KnowGuestBloodHarvested</defName>
+		<durationDays>7.5</durationDays>
+		<stackLimit>5</stackLimit>
+		<stackedEffectMultiplier>0.75</stackedEffectMultiplier>
+		<nullifyingTraits>
+			<li>Psychopath</li>
+		</nullifyingTraits>
+		<stages>
+			<li>
+				<label>someone's blood harvested</label>
+				<description>The colony took blood from a guest or prisoner. It's unethical, taking someone's blood when they have no choice.</description>
+				<baseMoodEffect>-2</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<ThoughtDef>
+		<defName>ROMV_MyBloodHarvested</defName>
+		<durationDays>7.5</durationDays>
+		<stackLimit>5</stackLimit>
+		<stages>
+			<li>
+				<label>my blood harvested</label>
+				<description>The colony harvested blood from me. Geez! What do they think I am? Some sort of blood bank?</description>
+				<baseMoodEffect>-5</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	
+	<ThoughtDef>
+		<defName>ROMV_AttemptedToConsumeMySoul</defName>
+		<durationDays>3</durationDays>
+		<stackLimit>5</stackLimit>
+		<stages>
+			<li>
+				<label>tried to consume my soul</label>
+				<description>Some MONSTER tried to consume my soul!</description>
+				<baseMoodEffect>-30</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	
+	
+	<!--
+	██████   █████  ███████ ███████ ███████
+	██   ██ ██   ██ ██      ██      ██
+	██████  ███████ ███████ █████   ███████
+	██   ██ ██   ██      ██ ██           ██
+	██████  ██   ██ ███████ ███████ ███████
+-->
+
+
+
+	  <ThoughtDef Name="ROMV_DeathMemory" Abstract="True">
+	    <stackedEffectMultiplier>0.25</stackedEffectMultiplier>
+	    <stackLimit>5</stackLimit>
+	  </ThoughtDef>
+
+
+</Defs>

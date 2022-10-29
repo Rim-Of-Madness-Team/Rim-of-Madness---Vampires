@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Random social interactions -->
+
+  <ROMV_VampireDiablerieAttempt.label>попытался поглотить мою душу (Диаблери)</ROMV_VampireDiablerieAttempt.label>
+  <ROMV_VampireDiablerieAttempt.logRulesInitiator.rulesStrings.0>r_logentry->Пытался поглотить душу [other_nameShortIndef].</ROMV_VampireDiablerieAttempt.logRulesInitiator.rulesStrings.0>
+  <ROMV_VampireDiablerieAttempt.logRulesRecipient.rulesStrings.0>r_logentry->[other_nameShortIndef] пытался поглотить мою душу.</ROMV_VampireDiablerieAttempt.logRulesRecipient.rulesStrings.0>
+
+  <ROMV_VampireUnbondedDrink.label>общая вампирская кровь (витэ)</ROMV_VampireUnbondedDrink.label>
+  <ROMV_VampireUnbondedDrink.logRulesInitiator.rulesStrings.0>r_logentry->Дал кровь [other_nameShortIndef].</ROMV_VampireUnbondedDrink.logRulesInitiator.rulesStrings.0>
+  <ROMV_VampireUnbondedDrink.logRulesRecipient.rulesStrings.0>r_logentry->Выпил кровь из [other_nameShortIndef].</ROMV_VampireUnbondedDrink.logRulesRecipient.rulesStrings.0>
+
+  <ROMV_VampireBondedDrink.label>общая вампирская кровь (витэ)</ROMV_VampireBondedDrink.label>
+  <ROMV_VampireBondedDrink.logRulesInitiator.rulesStrings.0>r_logentry->Дал кровь [other_nameShortIndef].</ROMV_VampireBondedDrink.logRulesInitiator.rulesStrings.0>
+  <ROMV_VampireBondedDrink.logRulesRecipient.rulesStrings.0>r_logentry->Выпил кровь из [other_nameShortIndef].</ROMV_VampireBondedDrink.logRulesRecipient.rulesStrings.0>
+
+  <ROMV_VampireLore.label>общие вампирские знания</ROMV_VampireLore.label>
+  <ROMV_VampireLore.logRulesInitiator.rulesStrings.0>r_logentry->Общие знания вампиров с [other_nameShortIndef].</ROMV_VampireLore.logRulesInitiator.rulesStrings.0>
+  <ROMV_VampireLore.logRulesRecipient.rulesStrings.0>r_logentry->Выучил знания вампиров от [other_nameShortIndef].</ROMV_VampireLore.logRulesRecipient.rulesStrings.0>
+
+
+</LanguageData>

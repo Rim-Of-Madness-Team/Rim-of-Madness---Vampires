@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ROMV_Vampirism.label>Vampiros: Vampirismo</ROMV_Vampirism.label>
+  <ROMV_Vampirism.helpText>El vampirismo ocurre por la infusión de la sangre maldita al recién fallecido. Un vampiro es inmune a los estragos del tiempo y enfermedades, y poseé capacidades sobrenaturales más allá del hombre mortal conocido como 'disciplinados'. Sin embargo, ellos también son afligidos por un hambre antinatural hacia la sangre de los vivos, y se queman hasta dejar cenizas cuando tocan la luz del sol. Aquellos afligidos con el vampirismo acechan en la noche como los únicos predadores de la humanidad.</ROMV_Vampirism.helpText>
+
+  <ROMV_Vitae.label>Vampiros: Vitae</ROMV_Vitae.label>
+  <ROMV_Vitae.helpText>Corrompido por la exposición a la maldición del vampirismo, vitae es lo que la sangre se convierte una vez que entra al cuerpo del vampiro. Vitae es lo que alimenta los poderes vampíricos, y es lo que continua que los vampiros puedan reanimar sus cuerpos. Los vampiros pueden sostener una capacidad más grande de vitae de lo que seria físicamente posible en sus cuerpos, ya que la medida de vitae está en el poder que sostiene, no es un volumen liquido.</ROMV_Vitae.helpText>
+
+  <ROMV_Bloodlines.label>Vampiros: Linajes</ROMV_Bloodlines.label>
+  <ROMV_Bloodlines.helpText>Aunque el vampirismo comparte varias características entre la parentela, con el tiempo la maldición ha evolucionado, lo que resulta en líneas de sangre distintas. Estas líneas de sangre poseen diferentes disciplinas vampíricas, beneficios, inconvenientes y tienden a formar culturas sociales distintas entre sí.</ROMV_Bloodlines.helpText>
+
+  <ROMV_Disciplines.label>Vampiros: Disciplinas</ROMV_Disciplines.label>
+  <ROMV_Disciplines.helpText>Las disciplinas son las habilidades sobrenaturales del vampiro. Diferentes líneas de sangre han inventado o dominado diferentes disciplinas a lo largo de los años, pero todas son herramientas potentes, lo que hace que incluso una cabeza dura capaz de una sola disciplina sea una amenaza devastadora para cualquier criatura viviente.</ROMV_Disciplines.helpText>
+
+  <ROMV_BloodPoints.label>Vampiros: Puntaje de Sangre</ROMV_BloodPoints.label>
+  <ROMV_BloodPoints.helpText>Todas las criaturas vivientes tienen grupos de sangre, ya sean grandes o pequeños. Tener más sangre no significa necesariamente que la víctima saciará a un vampiro hambriento. Si la sangre de la criatura es de buena calidad, entonces el vampiro tomará más sustento de ella. Por el contrario, si la sangre es de mala calidad, se requerirá más. Este concepto se representa con unidades simples, en lo sucesivo denominadas simplemente puntos de sangre.</ROMV_BloodPoints.helpText>
+
+  <ROMV_BloodPacks.label>Vampiros: Paquetes de Sangre</ROMV_BloodPacks.label>
+  <ROMV_BloodPacks.helpText>Vitae puede extraerse médicamente de uno o tres puntos mortales a la vez. Un punto cabe en un matraz, y tres puntos solo caben en una bolsa de sangre. Si un vampiro bebe de estos, recuperarán vitae como si se alimentaran de un ser humano.</ROMV_BloodPacks.helpText>
+
+  <ROMV_TheEmbrace.label>Vampiros: El Abrazo</ROMV_TheEmbrace.label>
+  <ROMV_TheEmbrace.helpText>El Abrazo es como los vampiros crean neonatos, o nuevos vampiros, extendiendo su maldición. Un vampiro comienza alimentándose de un mortal, drenándolo hasta que sus venas se sequen. Sobre su muerte, el padre dará su propia vitae a los restos. Una vez alimentado, el cadáver se reanima como un vampiro.</ROMV_TheEmbrace.helpText>
+
+  <ROMV_TheBeast.label>Vampiros: La Bestia</ROMV_TheBeast.label>
+  <ROMV_TheBeast.helpText>Cada vampiro tiene un instinto predatorio bajo control dentro de ellos. Cuando el vampiro tiene poca vitae en su cuerpo (menos del 25%), esta persona violenta toma el control, ordenándoles alimentarse hasta que estén saciados sin tener en cuenta la vida humana.</ROMV_TheBeast.helpText>
+
+  <ROMV_Rotschreck.label>Vampiros: Rötschreck</ROMV_Rotschreck.label>
+  <ROMV_Rotschreck.helpText>Rötschreck, o el miedo rojo, es un pánico ciego que resulta de la luz del sol o del fuego. Si un vampiro está afuera en el sol por mucho tiempo, huirá a cualquier sombra disponible en la desesperación, ya que los rayos del sol lo prenderán fuego.</ROMV_Rotschreck.helpText>
+
+
+</LanguageData>
