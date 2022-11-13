@@ -11,43 +11,47 @@ public partial class HarmonyPatches
 {
     public static void HarmonyPatches_Ingestion(Harmony harmony)
     {
+        //Log.Message("Ingestion: 1");
         //Float Menus: Adds vampire blood consumption/consume buttons and hide regular consumption/consume
         harmony.Patch(AccessTools.Method(typeof(FloatMenuMakerMap), "AddHumanlikeOrders"), null,
             new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_FloatMenus_Consume)));
 
-
+        //Log.Message("Ingestion: 2");
         //Vampires should not try to do drugs when idle.
         harmony.Patch(AccessTools.Method(typeof(JobGiver_IdleJoy), "TryGiveJob"), null,
             new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamps_DontDoIdleDrugs)));
 
-
+        //Log.Message("Ingestion: 3");
         //Vampires should not be given food by wardens.
         harmony.Patch(AccessTools.Method(typeof(Pawn_GuestTracker), "get_CanBeBroughtFood"), null,
             new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamps_DontWantGuestFood)));
 
-
+        //Log.Message("Ingestion: 4");
         harmony.Patch(AccessTools.Method(typeof(FoodUtility), "InappropriateForTitle"),
             new HarmonyMethod(typeof(HarmonyPatches), nameof(WhoNeeds___Titles)));
 
+        //Log.Message("Ingestion: 5");
         harmony.Patch(
             AccessTools.Method(typeof(FoodUtility), "WillEat",
-                new[] { typeof(Pawn), typeof(Thing), typeof(Pawn), typeof(bool) }),
+                new[] { typeof(Pawn), typeof(Thing), typeof(Pawn), typeof(bool), typeof(bool) }),
             new HarmonyMethod(typeof(HarmonyPatches), nameof(WillEat_Nothing)));
 
+        //Log.Message("Ingestion: 6");
         harmony.Patch(
             AccessTools.Method(typeof(FoodUtility), "WillEat",
-                new[] { typeof(Pawn), typeof(ThingDef), typeof(Pawn), typeof(bool) }),
+                new[] { typeof(Pawn), typeof(ThingDef), typeof(Pawn), typeof(bool), typeof(bool) }),
             new HarmonyMethod(typeof(HarmonyPatches), nameof(WillEat_NothingDef)));
 
-
+        //Log.Message("Ingestion: 7");
         harmony.Patch(AccessTools.Method(typeof(Toils_Ingest), "FinalizeIngest"),
             new HarmonyMethod(typeof(HarmonyPatches), nameof(VampiresDontIngestFood)));
 
-
+        //Log.Message("Ingestion: 8");
         //Fixes random red errors relating to food need checks in this method (WillIngestStackCountOf).
         harmony.Patch(AccessTools.Method(typeof(FoodUtility), "WillIngestStackCountOf"),
             new HarmonyMethod(typeof(HarmonyPatches), nameof(Vamp_WillIngestStackCountOf)));
-        //Log.Message("04");
+        
+        //Log.Message("Ingestion: 9");
         //Prevents restful times.
         harmony.Patch(AccessTools.Method(typeof(JoyGiver_SocialRelax), "TryFindIngestibleToNurse"),
             new HarmonyMethod(typeof(HarmonyPatches), nameof(INeverDrink___Wine)));
@@ -120,7 +124,7 @@ public partial class HarmonyPatches
 
 
     // RimWorld.FoodUtility.WillEat (Thing)
-    public static bool WillEat_Nothing(Pawn p, Thing food, Pawn getter, bool careIfNotAcceptableForTitle,
+    public static bool WillEat_Nothing(Pawn p, Thing food, Pawn getter, bool careIfNotAcceptableForTitle, bool allowVenerated,
         ref bool __result)
     {
         if (p.IsVampire(true))
@@ -140,7 +144,7 @@ public partial class HarmonyPatches
 
 
     // RimWorld.FoodUtility.WillEat (ThingDef)
-    public static bool WillEat_NothingDef(Pawn p, ThingDef food, Pawn getter, bool careIfNotAcceptableForTitle,
+    public static bool WillEat_NothingDef(Pawn p, ThingDef food, Pawn getter, bool careIfNotAcceptableForTitle, bool allowVenerated,
         ref bool __result)
     {
         if (p.IsVampire(true))

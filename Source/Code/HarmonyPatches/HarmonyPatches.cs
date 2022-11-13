@@ -10,8 +10,10 @@ static partial class HarmonyPatches
 
     static HarmonyPatches()
     {
-        var harmony = new Harmony("rimworld.jecrell.vampire");
+        Harmony.DEBUG = false;
 
+        var harmony = new Harmony("rimworld.jecrell.vampire");
+        
         HarmonyPatches_Needs(harmony);
 
         HarmonyPatches_Ingestion(harmony);

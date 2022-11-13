@@ -64,6 +64,48 @@
 
             </ItemGroup>
         </When>
+        <When Condition=" '$(Configuration)' == 'RW1.4Unstable' ">
+            <PropertyGroup>
+                <OutputPath>..\1.4\Assemblies\</OutputPath>
+            </PropertyGroup>
+
+            <ItemGroup>
+                <PackageReference Include="Lib.Harmony" Version="2.2.*" ExcludeAssets="runtime"/>
+            </ItemGroup>
+            <ItemGroup>
+                <PackageReference Include="Krafs.Rimworld.Ref" Version="1.4.*-*" /> <!-- -* suffix allows beta/prerelease versions -->
+            </ItemGroup>
+
+            <!-- Note, all  'condition' hint paths will use the 'last' one in the list it finds -->
+            <!-- The order for these are: 
+                    - workshop (one directory up, two directories up) 
+                    - mod folder (one directory up, two directories up)
+            The reason for two directories up is that I (jecrell) normally mod in a seperate 'Workspace' directory
+            -->
+            <ItemGroup>
+                <Reference Include="DubsBadHygiene">
+                    <HintPath>..\..\..\..\..\workshop\content\294100\836308268\1.4\Assemblies\BadHygiene.dll</HintPath>
+                    <Private>false</Private>
+                </Reference>
+
+                <Reference Include="JecsTools">
+                    <!-- Get a copy from the workshop directory if it exists... -->
+                    <HintPath>..\..\JecsTools\1.4\Assemblies\0JecsTools.dll</HintPath>
+                    <Private>false</Private>
+                </Reference>
+
+                <Reference Include="AbilityUser">
+                    <HintPath>..\..\JecsTools\1.4\Assemblies\AbilityUser.dll</HintPath>
+                    <Private>false</Private>
+                </Reference>
+
+                <Reference Include="CompAnimated">
+                    <HintPath>..\..\JecsTools\1.4\Assemblies\CompAnimated.dll</HintPath>
+                    <Private>false</Private>
+                </Reference>
+
+            </ItemGroup>
+        </When>
     </Choose>
 
 </Project>
