@@ -33,13 +33,17 @@ public partial class HarmonyPatches
         //Log.Message("Ingestion: 5");
         harmony.Patch(
             AccessTools.Method(typeof(FoodUtility), "WillEat",
-                new[] { typeof(Pawn), typeof(Thing), typeof(Pawn), typeof(bool), typeof(bool) }),
+                new[] { typeof(Pawn), typeof(Thing), typeof(Pawn), 
+                    //typeof(bool), RW1.4 unstable
+                    typeof(bool) }),
             new HarmonyMethod(typeof(HarmonyPatches), nameof(WillEat_Nothing)));
 
         //Log.Message("Ingestion: 6");
         harmony.Patch(
             AccessTools.Method(typeof(FoodUtility), "WillEat",
-                new[] { typeof(Pawn), typeof(ThingDef), typeof(Pawn), typeof(bool), typeof(bool) }),
+                new[] { typeof(Pawn), typeof(ThingDef), typeof(Pawn), 
+                    //typeof(bool), RW1.4 unstable 
+                    typeof(bool) }),
             new HarmonyMethod(typeof(HarmonyPatches), nameof(WillEat_NothingDef)));
 
         //Log.Message("Ingestion: 7");
@@ -124,7 +128,8 @@ public partial class HarmonyPatches
 
 
     // RimWorld.FoodUtility.WillEat (Thing)
-    public static bool WillEat_Nothing(Pawn p, Thing food, Pawn getter, bool careIfNotAcceptableForTitle, bool allowVenerated,
+    public static bool WillEat_Nothing(Pawn p, Thing food, Pawn getter, bool careIfNotAcceptableForTitle, 
+        //bool allowVenerated, RW 1.4 unstable
         ref bool __result)
     {
         if (p.IsVampire(true))
@@ -144,7 +149,8 @@ public partial class HarmonyPatches
 
 
     // RimWorld.FoodUtility.WillEat (ThingDef)
-    public static bool WillEat_NothingDef(Pawn p, ThingDef food, Pawn getter, bool careIfNotAcceptableForTitle, bool allowVenerated,
+    public static bool WillEat_NothingDef(Pawn p, ThingDef food, Pawn getter, bool careIfNotAcceptableForTitle, 
+        //bool allowVenerated, RW1.4 unstable
         ref bool __result)
     {
         if (p.IsVampire(true))
@@ -184,7 +190,7 @@ public partial class HarmonyPatches
 
                 if (food?.def?.ingestible?.ingestCommandString == null ||
                     food.def.ingestible.ingestCommandString == "")
-                    text = "ConsumeThing".Translate(food.LabelShort);
+                    text = "ConsumeThing".Translate(food.LabelShort, food);
                 else
                     text = string.Format(food.def.ingestible.ingestCommandString, food.LabelShort);
 
@@ -198,10 +204,7 @@ public partial class HarmonyPatches
             {
                 string text;
                 if (corpse.def.ingestible.ingestCommandString.NullOrEmpty())
-                    text = "ConsumeThing".Translate(new object[]
-                    {
-                        corpse.LabelShort
-                    });
+                    text = "ConsumeThing".Translate(corpse.LabelShort, corpse);
                 else
                     text = string.Format(corpse.def.ingestible.ingestCommandString, corpse.LabelShort);
 
@@ -216,10 +219,7 @@ public partial class HarmonyPatches
             {
                 var text = "";
                 if (bloodItem.def.ingestible.ingestCommandString.NullOrEmpty())
-                    text = "ConsumeThing".Translate(new object[]
-                    {
-                        bloodItem.LabelShort
-                    });
+                    text = "ConsumeThing".Translate(bloodItem.LabelShort, bloodItem);
                 else
                     text = string.Format(bloodItem.def.ingestible.ingestCommandString, bloodItem.LabelShort);
 

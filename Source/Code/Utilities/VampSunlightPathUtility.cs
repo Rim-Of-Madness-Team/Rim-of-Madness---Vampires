@@ -162,7 +162,7 @@ public static class VampSunlightPathUtility
     {
         gotoJob = null;
         if (pawn.Faction == Faction.OfPlayerSilentFail && pawn.VampComp().VampLastHomePoint is { } homePoint &&
-            homePoint.IsValid)
+            homePoint.IsValid && pawn.CurJobDef != VampDefOf.ROMV_GotoSafety)
         {
             //Log.Message("VSPU :: Going home");
             gotoJob = new Job(VampDefOf.ROMV_GotoSafety, homePoint) { locomotionUrgency = LocomotionUrgency.Sprint };
