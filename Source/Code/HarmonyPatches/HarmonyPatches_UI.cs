@@ -42,8 +42,10 @@ public partial class HarmonyPatches
             {
                 var guilty = pawn.guilt.IsGuilty;
                 var royalty = pawn.royalty.AllTitlesForReading.Count > 0;
+                var veSkills = ModsConfig.IsActive("vanillaexpanded.skills");
                 var distance = guilty ? 174 : 140;
                 distance += royalty ? 34 : 0;
+                distance += veSkills ? 41 : 0;
                 var rect7 = new Rect(CharacterCardUtility.BasePawnCardSize.x - distance, 14f, 30f, 30f);
                 TooltipHandler.TipRegion(rect7,
                     new TipSignal(
