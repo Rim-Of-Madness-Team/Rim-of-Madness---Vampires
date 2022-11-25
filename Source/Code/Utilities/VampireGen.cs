@@ -84,9 +84,28 @@ public static class VampireGen
 
     public static void AddFangsHediff(Pawn pawn)
     {
-        var tongue = pawn.RaceProps.body.GetPartsWithDef(DefDatabase<BodyPartDef>.GetNamed("Tongue")).FirstOrDefault();
-        pawn.health.RestorePart(tongue);
-        pawn.health.AddHediff(pawn.VampComp().Bloodline.fangsHediff, tongue);
+        if (pawn != null)
+        {
+            if (pawn.RaceProps?.body?.GetPartsWithDef(DefDatabase<BodyPartDef>.
+                    GetNamed("Tongue"))?.FirstOrDefault() is { } tongue)
+            {
+                pawn.health.RestorePart(tongue);
+                pawn.health.AddHediff(pawn.VampComp().Bloodline.fangsHediff, tongue);
+            }
+            //Elder things have an 'eating tube' instead of a tongue
+            else if (pawn.def.defName == "Alien_ElderThing_Race_Standard")
+            {
+                if (pawn.RaceProps?.body?.GetPartsWithDef(DefDatabase<BodyPartDef>.
+                        GetNamed("ElderThing_EatingTube"))?.FirstOrDefault() is { } eatingTube)
+                {
+                    pawn.health.RestorePart(eatingTube);
+                    pawn.health.AddHediff(pawn.VampComp().Bloodline.fangsHediff, eatingTube);
+                }
+                else Log.Error("ROM Vampires Error - Unable to add fangs to Elder Thing: No '??? body part record for " + pawn.LabelShort);
+            }
+            else Log.Error("ROM Vampires Error - Unable to add fangs: No 'tongue' body part record for " + pawn.LabelShort);
+        }
+        else Log.Error("ROM Vampires Error - Unable to add fangs: Attempted to add fangs to non-existent pawn");
     }
 
     //public static void AddTongueHediff(Pawn pawn)
