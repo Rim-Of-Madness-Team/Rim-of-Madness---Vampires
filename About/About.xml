@@ -29,7 +29,7 @@
     <li>jecrell.jecstools</li>
     <li>Dubwise.DubsBadHygiene</li>
   </loadAfter>
-  <description>1.28.0.1 (11-17-2022)
+  <description>1.28.0.2 (11-25-2022)
 
 Adds vampires to RimWorld.
 
@@ -50,6 +50,10 @@ Darcilyn Lynds (darci.andel), Luke Salinas, RainerWingel , Noisy Koi, Lea Stanna
 ========================
 Changelog
 ========================
+1.28.0.2 (11-25-2022)
+========================
+Elder Thing vampires no longer show errors when contracting vampirism
+
 1.28.0.1 (11-17-2022)
 ========================
 Biotech users can feed vampires hemogen packs, fixed job giver bug, fixed translation bug
